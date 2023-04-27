@@ -35,6 +35,7 @@ export default function findbusiness() {
     country: "",
     city: "",
     phone: "",
+    country_code: ""
   });
   const {
     register,
@@ -50,24 +51,45 @@ export default function findbusiness() {
       // Limit the length of value to 12 characters
       value = value.substring(0, 12);
     }
-  // if (name=='linkedin_url'){
-  //   {register("linkedin_url", {
-  //     value: true,
-  //     required: true,
-  //     pattern: {
-  //       value: /^((http|https):\/\/)?(www\.)?linkedin\.com/,
-  //       message: "Please Enter a Valid LinkedIn url",
-  //     },
-  //   })}
-  // }
+
+    var selectedCountry = countries.find(
+      (country) => country.name === value
+    );
+    var countryCode = "";
+    if (selectedCountry) {
+      countryCode = selectedCountry.country_code;
+    }
+  
     setUser((prevState) => {
       return {
         ...prevState,
         [name]: value,
         id: current_user_id,
+        country_code: countryCode ? `${countryCode}` : " ",
       };
     });
+    
   };
+
+  const phonClick=(event)=>{
+    let { name, value } = event.target;
+    var selectedCountry = countries.find(
+      (country) => country.name === value
+    );
+    var countryCode = "";
+    if (selectedCountry) {
+      countryCode = selectedCountry.country_code;
+    }
+  
+    setUser((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+        id: current_user_id,
+        country_code: countryCode ? `${countryCode}` : " ",
+      };
+    });
+  }
 
   useEffect(() => {
     const current_user_data = getCurrentUserData();
@@ -107,8 +129,6 @@ export default function findbusiness() {
   }, []);
 
   const SubmitForm = async (event: any) => {
-    // event.preventDefault();
-
     try {
       const res = await personalInformationSave(user);
       if (res.status == true) {
@@ -122,7 +142,7 @@ export default function findbusiness() {
         });
       }
     } catch (err) {
-      toast.error("Profile has not been saved successfully", {
+      toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
@@ -160,20 +180,20 @@ export default function findbusiness() {
       <div className="left-bar">
         <div className="container">
           <div id="app">
-            <ol className="step-indicator">
+          <ol className="step-indicator">
               <li className="active">
                 <div className="step_name">
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/user.png"
-                    />
+                  <div className="step_complete">
+                    <i className="flaticon-checked" aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm">
+                <div
+                  className="caption hidden-xs hidden-sm"
+                  style={{ color: "#82b440" }}
+                >
                   <span>PERSONAL INFORMATION</span>
                 </div>
               </li>
@@ -193,38 +213,22 @@ export default function findbusiness() {
                   <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
-              {/* <li className="">
+              <li className="">
                 <div className="step_name">
                   Step <span>3</span>
                 </div>
                 <div className="step_border">
                   <div className="step">
                     <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/docs.png"
+                      className="sidebar-img w-50"
+                      src="/assets/img/investor/download2.png"
                     />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
-                  <span>BASIC INFORMATION</span>
+                  <span>Terms & Conditions</span>
                 </div>
               </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/bank.png"
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BANK INFORMATION</span>
-                </div>
-              </li> */}
             </ol>
             <div className="container">
               <div className="register-form">
@@ -285,10 +289,10 @@ export default function findbusiness() {
                                 {...register("linkedin_url", {
                                   value: true,
                                   required: true,
-                                  pattern: {
-                                    value: /^((http|https):\/\/)?(www\.)?linkedin\.com\/?$/,
-                                    message: "Please Enter a Valid LinkedIn url",
-                                  },
+                                  // pattern: {
+                                  //   value: /^((http|https):\/\/)?(www\.)?linkedin\.com\/?$/,
+                                  //   message: "Please Enter a Valid LinkedIn url",
+                                  // },
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
@@ -296,7 +300,8 @@ export default function findbusiness() {
                                 value={user.linkedin_url}
                               />
                               <div className="help-block with-errors" />
-                              {errors.linkedin_url && (
+                              {errors.linkedin_url &&
+                                errors.linkedin_url.type === "required" && (
                                   <p
                                     className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
@@ -311,52 +316,6 @@ export default function findbusiness() {
                               )} */}
                             </div>
 
-                            <div className="col-md-6 mt-3">
-                              <label
-                                htmlFor="exampleFormControlInput1"
-                                className="form-label"
-                              >
-                                Phone number{" "}
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control same-input"
-                                {...register("phone", {
-                                  value: true,
-                                  required: true,
-                                  minLength: {
-                                    value: 12,
-                                    message: 'Please Enter a Valid Phone Number',
-                                  },
-                                  pattern: {
-                                    value: /^[0-9]*$/,
-                                    message: "Please Enter a Valid Phone Number",
-                                  },
-                                })}
-                                id="phone"
-                                name="phone"
-                                onChange={handleChange}
-                                maxLength={12}
-                                value={user.phone}
-                              />
-                              <div className="help-block with-errors" />
-                              {errors.phone && errors.phone.type === "required" && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Enter Your Phone Number.
-                                </p>
-                              )}
-                              {errors.phone && errors.phone.type === "minLength" && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  *{errors.phone.message}
-                                </p>
-                              )}
-
-
-                            </div>
 
                             <div className="col-sm-6 mt-3">
                               <label
@@ -381,18 +340,13 @@ export default function findbusiness() {
                                 </option>
                                 {countries.map((country, index) => (
                                   <option
-                                    key={country.name}
+                                    key={country.id}
                                     value={country.name}
                                     selected={user.country === country.name}
                                   >
                                     {country.name}
                                   </option>
                                 ))}
-                                {/* {countries.map((country, index) => (
-                                  <option value={country.name}>
-                                    {country.name}
-                                  </option>
-                                ))} */}
                               </select>
                               <div className="help-block with-errors" />
                               {errors.country &&
@@ -402,6 +356,59 @@ export default function findbusiness() {
                                     *Please Select Country.
                                   </p>
                                 )}
+
+                            </div>
+
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                Phone number{" "}
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">
+                                  {user.country_code}
+                                </span>
+                              </div>
+                              <input type="text"
+                                className="form-control same-input"
+                                {...register("phone", {
+                                  value: true,
+                                  required: true,
+                                  minLength: {
+                                    value: 10,
+                                    message: 'Please Enter a Valid Phone Number',
+                                  },
+                                  pattern: {
+                                    value: /^[0-9]*$/,
+                                    message: "Please Enter a Valid Phone Number",
+                                  },
+                                })}
+                                id="phone"
+                                name="phone"
+                                onChange={handleChange} onClick={phonClick}
+                                maxLength={10}
+                                value={user.phone ? user.phone.replace(/^\+91-/, '') : ''}
+                              />
+                              </div>
+                              <div className="help-block with-errors" />
+                              {errors.phone && errors.phone.type === "required" && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your Phone Number.
+                                </p>
+                              )}
+                              {errors.phone && errors.phone.type === "minLength" && (
+                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                  *{errors.phone.message}
+                                </p>
+                              )}
+
 
                             </div>
 
@@ -482,16 +489,6 @@ export default function findbusiness() {
                               </button>
                             </div>
                           </div>
-                          {/* <div
-                            className="banner-btn justify-content-between mt-5 mb-5"
-                            style={{ textAlign: "right" }}
-                          >
-                            <button type="submit"
-                              className="default-btn"
-                            >
-                              NEXT
-                            </button>
-                          </div> */}
                         </div>
                       </div>
                     </form>

@@ -17,7 +17,7 @@ const textStyle = {
     textTransform: "capitalize",
 };
 
-export default function businessinfo(props: any) {
+export default function InvestorType(props: any) {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState(false);
     const [signup_success, setSignupSuccess] = useState(false);
@@ -58,7 +58,6 @@ export default function businessinfo(props: any) {
                 .then((res) => {
                     if (res.status === true) {
                          seInvestorDetails(res.data);
-                        console.log(res.data);
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -86,9 +85,19 @@ export default function businessinfo(props: any) {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                   });
-                setTimeout(() => {
-                    router.push("/investor-steps/customizereview");
-                }, 2000);
+                  console.log(res.data.data.investorType);
+                  if(res.data.data.investorType=="Angel Investor")
+                  {
+                    setTimeout(() => {
+                        router.push("/investor-steps/customizereview");
+                    }, 1000);
+                
+                  }else{
+                    setTimeout(() => {
+                        router.push("/investor-steps/accredited-investors");
+                    }, 1000);
+                  }
+               
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -274,7 +283,7 @@ export default function businessinfo(props: any) {
                         </div>
                     </div>
                 </div>
-                <ToastContainer autoClose={5000} />
+                {/* <ToastContainer autoClose={5000} /> */}
             </div>
         </>
     );

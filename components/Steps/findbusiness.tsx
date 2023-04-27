@@ -505,16 +505,6 @@ export default function findbusiness() {
                               </button>
                             </div>
                           </div>
-                          {/* <div
-                            className="banner-btn justify-content-between mt-5 mb-5"
-                            style={{ textAlign: "right" }}
-                          >
-                            <button type="submit"
-                              className="default-btn"
-                            >
-                              NEXT
-                            </button>
-                          </div> */}
                         </div>
                       </div>
                     </form>

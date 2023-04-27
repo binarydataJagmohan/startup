@@ -324,7 +324,7 @@ function toggleTheme() {
 ga('create', 'UA-86308552-1', 'auto');
 ga('send', 'pageview');
 
-$(document).ready(function () {
+
 	// Initially hide all checkbox groups
 	$('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
 
@@ -337,4 +337,3 @@ $(document).ready(function () {
 		var selectedOption = $(this).val();
 		$('#checkbox-group-' + selectedOption).show();
 	});
-});
