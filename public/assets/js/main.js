@@ -324,16 +324,3 @@ function toggleTheme() {
 ga('create', 'UA-86308552-1', 'auto');
 ga('send', 'pageview');
 
-
-	// Initially hide all checkbox groups
-	$('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
-
-	// When the select option is changed
-	$('.options').on('change', function () {
-		// Hide all checkbox groups
-		$('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
-
-		// Show the selected checkbox group
-		var selectedOption = $(this).val();
-		$('#checkbox-group-' + selectedOption).show();
-	});
