@@ -27,40 +27,24 @@ const Header = () => {
           <div className="d-flex">
             {/* LOGO */}
             <div className="navbar-brand-box">
-              <a href="index.html" className="logo logo-dark">
+              <a href="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src="/assets/images/logo-sm.png"  height={22} />
+                  <img src="/assets/img/logo.png"  height={22} />
                 </span>
                 <span className="logo-lg">
-                  <img src="/assets/images/logo-dark.png"  height={17} />
+                  <img src="/assets/img/logo.png"  height={17} />
                 </span>
               </a>
-              <a href="index.html" className="logo logo-light">
+              <a href="/" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src="/assets/images/logo-sm.png"  height={22} />
+                  <img src="/assets/img/logo.png"  height={22} />
                 </span>
                 <span className="logo-lg">
-                  <img src="/assets/images/logo-light.png"  height={18} />
+                  <img src="/assets/img/.png"  height={18} />
                 </span>
               </a>
             </div>
-            <button type="button" className="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
-              <i className="mdi mdi-menu" />
-            </button>
-            <div className="d-none d-sm-block">
-              <div className="dropdown pt-3 d-inline-block">
-                <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Create <i className="mdi mdi-chevron-down" />
-                </a>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a className="dropdown-item" href="#">Action</a>
-                  <a className="dropdown-item" href="#">Another action</a>
-                  <a className="dropdown-item" href="#">Something else here</a>
-                  <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <div className="d-flex">
             {/* App Search*/}
@@ -87,39 +71,12 @@ const Header = () => {
                 </form>
               </div>
             </div>
-            <div className="dropdown d-none d-md-block ms-2">
-              <button type="button" className="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="me-2" src="/assets/images/flags/us_flag.jpg" alt="Header Language" height={16} />
-                English <span className="mdi mdi-chevron-down" />
-              </button>
-              <div className="dropdown-menu dropdown-menu-end">
-                {/* item*/}
-                <a href="javascript:void(0);" className="dropdown-item notify-item">
-                  <img src="/assets/images/flags/germany_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> German </span>
-                </a>
-                {/* item*/}
-                <a href="javascript:void(0);" className="dropdown-item notify-item">
-                  <img src="/assets/images/flags/italy_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Italian </span>
-                </a>
-                {/* item*/}
-                <a href="javascript:void(0);" className="dropdown-item notify-item">
-                  <img src="/assets/images/flags/french_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> French </span>
-                </a>
-                {/* item*/}
-                <a href="javascript:void(0);" className="dropdown-item notify-item">
-                  <img src="/assets/images/flags/spain_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Spanish </span>
-                </a>
-                {/* item*/}
-                <a href="javascript:void(0);" className="dropdown-item notify-item">
-                  <img src="/assets/images/flags/russia_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Russian </span>
-                </a>
-              </div>
-            </div>
-            <div className="dropdown d-none d-lg-inline-block">
+        
+            {/* <div className="dropdown d-none d-lg-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                 <i className="mdi mdi-fullscreen" />
               </button>
-            </div>
+            </div> */}
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="mdi mdi-bell-outline" />

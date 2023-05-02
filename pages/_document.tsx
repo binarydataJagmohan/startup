@@ -53,32 +53,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        {/* <!-- Jquery Slim JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/jquery.min.js'}></script>
-        {/* <!-- Popper JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/popper.min.js'}></script>
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/bootstrap.min.js'}></script>
-        {/* <!-- Meanmenu JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/jquery.meanmenu.js'}></script>
-        {/* <!-- Owl Carousel JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/owl.carousel.js'}></script>
-        {/* <!-- Magnific JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/jquery.magnific-popup.min.js'}></script>
-        {/* <!-- Appear JS -->  */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/jquery.appear.min.js'}></script>
-        {/* <!-- Odometer JS -->  */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/odometer.min.js'}></script>
-        {/* <!-- Form Ajaxchimp JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/jquery.ajaxchimp.min.js'}></script>
-        {/* <!-- Form Validator JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/form-validator.min.js'}></script>
-        {/* <!-- Contact JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/contact-form-script.js'}></script>
-        {/* <!-- Wow JS --> */}
-
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/wow.min.js'}></script>
-        {/* <!-- Custom JS --> */}
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/js/main.js'}></script>
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/jquery/jquery.min.js"}></script>
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js"}></script>
