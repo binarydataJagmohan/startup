@@ -40,7 +40,7 @@ const Header = () => {
                   <img src="/assets/img/logo.png"  height={22} />
                 </span>
                 <span className="logo-lg">
-                  <img src="/assets/img/.png"  height={18} />
+                  <img src="/assets/img/logo.png"  height={18} />
                 </span>
               </a>
             </div>

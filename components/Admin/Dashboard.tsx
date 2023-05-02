@@ -46,9 +46,6 @@ const Dashboard = () => {
                 <div className="card mini-stat bg-primary text-white">
                   <div className="card-body">
                     <div className="mb-4">
-                      {/* <div className="float-start mini-stat-img me-4">
-                        <img src="/assets/images/services-icon/02.png" />
-                      </div> */}
                       <h5 className="font-size-16 text-uppercase text-white-50">Total Revenue</h5>
                       <h4 className="fw-medium font-size-24">52,368 <i className="mdi mdi-arrow-down text-danger ms-2" /></h4>
                       <div className="mini-stat-label bg-danger">
@@ -68,9 +65,6 @@ const Dashboard = () => {
                 <div className="card mini-stat bg-primary text-white">
                   <div className="card-body">
                     <div className="mb-4">
-                      {/* <div className="float-start mini-stat-img me-4">
-                        <img src="/assets/images/services-icon/03.png" />
-                      </div> */}
                       <h5 className="font-size-16 text-uppercase text-white-50">Total Users</h5>
                       <h4 className="fw-medium font-size-24">15.8 <i className="mdi mdi-arrow-up text-success ms-2" /></h4>
                       <div className="mini-stat-label bg-info">
@@ -90,9 +84,6 @@ const Dashboard = () => {
                 <div className="card mini-stat bg-primary text-white">
                   <div className="card-body">
                     <div className="mb-4">
-                      {/* <div className="float-start mini-stat-img me-4">
-                        <img src="/assets/images/services-icon/04.png" />
-                      </div> */}
                       <h5 className="font-size-16 text-uppercase text-white-50">Investers</h5>
                       <h4 className="fw-medium font-size-24">2436 <i className="mdi mdi-arrow-up text-success ms-2" /></h4>
                       <div className="mini-stat-label bg-warning">
