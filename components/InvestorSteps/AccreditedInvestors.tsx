@@ -43,7 +43,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else if (type === 'checkbox' && name === ' financial_net_worth') {
+        }else if(type === 'checkbox' && name === 'financial_net_worth') {
             // Set the value of  financial_net_worth to '1' if the checkbox is checked, '0' otherwise
             const financial_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -53,8 +53,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }
-        if (type === 'checkbox' && name === 'financial_annual_net_worth') {
+        }else if(type === 'checkbox' && name === 'financial_annual_net_worth') {
             // Set the value of financial_annual_net_worth to '1' if the checkbox is checked, '0' otherwise
             const financial_annual_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -64,7 +63,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else if (type === 'checkbox' && name === 'foreign_annual_income') {
+        }else if(type === 'checkbox' && name === 'foreign_annual_income') {
             // Set the value of foreign_annual_income to '1' if the checkbox is checked, '0' otherwise
             const foreign_annual_incomeValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -74,7 +73,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else if (type === 'checkbox' && name === ' foreign_net_worth') {
+        }else if(type === 'checkbox' && name === 'foreign_net_worth') {
             // Set the value of  foreign_net_worth to '1' if the checkbox is checked, '0' otherwise
             const foreign_net_worthValue = checked ? '1' : '0';
             console.log( foreign_net_worthValue);
@@ -85,7 +84,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else if (type === 'checkbox' && name === 'foreign_annual_net_worth') {
+        }else if(type === 'checkbox' && name === 'foreign_annual_net_worth') {
             // Set the value of foreign_annual_net_worth to '1' if the checkbox is checked, '0' otherwise
             const foreign_annual_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -95,7 +94,7 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else if (type === 'checkbox' && name === 'corporate_net_worth') {
+        }else if(type === 'checkbox' && name === 'corporate_net_worth') {
             // Set the value of corporate_net_worth to '1' if the checkbox is checked, '0' otherwise
             const corporate_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -105,7 +104,8 @@ export default function AccreditedInvestors(selectedOption) {
                     user_id: current_user_id,
                 };
             });
-        }else{
+        }
+        else{
             setTerms((prevState) => {
                 return {
                     ...prevState,
@@ -291,7 +291,7 @@ export default function AccreditedInvestors(selectedOption) {
                                                             <div className="row">
                                                                 <div className="col-auto">
                                                                     <input type="checkbox" id="checkbox2" value="1" {...register("financial_net_worth", { value: true, required: true })}
-                                                                        name="financial_net_worth" onChange={handleChange} checked={terms.financial_net_worth === '1'} />
+                                                                        name="financial_net_worth" onChange={handleChange} checked={terms.financial_net_worth === '1'}  />
                                                                 </div>
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox2">Have a net worth of at least ₹7.5 crore with more than ₹3.75 crore of financial assets.</label>

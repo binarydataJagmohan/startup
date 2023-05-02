@@ -42,8 +42,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    } 
-     if (type === 'checkbox' && name === 'cofounder') {
+    }else if (type === 'checkbox' && name === 'cofounder') {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
       const cofounderValue = checked ? '1' : '0';
       setTerms((prevState) => {
@@ -53,8 +52,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    } 
-     if (type === 'checkbox' && name === 'prev_investment_exp') {
+    }else if (type === 'checkbox' && name === 'prev_investment_exp') {
       // Set the value of prev_investment_exp to '1' if the checkbox is checked, '0' otherwise
       const prev_investment_expValue = checked ? '1' : '0';
       setTerms((prevState) => {
@@ -64,8 +62,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    }
-     if (type === 'checkbox' && name === 'experience') {
+    }else if (type === 'checkbox' && name === 'experience') {
       // Set the value of experience to '1' if the checkbox is checked, '0' otherwise
       const experienceValue = checked ? '1' : '0';
       setTerms((prevState) => {
@@ -75,8 +72,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    } 
-     if (type === 'checkbox' && name === 'net_worth') {
+    }else if (type === 'checkbox' && name === 'net_worth') {
       // Set the value of net_worth to '1' if the checkbox is checked, '0' otherwise
       const net_worthValue = checked ? '1' : '0';
       setTerms((prevState) => {
@@ -86,8 +82,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    }
-    if (type === 'checkbox' && name === 'no_requirements') {
+    }else if (type === 'checkbox' && name === 'no_requirements') {
       // Set the value of no_requirements to '1' if the checkbox is checked, '0' otherwise
       const no_requirementsValue = checked ? '1' : '0';
       setTerms((prevState) => {
@@ -98,7 +93,7 @@ export default function customizereview() {
         };
       });
     }
-    // // else {
+    else {
       setTerms((prevState) => {
         return {
           ...prevState,
@@ -106,7 +101,7 @@ export default function customizereview() {
           user_id: current_user_id,
         };
       });
-    // // }
+    }
   };
 
   useEffect(() => {
@@ -270,7 +265,7 @@ export default function customizereview() {
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox1"  value="1"
                                 {...register("principal_residence", { value:true,required:true })}
-                                name="principal_residence"  onChange={handleChange} checked={terms.principal_residence === '1'} />
+                                name="principal_residence"  onChange={handleChange} checked={terms.principal_residence === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox1">
@@ -291,7 +286,7 @@ export default function customizereview() {
                                   <div className="row">
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox2" value="1" {...register("prev_investment_exp", { value:true,required:true })}
-                                name="prev_investment_exp"  onChange={handleChange} checked={terms.prev_investment_exp === '1'} />
+                                name="prev_investment_exp"  onChange={handleChange} checked={terms.prev_investment_exp === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox2">Has invested in startups before</label>
@@ -302,7 +297,7 @@ export default function customizereview() {
                                   <div className="row">
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox3"  value="1" {...register("cofounder", { value:true,required:true })}
-                                name="cofounder"  onChange={handleChange} checked={terms.cofounder === '1'} />
+                                name="cofounder"  onChange={handleChange} checked={terms.cofounder === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox3">come from an entrepreneurial family or have been a
@@ -315,7 +310,7 @@ export default function customizereview() {
                                   <div className="row">
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox4" value="1" {...register("experience", { value:true,required:true })}
-                                name="experience"  onChange={handleChange} checked={terms.experience === '1'} />
+                                name="experience"  onChange={handleChange} checked={terms.experience === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox4">Senior management professional with at least 10 years of
@@ -330,7 +325,8 @@ export default function customizereview() {
                                   <div className="row">
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox5" value="1" {...register("net_worth", { value:true,required:true })}
-                                name="net_worth"  onChange={handleChange} checked={terms.net_worth === '1'} />
+                                name="net_worth"  onChange={handleChange} 
+                                checked={terms.net_worth === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox5">Net worth of at least INR 10 Crore</label>
@@ -343,7 +339,7 @@ export default function customizereview() {
                                   <div className="row">
                                     <div className="col-auto">
                                       <input type="checkbox" id="checkbox6" value="1" {...register("no_requirements", { value:true,required:true })}
-                                name="no_requirements"  onChange={handleChange} checked={terms.no_requirements === '1'} />
+                                name="no_requirements"  onChange={handleChange} checked={terms.no_requirements === '1' ? true : false} />
                                     </div>
                                     <div className="col">
                                       <label htmlFor="checkbox6">No Requirement</label>
