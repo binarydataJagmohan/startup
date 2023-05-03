@@ -68,7 +68,7 @@ export default function Login() {
             } 
             if ( window.localStorage.getItem("user_role") == "investor") {
               setTimeout(() => {
-                window.location.href = "/investor-steps/findbusiness";
+                window.location.href = "/investor/campaign";///investor-steps/findbusiness
               }, 2000);
             }
           } else {
