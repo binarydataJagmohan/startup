@@ -50,6 +50,8 @@ export default function Login() {
             window.localStorage.setItem("email", res.user.email);
             window.localStorage.setItem("username", res.user.name);
             window.localStorage.setItem("user_role", res.user.role);
+            window.localStorage.setItem("is_profile_completed",res.user.is_profile_completed);
+            window.localStorage.setItem("approval_status",res.user.approval_status);
             if (rememberMe) {
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
@@ -65,6 +67,16 @@ export default function Login() {
               setTimeout(() => {
                 window.location.href = "/steps/findbusiness";
               }, 2000);
+              if(window.localStorage.getItem("is_profile_completed")=="1"){
+                setTimeout(() => {
+                  window.location.href = "/company/thank-you";
+                }, 2000);
+              }
+              if(window.localStorage.getItem("approval_status")=="approved"){
+                setTimeout(() => {
+                  window.location.href = "/company/dashboard";
+                }, 2000);
+              }
             } 
             if ( window.localStorage.getItem("user_role") == "investor") {
               setTimeout(() => {

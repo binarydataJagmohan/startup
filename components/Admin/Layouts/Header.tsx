@@ -22,7 +22,7 @@ const Header = () => {
   }, []);
   return (
     <>
-      <header id="page-topbar">
+      <div id="page-topbar">
         <div className="navbar-header">
           <div className="d-flex">
             {/* LOGO */}
@@ -208,7 +208,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </div>
     </>
   )
 }
