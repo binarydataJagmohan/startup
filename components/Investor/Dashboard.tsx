@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import {getAllBusiness } from '@/lib/investorapi';
+import {getAllBusiness,getSingleBusinessDetails } from '@/lib/investorapi';
 
 const Dashboard = () => {
 
@@ -19,10 +19,11 @@ const Dashboard = () => {
   fetchData();
   }, []);
    
-
-  const detailsa = () => {
-    router.push('campaign/details');
-    
+  const getBusinessdetails = (e, id) => {
+    e.preventDefault();
+    getSingleBusinessDetails(id).then((res) => {
+      router.push('campaign/details');
+    });
   };
    
 
@@ -39,7 +40,7 @@ const Dashboard = () => {
               .filter((details) => details.type === "Discounting")
               .map((details) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={detailsa}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="javascript:void(0)" className="image">
                         <img
@@ -69,13 +70,13 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">50/250</a>
+                            <a href="javascript:void(0)">50/{details.total_units}</a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
                         <div className="product-content text-end">
                           <h3 className="title">
-                            <a href="javascript:void(0)">₹10,000</a>
+                            <a href="javascript:void(0)">₹{details.minimum_subscription}</a>
                           </h3>
                           <div className="price">Min. Subscription</div>
                         </div>
@@ -96,10 +97,10 @@ const Dashboard = () => {
                             Subscribers <span>32</span>
                           </li>
                           <li>
-                            Average Amount Per Subscriber <span>₹12,000</span>
+                            Average Amount Per Subscriber <span>₹{details.	avg_amt_per_person}</span>
                           </li>
                           <li>
-                            Minimum Subscription <span>₹12,000</span>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
                             Closes in <span>20 days</span>
