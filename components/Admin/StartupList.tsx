@@ -1,19 +1,54 @@
-import React,{useState,useEffect} from 'react'
-import {getAllStartupBusiness} from '../../lib/frontendapi';
+import React, { useState, useEffect } from 'react'
+import { getAllStartupBusiness } from '../../lib/frontendapi'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 const StartupList = () => {
     const [startups, setStartupData] = useState([]);
+    const [selectedStage, setSelectedStage] = useState([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAllStartupBusiness({});
             if (data) {
                 setStartupData(data.data);
-                console.log(data.data);
+                //console.log(data.data);
             }
         };
-
         fetchData();
+
     }, []);
+    function updateApprovalStatus(id, status) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status })
+            .then(response => {
+                toast.success(response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    function updateStartupStage(id, stage) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL +`/update-startup-stage/${id}`, { stage })
+          .then(response => {
+            // console.log(response.data);
+            toast.success(response.data.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+      const handleChange = (e) => {
+        updateStartupStage(startup.id, e.target.value);
+      };
+      
+      
     return (
         <>
             <div className="main-content">
@@ -40,7 +75,7 @@ const StartupList = () => {
                             <div className="col-12">
                                 <div className="card">
                                     <div className="card-header text-white" id="title">
-                                        <h3 className="card-title" >STARTUP COMPANIES</h3>
+                                        <h3 className="card-title" >COMPANIES</h3>
                                     </div>
                                     <div className="card-body">
                                         <table
@@ -60,6 +95,7 @@ const StartupList = () => {
                                                     <th>Company</th>
                                                     <th>Stage</th>
                                                     <th>Status</th>
+                                                    <th>Approval</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -69,11 +105,20 @@ const StartupList = () => {
                                                         <td>{index + 1}</td>
                                                         <td>{startup.name}</td>
                                                         <td>{startup.email}</td>
-                                                        <td>{startup.company}</td>
-                                                        <td>{startup.stage}</td>
+                                                        <td>{startup.business_name}</td>
+                                                        {/* <td>{startup.stage}</td> */}
                                                         <td>
-                                                            <span className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'}> {investor.status.toUpperCase()}</span>
+                                                            <select  className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(startup.id, e.target.value)}>
+                                                                <option value="Idea Stage">Idea Stage</option>
+                                                                <option value="Intermediate Stage">Intermediate Stage</option>
+                                                                <option value="Final Stage">Final Stage</option>
+                                                            </select>
                                                         </td>
+                                                        <td>
+                                                            <span className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'}> {startup.status.toUpperCase()}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {startup.approval_status.toUpperCase()}</span></td>
                                                         <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
                                                             <a href="#" className='m-1' ><span className='fa fa-trash text-danger'></span></a>
@@ -91,6 +136,7 @@ const StartupList = () => {
                     </div>{" "}
                     {/* container-fluid */}
                 </div>
+                <ToastContainer autoClose={7000} />
             </div>
         </>
     )

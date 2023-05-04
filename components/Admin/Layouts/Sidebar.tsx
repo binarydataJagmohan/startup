@@ -4,7 +4,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="vertical-menu bg-dark text-white">
-        <div data-simplebar className="h-100">
+        <div  className="h-100">
           {/*- Sidemenu */}
           <div id="sidebar-menu">
             {/* Left Menu Start */}

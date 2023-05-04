@@ -95,7 +95,7 @@ export default function customereview() {
           toastId: "success",
         });
         setTimeout(() => {
-          router.push("/");
+          router.push("/company/thank-you");
         }, 1000);
       } else {
         toast.error(res.message, {

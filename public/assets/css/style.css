@@ -8599,3 +8599,48 @@ input#checkbox1,
 #title{
     background-color: #23cdff;
 }
+<<<<<<< HEAD
+=======
+.color-span {
+    color: #10dce8;
+  }
+  
+  .error-content .bar {
+    height: 4px;
+    width: 85px;
+    background: #10dce8;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    margin: 20px auto;
+  }
+  
+  .error-content .bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background: #ffffff;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: MOVE-BG;
+    animation-name: MOVE-BG;
+  }
+
+  .error-content h1 {
+    font-family: 'Holtwood One SC', serif;
+    font-size: 60px;
+    font-weight: bolder;
+  }
+
+  .error-content h3 {
+    font-size: 20px;
+  }
+>>>>>>> ee463121ba6f86270d2235621ceb6720c804c551
