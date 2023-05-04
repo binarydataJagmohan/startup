@@ -3,6 +3,7 @@ import { getAllStartupBusiness } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import { getToken } from "../../lib/session";
 const StartupList = () => {
     const [startups, setStartupData] = useState([]);
     const [selectedStage, setSelectedStage] = useState([]);
@@ -28,27 +29,64 @@ const StartupList = () => {
                 });
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
             });
     }
     function updateStartupStage(id, stage) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL +`/update-startup-stage/${id}`, { stage })
-          .then(response => {
-            // console.log(response.data);
-            toast.success(response.data.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "success",
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage })
+            .then(response => {
+                // console.log(response.data);
+                toast.success(response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            })
+            .catch(error => {
+                // console.log(error);
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
             });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-      const handleChange = (e) => {
+    }
+    const handleChange = (e) => {
         updateStartupStage(startup.id, e.target.value);
-      };
-      
-      
+    };
+    const deleteStartup = async (id) => {
+        try {
+            const response = await fetch(`/api/startups/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer`+ getToken(),
+                },
+            });
+            const data = await response.json();
+            if (response.ok) {
+                // Remove the deleted startup from the startupList state
+                setStartupData(startups.filter(startup => startup.id !== id));
+                toast.success(data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            } else {
+                toast.error(data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
+        } catch (error) {
+            toast.error(error.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+    };
+
+
     return (
         <>
             <div className="main-content">
@@ -108,7 +146,7 @@ const StartupList = () => {
                                                         <td>{startup.business_name}</td>
                                                         {/* <td>{startup.stage}</td> */}
                                                         <td>
-                                                            <select  className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(startup.id, e.target.value)}>
+                                                            <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(startup.id, e.target.value)}>
                                                                 <option value="Idea Stage">Idea Stage</option>
                                                                 <option value="Intermediate Stage">Intermediate Stage</option>
                                                                 <option value="Final Stage">Final Stage</option>
@@ -121,7 +159,9 @@ const StartupList = () => {
                                                             <span className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {startup.approval_status.toUpperCase()}</span></td>
                                                         <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
-                                                            <a href="#" className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                            <button onClick={() => deleteStartup(startup.id)} className='btn btn-danger m-1'>
+                                                                <span className='fa fa-trash'></span>
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 ))}

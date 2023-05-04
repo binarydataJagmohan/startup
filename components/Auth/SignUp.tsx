@@ -51,12 +51,6 @@ const Signup = () => {
       password: password,
       role: role,
     };
-    // Validate email format
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (emailRegex.test(user.email)) {
-    //   // Email is not valid, set the value to empty string
-    //   alert("error");
-    // }
     userRegister(user)
       .then((res) => {
         //   console.log(res);

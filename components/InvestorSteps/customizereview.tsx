@@ -140,7 +140,6 @@ export default function customizereview() {
 
   const SubmitForm = async () => {
     try {
-      console.log(terms);
       const res = await angelInvestorTermsSave(terms);
    
       if (res.status == true) {
@@ -149,7 +148,7 @@ export default function customizereview() {
           toastId: "success",
         });
         setTimeout(() => {
-          router.push("/about");
+          router.push("/investor/thank-you");
         }, 1000);
       } else {
         toast.error(res.message, {

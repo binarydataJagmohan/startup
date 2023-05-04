@@ -41,7 +41,7 @@ export default function Document() {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <link rel="icon" type="image/png" href={process.env.NEXT_PUBLIC_BASE_URL + 'assets/img/favicon.png'} />
 
-        {/* <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/chartist/chartist.min.css"} rel="stylesheet" /> */}
+       
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/bootstrap.min.css"} id="bootstrap-style" rel="stylesheet" type="text/css" />
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/icons.min.css"} rel="stylesheet" type="text/css" />
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/app.min.css"} id="app-style" rel="stylesheet" type="text/css" />
@@ -62,10 +62,7 @@ export default function Document() {
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/peity/jquery.peity.min.js"}></script>
 
-        {/* <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/chartist/chartist.min.js"}></script>
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js"}></script> */}
-
-        <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/js/pages/dashboard.init.js"}></script>
+       
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/js/app.js"}></script>
 

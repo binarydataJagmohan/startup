@@ -71,21 +71,21 @@ export default function ServiceDetail() {
                                     <div className="services-details-accordion">
                                         <ul className="accordion">
                                             <li className="accordion-item">
-                                                <a className="accordion-title active" href="javascript:void(0)">
+                                                <a className="accordion-title active" href="#">
                                                     <i className="bx bx-plus" />
                                                     Are there any risks associated with starting a business or making investments?
                                                 </a>
                                                 <p className="accordion-content show">Yes, there are always risks involved with any business venture or investment. However, by doing your research, seeking advice, and making informed decisions, you can help mitigate those risks and increase your chances of success.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="javascript:void(0)">
+                                                <a className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     What should I look for when choosing a service?
                                                 </a>
                                                 <p className="accordion-content">It's important to look for a service that has a strong track record of success, offers personalized guidance and support, and aligns with your values and goals.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="javascript:void(0)">
+                                                <a className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     How do I get started with a startup or investment service?
                                                 </a>

@@ -241,7 +241,7 @@ export default function SingleBlog() {
                                             </p>
                                             <p className="comment-form-comment">
                                                 <label>Comment</label>
-                                                <textarea name="comment" id="comment" cols={45} rows={5} maxLength={65525} required="required" defaultValue={""} />
+                                                <textarea name="comment" id="comment" cols={45} rows={5} maxLength={65525} required="required"  />
                                             </p>
                                             <p className="comment-form-author">
                                                 <label>Name <span className="required">*</span></label>

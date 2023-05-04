@@ -28,7 +28,7 @@ const Thankyou = () => {
                   looking for might have been removed had its name changed or is
                   temporarily unavailable.
                 </p>
-                <a href="javascript:void(0);" className="default-btn">Resend Email</a>
+                <a href="#;" className="default-btn">Resend Email</a>
               </div>
             </div>
           </div>

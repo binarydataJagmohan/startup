@@ -208,7 +208,7 @@ const Header = () => {
             <div className="d-grid">
               <a
                 className="btn btn-sm btn-link font-size-14 text-center"
-                href="javascript:void(0)"
+                href="#"
               >
                 View all
               </a>

@@ -110,7 +110,7 @@ const Header = () => {
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <a className="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                    <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
                       View all
                     </a>
                   </div>

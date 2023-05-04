@@ -21,7 +21,7 @@ export default function FrequentlyQuestions() {
                                     <li className="accordion-item">
                                         <a
                                             className="accordion-title active"
-                                            href="javascript:void(0)"
+                                            href="#"
                                         >
                                             <i className="bx bx-chevron-down" />
                                             What is your startup and investment website all about?
@@ -33,7 +33,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             Is it safe to invest through your platform?
                                         </a>
@@ -44,7 +44,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             How much does it cost to use your platform?
                                         </a>
@@ -55,7 +55,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             What types of investments can I make through your platform?
                                         </a>
@@ -66,7 +66,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             Do you offer any educational resources for investors?
                                         </a>
@@ -77,7 +77,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             Can I get help or support if I have questions about my investments?
                                         </a>
@@ -88,7 +88,7 @@ export default function FrequentlyQuestions() {
                                         </div>
                                     </li>
                                     <li className="accordion-item">
-                                        <a className="accordion-title" href="javascript:void(0)">
+                                        <a className="accordion-title" href="#">
                                             <i className="bx bx-chevron-down" />
                                             Can I try your platform before committing to a paid plan?
                                         </a>

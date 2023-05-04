@@ -259,7 +259,7 @@ export default function HeaderFrontend() {
 
                     <div className="col-lg-12 col-md-12">
                       <div className="form-group">
-                        <textarea  className="form-control" id="message" cols={30} rows={6} required data-error="Write your message" placeholder="Your Message" defaultValue={""}  value={message} {...register('message', { onChange: (e) => setMessage(e.target.value), required: true })} />
+                        <textarea  className="form-control" id="message" cols={30} rows={6} required data-error="Write your message" placeholder="Your Message"   value={message} {...register('message', { onChange: (e) => setMessage(e.target.value), required: true })} />
                         <div className="help-block with-errors" style={{fontSize:"12px"}} />
                       </div>
                     </div>
