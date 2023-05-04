@@ -21,7 +21,7 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData() || { id: "" };
+    const current_user_data = getCurrentUserData() || { id: "" };
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
   }, [setCurrentUserId]);
 
