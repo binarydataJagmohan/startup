@@ -1,8 +1,23 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
+import {getSingleBusinessDetails} from'../../lib/investorapi';
+import { getCurrentUserData } from '@/lib/session';
 export default function CampaignsDetails() {
- 
+
+ const [singleCompagin,setSingleCompagin]=useState([]);
+ const router = useRouter();
+ const { id } = router.query;
+ useEffect(() => {
+  const fetchData = async () => {
+    const data = await getSingleBusinessDetails(id);
+    if (data) {
+      setSingleCompagin(data.data);
+      console.log(data.data);
+    }
+  };
+
+  fetchData();
+}, [id]);
  
   return (
     <>

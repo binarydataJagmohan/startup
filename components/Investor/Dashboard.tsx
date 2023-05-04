@@ -22,7 +22,7 @@ const Dashboard = () => {
   const getBusinessdetails = (e, id) => {
     e.preventDefault();
     getSingleBusinessDetails(id).then((res) => {
-      router.push('campaign/details');
+      router.push(`campaign/details?id=${id}`);
     });
   };
    
