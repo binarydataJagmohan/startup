@@ -1,8 +1,12 @@
-import React from 'react'
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function CampaignsDetails() {
+ 
+ 
   return (
     <>
+      
       <section className="invertor-campaign_detail">
         <div className="container py-5">
           <div className="detail_text">
@@ -66,7 +70,7 @@ export default function CampaignsDetails() {
                       <div className="col-md-6">
                         <div className="text-center class-smae">
                           <p>Minimum</p>
-                          <h6 className="css-19wesjx">₹10,000</h6>
+                          <h6 className="css-19wesjx">₹10000</h6>
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -84,19 +88,19 @@ export default function CampaignsDetails() {
                     </div>
                   </div>
                   <div className="countersection pt-4">
-                    <h4 className>About</h4>
+                    <h4 className="">About</h4>
                     <div className="d-flex justify-content-between all-btn py-3">
-                      <div className>
+                      <div className="">
                         <div className="text-center button-pdf">
                           <span>Agreement <i className="fa-solid fa-download" /></span>
                         </div>
                       </div>
-                      <div className>
+                      <div className="">
                         <div className="text-center button-pdf">
                           <span>PDC <i className="fa-solid fa-download" /></span>
                         </div>
                       </div>
-                      <div className>
+                      <div className="">
                         <div className="text-center button-pdf">
                           <span>Invoice <i className="fa-solid fa-download" /></span>
                         </div>
