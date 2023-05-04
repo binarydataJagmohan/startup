@@ -3,12 +3,14 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
-    <div>
+    <>
+    <div id="layout-wrapper">
       <Header />
-      <Sidebar/>
+      <Sidebar />
       <main>{children}</main>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 
