@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { basicInformationSave,getBasicInformation } from "../../lib/frontendapi";
+import { basicInformationSave, getBasicInformation } from "../../lib/frontendapi";
 import {
   removeToken,
   removeStorageData,
@@ -28,11 +28,12 @@ export default function customereview() {
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState(false);
+  const [proof_img, setProofImg] = useState(null);
   const [basicDetails, setBasicDetails] = useState({
     user_id: current_user_id,
     pan_number: "",
     uid: "",
-    proof_img: "",
+    // proof_img: "",
     dob: "",
   });
   const {
@@ -40,6 +41,9 @@ export default function customereview() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const handleFileChange = (event) => {
+    setProofImg(event.target.files[0]);
+  };
 
   const handleChange = (event) => {
     let { name, value } = event.target;
@@ -49,7 +53,7 @@ export default function customereview() {
       // Limit the length of value to 12 characters
       value = value.substring(0, 12);
     }
-    
+
     setBasicDetails((prevState) => {
       return {
         ...prevState,
@@ -66,10 +70,10 @@ export default function customereview() {
         ? setCurrentUserId(current_user_data.id)
         : setCurrentUserId("");
 
-        getBasicInformation(current_user_data.id)
+      getBasicInformation(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
-            setBasicDetails( res.data);
+            setBasicDetails(res.data);
             // console.log(res.data);
           } else {
             toast.error(res.message, {
@@ -89,7 +93,13 @@ export default function customereview() {
   }, []);
   const SubmitForm = async () => {
     try {
-      const res = await basicInformationSave(basicDetails);
+      const formData = new FormData();
+      formData.append('proof_img', proof_img);
+      formData.append("user_id", basicDetails.user_id);
+      formData.append("pan_number", basicDetails.pan_number);
+      formData.append("uid", basicDetails.uid);
+      formData.append("dob", basicDetails.dob);
+      const res = await basicInformationSave(formData);
       if (res.status == true) {
         // toast.success(res.message, {
         //   position: toast.POSITION.TOP_RIGHT,
@@ -144,8 +154,8 @@ export default function customereview() {
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#82b440"}}  aria-hidden="true"></i>
+                  <div className="step_complete">
+                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
@@ -157,8 +167,8 @@ export default function customereview() {
                   Step <span>2</span>
                 </div>
                 <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#82b440"}} aria-hidden="true"></i>
+                  <div className="step_complete">
+                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
@@ -171,7 +181,7 @@ export default function customereview() {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                  <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png"/>
+                    <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
@@ -184,10 +194,10 @@ export default function customereview() {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                    <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png" />
                   </div>
                 </div>
-                
+
                 <div className="caption hidden-xs hidden-sm">
                   <span>BANK INFORMATION</span>
                 </div>
@@ -229,7 +239,7 @@ export default function customereview() {
                                 className="form-control same-input"
                                 id="pan_number"
                                 {...register("pan_number", {
-                                   value:true,required: true,
+                                  value: true, required: true,
                                 })}
                                 value={basicDetails.pan_number}
                                 name="pan_number"
@@ -241,7 +251,7 @@ export default function customereview() {
                                 errors.pan_number.type === "required" && (
                                   <p
                                     className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                    style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please Enter Pan Card Number.
                                   </p>
@@ -261,7 +271,7 @@ export default function customereview() {
                                 className="form-control same-input"
                                 id="uid"
                                 {...register("uid", {
-                                  value:true,required: true
+                                  value: true, required: true
                                 })}
                                 value={basicDetails.uid}
                                 name="uid"
@@ -269,10 +279,10 @@ export default function customereview() {
                                 maxLength={12}
                               />
                               <div className="help-block with-errors" />
-                              {errors.uid  && (
+                              {errors.uid && (
                                 <p
                                   className="text-danger"
-                                   style={{ textAlign: "left", fontSize: "12px" }}
+                                  style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Adhaar Card Number.
                                 </p>
@@ -290,19 +300,19 @@ export default function customereview() {
                                 className="form-control same-input"
                                 id="dob"
                                 {...register("dob", {
-                                  value:true,required: true,
+                                  value: true, required: true,
                                 })}
                                 value={basicDetails.dob}
                                 name="dob"
                                 onChange={handleChange}
-                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'"  min={`${new Date().getMonth() - 18}-01-01`}
+                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
                                 max={`${new Date().getFullYear() - 18}-12-31`}
                               />
                               <div className="help-block with-errors" />
                               {errors.dob && errors.dob.type === "required" && (
                                 <p
                                   className="text-danger"
-                                   style={{ textAlign: "left", fontSize: "12px" }}
+                                  style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Your Date Of Birth.
                                 </p>
@@ -318,10 +328,10 @@ export default function customereview() {
                                   id="proof_img"
                                   type="file"
                                   {...register("proof_img", {
-                                    value:true,required: !basicDetails.proof_img,
+                                    value: true, required: ! proof_img,
                                   })}
                                   name="proof_img"
-                                  onChange={handleChange} 
+                                  onChange={handleFileChange}
                                 />
 
                                 <label
@@ -342,12 +352,12 @@ export default function customereview() {
                                   errors.proof_img.type === "required" && (
                                     <p
                                       className="text-danger"
-                                       style={{ textAlign: "left", fontSize: "12px" }}
+                                      style={{ textAlign: "left", fontSize: "12px" }}
                                     >
                                       *Please upload Your Proof.
                                     </p>
                                   )}
-                                  {!errors.proof_img && basicDetails.proof_img && (
+                                {!errors.proof_img && basicDetails.proof_img && (
                                   <p
                                     className="text-success"
                                     style={{ textAlign: "left", fontSize: "12px" }}
@@ -359,13 +369,13 @@ export default function customereview() {
                             </div>
                           </div>
                           <div className="row mt-3">
-                            <div className="col-md-6"  style={{ textAlign: "left", fontSize: "12px" }}>
-                            <a
-                              href={`/steps/businessinfo`}
-                              className="btn btn-primary" id="back"
-                            >
-                              Go back
-                            </a>
+                            <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
+                              <a
+                                href={`/steps/businessinfo`}
+                                className="btn btn-primary" id="back"
+                              >
+                                Go back
+                              </a>
                             </div>
 
                             <div
@@ -373,7 +383,7 @@ export default function customereview() {
                               style={{ textAlign: "right" }}
                             >
                               <button type="submit" className="btn btn-primary">
-                              NEXT
+                                NEXT
                               </button>
                             </div>
                           </div>
