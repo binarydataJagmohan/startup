@@ -43,6 +43,7 @@ export default function businessinfo(props: any) {
       startup_date: "",
       tagline: "",
       // logo: null,
+      type:"",
       description: "",
       cofounder: "0",
       kyc_purposes: "0",
@@ -124,7 +125,7 @@ const SubmitForm = async () => {
     formData.append("description", businessDetails.description);
     formData.append("cofounder", businessDetails.cofounder);
     formData.append("kyc_purposes", businessDetails.kyc_purposes);
-
+    formData.append("type", businessDetails.type);
     const res = await businessInfoSave(formData);
 
     if (res.status === true) {
@@ -452,6 +453,56 @@ const SubmitForm = async () => {
                                   </p>
                                 )}
                             </div>
+                            
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="stage"
+                                className="form-label mb-4"
+                              >
+                                Fund Type
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <select
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example"
+                                {...register("type", { validate: (value) => value != "", required: true,})}
+                                name="type"  onChange={handleChange}  value={businessDetails ? businessDetails.type : ""}
+                              >
+                                <option value="">--SELECT FUND TYPE--</option>
+                                <option value="Dicounting Invoice">Dicounting Invoice</option>
+                                <option value="CSOP">CSOP</option>
+                                <option value="CCSP">CCSP</option>
+                              </select>
+                              {errors.type &&
+                                errors.type.type === "required" &&  ! businessDetails.type && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Select type of Your Business.
+                                  </p>
+                                )}
+                            </div>
+
+                          
+
+                            <div className="col-sm-6 ">
+                              <label
+                                htmlFor="description"
+                                className="form-label"
+                              >
+                                100 characters to tell us about your business
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <textarea
+                                rows={4}
+                                maxLength={100}
+                                placeholder="Enter details here"
+                                className="form-control text"
+                                {...register("description", { value:true, required: true,})}
+                                name="description"  onChange={handleChange} value={businessDetails.description}
+                              />
+                            </div>
 
                             <div className="col-md-6 mt-3">
                               <div
@@ -501,24 +552,6 @@ const SubmitForm = async () => {
                                 )}
 
                               </div>
-                            </div>
-
-                            <div className="col-sm-6 ">
-                              <label
-                                htmlFor="description"
-                                className="form-label"
-                              >
-                                100 characters to tell us about your business
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <textarea
-                                rows={4}
-                                maxLength={100}
-                                placeholder="Enter details here"
-                                className="form-control text"
-                                {...register("description", { value:true, required: true,})}
-                                name="description"  onChange={handleChange} value={businessDetails.description}
-                              />
                             </div>
 
                           

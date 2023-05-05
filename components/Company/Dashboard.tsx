@@ -13,7 +13,7 @@ const Dashboard = () => {
                                 <h6 className="page-title">Dashboard</h6>
                                 <ol className="breadcrumb m-0">
                                     <li className="breadcrumb-item active">
-                                        Welcome toStartup Dashboard
+                                        Welcome to Startup Dashboard
                                     </li>
                                 </ol>
                             </div>
