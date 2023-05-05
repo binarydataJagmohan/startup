@@ -64,7 +64,7 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                          <img src={singleCompagin.logo} alt="" />
+                          <img src={inputs.logo} alt="" />
                         </div>
                       </div>
                       <h5>Zoff Foods</h5>
