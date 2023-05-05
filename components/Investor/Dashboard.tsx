@@ -27,7 +27,8 @@ const Dashboard = () => {
     });
   };
    
-
+  console.log(businessDetails);
+    
   return (
     <>
       <section className="invertor-campaign">
@@ -46,10 +47,8 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={
-                            process.env.NEXT_PUBLIC_IMAGE_URL +
-                            "/img/img/digital.png"
-                          }
+                          src={details.logo}
+          
                         />
                       </a>
                     </div>
