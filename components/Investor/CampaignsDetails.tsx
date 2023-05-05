@@ -1,12 +1,59 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import {getSingleBusinessDetails } from '@/lib/investorapi';
 
 export default function CampaignsDetails() {
  
- 
+  const [value, setValue] = useState(1);
+  const [inputs,setInputs] = useState([]);
+  const [subscriptionValue, setSubscriptionValue] = useState(0);
+  const [repayValue,setRepayValue] = useState(0);
+
+  const router = useRouter()
+  const {id } = router.query;
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await  getSingleBusinessDetails(id)
+      .then((res)=>{
+        setInputs(res.data)
+      })
+  };
+
+  fetchData();
+  }, []);
+
+  const dtaa = inputs.minimum_subscription;
+
+  const handlePlusClick = () => {
+    setValue(value + 1);
+    setSubscriptionValue((value + 1) * dtaa);
+  };
+
+  const handleMinusClick = () => {
+    if (value > 1) {
+      setValue(value - 1);
+      setSubscriptionValue((value - 1) * dtaa);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const newValue = Number(event.target.value);
+    if (!isNaN(newValue) && newValue >= 1) {
+      setValue(newValue);
+      setSubscriptionValue(newValue * dtaa);
+      let data1 = subscriptionValue * inputs.xirr;
+      let data2 = data1 / 100;
+      let data3 = data2/366;
+      let data4 = data3 * inputs.tenure;
+      let data5 = subscriptionValue + data4;
+      setRepayValue(data1);
+      
+
+    }
+  };
+
   return (
     <>
-      
       <section className="invertor-campaign_detail">
         <div className="container py-5">
           <div className="detail_text">
@@ -44,7 +91,7 @@ export default function CampaignsDetails() {
                     <h3 className="progressbar-title">₹25.0 Lakh</h3>
                   </div>
                   <div> <span>Units Left</span><br />
-                    <span className="progressbar-value"><span className="color-rumaric">164</span><strong>/250</strong></span>
+                    <span className="progressbar-value"><span className="color-rumaric">164</span><strong>/200</strong></span>
                   </div>
                 </div>
                 <div className="progress">
@@ -64,19 +111,19 @@ export default function CampaignsDetails() {
                       <div className="col-md-6">
                         <div className="text-center class-smae">
                           <p>XIRR</p>
-                          <h6 className="font-60">14.62%</h6>
+                          <h6 className="font-60">{inputs.xirr}%</h6>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="text-center class-smae">
                           <p>Minimum</p>
-                          <h6 className="css-19wesjx">₹10000</h6>
+                          <h6 className="css-19wesjx">₹{inputs.minimum_subscription}</h6>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="text-center class-smae mb-3">
                           <p>Tenure</p>
-                          <h6 className="css-19wesjx">45 Days</h6>
+                          <h6 className="css-19wesjx">{inputs.tenure} Days</h6>
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -204,17 +251,17 @@ export default function CampaignsDetails() {
                       <p>No. of Units</p>
                     </div>
                     <div className="number">
-                      <span className="minus">-</span>
-                      <input type="text" defaultValue={1} />
-                      <span className="plus">+</span>
+                      <span className="minus" onClick={() => handleInputChange({target: {value: value - 1}})}>-</span>
+                      <input type="text" min={1} value={value} onChange={handleInputChange} />
+                      <span className="plus" onClick={() => handleInputChange({target: {value: value + 1}})}>+</span>
                     </div>
                     <div className="css-wsc10v">
                       <span>Unit Value</span>
-                      <p className="css-37nqt7">₹10000</p>
+                      <p className="css-37nqt7">₹{inputs.minimum_subscription}s</p>
                     </div>
                     <div className="css-wsc10v">
                       <span>Subscription Value</span>
-                      <p className="css-37nqt7">₹0</p>
+                      <p className="css-37nqt7">₹{subscriptionValue}</p>
                     </div>
                     <div className="css-wsc10v">
                       <div className="d-flex">
@@ -229,7 +276,7 @@ export default function CampaignsDetails() {
                       </div>
                       <div className="css-wsc10v">
                         <span><strong>Repayment Value</strong></span>
-                        <p className="css-37nqt7">₹0</p>
+                        <p className="css-37nqt7">₹{repayValue}</p>
                       </div>
                     </div>
                     <div className="form-check form-check-inline py-3">
