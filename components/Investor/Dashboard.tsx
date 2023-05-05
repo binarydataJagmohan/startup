@@ -43,7 +43,7 @@ const Dashboard = () => {
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
-                      <a href="javascript:void(0)" className="image">
+                      <a href="#" className="image">
                         <img
                           className="pic-1 image"
                           src={
@@ -57,13 +57,13 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">{details.business_name}</a>
+                            <a href="#">{details.business_name}</a>
                           </h3>
                           <div className="price"></div>
                         </div>
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)"></a>
+                            <a href="#"></a>
                           </h3>
                           <div className="price">Tenure</div>
                         </div>
@@ -71,22 +71,22 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">50/{details.total_units}</a>
+                            <a href="#">50/{details.total_units}</a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
                         <div className="product-content text-end">
                           <h3 className="title">
-                            <a href="javascript:void(0)">₹{details.minimum_subscription}</a>
+                            <a href="#">₹{details.minimum_subscription}</a>
                           </h3>
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
                       <div className="text-center mt-3">
-                        <a href="javascript:void(0)" className="card-link">
+                        <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
-                        <a href="javascript:void(0)" className="card-link">
+                        <a href="#" className="card-link">
                           🌟Repayment/Unit- ₹10,167
                         </a>
                       </div>
@@ -108,7 +108,7 @@ const Dashboard = () => {
                           </li>
                           <li>
                             <a
-                              href="javascript:void(0)"
+                              href="#"
                               className="button-class"
                             >
                               proptech
@@ -124,11 +124,11 @@ const Dashboard = () => {
 
           <div className="text-end mt-4">
             <div className="pagination">
-              <a href="javascript:void(0)">«</a>
-              <a href="javascript:void(0)" className="active">
+              <a href="#">«</a>
+              <a href="#" className="active">
                 1
               </a>
-              <a href="javascript:void(0)">»</a>
+              <a href="#">»</a>
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1">
                     <div className="product-image">
-                      <a href="javascript:void(0)" className="image">
+                      <a href="#" className="image">
                         <img
                           className="pic-1 image"
                           src="https://images.pexels.com/photos/933964/pexels-photo-933964.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -158,13 +158,13 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">{details.business_name} </a>
+                            <a href="#">{details.business_name} </a>
                           </h3>
                           <div className="price">Anchor</div>
                         </div>
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">45 days </a>
+                            <a href="#">45 days </a>
                           </h3>
                           <div className="price">Tenure</div>
                         </div>
@@ -172,22 +172,22 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="javascript:void(0)">50/250 </a>
+                            <a href="#">50/250 </a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
                         <div className="product-content text-end">
                           <h3 className="title">
-                            <a href="javascript:void(0)">₹10,000 </a>
+                            <a href="#">₹10,000 </a>
                           </h3>
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
                       <div className="text-center mt-3">
-                        <a href="javascript:void(0)" className="card-link">
+                        <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
-                        <a href="javascript:void(0)" className="card-link">
+                        <a href="#" className="card-link">
                           🌟Repayment/Unit- ₹10,167
                         </a>
                       </div>
@@ -209,7 +209,7 @@ const Dashboard = () => {
                           </li>
                           <li>
                             <a
-                              href="javascript:void(0)"
+                              href="#"
                               className="button-class"
                             >
                               proptech
@@ -225,11 +225,11 @@ const Dashboard = () => {
 
           <div className="text-end mt-4">
             <div className="pagination">
-              <a href="javascript:void(0)">«</a>
-              <a href="javascript:void(0)" className="active">
+              <a href="#">«</a>
+              <a href="#" className="active">
                 1
               </a>
-              <a href="javascript:void(0)">»</a>
+              <a href="#">»</a>
             </div>
           </div>
         </div>
@@ -243,7 +243,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -255,13 +255,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -269,22 +269,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -305,7 +305,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -317,7 +317,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/3747140/pexels-photo-3747140.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -329,13 +329,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -343,22 +343,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -379,7 +379,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -391,7 +391,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/4065624/pexels-photo-4065624.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -403,13 +403,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -417,22 +417,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -453,7 +453,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -465,11 +465,11 @@ const Dashboard = () => {
           </div>
           <div className="text-end mt-4">
             <div className="pagination">
-              <a href="javascript:void(0)">«</a>
-              <a href="javascript:void(0)" className="active">
+              <a href="#">«</a>
+              <a href="#" className="active">
                 1
               </a>
-              <a href="javascript:void(0)">»</a>
+              <a href="#">»</a>
             </div>
           </div>
         </div>
@@ -481,7 +481,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/3153208/pexels-photo-3153208.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -493,13 +493,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -507,22 +507,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -543,7 +543,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -555,7 +555,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/4065892/pexels-photo-4065892.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -567,13 +567,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -581,22 +581,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -617,7 +617,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -629,7 +629,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-sm-12 col-lg-4">
               <div className="product-grid container1">
                 <div className="product-image">
-                  <a href="javascript:void(0)" className="image">
+                  <a href="#" className="image">
                     <img
                       className="pic-1 image"
                       src="https://images.pexels.com/photos/5256816/pexels-photo-5256816.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -641,13 +641,13 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">Trutech Vision </a>
+                        <a href="#">Trutech Vision </a>
                       </h3>
                       <div className="price">Anchor</div>
                     </div>
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">45 days </a>
+                        <a href="#">45 days </a>
                       </h3>
                       <div className="price">Tenure</div>
                     </div>
@@ -655,22 +655,22 @@ const Dashboard = () => {
                   <div className="d-flex justify-content-between">
                     <div className="product-content">
                       <h3 className="title">
-                        <a href="javascript:void(0)">50/250 </a>
+                        <a href="#">50/250 </a>
                       </h3>
                       <div className="price">Units Left</div>
                     </div>
                     <div className="product-content text-end">
                       <h3 className="title">
-                        <a href="javascript:void(0)">₹10,000 </a>
+                        <a href="#">₹10,000 </a>
                       </h3>
                       <div className="price">Min. Subscription</div>
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       💡13.6% Discount Rate
                     </a>
-                    <a href="javascript:void(0)" className="card-link">
+                    <a href="#" className="card-link">
                       🌟Repayment/Unit- ₹10,167
                     </a>
                   </div>
@@ -691,7 +691,7 @@ const Dashboard = () => {
                         Closes in <span>20 days</span>
                       </li>
                       <li>
-                        <a href="javascript:void(0)" className="button-class">
+                        <a href="#" className="button-class">
                           proptech
                         </a>
                       </li>
@@ -705,11 +705,11 @@ const Dashboard = () => {
         <div className="container">
           <div className="text-end">
             <div className="pagination">
-              <a href="javascript:void(0)">«</a>
-              <a href="javascript:void(0)" className="active">
+              <a href="#">«</a>
+              <a href="#" className="active">
                 1
               </a>
-              <a href="javascript:void(0)">»</a>
+              <a href="#">»</a>
             </div>
           </div>
         </div>

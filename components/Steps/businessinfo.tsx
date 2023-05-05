@@ -21,23 +21,18 @@ export default function businessinfo(props: any) {
   const router = useRouter();
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [fullname, setFullname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [business_page_id, setBusinessPageId] = useState("");
-
+ 
   const [current_user_id, setCurrentUserId] = useState(false);
   const [business_name, setBusinessName] = useState("");
 
-  const [business_address, setBusinessAddress] = useState("");
-  const [numberOfLocations, setNumberOfLocations] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
-  const [disableBaddr, setDisableBaddr] = useState(false);
-  const [disableBemail, setDisableBemail] = useState(false);
 
   const {register,handleSubmit,formState: { errors },} = useForm();
+  const [logo, setLogo] = useState(null);
+
+  const handleFileChange = (event) => {
+    setLogo(event.target.files[0]);
+  };
   const [businessDetails, setBusinessDetails] = useState({
       user_id: current_user_id,
       business_name: "",
@@ -47,7 +42,7 @@ export default function businessinfo(props: any) {
       stage: "",
       startup_date: "",
       tagline: "",
-      logo: "",
+      // logo: null,
       description: "",
       cofounder: "0",
       kyc_purposes: "0",
@@ -111,46 +106,61 @@ export default function businessinfo(props: any) {
   }
 }, []);
 
-  const SubmitForm = async () => {
-    try {
-      // const logo = businessDetails.logo;
-      // console.log(logo);
-      // const data = { ...businessDetails };
-      const res = await businessInfoSave(businessDetails);
-     
-      if (res.status == true) {
-        setTimeout(() => {
-          router.push("/steps/customizereview");
-        }, 1000);
-      } else {
-        toast.error("Business Details has not been saved successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      }
-    } catch (err) {
-      toast.error("Business Details has not been saved successfully", {
+const SubmitForm = async () => {
+  try {
+    const formData = new FormData();
+    // if (businessDetails.logo && businessDetails.logo[0]) {
+    //   formData.append("logo", businessDetails.logo[0]);
+    // }
+    formData.append('logo', logo);
+    formData.append("user_id", businessDetails.user_id);
+    formData.append("business_name", businessDetails.business_name);
+    formData.append("reg_businessname", businessDetails.reg_businessname);
+    formData.append("website_url", businessDetails.website_url);
+    formData.append("sector", businessDetails.sector);
+    formData.append("stage", businessDetails.stage);
+    formData.append("startup_date", businessDetails.startup_date);
+    formData.append("tagline", businessDetails.tagline);
+    formData.append("description", businessDetails.description);
+    formData.append("cofounder", businessDetails.cofounder);
+    formData.append("kyc_purposes", businessDetails.kyc_purposes);
+
+    const res = await businessInfoSave(formData);
+
+    if (res.status === true) {
+      setTimeout(() => {
+        router.push("/steps/customizereview");
+      }, 1000);
+    } else {
+      toast.error(res.msg, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
     }
-  };
+  } catch (err) {
+    toast.error("Business Details have not been saved successfully", {
+      position: toast.POSITION.TOP_RIGHT,
+      toastId: "error",
+    });
+  }
+};
 
-  const savedata = () => {
-    var blid = blId;
-    const data = {
-      user_id: forwarduId,
-      firstname: firstname,
-      lastname: lastname,
-      phone: phone,
-      email: email,
-      business_page_id: business_page_id,
-      business_name: business_name,
-      business_address: business_address,
-      number_of_locations: numberOfLocations,
-    };
-    setSignupSuccess(true);
-  };
+
+  // const savedata = () => {
+  //   var blid = blId;
+  //   const data = {
+  //     user_id: forwarduId,
+  //     firstname: firstname,
+  //     lastname: lastname,
+  //     phone: phone,
+  //     email: email,
+  //     business_page_id: business_page_id,
+  //     business_name: business_name,
+  //     business_address: business_address,
+  //     number_of_locations: numberOfLocations,
+  //   };
+  //   setSignupSuccess(true);
+  // };
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
@@ -238,7 +248,7 @@ export default function businessinfo(props: any) {
               <div className="register-form">
                 <div className="row step_one">
                   <div className="col-md-12">
-                    <form className="needs-validation mb-4"  onSubmit={handleSubmit(SubmitForm)}>
+                    <form className="needs-validation mb-4" encType="multipart/form-data"  onSubmit={handleSubmit(SubmitForm)}>
                       <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
                         {" "}
                         Business Information{" "}
@@ -460,7 +470,7 @@ export default function businessinfo(props: any) {
                                   id="logo"
                                   type="file"
                                   {...register("logo", { value:true,})} 
-                                  name="logo"  onChange={handleChange} 
+                                  name="logo"  onChange={handleFileChange} 
                                 />
                                
                                 <label

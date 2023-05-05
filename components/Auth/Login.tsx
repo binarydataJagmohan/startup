@@ -35,64 +35,78 @@ export default function Login() {
     },
   });
 
+  const setLocalStorageItems = (user) => {
+    window.localStorage.setItem("id", user.id);
+    window.localStorage.setItem("email", user.email);
+    window.localStorage.setItem("username", user.name);
+    window.localStorage.setItem("user_role", user.role);
+    window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
+    window.localStorage.setItem("approval_status", user.approval_status);
+  };
+  
   const submitForm = () => {
     const logindata = {
-      email: email,
-      password: password,
-      rememberMe: rememberMe,
+      email,
+      password,
+      rememberMe,
     };
     login(logindata)
       .then((res) => {
-        // console.log(res);
-        if (res.status == true) {
+        if (res.status === true) {
           if (res.authorisation.token) {
-            window.localStorage.setItem("id", res.user.id);
-            window.localStorage.setItem("email", res.user.email);
-            window.localStorage.setItem("username", res.user.name);
-            window.localStorage.setItem("user_role", res.user.role);
-            window.localStorage.setItem("is_profile_completed",res.user.is_profile_completed);
-            window.localStorage.setItem("approval_status",res.user.approval_status);
+            setLocalStorageItems(res.user);
             if (rememberMe) {
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
-            if (window.localStorage.getItem("user_role") == "admin") {
-              setTimeout(() => {
-                window.location.href = "/admin/dashboard/";
-              }, 1000);
-            } 
-            
-            if (window.localStorage.getItem("user_role") == "startup") {
-              setTimeout(() => {
-                window.location.href = "/steps/findbusiness";
-              }, 2000);
-              if(window.localStorage.getItem("is_profile_completed")=="1"){
+            switch (window.localStorage.getItem("user_role")) {
+              case "admin":
                 setTimeout(() => {
-                  window.location.href = "/company/thank-you";
-                }, 2000);
-              }
-              if(window.localStorage.getItem("approval_status")=="approved"){
+                  window.location.href = "/admin/dashboard/";
+                }, 1000);
+                break;
+              case "startup":
                 setTimeout(() => {
-                  window.location.href = "/company/dashboard";
+                  window.location.href = "/steps/findbusiness";
                 }, 2000);
-              }
-            } 
-            if ( window.localStorage.getItem("user_role") == "investor") {
-              setTimeout(() => {
-                window.location.href = "/investor/campaign";///investor-steps/findbusiness
-              }, 2000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
+                  setTimeout(() => {
+                    window.location.href = "/company/thank-you";
+                  }, 2000);
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
+                  setTimeout(() => {
+                    window.location.href = "/company/dashboard";
+                  }, 2000);
+                }
+                break;
+              case "investor":
+                setTimeout(() => {
+                  window.location.href = "/investor-steps/findbusiness";
+                }, 2000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
+                  setTimeout(() => {
+                    window.location.href = "/investor/thank-you";
+                  }, 2000);
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
+                  setTimeout(() => {
+                    window.location.href = "/investor/campaign";
+                  }, 2000);
+                }
+                break;
             }
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
           } else {
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
           }
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "success",
-          });
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
@@ -106,6 +120,7 @@ export default function Login() {
         });
       });
   };
+  
   return (
     <>
       <div className="page-title-area item-bg-1">

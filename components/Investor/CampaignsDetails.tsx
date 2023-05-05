@@ -64,7 +64,7 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL +"/img/img/companylogo.png"} alt="" />
+                          <img src={singleCompagin.logo} alt="" />
                         </div>
                       </div>
                       <h5>Zoff Foods</h5>
@@ -186,7 +186,7 @@ export default function CampaignsDetails() {
                       <div className="faq-accordion">
                         <ul className="accordion">
                           <li className="accordion-item">
-                            <a className="accordion-title active" href="javascript:void(0)">
+                            <a className="accordion-title active" href="#">
                               <i className="bx bx-chevron-down" />
                               What is Discounting?
                             </a>
@@ -198,7 +198,7 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="javascript:void(0)">
+                            <a className="accordion-title" href="#">
                               <i className="bx bx-chevron-down" />
                               What access do I have on a free trial?
                             </a>
@@ -208,7 +208,7 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="javascript:void(0)">
+                            <a className="accordion-title" href="#">
                               <i className="bx bx-chevron-down" />
                               Does the price go up as my team gets larger?
                             </a>
@@ -218,7 +218,7 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="javascript:void(0)">
+                            <a className="accordion-title" href="#">
                               <i className="bx bx-chevron-down" />
                               How can I cancel my subscription?
                             </a>
@@ -228,7 +228,7 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="javascript:void(0)">
+                            <a className="accordion-title" href="#">
                               <i className="bx bx-chevron-down" />
                               Can I pay via an Invoice?
                             </a>

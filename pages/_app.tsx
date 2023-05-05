@@ -1,13 +1,16 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import FrontendLayout from '../components/Frontend/layouts/Layout'
-import AdminLayout from '../components/Admin/Layouts/Layouts'
-import InvestorLayout from '../components/Investor/Layouts/Layouts'
-import CompanyLayout from "../components/Company/Layouts/Layouts"
 import { getCurrentUserData } from '@/lib/session';
 import 'bootstrap/dist/css/bootstrap.css';
+import dynamic from 'next/dynamic';
+
+
 
 export default function App({ Component, pageProps }: AppProps) {
+  const AdminLayout = dynamic(() => import('../components/Admin/Layouts/Layouts'));
+const FrontendLayout = dynamic(() => import('../components/Frontend/layouts/Layout'));
+const InvestorLayout = dynamic(() => import('../components/Investor/Layouts/Layouts'));
+const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layouts'));
   let current_user: { role?: string } = {}; // define type of current_user to include "role" property
   try {
     current_user = getCurrentUserData() || {};
@@ -22,6 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
      Layout=  CompanyLayout;
   }else {
     Layout = FrontendLayout;
+  }
+  if (current_user.role === 'investor') {
+    Layout = InvestorLayout;
   }
 
   if (current_user.role === 'investor') {

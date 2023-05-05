@@ -69,21 +69,21 @@ export default function serviceOne() {
                                     <div className="services-details-accordion">
                                         <ul className="accordion">
                                             <li className="accordion-item">
-                                                <a className="accordion-title active" href="javascript:void(0)">
+                                                <a className="accordion-title active" href="#">
                                                     <i className="bx bx-plus" />
                                                     What is Company Incorporation?
                                                 </a>
                                                 <p className="accordion-content show">Company incorporation is the process of legally establishing a new business entity by registering it with the government.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="javascript:void(0)">
+                                                <a className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     Why is it important to incorporate a company?
                                                 </a>
                                                 <p className="accordion-content">Incorporating a company gives it a separate legal existence from its owners and limits their personal liability for business debts and obligations. It also enhances the credibility of the business and makes it easier to raise funds from investors.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="javascript:void(0)">
+                                                <a className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     What are the benefits of incorporating a company for an investment project?
                                                 </a>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { getAllInvestors } from '../../lib/frontendapi';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 const InvestorList = () => {
     const [investors, setInvestors] = useState([]);
-    // const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -14,6 +16,21 @@ const InvestorList = () => {
 
         fetchData();
     }, []);
+    function updateApprovalStatus(id, status) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { approval_status: status })
+            .then(response => {
+                toast.success(response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            })
+            .catch(error => {
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            });
+    }
 
     return (
         <>
@@ -61,6 +78,7 @@ const InvestorList = () => {
                                                     <th>Email Address</th>
                                                     <th>Type</th>
                                                     <th>Status</th>
+                                                    <th>Approval</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -73,6 +91,9 @@ const InvestorList = () => {
                                                         <td>{investor.investorType}</td>
                                                         <td>
                                                         <span className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'}> {investor.status.toUpperCase()}</span>
+                                                        </td>
+                                                        <td>
+                                                        <span className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'rejected' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
@@ -90,9 +111,8 @@ const InvestorList = () => {
                         {/* end row */}
                     </div>{" "}
                     {/* container-fluid */}
-
-
                 </div>
+                <ToastContainer autoClose={7000} />
             </div>
         </>
     )

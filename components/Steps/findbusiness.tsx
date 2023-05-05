@@ -149,13 +149,13 @@ export default function findbusiness() {
     }
   };
 
-  const handleAdrChange = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
+  // const handleAdrChange = (find_business_location: any) => {
+  //   setFindBusinessLocation(find_business_location);
+  // };
 
-  const handleSelect = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
+  // const handleSelect = (find_business_location: any) => {
+  //   setFindBusinessLocation(find_business_location);
+  // };
 
   if (signup_success) return router.push("/steps/businessinfo");
 
