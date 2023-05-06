@@ -22,6 +22,12 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
+          <a href={process.env.NEXT_PUBLIC_BASE_URL+"/company/all-fund-raise-list"} className=" waves-effect">
+            <i className="fa fa-list-dots" />
+            <span>All Fund Raise</span>
+          </a>
+        </li>
+        <li>
           <a href="" className=" waves-effect">
             <i className="fa fa-cogs" />
             <span>Settings</span>
