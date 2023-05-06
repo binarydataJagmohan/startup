@@ -19,12 +19,50 @@ const InvestorList = () => {
     function updateApprovalStatus(id, status) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { approval_status: status })
             .then(response => {
+                const updatedData = investors.map(investor => {
+                    if (investor.id === id) {
+                      return {
+                        ...investor,
+                        approval_status: status,
+                      };
+                    }
+                    return investor;
+                  });
+                  setInvestors(updatedData);
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
             })
             .catch(error => {
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            });
+    }
+
+      // for user account status Active and Deactive
+      function updateStatus(id, status) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, {status: status })
+            .then(response => { 
+                const updatedData = investors.map(investor => {
+                    if (investor.id === id) {
+                      return {
+                        ...investor,
+                        status: status,
+                      };
+                    }
+                    return investor;
+                  });
+                  setInvestors(updatedData);
+                  toast.success(response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            })
+            .catch(error => {
+                // console.log(error);
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -90,10 +128,10 @@ const InvestorList = () => {
                                                         <td>{investor.email}</td>
                                                         <td>{investor.investorType}</td>
                                                         <td>
-                                                        <span className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'}> {investor.status.toUpperCase()}</span>
+                                                        <span className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
-                                                        <span className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'rejected' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
+                                                        <span className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
