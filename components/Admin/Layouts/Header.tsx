@@ -10,7 +10,8 @@ interface UserData {
 }
 const Header = () => {
   const [current_user_id, setCurrentUserId] = useState(false);
-
+  const [current_user_name, setCurrentUserName] = useState("");
+  const [current_user_role, setCurrentUserRole] = useState("");
   function redirectToLogin() {
     window.location.href = "/login";
   }
@@ -21,9 +22,15 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data = getCurrentUserData() || { id: "" };
+    const current_user_data = getCurrentUserData();
+    current_user_data.username
+      ? setCurrentUserName(current_user_data.username)
+      : setCurrentUserName("");
+    current_user_data.role
+      ? setCurrentUserRole(current_user_data.role)
+      : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
-  }, [setCurrentUserId]);
+  }, []);
 
   return (
     <>
@@ -122,10 +129,11 @@ const Header = () => {
                 <img className="rounded-circle header-profile-user" src="/assets/images/users/user-4.jpg" alt="Header Avatar" />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
-                {/* item*/}
+                  <p className="text-center" style={{fontWeight: 'bold', marginBottom:'-8px'}}>{current_user_role.slice(0,1).toUpperCase() + current_user_role.slice(1)}</p>
+               <div className="dropdown-divider" />
                 <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle font-size-17 align-middle me-1" /> Profile</a>
                 <a className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</a>
-                <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a>
+                {/* <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a> */}
                 <div className="dropdown-divider" />
                 <button className="dropdown-item text-danger" onClick={handleLogout}><i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" /> Logout</button>
               </div>

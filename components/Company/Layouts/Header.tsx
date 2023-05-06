@@ -6,6 +6,8 @@ interface UserData {
 }
 const Header = () => {
   const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_name, setCurrentUserName] = useState("");
+  const [current_user_role, setCurrentUserRole] = useState("");
 
   function redirectToLogin() {
     window.location.href= "/login";
@@ -17,7 +19,13 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
+    const current_user_data = getCurrentUserData();
+    current_user_data.username
+      ? setCurrentUserName(current_user_data.username)
+      : setCurrentUserName("");
+    current_user_data.role
+      ? setCurrentUserRole(current_user_data.role)
+      : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
   }, []);
   return (
@@ -89,173 +97,60 @@ const Header = () => {
       </div>
      
       <div className="dropdown d-inline-block">
-        <button
-          type="button"
-          className="btn header-item noti-icon waves-effect"
-          id="page-header-notifications-dropdown"
-          data-bs-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <i className="mdi mdi-bell-outline" />
-          <span className="badge bg-danger rounded-pill">3</span>
-        </button>
-        <div
-          className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-          aria-labelledby="page-header-notifications-dropdown"
-        >
-          <div className="p-3">
-            <div className="row align-items-center">
-              <div className="col">
-                <h5 className="m-0 font-size-16"> Notifications (258) </h5>
+              <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="mdi mdi-bell-outline" />
+                <span className="badge bg-danger rounded-pill">3</span>
+              </button>
+              <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+                <div className="p-3">
+                  <div className="row align-items-center">
+                    <div className="col">
+                      <h5 className="m-0 font-size-16"> Notifications (258) </h5>
+                    </div>
+                  </div>
+                </div>
+                <div data-simplebar style={{maxHeight: '230px'}}>
+                  <a href="#" className="text-reset notification-item">
+                    <div className="d-flex">
+                      <div className="flex-shrink-0 me-3">
+                        <div className="avatar-xs">
+                          <span className="avatar-title bg-danger rounded-circle font-size-16">
+                            <i className="mdi mdi-message-text-outline" />
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex-grow-1">
+                        <h6 className="mb-1">New Message received</h6>
+                        <div className="font-size-12 text-muted">
+                          <p className="mb-1">You have 87 unread messages</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div className="p-2 border-top">
+                  <div className="d-grid">
+                    <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
+                      View all
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div data-simplebar="" style={{ maxHeight: 230 }}>
-            <a href="" className="text-reset notification-item">
-              <div className="d-flex">
-                <div className="flex-shrink-0 me-3">
-                  <div className="avatar-xs">
-                    <span className="avatar-title bg-success rounded-circle font-size-16">
-                      <i className="mdi mdi-cart-outline" />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">Your order is placed</h6>
-                  <div className="font-size-12 text-muted">
-                    <p className="mb-1">
-                      Dummy text of the printing and typesetting industry.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" className="text-reset notification-item">
-              <div className="d-flex">
-                <div className="flex-shrink-0 me-3">
-                  <div className="avatar-xs">
-                    <span className="avatar-title bg-warning rounded-circle font-size-16">
-                      <i className="mdi mdi-message-text-outline" />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">New Message received</h6>
-                  <div className="font-size-12 text-muted">
-                    <p className="mb-1">You have 87 unread messages</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" className="text-reset notification-item">
-              <div className="d-flex">
-                <div className="flex-shrink-0 me-3">
-                  <div className="avatar-xs">
-                    <span className="avatar-title bg-info rounded-circle font-size-16">
-                      <i className="mdi mdi-glass-cocktail" />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">Your item is shipped</h6>
-                  <div className="font-size-12 text-muted">
-                    <p className="mb-1">
-                      It is a long established fact that a reader will
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" className="text-reset notification-item">
-              <div className="d-flex">
-                <div className="flex-shrink-0 me-3">
-                  <div className="avatar-xs">
-                    <span className="avatar-title bg-primary rounded-circle font-size-16">
-                      <i className="mdi mdi-cart-outline" />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">Your order is placed</h6>
-                  <div className="font-size-12 text-muted">
-                    <p className="mb-1">
-                      Dummy text of the printing and typesetting industry.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="" className="text-reset notification-item">
-              <div className="d-flex">
-                <div className="flex-shrink-0 me-3">
-                  <div className="avatar-xs">
-                    <span className="avatar-title bg-danger rounded-circle font-size-16">
-                      <i className="mdi mdi-message-text-outline" />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">New Message received</h6>
-                  <div className="font-size-12 text-muted">
-                    <p className="mb-1">You have 87 unread messages</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div className="p-2 border-top">
-            <div className="d-grid">
-              <a
-                className="btn btn-sm btn-link font-size-14 text-center"
-                href="#"
-              >
-                View all
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="dropdown d-inline-block">
-        <button
-          type="button"
-          className="btn header-item waves-effect"
-          id="page-header-user-dropdown"
-          data-bs-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <img
-            className="rounded-circle header-profile-user"
-            src={process.env.NEXT_PUBLIC_BASE_URL+"assets/images/users/user-4.jpg"}
-            alt="Header Avatar"
-          />
-        </button>
-        <div className="dropdown-menu dropdown-menu-end">
-          {/* item*/}
-          <a className="dropdown-item" href="#">{/* //{process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"} */}
-            <i className="mdi mdi-account-circle font-size-17 align-middle me-1" />{" "}
-            Profile
-          </a>
-          <a className="dropdown-item" href="#">
-            <i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My
-            Wallet
-          </a>
-          <a className="dropdown-item d-flex align-items-center" href="#">
-            <i className="mdi mdi-cog font-size-17 align-middle me-1" />{" "}
-            Settings<span className="badge bg-success ms-auto">11</span>
-          </a>
-          <a className="dropdown-item" href="#">
-            <i className="mdi mdi-lock-open-outline font-size-17 align-middle me-1" />{" "}
-            Lock screen
-          </a>
-          <div className="dropdown-divider" />
-          <a className="dropdown-item text-danger" href="#">
-            <i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" />{" "}
-            Logout
-          </a>
-        </div>
-      </div>
+              <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img className="rounded-circle header-profile-user" src="/assets/images/users/user-4.jpg" alt="Header Avatar" />
+              </button>
+              <div className="dropdown-menu dropdown-menu-end">
+                  <p className="text-center" style={{fontWeight: 'bold',marginBottom:'-8px'}}>{current_user_role.slice(0,1).toUpperCase() + current_user_role.slice(1)}</p>
+               <div className="dropdown-divider" />
+                <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle font-size-17 align-middle me-1" /> Profile</a>
+                <a className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</a>
+                {/* <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a> */}
+                <div className="dropdown-divider" />
+                <button className="dropdown-item text-danger" onClick={handleLogout}><i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" /> Logout</button>
+              </div>
+            </div>
 
       <div className="dropdown d-inline-block">
               <button type="button" onClick={handleLogout} className="btn header-item noti-icon right-bar-toggle waves-effect">

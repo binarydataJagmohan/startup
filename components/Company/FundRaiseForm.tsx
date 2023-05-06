@@ -146,15 +146,33 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Total Units{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="total_units" name="total_units" placeholder="Total Units"
-                            onChange={handleChange} />
+                          <input type="number" className="form-control" id="total_units"  {...register("total_units", {
+                                 value:true, required: true,})} name="total_units" placeholder="Total Units"
+                            onChange={handleChange}  />
+                            {errors.total_units  && (
+                                  <p
+                                    className="text-danger mt-1"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill  total units field.
+                                  </p>
+                                )}
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="exampleFormControlInput1" className="form-label" >Minimum Subscription{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="text" className="form-control" id="minimum_subscription" name="minimum_subscription" placeholder="Total Subscription"
+                          <input type="text" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
+                                required: true,})} name="minimum_subscription" placeholder="Total Subscription"
                             onChange={handleChange} />
+                             {errors.minimum_subscription  && (
+                                  <p
+                                    className="text-danger mt-1"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill minimum subscription field.
+                                  </p>
+                                )}
                         </div>
                       </div>
 
@@ -163,40 +181,77 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Average Amount(Per Unit){" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="text" className="form-control" id="avg_amt_per_person" name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
+                          <input type="text" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
+                                required: true,})} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
                             onChange={handleChange} />
+                             {errors.avg_amt_per_person  && (
+                                  <p
+                                    className="text-danger mt-1"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill average amount field.
+                                  </p>
+                                )}
                         </div>
                         <div className="col-sm-6 mt-3">
                           <label htmlFor="exampleFormControlInput1" className="form-label mb-4">
                             Tenure <span style={{ color: "red" }}>*</span>
                           </label>
                           <select
-                            className="form-select form-select-lg mb-3 css-1492t68"
-                            name="tenure" onChange={handleChange}
+                            className="form-select form-select-lg  css-1492t68" 
+                            {...register("tenure", {
+                              required: true,})} name="tenure" onChange={handleChange}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT TENURE--</option>
-                            <option value="60 Days">60 Days</option>
-                            <option value="90 Days">90 Days(60Days+30Days)</option>
-                            <option value="120 Days">120 Days(90Days+30Days)</option>
+                            <option value="30">30 Days</option>
+                            <option value="60">60 Days</option>
+                            <option value="90">90 Days(60Days+30Days)</option>
+                            <option value="120">120 Days(90Days+30Days)</option>
                           </select>
+                          {errors.tenure  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill tenure field.
+                                  </p>
+                                )}
                         </div>
                       </div>
 
-                      <div className="row g-3 ">
+                      <div className="row g-3 mt-1">
                         <div className="col-md-6">
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Repay On Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="repay_date" name="repay_date"
+                          <input type="date" className="form-control" id="repay_date" {...register("repay_date", {
+                                required: true,})} name="repay_date"
                             onChange={handleChange} />
+                              {errors.repay_date  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill repayment date field.
+                                  </p>
+                                )}
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="closed_in" name="closed_in"
+                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {
+                                required: true,})} name="closed_in"
                             onChange={handleChange} />
+                            {errors.closed_in  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill closing date field.
+                                  </p>
+                                )}
                         </div>
                       </div>
 
@@ -206,28 +261,44 @@ const FundRaiseForm = () => {
                             Resouce<span style={{ color: "red" }}>*</span>
                           </label>
                           <select
-                            className="form-select form-select-lg mb-3 css-1492t68"
-                            name="resource" onChange={handleChange}
+                            className="form-select form-select-lg css-1492t68" {...register("resource", {
+                              required: true,})} name="resource" onChange={handleChange}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT RESOURCE--</option>
                             <option value="Buyer">Buyer</option>
                             <option value="Seller">Seller</option>
                           </select>
+                          {errors.resource  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill resource type field.
+                                  </p>
+                                )}
                         </div>
                         <div className="col-sm-6 mt-3">
                           <label htmlFor="exampleFormControlInput1" className="form-label mb-4">
                             Status<span style={{ color: "red" }}>*</span>
                           </label>
                           <select
-                            className="form-select form-select-lg mb-3 css-1492t68"
-                            name="status" onChange={handleChange}
+                            className="form-select form-select-lg css-1492t68" {...register("status", {
+                              required: true,})} name="status" onChange={handleChange}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT STATUS--</option>
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                           </select>
+                          {errors.status  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill status field.
+                                  </p>
+                                )}
                         </div>
                       </div>
 
@@ -236,8 +307,17 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="xirr" name="xirr" placeholder='Xirr( calculate in%)'
+                          <input type="number" className="form-control" id="xirr" {...register("xirr", {
+                              required: true,})} name="xirr" placeholder='Xirr( calculate in%)'
                             onChange={handleChange} />
+                            {errors.status  && (
+                                  <p
+                                    className="text-danger"
+                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please fill xirr field.
+                                  </p>
+                                )}
                         </div>
                         {/* <div className="col-sm-6 mt-3">
                       <label htmlFor="exampleFormControlInput1" className="form-label mb-4">
