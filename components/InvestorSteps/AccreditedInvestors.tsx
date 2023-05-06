@@ -161,9 +161,9 @@ export default function AccreditedInvestors(selectedOption) {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
-                // setTimeout(() => {
-                //     router.push("/about");
-                // }, 1000);
+                setTimeout(() => {
+                    router.push("/investor/thank-you");
+                }, 1000);
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,

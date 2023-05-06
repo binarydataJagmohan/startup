@@ -36,7 +36,7 @@ export default function CampaignsDetails() {
       subscription_value : subscriptionValue,
       repayment_date: repayment_date,
       repayment_value: repayValue,
-      no_of_units: value
+      no_of_units: value,
     };
     try {
       InvestorBooking(data)
@@ -64,10 +64,11 @@ export default function CampaignsDetails() {
     const newSubscriptionValue = (value + 1) * inputs.minimum_subscription;
     setSubscriptionValue(newSubscriptionValue);
     const data1 = (newSubscriptionValue * inputs.xirr) / 100;
-    const data3 = (data1 / 366) * inputs.tenure;
-    const newRepayValue = newSubscriptionValue + data3;
-   //console.log(inputs);
-    setRepayValue(newRepayValue);
+    const data3 = (data1 / 366);
+    const data4 = (data3*inputs.tenure);
+    const newRepayValue = newSubscriptionValue + data4;
+    const roundedNumber = Math.floor(newRepayValue);
+    setRepayValue(roundedNumber);
   };
   
 
@@ -76,12 +77,12 @@ export default function CampaignsDetails() {
       setValue(value - 1);
       const newSubscriptionValue = (value - 1) * inputs.minimum_subscription;
       setSubscriptionValue(newSubscriptionValue);
-      const data1 = newSubscriptionValue * inputs.xirr;
-      const data2 = data1 / 100;
-      const data3 = data2 / 366;
-      const data4 = data3 * inputs.tenure;
-      const newRepayValue = newSubscriptionValue + data4;
-      setRepayValue(newRepayValue);
+    const data1 = (newSubscriptionValue * inputs.xirr) / 100;
+    const data3 = (data1 / 366);
+    const data4 = (data3*inputs.tenure);
+    const newRepayValue = newSubscriptionValue + data4;
+    const roundedNumber = Math.floor(newRepayValue);
+    setRepayValue(roundedNumber);
     }
   };
 
@@ -95,7 +96,7 @@ export default function CampaignsDetails() {
       const data2 = data1 / 100;
       const data3 = data2 / 366;
       const data4 = data3 * inputs.tenure;
-      const newRepayValue = newSubscriptionValue + Number(data4).toFixed(0);
+      const newRepayValue = newSubscriptionValue + data4;
       setRepayValue(newRepayValue);
     }
   };
@@ -149,7 +150,7 @@ export default function CampaignsDetails() {
                     <span>Units Left</span>
                     <br />
                     <span className="progressbar-value">
-                      <span className="color-rumaric">164</span>
+                      <span className="color-rumaric">{inputs.no_of_units}</span>
                       <strong>/{inputs.total_units}</strong>
                     </span>
                   </div>
@@ -351,6 +352,7 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
+                        onChange={(e) => setNo_of_units(e.target.value)}
                       />
                       <span className="plus" onClick={handlePlusClick}>
                         +
@@ -359,18 +361,12 @@ export default function CampaignsDetails() {
 
                     <div className="css-wsc10v">
                       <span>Unit Value</span>
-                      <p
-                        className="css-37nqt7"
-                        
-                        onChange={(e) => setSubscription_value(e.target.value)}
-                      >
-                        ₹{inputs.minimum_subscription}
-                      </p>
+                      <p className="css-37nqt7"   onChange={(e) => setSubscription_value(e.target.value)} >₹{inputs.minimum_subscription}</p>
                     </div>
 
                     <div className="css-wsc10v">
                       <span>Subscription Value</span>
-                      <p className="css-37nqt7" value={subscription_value} onChange={(e) => setSubscription_value(e.target.value)}>₹{subscriptionValue}</p>
+                      <p className="css-37nqt7" onChange={(e) => setSubscriptionValue(e.target.value)}>₹{subscriptionValue}</p>
                     </div>
 
                     <div className="css-wsc10v">
@@ -378,29 +374,19 @@ export default function CampaignsDetails() {
                         <span>Transaction Fees </span>
                         <span className="css-1q6czfn">Waived Off</span>
                       </div>
-                      <p className="css-37nqt7">₹</p>
+                      <p className="css-37nqt7">₹10000</p>
                     </div>
                     <div className="border-div">
                       <div className="css-wsc10v">
                         <span>Repayment Date</span>
-                        <input
-                          type="date"
-                          className="css-37nqt7"
-                          value={repayment_date}
-                          onChange={(e) => setRepayment_date(e.target.value)}
-                        />
+                        <p className="css-37nqt7"  onChange={(e) => setRepayment_date(e.target.value)} >26 May 2023</p>
                       </div>
 
                       <div className="css-wsc10v">
                         <span>
                           <strong>Repayment Value</strong>
                         </span>
-                        <p
-                          className="css-37nqt7"
-                          onChange={(e) => setRepayment_value(e.target.value)}
-                        >
-                          ₹{repayValue}
-                        </p>
+                        <p className="css-37nqt7" onChange={(e) => setRepayment_value(e.target.value)}>₹{repayValue}</p>
                       </div>
                     </div>
                     <div className="form-check form-check-inline py-3">
@@ -421,9 +407,7 @@ export default function CampaignsDetails() {
                       </label>
                     </div>
                     <div className="text-center viwe_all">
-                      <a href="#" onClick={handleSubmit}>
-                        Continue to Pay
-                      </a>
+                      <a href="#" onClick={handleSubmit}>Continue to Pay</a>
                     </div>
                   </div>
                 </div>
@@ -431,6 +415,7 @@ export default function CampaignsDetails() {
             </div>
           </div>
         </div>
+      
       </section>
       <ToastContainer />
     </>

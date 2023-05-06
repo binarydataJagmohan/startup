@@ -176,9 +176,9 @@ const FundRaiseForm = () => {
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT TENURE--</option>
-                            <option value="60 Days">60 Days</option>
-                            <option value="90 Days">90 Days(60Days+30Days)</option>
-                            <option value="120 Days">120 Days(90Days+30Days)</option>
+                            <option value="60">60 Days</option>
+                            <option value="90">90 Days(60Days+30Days)</option>
+                            <option value="120">120 Days(90Days+30Days)</option>
                           </select>
                         </div>
                       </div>

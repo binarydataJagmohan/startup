@@ -48,7 +48,6 @@ const Dashboard = () => {
                         <img
                           className="pic-1 image"
                           src={details.logo}
-          
                         />
                       </a>
                     </div>
@@ -62,7 +61,7 @@ const Dashboard = () => {
                         </div>
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#"></a>
+                            <a href="#">{details.tenure}</a>
                           </h3>
                           <div className="price">Tenure</div>
                         </div>
@@ -70,7 +69,7 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">50/{details.total_units}</a>
+                            <a href="#">{details.no_of_units}/{details.total_units}</a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
@@ -143,14 +142,13 @@ const Dashboard = () => {
               .filter((details) => details.type === "CSOP")
               .map((details) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src="https://images.pexels.com/photos/933964/pexels-photo-933964.jpeg?auto=compress&cs=tinysrgb&w=600"
+                          src={details.logo}
                         />
-                        {/* <img class="pic-2" src="images/img-2.jpg"> */}
                       </a>
                     </div>
                     <div className="main-padding">
@@ -163,7 +161,7 @@ const Dashboard = () => {
                         </div>
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">45 days </a>
+                            <a href="#">{details.tenure} days </a>
                           </h3>
                           <div className="price">Tenure</div>
                         </div>
@@ -171,13 +169,13 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">50/250 </a>
+                            <a href="#">{details.	no_of_units}/{details.total_units} </a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
                         <div className="product-content text-end">
                           <h3 className="title">
-                            <a href="#">₹10,000 </a>
+                            <a href="#">₹{details.minimum_subscription} </a>
                           </h3>
                           <div className="price">Min. Subscription</div>
                         </div>
@@ -198,13 +196,13 @@ const Dashboard = () => {
                             Subscribers <span>32</span>
                           </li>
                           <li>
-                            Average Amount Per Subscriber <span>₹12,000</span>
+                            Average Amount Per Subscriber <span>₹{details.	avg_amt_per_person}</span>
                           </li>
                           <li>
-                            Minimum Subscription <span>₹12,000</span>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>20 days</span>
+                            Closes in <span>{details.closed_in} days</span>
                           </li>
                           <li>
                             <a
@@ -239,229 +237,88 @@ const Dashboard = () => {
           <div className="bar" />
 
           <div className="row">
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
+            {businessDetails
+              .filter((details) => details.type === "Discounting")
+              .map((details) => (
+                <div className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
+                      </a>
                     </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
-                </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name}</a>
+                          </h3>
+                          <div className="price"></div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure}</a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units}</a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription}</a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
                         </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/3747140/pexels-photo-3747140.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
-                    </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
-                </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹10,167
                         </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/4065624/pexels-photo-4065624.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
+                      </div>
                     </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.	avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                            Closes in <span>20 days</span>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              proptech
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
                 </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
+
           <div className="text-end mt-4">
             <div className="pagination">
               <a href="#">«</a>
