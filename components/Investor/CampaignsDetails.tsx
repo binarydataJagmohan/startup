@@ -32,12 +32,13 @@ export default function CampaignsDetails() {
     event.preventDefault();
     const data = {
       user_id: currentUserData.id,
-      business_id: inputs.id,
+      business_id: inputs.business_id,
       subscription_value : subscriptionValue,
       repayment_date: repayment_date,
       repayment_value: repayValue,
       no_of_units: value,
     };
+    console.log(inputs);
     try {
       InvestorBooking(data)
       .then((res) => {
