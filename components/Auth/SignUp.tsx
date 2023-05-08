@@ -51,23 +51,33 @@ const Signup = () => {
       password: password,
       role: role,
     };
+  
     userRegister(user)
       .then((res) => {
-        //   console.log(res);
+          console.log(res);
         if (res.status == true) {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
+          // if(user.role == 'investor')
+          // {
+          //   setTimeout(() => {
+          //     router.push("/investor-steps/findbusiness"); // Redirect to login page
+          //   }, 1000);
+          // }
+          // if(user.role == 'startup')
           setTimeout(() => {
-            router.push("/"); // Redirect to login page
-          }, 5000);
-        } else {
+            router.push("/login"); // Redirect to login page
+          }, 1000);
+        }
+         else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "error",
           });
         }
+      
       })
       .catch((err) => {
         toast.error(err, {
@@ -287,7 +297,7 @@ const Signup = () => {
             </div>
           </div>
         </section>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={1000} />
         {/* End Contact Area */}
       </div>
     </>

@@ -146,7 +146,13 @@ const SubmitForm = async () => {
   }
 };
 
-
+register('website_url', {
+  required: 'Company website url is required',
+  pattern: {
+    value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
+    message: 'Enter a valid website',
+  },
+});
   // const savedata = () => {
   //   var blid = blId;
   //   const data = {
@@ -329,12 +335,10 @@ const SubmitForm = async () => {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="website_url"
-                                {...register("website_url", { value:true, required: true,})}   
+                                id="website_url"  {...register("website_url")} 
                                 name="website_url"  onChange={handleChange} value={businessDetails.website_url}
                               />
-                              {errors.website_url &&
-                                errors.website_url.type === "required" && (
+                              {errors.website_url && (
                                   <p
                                     className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
@@ -418,7 +422,7 @@ const SubmitForm = async () => {
                                 {...register("startup_date", { value:true,
                                   required: true,})}
                                 name="startup_date"  onChange={handleChange} value={businessDetails.startup_date}
-                                // max={new Date().toISOString().split("T")[0]}
+                                max={new Date().toISOString().split("T")[0]}
                              />
                               {errors.startup_date &&
                                 errors.startup_date.type === "required" && (
@@ -498,7 +502,7 @@ const SubmitForm = async () => {
                                 rows={4}
                                 maxLength={100}
                                 placeholder="Enter details here"
-                                className="form-control text"
+                                className="form-control"
                                 {...register("description", { value:true, required: true,})}
                                 name="description"  onChange={handleChange} value={businessDetails.description}
                               />

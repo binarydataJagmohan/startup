@@ -1,11 +1,11 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-const Layout = ({ children}) => {
+const Layout = ({ children}:any) => {
   return (
     <div>
       <Header />
-      <Sidebar/>
+      <Sidebar />
       <main>{children}</main>
       <Footer />
     </div>

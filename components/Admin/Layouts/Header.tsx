@@ -32,9 +32,8 @@ const Header = () => {
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
   }, []);
    function collapseSidebar(){
-    alert('test')
+    $('.vertical-menu').toggle('show');
    }
-
   return (
     <>
        <div id="page-topbar">
