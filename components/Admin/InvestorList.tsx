@@ -17,7 +17,7 @@ const InvestorList = () => {
         fetchData();
     }, []);
     function updateApprovalStatus(id, status) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { approval_status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-approvalstatus/${id}`, { approval_status: status })
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
@@ -128,10 +128,10 @@ const InvestorList = () => {
                                                         <td>{investor.email}</td>
                                                         <td>{investor.investorType}</td>
                                                         <td>
-                                                        <span className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
+                                                        <span style={{cursor: "pointer"}} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
-                                                        <span className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
+                                                        <span style={{cursor: "pointer"}}  className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>

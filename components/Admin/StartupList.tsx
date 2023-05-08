@@ -168,13 +168,15 @@ const StartupList = () => {
                                         <h3 className="card-title" >COMPANIES</h3>
                                     </div>
                                     <div className="card-body">
+                                        <div className='table-responsive'>
                                         <table
                                             id="datatable"
                                             className="table table-bordered dt-responsive nowrap"
                                             style={{
                                                 borderCollapse: "collapse",
                                                 borderSpacing: 0,
-                                                width: "100%"
+                                                width: "100%",
+                                                overflow:'hidden'
                                             }}
                                         >
                                             <thead>
@@ -205,11 +207,11 @@ const StartupList = () => {
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <span className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
+                                                            <span style={{cursor: "pointer"}} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
-                                                            <span className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {startup.approval_status.toUpperCase()}</span></td>
-                                                        <td>
+                                                            <span style={{cursor: "pointer"}} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {startup.approval_status.toUpperCase()}</span></td>
+                                                        <td className='d-flex'>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
                                                             <button onClick={() => deleteStartup(startup.id)} className='btn btn-danger m-1'>
                                                                 <span className='fa fa-trash'></span>
@@ -219,6 +221,7 @@ const StartupList = () => {
                                                 ))}
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>{" "}

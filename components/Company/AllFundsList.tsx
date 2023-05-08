@@ -143,7 +143,7 @@ const AllFundsList = () => {
                               <td>{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
                               <td>{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
                               <td>
-                                <span className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
+                                <span style={{cursor: "pointer"}} className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
                                   {fund.status.toUpperCase()}
                                 </span>
                               </td>

@@ -31,6 +31,9 @@ const Header = () => {
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
   }, []);
+   function collapseSidebar(){
+    alert('test')
+   }
 
   return (
     <>
@@ -56,7 +59,12 @@ const Header = () => {
                 </span>
               </a>
             </div>
+            <button type="button" className="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                            <i className="mdi mdi-menu" onClick={collapseSidebar}/>
+            </button>
           </div>
+          
+
           <div className="d-flex">
             {/* App Search*/}
             <form className="app-search d-none d-lg-block">
@@ -74,7 +82,7 @@ const Header = () => {
                   <div className="form-group m-0">
                     <div className="input-group">
                       <input type="text" className="form-control" placeholder="Search ..." aria-label="Recipient's username" />
-                      <div className="input-group-append">
+                      <div className="input-group-append" >
                         <button className="btn btn-primary" type="submit"><i className="mdi mdi-magnify" /></button>
                       </div>
                     </div>
@@ -144,6 +152,56 @@ const Header = () => {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+
+         <div className="vertical-menu bg-dark text-white">
+        <div  className="h-100">
+          {/*- Sidemenu */}
+          <div id="sidebar-menu">
+            {/* Left Menu Start */}
+            <ul className="metismenu list-unstyled" id="side-menu">
+              <li>
+                <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
+                  <i className="fa fa-home"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href={process.env.NEXT_PUBLIC_BASE_URL +"/admin/all-investors"} className="waves-effect">
+                  <i className="fa fa-dollar"></i>
+                  <span>Investors</span>
+                </a>
+              </li>
+              <li>
+                <a href={process.env.NEXT_PUBLIC_BASE_URL +"/admin/all-startup-companies"} className="waves-effect">
+                  <i className="fa fa-building"></i>
+                  <span>Companies</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="waves-effect">
+                  <i className="fa fa-business-time"></i>
+                  <span className="badge rounded-pill bg-primary float-end">10</span>
+                  <span>Total Active Funds</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="waves-effect">
+                  <i className="fa fa-users"></i>
+                  <span>All Users</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="waves-effect">
+                  <i className="fa fa-cogs"></i>
+                  <span>Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* Sidebar */}
         </div>
       </div>
 
