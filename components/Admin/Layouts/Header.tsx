@@ -203,7 +203,7 @@ const Header = () => {
           </div>
           {/* Sidebar */}
         </div>
-      </div>
+       </div>
 
     </>
   );

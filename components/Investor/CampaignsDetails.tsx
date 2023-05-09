@@ -4,6 +4,7 @@ import { getSingleBusinessDetails,InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 
+
 export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState({});
   const [value, setValue] = useState(1);
@@ -380,7 +381,7 @@ export default function CampaignsDetails() {
                     <div className="border-div">
                       <div className="css-wsc10v">
                         <span>Repayment Date</span>
-                        <p className="css-37nqt7"  onChange={(e) => setRepayment_date(e.target.value)} >26 May 2023</p>
+                        <p className="css-37nqt7"  onChange={(e) => setRepayment_date(e.target.value)} >{inputs.repay_date}</p>
                       </div>
 
                       <div className="css-wsc10v">

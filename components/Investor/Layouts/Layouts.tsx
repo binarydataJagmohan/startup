@@ -1,4 +1,5 @@
 import Header from "../../Frontend/layouts/Header";
+//import Header from './Header';
 import Footer from "./Footer";
 const Layout = ({ children }:any) => {
   return (

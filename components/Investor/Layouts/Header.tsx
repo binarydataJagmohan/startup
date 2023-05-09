@@ -43,7 +43,7 @@ const Header = () => {
     <div className="container">
       <nav className="navbar navbar-expand-md navbar-light">
         <a className="navbar-brand" href="index.html">
-          <img src="assets/img/logo.png" className="black-logo" alt="image" />
+          <img src={process.env.NEXT_PUBLIC_IMAGE_URL+"/assets/img/logo.png"} className="black-logo" alt="image" />
           <img src="assets/img/logo-2.png" className="white-logo" alt="image" />
         </a>
         <div
