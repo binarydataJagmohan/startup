@@ -16,7 +16,7 @@ const CompanyHome = dynamic(() => import('../components/Company/Dashboard'));
   let Home = FrontendHome; // default layout is Frontendhome
   if (current_user.role === 'admin') {
     Home = AdminHome;
-  }else if(current_user.role === 'startup'){
+  }else if(current_user.role === 'startup' && current_user.approval_status === 'approved'){
     Home = CompanyHome;
   }else{
     Home = FrontendHome;

@@ -214,7 +214,7 @@ const ForgetPassword = () => {
                     </label>
                     <div className="col-sm-12">
                       <input
-                        type="text" style={{ height: "35px" }}
+                        type="password" style={{ height: "35px" }}
                         id="confirmPassword"
                         className="form-control"
                         name='confirmPassword' value={confirmPassword} onChange={handleConfirmPasswordChange}

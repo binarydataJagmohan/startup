@@ -15,6 +15,7 @@ export default function CampaignsDetails() {
   const [repayment_date, setRepayment_date] = useState('');
   const [repayment_value, setRepayment_value] = useState(0);
   const [no_of_units, setNo_of_units] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
 
@@ -59,6 +60,9 @@ export default function CampaignsDetails() {
       console.error(error);
       // handle the error, such as showing an error message
     }
+  };
+  const toggleAccordion = (index) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
   const handlePlusClick = () => {
@@ -152,7 +156,9 @@ export default function CampaignsDetails() {
                     <span>Units Left</span>
                     <br />
                     <span className="progressbar-value">
-                      <span className="color-rumaric">{inputs.no_of_units}</span>
+                      <span className="color-rumaric">
+                        {inputs.no_of_units}
+                      </span>
                       <strong>/{inputs.total_units}</strong>
                     </span>
                   </div>
@@ -259,16 +265,23 @@ export default function CampaignsDetails() {
                     <h4>Frequently Asked Questions</h4>
                     <div className="bar" />
                   </div>
+
                   <div className="row align-items-center">
                     <div className="col-lg-12">
                       <div className="faq-accordion">
                         <ul className="accordion">
                           <li className="accordion-item">
-                            <a className="accordion-title active" href="#">
+                            <a
+                              className={`accordion-title ${
+                                activeIndex === 0 ? "active" : ""
+                              }`}
+                              href="#"
+                              onClick={() => toggleAccordion(0)}
+                            >
                               <i className="bx bx-chevron-down" />
                               What is Discounting?
                             </a>
-                            <div className="accordion-content show">
+                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
                               <p>
                                 Discounting enables businesses to gain instant
                                 access to cash tied up in unpaid invoices or
@@ -279,11 +292,17 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="#">
+                          <a
+                              className={`accordion-title ${
+                                activeIndex === 0 ? "active" : ""
+                              }`}
+                              href="#"
+                              onClick={() => toggleAccordion(0)}
+                            >
                               <i className="bx bx-chevron-down" />
                               What access do I have on a free trial?
                             </a>
-                            <div className="accordion-content">
+                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -292,7 +311,13 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="#">
+                          <a
+                              className={`accordion-title ${
+                                activeIndex === 0 ? "active" : ""
+                              }`}
+                              href="#"
+                              onClick={() => toggleAccordion(0)}
+                            >
                               <i className="bx bx-chevron-down" />
                               Does the price go up as my team gets larger?
                             </a>
@@ -305,11 +330,17 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="#">
+                          <a
+                              className={`accordion-title ${
+                                activeIndex === 0 ? "active" : ""
+                              }`}
+                              href="#"
+                              onClick={() => toggleAccordion(0)}
+                            >
                               <i className="bx bx-chevron-down" />
                               How can I cancel my subscription?
                             </a>
-                            <div className="accordion-content">
+                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -318,11 +349,17 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                            <a className="accordion-title" href="#">
+                          <a
+                              className={`accordion-title ${
+                                activeIndex === 0 ? "active" : ""
+                              }`}
+                              href="#"
+                              onClick={() => toggleAccordion(0)}
+                            >
                               <i className="bx bx-chevron-down" />
                               Can I pay via an Invoice?
                             </a>
-                            <div className="accordion-content">
+                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -363,12 +400,22 @@ export default function CampaignsDetails() {
 
                     <div className="css-wsc10v">
                       <span>Unit Value</span>
-                      <p className="css-37nqt7"   onChange={(e) => setSubscription_value(e.target.value)} >₹{inputs.minimum_subscription}</p>
+                      <p
+                        className="css-37nqt7"
+                        onChange={(e) => setSubscription_value(e.target.value)}
+                      >
+                        ₹{inputs.minimum_subscription}
+                      </p>
                     </div>
 
                     <div className="css-wsc10v">
                       <span>Subscription Value</span>
-                      <p className="css-37nqt7" onChange={(e) => setSubscriptionValue(e.target.value)}>₹{subscriptionValue}</p>
+                      <p
+                        className="css-37nqt7"
+                        onChange={(e) => setSubscriptionValue(e.target.value)}
+                      >
+                        ₹{subscriptionValue}
+                      </p>
                     </div>
 
                     <div className="css-wsc10v">
@@ -381,14 +428,24 @@ export default function CampaignsDetails() {
                     <div className="border-div">
                       <div className="css-wsc10v">
                         <span>Repayment Date</span>
-                        <p className="css-37nqt7"  onChange={(e) => setRepayment_date(e.target.value)} >{inputs.repay_date}</p>
+                        <p
+                          className="css-37nqt7"
+                          onChange={(e) => setRepayment_date(e.target.value)}
+                        >
+                          {inputs.repay_date}
+                        </p>
                       </div>
 
                       <div className="css-wsc10v">
                         <span>
                           <strong>Repayment Value</strong>
                         </span>
-                        <p className="css-37nqt7" onChange={(e) => setRepayment_value(e.target.value)}>₹{repayValue}</p>
+                        <p
+                          className="css-37nqt7"
+                          onChange={(e) => setRepayment_value(e.target.value)}
+                        >
+                          ₹{repayValue}
+                        </p>
                       </div>
                     </div>
                     <div className="form-check form-check-inline py-3">
@@ -409,7 +466,9 @@ export default function CampaignsDetails() {
                       </label>
                     </div>
                     <div className="text-center viwe_all">
-                      <a href="#" onClick={handleSubmit}>Continue to Pay</a>
+                      <a href="#" onClick={handleSubmit}>
+                        Continue to Pay
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -417,7 +476,6 @@ export default function CampaignsDetails() {
             </div>
           </div>
         </div>
-      
       </section>
       <ToastContainer />
     </>

@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
 const FrontendLayout = dynamic(() => import('../components/Frontend/layouts/Layout'));
 const InvestorLayout = dynamic(() => import('../components/Investor/Layouts/Layouts'));
 const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layouts'));
-  let current_user: { role?: string } = {}; // define type of current_user to include "role" property
+  let current_user: { role?: string } = {}; // define type of current_user "role"
   try {
     current_user = getCurrentUserData() || {};
   } catch (error) {
@@ -22,6 +22,7 @@ const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layout
   if (current_user && current_user.role === 'admin') {
     Layout = AdminLayout;
    } 
+ 
   if (current_user.role === 'investor') {
        Layout = InvestorLayout;
   }

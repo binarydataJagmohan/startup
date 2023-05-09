@@ -3,7 +3,7 @@ import React from 'react'
 const Sidebar = () => {
   return (
     <>
-     <div className="vertical-menu bg-dark text-white">
+    <div className="vertical-menu bg-dark text-white">
   <div data-simplebar="" className="h-100">
     {/*- Sidemenu */}
     <div id="sidebar-menu">
@@ -36,8 +36,8 @@ const Sidebar = () => {
       </ul>
     </div>
     {/* Sidebar */}
-  </div>
-</div>
+    </div>
+    </div>
 
     </>
   )

@@ -69,31 +69,31 @@ export default function Login() {
               case "startup":
                 setTimeout(() => {
                   window.location.href = "/steps/findbusiness";
-                }, 2000);
+                }, 1000);
                 if (window.localStorage.getItem("is_profile_completed") === "1") {
                   setTimeout(() => {
                     window.location.href = "/company/thank-you";
-                  }, 2000);
+                  }, 1000);
                 }
                 if (window.localStorage.getItem("approval_status") === "approved") {
                   setTimeout(() => {
                     window.location.href = "/company/dashboard";
-                  }, 2000);
+                  }, 1000);
                 }
                 break;
               case "investor":
                 setTimeout(() => {
                   window.location.href = "/investor-steps/findbusiness";
-                }, 2000);
+                }, 1000);
                 if (window.localStorage.getItem("is_profile_completed") === "1") {
                   setTimeout(() => {
                     window.location.href = "/investor/thank-you";
-                  }, 2000);
+                  }, 1000);
                 }
                 if (window.localStorage.getItem("approval_status") === "approved") {
                   setTimeout(() => {
                     window.location.href = "/investor/campaign";
-                  }, 2000);
+                  }, 1000);
                 }
                 break;
             }
@@ -244,7 +244,7 @@ export default function Login() {
             <img src="assets/img/shape/8.png" alt="image" />
           </div>
         </div>
-        <ToastContainer autoClose={7000} />
+        <ToastContainer autoClose={1000} />
       </div>
     </>
   );

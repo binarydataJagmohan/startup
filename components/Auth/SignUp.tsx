@@ -37,10 +37,10 @@ const Signup = () => {
   });
   register('email', {
     required: 'Email is required',
-    pattern: {
-      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      message: 'Enter a valid email',
-    },
+    // pattern: {
+    //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    //   message: 'Enter a valid email',
+    // },
   });
 
   const SubmitForm = () => {
@@ -51,23 +51,33 @@ const Signup = () => {
       password: password,
       role: role,
     };
+  
     userRegister(user)
       .then((res) => {
-        //   console.log(res);
+          console.log(res);
         if (res.status == true) {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
+          // if(user.role == 'investor')
+          // {
+          //   setTimeout(() => {
+          //     router.push("/investor-steps/findbusiness"); // Redirect to login page
+          //   }, 1000);
+          // }
+          // if(user.role == 'startup')
           setTimeout(() => {
-            router.push("/"); // Redirect to login page
-          }, 5000);
-        } else {
+            router.push("/login"); // Redirect to login page
+          }, 1000);
+        }
+         else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "error",
           });
         }
+      
       })
       .catch((err) => {
         toast.error(err, {
@@ -80,7 +90,6 @@ const Signup = () => {
   return (
     <>
       <div>
-        {/* Start Page Title Area */}
         <div className="page-title-area item-bg-5">
           <div className="d-table">
             <div className="d-table-cell">
@@ -98,9 +107,6 @@ const Signup = () => {
             </div>
           </div>
         </div>
-        {/* End Page Title Area */}
-
-        {/* Start Contact Area */}
         <section className="contact-section pb-100">
           <div className="container">
             <div className="row align-items-center">
@@ -168,7 +174,7 @@ const Signup = () => {
                           type="email"
                           id="email"
                           className="form-control"
-                          {...register("email")}
+                          {...register("email", { required: true })}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
@@ -178,7 +184,7 @@ const Signup = () => {
                             className="text-danger"
                             style={{ textAlign: "left", fontSize: "12px" }}
                           >
-                            *{errors.email.message}
+                            *Email field is required.
                           </p>
                         )}
                       </div>
@@ -287,7 +293,7 @@ const Signup = () => {
             </div>
           </div>
         </section>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={1000} />
         {/* End Contact Area */}
       </div>
     </>

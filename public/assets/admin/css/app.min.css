@@ -3982,6 +3982,15 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before {
     color: var(--bs-secondary-color)
 }
 
+.vertical-menu {
+    display: block;
+  }
+  
+  /* .vertical-menu .show {
+    left: 0;
+  } */
+  
+
 .coming-box {
     float: left;
     width: 21%;
