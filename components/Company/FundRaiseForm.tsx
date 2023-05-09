@@ -41,8 +41,6 @@ const FundRaiseForm = () => {
         setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value });
       }
     }
-  
-  
     if (name === "tenure") {
       const tenureDays = parseInt(value);
       const today = new Date();
