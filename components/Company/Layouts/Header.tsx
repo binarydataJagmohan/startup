@@ -55,12 +55,12 @@ const Header = () => {
     </div>
     <div className="d-flex">
       {/* App Search*/}
-      <form className="app-search d-none d-lg-block">
+      {/* <form className="app-search d-none d-lg-block">
         <div className="position-relative">
           <input type="text" className="form-control" placeholder="Search..." />
           <span className="fa fa-search" />
         </div>
-      </form>
+      </form> */}
       <div className="dropdown d-inline-block d-lg-none ms-2">
         <button
           type="button"
