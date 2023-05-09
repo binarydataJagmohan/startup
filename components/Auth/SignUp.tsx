@@ -35,13 +35,6 @@ const Signup = () => {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
   });
-  register('email', {
-    required: 'Email is required',
-    // pattern: {
-    //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    //   message: 'Enter a valid email',
-    // },
-  });
 
   const SubmitForm = () => {
     const user = {
@@ -51,10 +44,10 @@ const Signup = () => {
       password: password,
       role: role,
     };
-  
+
     userRegister(user)
       .then((res) => {
-          console.log(res);
+        console.log(res);
         if (res.status == true) {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
@@ -71,13 +64,13 @@ const Signup = () => {
             router.push("/login"); // Redirect to login page
           }, 1000);
         }
-         else {
+        else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "error",
           });
         }
-      
+
       })
       .catch((err) => {
         toast.error(err, {
@@ -128,8 +121,7 @@ const Signup = () => {
                           {...register("firstname", {
                             onChange: (e) => setFirstName(e.target.value),
                             required: true,
-                          })}
-                        />
+                          })} />
                         <div className="help-block with-errors" />
                         {errors.firstname &&
                           errors.firstname.type === "required" && (
@@ -152,8 +144,7 @@ const Signup = () => {
                           {...register("lastname", {
                             onChange: (e) => setLastName(e.target.value),
                             required: true,
-                          })}
-                        />
+                          })} />
                         <div className="help-block with-errors" />
                         {errors.lastname &&
                           errors.lastname.type === "required" && (
@@ -174,20 +165,23 @@ const Signup = () => {
                           type="email"
                           id="email"
                           className="form-control"
-                          {...register("email", { required: true })}
-                          value={email}
+                          {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                              value: /^\S+@\S+$/i,
+                              message: "Invalid email address"
+                            }
+                          })}
                           onChange={(e) => setEmail(e.target.value)}
                         />
-                        <div className="help-block with-errors" />
                         {errors.email && (
-                          <p
-                            className="text-danger"
-                            style={{ textAlign: "left", fontSize: "12px" }}
-                          >
-                            *Email field is required.
+                          <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                            {errors.email.message}
                           </p>
                         )}
                       </div>
+
+
 
                       <div className="form-group col-md-6">
                         <label>

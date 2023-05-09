@@ -87,7 +87,7 @@ const Header = () => {
           <div className="others-options">
             <div className="dropdown">
               <button onClick={toggleDropdown} className="dropbtn">
-                DB <i className="fa-solid fa-caret-down" />
+                {current_user_name} <i className="fa-solid fa-caret-down" />
               </button>
               <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                 <a href="">{current_user_name.name}</a>

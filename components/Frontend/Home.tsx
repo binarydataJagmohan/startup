@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
-
+import { getCurrentUserData } from '../../lib/session'
 const settings = {
   dots: true,
   infinite: true,
@@ -46,6 +46,19 @@ const settings = {
   ],
 };
 export default function Home() {
+  const [current_user_id, setCurrentUserId] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    // alert(localStorage.getItem('id'))
+    //const token = localStorage.getItem('token');
+    const id = localStorage.getItem('id');
+    console.log(id);
+   // console.log(token)
+
+    if (id) {
+      setIsAuthenticated(true);
+    }
+  }, []);
   return (
     <>
       {/* Start Banner Area */}
@@ -53,7 +66,7 @@ export default function Home() {
         <div className="home-sliders">
           <Slider {...settings}>
             <div className="home-item item-bg1">
-            <div className="d-table">
+              <div className="d-table">
                 <div className="d-table-cell">
                   <div className="container">
                     <div className="main-banner-content">
@@ -72,7 +85,7 @@ export default function Home() {
                           Register
                         </a>
                         <a href="/login" className="default-btn">
-                         Log in
+                          Log in
                         </a>
                       </div>
                     </div>
@@ -85,7 +98,7 @@ export default function Home() {
               </div>
             </div>
             <div className="home-item item-bg2">
-            <div className="d-table">
+              <div className="d-table">
                 <div className="d-table-cell">
                   <div className="container">
                     <div className="main-banner-content">
@@ -97,11 +110,11 @@ export default function Home() {
                         and seize the chance to achieve your financial goals.
                       </p>
                       <div className="banner-btn">
-                      <a href="/signup" className="default-btn">
+                        <a href="/signup" className="default-btn">
                           Register
                         </a>
                         <a href="/login" className="default-btn">
-                         Log in
+                          Log in
                         </a>
                       </div>
                     </div>
@@ -112,7 +125,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            
+
             </div>
             <div className="home-item item-bg3">
               <div className="d-table">
@@ -128,14 +141,19 @@ export default function Home() {
                         with innovative investment opportunities that can help
                         you grow your wealth and achieve your financial goals.
                       </p>
-                      <div className="banner-btn">
-                      <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                         Log in
-                        </a>
-                      </div>
+                      {/* <p>TD={current_user_id}</p> */}
+                      {isAuthenticated ? (
+                       <div className="banner-btn">
+                       <a href="/signup" className="default-btn">My Profile</a>
+                       <a href="/login" className="default-btn">Logout</a>
+                     </div>
+                      ) : (
+                        // Display this if current_user_id is null
+                        <div className="banner-btn">
+                          <a href="/signup" className="default-btn">Register</a>
+                          <a href="/login" className="default-btn">Log in</a>
+                        </div>
+                      )}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}

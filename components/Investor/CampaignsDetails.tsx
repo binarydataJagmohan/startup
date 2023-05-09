@@ -107,7 +107,7 @@ export default function CampaignsDetails() {
       setRepayValue(newRepayValue);
     }
   };
-  
+
   return (
     <>
       <section className="invertor-campaign_detail">
