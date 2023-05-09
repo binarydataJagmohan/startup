@@ -27,6 +27,44 @@ const FundRaiseForm = () => {
     amount: ""
   });
 
+
+
+
+  const handleChange = (event) => {
+    let { name, value } = event.target;
+    if (name === "amount" || name === "total_units") {
+      setFundRaiseData({ ...fundRaiseData, [name]: value });
+      const amount = name === "amount" ? value : fundRaiseData.amount;
+      const totalUnits = name === "total_units" ? value : fundRaiseData.total_units;
+      if (amount && totalUnits) {
+        const minimum_value = (amount / totalUnits).toString();
+        setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value });
+      }
+    }
+  
+  
+    if (name === "tenure") {
+      const tenureDays = parseInt(value);
+      const today = new Date();
+      const repayDate = new Date(today.getTime() + tenureDays * 24 * 60 * 60 * 1000)
+        .toISOString().substr(0, 10);
+      const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
+        .toISOString().substr(0, 10);
+      setFundRaiseData({ ...fundRaiseData, [name]: value, repay_date: repayDate, closed_in: closedDate });
+    } 
+    // else {
+      setFundRaiseData((prevState) => {
+        return {
+          ...prevState,
+          [name]: value,
+          user_id: current_user_id,
+          business_id: businessInfo
+        };
+      });
+    // }
+    
+
+  };
   useEffect(() => {
     const current_user_data = getCurrentUserData();
     if (current_user_data.id != null) {
@@ -54,54 +92,12 @@ const FundRaiseForm = () => {
       window.location.href = "/login";
     }
 
-    
-
   }, []);
-
-
-  const handleChange = (event) => {
-    let { name, value } = event.target;
-    // if (name === 'total_units') {
-    //   value = value.replace(/\D/g, '');
-    //   value = value.substring(0, 12);
-    // }
-    // if (name === 'avg_amt_per_person') {
-    //   value = value.replace(/\D/g, '');
-    //   value = value.substring(0, 12);
-    // }
-    // if (name === 'minimum_subscription') {
-    //   value = value.replace(/\D/g, '');
-    //   value = value.substring(0, 12);
-    // }
-    // if (name === 'xirr') {
-    //   value = value.replace(/\D/g, '');
-    //   value = value.substring(0, 12);
-    // }
-    if (name === "tenure") {
-      const tenureDays = parseInt(value);
-      const today = new Date();
-      const repayDate = new Date(today.getTime() + tenureDays * 24 * 60 * 60 * 1000)
-        .toISOString().substr(0, 10);
-        // console.log(repayDate)
-        setFundRaiseData({ ... fundRaiseData, [name]: value, repay_date: repayDate });
-      }
-        else{
-          setFundRaiseData((prevState) => {
-            return {
-              ...prevState,
-              [name]: value,
-              user_id: current_user_id,
-              business_id: businessInfo
-            };
-          });
-        }
-   
-  };
 
   const SubmitForm = async () => {
     try {
       // console.log(fundRaiseData);
-      
+
       const res = await fundInformationSave(fundRaiseData);
 
       if (res.status === true) {
@@ -219,8 +215,8 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="number" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                            value: true, required: true,
-                          })} name="minimum_subscription" placeholder="Total Subscription"
+                         required: true,
+                          })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
                             <p
@@ -232,7 +228,7 @@ const FundRaiseForm = () => {
                           )}
                         </div>
                       </div>
-                      
+
                       <div className="row g-3 mt-1">
                         <div className="col-sm-6 mt-3">
                           <label htmlFor="exampleFormControlInput1" className="form-label mb-4">
@@ -271,7 +267,7 @@ const FundRaiseForm = () => {
                             <option value="">--SELECT TENURE--</option>
                             <option value="15">15 Days</option>
                             <option value="30">30 Days</option>
-                            <option value="30">45 Days</option>
+                            <option value="45">45 Days</option>
                             <option value="60">60 Days</option>
                             <option value="90">90 Days(60Days+30Days)</option>
                             <option value="120">120 Days(90Days+30Days)</option>
@@ -308,22 +304,28 @@ const FundRaiseForm = () => {
                                 )}
                         </div> */}
                       </div>
-                      
+
                       <div className="row g-3 mt-1">
                         <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label"> Repay On Date{" "}
+                          <label htmlFor="exampleFormControlInput1" className="form-label">
+                            Repay On Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="repay_date" {...register("repay_date", {
-                            value: true, required: true,
-                          })} name="repay_date"
-                            onChange={handleChange} />
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="repay_date" {...register("repay_date", { value:true,required: true,
+                            })}
+                            name="repay_date"
+                            value={fundRaiseData.repay_date}
+                            onChange={handleChange}
+                          />
                           {errors.repay_date && (
                             <p
                               className="text-danger"
                               style={{ textAlign: "left", fontSize: "12px" }}
                             >
-                              *Please fill repayment date field.
+                              *Please fill repay date field.
                             </p>
                           )}
                         </div>
@@ -331,9 +333,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {
-                            value: true, required: true,
-                          })} name="closed_in"
+                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:true, required: true,
+                          })} name="closed_in"   value={fundRaiseData.closed_in}
                             onChange={handleChange} />
                           {errors.closed_in && (
                             <p

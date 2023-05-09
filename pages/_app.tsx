@@ -22,11 +22,7 @@ const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layout
   if (current_user && current_user.role === 'admin') {
     Layout = AdminLayout;
    } 
-  //  else if(current_user && current_user.approval_status === 'approved'){
-  //     Layout=  CompanyLayout;
-  // }else {
-  //   Layout = FrontendLayout;
-  //  }
+ 
   if (current_user.role === 'investor') {
        Layout = InvestorLayout;
   }
