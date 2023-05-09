@@ -41,11 +41,11 @@ const Header = () => {
         <div className="logo">
           <a href={process.env.NEXT_PUBLIC_BASE_URL}>
             <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
-            <img
-              src="assets/img/logo-2.png"
+            {/* <img
+              src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo-2.png"}
               className="white-logo"
               alt="image"
-            />
+            /> */}
           </a>
         </div>
       </div>

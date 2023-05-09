@@ -24,12 +24,26 @@ const FundRaiseForm = () => {
     resource: "",
     // status: "",
     xirr: "",
-    amount: ""
+    amount: "",
   });
 
+const [agreement,setAgreement]=useState(null);
+const [invoice,setInvoice]=useState(null);
+const [pdc,setPdc]=useState(null);
 
+// handleInvoiceFileChange for agreement pdf
+const handleAgreementFileChange = (event) => {
+  setAgreement(event.target.files[0]);
+};
 
-
+// handleInvoiceFileChange for invoice pdf
+const handleInvoiceFileChange = (event) => {
+  setInvoice(event.target.files[0]);
+};
+// handlePDCFileChange for invoice pdf
+const handlePDCFileChange = (event) => {
+  setPdc(event.target.files[0]);
+};
   const handleChange = (event) => {
     let { name, value } = event.target;
     if (name === "amount" || name === "total_units") {
@@ -37,7 +51,8 @@ const FundRaiseForm = () => {
       const amount = name === "amount" ? value : fundRaiseData.amount;
       const totalUnits = name === "total_units" ? value : fundRaiseData.total_units;
       if (amount && totalUnits) {
-        const minimum_value = (amount / totalUnits).toString();
+        const minimum_value = parseInt(amount / totalUnits).toString();
+        console.log(parseInt(minimum_value));
         setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value });
       }
     }
@@ -49,18 +64,18 @@ const FundRaiseForm = () => {
       const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
         .toISOString().substr(0, 10);
       setFundRaiseData({ ...fundRaiseData, [name]: value, repay_date: repayDate, closed_in: closedDate });
-    } 
+    }
     // else {
-      setFundRaiseData((prevState) => {
-        return {
-          ...prevState,
-          [name]: value,
-          user_id: current_user_id,
-          business_id: businessInfo
-        };
-      });
+    setFundRaiseData((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+        user_id: current_user_id,
+        business_id: businessInfo
+      };
+    });
     // }
-    
+
 
   };
   useEffect(() => {
@@ -95,8 +110,22 @@ const FundRaiseForm = () => {
   const SubmitForm = async () => {
     try {
       // console.log(fundRaiseData);
-
-      const res = await fundInformationSave(fundRaiseData);
+      const formData = new FormData();
+      formData.append('agreement',agreement);
+      formData.append('invoice',invoice);
+      formData.append('pdc',pdc);
+      formData.append('user_id',fundRaiseData.user_id);
+      formData.append('business_id',fundRaiseData.business_id);
+      formData.append('total_units',fundRaiseData.total_units);
+      formData.append('minimum_subscription',fundRaiseData.minimum_subscription);
+      formData.append('avg_amt_per_person', fundRaiseData.avg_amt_per_person);
+      formData.append('tenure',fundRaiseData.tenure);
+      formData.append('repay_date',fundRaiseData.repay_date);
+      formData.append('closed_in', fundRaiseData.closed_in);
+      formData.append('resource',fundRaiseData.resource);
+      formData.append('xirr',fundRaiseData.xirr);
+      formData.append('amount', fundRaiseData.amount);
+      const res = await fundInformationSave(formData);
 
       if (res.status === true) {
         toast.success(res.message, {
@@ -213,7 +242,7 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="number" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                         required: true,
+                          value:true ,
                           })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
@@ -312,7 +341,8 @@ const FundRaiseForm = () => {
                           <input
                             type="date"
                             className="form-control"
-                            id="repay_date" {...register("repay_date", { value:true,required: true,
+                            id="repay_date" {...register("repay_date", {
+                              value: true, required: true,
                             })}
                             name="repay_date"
                             value={fundRaiseData.repay_date}
@@ -331,8 +361,9 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:true, required: true,
-                          })} name="closed_in"   value={fundRaiseData.closed_in}
+                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {
+                            value: true, required: true,
+                          })} name="closed_in" value={fundRaiseData.closed_in}
                             onChange={handleChange} />
                           {errors.closed_in && (
                             <p
@@ -348,7 +379,7 @@ const FundRaiseForm = () => {
 
 
                       <div className="row g-3 mt-1">
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                           <label htmlFor="exampleFormControlInput1" className="form-label">
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
@@ -356,7 +387,7 @@ const FundRaiseForm = () => {
                             value: true, required: true,
                           })} name="xirr" placeholder='Xirr( calculate in%)'
                             onChange={handleChange} />
-                          {errors.status && (
+                          {errors.xirr && (
                             <p
                               className="text-danger"
                               style={{ textAlign: "left", fontSize: "12px" }}
@@ -364,6 +395,35 @@ const FundRaiseForm = () => {
                               *Please fill xirr field.
                             </p>
                           )}
+                        </div>
+
+                        <div className="col-md-6 mt-5">
+                          <div id="divHabilitSelectors" className="input-file-container">
+                            <input className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your Legal Agreement here to <a href="#">Upload</a> <br />
+                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="row g-3 mt-1">
+                        <div className="col-md-6">
+                          <div id="divHabilitSelectors" className="input-file-container">
+                            <input className="input-file" id="fileupload" name="invoice" type="file" onChange={handleInvoiceFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your Legal Invoice here to <a href="#">Upload</a> <br />
+                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="col-md-6 mt-3">
+                          <div id="divHabilitSelectors" className="input-file-container">
+                            <input className="input-file" id="fileupload" name="pdc" type="file" onChange={handlePDCFileChange}  />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your PDC here to <a href="#">Upload</a> <br />
+                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            </label>
+                          </div>
                         </div>
                       </div>
 

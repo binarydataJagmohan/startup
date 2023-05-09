@@ -39,7 +39,7 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details) => details.type === "Discounting")
+              .filter((details) => details.type === "Dicounting Invoice")
               .map((details) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>

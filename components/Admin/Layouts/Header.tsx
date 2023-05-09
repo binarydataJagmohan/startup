@@ -176,7 +176,7 @@ const Header = () => {
               <li>
                 <a href={process.env.NEXT_PUBLIC_BASE_URL +"/admin/all-startup-companies"} className="waves-effect">
                   <i className="fa fa-building"></i>
-                  <span>Companies</span>
+                  <span>All Startups</span>
                 </a>
               </li>
               <li>
