@@ -20,6 +20,18 @@ const Header = () => {
     const current_user_data: UserData = getCurrentUserData();
     current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
   }, []);
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  function toggleDropdown() {
+    setShowDropdown(!showDropdown);
+  }
+
+  function handleOutsideClick(event) {
+    if (!event.target.matches('.dropbtn')) {
+      setShowDropdown(false);
+    }
+  }
   return (
     <>
    <div className="navbar-area">
@@ -27,8 +39,8 @@ const Header = () => {
     <div className="container">
       <div className="fria-responsive-menu">
         <div className="logo">
-          <a href="index.html">
-            <img src="assets/img/logo.png" className="black-logo" alt="image" />
+          <a href={process.env.NEXT_PUBLIC_BASE_URL}>
+            <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
             <img
               src="assets/img/logo-2.png"
               className="white-logo"
@@ -42,9 +54,9 @@ const Header = () => {
   <div className="fria-nav" id="dashboard">
     <div className="container">
       <nav className="navbar navbar-expand-md navbar-light">
-        <a className="navbar-brand" href="index.html">
-          <img src="assets/img/logo.png" className="black-logo" alt="image" />
-          <img src="assets/img/logo-2.png" className="white-logo" alt="image" />
+        <a className="navbar-brand" href={process.env.NEXT_PUBLIC_BASE_URL}>
+          <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
+          {/* <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo-2.png"} className="white-logo" alt="image" /> */}
         </a>
         <div
           className="collapse navbar-collapse mean-menu"
@@ -70,10 +82,10 @@ const Header = () => {
           </ul>
           <div className="others-options">
             <div className="dropdown">
-              <button onclick="myFunction()" className="dropbtn">
+              <button onClick={toggleDropdown} className="dropbtn">
                 DB <i className="fa-solid fa-caret-down" />
               </button>
-              <div id="myDropdown" className="dropdown-content">
+              <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                 <a href="#home">Dev3bdpl</a>
                 <a href="#about" className="colorclass">
                   Sign in
