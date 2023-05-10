@@ -19,21 +19,21 @@ export default function Login() {
     removeStorageData();
   }, []);
 
-  register('password', {
-    required: 'Password is required',
-    minLength: {
-      value: 8,
-      message: 'Password must be at least 8 characters long',
-    },
-    maxLength: {
-      value: 16,
-      message: 'Password cannot be more 16 characters.',
-    },
-    pattern: {
-      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-    },
-  });
+  // register('password', {
+  //   required: 'Password is required',
+  //   minLength: {
+  //     value: 8,
+  //     message: 'Password must be at least 8 characters long',
+  //   },
+  //   maxLength: {
+  //     value: 16,
+  //     message: 'Password cannot be more 16 characters.',
+  //   },
+  //   pattern: {
+  //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
+  //     message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+  //   },
+  // });
 
   const setLocalStorageItems = (user) => {
     window.localStorage.setItem("id", user.id);
@@ -176,19 +176,19 @@ export default function Login() {
                     <input
                       type="password"
                       id="password"
-                      {...register("password", {
+                      {...register("password", { required:true,
                         onChange: (e) => setPassword(e.target.value),
                       })}    name="password"
                       className="form-control"
                       placeholder="Password"
                     />
                     <div className="help-block with-errors" />
-                     {errors.password && (
+                     {errors.password && errors.password.type==="required" &&(
                           <p
                             className="text-danger"
                             style={{ textAlign: "left", fontSize: "12px" }}
                           >
-                            *{errors.password.message}
+                            *Password field is required.
                           </p>
                         )}
                   </div>

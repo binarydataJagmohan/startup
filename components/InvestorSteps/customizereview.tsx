@@ -244,7 +244,7 @@ export default function customizereview() {
                         aria-hidden="true"
                         data-toggle="tooltip"
                         data-placement="top"
-                        title="Please select your investor type category and apply terms & conditions.That would be helpful to verify your account."
+                        title="Please select Terms & Conditions.That would be helpful to verify your account."
                       ></i>
                     </h4>
                          <div className="container" id="option_select">

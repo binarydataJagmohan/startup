@@ -103,6 +103,7 @@ export default function CampaignsDetails() {
       const data3 = data2 / 366;
       const data4 = data3 * inputs.tenure;
       const newRepayValue = newSubscriptionValue + data4;
+      console.log(newRepayValue)
       setRepayValue(newRepayValue);
     }
   };
