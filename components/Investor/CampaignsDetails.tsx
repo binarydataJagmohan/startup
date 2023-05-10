@@ -62,7 +62,7 @@ export default function CampaignsDetails() {
     }
   };
   const toggleAccordion = (index) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? -1 : index));
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   const handlePlusClick = () => {
@@ -131,10 +131,7 @@ export default function CampaignsDetails() {
                       <div className="logo-company">
                         <div className="img">
                           <img
-                            src={
-                              process.env.NEXT_PUBLIC_IMAGE_URL +
-                              "/img/img/t_500x300.png"
-                            }
+                            src= {inputs.logo}
                             alt=""
                           />
                         </div>
@@ -297,12 +294,12 @@ export default function CampaignsDetails() {
                                 activeIndex === 0 ? "active" : ""
                               }`}
                               href="#"
-                              onClick={() => toggleAccordion(0)}
+                              onClick={() => toggleAccordion(1)}
                             >
                               <i className="bx bx-chevron-down" />
                               What access do I have on a free trial?
                             </a>
-                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
+                            <div className={`accordion-content ${activeIndex === 1 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -316,12 +313,12 @@ export default function CampaignsDetails() {
                                 activeIndex === 0 ? "active" : ""
                               }`}
                               href="#"
-                              onClick={() => toggleAccordion(0)}
+                              onClick={() => toggleAccordion(2)}
                             >
                               <i className="bx bx-chevron-down" />
                               Does the price go up as my team gets larger?
                             </a>
-                            <div className="accordion-content">
+                            <div className={`accordion-content ${activeIndex === 2 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -335,12 +332,12 @@ export default function CampaignsDetails() {
                                 activeIndex === 0 ? "active" : ""
                               }`}
                               href="#"
-                              onClick={() => toggleAccordion(0)}
+                              onClick={() => toggleAccordion(3)}
                             >
                               <i className="bx bx-chevron-down" />
                               How can I cancel my subscription?
                             </a>
-                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
+                            <div className={`accordion-content ${activeIndex === 3 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -354,12 +351,12 @@ export default function CampaignsDetails() {
                                 activeIndex === 0 ? "active" : ""
                               }`}
                               href="#"
-                              onClick={() => toggleAccordion(0)}
+                              onClick={() => toggleAccordion(4)}
                             >
                               <i className="bx bx-chevron-down" />
                               Can I pay via an Invoice?
                             </a>
-                            <div className={`accordion-content ${activeIndex === 0 ? 'show' : ''}`}>
+                            <div className={`accordion-content ${activeIndex === 4 ? 'show' : ''}`}>
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor
@@ -371,6 +368,7 @@ export default function CampaignsDetails() {
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
               <div className="col-md-4 px-0">

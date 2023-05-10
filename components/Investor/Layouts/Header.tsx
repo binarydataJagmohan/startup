@@ -47,10 +47,8 @@ const Header = () => {
     <div className="container">
       <div className="fria-responsive-menu">
         <div className="logo">
-          
           <a href='#'>
             <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
-           
           </a>
         </div>
       </div>
@@ -64,8 +62,7 @@ const Header = () => {
         </a>
         <div
           className="collapse navbar-collapse mean-menu"
-          id="navbarSupportedContent"
-        >
+          id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
               <a href="#" className="nav-link active">
@@ -109,7 +106,7 @@ const Header = () => {
       </nav>
     </div>
   </div>
-</div>
+   </div>
 
     </>
   )

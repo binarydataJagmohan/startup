@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 
 const alertStyle = {
   color: "red",
@@ -384,12 +387,12 @@ export default function findbusiness() {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                              <div className="input-group-prepend">
+                              {/* <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">
                                   {user.country_code}
                                 </span>
-                              </div>
-                              <input type="text"
+                              </div> */}
+                              {/* <input type="text"
                                 className="form-control same-input"
                                 {...register("phone", {
                                   value: true,
@@ -408,6 +411,17 @@ export default function findbusiness() {
                                 onChange={handleChange} onClick={phonClick}
                                 maxLength={10}
                                 value={user.phone ? user.phone.replace(/^\+91-/, '') : ''}
+                              /> */}
+                               <PhoneInput
+                               country={"us"}
+                               //value={user.phone}
+                               //name="phone"
+                              //  {...register("phone", {
+                              //   value: true,
+                              //   required: true,
+                              // })}
+                               onChange={handleChange} onClick={phonClick}
+                            
                               />
                               </div>
                               <div className="help-block with-errors" />
