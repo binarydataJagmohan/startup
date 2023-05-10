@@ -2719,7 +2719,7 @@ this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
 	 */
 	Autoplay.Defaults = {
 		autoplay: false,
-		autoplayTimeout: 5000,
+		autoplayTimeout: 2000,
 		autoplayHoverPause: false,
 		autoplaySpeed: false
 	};

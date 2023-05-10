@@ -50,6 +50,7 @@ export default function Login() {
       password,
       rememberMe,
     };
+    
     login(logindata)
       .then((res) => {
         if (res.status === true) {
@@ -153,10 +154,10 @@ export default function Login() {
                   <div className="form-group">
                     <input
                       type="email"
-                      {...register("email", { required: true })}
+                      {...register("email", { required: true,onChange: (e) => setEmail(e.target.value) })}
                       name="email"
                       id="email"
-                      onChange={(e) => setEmail(e.target.value)}
+                      
                       className="form-control"
                       placeholder="Email"
                     />

@@ -266,11 +266,6 @@ export default function customizereview() {
                                 {...register("principal_residence", { value:true,required:true })}
                                 name="principal_residence"  onChange={handleChange} checked={terms.principal_residence === '1' ? true : false} />
                                     </div>
-                                    <div className="col">
-                                      <label htmlFor="checkbox1">
-                                        Net tangible assets of at least INR 2 Crore excluding value of his principal residence
-                                      </label>
-                                    </div>
                                     {errors.principal_residence && errors.principal_residence.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -279,6 +274,12 @@ export default function customizereview() {
                                     *Please select the Principal Residence.
                                   </p>
                                 )}
+                                    <div className="col">
+                                      <label htmlFor="checkbox1">
+                                        Net tangible assets of at least INR 2 Crore excluding value of his principal residence
+                                      </label>
+                                    </div>
+                                    
                                   </div>
                                 </div>
                                 <div className="same-card">
@@ -383,7 +384,7 @@ export default function customizereview() {
             </div>
           </div>
         </div>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

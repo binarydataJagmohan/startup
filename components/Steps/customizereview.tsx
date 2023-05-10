@@ -33,7 +33,7 @@ export default function customereview() {
     user_id: current_user_id,
     pan_number: "",
     uid: "",
-    // proof_img: "",
+    proof_img: "",
     dob: "",
   });
   const {
@@ -74,7 +74,6 @@ export default function customereview() {
         .then((res) => {
           if (res.status == true) {
             setBasicDetails(res.data);
-            // console.log(res.data);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -328,7 +327,7 @@ export default function customereview() {
                                   id="proof_img"
                                   type="file"
                                   {...register("proof_img", {
-                                    value: true, required: ! proof_img,
+                                    value: true, required: ! basicDetails.proof_img,
                                   })}
                                   name="proof_img"
                                   onChange={handleFileChange}
@@ -348,8 +347,7 @@ export default function customereview() {
                                   </p>
                                 </label>
                                 <div className="help-block with-errors" />
-                                {errors.proof_img &&
-                                  errors.proof_img.type === "required" && (
+                                {errors.proof_img  &&  (
                                     <p
                                       className="text-danger"
                                       style={{ textAlign: "left", fontSize: "12px" }}

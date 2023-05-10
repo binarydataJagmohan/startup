@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
-import { getCurrentUserData } from '../../lib/session'
+import { getCurrentUserData,removeToken,removeStorageData} from '../../lib/session'
 const settings = {
   dots: true,
   infinite: true,
@@ -45,20 +45,29 @@ const settings = {
     },
   ],
 };
+function redirectToLogin() {
+  window.location.href = "/login";
+  //router.push("/auth/login");
+}
+function handleLogout(e: any) {
+  e.preventDefault();
+  removeToken();
+  removeStorageData();
+  redirectToLogin();
+}
 export default function Home() {
   const [current_user_id, setCurrentUserId] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    // alert(localStorage.getItem('id'))
-    //const token = localStorage.getItem('token');
-    const id = localStorage.getItem('id');
-    console.log(id);
-   // console.log(token)
+  const [current_user_name, setCurrentUserName] = useState("");
+  const [current_user_role, setCurrentUserRole] = useState("");
 
-    if (id) {
-      setIsAuthenticated(true);
-    }
-  }, []);
+useEffect(() => {
+  const current_user = getCurrentUserData();
+  current_user.username ? setCurrentUserName(current_user.username) : setCurrentUserName("");
+  current_user.role ? setCurrentUserRole(current_user.role) : setCurrentUserRole("");
+  current_user.id ? setCurrentUserId(true) : setCurrentUserId(false);
+}, []);
+  // console.log(current_user);
+  
   return (
     <>
       {/* Start Banner Area */}
@@ -80,6 +89,25 @@ export default function Home() {
                         of opportunities to help you achieve your financial
                         goals.
                       </p>
+                      {current_user_id ? (
+                        current_user_role === "investor" ? 
+                        <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
+                          My Profile
+                        </a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
+                        Campaigns
+                        </a>
+                      </div> : <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
+                          My Profile
+                        </a>
+                        <a href="#" onClick={handleLogout} className="default-btn">
+                          Logout
+                        </a>
+                      </div>
+                       
+                      ) : (
                       <div className="banner-btn">
                         <a href="/signup" className="default-btn">
                           Register
@@ -88,6 +116,15 @@ export default function Home() {
                           Log in
                         </a>
                       </div>
+                      )}
+                      {/* <div className="banner-btn">
+                        <a href="/signup" className="default-btn">
+                          Register
+                        </a>
+                        <a href="/login" className="default-btn">
+                          Log in
+                        </a>
+                      </div> */}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
@@ -109,6 +146,25 @@ export default function Home() {
                         success. Discover a diverse range of investment options
                         and seize the chance to achieve your financial goals.
                       </p>
+                      {current_user_id ? (
+                        current_user_role === "investor" ? 
+                        <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
+                          My Profile
+                        </a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
+                        Campaigns
+                        </a>
+                      </div> : <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
+                          My Profile
+                        </a>
+                        <a href="#" onClick={handleLogout} className="default-btn">
+                          Logout
+                        </a>
+                      </div>
+                       
+                      ) : (
                       <div className="banner-btn">
                         <a href="/signup" className="default-btn">
                           Register
@@ -117,6 +173,7 @@ export default function Home() {
                           Log in
                         </a>
                       </div>
+                      )}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
@@ -142,17 +199,33 @@ export default function Home() {
                         you grow your wealth and achieve your financial goals.
                       </p>
                       {/* <p>TD={current_user_id}</p> */}
-                      {isAuthenticated ? (
-                       <div className="banner-btn">
-                       <a href="/signup" className="default-btn">My Profile</a>
-                       <a href="/login" className="default-btn">Logout</a>
-                     </div>
-                      ) : (
-                        // Display this if current_user_id is null
+                      {current_user_id ? (
+                        current_user_role === "investor" ? 
                         <div className="banner-btn">
-                          <a href="/signup" className="default-btn">Register</a>
-                          <a href="/login" className="default-btn">Log in</a>
-                        </div>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
+                          My Profile
+                        </a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
+                        Campaigns
+                        </a>
+                      </div> : <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
+                          My Profile
+                        </a>
+                        <a href="#" onClick={handleLogout} className="default-btn">
+                          Logout
+                        </a>
+                      </div>
+                       
+                      ) : (
+                      <div className="banner-btn">
+                        <a href="/signup" className="default-btn">
+                          Register
+                        </a>
+                        <a href="/login" className="default-btn">
+                          Log in
+                        </a>
+                      </div>
                       )}
                     </div>
                     <div className="banner-image">

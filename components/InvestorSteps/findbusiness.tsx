@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 const alertStyle = {
   color: "red",
 };
@@ -71,7 +72,7 @@ export default function findbusiness() {
     
   };
 
-  const phonClick=(event)=>{
+  const phonClick = (event) => {
     let { name, value } = event.target;
     var selectedCountry = countries.find(
       (country) => country.name === value
@@ -80,7 +81,7 @@ export default function findbusiness() {
     if (selectedCountry) {
       countryCode = selectedCountry.country_code;
     }
-  
+
     setUser((prevState) => {
       return {
         ...prevState,
@@ -287,35 +288,23 @@ export default function findbusiness() {
                                 type="text"
                                 className="form-control same-input"
                                 {...register("linkedin_url", {
-                                  value: true,
-                                  required: true,
-                                  // pattern: {
-                                  //   value: /^((http|https):\/\/)?(www\.)?linkedin\.com\/?$/,
-                                  //   message: "Please Enter a Valid LinkedIn url",
-                                  // },
+                                  required: !user.linkedin_url,  onChange: handleChange,
+                                  pattern: {
+                                    value: /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/,
+                                    message: "Please enter a valid LinkedIn URL"
+                                  }
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
-                                onChange={handleChange}
                                 value={user.linkedin_url}
                               />
-                              <div className="help-block with-errors" />
-                              {errors.linkedin_url &&
-                                errors.linkedin_url.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your Linkedin url.
-                                  </p>
-                                )}
-                              {/* {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  *{errors.linkedin_url.message}
-                                </p>
-                              )} */}
+                               {errors.linkedin_url && errors.linkedin_url.type === "required" && (
+                                <p className="text-danger">*Please enter your LinkedIn URL</p>
+                              )}
+                              {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
+                                <p className="text-danger">{errors.linkedin_url.message}</p>
+                              )}
                             </div>
-
 
                             <div className="col-sm-6 mt-3">
                               <label
@@ -368,12 +357,15 @@ export default function findbusiness() {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                              <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">
-                                  {user.country_code}
-                                </span>
-                              </div>
-                              <input type="text"
+                             
+                              <PhoneInput
+                                  onClick={phonClick}
+                                  country={"us"}
+                                  {...register("phone", {required :! user.phone})}
+                                  value={user.phone}
+                                  onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
+                                />
+                              {/* <input type="text"
                                 className="form-control same-input"
                                 {...register("phone", {
                                   value: true,
@@ -392,7 +384,7 @@ export default function findbusiness() {
                                 onChange={handleChange} onClick={phonClick}
                                 maxLength={10}
                                 value={user.phone ? user.phone.replace(/^\+91-/, '') : ''}
-                              />
+                              /> */}
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (
@@ -498,7 +490,7 @@ export default function findbusiness() {
             </div>
           </div>
         </div>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

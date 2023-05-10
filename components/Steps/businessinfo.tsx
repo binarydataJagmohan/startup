@@ -42,7 +42,7 @@ export default function businessinfo(props: any) {
       stage: "",
       startup_date: "",
       tagline: "",
-      // logo: null,
+      logo: "",
       type:"",
       description: "",
       cofounder: "0",
@@ -139,7 +139,7 @@ const SubmitForm = async () => {
       });
     }
   } catch (err) {
-    toast.error("Business Details have not been saved successfully", {
+    toast.error("Please fill correct information", {
       position: toast.POSITION.TOP_RIGHT,
       toastId: "error",
     });
@@ -310,9 +310,9 @@ register('website_url', {
                                 type="text"
                                 className="form-control same-input"
                                 id="reg_businessname"
-                                {...register("reg_businessname", { value:true,
+                                {...register("reg_businessname", {onChange:handleChange,value:true,
                                   required: true,})} 
-                                name="reg_businessname"  onChange={handleChange} value={businessDetails.reg_businessname}
+                                name="reg_businessname"   value={businessDetails.reg_businessname}
                               />
                                {errors.reg_businessname &&
                                 errors.reg_businessname.type === "required" && (
@@ -508,7 +508,7 @@ register('website_url', {
                               />
                             </div>
 
-                            <div className="col-md-6 mt-3">
+                            <div className="col-md-6">
                               <div
                                 id="divHabilitSelectors"
                                 className="input-file-container"
@@ -524,7 +524,9 @@ register('website_url', {
                                   className="input-file"
                                   id="logo"
                                   type="file"
-                                  {...register("logo", { value:true,})} 
+                                  {...register("logo", {
+                                    value: true, required: ! businessDetails.logo,
+                                  })}
                                   name="logo"  onChange={handleFileChange} 
                                 />
                                

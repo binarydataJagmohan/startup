@@ -81,10 +81,10 @@ export default function InvestorType(props: any) {
             // return false;
             const res = await investorTypeInfoSave( investorDetails);
             if (res.status == true) {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "success",
-                  });
+                // toast.success(res.message, {
+                //     position: toast.POSITION.TOP_RIGHT,
+                //     toastId: "success",
+                //   });
                   console.log(res.data.data.investorType);
                   if(res.data.data.investorType=="Angel Investor")
                   {
@@ -283,7 +283,7 @@ export default function InvestorType(props: any) {
                         </div>
                     </div>
                 </div>
-                {/* <ToastContainer autoClose={5000} /> */}
+                {/* <ToastContainer autoClose={2000} /> */}
             </div>
         </>
     );

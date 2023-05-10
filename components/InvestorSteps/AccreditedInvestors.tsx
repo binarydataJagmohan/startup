@@ -397,7 +397,7 @@ export default function AccreditedInvestors(selectedOption) {
                         </div>
                     </div>
                 </div>
-                <ToastContainer autoClose={5000} />
+                <ToastContainer autoClose={2000} />
             </div>
         </>
     );

@@ -441,7 +441,7 @@ const handlePDCFileChange = (event) => {
             </div>{" "}
           </div>{" "}{/* container-fluid */}
         </div>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   )

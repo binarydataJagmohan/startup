@@ -170,7 +170,7 @@ const AllFundsList = () => {
           </div>{" "}
           {/* container-fluid */}
         </div>
-        <ToastContainer autoClose={7000} />
+        <ToastContainer autoClose={1000} />
       </div>
     </>
   )

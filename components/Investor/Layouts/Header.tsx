@@ -47,7 +47,7 @@ const Header = () => {
     <div className="container">
       <div className="fria-responsive-menu">
         <div className="logo">
-          <a href='#'>
+          <a href={process.env.NEXT_PUBLIC_BASE_URL}>
             <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
           </a>
         </div>
@@ -57,7 +57,7 @@ const Header = () => {
   <div className="fria-nav" id="dashboard">
     <div className="container">
       <nav className="navbar navbar-expand-md navbar-light">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href={process.env.NEXT_PUBLIC_BASE_URL}>
           <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
         </a>
         <div
@@ -65,12 +65,12 @@ const Header = () => {
           id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a href="#" className="nav-link active">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="nav-link active">
                 Explore
               </a>
             </li>
             <li className="nav-item">
-              <Link href="/investor/campaign" className="nav-link">
+              <Link href="#" className="nav-link">
                 Subscribe
               </Link>
             </li>

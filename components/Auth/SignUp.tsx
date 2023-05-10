@@ -164,7 +164,7 @@ const Signup = () => {
                         <input
                           type="email"
                           id="email"
-                          className="form-control"
+                          className="form-control"  onChange={(e) => setEmail(e.target.value)}
                           {...register("email", {
                             required: "Email is required",
                             pattern: {
@@ -172,7 +172,7 @@ const Signup = () => {
                               message: "Invalid email address"
                             }
                           })}
-                          onChange={(e) => setEmail(e.target.value)}
+                         
                         />
                         {errors.email && (
                           <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>

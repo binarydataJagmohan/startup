@@ -107,7 +107,7 @@ const ResetPassword = () => {
                         </div>
                     </div>
                 </div>
-                <ToastContainer autoClose={5000} />
+                <ToastContainer autoClose={2000} />
             </section>
 
         </>
