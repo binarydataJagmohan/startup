@@ -4,12 +4,13 @@ import {
   removeStorageData,
   getCurrentUserData,
 } from "../../../lib/session";
-
 interface UserData {
-  id: number | string;
+  username?: string;
+  role?: string;
+  id?:string;
 }
 const Header = () => {
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   function redirectToLogin() {
@@ -22,18 +23,19 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     current_user_data.username
       ? setCurrentUserName(current_user_data.username)
       : setCurrentUserName("");
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
-    current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
+    current_user_data.id ? setCurrentUserId( current_user_data.id) : setCurrentUserId("");
   }, []);
-   function collapseSidebar(){
-    $('.vertical-menu').toggle('show');
-   }
+ function collapseSidebar(){
+    $('.vertical-menu').toggle();
+}
+
   return (
     <>
        <div id="page-topbar">

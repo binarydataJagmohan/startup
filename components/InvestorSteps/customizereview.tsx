@@ -13,11 +13,15 @@ const alertStyle = {
 const textStyle = {
   textTransform: 'capitalize',
 };
-
-
+interface CurrentUserData {
+  id?: string;
+}
+interface ErrorMessage {
+  message: string;
+}
 export default function customizereview() {
   const router = useRouter();
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState<string>("");
   const [terms, setTerms] = useState({
     user_id: current_user_id,
     category:"",
@@ -30,7 +34,7 @@ export default function customizereview() {
   });
   const {register,handleSubmit,formState: { errors },} = useForm();
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox' && name === 'principal_residence') {
       // Set the value of principal_residence to '1' if the checkbox is checked, '0' otherwise
@@ -113,9 +117,9 @@ export default function customizereview() {
           $('#checkbox-group-' + selectedOption).show();
       });
   });
-    const current_user_data = getCurrentUserData();
+    const current_user_data: CurrentUserData= getCurrentUserData();
     if (current_user_data.id) {
-      setCurrentUserId(current_user_data.id);
+      setCurrentUserId(current_user_data.id.toString());
       getAngelInvestorTerms(current_user_data.id)
         .then((res) => {
           if (res.status === true) {
@@ -157,7 +161,7 @@ export default function customizereview() {
       });
       }
     } catch (err) {
-      toast.error(err, {
+      toast.error((err as ErrorMessage).message, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
@@ -251,8 +255,8 @@ export default function customizereview() {
                           <div className="row">
                             <div className="col-md-12">
                             {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
-                              <select className="options" {...register("category", {validate: (value) => value != "", required: true,})} 
-                                name="category"  onChange={handleChange}   value={terms ? terms.category : ""}>
+                              <select className="options" {...register("category", {validate: (value) => value != "", required: true,onChange:handleChange})} 
+                                name="category"   value={terms ? terms.category : ""}>
                                 <option value="">--SELECT CATEGORY--</option>
                                 <option value="1">Individual</option>
                                 <option value="2">Body Corporate/VC/PE/Family Office 1 /Corporate Institution</option>

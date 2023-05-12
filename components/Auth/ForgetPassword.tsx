@@ -5,15 +5,20 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { removeToken, removeStorageData } from "../../lib/session";
 import { CheckUserEmailVerification, CheckUserResetPasswordVerification, UpdateResetPassword } from '../../lib/frontendapi';
+
+interface FormData {
+  password: string;
+  confirmPassword: string;
+}
 const ForgetPassword = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
   const {
     register,
     handleSubmit,
-  } = useForm();
+  } = useForm<FormData>();
 
   useEffect(() => {
     if (router.query.id && router.query.hash) {
@@ -34,15 +39,14 @@ const ForgetPassword = () => {
 
     CheckUserResetPasswordVerification(data)
       .then((res) => {
-        //   console.log(res);
         if (res.status == true) {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
-          // setTimeout(() => {
-          //   router.push("/login"); // Redirect to login page
-          // }, 2000);
+          setTimeout(() => {
+            router.push("/login"); // Redirect to login page
+          }, 2000);
         } else {
           toast.error(res.error, {
             position: toast.POSITION.TOP_RIGHT,
@@ -89,15 +93,14 @@ const ForgetPassword = () => {
         });
       });
   }
-  function validatePassword(password) {
+  function validatePassword(password:string) {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
     return regex.test(password);
   }
-  const handleResetSubmit = (event) => {
+  const handleResetSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     // Validate form data
-    const errors = {};
+    const errors = {} as { password?: string; confirmPassword?: string; };
 
     if (!password) {
       errors.password = "Password is required";
@@ -117,10 +120,6 @@ const ForgetPassword = () => {
 
     // Submit form data if there are no errors
     if (Object.keys(errors).length === 0) {
-
-      //   setButtonState(true);
-
-      // Call an API or perform some other action to register the user
       const data = {
         user_id: router.query.userid,
         password: password,
@@ -138,7 +137,7 @@ const ForgetPassword = () => {
           } else {
             if (res.errors) {
               Object.keys(res.errors).forEach(function (key) {
-                res.errors[key].forEach(function (errorMessage) {
+                res.errors[key].forEach(function (errorMessage: string) {
                   toast.error(errorMessage);
                 });
               });
@@ -153,30 +152,33 @@ const ForgetPassword = () => {
 
   };
 
-  const handlePasswordChange = (event) => {
-    const errors = {};
-
-    if (!password) {
+  const handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const errors = {} as { password?: string; confirmPassword?: string; };
+  
+    if (!event.currentTarget.value) {
       errors.password = "Password is required";
-    } else if (password.length < 8) {
+    } else if (event.currentTarget.value.length < 8) {
       errors.password = "Password must be at least 8 characters";
-    } else if (!validatePassword(password)) {
-      errors.password = ("Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 non-alphanumeric character, and be at least 8 characters long.");
+    } else if (!validatePassword(event.currentTarget.value)) {
+      errors.password = "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 non-alphanumeric character, and be at least 8 characters long.";
     }
     setErrors(errors);
-    setPassword(event.target.value);
+    setPassword(event.currentTarget.value);
   };
+  
 
-  const handleConfirmPasswordChange = (event) => {
-    const errors = {};
-    if (!confirmPassword) {
+  const handleConfirmPasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    const errors = {} as { password?: string; confirmPassword?: string; };
+    if (!value) {
       errors.confirmPassword = "Please confirm your password";
-    } else if (password !== confirmPassword) {
+    } else if (password !== value) {
       errors.confirmPassword = "Passwords do not match";
     }
     setErrors(errors);
-    setConfirmPassword(event.target.value);
+    setConfirmPassword(value);
   };
+  
 
   return (
     <>

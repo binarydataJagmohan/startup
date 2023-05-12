@@ -4,6 +4,14 @@ import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { userRegister } from "../../lib/frontendapi";
 import { useRouter } from "next/router";
+
+interface FormData {
+  firstname:string;
+  lastname:string;
+  email: string;
+  password:string;
+  role:string;
+}
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -15,7 +23,7 @@ const Signup = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
   // const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~\-=?]).{8,}$/;
 
@@ -164,21 +172,23 @@ const Signup = () => {
                         <input
                           type="email"
                           id="email"
-                          className="form-control"  onChange={(e) => setEmail(e.target.value)}
+                          className="form-control"
                           {...register("email", {
+                            onChange: (e) => setEmail(e.target.value),
                             required: "Email is required",
                             pattern: {
                               value: /^\S+@\S+$/i,
                               message: "Invalid email address"
                             }
                           })}
-                         
                         />
+
                         {errors.email && (
                           <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                            {errors.email.message}
+                            <span>{errors.email.message}</span>
                           </p>
                         )}
+
                       </div>
 
 

@@ -6,7 +6,19 @@ import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 
-
+interface FundRaiseData {
+  user_id?:number;
+  business_id?:number;
+  total_units?:number;
+  minimum_subscription?:number;
+  avg_amt_per_person?:number;
+  tenure?:number | string;
+  repay_date?: string,
+  closed_in?:string;
+  resource?:string;
+  xirr?: number |string;
+  amount?: number |string;
+}
 const FundRaiseForm = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -32,19 +44,19 @@ const [invoice,setInvoice]=useState(null);
 const [pdc,setPdc]=useState(null);
 
 // handleInvoiceFileChange for agreement pdf
-const handleAgreementFileChange = (event) => {
+const handleAgreementFileChange = (event: any) => {
   setAgreement(event.target.files[0]);
 };
 
 // handleInvoiceFileChange for invoice pdf
-const handleInvoiceFileChange = (event) => {
+const handleInvoiceFileChange = (event: any) => {
   setInvoice(event.target.files[0]);
 };
 // handlePDCFileChange for invoice pdf
-const handlePDCFileChange = (event) => {
+const handlePDCFileChange = (event: any) => {
   setPdc(event.target.files[0]);
 };
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === "amount" || name === "total_units") {
       setFundRaiseData({ ...fundRaiseData, [name]: value });

@@ -4,8 +4,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken } from "../../lib/session";
+type Startup = {
+    id: number;
+    name: string;
+    email:string;
+    business_name:string;
+    stage:string;
+    status:string;
+    approval_status: number |string;
+    
+  }
 const StartupList = () => {
-    const [startups, setStartupData] = useState([]);
+    const [startups, setStartupData] = useState<Startup[]>([]);
     const [selectedStage, setSelectedStage] = useState([]);
 
 
@@ -14,7 +24,6 @@ const StartupList = () => {
             const data = await getAllStartupBusiness({});
             if (data) {
                 setStartupData(data.data);
-                //console.log(data.data);
             }
         };
         fetchData();
@@ -22,7 +31,7 @@ const StartupList = () => {
     }, []);
 
     // for approval status update
-    function updateApprovalStatus(id, status) {
+    function updateApprovalStatus(id: number, status: number | string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status })
             .then(response => { 
                 const updatedData = startups.map(startup => {
@@ -41,7 +50,6 @@ const StartupList = () => {
                 });
             })
             .catch(error => {
-                // console.log(error);
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -50,7 +58,7 @@ const StartupList = () => {
     }
 
     // for user account status Active and Deactive
-    function updateStatus(id, status) {
+    function updateStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, {status: status })
             .then(response => { 
                 const updatedData = startups.map(startup => {
@@ -78,12 +86,13 @@ const StartupList = () => {
     }
 
     // For update business stage
-    function updateStartupStage(id, stage) {
+    function updateStartupStage(id: string, stage: string) {
+        const startupId = parseInt(id);
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage })
             .then(response => {
                 // set value in startups state
                 const updatedStartupData = startups.map(startup => {
-                    if (startup.id === id) {
+                    if (startup.id === startupId) {
                         return {
                             ...startup,
                             stage: stage
@@ -105,10 +114,11 @@ const StartupList = () => {
                 });
             });
     }
-    const handleChange = (e) => {
-        updateStartupStage(startup.id, e.target.value);
+    const handleChange = (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
+        updateStartupStage(id, e.target.value);
     };
-    const deleteStartup = async (id) => {
+    // delete the startup 
+    const deleteStartup = async (id: number) => {
         try {
             const response = await fetch(`/api/startups/${id}`, {
                 method: 'DELETE',
@@ -119,7 +129,7 @@ const StartupList = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                // Remove the deleted startup from the startupList state
+                //Deleted the startup from the startupList
                 setStartupData(startups.filter(startup => startup.id !== id));
                 toast.success(data.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -131,7 +141,7 @@ const StartupList = () => {
                     toastId: "error",
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             toast.error(error.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -200,7 +210,7 @@ const StartupList = () => {
                                                         <td>{startup.business_name}</td>
                                                         {/* <td>{startup.stage}</td> */}
                                                         <td>
-                                                            <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(startup.id, e.target.value)}>
+                                                            <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(String(startup.id), e.target.value)}>
                                                                 <option value="Idea Stage">Idea Stage</option>
                                                                 <option value="Intermediate Stage">Intermediate Stage</option>
                                                                 <option value="Final Stage">Final Stage</option>
@@ -210,7 +220,8 @@ const StartupList = () => {
                                                             <span style={{cursor: "pointer"}} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
-                                                            <span style={{cursor: "pointer"}} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {startup.approval_status.toUpperCase()}</span></td>
+                                                            <span style={{cursor: "pointer"}} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
+                                                        </td>
                                                         <td className='d-flex'>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
                                                             <button onClick={() => deleteStartup(startup.id)} className='btn btn-danger m-1'>

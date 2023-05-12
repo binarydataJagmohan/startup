@@ -4,17 +4,30 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
+
+interface UserData {
+  id?: number ;
+}
+interface Fund {
+  id: number;
+  fund_id:number;
+  tenure: string;
+  minimum_subscription: string;
+  amount: number;
+  status: string;
+  avg_amt_per_person:string;
+  repay_date:string;
+  closed_in:string;
+}
 const AllFundsList = () => {
-  const [funds, setFundsData] = useState([]);
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [funds, setFundsData] = useState<Fund[]>([]);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
 
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
+      current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
 
       getSingleBusinessInformation(current_user_data.id)
         .then((res) => {
@@ -56,7 +69,7 @@ const AllFundsList = () => {
 
   }, []);
 
-  function updateStatus(id, status) {
+  function updateStatus(id: number, status: string) {
     axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status })
       .then(response => {
         // Update the status in the state
@@ -155,7 +168,7 @@ const AllFundsList = () => {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan="8">No funds found.</td>
+                            <td colSpan={8}>No funds found.</td>
                           </tr>
                         )}
 

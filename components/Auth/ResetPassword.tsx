@@ -24,10 +24,9 @@ const ResetPassword = () => {
         const data = {
             email: email
         }
-        // userRegister(user)
+        // userResetpassword(user)
         resetPassword(data)
             .then((res) => {
-                //   console.log(res);
                 if (res.status == true) {
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,

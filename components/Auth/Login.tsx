@@ -4,6 +4,15 @@ import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  is_profile_completed: string;
+  approval_status: string;
+}
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,23 +28,7 @@ export default function Login() {
     removeStorageData();
   }, []);
 
-  // register('password', {
-  //   required: 'Password is required',
-  //   minLength: {
-  //     value: 8,
-  //     message: 'Password must be at least 8 characters long',
-  //   },
-  //   maxLength: {
-  //     value: 16,
-  //     message: 'Password cannot be more 16 characters.',
-  //   },
-  //   pattern: {
-  //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
-  //     message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-  //   },
-  // });
-
-  const setLocalStorageItems = (user) => {
+const setLocalStorageItems = (user: User) => {
     window.localStorage.setItem("id", user.id);
     window.localStorage.setItem("email", user.email);
     window.localStorage.setItem("username", user.name);

@@ -1,10 +1,12 @@
 import Team from '@/components/Frontend/Team'
 import React from 'react'
 
-export default function () {
+const TeamPage = () => {
   return (
     <>
         <Team/>
     </>
-  )
-}
+  );
+};
+
+export default TeamPage;

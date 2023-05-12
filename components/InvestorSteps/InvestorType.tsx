@@ -16,10 +16,12 @@ const alertStyle = {
 const textStyle = {
     textTransform: "capitalize",
 };
-
+interface UserData {
+    id?: string;
+  }
 export default function InvestorType(props: any) {
     const router = useRouter();
-    const [current_user_id, setCurrentUserId] = useState(false);
+    const [current_user_id, setCurrentUserId] = useState("");
     const [signup_success, setSignupSuccess] = useState(false);
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -27,7 +29,7 @@ export default function InvestorType(props: any) {
         user_id: current_user_id,
         investorType: ""
     });
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked} = event.target;
         if (type === 'radio' && name === 'investorType') {
             // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
@@ -51,7 +53,7 @@ export default function InvestorType(props: any) {
 
     useEffect(() => {
         
-        const current_user_data = getCurrentUserData();
+        const current_user_data:  UserData = getCurrentUserData();
         if (current_user_data.id) {
             setCurrentUserId(current_user_data.id);
             getInvestorType(current_user_data.id)
@@ -75,10 +77,8 @@ export default function InvestorType(props: any) {
         }
     }, []);
 
-    const SubmitForm = async (event) => {
+    const SubmitForm = async () => {
         try {
-            // console.log(investorDetails);
-            // return false;
             const res = await investorTypeInfoSave( investorDetails);
             if (res.status == true) {
                 // toast.success(res.message, {

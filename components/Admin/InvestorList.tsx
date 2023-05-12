@@ -3,8 +3,17 @@ import { getAllInvestors } from '../../lib/frontendapi';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+type Investor = {
+    id: number;
+    name: string;
+    email:string;
+    investorType:string;
+    status:string;
+    approval_status:string;
+  }
+  
 const InvestorList = () => {
-    const [investors, setInvestors] = useState([]);
+    const [investors, setInvestors] = useState<Investor[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,7 +25,7 @@ const InvestorList = () => {
 
         fetchData();
     }, []);
-    function updateApprovalStatus(id, status) {
+    function updateApprovalStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-approvalstatus/${id}`, { approval_status: status })
             .then(response => {
                 const updatedData = investors.map(investor => {
@@ -43,7 +52,7 @@ const InvestorList = () => {
     }
 
       // for user account status Active and Deactive
-      function updateStatus(id, status) {
+      function updateStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, {status: status })
             .then(response => { 
                 const updatedData = investors.map(investor => {

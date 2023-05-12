@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
@@ -16,8 +16,13 @@ const textStyle = {
 };
 
 interface UserData {
-  id: number;
+  id?: number;
 }
+type Country = {
+  name: string;
+  country_code: string;
+};
+
 export default function findbusiness() {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
@@ -26,8 +31,8 @@ export default function findbusiness() {
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
-  const [current_user_id, setCurrentUserId] = useState(false);
-  const [countries, setcountries] = useState([]);
+  const [current_user_id, setCurrentUserId] = useState("");
+  const [countries, setcountries] = useState<Country[]>([]);
   const [user, setUser] = useState({
     id: current_user_id,
     email: "",
@@ -41,15 +46,15 @@ export default function findbusiness() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors},
   } = useForm();
 
-  const handleChange = (event) => {
-    let { name, value } = event.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value }: { name: string, value: string } = event.target;
     if (name === 'phone') {
-      // Remove all non-digit characters from value
+      // Remove all non-digit characters
       value = value.replace(/\D/g, '');
-      // Limit the length of value to 12 characters
+      // Limit the length of phone_nmber to 12 numbers
       value = value.substring(0, 12);
     }
 
@@ -72,7 +77,7 @@ export default function findbusiness() {
     
   };
 
-  const phonClick = (event) => {
+  const phonClick = (event:any) => {
     let { name, value } = event.target;
     var selectedCountry = countries.find(
       (country) => country.name === value
@@ -93,17 +98,14 @@ export default function findbusiness() {
   }
 
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
+      current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
 
       getSingleUserData(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
             setUser(res.data);
-            // console.log(setUser);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -142,7 +144,7 @@ export default function findbusiness() {
           toastId: "error",
         });
       }
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
@@ -302,7 +304,7 @@ export default function findbusiness() {
                                 <p className="text-danger">*Please enter your LinkedIn URL</p>
                               )}
                               {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
-                                <p className="text-danger">{errors.linkedin_url.message}</p>
+                               <p className="text-danger">*Please enter a valid LinkedIn URL</p>
                               )}
                             </div>
 
@@ -319,15 +321,16 @@ export default function findbusiness() {
                                 {...register("country", {
                                   validate: (value) => value != "",
                                   required: true,
+                                  onChange:handleChange
                                 })}
                                 name="country"
-                                onChange={handleChange}
+                               
                                 aria-label="Default select example"
                               >
                                 <option value="">
                                   --SELECT COUNTRY--
                                 </option>
-                                {countries.map((country, index) => (
+                                {countries.map((country: any, index: any) => (
                                   <option
                                     key={country.id}
                                     value={country.name}
@@ -358,33 +361,9 @@ export default function findbusiness() {
                               </label>
                               <div className="input-group">
                              
-                              <PhoneInput
-                                  onClick={phonClick}
-                                  country={"us"}
-                                  {...register("phone", {required :! user.phone})}
-                                  value={user.phone}
+                              <PhoneInput onClick={phonClick} country={"us"} {...register("phone", {required :! user.phone})}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                />
-                              {/* <input type="text"
-                                className="form-control same-input"
-                                {...register("phone", {
-                                  value: true,
-                                  required: true,
-                                  minLength: {
-                                    value: 10,
-                                    message: 'Please Enter a Valid Phone Number',
-                                  },
-                                  pattern: {
-                                    value: /^[0-9]*$/,
-                                    message: "Please Enter a Valid Phone Number",
-                                  },
-                                })}
-                                id="phone"
-                                name="phone"
-                                onChange={handleChange} onClick={phonClick}
-                                maxLength={10}
-                                value={user.phone ? user.phone.replace(/^\+91-/, '') : ''}
-                              /> */}
+                                  value={user.phone}/>
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (
@@ -395,11 +374,11 @@ export default function findbusiness() {
                                   *Please Enter Your Phone Number.
                                 </p>
                               )}
-                              {errors.phone && errors.phone.type === "minLength" && (
+                              {/* {errors.phone && errors.phone.type === "minLength" && (
                                 <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                   *{errors.phone.message}
                                 </p>
-                              )}
+                              )} */}
 
 
                             </div>
@@ -448,9 +427,10 @@ export default function findbusiness() {
                                 {...register("gender", {
                                   validate: (value) => value != "",
                                   required: true,
+                                  onChange:handleChange
                                 })}
                                 name="gender"
-                                onChange={handleChange}
+                              
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
                               >
