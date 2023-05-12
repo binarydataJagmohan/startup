@@ -6,23 +6,26 @@ import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 
+interface UserData{
+  id?:string;
+}
 interface FundRaiseData {
   user_id?:number;
   business_id?:number;
-  total_units?:number;
-  minimum_subscription?:number;
+  total_units?:string;
+  minimum_subscription?:string;
   avg_amt_per_person?:number;
   tenure?:number | string;
   repay_date?: string,
   closed_in?:string;
   resource?:string;
   xirr?: number |string;
-  amount?: number |string;
+  amount?: string;
 }
 const FundRaiseForm = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, } = useForm();
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
   const [fundRaiseData, setFundRaiseData] = useState({
     user_id: current_user_id,
@@ -60,13 +63,15 @@ const handlePDCFileChange = (event: any) => {
     let { name, value } = event.target;
     if (name === "amount" || name === "total_units") {
       setFundRaiseData({ ...fundRaiseData, [name]: value });
-      const amount = name === "amount" ? value : fundRaiseData.amount;
-      const totalUnits = name === "total_units" ? value : fundRaiseData.total_units;
+      const amount = name === "amount" ? Number(value) : fundRaiseData.amount;
+      const totalUnits = name === "total_units" ? Number(value) : fundRaiseData.total_units;
+      if (typeof !isNaN(amount) === "number" && typeof totalUnits === "number") {
       if (amount && totalUnits) {
-        const minimum_value = parseInt(amount / totalUnits).toString();
+        const minimum_value = Number(amount / totalUnits).toString();
         console.log(parseInt(minimum_value));
         setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value });
       }
+    }
     }
     if (name === "tenure") {
       const tenureDays = parseInt(value);
@@ -91,7 +96,7 @@ const handlePDCFileChange = (event: any) => {
 
   };
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData= getCurrentUserData();
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -123,9 +128,15 @@ const handlePDCFileChange = (event: any) => {
     try {
       // console.log(fundRaiseData);
       const formData = new FormData();
-      formData.append('agreement',agreement);
-      formData.append('invoice',invoice);
-      formData.append('pdc',pdc);
+      if (agreement !== null) {
+        formData.append('agreement', agreement);
+      }
+      if (invoice !== null) {
+        formData.append('invoice', invoice);
+      }
+      if (pdc !== null) {
+        formData.append('pdc', pdc);
+      }
       formData.append('user_id',fundRaiseData.user_id);
       formData.append('business_id',fundRaiseData.business_id);
       formData.append('total_units',fundRaiseData.total_units);
@@ -275,8 +286,8 @@ const handlePDCFileChange = (event: any) => {
                           </label>
                           <select
                             className="form-select form-select-lg css-1492t68" {...register("resource", {
-                              value: true, required: true,
-                            })} name="resource" onChange={handleChange}
+                              value: true, required: true,onChange:handleChange
+                            })} name="resource" 
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT RESOURCE--</option>
@@ -299,8 +310,8 @@ const handlePDCFileChange = (event: any) => {
                           <select
                             className="form-select form-select-lg  css-1492t68"
                             {...register("tenure", {
-                              value: true, required: true,
-                            })} name="tenure" onChange={handleChange}
+                              value: true, required: true,onChange:handleChange
+                            })} name="tenure" 
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT TENURE--</option>

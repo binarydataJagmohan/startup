@@ -241,15 +241,15 @@ export default function SingleBlog() {
                                             </p>
                                             <p className="comment-form-comment">
                                                 <label>Comment</label>
-                                                <textarea name="comment" id="comment" cols={45} rows={5} maxLength={65525} required="required"  />
+                                                <textarea name="comment" id="comment" cols={45} rows={5} maxLength={65525} required />
                                             </p>
                                             <p className="comment-form-author">
                                                 <label>Name <span className="required">*</span></label>
-                                                <input type="text" id="author" name="author" required="required" />
+                                                <input type="text" id="author" name="author" required/>
                                             </p>
                                             <p className="comment-form-email">
                                                 <label>Email <span className="required">*</span></label>
-                                                <input type="email" id="email" name="email" required="required" />
+                                                <input type="email" id="email" name="email" required />
                                             </p>
                                             <p className="comment-form-url">
                                                 <label>Website</label>

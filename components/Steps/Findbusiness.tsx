@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+
+
 const alertStyle = {
   color: "red",
 };
@@ -16,14 +18,13 @@ const textStyle = {
 };
 
 interface UserData {
-  id?: number;
+  id?: string;
 }
 type Country = {
   name: string;
   country_code: string;
-};
-
-export default function findbusiness() {
+}
+export default function Findbusiness():any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
@@ -46,15 +47,15 @@ export default function findbusiness() {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
   } = useForm();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value }: { name: string, value: string } = event.target;
+  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = event.target;
     if (name === 'phone') {
-      // Remove all non-digit characters
+      // Remove all non-digit characters from value
       value = value.replace(/\D/g, '');
-      // Limit the length of phone_nmber to 12 numbers
+      // Limit the length of value to 12 characters
       value = value.substring(0, 12);
     }
 
@@ -65,7 +66,7 @@ export default function findbusiness() {
     if (selectedCountry) {
       countryCode = selectedCountry.country_code;
     }
-  
+
     setUser((prevState) => {
       return {
         ...prevState,
@@ -74,10 +75,10 @@ export default function findbusiness() {
         country_code: countryCode ? `${countryCode}` : " ",
       };
     });
-    
+
   };
 
-  const phonClick = (event:any) => {
+  const phonClick = (event: any) => {
     let { name, value } = event.target;
     var selectedCountry = countries.find(
       (country) => country.name === value
@@ -99,13 +100,16 @@ export default function findbusiness() {
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data.id != null) {
-      current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
+    if (current_user_data?.id != null) {
+      current_user_data.id
+        ? setCurrentUserId(current_user_data.id)
+        : setCurrentUserId("");
 
       getSingleUserData(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
             setUser(res.data);
+            // console.log(setUser);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -136,7 +140,7 @@ export default function findbusiness() {
       const res = await personalInformationSave(user);
       if (res.status == true) {
         setTimeout(() => {
-          router.push("/investor-steps/investor-type");
+          router.push("/steps/businessinfo");
         }, 1000);
       } else {
         toast.error(res.message, {
@@ -144,20 +148,12 @@ export default function findbusiness() {
           toastId: "error",
         });
       }
-    } catch (err: any) {
-      toast.error(err, {
+    } catch (err) {
+      toast.error(err as string, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
     }
-  };
-
-  const handleAdrChange = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-
-  const handleSelect = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
   };
 
   if (signup_success) return router.push("/steps/businessinfo");
@@ -183,20 +179,20 @@ export default function findbusiness() {
       <div className="left-bar">
         <div className="container">
           <div id="app">
-          <ol className="step-indicator">
+            <ol className="step-indicator">
               <li className="active">
                 <div className="step_name">
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                  <div className="step_complete">
-                    <i className="flaticon-checked" aria-hidden="true"></i>
+                  <div className="step">
+                    <img
+                      className="sidebar-img w-75"
+                      src="/assets/img/sidebar/user.png"
+                    />
                   </div>
                 </div>
-                <div
-                  className="caption hidden-xs hidden-sm"
-                  style={{ color: "#82b440" }}
-                >
+                <div className="caption hidden-xs hidden-sm">
                   <span>PERSONAL INFORMATION</span>
                 </div>
               </li>
@@ -207,13 +203,13 @@ export default function findbusiness() {
                 <div className="step_border">
                   <div className="step">
                     <img
-                      className="sidebar-img w-100"
-                      src="/assets/img/investor/dollar.png"
+                      className="sidebar-img w-75"
+                      src="/assets/img/sidebar/business.png"
                     />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
-                  <span>INVESTOR INFORMATION</span>
+                  <span>BUSINESS INFORMATION</span>
                 </div>
               </li>
               <li className="">
@@ -223,19 +219,34 @@ export default function findbusiness() {
                 <div className="step_border">
                   <div className="step">
                     <img
-                      className="sidebar-img w-50"
-                      src="/assets/img/investor/download2.png"
+                      className="sidebar-img w-75"
+                      src="/assets/img/sidebar/docs.png"
                     />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
-                  <span>Terms & Conditions</span>
+                  <span>BASIC INFORMATION</span>
+                </div>
+              </li>
+              <li className="">
+                <div className="step_name">
+                  Step <span>4</span>
+                </div>
+                <div className="step_border">
+                  <div className="step">
+                    <img
+                      className="sidebar-img w-75"
+                      src="/assets/img/sidebar/bank.png"
+                    />
+                  </div>
+                </div>
+                <div className="caption hidden-xs hidden-sm">
+                  <span>BANK INFORMATION</span>
                 </div>
               </li>
             </ol>
             <div className="container">
               <div className="register-form">
-                {/*<h4 className="text-center mt-5">Find your business</h4>*/}
                 <div className="row step_one">
                   <div className="col-md-12">
                     <form
@@ -304,9 +315,10 @@ export default function findbusiness() {
                                 <p className="text-danger">*Please enter your LinkedIn URL</p>
                               )}
                               {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
-                               <p className="text-danger">*Please enter a valid LinkedIn URL</p>
+                                <p className="text-danger">*Please enter a valid LinkedIn URL.</p>
                               )}
                             </div>
+
 
                             <div className="col-sm-6 mt-3">
                               <label
@@ -319,20 +331,19 @@ export default function findbusiness() {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("country", {
-                                  validate: (value) => value != "",
+                                  validate: (value) => value != "",onChange:handleChange,
                                   required: true,
-                                  onChange:handleChange
                                 })}
                                 name="country"
-                               
+                                
                                 aria-label="Default select example"
                               >
                                 <option value="">
                                   --SELECT COUNTRY--
                                 </option>
-                                {countries.map((country: any, index: any) => (
+                                {countries.map((country, index) => (
                                   <option
-                                    key={country.id}
+                                    key={index}
                                     value={country.name}
                                     selected={user.country === country.name}
                                   >
@@ -360,10 +371,13 @@ export default function findbusiness() {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                             
-                              <PhoneInput onClick={phonClick} country={"us"} {...register("phone", {required :! user.phone})}
+                                 <PhoneInput
+                                  onClick={phonClick}
+                                  country={"us"}
+                                  {...register("phone", { required: !user.phone })}
+                                  value={user.phone}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                  value={user.phone}/>
+                                />
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (
@@ -425,12 +439,11 @@ export default function findbusiness() {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("gender", {
-                                  validate: (value) => value != "",
+                                  validate: (value) => value != "",onChange:handleChange,
                                   required: true,
-                                  onChange:handleChange
                                 })}
                                 name="gender"
-                              
+                                
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
                               >

@@ -16,16 +16,16 @@ const textStyle = {
 };
 
 interface UserData {
-  id: number;
+  id?: string;
 }
-export default function customereview() {
+export default function AdharInformation():any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   // const [current_business_id , setCurrentBusinessId ] = useState(false);
   const [bankDetails, setBankDetails] = useState({
     user_id:current_user_id,
@@ -41,7 +41,7 @@ export default function customereview() {
     formState: { errors },
   } = useForm();
   
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === 'account_no') {
       value = value.replace(/\D/g, '');
@@ -57,7 +57,7 @@ export default function customereview() {
     });
   };
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)

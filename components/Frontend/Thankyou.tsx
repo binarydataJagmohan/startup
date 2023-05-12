@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 interface UserData {
-    id: number;
+    id?: number;
+    approval_status?: string;
   }
 const Thankyou = () => {
     const [current_user_id, setCurrentUserId] = useState(false);

@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
-
 const alertStyle = {
   color: "red",
 };
@@ -18,9 +16,14 @@ const textStyle = {
 };
 
 interface UserData {
-  id: number;
+  id?: number;
 }
-export default function findbusiness() {
+type Country = {
+  name: string;
+  country_code: string;
+};
+
+export default function Findbusiness():any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
@@ -28,8 +31,8 @@ export default function findbusiness() {
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
-  const [current_user_id, setCurrentUserId] = useState(false);
-  const [countries, setcountries] = useState([]);
+  const [current_user_id, setCurrentUserId] = useState("");
+  const [countries, setcountries] = useState<Country[]>([]);
   const [user, setUser] = useState({
     id: current_user_id,
     email: "",
@@ -43,15 +46,15 @@ export default function findbusiness() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors},
   } = useForm();
 
-  const handleChange = (event) => {
-    let { name, value } = event.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value }: { name: string, value: string } = event.target;
     if (name === 'phone') {
-      // Remove all non-digit characters from value
+      // Remove all non-digit characters
       value = value.replace(/\D/g, '');
-      // Limit the length of value to 12 characters
+      // Limit the length of phone_nmber to 12 numbers
       value = value.substring(0, 12);
     }
 
@@ -62,7 +65,7 @@ export default function findbusiness() {
     if (selectedCountry) {
       countryCode = selectedCountry.country_code;
     }
-
+  
     setUser((prevState) => {
       return {
         ...prevState,
@@ -71,10 +74,10 @@ export default function findbusiness() {
         country_code: countryCode ? `${countryCode}` : " ",
       };
     });
-
+    
   };
 
-  const phonClick = (event) => {
+  const phonClick = (event:any) => {
     let { name, value } = event.target;
     var selectedCountry = countries.find(
       (country) => country.name === value
@@ -95,17 +98,14 @@ export default function findbusiness() {
   }
 
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
+      current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
 
       getSingleUserData(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
             setUser(res.data);
-            // console.log(setUser);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -136,7 +136,7 @@ export default function findbusiness() {
       const res = await personalInformationSave(user);
       if (res.status == true) {
         setTimeout(() => {
-          router.push("/steps/businessinfo");
+          router.push("/investor-steps/investor-type");
         }, 1000);
       } else {
         toast.error(res.message, {
@@ -144,7 +144,7 @@ export default function findbusiness() {
           toastId: "error",
         });
       }
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
@@ -152,13 +152,13 @@ export default function findbusiness() {
     }
   };
 
-  // const handleAdrChange = (find_business_location: any) => {
-  //   setFindBusinessLocation(find_business_location);
-  // };
+  const handleAdrChange = (find_business_location: any) => {
+    setFindBusinessLocation(find_business_location);
+  };
 
-  // const handleSelect = (find_business_location: any) => {
-  //   setFindBusinessLocation(find_business_location);
-  // };
+  const handleSelect = (find_business_location: any) => {
+    setFindBusinessLocation(find_business_location);
+  };
 
   if (signup_success) return router.push("/steps/businessinfo");
 
@@ -183,20 +183,20 @@ export default function findbusiness() {
       <div className="left-bar">
         <div className="container">
           <div id="app">
-            <ol className="step-indicator">
+          <ol className="step-indicator">
               <li className="active">
                 <div className="step_name">
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/user.png"
-                    />
+                  <div className="step_complete">
+                    <i className="flaticon-checked" aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm">
+                <div
+                  className="caption hidden-xs hidden-sm"
+                  style={{ color: "#82b440" }}
+                >
                   <span>PERSONAL INFORMATION</span>
                 </div>
               </li>
@@ -207,13 +207,13 @@ export default function findbusiness() {
                 <div className="step_border">
                   <div className="step">
                     <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/business.png"
+                      className="sidebar-img w-100"
+                      src="/assets/img/investor/dollar.png"
                     />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
-                  <span>BUSINESS INFORMATION</span>
+                  <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
               <li className="">
@@ -223,29 +223,13 @@ export default function findbusiness() {
                 <div className="step_border">
                   <div className="step">
                     <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/docs.png"
+                      className="sidebar-img w-50"
+                      src="/assets/img/investor/download2.png"
                     />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
-                  <span>BASIC INFORMATION</span>
-                </div>
-              </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/bank.png"
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BANK INFORMATION</span>
+                  <span>Terms & Conditions</span>
                 </div>
               </li>
             </ol>
@@ -320,10 +304,9 @@ export default function findbusiness() {
                                 <p className="text-danger">*Please enter your LinkedIn URL</p>
                               )}
                               {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
-                                <p className="text-danger">{errors.linkedin_url.message}</p>
+                               <p className="text-danger">*Please enter a valid LinkedIn URL</p>
                               )}
                             </div>
-
 
                             <div className="col-sm-6 mt-3">
                               <label
@@ -338,15 +321,16 @@ export default function findbusiness() {
                                 {...register("country", {
                                   validate: (value) => value != "",
                                   required: true,
+                                  onChange:handleChange
                                 })}
                                 name="country"
-                                onChange={handleChange}
+                               
                                 aria-label="Default select example"
                               >
                                 <option value="">
                                   --SELECT COUNTRY--
                                 </option>
-                                {countries.map((country, index) => (
+                                {countries.map((country: any, index: any) => (
                                   <option
                                     key={country.id}
                                     value={country.name}
@@ -376,39 +360,10 @@ export default function findbusiness() {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                                {/* <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">
-                                  {user.country_code}
-                                </span>
-                              </div> */}
-                                {/* <input type="text"
-                                className="form-control same-input"
-                                {...register("phone", {
-                                  value: true,
-                                  required: true,
-                                  minLength: {
-                                    value: 10,
-                                    message: 'Please Enter a Valid Phone Number',
-                                  },
-                                  pattern: {
-                                    value: /^[0-9]*$/,
-                                    message: "Please Enter a Valid Phone Number",
-                                  },
-                                })}
-                                id="phone"
-                                name="phone"
-                                onChange={handleChange} onClick={phonClick}
-                                maxLength={10}
-                                value={user.phone ? user.phone.replace(/^\+91-/, '') : ''}
-                              /> */}
-                                <PhoneInput
-                                  onClick={phonClick}
-                                  country={"us"}
-                                  {...register("phone", { required: !user.phone })}
-                                  value={user.phone}
+                             
+                              <PhoneInput onClick={phonClick} country={"us"} {...register("phone", {required :! user.phone})}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                />
-
+                                  value={user.phone}/>
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (
@@ -419,11 +374,11 @@ export default function findbusiness() {
                                   *Please Enter Your Phone Number.
                                 </p>
                               )}
-                              {errors.phone && errors.phone.type === "minLength" && (
+                              {/* {errors.phone && errors.phone.type === "minLength" && (
                                 <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                   *{errors.phone.message}
                                 </p>
-                              )}
+                              )} */}
 
 
                             </div>
@@ -472,9 +427,10 @@ export default function findbusiness() {
                                 {...register("gender", {
                                   validate: (value) => value != "",
                                   required: true,
+                                  onChange:handleChange
                                 })}
                                 name="gender"
-                                onChange={handleChange}
+                              
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
                               >

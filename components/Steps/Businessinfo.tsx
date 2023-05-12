@@ -16,13 +16,15 @@ const alertStyle = {
 const textStyle = {
   textTransform: "capitalize",
 };
-
-export default function businessinfo(props: any) {
+interface UserData{
+  id?: string;
+}
+export default function Businessinfo():any {
   const router = useRouter();
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
  
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [business_name, setBusinessName] = useState("");
 
   const [signup_success, setSignupSuccess] = useState(false);
@@ -30,7 +32,7 @@ export default function businessinfo(props: any) {
   const {register,handleSubmit,formState: { errors },} = useForm();
   const [logo, setLogo] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     setLogo(event.target.files[0]);
   };
   const [businessDetails, setBusinessDetails] = useState({
@@ -48,7 +50,7 @@ export default function businessinfo(props: any) {
       cofounder: "0",
       kyc_purposes: "0",
   });
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox' && name === 'cofounder') {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
@@ -82,7 +84,7 @@ export default function businessinfo(props: any) {
   };
   
  useEffect(() => {
-  const current_user_data = getCurrentUserData();
+  const current_user_data:UserData = getCurrentUserData();
   if (current_user_data.id) {
     setCurrentUserId(current_user_data.id);
     getBusinessInformation(current_user_data.id)
@@ -110,10 +112,9 @@ export default function businessinfo(props: any) {
 const SubmitForm = async () => {
   try {
     const formData = new FormData();
-    // if (businessDetails.logo && businessDetails.logo[0]) {
-    //   formData.append("logo", businessDetails.logo[0]);
-    // }
-    formData.append('logo', logo);
+    if (logo !== null) {
+      formData.append('logo', logo);
+    }
     formData.append("user_id", businessDetails.user_id);
     formData.append("business_name", businessDetails.business_name);
     formData.append("reg_businessname", businessDetails.reg_businessname);
@@ -153,21 +154,6 @@ register('website_url', {
     message: 'Enter a valid website',
   },
 });
-  // const savedata = () => {
-  //   var blid = blId;
-  //   const data = {
-  //     user_id: forwarduId,
-  //     firstname: firstname,
-  //     lastname: lastname,
-  //     phone: phone,
-  //     email: email,
-  //     business_page_id: business_page_id,
-  //     business_name: business_name,
-  //     business_address: business_address,
-  //     number_of_locations: numberOfLocations,
-  //   };
-  //   setSignupSuccess(true);
-  // };
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
@@ -358,8 +344,8 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("sector", {validate: (value) => value != "", required: true,})} 
-                                name="sector"  onChange={handleChange}   value={businessDetails ? businessDetails.sector : ""}
+                                {...register("sector", {validate: (value) => value != "", required: true,onChange:handleChange})} 
+                                name="sector" value={businessDetails ? businessDetails.sector : ""}
                               >
                                 <option value="">--SELECT SECTOR--</option>
                                 <option value="App Development">App Development</option>
@@ -389,8 +375,8 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("stage", { validate: (value) => value != "", required: true,})}
-                                name="stage"  onChange={handleChange}  value={businessDetails ? businessDetails.stage : ""}
+                                {...register("stage", { validate: (value) => value != "", required: true, onChange:handleChange})}
+                                name="stage"   value={businessDetails ? businessDetails.stage : ""}
                               >
                                 <option value="">--SELECT STAGE--</option>
                                 <option value="Idea Stage">Idea Stage</option>
@@ -469,8 +455,8 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("type", { validate: (value) => value != "", required: true,})}
-                                name="type"  onChange={handleChange}  value={businessDetails ? businessDetails.type : ""}
+                                {...register("type", { validate: (value) => value != "", required: true,onChange:handleChange})}
+                                name="type"    value={businessDetails ? businessDetails.type : ""}
                               >
                                 <option value="">--SELECT FUND TYPE--</option>
                                 <option value="Dicounting Invoice">Dicounting Invoice</option>
@@ -503,8 +489,8 @@ register('website_url', {
                                 maxLength={100}
                                 placeholder="Enter details here"
                                 className="form-control"
-                                {...register("description", { value:true, required: true,})}
-                                name="description"  onChange={handleChange} value={businessDetails.description}
+                                {...register("description", { value:true, required: true,onChange:handleChange})}
+                                name="description"   value={businessDetails.description}
                               />
                             </div>
 

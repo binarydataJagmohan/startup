@@ -19,9 +19,9 @@ interface CurrentUserData {
 interface ErrorMessage {
   message: string;
 }
-export default function customizereview() {
+export default function Customizereview():any {
   const router = useRouter();
-  const [current_user_id, setCurrentUserId] = useState<string>("");
+  const [current_user_id, setCurrentUserId] = useState("");
   const [terms, setTerms] = useState({
     user_id: current_user_id,
     category:"",

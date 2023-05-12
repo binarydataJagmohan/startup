@@ -1,5 +1,5 @@
 import React from 'react'
-import Agency from "../It-Agency";
+import Agency from "../Frontend/ItAgency";
 export default function Service() {
     return (
         <>

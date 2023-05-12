@@ -19,7 +19,7 @@ const Dashboard = () => {
   fetchData();
   }, []);
    
-  const getBusinessdetails = (e, id) => {
+  const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
     alert(id)
     getSingleBusinessDetails(id).then((res) => {
@@ -39,8 +39,8 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details) => details.type === "Dicounting Invoice")
-              .map((details) => (
+              .filter((details: any) => details.type === "Dicounting Invoice")
+              .map((details:any) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
@@ -139,8 +139,8 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details) => details.type === "CSOP")
-              .map((details) => (
+              .filter((details: any) => details.type === "CSOP")
+              .map((details: any) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
@@ -238,8 +238,8 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details) => details.type === "Discounting")
-              .map((details) => (
+              .filter((details: any) => details.type === "Dicounting Invoice")
+              .map((details: any) => (
                 <div className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">

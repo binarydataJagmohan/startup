@@ -6,6 +6,11 @@ import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
 import { getCurrentUserData,removeToken,removeStorageData} from '../../lib/session'
+interface UserData{
+  id?:string;
+  username?:string;
+  role?:string;
+}
 const settings = {
   dots: true,
   infinite: true,
@@ -61,10 +66,10 @@ export default function Home() {
   const [current_user_role, setCurrentUserRole] = useState("");
 
 useEffect(() => {
-  const current_user = getCurrentUserData();
+  const current_user:UserData = getCurrentUserData();
   current_user.username ? setCurrentUserName(current_user.username) : setCurrentUserName("");
   current_user.role ? setCurrentUserRole(current_user.role) : setCurrentUserRole("");
-  current_user.id ? setCurrentUserId(true) : setCurrentUserId(false);
+  current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");
 }, []);
   // console.log(current_user);
   

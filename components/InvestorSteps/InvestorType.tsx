@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
@@ -19,7 +19,7 @@ const textStyle = {
 interface UserData {
     id?: string;
   }
-export default function InvestorType(props: any) {
+export default function InvestorType():any {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState("");
     const [signup_success, setSignupSuccess] = useState(false);
@@ -79,7 +79,8 @@ export default function InvestorType(props: any) {
 
     const SubmitForm = async () => {
         try {
-            const res = await investorTypeInfoSave( investorDetails);
+            console.log(investorDetails)
+            const res = await investorTypeInfoSave(investorDetails);
             if (res.status == true) {
                 // toast.success(res.message, {
                 //     position: toast.POSITION.TOP_RIGHT,

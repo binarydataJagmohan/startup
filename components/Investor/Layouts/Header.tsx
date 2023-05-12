@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import Link from 'next/link'
 interface UserData {
-  id: number;
+  id?: string;
+  username?: string;
+  role?: string;
 }
 const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
 
   function redirectToLogin() {
@@ -26,7 +28,7 @@ const Header = () => {
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
-    current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
+    current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
   }, []);
   // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -35,7 +37,7 @@ const Header = () => {
     setShowDropdown(!showDropdown);
   }
 
-  function handleOutsideClick(event) {
+  function handleOutsideClick(event :any) {
     if (!event.target.matches('.dropbtn')) {
       setShowDropdown(false);
     }
@@ -83,11 +85,11 @@ const Header = () => {
           </ul>
           <div className="others-options">
             <div className="dropdown">
-              <button onClick={toggleDropdown} className="dropbtn">
+              <button onClick={toggleDropdown} className="dropbtn bg-info">
                 {current_user_name} <i className="fa-solid fa-caret-down" />
               </button>
               <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
-                <a href="">{current_user_name.name}</a>
+                {/* <a href="">{current_user_name}</a> */}
                 {current_user_role=="startup" ?  
                         <a href="/steps/findbusiness" className="colortwo">
                           Profile

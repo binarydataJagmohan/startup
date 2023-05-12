@@ -3,12 +3,19 @@ import { useEffect, useState } from 'react';
 import { getSingleBusinessDetails,InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
-
+interface UserData{
+  id?:string;
+}
+interface InputData{
+  business_id?:string;
+  minimum_subscription?:string;
+  xirr?:string;
+}
 
 export default function CampaignsDetails() {
-  const [currentUserData, setCurrentUserData] = useState({});
+  const [currentUserData, setCurrentUserData] = useState<UserData>({});
   const [value, setValue] = useState(1);
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState<InputData>({});
   const [subscriptionValue, setSubscriptionValue] = useState(0);
   const [repayValue, setRepayValue] = useState(0);
   const [subscription_value, setSubscription_value] = useState(0);
@@ -23,14 +30,14 @@ export default function CampaignsDetails() {
     const fetchData = async () => {
       const res = await getSingleBusinessDetails(id);
       setInputs(res.data);
-      const userData = getCurrentUserData();
+      const userData:UserData = getCurrentUserData();
          //console.log(userData);
         setCurrentUserData(userData);
     };
     fetchData();
   }, [id]);
  
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const data = {
       user_id: currentUserData.id,
@@ -61,7 +68,7 @@ export default function CampaignsDetails() {
       // handle the error, such as showing an error message
     }
   };
-  const toggleAccordion = (index) => {
+  const toggleAccordion = (index:any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 

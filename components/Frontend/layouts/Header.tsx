@@ -7,14 +7,15 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-interface UserData {
-  username: string;
-  role: string;
-  id: number;
-}
+type UserData = {
+  id?: string;
+  username?: string;
+  role?: string;
+};
+
 export default function HeaderFrontend() {
   const router = useRouter();
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -39,7 +40,7 @@ export default function HeaderFrontend() {
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
-    current_user_data.id ? setCurrentUserId(true) : setCurrentUserId(false);
+    current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
   }, []);
 
   const [name, setName] = useState("");
@@ -52,7 +53,6 @@ export default function HeaderFrontend() {
     formState: { errors },
   } = useForm();
   const SubmitForm = () => {
-    //e.preventDefault();
     const logindata = {
       name: name,
       email: email,

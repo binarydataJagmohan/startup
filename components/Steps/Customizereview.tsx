@@ -18,16 +18,16 @@ const textStyle = {
 };
 
 interface UserData {
-  id: number;
+  id?: string;
 }
-export default function customereview() {
+export default function Customereview():any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
-  const [current_user_id, setCurrentUserId] = useState(false);
+  const [current_user_id, setCurrentUserId] = useState("");
   const [proof_img, setProofImg] = useState(null);
   const [basicDetails, setBasicDetails] = useState({
     user_id: current_user_id,
@@ -41,11 +41,11 @@ export default function customereview() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     setProofImg(event.target.files[0]);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === 'uid') {
       // Remove all non-digit characters from value
@@ -64,7 +64,7 @@ export default function customereview() {
     });
   };
   useEffect(() => {
-    const current_user_data = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -93,7 +93,9 @@ export default function customereview() {
   const SubmitForm = async () => {
     try {
       const formData = new FormData();
-      formData.append('proof_img', proof_img);
+      if (proof_img !== null) {
+        formData.append('proof_img', proof_img);
+      }
       formData.append("user_id", basicDetails.user_id);
       formData.append("pan_number", basicDetails.pan_number);
       formData.append("uid", basicDetails.uid);

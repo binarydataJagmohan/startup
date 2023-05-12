@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,10 +14,13 @@ const textStyle = {
     textTransform: 'capitalize',
 };
 
+interface UserData{
+    id?:string;
+}
 
-export default function AccreditedInvestors(selectedOption) {
+export default function AccreditedInvestors() {
     const router = useRouter();
-    const [current_user_id, setCurrentUserId] = useState(false);
+    const [current_user_id, setCurrentUserId] = useState("");
     const [terms, setTerms] = useState({
         user_id: current_user_id,
         annual_income: "0",
@@ -31,7 +34,7 @@ export default function AccreditedInvestors(selectedOption) {
     });
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
-    const handleChange = (event) => {
+    const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = event.target;
         if (type === 'checkbox' && name === 'annual_income') {
             // Set the value of annual_income to '1' if the checkbox is checked, '0' otherwise
@@ -118,7 +121,7 @@ export default function AccreditedInvestors(selectedOption) {
     };
 
     useEffect(() => {
-        const current_user_data = getCurrentUserData();
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.id) {
             setCurrentUserId(current_user_data.id);
             getAccreditedInvestorTerms(current_user_data.id)
@@ -171,7 +174,7 @@ export default function AccreditedInvestors(selectedOption) {
                 });
             }
         } catch (err) {
-            toast.error(err, {
+            toast.error(err as string, {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
             });
@@ -265,8 +268,8 @@ export default function AccreditedInvestors(selectedOption) {
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
-                                                    <select className="options" {...register("category", { validate: (value) => value != "", required: true, })}
-                                                        name="category" onChange={handleChange} value={terms ? terms.category : ""}>
+                                                    <select className="options" {...register("category", { validate: (value) => value != "", required: true,  onChange:handleChange})}
+                                                        name="category" value={terms ? terms.category : ""}>
                                                         <option value="">--SELECT CATEGORY--</option>
                                                         <option value="1">Indian Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
                                                         <option value="2">Foreign Individuals/HUFs/Family Trusts/Sole Proprietorships</option>

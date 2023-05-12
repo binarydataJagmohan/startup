@@ -1,5 +1,5 @@
 import React from 'react'
-import AdharInformation from  '../../components/Steps/adharinformation'
+import AdharInformation from  '../../components/Steps/Adharinformation'
 const adharinformation = () => {
   return (
     <>
