@@ -13,6 +13,7 @@ interface FundRaiseData {
   user_id?:number;
   business_id?:number;
   total_units?:string;
+  amount?: string;
   minimum_subscription?:string;
   avg_amt_per_person?:number;
   tenure?:number | string;
@@ -20,14 +21,14 @@ interface FundRaiseData {
   closed_in?:string;
   resource?:string;
   xirr?: number |string;
-  amount?: string;
+
 }
 const FundRaiseForm = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
-  const [fundRaiseData, setFundRaiseData] = useState({
+  const [fundRaiseData, setFundRaiseData] = useState<any>({
     user_id: current_user_id,
     business_id: businessInfo,
     total_units: "",
@@ -65,13 +66,12 @@ const handlePDCFileChange = (event: any) => {
       setFundRaiseData({ ...fundRaiseData, [name]: value });
       const amount = name === "amount" ? Number(value) : fundRaiseData.amount;
       const totalUnits = name === "total_units" ? Number(value) : fundRaiseData.total_units;
-      if (typeof !isNaN(amount) === "number" && typeof totalUnits === "number") {
-      if (amount && totalUnits) {
-        const minimum_value = Number(amount / totalUnits).toString();
-        console.log(parseInt(minimum_value));
-        setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value });
-      }
-    }
+        // if (typeof amount === "number" && typeof totalUnits === "number") {
+          if (amount && totalUnits) {
+            const minimum_value = amount  / totalUnits;
+            setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value.toString() });
+          // }
+        }
     }
     if (name === "tenure") {
       const tenureDays = parseInt(value);
@@ -83,7 +83,7 @@ const handlePDCFileChange = (event: any) => {
       setFundRaiseData({ ...fundRaiseData, [name]: value, repay_date: repayDate, closed_in: closedDate });
     }
     // else {
-    setFundRaiseData((prevState) => {
+    setFundRaiseData((prevState:  FundRaiseData) => {
       return {
         ...prevState,
         [name]: value,

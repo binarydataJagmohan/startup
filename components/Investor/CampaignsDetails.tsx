@@ -8,8 +8,13 @@ interface UserData{
 }
 interface InputData{
   business_id?:string;
-  minimum_subscription?:string;
-  xirr?:string;
+  minimum_subscription?:number;
+  xirr?:number;
+  tenure?:number;
+  logo?:string;
+  no_of_units?:string;
+  total_units?:string;
+  repay_date?:string;
 }
 
 export default function CampaignsDetails() {
@@ -74,11 +79,11 @@ export default function CampaignsDetails() {
 
   const handlePlusClick = () => {
     setValue(value + 1);
-    const newSubscriptionValue = (value + 1) * inputs.minimum_subscription;
+    const newSubscriptionValue = (value + 1) * (inputs.minimum_subscription || 0);
     setSubscriptionValue(newSubscriptionValue);
-    const data1 = (newSubscriptionValue * inputs.xirr) / 100;
+    const data1 = inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
     const data3 = (data1 / 366);
-    const data4 = (data3*inputs.tenure);
+    const data4 = inputs.tenure ? (data3 * inputs.tenure) : 0;
     const newRepayValue = newSubscriptionValue + data4;
     const roundedNumber = Math.floor(newRepayValue);
     setRepayValue(roundedNumber);
@@ -88,27 +93,27 @@ export default function CampaignsDetails() {
   const handleMinusClick = () => {
     if (value > 1) {
       setValue(value - 1);
-      const newSubscriptionValue = (value - 1) * inputs.minimum_subscription;
+      const newSubscriptionValue = (value - 1) * (inputs.minimum_subscription ||0);
       setSubscriptionValue(newSubscriptionValue);
-    const data1 = (newSubscriptionValue * inputs.xirr) / 100;
+    const data1 =inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 :0;
     const data3 = (data1 / 366);
-    const data4 = (data3*inputs.tenure);
+    const data4 = inputs && inputs.tenure?(data3*inputs.tenure):0;
     const newRepayValue = newSubscriptionValue + data4;
     const roundedNumber = Math.floor(newRepayValue);
     setRepayValue(roundedNumber);
     }
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
     if (!isNaN(newValue) && newValue >= 1) {
       setValue(newValue);
-      const newSubscriptionValue = newValue * inputs.minimum_subscription;
+      const newSubscriptionValue = newValue * (inputs.minimum_subscription || 0);
       setSubscriptionValue(newSubscriptionValue);
-      const data1 = newSubscriptionValue * inputs.xirr;
+      const data1 = inputs && inputs.xirr ? newSubscriptionValue * inputs.xirr : 0;
       const data2 = data1 / 100;
       const data3 = data2 / 366;
-      const data4 = data3 * inputs.tenure;
+      const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
       const newRepayValue = newSubscriptionValue + data4;
       console.log(newRepayValue)
       setRepayValue(newRepayValue);
@@ -397,7 +402,7 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
-                        onChange={(e) => setNo_of_units(e.target.value)}
+                        // onChange={(e) => setNo_of_units(e.target.value)}
                       />
                       <span className="plus" onClick={handlePlusClick}>
                         +
@@ -408,7 +413,7 @@ export default function CampaignsDetails() {
                       <span>Unit Value</span>
                       <p
                         className="css-37nqt7"
-                        onChange={(e) => setSubscription_value(e.target.value)}
+                        onChange={(e:any) => setSubscription_value(e.target.value)}
                       >
                         ₹{inputs.minimum_subscription}
                       </p>
@@ -418,7 +423,7 @@ export default function CampaignsDetails() {
                       <span>Subscription Value</span>
                       <p
                         className="css-37nqt7"
-                        onChange={(e) => setSubscriptionValue(e.target.value)}
+                        onChange={(e:any) => setSubscriptionValue(e.target.value)}
                       >
                         ₹{subscriptionValue}
                       </p>
@@ -436,7 +441,7 @@ export default function CampaignsDetails() {
                         <span>Repayment Date</span>
                         <p
                           className="css-37nqt7"
-                          onChange={(e) => setRepayment_date(e.target.value)}
+                          onChange={(e:any) => setRepayment_date(e.target.value)}
                         >
                           {inputs.repay_date}
                         </p>
@@ -448,7 +453,7 @@ export default function CampaignsDetails() {
                         </span>
                         <p
                           className="css-37nqt7"
-                          onChange={(e) => setRepayment_value(e.target.value)}
+                          onChange={(e:any) => setRepayment_value(e.target.value)}
                         >
                           ₹{repayValue}
                         </p>

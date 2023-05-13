@@ -40,8 +40,8 @@ const Dashboard = () => {
           <div className="row">
             {businessDetails
               .filter((details: any) => details.type === "Dicounting Invoice")
-              .map((details:any) => (
-                <div className="col-md-6 col-sm-12 col-lg-4">
+              .map((details:any,index:any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="#" className="image">
@@ -140,8 +140,8 @@ const Dashboard = () => {
           <div className="row">
             {businessDetails
               .filter((details: any) => details.type === "CSOP")
-              .map((details: any) => (
-                <div className="col-md-6 col-sm-12 col-lg-4">
+              .map((details: any,index:any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="#" className="image">
@@ -239,8 +239,8 @@ const Dashboard = () => {
           <div className="row">
             {businessDetails
               .filter((details: any) => details.type === "Dicounting Invoice")
-              .map((details: any) => (
-                <div className="col-md-6 col-sm-12 col-lg-4">
+              .map((details: any,index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="#" className="image">
