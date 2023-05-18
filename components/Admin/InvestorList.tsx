@@ -109,6 +109,7 @@ const InvestorList = () => {
                                         <h3 className="card-title" >INVESTORS</h3>
                                     </div>
                                     <div className="card-body">
+                                        <div className='table-responsive'>
                                         <table
                                             id="datatable"
                                             className="table table-bordered dt-responsive nowrap"
@@ -150,6 +151,7 @@ const InvestorList = () => {
                                                 ))}
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>{" "}

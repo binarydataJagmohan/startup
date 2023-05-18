@@ -1,9 +1,24 @@
 import React from 'react'
-
+import { useEffect } from 'react';
 const Dashboard = () => {
+  useEffect(() => {
+    const handleWindowLoad = () => {
+      const element = document.getElementById('your-element-id1');
+      if (element) {
+        element.style.paddingLeft = '40px';
+        element.style.transition = 'padding-left 0.5s ease-in-out';
+      }
+    };
+
+    window.addEventListener('load', handleWindowLoad);
+
+    return () => {
+      window.removeEventListener('load', handleWindowLoad);
+    };
+  }, []);
   return (
     <>
-      <div className="main-content">
+      <div className="main-content" id='your-element-id1'>
         <div className="page-content">
           <div className="container-fluid">
             {/* start page title */}

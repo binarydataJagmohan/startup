@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {removeToken,removeStorageData,getCurrentUserData,} from "../../../lib/session";
+import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveContact } from '../../../lib/frontendapi';
@@ -105,6 +105,12 @@ export default function HeaderFrontend() {
                   /> */}
                 </a>
               </div>
+              <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <span />
+                    <span />
+                    <span />
+                    <img src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png" alt="" />
+                  </div>
             </div>
           </div>
         </div>
@@ -148,7 +154,7 @@ export default function HeaderFrontend() {
                       Projects
                     </a>
                   </li> */}
-                 <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
+                  <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
                     <a href="/blogs" className="nav-link">
                       Blog
                     </a>
@@ -165,21 +171,20 @@ export default function HeaderFrontend() {
                       </a>
                       <div
                         id="myDropdown"
-                        className={`${
-                          dropdownVisible
+                        className={`${dropdownVisible
                             ? "dropdown-content show"
                             : "dropdown-content"
-                        }`}
+                          }`}
                       >
-                        {current_user_role=="startup" ?  
-                        <a href="/steps/findbusiness" className="colortwo">
-                          Profile
-                        </a>
-                        :
-                        <a href="/investor-steps/findbusiness" className="colortwo">
-                          Profile
-                        </a> }
-                       
+                        {current_user_role == "startup" ?
+                          <a href="/steps/findbusiness" className="colortwo">
+                            Profile
+                          </a>
+                          :
+                          <a href="/investor-steps/findbusiness" className="colortwo">
+                            Profile
+                          </a>}
+
                         <a href="#" onClick={handleLogout} className="colortwo">
                           Logout
                         </a>
@@ -187,6 +192,8 @@ export default function HeaderFrontend() {
                     </div>
                   </li>
                 </ul>
+
+
                 <div className="others-options">
                   <div className="option-item">
                     <i className="search-btn flaticon-search" />
@@ -207,7 +214,7 @@ export default function HeaderFrontend() {
                       </div>
                     </div>
                   </div>
-                  <div className="burger-menu">
+                  <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                     <span />
                     <span />
                     <span />
@@ -218,7 +225,86 @@ export default function HeaderFrontend() {
           </div>
         </div>
       </div>
+      <div className="offcanvas offcanvas-end" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div className="">
+          <h5 className="offcanvas-title text-center" id="offcanvasRightLabel">
+            <a className="navbar-brand" href="/">
+              <img
+                src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
+                className="black-logo pt-5"
+                alt="image"
+              />
+              {/* <img
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo-2.png"}
+                  className="white-logo"
+                  alt="image"
+                /> */}
+            </a>
+          </h5>
+          <button type="button" className="btn-close claoseclasss" data-bs-dismiss="offcanvas" aria-label="Close" />
+        </div>
+        <div className="offcanvas-body">
+          <ul className="navbar-nav text-center centerd-class">
+            <li className={`nav-item ${router.pathname === '/' ? 'active' : ''}`}>
+              <a href="/" className="nav-link">
+                Home
+              </a>
+            </li>
+            <li className={`nav-item ${router.pathname === '/about' ? 'active' : ''}`}>
+              <a href="/about" className="nav-link">
+                About
+              </a>
+            </li>
+            <li className={`nav-item ${router.pathname === '/services' ? 'active' : ''}`}>
+              <a href="/services" className="nav-link">
+                Services
+              </a>
+            </li>
+            {/* <li className="nav-item">
+                    <a href="/projects" className="nav-link">
+                      Projects
+                    </a>
+                  </li> */}
+            <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
+              <a href="/blogs" className="nav-link">
+                Blog
+              </a>
+            </li>
+            <li className={`nav-item ${router.pathname === '/contact' ? 'active' : ''}`}>
+              <a href="/contact" className="nav-link">
+                Contact
+              </a>
+            </li>
+            <li className="nav-item">
+              <div className="dropdown">
+                <a onClick={myFunction} className="dropbtn nav-link">
+                  {current_user_name}
+                </a>
+                <div
+                  id="myDropdown"
+                  className={`${dropdownVisible
+                      ? "dropdown-content show"
+                      : "dropdown-content"
+                    }`}
+                >
+                  {current_user_role == "startup" ?
+                    <a href="/steps/findbusiness" className="colortwo">
+                      Profile
+                    </a>
+                    :
+                    <a href="/investor-steps/findbusiness" className="colortwo">
+                      Profile
+                    </a>}
 
+                  <a href="#" onClick={handleLogout} className="colortwo">
+                    Logout
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div className="sidebar-modal">
         <div className="sidebar-modal-inner">
           <div className="sidebar-about-area">
@@ -234,48 +320,48 @@ export default function HeaderFrontend() {
           <div className="sidebar-contact-feed">
             <h2>Contact</h2>
             <div className="contact-form">
-                <form id="contactForm" onSubmit={handleSubmit(SubmitForm)}>
-                  <div className="row">
-                    <div className="col-lg-12 col-md-12">
-                      <div className="form-group">
-                        <input type="text" id="name" className="form-control" required data-error="Please enter your name" placeholder="Your Name"  value={name} {...register('name', { onChange: (e) => setName(e.target.value), required: true })} />
+              <form id="contactForm" onSubmit={handleSubmit(SubmitForm)}>
+                <div className="row">
+                  <div className="col-lg-12 col-md-12">
+                    <div className="form-group">
+                      <input type="text" id="name" className="form-control" required data-error="Please enter your name" placeholder="Your Name" value={name} {...register('name', { onChange: (e) => setName(e.target.value), required: true })} />
 
-                        <div className="help-block with-errors" style={{fontSize:"12px"}} />
-                      </div>
-                    </div>
-                    <div className="col-lg-12 col-md-12">
-                      <div className="form-group">
-                        <input type="email" id="email" className="form-control" required data-error="Please enter your email" placeholder="Your Email" value={email}  {...register('email', { onChange: (e) => setEmail(e.target.value), required: true })}/>
-                        <div className="help-block with-errors" style={{fontSize:"12px"}} />
-                      </div>
-                    </div>
-                   
-                    <div className="col-lg-12 col-md-12">
-                      <div className="form-group">
-                        <input type="text" id="subject" className="form-control" required data-error="Please enter your subject" placeholder="Your Subject" value={subject} {...register('subject', { onChange: (e) => setSubject(e.target.value), required: true })}/>
-                        <div className="help-block with-errors" style={{fontSize:"12px"}}  />
-                      </div>
-                    </div>
-
-                    <div className="col-lg-12 col-md-12">
-                      <div className="form-group">
-                        <textarea  className="form-control" id="message" cols={30} rows={6} required data-error="Write your message" placeholder="Your Message"   value={message} {...register('message', { onChange: (e) => setMessage(e.target.value), required: true })} />
-                        <div className="help-block with-errors" style={{fontSize:"12px"}} />
-                      </div>
-                    </div>
-                    <div className="col-lg-12 col-md-12">
-                      <div className="send-btn">
-                        <button type="submit" className="send-btn-one">
-                          Send Message
-                        </button>
-                        <div id="msgSubmit" className="h3 text-center hidden" />
-                        <div className="clearfix" />
-                      </div>
+                      <div className="help-block with-errors" style={{ fontSize: "12px" }} />
                     </div>
                   </div>
-                </form>
-              </div>
-              <ToastContainer />
+                  <div className="col-lg-12 col-md-12">
+                    <div className="form-group">
+                      <input type="email" id="email" className="form-control" required data-error="Please enter your email" placeholder="Your Email" value={email}  {...register('email', { onChange: (e) => setEmail(e.target.value), required: true })} />
+                      <div className="help-block with-errors" style={{ fontSize: "12px" }} />
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12 col-md-12">
+                    <div className="form-group">
+                      <input type="text" id="subject" className="form-control" required data-error="Please enter your subject" placeholder="Your Subject" value={subject} {...register('subject', { onChange: (e) => setSubject(e.target.value), required: true })} />
+                      <div className="help-block with-errors" style={{ fontSize: "12px" }} />
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12 col-md-12">
+                    <div className="form-group">
+                      <textarea className="form-control" id="message" cols={30} rows={6} required data-error="Write your message" placeholder="Your Message" value={message} {...register('message', { onChange: (e) => setMessage(e.target.value), required: true })} />
+                      <div className="help-block with-errors" style={{ fontSize: "12px" }} />
+                    </div>
+                  </div>
+                  <div className="col-lg-12 col-md-12">
+                    <div className="send-btn">
+                      <button type="submit" className="send-btn-one">
+                        Send Message
+                      </button>
+                      <div id="msgSubmit" className="h3 text-center hidden" />
+                      <div className="clearfix" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <ToastContainer />
           </div>
           <div className="sidebar-contact-area">
             <div className="contact-info">

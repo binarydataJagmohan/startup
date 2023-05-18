@@ -224,9 +224,9 @@ const StartupList = () => {
                                                         </td>
                                                         <td className='d-flex'>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
-                                                            <button onClick={() => deleteStartup(startup.id)} className='btn btn-danger m-1'>
+                                                            <a onClick={() => deleteStartup(startup.id)} className='delete'>
                                                                 <span className='fa fa-trash'></span>
-                                                            </button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 ))}
