@@ -106,11 +106,11 @@ export default function HeaderFrontend() {
                 </a>
               </div>
               <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    <span />
-                    <span />
-                    <span />
-                    <img src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png" alt="" />
-                  </div>
+                <span />
+                <span />
+                <span />
+                <img src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png" alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function HeaderFrontend() {
                       Contact
                     </a>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <div className="dropdown">
                       <a onClick={myFunction} className="dropbtn nav-link">
                         {current_user_name}
@@ -172,8 +172,8 @@ export default function HeaderFrontend() {
                       <div
                         id="myDropdown"
                         className={`${dropdownVisible
-                            ? "dropdown-content show"
-                            : "dropdown-content"
+                          ? "dropdown-content show"
+                          : "dropdown-content"
                           }`}
                       >
                         {current_user_role == "startup" ?
@@ -190,6 +190,37 @@ export default function HeaderFrontend() {
                         </a>
                       </div>
                     </div>
+                  </li> */}
+                  <li className="nav-item">
+                    {current_user_name ? (
+                      <div className="dropdown">
+                        <a onClick={myFunction} className="dropbtn nav-link">
+                          {current_user_name}
+                        </a>
+                        <div
+                          id="myDropdown"
+                          className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
+                        >
+                          {current_user_role === 'startup' ? (
+                            <a href="/steps/findbusiness" className="colortwo">
+                              Profile
+                            </a>
+                          ) : (
+                            <a href="/investor-steps/findbusiness" className="colortwo">
+                              Profile
+                            </a>
+                          )}
+
+                          <a href="#" onClick={handleLogout} className="colortwo">
+                            Logout
+                          </a>
+                        </div>
+                      </div>
+                    ) : (
+                      <a href="/login" className="nav-link">
+                        Login
+                      </a>
+                    )}
                   </li>
                 </ul>
 
@@ -283,8 +314,8 @@ export default function HeaderFrontend() {
                 <div
                   id="myDropdown"
                   className={`${dropdownVisible
-                      ? "dropdown-content show"
-                      : "dropdown-content"
+                    ? "dropdown-content show"
+                    : "dropdown-content"
                     }`}
                 >
                   {current_user_role == "startup" ?

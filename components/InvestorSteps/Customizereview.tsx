@@ -28,7 +28,7 @@ export default function Customizereview():any {
     principal_residence: "0",
     cofounder: "0",
     prev_investment_exp: "0",
-    experience: "",
+    experience: "0",
     net_worth: "0",
     no_requirements: "0"
   });

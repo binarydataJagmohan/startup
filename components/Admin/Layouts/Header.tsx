@@ -4,6 +4,7 @@ import {
   removeStorageData,
   getCurrentUserData,
 } from "../../../lib/session";
+import { useRouter } from 'next/router';
 interface UserData {
   username?: string;
   role?: string;
@@ -13,6 +14,7 @@ const Header = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";
   }
@@ -93,19 +95,19 @@ const Header = () => {
                       <div id="sidebar-menu">
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
-                          <li>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
+                        <li className={`nav-item ${router.pathname === '/admin/dashboard' ? 'active' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect" >
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
                             </a>
                           </li>
-                          <li>
+                          <li className={`nav-item ${router.pathname === '/admin/all-investors' ? 'active' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </a>
                           </li>
-                          <li>
+                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' ? 'active' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
