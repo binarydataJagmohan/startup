@@ -124,7 +124,7 @@ const AllFundsList = () => {
                   <div className="card-body">
                     <table
                       id="datatable"
-                      className="table table-bordered dt-responsive nowrap"
+                      className="table dt-responsive nowrap"
                       style={{
                         borderCollapse: "collapse",
                         borderSpacing: 0,
