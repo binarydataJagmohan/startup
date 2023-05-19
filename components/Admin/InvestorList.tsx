@@ -112,7 +112,7 @@ const InvestorList = () => {
                                         <div className='table-responsive'>
                                         <table
                                             id="datatable"
-                                            className="table table-bordered dt-responsive nowrap"
+                                            className="table  dt-responsive nowrap"
                                             style={{
                                                 borderCollapse: "collapse",
                                                 borderSpacing: 0,

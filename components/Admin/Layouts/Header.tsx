@@ -95,19 +95,19 @@ const Header = () => {
                       <div id="sidebar-menu">
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
-                        <li className={`nav-item ${router.pathname === '/admin/dashboard' ? 'active' : ''}`}>
+                        <li className={`nav-item ${router.pathname === '/admin/dashboard' ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect" >
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-investors' ? 'active' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-investors' ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' ? 'active' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
@@ -116,12 +116,12 @@ const Header = () => {
                           <li>
                             <a href="#" className="waves-effect">
                               <i className="fa fa-business-time"></i>
-                              <span className="badge rounded-pill bg-primary float-end">10</span>
+                              <span className="badge rounded-pill bg-danger float-end">10</span>
                               <span>Total Active Funds</span>
                             </a>
                           </li>
-                          <li>
-                            <a href="#" className="waves-effect">
+                          <li className={`nav-item ${router.pathname === '/admin/all-users' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>All Users</span>
                             </a>

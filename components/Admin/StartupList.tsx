@@ -181,7 +181,7 @@ const StartupList = () => {
                                         <div className='table-responsive'>
                                         <table
                                             id="datatable"
-                                            className="table table-bordered dt-responsive nowrap"
+                                            className="table dt-responsive nowrap"
                                             style={{
                                                 borderCollapse: "collapse",
                                                 borderSpacing: 0,
@@ -222,7 +222,7 @@ const StartupList = () => {
                                                         <td>
                                                             <span style={{cursor: "pointer"}} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
                                                         </td>
-                                                        <td className='d-flex'>
+                                                        <td>
                                                             <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
                                                             <a onClick={() => deleteStartup(startup.id)} className='delete'>
                                                                 <span className='fa fa-trash'></span>

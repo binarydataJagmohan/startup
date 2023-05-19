@@ -4249,7 +4249,7 @@ a.delete:hover {
         top: 0px;
     }
   }
-  .nav-item.active {
+  .nav-item.active.p1 {
     color: #fff !important;
     background: #23cdff;
 }

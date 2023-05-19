@@ -191,11 +191,12 @@ export default function HeaderFrontend() {
                       </div>
                     </div>
                   </li> */}
-                  <li className="nav-item">
+                </ul>
+                <div className="others-options">
                     {current_user_name ? (
                       <div className="dropdown">
-                        <a onClick={myFunction} className="dropbtn nav-link">
-                          {current_user_name}
+                        <a onClick={myFunction} className="dropbtn bg-info">
+                          {current_user_name}&nbsp;<i className="fa-solid fa-caret-down" />
                         </a>
                         <div
                           id="myDropdown"
@@ -221,8 +222,7 @@ export default function HeaderFrontend() {
                         Login
                       </a>
                     )}
-                  </li>
-                </ul>
+                  </div>
 
 
                 <div className="others-options">
