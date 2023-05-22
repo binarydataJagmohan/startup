@@ -22,9 +22,9 @@ interface InputData {
   business_name?: string;
   desc?: string;
   agreement?: string;
-  pdc?:string;
-  invoice?:string;
-  website_url?:string;
+  pdc?: string;
+  invoice?: string;
+  website_url?: string;
 }
 
 export default function CampaignsDetails() {
@@ -34,13 +34,14 @@ export default function CampaignsDetails() {
   const [subscriptionValue, setSubscriptionValue] = useState(0);
   const [repayValue, setRepayValue] = useState(0);
   const [subscription_value, setSubscription_value] = useState(0);
-  const [repayment_date, setRepayment_date] = useState('');
+  const [repay_date, setRepay_date] = useState('');
   const [repayment_value, setRepayment_value] = useState(0);
   const [no_of_units, setNo_of_units] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
 
+  
   useEffect(() => {
     const fetchData = async () => {
       const res = await getSingleBusinessDetails(id);
@@ -58,11 +59,10 @@ export default function CampaignsDetails() {
       user_id: currentUserData.id,
       business_id: inputs.business_id,
       subscription_value: subscriptionValue,
-      repayment_date: repayment_date,
+      repay_date: inputs.repay_date,
       repayment_value: repayValue,
       no_of_units: value,
     };
-    console.log(inputs);
     try {
       InvestorBooking(data)
         .then((res) => {
@@ -132,7 +132,6 @@ export default function CampaignsDetails() {
     }
   };
 
-  console.log(inputs);
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -156,10 +155,9 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                          <img
-                            src={inputs.logo}
-                            alt=""
-                          />
+                          {/* {inputs && inputs.logo && ( */}
+                            <img src={inputs.logo}   alt="" />
+                          {/* )} */}
                         </div>
                       </div>
                       <h5><a href={inputs.website_url} target='_blank' style={{ color: "black" }}>{inputs.business_name}</a></h5>
@@ -193,7 +191,7 @@ export default function CampaignsDetails() {
                     // aria-valuenow={45}
                     aria-valuemin={0}
                     aria-valuemax={inputs.total_units}
-                   style={{ width: `${inputs.no_of_units}%` }}
+                    style={{ width: `${inputs.no_of_units}%` }}
                   />
                 </div>
                 <div className="mt-4 text-end" id="Post_Dated">
@@ -249,19 +247,19 @@ export default function CampaignsDetails() {
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
-                        <a href={"http://localhost:8000/pdf/" +inputs.pdc} download target='_blank'>
-                          <span>
-                            PDC <i className="fa-solid fa-download" />
-                          </span>
+                          <a href={"http://localhost:8000/pdf/" + inputs.pdc} download target='_blank'>
+                            <span>
+                              PDC <i className="fa-solid fa-download" />
+                            </span>
                           </a>
                         </div>
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
-                        <a href={"http://localhost:8000/pdf/" +inputs.invoice} download target='_blank'>
-                          <span>
-                            Invoice <i className="fa-solid fa-download" />
-                          </span>
+                          <a href={"http://localhost:8000/pdf/" + inputs.invoice} download target='_blank'>
+                            <span>
+                              Invoice <i className="fa-solid fa-download" />
+                            </span>
                           </a>
                         </div>
                       </div>
@@ -450,8 +448,8 @@ export default function CampaignsDetails() {
                       <div className="css-wsc10v">
                         <span>Repayment Date</span>
                         <p
-                          className="css-37nqt7"
-                          onChange={(e: any) => setRepayment_date(e.target.value)}
+                          className="css-37nqt7" 
+                          onChange={(e: any) => setRepay_date(e.target.value)} 
                         >
                           {inputs.repay_date}
                         </p>

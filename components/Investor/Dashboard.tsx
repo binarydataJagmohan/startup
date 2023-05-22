@@ -27,7 +27,8 @@ const Dashboard = () => {
     });
   };
    
-  console.log(businessDetails);
+
+  // console.log(businessDetails.status);
     
   return (
     <>
@@ -39,7 +40,7 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details: any) => details.type === "Dicounting Invoice")
+              .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type==="CCSP") && details.status==="open")
               .map((details:any,index:any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
@@ -102,7 +103,7 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>20 days</span>
+                            Closes in <span>{details.tenure}&nbsp;days</span>
                           </li>
                           <li>
                             <a
@@ -139,7 +140,7 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details: any) => details.type === "CSOP")
+              .filter((details: any) => details.type === "CSOP" && details.status === "open")
               .map((details: any,index:any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
@@ -202,7 +203,7 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>{details.closed_in} days</span>
+                          Closes in <span>{details.tenure}&nbsp;days</span>
                           </li>
                           <li>
                             <a
@@ -238,7 +239,7 @@ const Dashboard = () => {
 
           <div className="row">
             {businessDetails
-              .filter((details: any) => details.type === "Dicounting Invoice")
+              .filter((details: any) => details.type === "Dicounting Invoice" && details.status=== "open")
               .map((details: any,index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
@@ -301,7 +302,7 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>20 days</span>
+                          Closes in <span>{details.tenure}&nbsp;days</span>
                           </li>
                           <li>
                             <a
@@ -334,228 +335,86 @@ const Dashboard = () => {
           <h6 className="trending">Wall of successful startups</h6>
           <div className="bar" />
           <div className="row">
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/3153208/pexels-photo-3153208.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
+          {businessDetails
+              .filter((details: any) => details.status === "closed")
+              .map((details: any,index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
+                      </a>
                     </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
-                </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name}</a>
+                          </h3>
+                          <div className="price"></div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure}</a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units}</a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription}</a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
                         </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/4065892/pexels-photo-4065892.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
-                    </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
-                </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹10,167
                         </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-sm-12 col-lg-4">
-              <div className="product-grid container1">
-                <div className="product-image">
-                  <a href="#" className="image">
-                    <img
-                      className="pic-1 image"
-                      src="https://images.pexels.com/photos/5256816/pexels-photo-5256816.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    />
-                    {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                  </a>
-                </div>
-                <div className="main-padding">
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">Trutech Vision </a>
-                      </h3>
-                      <div className="price">Anchor</div>
+                      </div>
                     </div>
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">45 days </a>
-                      </h3>
-                      <div className="price">Tenure</div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.	avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                          Closed at <span>{new Date(details.closed_in).toLocaleDateString()}</span>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              proptech
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="product-content">
-                      <h3 className="title">
-                        <a href="#">50/250 </a>
-                      </h3>
-                      <div className="price">Units Left</div>
-                    </div>
-                    <div className="product-content text-end">
-                      <h3 className="title">
-                        <a href="#">₹10,000 </a>
-                      </h3>
-                      <div className="price">Min. Subscription</div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-3">
-                    <a href="#" className="card-link">
-                      💡13.6% Discount Rate
-                    </a>
-                    <a href="#" className="card-link">
-                      🌟Repayment/Unit- ₹10,167
-                    </a>
-                  </div>
                 </div>
-                <div className="overlay">
-                  <div className="columns">
-                    <ul className="price">
-                      <li>
-                        Subscribers <span>32</span>
-                      </li>
-                      <li>
-                        Average Amount Per Subscriber <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Minimum Subscription <span>₹12,000</span>
-                      </li>
-                      <li>
-                        Closes in <span>20 days</span>
-                      </li>
-                      <li>
-                        <a href="#" className="button-class">
-                          proptech
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
         <div className="container">
