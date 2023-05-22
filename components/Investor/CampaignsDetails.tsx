@@ -1,20 +1,30 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getSingleBusinessDetails,InvestorBooking } from '@/lib/investorapi';
+import { getSingleBusinessDetails, InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
-interface UserData{
-  id?:string;
+import "react-toastify/dist/ReactToastify.css";
+
+interface UserData {
+  id?: string;
+  // role?:string;
 }
-interface InputData{
-  business_id?:string;
-  minimum_subscription?:number;
-  xirr?:number;
-  tenure?:number;
-  logo?:string;
-  no_of_units?:string;
-  total_units?:string;
-  repay_date?:string;
+interface InputData {
+  business_id?: string;
+  minimum_subscription?: number;
+  xirr?: number;
+  tenure?: number;
+  logo?: string;
+  no_of_units?: string;
+  total_units?: string;
+  repay_date?: string;
+  resource?: string;
+  business_name?: string;
+  desc?: string;
+  agreement?: string;
+  pdc?:string;
+  invoice?:string;
+  website_url?:string;
 }
 
 export default function CampaignsDetails() {
@@ -35,19 +45,19 @@ export default function CampaignsDetails() {
     const fetchData = async () => {
       const res = await getSingleBusinessDetails(id);
       setInputs(res.data);
-      const userData:UserData = getCurrentUserData();
-         //console.log(userData);
-        setCurrentUserData(userData);
+      const userData: UserData = getCurrentUserData();
+      //  console.log(userData);
+      setCurrentUserData(userData);
     };
     fetchData();
   }, [id]);
- 
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const data = {
       user_id: currentUserData.id,
       business_id: inputs.business_id,
-      subscription_value : subscriptionValue,
+      subscription_value: subscriptionValue,
       repayment_date: repayment_date,
       repayment_value: repayValue,
       no_of_units: value,
@@ -55,25 +65,27 @@ export default function CampaignsDetails() {
     console.log(inputs);
     try {
       InvestorBooking(data)
-      .then((res) => {
-        if (res.status == true) {
-          console.log(data);
-        
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        } else {
-       
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        }
-      })} catch (error) {
+        .then((res) => {
+          if (res.status == true) {
+            console.log(data);
+
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+          } else {
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "error",
+            });
+          }
+        })
+    } catch (error) {
       console.error(error);
       // handle the error, such as showing an error message
     }
   };
-  const toggleAccordion = (index:any) => {
+  const toggleAccordion = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
@@ -88,23 +100,23 @@ export default function CampaignsDetails() {
     const roundedNumber = Math.floor(newRepayValue);
     setRepayValue(roundedNumber);
   };
-  
+
 
   const handleMinusClick = () => {
     if (value > 1) {
       setValue(value - 1);
-      const newSubscriptionValue = (value - 1) * (inputs.minimum_subscription ||0);
+      const newSubscriptionValue = (value - 1) * (inputs.minimum_subscription || 0);
       setSubscriptionValue(newSubscriptionValue);
-    const data1 =inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 :0;
-    const data3 = (data1 / 366);
-    const data4 = inputs && inputs.tenure?(data3*inputs.tenure):0;
-    const newRepayValue = newSubscriptionValue + data4;
-    const roundedNumber = Math.floor(newRepayValue);
-    setRepayValue(roundedNumber);
+      const data1 = inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
+      const data3 = (data1 / 366);
+      const data4 = inputs && inputs.tenure ? (data3 * inputs.tenure) : 0;
+      const newRepayValue = newSubscriptionValue + data4;
+      const roundedNumber = Math.floor(newRepayValue);
+      setRepayValue(roundedNumber);
     }
   };
 
-  const handleInputChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
     if (!isNaN(newValue) && newValue >= 1) {
       setValue(newValue);
@@ -120,6 +132,7 @@ export default function CampaignsDetails() {
     }
   };
 
+  console.log(inputs);
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -129,7 +142,7 @@ export default function CampaignsDetails() {
               <div className="col-md-6">
                 <div className="row g-3">
                   <div className="col-md-6 text-center">
-                    <div className="css-1d6tso">
+                    {/* <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
                           <img src={inputs.logo} alt="" />
@@ -137,25 +150,25 @@ export default function CampaignsDetails() {
                       </div>
                       <h5>Zoff Foods</h5>
                       <p>Seller</p>
-                    </div>
+                    </div> */}
                   </div>
-                  <div className="col-md-6 text-center">
+                  <div className="col-md-7 text-center">
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
                           <img
-                            src= {inputs.logo}
+                            src={inputs.logo}
                             alt=""
                           />
                         </div>
                       </div>
-                      <h5>Zoff Foods</h5>
-                      <p>Seller</p>
+                      <h5><a href={inputs.website_url} target='_blank' style={{ color: "black" }}>{inputs.business_name}</a></h5>
+                      <p>STARTUP</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-5">
                 <div className="d-flex justify-content-between">
                   <div>
                     <span>Amount</span>
@@ -177,10 +190,10 @@ export default function CampaignsDetails() {
                   <div
                     className="progress-bar progress-bar-success"
                     role="progressbar"
-                    aria-valuenow={45}
+                    // aria-valuenow={45}
                     aria-valuemin={0}
-                    aria-valuemax={100}
-                    style={{ width: "80%" }}
+                    aria-valuemax={inputs.total_units}
+                   style={{ width: `${inputs.no_of_units}%` }}
                   />
                 </div>
                 <div className="mt-4 text-end" id="Post_Dated">
@@ -217,7 +230,7 @@ export default function CampaignsDetails() {
                       <div className="col-md-6">
                         <div className="text-center class-smae mb-3">
                           <p>Recourse on</p>
-                          <h6 className="css-19wesjx">Seller</h6>
+                          <h6 className="css-19wesjx">{inputs.resource}</h6>
                         </div>
                       </div>
                     </div>
@@ -227,29 +240,41 @@ export default function CampaignsDetails() {
                     <div className="d-flex justify-content-between all-btn py-3">
                       <div className="">
                         <div className="text-center button-pdf">
-                          <span>
-                            Agreement <i className="fa-solid fa-download" />
-                          </span>
+                          <a href={"http://localhost:8000/pdf/" + inputs.agreement} download target='_blank'>
+                            <span>
+                              Agreement <i className="fa-solid fa-download" />
+                            </span>
+                          </a>
                         </div>
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
+                        <a href={"http://localhost:8000/pdf/" +inputs.pdc} download target='_blank'>
                           <span>
                             PDC <i className="fa-solid fa-download" />
                           </span>
+                          </a>
                         </div>
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
+                        <a href={"http://localhost:8000/pdf/" +inputs.invoice} download target='_blank'>
                           <span>
                             Invoice <i className="fa-solid fa-download" />
                           </span>
+                          </a>
                         </div>
                       </div>
                     </div>
                     <div className="oppotsummery pt-4">
                       <h4>Opportunity Summary</h4>
                       <div className="seller">
+                        <h6>About the Startup</h6>
+                        <p>
+                          {inputs.desc}
+                        </p>
+                      </div>
+                      {/* <div className="seller">
                         <h6>About the Buyer</h6>
                         <p>
                           The One-stop Shopping Destination. E-commerce is
@@ -258,17 +283,7 @@ export default function CampaignsDetails() {
                           groceries,fruits,vegetables, personal care,
                           electronics &amp; much more to you in just minutes.
                         </p>
-                      </div>
-                      <div className="seller">
-                        <h6>About the Buyer</h6>
-                        <p>
-                          The One-stop Shopping Destination. E-commerce is
-                          revolutionizing the way people shop in India. Zepto is
-                          your next-door quick commerce app, delivering online
-                          groceries,fruits,vegetables, personal care,
-                          electronics &amp; much more to you in just minutes.
-                        </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="section-title pt-4">
@@ -282,9 +297,8 @@ export default function CampaignsDetails() {
                         <ul className="accordion">
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(0)}
                             >
@@ -302,10 +316,9 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                          <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                            <a
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(1)}
                             >
@@ -321,10 +334,9 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                          <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                            <a
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(2)}
                             >
@@ -340,10 +352,9 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                          <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                            <a
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(3)}
                             >
@@ -359,10 +370,9 @@ export default function CampaignsDetails() {
                             </div>
                           </li>
                           <li className="accordion-item">
-                          <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                            <a
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(4)}
                             >
@@ -402,7 +412,7 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
-                        // onChange={(e) => setNo_of_units(e.target.value)}
+                      // onChange={(e) => setNo_of_units(e.target.value)}
                       />
                       <span className="plus" onClick={handlePlusClick}>
                         +
@@ -413,7 +423,7 @@ export default function CampaignsDetails() {
                       <span>Unit Value</span>
                       <p
                         className="css-37nqt7"
-                        onChange={(e:any) => setSubscription_value(e.target.value)}
+                        onChange={(e: any) => setSubscription_value(e.target.value)}
                       >
                         ₹{inputs.minimum_subscription}
                       </p>
@@ -423,7 +433,7 @@ export default function CampaignsDetails() {
                       <span>Subscription Value</span>
                       <p
                         className="css-37nqt7"
-                        onChange={(e:any) => setSubscriptionValue(e.target.value)}
+                        onChange={(e: any) => setSubscriptionValue(e.target.value)}
                       >
                         ₹{subscriptionValue}
                       </p>
@@ -441,7 +451,7 @@ export default function CampaignsDetails() {
                         <span>Repayment Date</span>
                         <p
                           className="css-37nqt7"
-                          onChange={(e:any) => setRepayment_date(e.target.value)}
+                          onChange={(e: any) => setRepayment_date(e.target.value)}
                         >
                           {inputs.repay_date}
                         </p>
@@ -453,7 +463,7 @@ export default function CampaignsDetails() {
                         </span>
                         <p
                           className="css-37nqt7"
-                          onChange={(e:any) => setRepayment_value(e.target.value)}
+                          onChange={(e: any) => setRepayment_value(e.target.value)}
                         >
                           ₹{repayValue}
                         </p>
@@ -486,9 +496,11 @@ export default function CampaignsDetails() {
               </div>
             </div>
           </div>
+
         </div>
+        <ToastContainer />
       </section>
-      <ToastContainer />
+
     </>
   );
 }

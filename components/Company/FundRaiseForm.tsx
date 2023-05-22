@@ -6,21 +6,22 @@ import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 
-interface UserData{
-  id?:string;
+interface UserData {
+  id?: string;
 }
 interface FundRaiseData {
-  user_id?:number;
-  business_id?:number;
-  total_units?:string;
+  user_id?: number;
+  business_id?: number;
+  total_units?: string;
   amount?: string;
-  minimum_subscription?:string;
-  avg_amt_per_person?:number;
-  tenure?:number | string;
+  minimum_subscription?: string;
+  avg_amt_per_person?: number;
+  tenure?: number | string;
   repay_date?: string,
-  closed_in?:string;
-  resource?:string;
-  xirr?: number |string;
+  closed_in?: string;
+  resource?: string;
+  xirr?: number | string;
+  desc: string;
 
 }
 const FundRaiseForm = () => {
@@ -41,37 +42,38 @@ const FundRaiseForm = () => {
     // status: "",
     xirr: "",
     amount: "",
+    desc: ""
   });
 
-const [agreement,setAgreement]=useState(null);
-const [invoice,setInvoice]=useState(null);
-const [pdc,setPdc]=useState(null);
+  const [agreement, setAgreement] = useState(null);
+  const [invoice, setInvoice] = useState(null);
+  const [pdc, setPdc] = useState(null);
 
-// handleInvoiceFileChange for agreement pdf
-const handleAgreementFileChange = (event: any) => {
-  setAgreement(event.target.files[0]);
-};
+  // handleInvoiceFileChange for agreement pdf
+  const handleAgreementFileChange = (event: any) => {
+    setAgreement(event.target.files[0]);
+  };
 
-// handleInvoiceFileChange for invoice pdf
-const handleInvoiceFileChange = (event: any) => {
-  setInvoice(event.target.files[0]);
-};
-// handlePDCFileChange for invoice pdf
-const handlePDCFileChange = (event: any) => {
-  setPdc(event.target.files[0]);
-};
+  // handleInvoiceFileChange for invoice pdf
+  const handleInvoiceFileChange = (event: any) => {
+    setInvoice(event.target.files[0]);
+  };
+  // handlePDCFileChange for invoice pdf
+  const handlePDCFileChange = (event: any) => {
+    setPdc(event.target.files[0]);
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === "amount" || name === "total_units") {
       setFundRaiseData({ ...fundRaiseData, [name]: value });
       const amount = name === "amount" ? Number(value) : fundRaiseData.amount;
       const totalUnits = name === "total_units" ? Number(value) : fundRaiseData.total_units;
-        // if (typeof amount === "number" && typeof totalUnits === "number") {
-          if (amount && totalUnits) {
-            const minimum_value = amount  / totalUnits;
-            setFundRaiseData({ ...fundRaiseData, minimum_subscription: minimum_value.toString() });
-          // }
-        }
+      // if (typeof amount === "number" && typeof totalUnits === "number") {
+      if (amount && totalUnits) {
+        const minimum_value = amount / totalUnits;
+        setFundRaiseData({ ...fundRaiseData, minimum_subscription: Math.floor(minimum_value).toString() });
+        // }
+      }
     }
     if (name === "tenure") {
       const tenureDays = parseInt(value);
@@ -83,7 +85,7 @@ const handlePDCFileChange = (event: any) => {
       setFundRaiseData({ ...fundRaiseData, [name]: value, repay_date: repayDate, closed_in: closedDate });
     }
     // else {
-    setFundRaiseData((prevState:  FundRaiseData) => {
+    setFundRaiseData((prevState: FundRaiseData) => {
       return {
         ...prevState,
         [name]: value,
@@ -96,7 +98,7 @@ const handlePDCFileChange = (event: any) => {
 
   };
   useEffect(() => {
-    const current_user_data: UserData= getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -137,17 +139,18 @@ const handlePDCFileChange = (event: any) => {
       if (pdc !== null) {
         formData.append('pdc', pdc);
       }
-      formData.append('user_id',fundRaiseData.user_id);
-      formData.append('business_id',fundRaiseData.business_id);
-      formData.append('total_units',fundRaiseData.total_units);
-      formData.append('minimum_subscription',fundRaiseData.minimum_subscription);
+      formData.append('user_id', fundRaiseData.user_id);
+      formData.append('business_id', fundRaiseData.business_id);
+      formData.append('total_units', fundRaiseData.total_units);
+      formData.append('minimum_subscription', fundRaiseData.minimum_subscription);
       formData.append('avg_amt_per_person', fundRaiseData.avg_amt_per_person);
-      formData.append('tenure',fundRaiseData.tenure);
-      formData.append('repay_date',fundRaiseData.repay_date);
+      formData.append('tenure', fundRaiseData.tenure);
+      formData.append('repay_date', fundRaiseData.repay_date);
       formData.append('closed_in', fundRaiseData.closed_in);
-      formData.append('resource',fundRaiseData.resource);
-      formData.append('xirr',fundRaiseData.xirr);
+      formData.append('resource', fundRaiseData.resource);
+      formData.append('xirr', fundRaiseData.xirr);
       formData.append('amount', fundRaiseData.amount);
+      formData.append('desc', fundRaiseData.desc);
       const res = await fundInformationSave(formData);
 
       if (res.status === true) {
@@ -265,7 +268,7 @@ const handlePDCFileChange = (event: any) => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="number" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                          value:true ,
+                            value: true,
                           })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
@@ -286,8 +289,8 @@ const handlePDCFileChange = (event: any) => {
                           </label>
                           <select
                             className="form-select form-select-lg css-1492t68" {...register("resource", {
-                              value: true, required: true,onChange:handleChange
-                            })} name="resource" 
+                              value: true, required: true, onChange: handleChange
+                            })} name="resource"
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT RESOURCE--</option>
@@ -310,8 +313,8 @@ const handlePDCFileChange = (event: any) => {
                           <select
                             className="form-select form-select-lg  css-1492t68"
                             {...register("tenure", {
-                              value: true, required: true,onChange:handleChange
-                            })} name="tenure" 
+                              value: true, required: true, onChange: handleChange
+                            })} name="tenure"
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT TENURE--</option>
@@ -400,6 +403,22 @@ const handlePDCFileChange = (event: any) => {
                       </div>
 
 
+                      <div className="row g-3 mt-1">
+                        <div className="col-md-12">
+                          <label htmlFor="exampleFormControlInput1" className="form-label">
+                            Description<span style={{ color: "red" }}>*</span>
+                          </label>
+                          <textarea
+                            rows={4}
+                            placeholder="Enter details here"
+                            className="form-control"
+                            name="desc"
+                            onChange={handleChange}
+                            value={fundRaiseData.desc}
+                          />
+                        </div>
+                      </div>
+
 
                       <div className="row g-3 mt-1">
                         <div className="col-md-6">
@@ -423,8 +442,8 @@ const handlePDCFileChange = (event: any) => {
                         <div className="col-md-6 mt-5">
                           <div id="divHabilitSelectors" className="input-file-container">
                             <input className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your Legal Agreement here to <a href="#">Upload</a> <br />
-                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Agreement here to <a href="#">Upload</a> <br />
+                              <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>
                         </div>
@@ -434,21 +453,24 @@ const handlePDCFileChange = (event: any) => {
                         <div className="col-md-6">
                           <div id="divHabilitSelectors" className="input-file-container">
                             <input className="input-file" id="fileupload" name="invoice" type="file" onChange={handleInvoiceFileChange} />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your Legal Invoice here to <a href="#">Upload</a> <br />
-                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Invoice here to <a href="#">Upload</a> <br />
+                              <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>
                         </div>
 
                         <div className="col-md-6 mt-3">
                           <div id="divHabilitSelectors" className="input-file-container">
-                            <input className="input-file" id="fileupload" name="pdc" type="file" onChange={handlePDCFileChange}  />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{fontSize: "12px"}} tabIndex={0}>Drop your PDC here to <a href="#">Upload</a> <br />
-                              <p style={{fontSize: "13px"}}>You can upload a pdf file only (max size 20 MB)<span style={{color:"red"}}>*</span></p>
+                            <input className="input-file" id="fileupload" name="pdc" type="file" onChange={handlePDCFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your PDC here to <a href="#">Upload</a> <br />
+                              <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>
                         </div>
                       </div>
+
+
+
 
                       <div className="row mt-3">
                         <div className="col-md-6" style={{ textAlign: "right" }}>

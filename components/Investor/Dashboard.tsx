@@ -21,7 +21,7 @@ const Dashboard = () => {
    
   const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
-    alert(id)
+    // alert(id)
     getSingleBusinessDetails(id).then((res) => {
       router.push(`campaign/details?id=${id}`);
     });

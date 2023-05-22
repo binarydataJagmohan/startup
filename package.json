@@ -8,6 +8,7 @@
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
     "start": "NODE_ENV=production node dist/index.js",
+    "start:prod":"next start -p 80",
     "lint": "next lint"
   },
   "dependencies": {
