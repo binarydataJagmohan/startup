@@ -3,7 +3,7 @@ import { getAllStartupBusiness } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { getToken } from "../../lib/session";
+import { getToken,getCurrentUserData } from "../../lib/session";
 type Startup = {
     id: number;
     name: string;
@@ -14,12 +14,26 @@ type Startup = {
     approval_status: number |string;
     
   }
+  interface UserData {
+    id?: string;
+  }
+ 
 const StartupList = () => {
     const [startups, setStartupData] = useState<Startup[]>([]);
     const [selectedStage, setSelectedStage] = useState([]);
-
+    const [current_user_id, setCurrentUserId] = useState("");
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data?.id != null) {
+          current_user_data.id
+            ? setCurrentUserId(current_user_data.id)
+            : setCurrentUserId("");
+    
+        } else {
+          window.location.href = "/login";
+        }
+
         const fetchData = async () => {
             const data = await getAllStartupBusiness({});
             if (data) {

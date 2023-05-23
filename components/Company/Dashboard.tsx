@@ -1,6 +1,22 @@
-import React from 'react'
-
+import React,{useEffect,useState} from 'react'
+import {getCurrentUserData,} from "../../lib/session";
+interface UserData {
+    id?: string;
+  }
 const Dashboard = () => {
+    const [current_user_id, setCurrentUserId] = useState("");
+    useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.id != null) {
+          current_user_data.id
+            ? setCurrentUserId(current_user_data.id)
+            : setCurrentUserId("");
+
+        } else {
+          window.location.href = "/login";
+        }
+    
+      }, []);
     return (
         <>
         <div className='main-content'>

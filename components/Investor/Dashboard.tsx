@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import {getAllBusiness,getSingleBusinessDetails } from '@/lib/investorapi';
-
+import { getCurrentUserData } from "../../lib/session";
+interface UserData {
+  id?: string;
+}
 const Dashboard = () => {
 
   const [businessDetails, setBusinessDetails] = useState([]);
   const router = useRouter();
-
+  const [current_user_id, setCurrentUserId] = useState("");
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data?.id != null) {
+      current_user_data.id
+        ? setCurrentUserId(current_user_data.id)
+        : setCurrentUserId("");
+
+    } else {
+      window.location.href = "/login";
+    }
+
     const fetchData = async () => {
       const data = await  getAllBusiness({});
       if (data) {

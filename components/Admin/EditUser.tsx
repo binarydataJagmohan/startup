@@ -5,10 +5,15 @@ import { getSingleUserData, getCountries } from '@/lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
+import { getToken,getCurrentUserData } from "../../lib/session";
+
 type Country = {
     name: string;
     country_code: string;
 }
+interface UserData {
+    id?: string;
+  }
 const EditUser = () => {
     const [user, setUser] = useState({ 
         name: "",
@@ -25,12 +30,20 @@ const EditUser = () => {
     const [countries, setcountries] = useState<Country[]>([]);
     const [selectedRole, setSelectedRole] = useState([]);
     // const [selectedGender setSelectedGender] = useState([]);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors:any },
-    } = useForm();
+    const [current_user_id, setCurrentUserId] = useState("");
+    const { register, handleSubmit, formState: { errors:any }, } = useForm();
+    
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data?.id != null) {
+          current_user_data.id
+            ? setCurrentUserId(current_user_data.id)
+            : setCurrentUserId("");
+    
+        } else {
+          window.location.href = "/login";
+        }
+
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
 
