@@ -209,7 +209,8 @@ const UserList = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {users.map((user, index) => (
+                                            {users && users.length > 0 ? (
+                                                users.map((user, index) => (
                                                     <tr key={user.id}>
                                                         <td>{index + 1}</td>
                                                         <td>{user.name}</td>
@@ -247,7 +248,11 @@ const UserList = () => {
                                                             <a href="javascript:void(0);" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                ))) : (
+                                                    <tr>
+                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                    </tr>
+                                                  )}
                                             </tbody>
                                         </table>
                                     </div>

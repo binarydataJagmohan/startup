@@ -216,7 +216,8 @@ const StartupList = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {startups.map((startup, index) => (
+                                            {startups && startups.length > 0 ? (
+                                                startups.map((startup, index) => (
                                                     <tr key={startup.id}>
                                                         <td>{index + 1}</td>
                                                         <td>{startup.name}</td>
@@ -243,7 +244,11 @@ const StartupList = () => {
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                ))) : (
+                                                    <tr>
+                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                    </tr>
+                                                  )}
                                             </tbody>
                                         </table>
                                         </div>

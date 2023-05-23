@@ -168,7 +168,7 @@ const AllFundsList = () => {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan={8}>No funds found.</td>
+                            <td className="text-center" colSpan={8}>No funds found.</td>
                           </tr>
                         )}
 

@@ -145,7 +145,8 @@ const InvestorList = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {investors.map((investor, index) => (
+                                            {investors && investors.length > 0 ? (
+                                                investors.map((investor, index) => (
                                                     <tr key={investor.id}>
                                                         <td>{index + 1}</td>
                                                         <td>{investor.name}</td>
@@ -162,7 +163,11 @@ const InvestorList = () => {
                                                             <a href="#" className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                ))) : (
+                                                    <tr>
+                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                    </tr>
+                                                  )}
                                             </tbody>
                                         </table>
                                         </div>

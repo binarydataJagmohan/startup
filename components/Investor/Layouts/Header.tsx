@@ -95,7 +95,7 @@ const Header = () => {
                           Profile
                         </a>
                         :
-                        <a href="/investor-steps/findbusiness" className="colortwo">
+                        <a href="/investor/profile" className="colortwo">
                           Profile
                         </a> }
                         <a href="" className="colorclass" onClick={handleLogout}>

@@ -62,7 +62,7 @@ const FundRaiseForm = () => {
   const handlePDCFileChange = (event: any) => {
     setPdc(event.target.files[0]);
   };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     let { name, value } = event.target;
     if (name === "amount" || name === "total_units") {
       setFundRaiseData({ ...fundRaiseData, [name]: value });
@@ -212,8 +212,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Total Amount{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="amount"  {...register("amount", {
-                            value: true, required: true,
+                          <input type="text" className="form-control" id="amount"  {...register("amount", {
+                           required: true,
                           })} name="amount" placeholder="Total Amount"
                             onChange={handleChange} />
                           {errors.amount && (
@@ -229,8 +229,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Total Units{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="total_units"  {...register("total_units", {
-                            value: true, required: true,
+                          <input type="text" className="form-control" id="total_units"  {...register("total_units", {
+                           required: true,
                           })} name="total_units" placeholder="Total Units"
                             onChange={handleChange} />
                           {errors.total_units && (
@@ -249,8 +249,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Average Amount(Per Unit){" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
-                            value: true, required: true,
+                          <input type="text" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
+                           required: true,
                           })} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
                             onChange={handleChange} />
                           {errors.avg_amt_per_person && (
@@ -267,8 +267,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label" >Minimum Subscription{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                            value: true,
+                          <input type="text" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
+                          
                           })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
@@ -289,7 +289,7 @@ const FundRaiseForm = () => {
                           </label>
                           <select
                             className="form-select form-select-lg css-1492t68" {...register("resource", {
-                              value: true, required: true, onChange: handleChange
+                             required: true, onChange: handleChange
                             })} name="resource"
                             aria-label="Default select example"
                           >
@@ -313,7 +313,7 @@ const FundRaiseForm = () => {
                           <select
                             className="form-select form-select-lg  css-1492t68"
                             {...register("tenure", {
-                              value: true, required: true, onChange: handleChange
+                             required: true, onChange: handleChange
                             })} name="tenure"
                             aria-label="Default select example"
                           >
@@ -368,7 +368,6 @@ const FundRaiseForm = () => {
                             type="date"
                             className="form-control"
                             id="repay_date" {...register("repay_date", {
-                              value: true, required: true,
                             })}
                             name="repay_date"
                             value={fundRaiseData.repay_date}
@@ -388,7 +387,6 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="date" className="form-control" id="closed_in" {...register("closed_in", {
-                            value: true, required: true,
                           })} name="closed_in" value={fundRaiseData.closed_in}
                             onChange={handleChange} />
                           {errors.closed_in && (
@@ -425,8 +423,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="number" className="form-control" id="xirr" {...register("xirr", {
-                            value: true, required: true,
+                          <input type="text" className="form-control" id="xirr" {...register("xirr", {
+                           required: true,
                           })} name="xirr" placeholder='Xirr( calculate in%)'
                             onChange={handleChange} />
                           {errors.xirr && (

@@ -24,6 +24,8 @@ interface InputData {
   pdc?: string;
   invoice?: string;
   website_url?: string;
+  terms?:string;
+  amount?:string;
 }
 
 export default function CampaignsDetails() {
@@ -35,11 +37,13 @@ export default function CampaignsDetails() {
   const [subscription_value, setSubscription_value] = useState(0);
   const [repay_date, setRepay_date] = useState('');
   const [repayment_value, setRepayment_value] = useState(0);
+  const [terms, setTerms] = useState(0);
   const [no_of_units, setNo_of_units] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
+  
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data?.id != null) {
@@ -59,6 +63,21 @@ export default function CampaignsDetails() {
     };
     fetchData();
   }, [id]);
+
+  const handleChangeTerms= (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+    if (type === 'checkbox' && name === 'terms') {
+      // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
+      const cofounderValue = checked ? '1' : '0';
+      setTerms((prevState: any) => {
+        return {
+          ...prevState,
+          cofounder: cofounderValue,
+          user_id: current_user_id,
+        };
+      });
+    }
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -177,7 +196,7 @@ export default function CampaignsDetails() {
                 <div className="d-flex justify-content-between">
                   <div>
                     <span>Amount</span>
-                    <h3 className="progressbar-title">₹25.0 Lakh</h3>
+                    <h3 className="progressbar-title">₹{inputs.amount}</h3>
                   </div>
                   <div>
                     {" "}
@@ -479,7 +498,8 @@ export default function CampaignsDetails() {
                         className="form-check-input"
                         type="checkbox"
                         id="inlineCheckbox1"
-                        defaultValue="option1"
+                        defaultValue="option1" 
+                        name="terms"  onChange={(e: any) => setRepayment_value(e.target.checked)} value="1"
                       />
                       <label
                         className="form-check-label"
