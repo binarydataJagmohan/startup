@@ -18,7 +18,7 @@ interface UserData {
 const Profile = () => {
     const router = useRouter();
     const [countries, setcountries] = useState<Country[]>([]);
-    const { register, handleSubmit, formState: { errors: any }, } = useForm();
+    const { register, handleSubmit, formState: { errors}, } = useForm();
     const [current_user_id, setCurrentUserId] = useState("");
     const [profile_pic, setProfilePic] = useState(null);
 
@@ -253,7 +253,111 @@ const Profile = () => {
                                     <div className="form-part">
                                         <h3>Personal Information</h3>
                                         <form onSubmit={handleSubmit(submitPersonalInfoForm)}>
-                                            <div className="row">
+                                        <div className="row">
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <input type="text" className="form-control form-css" placeholder="Name"  {...register("name", { value: true, required: true, })} onChange={handleChange} name="name" value={user.name} />
+                                                                    {errors.name &&
+                                                                        errors.name.type === "required" && (
+                                                                            <p
+                                                                                className="text-danger"
+                                                                                style={{ textAlign: "left", fontSize: "12px" }}
+                                                                            >
+                                                                                *Please Enter Your Name.
+                                                                            </p>
+                                                                        )}
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <input type="email" className="form-control form-css" placeholder="Email" {...register("email", {
+                                                                       onChange:handleChange,
+                                                                      required: true,
+                                                                      value:true,
+                                                                        // pattern: {
+                                                                        //     value: /^\S+@\S+$/i,
+                                                                        //     message: "Invalid email address"
+                                                                        // }
+                                                                    })} onChange={handleChange} name="email" value={user.email} />
+                                                                    {errors.email && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            <span>*Email Required</span>
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <input type="text" className="form-control form-css" placeholder="www.linkedin.com" onChange={handleChange} name="linkedin_url" value={user.linkedin_url} />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part mt-3">
+                                                                    {/* <input type="Number" placeholder="Phone number" name="" /> */}
+                                                                    <PhoneInput
+                                                                        onClick={phonClick}
+                                                                        country={"us"}
+                                                                        value={user.phone} inputClass={'form-css'}
+                                                                        onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <select
+                                                                        name="country" className="form-select form-css"
+                                                                        aria-label="Default select example" onChange={handleChange}
+                                                                    >
+                                                                        <option value="">
+                                                                            --SELECT COUNTRY--
+                                                                        </option>
+                                                                        {countries.map((country, index) => (
+                                                                            <option
+                                                                                key={index}
+                                                                                value={country.name}
+                                                                                selected={user.country === country.name}
+                                                                            >
+                                                                                {country.name}
+                                                                            </option>
+                                                                        ))}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <input type="text" className="form-control form-css" placeholder="City" onChange={handleChange} name="city" value={user.city} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row mb-5">
+                                                            <div className="col-sm-6">
+                                                                <div className="form-part">
+                                                                    <select
+                                                                        className="form-select form-css" onChange={handleChange}
+                                                                        name="gender" value={user.gender}
+                                                                        aria-label="Default select example"
+                                                                    >
+                                                                        <option value="">--SELECT GENDER--</option>
+                                                                        <option value="male">Male</option>
+                                                                        <option value="female">Female</option>
+                                                                        <option value="other">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-2">
+                                                                <div className="profile-pic">
+                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} alt="profile" className="profile-pic" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-4">
+                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} />
+                                                            </div>
+                                                        </div>
+                                            {/* <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="form-part">
                                                         <input type="text" className="form-control form-css" placeholder="Name" onChange={handleChange} name="name" value={user.name} />
@@ -273,7 +377,7 @@ const Profile = () => {
                                                 </div>
                                                 <div className="col-sm-6">
                                                     <div className="form-part mt-3">
-                                                        {/* <input type="Number" placeholder="Phone number" name="" /> */}
+                                                     
                                                         <PhoneInput
                                                             onClick={phonClick}
                                                             country={"us"}
@@ -334,7 +438,7 @@ const Profile = () => {
                                                 <div className="col-sm-4">
                                                     <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             {/* <div className="row">
                                                 <div className="col-sm-2">
                                                     <div className="profile-pic">
@@ -359,7 +463,7 @@ const Profile = () => {
                             </div>
 
                         </div>
-                        <div className="accordion-item">
+                        {/* <div className="accordion-item">
                             <h2 className="accordion-header" id="headingTwo">
                                 <button className="accordion-button collapsed text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     Investor Information:
@@ -369,7 +473,6 @@ const Profile = () => {
                                 <div className="accordion-body">
                                     <div className="form-part">
                                         <h3>Investor Type</h3>
-                                        {/* <form> */}
                                         <div className="container">
                                             <div className="register-form">
                                                 <div className="row step_one">
@@ -378,14 +481,6 @@ const Profile = () => {
                                                             <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
                                                                 {" "}
                                                                 Investor Type Information{" "}
-                                                                {/* <i
-                                                                    style={{ cursor: "pointer" }}
-                                                                    className="fa fa-info-circle"
-                                                                    aria-hidden="true"
-                                                                    data-toggle="tooltip"
-                                                                    data-placement="top"
-                                                                    title="Please select your investor type.That would be helpful to verify your account."
-                                                                ></i> */}
                                                             </h4>
                                                             <div className="row justify-content-center">
                                                                 <div className="col-md-8" id="register">
@@ -427,17 +522,6 @@ const Profile = () => {
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>
-                                                                                {/* <div className="help-block with-errors" /> */}
-                                                                                {/* <div className="error text-center">
-                                                                    {errors.investorType && errors.investorType.type === "required" && (
-                                                                        <p
-                                                                            className="text-danger"
-                                                                            style={{ textAlign: "center", fontSize: "12px" }}
-                                                                        >
-                                                                            *Please Select Investor Type.
-                                                                        </p>
-                                                                    )}
-                                                                </div> */}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -455,7 +539,6 @@ const Profile = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* </form> */}
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +596,7 @@ const Profile = () => {
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <ToastContainer autoClose={2000} />

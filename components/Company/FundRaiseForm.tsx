@@ -108,6 +108,7 @@ const FundRaiseForm = () => {
         .then((res) => {
           if (res.status == true) {
             setBusinessInfo(res.data.id);
+            // console.log(res.data);
 
           } else {
             toast.error(res.message, {
@@ -123,6 +124,26 @@ const FundRaiseForm = () => {
     } else {
       window.location.href = "/login";
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        getSingleFundRaiseData(id)
+            .then((res) => {
+                if (res.status == true) {
+                    setFundRaiseData(res.data);
+                    // console.log(setUser);
+                } else {
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            })
+            .catch((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
 
   }, []);
 

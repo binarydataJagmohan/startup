@@ -93,6 +93,25 @@ const AllFundsList = () => {
         });
       });
   }
+
+  // Delete Funding from DB..
+  function deleteFund(id:number) {
+    axios.post(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`)
+        .then(response => {
+            const updatedData = funds.filter(fund => fund.id !== id);
+            setFundsData(updatedData);
+            toast.success(response.data.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
+            });
+        })
+        .catch(error => {
+            toast.error(error, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+            });
+        });
+}
   return (
     <>
       <div className="main-content">
@@ -161,8 +180,8 @@ const AllFundsList = () => {
                                 </span>
                               </td>
                               <td>
-                                <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
-                                <a href="#" className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                <a href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`}  className='m-1' ><span className='fa fa-edit'></span></a>
+                                <a href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                               </td>
                             </tr>
                           ))
