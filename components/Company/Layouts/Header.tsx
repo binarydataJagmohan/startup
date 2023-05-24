@@ -38,7 +38,7 @@ const Header = () => {
           <div className="d-flex align-items-center">
             {/* LOGO */}
             <div className="navbar-brand-box">
-              <a href="/" className="logo logo-dark">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-dark">
                 <span className="logo-sm class-as">
                   <img src="/assets/img/logo2.png" alt="" height={22} />
                 </span>
@@ -46,7 +46,7 @@ const Header = () => {
                   <img src="/assets/img/logo2.png" alt="" height={17} />
                 </span>
               </a>
-              <a href="/" className="logo logo-light">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-light">
                 <span className="logo-sm">
                   <img src="/assets/img/logo2.png" alt="" height={22} />
                 </span>
@@ -62,7 +62,7 @@ const Header = () => {
               <div className="offcanvas offcanvas-start show" tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                 <div className="navbar-brand-box p-0">
-              <a href="/" className="logo logo-dark">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-dark">
                 <span className="logo-sm">
                   <img src="/assets/img/logo.png" alt="" height={22} />
                 </span>
@@ -70,7 +70,7 @@ const Header = () => {
                   <img src="/assets/img/logo.png" alt="" height={17} />
                 </span>
               </a>
-              <a href="/" className="logo logo-light">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-light">
                 <span className="logo-sm">
                   <img src="/assets/img/logo.png" alt="" height={22} />
                 </span>
@@ -127,7 +127,7 @@ const Header = () => {
               <div className="offcanvas offcanvas-start" tabIndex={-1} id="offcanvasExample1" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                 <div className="navbar-brand-box p-0">
-              <a href="/" className="logo logo-dark">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-dark">
                 <span className="logo-sm">
                   <img src="/assets/img/logo.png" alt="" height={22} />
                 </span>
@@ -135,7 +135,7 @@ const Header = () => {
                   <img src="/assets/img/logo.png" alt="" height={17} />
                 </span>
               </a>
-              <a href="/" className="logo logo-light">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL} className="logo logo-light">
                 <span className="logo-sm">
                   <img src="/assets/img/logo.png" alt="" height={22} />
                 </span>

@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-import { getToken,getCurrentUserData } from "../../lib/session";
+import { getToken, getCurrentUserData } from "../../lib/session";
 
 type Country = {
     name: string;
@@ -19,7 +19,7 @@ type Country = {
 }
 interface UserData {
     id?: string;
-  }
+}
 const EditUser = () => {
 
     const [countries, setcountries] = useState<Country[]>([]);
@@ -35,7 +35,7 @@ const EditUser = () => {
     const router = useRouter();
 
     const { id } = router.query;
-//   console.log("this is id "+id);
+    //   console.log("this is id "+id);
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
@@ -45,12 +45,12 @@ const EditUser = () => {
     const [missingFields, setMissingFields] = useState<string[]>([]);
 
 
-   
+
 
     useEffect(() => {
 
         const fetchData = async (id) => {
-        //    console.log("id for userdatafetch"+id);
+            //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
                 console.log(data.data);
@@ -69,7 +69,7 @@ const EditUser = () => {
     }, [router.query.id]);
 
 
-    const updateUser = async (e) => {
+    const updateUser = async (e:any) => {
         e.preventDefault();
         setMissingFields([]);
         setInvalidFields([]);
@@ -89,7 +89,7 @@ const EditUser = () => {
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
         if (!users.gender) setMissingFields(prevFields => [...prevFields, "Gender"]);
-      
+
 
         if (!users.status) setMissingFields(prevFields => [...prevFields, "Status"]);
         // if (!users.profile_pic) setMissingFields(prevFields => [...prevFields, "Profile Picture"]);
@@ -103,8 +103,8 @@ const EditUser = () => {
         }
 
         try {
-            console.log("this is updated"+id);
-            console.log(users);
+            // console.log("this is updated" + id);
+            // console.log(users);
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
@@ -120,8 +120,11 @@ const EditUser = () => {
                     ['linkedin_url']: users.linkedin_url
                 }
             );
-            console.log(response.data);
+            // console.log(response.data);
             toast.success('User updated successfully');
+            setTimeout(() => {
+                window.location.href = "/admin/all-users";
+              }, 1000);
         } catch (error) {
             console.error(error);
             // toast.error('Please Try Again!');
@@ -131,12 +134,12 @@ const EditUser = () => {
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
-          current_user_data.id
-            ? setCurrentUserId(current_user_data.id)
-            : setCurrentUserId("");
-    
+            current_user_data.id
+                ? setCurrentUserId(current_user_data.id)
+                : setCurrentUserId("");
+
         } else {
-          window.location.href = "/login";
+            window.location.href = "/login";
         }
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -160,17 +163,17 @@ const EditUser = () => {
         setMissingFields([]);
         setInvalidFields([]);
 
-    
+
         let selectedCountry = countries.find((country) => country.name === value);
         let countryCode = selectedCountry ? selectedCountry.country_code : '';
-    
+
         setUsers((prevState) => ({
-          ...prevState,
-          [name]: value,
-          id: id || '',
-          country_code: countryCode || '',
+            ...prevState,
+            [name]: value,
+            id: id || '',
+            country_code: countryCode || '',
         }));
-      };
+    };
 
     const phonClick = (event: any) => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -251,7 +254,7 @@ const EditUser = () => {
                                                         value={users.email}
                                                         name="email"
                                                         onChange={handleChange}
-                                                        
+
                                                     />
                                                     <div className="help-block with-errors" />
                                                     {missingFields.includes("Email") && (
@@ -289,8 +292,8 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">LinkedIn Url
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                            
-                                                    <input type="text" className="form-control" id="linkedin_url" onChange={handleChange}  value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
+
+                                                    <input type="text" className="form-control" id="linkedin_url" onChange={handleChange} value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
                                                     {missingFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the linkedin_url field.
@@ -309,8 +312,8 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                           
-                                                    <input type="text"  onChange={handleChange} className="form-control" id="city" name="city"  value={users.city} placeholder="Enter Your City" />
+
+                                                    <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
                                                     {missingFields.includes("City") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the City field.
@@ -322,18 +325,18 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Country
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <select className="form-select form-select-lg mb-3 css-1492t68" 
-                            onChange={handleChange}
-                            name="country"   value={users.country}
+                                                    <select className="form-select form-select-lg mb-3 css-1492t68"
+                                                        onChange={handleChange}
+                                                        name="country" value={users.country}
                                                         aria-label="Default select example"
                                                     >
-                                                       
+                                                        <option value="" >--SELECT COUNTRY--</option>
+
                                                         {countries.map((country, index) => (
                                                             <option
                                                                 key={index}
                                                                 value={country.name}
-                                                                // selected={users.country === country.name}
-                                                                
+                                                            // selected={users.country === country.name}
                                                             >
                                                                 {country.name}
                                                             </option>
@@ -354,14 +357,17 @@ const EditUser = () => {
                                                     </label>
                                                     <select
                                                         className="form-select form-select-lg css-1492t68"
-                            onChange={handleChange}
-                            name="gender" value={users.gender} 
+                                                        onChange={handleChange}
+                                                        name="gender" value={users.gender}
                                                         aria-label="Default select example"
                                                     >
-                                                         <option value={users.gender}>{users.gender}</option>
-                                                         {users.gender!=='male' && <option value="male">Male</option>}
-                                                         {users.gender!=='female' && <option value="female">female</option>}
-                                                         {users.gender!=='other' && <option value="other">other</option>}
+                                                        <option value="" >--SELECT GENDER--</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                        <option value="other">Other</option>
+                                                        {/* {users.gender !== 'male' && <option value="male">Male</option>}
+                                                        {users.gender !== 'female' && <option value="female">female</option>}
+                                                        {users.gender !== 'other' && <option value="other">other</option>} */}
                                                     </select>
                                                     {missingFields.includes("Gender") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -374,15 +380,18 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Role{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                          
-                                                    <select  className="form-select w-lg form-select-lg css-1492t68"   onChange={handleChange}  value={users.role} >
-                                                    <option value={users.role}>{users.role}</option>
-                                                    {users.role!=='admin' &&  <option value="admin">Admin</option>}
-                                                    {users.role!=='startup' &&   <option value="startup">startup</option>}
-                                                    {users.role!=='investor' &&  <option value="investor">investor</option>}
-                                                       
-                                                       
-                                                        
+
+                                                    <select className="form-select w-lg form-select-lg css-1492t68" onChange={handleChange}  name="role" value={users.role} >
+                                                        {/* <option value={users.role}>{users.role}</option>
+                                                        {users.role !== 'admin' && <option value="admin">Admin</option>}
+                                                        {users.role !== 'startup' && <option value="startup">startup</option>}
+                                                        {users.role !== 'investor' && <option value="investor">investor</option>} */}
+
+                                                        <option value="">--SELECT ROLE--</option>
+                                                        <option value="admin">Admin</option>
+                                                        <option value="startup">startup</option>
+                                                        <option value="investor">investor</option>
+
                                                     </select>
                                                     {missingFields.includes("Role") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -397,15 +406,16 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Status{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                            
-                                                    <select className="form-select form-select-lg css-1492t68 "  onChange={handleChange} value={users.status} 
+
+                                                    <select className="form-select form-select-lg css-1492t68 " onChange={handleChange} value={users.status}
                                                         name="status"
                                                         aria-label="Default select example">
-                                                        <option value={users.status}>{users.status}</option>
-                                                        {users.status!=='active' &&  <option value="active">active</option>}
-                                                        {users.status!=='deactive' &&  <option value="deactive">deactive</option>}
-                                                       
-                                                        
+                                                        {/* <option value={users.status}>{users.status}</option>
+                                                        {users.status !== 'active' && <option value="active">active</option>}
+                                                        {users.status !== 'deactive' && <option value="deactive">deactive</option>} */}
+                                                         <option value="">--SELECT STATUS--</option>
+                                                         <option value="active">active</option>
+                                                         <option value="deactive">deactive</option>
                                                     </select>
                                                     {missingFields.includes("Status") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>

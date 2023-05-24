@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
+import {getSingleFundRaiseData} from "../../lib/adminapi"
 
 interface UserData {
   id?: string;
@@ -131,6 +132,7 @@ const FundRaiseForm = () => {
         getSingleFundRaiseData(id)
             .then((res) => {
                 if (res.status == true) {
+                  console.log(res.data);
                     setFundRaiseData(res.data);
                     // console.log(setUser);
                 } else {

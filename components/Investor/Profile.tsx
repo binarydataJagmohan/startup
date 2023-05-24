@@ -240,11 +240,13 @@ const Profile = () => {
     return (
         <>
             <section className="form-faq pt-5 pb-5">
-                <div className="container">
+                <div className="container m-0">
                     <div className="accordion" id="accordionExample">
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="headingOne">
-                                <button className="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button className="accordion-button text-white" type="button" 
+                                // data-bs-toggle="collapse" data-bs-target="#collapseOne" 
+                                aria-expanded="true" aria-controls="collapseOne">
                                     Personal Information:
                                 </button>
                             </h2>

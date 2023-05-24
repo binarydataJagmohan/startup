@@ -219,10 +219,8 @@ const UserList = () => {
                                                         <td>{user.phone}</td>
                                                         <td>{user.city}</td>
                                                         <td>
-                                                           <select className="form-select form-select-lg css-1492t68 mt-0" value={user.country} onChange={(e) => updateCountry(String(user.id), e.target.value)}>
-                                                                    <option value={user.country}>
-                                                                      {user.country}
-                                                                    </option>
+                                                           <select className="form-select form-select-lg css-1492t68 mt-0 w-sm mb-3" value={user.country} onChange={(e) => updateCountry(String(user.id), e.target.value)}>
+                                                                    <option value="">--SELECT COUNTRY--</option>
                                                                     {countries.map((country, index) => (
                                                                         <option
                                                                             key={index}
@@ -235,7 +233,8 @@ const UserList = () => {
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select className="form-select w-lg form-select-lg mb-3 css-1492t68 mt-0" value={user.role} onChange={(e) => updateusersRole(String(user.id), e.target.value)}>
+                                                            <select className="form-select w-sm form-select-lg mb-3 css-1492t68 mt-0" value={user.role} onChange={(e) => updateusersRole(String(user.id), e.target.value)}>
+                                                               <option value="">--SELECT ROLE--</option>
                                                                 <option value="admin">Admin</option>
                                                                 <option value="startup">Startup</option>
                                                                 <option value="investor">Investor</option>
