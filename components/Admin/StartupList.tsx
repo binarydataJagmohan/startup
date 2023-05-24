@@ -47,18 +47,18 @@ const StartupList = () => {
     // for approval status update
     function updateApprovalStatus(id: number, status: number | string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status })
-            .then(response => { 
+            .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
-                      return {
-                        ...startup,
-                        approval_status: status,
-                      };
+                        return {
+                            ...startup,
+                            approval_status: status,
+                        };
                     }
                     return startup;
-                  });
-                  setStartupData(updatedData);
-                  toast.success(response.data.message, {
+                });
+                setStartupData(updatedData);
+                toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
@@ -73,19 +73,19 @@ const StartupList = () => {
 
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, {status: status })
-            .then(response => { 
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, { status: status })
+            .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
-                      return {
-                        ...startup,
-                        status: status,
-                      };
+                        return {
+                            ...startup,
+                            status: status,
+                        };
                     }
                     return startup;
-                  });
-                  setStartupData(updatedData);
-                  toast.success(response.data.message, {
+                });
+                setStartupData(updatedData);
+                toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
@@ -133,33 +133,23 @@ const StartupList = () => {
     };
     // delete the startup 
     const deleteStartup = async (id: number) => {
-        try {
-            const response = await fetch(`/api/startups/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer`+ getToken(),
-                },
-            });
-            const data = await response.json();
-            if (response.ok) {
-                //Deleted the startup from the startupList
-                setStartupData(startups.filter(startup => startup.id !== id));
-                toast.success(data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "success",
-                });
-            } else {
-                toast.error(data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
-                });
-            }
-        } catch (error: any) {
-            toast.error(error.message, {
+        // console.log("this is id again"+id);
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`)
+        .then(response => {
+            
+            const updatedData = startups.filter(startup => startup.id !== id);
+            setStartupData(updatedData);
+            toast.success(response.data.message, {
                 position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
             });
-        }
+        })
+        .catch(error => {
+            toast.error(error, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+            });
+        });
     };
 
 
@@ -193,64 +183,61 @@ const StartupList = () => {
                                     </div>
                                     <div className="card-body">
                                         <div className='table-responsive'>
-                                        <table
-                                            id="datatable"
-                                            className="table dt-responsive nowrap"
-                                            style={{
-                                                borderCollapse: "collapse",
-                                                borderSpacing: 0,
-                                                width: "100%",
-                                                overflow:'hidden'
-                                            }}
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email Address</th>
-                                                    <th>Company</th>
-                                                    <th>Stage</th>
-                                                    <th>Status</th>
-                                                    <th>Approval</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {startups && startups.length > 0 ? (
-                                                startups.map((startup, index) => (
-                                                    <tr key={startup.id}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{startup.name}</td>
-                                                        <td>{startup.email}</td>
-                                                        <td>{startup.business_name}</td>
-                                                        {/* <td>{startup.stage}</td> */}
-                                                        <td>
-                                                            <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(String(startup.id), e.target.value)}>
-                                                                <option value="Idea Stage">Idea Stage</option>
-                                                                <option value="Intermediate Stage">Intermediate Stage</option>
-                                                                <option value="Final Stage">Final Stage</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <span style={{cursor: "pointer"}} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span style={{cursor: "pointer"}} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
-                                                            <a onClick={() => deleteStartup(startup.id)} className='delete'>
-                                                                <span className='fa fa-trash'></span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                ))) : (
+                                            <table
+                                                id="datatable"
+                                                className="table dt-responsive nowrap"
+                                                style={{
+                                                    borderCollapse: "collapse",
+                                                    borderSpacing: 0,
+                                                    width: "100%",
+                                                    overflow: 'hidden'
+                                                }}
+                                            >
+                                                <thead>
                                                     <tr>
-                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Email Address</th>
+                                                        <th>Company</th>
+                                                        <th>Stage</th>
+                                                        <th>Status</th>
+                                                        <th>Approval</th>
+                                                        <th>Action</th>
                                                     </tr>
-                                                  )}
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {startups.map((startup, index) => (
+                                                        <tr key={startup.id}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{startup.name}</td>
+                                                            <td>{startup.email}</td>
+                                                            <td>{startup.business_name}</td>
+                                                            {/* <td>{startup.stage}</td> */}
+                                                            <td>
+                                                                <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(String(startup.id), e.target.value)}>
+                                                                    <option value="Idea Stage">Idea Stage</option>
+                                                                    <option value="Intermediate Stage">Intermediate Stage</option>
+                                                                    <option value="Final Stage">Final Stage</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <span style={{ cursor: "pointer" }} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span style={{ cursor: "pointer" }} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
+                                                            </td>
+                                                            <td>
+                                                                <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/edit-startup/?id=${startup.id}`} className='m-1'>
+                                                                    <span className='fa fa-edit'></span>
+                                                                </a>
+                                                                <a href="#" onClick={() => deleteStartup(startup.id)} className='m-1'>
+                                                                    <span className='fa fa-trash text-danger'></span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
