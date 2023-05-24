@@ -47,6 +47,7 @@ const UserList = () => {
     }, []);
 
     function deleteUser(id:number) {
+        
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`)
             .then(response => {
                 const updatedData = users.filter(user => user.id !== id);
@@ -219,14 +220,14 @@ const UserList = () => {
                                                         <td>{user.city}</td>
                                                         <td>
                                                            <select className="form-select form-select-lg css-1492t68 mt-0" value={user.country} onChange={(e) => updateCountry(String(user.id), e.target.value)}>
-                                                                    <option value="">
-                                                                        --SELECT COUNTRY--
+                                                                    <option value={user.country}>
+                                                                      {user.country}
                                                                     </option>
                                                                     {countries.map((country, index) => (
                                                                         <option
                                                                             key={index}
                                                                             value={country.name}
-                                                                            selected={user.country === country.name}
+                                                                            // selected={user.country === country.name}
                                                                         >
                                                                             {country.name}
                                                                         </option>
@@ -245,7 +246,7 @@ const UserList = () => {
 
                                                             <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
 
-                                                            <a href="javascript:void(0);" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                            <a href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                         </td>
                                                     </tr>
                                                 ))) : (

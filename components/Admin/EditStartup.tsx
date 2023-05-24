@@ -1,0 +1,905 @@
+import React, { useState, useEffect } from 'react'
+import { getSinglestartup } from '../../lib/companyapi';
+import { getBusinessInformation, getBankInformation, getCountries } from '../../lib/frontendapi';
+import PhoneInput from "react-phone-input-2";
+import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
+import "react-phone-input-2/lib/style.css";
+
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from 'next/router';
+
+
+const EditList = () => {
+  const [startup, setStartupData] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
+  const [bussiness, setBussinessData] = useState({
+
+    business_name: "",
+    reg_businessname: "",
+    website_url: "",
+    sector: "",
+    stage: "",
+    startup_date: "",
+    tagline: "",
+    logo: "",
+    type: "",
+    description: "",
+    cofounder: "0",
+    kyc_purposes: "0",
+  });
+  const [bank, setBankData] = useState();
+  const [previewImage, setPreviewImage] = useState(null);
+  const router = useRouter();
+  const [missingFields, setMissingFields] = useState<string[]>([]);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [businessmissingFields, setBusinessMissingFields] = useState<string[]>([]);
+  const [countries, setcountries] = useState<Country[]>([]);
+
+  const { id } = router.query;
+
+  useEffect(() => {
+    const fetchData = async (id) => {
+      const data = await getBusinessInformation(id);
+      console.log("this id is first" + id);
+      if (data) {
+        setBussinessData(data.data);
+        console.log(data.data);
+      }
+    };
+
+    if (router.query.id) {
+      fetchData(router.query.id);
+    }
+  }, [router.query.id]);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+
+    const fetchData = async () => {
+      const data = await getCountries({});
+      if (data) {
+        setcountries(data.data);
+      }
+    };
+
+    fetchData();
+
+  }, []);
+  const handleBusinessChange = (e) => {
+    console.log("hited business");
+    setBusinessMissingFields([]);
+  
+    if (e.target.type === "checkbox" && e.target.name === "cofounder") {
+      // Handle cofounder checkbox change
+      const cofounderValue = e.target.checked ? "1" : "0";
+      setBussinessData((prevBusiness) => ({
+        ...prevBusiness,
+        cofounder: cofounderValue,
+        user_id: id,
+      }));
+    } else if (e.target.type === "checkbox" && e.target.name === "kyc_purposes") {
+      // Handle kyc_purposes checkbox change
+      const kycValue = e.target.checked ? "1" : "0";
+      setBussinessData((prevBusiness) => ({
+        ...prevBusiness,
+        kyc_purposes: kycValue,
+        user_id: id,
+      }));
+    } else if (e.target.name === "logo") {
+      // Handle logo file input change
+      const file = e.target.files && e.target.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+  
+      setBussinessData((prevBusiness) => ({
+        ...prevBusiness,
+        logo: file || prevBusiness.logo, // Preserve previous logo if no new file selected
+      }));
+    } else {
+      // Handle other field changes
+      setBussinessData((prevBusiness) => ({
+        ...prevBusiness,
+        [e.target.name]: e.target.value,
+      }));
+    }
+  };
+  
+  
+  const handleStartupChange = (e) => {
+    console.log("hited startup");
+    setMissingFields([]);
+    setStartupData((prevStartup) => ({
+      ...prevStartup,
+      [e.target.name]: e.target.value,
+
+    }));
+  }
+
+  const updatePersonalInfo = async (e) => {
+    e.preventDefault();
+    setInvalidFields([]);
+
+    if (!startup.email) {
+      setMissingFields(prevFields => [...prevFields, "Email"]);
+    } else if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/i.test(startup.email)) {
+      setInvalidFields(prevFields => [...prevFields, "Email"]);
+    }
+    if (!startup.linkedin_url) {
+      setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
+    } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/(in|company)\/[\w-]+$/i.test(startup.linkedin_url)) {
+      setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
+    }
+    if (!startup.country) setMissingFields(prevFields => [...prevFields, "country"]);
+    if (!startup.phone) setMissingFields(prevFields => [...prevFields, "phone"]);
+    if (!startup.city) setMissingFields(prevFields => [...prevFields, "city"]);
+    if (!startup.gender) setMissingFields(prevFields => [...prevFields, "gender"]);
+    try {
+      console.log(id);
+      console.log("startup");
+
+      console.log(startup);
+
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/update-startup-personal-info/${id}`,
+        {
+
+          ['email']: startup.email,
+          ['country']: startup.country,
+          ['phone']: startup.phone,
+          ['city']: startup.city,
+          ['linkedin_url']: startup.linkedin_url,
+          ['gender']: startup.gender,
+
+        }
+      );
+      console.log(response.data);
+      toast.success('Startup Personal Information updated successfully');
+    } catch (error) {
+      console.error(error);
+      // toast.error('Please Try Again!');
+    }
+  };
+
+  const updateBusinessInfo = async (e) => {
+    e.preventDefault();
+    if (!bussiness.business_name) setBusinessMissingFields(prevFields => [...prevFields, "business_name"]);
+    if (!bussiness.cofounder) setBusinessMissingFields(prevFields => [...prevFields, "cofounder"]);
+    if (!bussiness.description) setBusinessMissingFields(prevFields => [...prevFields, "description"]);
+    if (bussiness.kyc_purposes === '0') setBusinessMissingFields(prevFields => [...prevFields, "kyc_purposes"]);
+    if (!bussiness.logo) setBusinessMissingFields(prevFields => [...prevFields, "logo"]);
+    if (!bussiness.reg_businessname) setBusinessMissingFields(prevFields => [...prevFields, "reg_businessname"]);
+    if (!bussiness.sector) setBusinessMissingFields(prevFields => [...prevFields, "sector"]);
+    if (!bussiness.stage) setBusinessMissingFields(prevFields => [...prevFields, "stage"]);
+    if (!bussiness.startup_date) setBusinessMissingFields(prevFields => [...prevFields, "startup_date"]);
+    if (!bussiness.tagline) setBusinessMissingFields(prevFields => [...prevFields, "tagline"]);
+    if (!bussiness.type) setBusinessMissingFields(prevFields => [...prevFields, "type"]);
+    if (!bussiness.website_url) setBusinessMissingFields(prevFields => [...prevFields, "website_url"]);
+    // 
+    try {
+      console.log(id);
+      console.log("bussiness");
+
+      console.log(bussiness);
+      console.log("this is bussiness id" + (bussiness.user_id))
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/business-information-update/${bussiness.user_id}`,
+
+        {
+
+          ['business_name']: bussiness.business_name,
+          ['reg_businessname']: bussiness.reg_businessname,
+          ['cofounder']: bussiness.cofounder,
+          ['description']: bussiness.description,
+          ['kyc_purposes']: bussiness.kyc_purposes,
+          ['logo']: bussiness.logo,
+          ['sector']: bussiness.sector,
+          ['stage']: bussiness.stage,
+          ['startup_date']: bussiness.startup_date,
+          ['tagline']: bussiness.tagline,
+          ['type']: bussiness.type,
+          ['website_url']: bussiness.website_url,
+
+        }
+        ,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response.data);
+      toast.success('Business Information updated successfully');
+    } catch (error) {
+      console.error(error);
+      // toast.error('Please Try Again!');
+    }
+  }
+  useEffect(() => {
+
+    const fetchData = async (id) => {
+
+      const data = await getBankInformation(id);
+      if (data) {
+        setBankData(data.data);
+        console.log(data.data);
+      }
+    };
+    fetchData(id);
+
+
+  }, [router.query.id]);
+
+  const phonClick = (event: any) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    let { name, value } = event.target;
+    var selectedCountry = countries.find(
+      (country) => country.name === value
+    );
+    var countryCode = "";
+    if (selectedCountry) {
+      countryCode = selectedCountry.country_code;
+    }
+
+    setStartupData((prevState: any) => {
+      return {
+        ...prevState,
+        [name]: value,
+        id: id,
+        country_code: countryCode ? `${countryCode}` : " ",
+      };
+    });
+  }
+  useEffect(() => {
+
+    const fetchData = async (id) => {
+
+      const data = await getSinglestartup(id);
+      if (data) {
+        setStartupData(data.data);
+        console.log(data.data);
+      }
+    };
+    fetchData(id);
+
+
+  }, [router.query.id]);
+  bussiness
+  // console.log(id);
+  return (
+    <div className="form-faq pt-5 pb-5">
+      <div className="container">
+        <div className="accordion" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingOne">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Edit form For Startups:
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              className="accordion-collapse collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <div className="form-part">
+                  <h3>Personal Information</h3>
+                  <form onSubmit={updatePersonalInfo}>
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Email{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <div className="form-part">
+                          <input type="text" placeholder="Email" onChange={handleStartupChange} value={startup.email} name="email" />
+                          <div className="help-block with-errors" />
+                          {missingFields.includes("Email") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the Email field.
+                            </p>
+                          )}
+                          {invalidFields.includes("Email") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please enter a valid email address.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Linkedin Url{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <div className="form-part">
+                          <input
+                            type="text"
+                            placeholder="www.linkedin.com"
+                            value={startup.linkedin_url}
+                            name="linkedin_url" onChange={handleStartupChange}
+                          />
+                          <div className="help-block with-errors" />
+                          {missingFields.includes("linkedin_url") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the linkedin_url field.
+                            </p>
+                          )}
+                          {invalidFields.includes("linkedin_url") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please enter a valid linkedin_url address.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Rest of the form code */}
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Country{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <div className="form-part">
+                          <input type="text" placeholder="Country of Citizenship " name="country" value={startup.country} onChange={handleStartupChange} />
+                          <div className="help-block with-errors" />
+                          {missingFields.includes("country") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the country field.
+                            </p>
+                          )}
+
+                        </div>
+                      </div>
+                      <div className="col-sm-6">
+                       
+                        <div className="form-part">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                          <PhoneInput
+                            onClick={phonClick}
+                            country={"us"}
+                            value={startup.phone}
+                            onChange={(value) => setStartupData((prevState) => ({ ...prevState, phone: value }))}
+                          />
+                          {missingFields.includes("Phone") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the Phone field.
+                            </p>
+                          )}
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <div className="form-part">
+                          <input type="text" placeholder="City" value={startup.city} name="city" onChange={handleStartupChange} />
+                          <div className="help-block with-errors" />
+                          {missingFields.includes("city") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the city field.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <div className="form-part">
+                          <select name="gender" onChange={handleStartupChange}>
+                            <option value={startup.gender}>{startup.gender}</option>
+                            {startup.gender !== 'male' && <option value="male">male</option>}
+                            {startup.gender !== 'female' && <option value="female">female</option>}
+                            {startup.gender !== 'other' && <option value="other">other</option>}
+                          </select>
+                          <div className="help-block with-errors" />
+                          {missingFields.includes("gender") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the gender field.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="row mt-3">
+                        <div className="col-md-12 text-center">
+                          <button type="submit" className="btn btn-primary">
+                            Update
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Add code for other accordion items */}
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingTwo">
+              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Startup Information:
+              </button>
+            </h2>
+            <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div className="accordion-body">
+                <div className="row step_one">
+                  <div className="col-md-12">
+                    <form className="needs-validation mb-4" onSubmit={updateBusinessInfo} encType="multipart/form-data" >
+                      <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
+                        {" "}
+                        Business Information{" "}
+                        <i
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-info-circle"
+                          aria-hidden="true"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Please type in your full business details into the field below. This would be your registered company name."
+                        ></i>
+                      </h4>
+                      <div className="row justify-content-center">
+                        <div className="col-md-8" id="register">
+                          <div className="row">
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="business_name"
+                                className="form-label"
+                              >
+                                Name of Startup{" "}
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control same-input"
+                                id="business_name" name="business_name" value={bussiness.business_name} onChange={handleBusinessChange}
+
+                              />
+
+                              {businessmissingFields.includes("business_name") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Company Name.
+                                </p>
+                              )}
+                              {/* )} */}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="reg_businessname"
+                                className="form-label"
+                              >
+                                Registered name of Startup
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control same-input"
+                                id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname"
+
+                              />
+                              {businessmissingFields.includes("reg_businessname") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter  Registered Company Name.
+                                </p>
+                              )}
+                              {/* )} */}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="website_url"
+                                className="form-label"
+                              >
+                                Website URL
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url"
+                              // id="website_url"  {...register("website_url")} 
+                              // name="website_url"  onChange={handleChange} value={businessDetails.website_url}
+                              />
+                              {/* {errors.website_url && ( */}
+                              {businessmissingFields.includes("website_url") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Comapny's Website Url.
+                                </p>
+                              )}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="sector"
+                                className="form-label mb-4"
+                              >
+                                Sector of Startup
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <select
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example" onChange={handleBusinessChange} name="sector"
+                              // {...register("sector", {validate: (value) => value != "", required: true,})} 
+                              // name="sector"  onChange={handleChange}   value={businessDetails ? businessDetails.sector : ""}
+                              >
+                                <option value={bussiness.sector}>{bussiness.sector}</option>
+                                {bussiness.sector !== 'App Development' && <option value="App Development">App Development</option>}
+                                {bussiness.sector !== 'IT/Technologies' && <option value="IT/Technologies">IT/Technologies</option>}
+                                {bussiness.sector !== 'AI' && <option value="AI">AI</option>}
+                                {bussiness.sector !== 'Web Development' && <option value="Web Development">Web Development</option>}
+                                {bussiness.sector !== 'Agriculture' && <option value="Agriculture">Agriculture</option>}
+                              </select>
+                              {/* {errors.sector &&
+                                errors.sector.type === "required" &&  ! businessDetails.sector &&  ( */}
+                              {businessmissingFields.includes("sector") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Select Sector of Your Business.
+                                </p>
+                              )}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="stage"
+                                className="form-label mb-4"
+                              >
+                                Stage of Startup
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <select
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example" onChange={handleBusinessChange} name="stage"
+                              // {...register("stage", { validate: (value) => value != "", required: true,})}
+                              // name="stage"  onChange={handleChange}  value={businessDetails ? businessDetails.stage : ""}
+                              >
+                                <option value={bussiness.stage}>{bussiness.stage}</option>
+                                {bussiness.stage !== 'Idea Stage' && <option value="Idea Stage">Idea Stage</option>}
+                                {bussiness.stage !== 'Intermediate Stage' && <option value="Intermediate Stage">Intermediate Stage</option>}
+                                {bussiness.stage !== 'Final Stage' && <option value="Final Stage">Final Stage</option>}
+
+
+
+                              </select>
+                              {/* {errors.stage &&
+                                errors.stage.type === "required" &&  ! businessDetails.stage && ( */}
+                              {businessmissingFields.includes("stage") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Select Stage of Your Business.
+                                </p>
+                              )}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="startup_date"
+                                className="form-label"
+                              >
+                                Month & year of inception
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <input
+                                type="date"
+                                className="form-control same-input"
+                                id="startup_date" value={bussiness.startup_date} onChange={handleBusinessChange} name="startup_date"
+
+                                max={new Date().toISOString().split("T")[0]}
+                              />
+
+                              {businessmissingFields.includes("startup_date") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your Business of Inception.
+                                </p>
+                              )}
+                            </div>
+                            <div className="col-md-6 mt-3">
+                              <label htmlFor="tagline" className="form-label">
+                                Tagline
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control same-input" onChange={handleBusinessChange}
+                                id="tagline" value={bussiness.tagline} name="tagline"
+
+                              />
+
+                              {businessmissingFields.includes("tagline") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your Business Tagline.
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="col-md-6 mt-3">
+                              <label
+                                htmlFor="stage"
+                                className="form-label mb-4"
+                              >
+                                Fund Type
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <select
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example" name="type" onChange={handleBusinessChange}
+
+                              >
+                                <option value={bussiness.type}>{bussiness.type}</option>
+                                {bussiness.type !== 'Dicounting Invoice' && <option value="Dicounting Invoice">Dicounting Invoice</option>}
+                                {bussiness.type !== 'CSOP' && <option value="CSOP">CSOP</option>}
+                                {bussiness.type !== 'CCSP' && <option value="CCSP">CCSP</option>}
+
+
+                              </select>
+
+                              {businessmissingFields.includes("type") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Select type of Your Business.
+                                </p>
+                              )}
+                            </div>
+
+
+
+                            <div className="col-sm-6 ">
+                              <label
+                                htmlFor="description"
+                                className="form-label"
+                              >
+                                100 characters to tell us about your business
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <textarea
+                                rows={4}
+                                maxLength={100}
+                                placeholder="Enter details here"
+                                className="form-control" value={bussiness.description} onChange={handleBusinessChange} name="description"
+
+                              />
+                              {businessmissingFields.includes("description") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Fill Description of Your Business.
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="col-md-6">
+                              <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                              >
+                                <label
+                                  htmlFor="logo"
+                                  className="form-label"
+                                >
+                                  Startup Logo
+                                  <span style={{ color: "red" }}>*</span>
+                                </label>
+                                <div className="profile-pic">
+                                  {previewImage ? (
+                                    <Image src={previewImage} alt="profile" width={300} height={300} />
+                                  ) : (
+                                    <Image
+                                      src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/profile.webp"}
+                                      alt="profile"
+                                      className="profile-pic"
+                                      width={300}
+                                      height={300}
+                                    />
+                                  )}
+                                </div>
+                                <input
+                                  className="input-file"
+                                  id="logo"
+                                  type="file" onChange={handleBusinessChange}
+
+                                />
+
+                                <label
+                                  htmlFor="fileupload"
+                                  className="input-file-trigger"
+                                  id="labelFU"
+                                  tabIndex={0}
+                                >
+                                  Drop your pitch deck here to{" "}
+                                  <a href="#">Upload</a> <br />
+                                  <p>You can upload any identity card's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
+                                </label>
+                                {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && ( */}
+                                {businessmissingFields.includes("logo") && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Choose Your Business Logo.
+                                  </p>
+                                )}
+                                {businessmissingFields.includes("type") && bussiness.logo && (<p
+                                  className="text-success"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  Logo Uploaded Successfully.
+                                </p>
+                                )}
+
+                              </div>
+                            </div>
+
+
+                            <div className=" mt-5 d-flex align-content-center">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="checkboxNoLabel"
+                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange}
+                              // {...register("cofounder", { value:true, })}
+                              // name="cofounder"  onChange={handleChange}   
+                              />
+                              <p className="">
+                                You come from an entrepreneurial family or have
+                                been a founder/co-founder of a business venture
+                                family
+                              </p>
+                            </div>
+                            <div className=" mt-2 d-flex align-items-left">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="checkboxNoLabel"
+                                value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange}
+                              // {...register("kyc_purposes", { value:true,required:true })}
+                              // name="kyc_purposes"  onChange={handleChange}  
+                              />
+                              <p className="">
+                                I certify that all the information provided by
+                                me is accurate and I am willing to provide
+                                evidence for the same for KYC purposes when
+                                requested.
+                              </p>
+                            </div>
+                            {/* {errors.kyc_purposes &&
+                                errors.kyc_purposes.type === "required" && ( */}
+                            {businessmissingFields.includes("kyc_purposes") && (
+                              <p
+                                className="text-danger"
+                                style={{ textAlign: "left", fontSize: "12px" }}
+                              >
+                                *Please certify the kyc information.
+                              </p>
+                            )}
+                          </div>
+
+                        </div>
+
+                      </div>
+                      <div className="row mt-3">
+                        <div className="col-md-12 text-center">
+                          <button type="submit" className="btn btn-primary">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingThree">
+              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Term and condition:
+              </button>
+            </h2>
+            <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div className="form-part">
+                <h3>Personal Information</h3>
+                <form>
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <input type="text" placeholder="Email" name="" />
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <input type="text" placeholder="www.linkedin.com" name="" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <input type="text" placeholder="Country of Citizenship " name="" />
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <input type="Number" placeholder="Phone number" name="" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <input type="text" placeholder="City" name="" />
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className="form-part">
+                        <select>
+                          <option>Gender</option>
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row mt-3">
+                      <div className="col-md-12 text-center">
+                        <button type="submit" className="btn btn-primary">
+                          Update
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <ToastContainer autoClose={1000} />
+    </div>
+  );
+}
+
+
+export default EditList;
