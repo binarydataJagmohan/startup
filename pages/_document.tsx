@@ -49,6 +49,7 @@ export default function Document() {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css.map" />
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></link>
       </Head>    
       <body>
         <Main />
@@ -65,6 +66,7 @@ export default function Document() {
        
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/js/app.js"}></script>
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
       </body>
     </Html>

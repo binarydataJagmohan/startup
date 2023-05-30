@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef} from 'react'
 import { getAllUsers } from '../../lib/adminapi';
 import { getCountries } from '../../lib/frontendapi';
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +26,8 @@ const UserList = () => {
     const [selectedRole, setSelectedRole] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState([]);
     const [countries, setcountries] = useState<Country[]>([]);
+    const [dataTableInitialized, setDataTableInitialized] = useState(false);
+    const tableRef = useRef(null);
     useEffect(() => {
         const userData = async () => {
             const data = await getAllUsers({});
@@ -45,6 +47,23 @@ const UserList = () => {
         userData();
         fetchData();
     }, []);
+
+    useEffect(() => {
+        // Initialize the datatable for users
+        if (users.length > 0 && !dataTableInitialized) {
+            $(document).ready(() => {
+                $('#datatable').DataTable({
+                    lengthMenu: [5, 25, 50, 75, 100],
+                  columnDefs: [
+                    //  columns  sortable
+                    { targets: [0, 1, 2], orderable: true }, 
+                    // Disable sorting 
+                    { targets: '_all', orderable: false }, 
+                  ],
+                });
+              });
+        }
+    }, [users,dataTableInitialized]);
 
     function deleteUser(id:number) {
         
@@ -186,16 +205,18 @@ const UserList = () => {
                                     <div className="card-header text-white" id="title">
                                         <h3 className="card-title" >USERS</h3>
                                     </div>
-                                    <div className="card-body">
-                                        <table
-                                            id="datatable"
-                                            className="table dt-responsive nowrap"
-                                            style={{
-                                                borderCollapse: "collapse",
-                                                borderSpacing: 0,
-                                                width: "100%"
-                                            }}
-                                        >
+                                    <div className="card-body table-responsive">
+                                        
+                                    <table
+                                                    id="datatable" ref={tableRef}
+                                                    className="table dt-responsive nowrap"
+                                                    style={{
+                                                        borderCollapse: 'collapse',
+                                                        borderSpacing: 0,
+                                                        width: '100%',
+                                                        overflow: 'hidden',
+                                                    }}
+                                                >
                                             <thead>
                                                 <tr>
                                                     <th>#</th>

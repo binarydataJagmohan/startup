@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { getAllInvestors } from '../../lib/frontendapi';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,8 +17,10 @@ type Investor = {
     id?: string;
   }
 const InvestorList = () => {
+    const tableRef = useRef(null);
     const [investors, setInvestors] = useState<Investor[]>([]);
     const [current_user_id, setCurrentUserId] = useState("");
+    const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
@@ -93,6 +95,23 @@ const InvestorList = () => {
             });
     }
 
+    useEffect(() => {
+        // Initialize the datatable for investors
+        if (investors.length > 0 && !dataTableInitialized) {
+            $(document).ready(() => {
+                $('#datatable').DataTable({
+                    lengthMenu: [1, 25, 50, 75, 100],
+                  columnDefs: [
+                    //  columns  sortable
+                    { targets: [0, 1, 2], orderable: true }, 
+                    // Disable sorting 
+                    { targets: '_all', orderable: false }, 
+                  ],
+                });
+              });
+        }
+    }, [investors]);
+
     return (
         <>
             <div className="main-content">
@@ -125,7 +144,7 @@ const InvestorList = () => {
                                     <div className="card-body">
                                         <div className='table-responsive'>
                                         <table
-                                            id="datatable"
+                                            id="datatable" ref={tableRef}
                                             className="table  dt-responsive nowrap"
                                             style={{
                                                 borderCollapse: "collapse",
