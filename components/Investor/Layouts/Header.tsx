@@ -76,11 +76,11 @@ const Header = () => {
                 Subscribe
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a href="#" className="nav-link">
                 Portfolio
               </a>
-            </li>
+            </li> */}
             <li></li>
           </ul>
           <div className="others-options">

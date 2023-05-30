@@ -11,6 +11,7 @@ interface UserData {
   id?: string;
 }
 interface FundRaiseData {
+  id:"";
   user_id?: number;
   business_id?: number;
   total_units?: string;
@@ -162,6 +163,9 @@ const FundRaiseForm = () => {
       if (pdc !== null) {
         formData.append('pdc', pdc);
       }
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      formData.append('id',id);
       formData.append('user_id', fundRaiseData.user_id);
       formData.append('business_id', fundRaiseData.business_id);
       formData.append('total_units', fundRaiseData.total_units);
@@ -236,9 +240,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="amount"  {...register("amount", {
-                           required: true,
+                        required: true,
                           })} name="amount" placeholder="Total Amount"
-                            onChange={handleChange} />
+                            onChange={handleChange} value={fundRaiseData.amount ? fundRaiseData.amount :"" }/>
                           {errors.amount && (
                             <p
                               className="text-danger mt-1"
@@ -253,9 +257,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="total_units"  {...register("total_units", {
-                           required: true,
+                           value:!fundRaiseData.total_units,required: true,
                           })} name="total_units" placeholder="Total Units"
-                            onChange={handleChange} />
+                            onChange={handleChange} value={fundRaiseData.total_units ? fundRaiseData.total_units : ""}/>
                           {errors.total_units && (
                             <p
                               className="text-danger mt-1"
@@ -273,9 +277,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
-                           required: true,
+                           value:!fundRaiseData.avg_amt_per_person, required: true,
                           })} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
-                            onChange={handleChange} />
+                            onChange={handleChange} value={fundRaiseData.avg_amt_per_person? fundRaiseData.avg_amt_per_person:""} />
                           {errors.avg_amt_per_person && (
                             <p
                               className="text-danger mt-1"
@@ -291,8 +295,7 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                          
-                          })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription}
+                           value:!fundRaiseData.minimum_subscription})} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription ? fundRaiseData.minimum_subscription:""}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
                             <p
@@ -311,9 +314,9 @@ const FundRaiseForm = () => {
                             Resouce<span style={{ color: "red" }}>*</span>
                           </label>
                           <select
-                            className="form-select form-select-lg css-1492t68" {...register("resource", {
+                            className="form-select form-select-lg css-1492t68" {...register("resource", {value:!fundRaiseData.resource,
                              required: true, onChange: handleChange
-                            })} name="resource"
+                            })} name="resource" value={fundRaiseData.resource ? fundRaiseData.resource:""}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT RESOURCE--</option>
@@ -336,8 +339,8 @@ const FundRaiseForm = () => {
                           <select
                             className="form-select form-select-lg  css-1492t68"
                             {...register("tenure", {
-                             required: true, onChange: handleChange
-                            })} name="tenure"
+                             required: true, onChange: handleChange,value:!fundRaiseData.tenure
+                            })} name="tenure" value={fundRaiseData.tenure ? fundRaiseData.tenure:""}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT TENURE--</option>
@@ -390,12 +393,11 @@ const FundRaiseForm = () => {
                           <input
                             type="date"
                             className="form-control"
-                            id="repay_date" {...register("repay_date", {
+                            id="repay_date" {...register("repay_date", { value:!fundRaiseData.repay_date,
                             })}
                             name="repay_date"
-                            value={fundRaiseData.repay_date}
-                            onChange={handleChange}
-                          />
+                            value={fundRaiseData.repay_date ? fundRaiseData.repay_date:""}
+                            onChange={handleChange}/>
                           {errors.repay_date && (
                             <p
                               className="text-danger"
@@ -409,9 +411,8 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {
-                          })} name="closed_in" value={fundRaiseData.closed_in}
-                            onChange={handleChange} />
+                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
+                          })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} />
                           {errors.closed_in && (
                             <p
                               className="text-danger"
@@ -432,10 +433,8 @@ const FundRaiseForm = () => {
                           <textarea
                             rows={4}
                             placeholder="Enter details here"
-                            className="form-control"
-                            name="desc"
-                            onChange={handleChange}
-                            value={fundRaiseData.desc}
+                            className="form-control"{...register("desc", {value:!fundRaiseData.desc,
+                            })} name="desc"  onChange={handleChange} value={fundRaiseData.desc ? fundRaiseData.desc:""}
                           />
                         </div>
                       </div>
@@ -447,9 +446,9 @@ const FundRaiseForm = () => {
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="xirr" {...register("xirr", {
-                           required: true,
+                          value:!fundRaiseData.xirr, required: true,
                           })} name="xirr" placeholder='Xirr( calculate in%)'
-                            onChange={handleChange} />
+                            onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr:""}/>
                           {errors.xirr && (
                             <p
                               className="text-danger"
