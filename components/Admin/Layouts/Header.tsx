@@ -322,7 +322,7 @@ const Header = () => {
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>
                 <div className="dropdown-divider" />
-                <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle font-size-17 align-middle me-1" /> Profile</a>
+                <a className="dropdown-item" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"}><i className="mdi mdi-account-circle font-size-17 align-middle me-1" />Profile</a>
                 <a className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</a>
                 {/* <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a> */}
                 <div className="dropdown-divider" />
