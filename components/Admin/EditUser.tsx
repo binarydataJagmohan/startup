@@ -53,7 +53,7 @@ const EditUser = () => {
             //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
-                console.log(data.data);
+                // console.log(data.data);
                 setUsers(data.data);
 
 

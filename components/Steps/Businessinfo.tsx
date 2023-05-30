@@ -481,12 +481,12 @@ register('website_url', {
                                 htmlFor="description"
                                 className="form-label"
                               >
-                                100 characters to tell us about your business
+                                1000 characters to tell us about your business
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <textarea
                                 rows={4}
-                                maxLength={100}
+                                maxLength={1000}
                                 placeholder="Enter details here"
                                 className="form-control"
                                 {...register("description", { value:true, required: true,onChange:handleChange})}
