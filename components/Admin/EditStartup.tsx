@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getSinglestartup } from '../../lib/companyapi';
-import { getBusinessInformation, getBankInformation, getCountries } from '../../lib/frontendapi';
+import { getBusinessInformation, getBankInformation, getCountries,getProofInformation  } from '../../lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
@@ -28,8 +28,27 @@ const EditList = () => {
     cofounder: "0",
     kyc_purposes: "0",
   });
-  const [bank, setBankData] = useState();
+
+  const [bank, setBankData] = useState({ 
+    bank_name: "",
+    account_holder: "",
+    account_no: "",
+    ifsc_code: ""
+  });
+
+
+  const[proof,setProofData] = useState({
+  uid: "",
+  proof_img: "",
+  dob: "",
+  pan_number: "",
+
+
+});
   const [previewImage, setPreviewImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState('');
+  const imageUrl = 'http://localhost:8000/docs/' + proof.proof_img;
+  const [previewImageProof, setPreviewImageProof] = useState(null);
   const router = useRouter();
   const [missingFields, setMissingFields] = useState<string[]>([]);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
@@ -52,6 +71,43 @@ const EditList = () => {
       fetchData(router.query.id);
     }
   }, [router.query.id]);
+  const handlePoofFileChange=(e)=>{
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImageProof(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+  }
+
+  const handleProofChange = (e) => {
+    // Ignore input changes
+    
+    e.preventDefault();
+  };
+  const handleDownload = (event) => {
+    event.preventDefault();
+  
+    const imageUrl = `http://localhost:8000/docs/${proof.proof_img}`;
+  
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageUrl;
+    downloadLink.download = 'image.jpg';
+    downloadLink.target = '_blank';
+    downloadLink.rel = 'noopener noreferrer';
+    // Simulate a click event on the download link
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: false,
+    });
+  
+    downloadLink.dispatchEvent(clickEvent);
+  };
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -162,6 +218,9 @@ const EditList = () => {
       );
       console.log(response.data);
       toast.success('Startup Personal Information updated successfully');
+      setTimeout(() => {
+        router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
+      }, 2000);
     } catch (error) {
       console.error(error);
       // toast.error('Please Try Again!');
@@ -217,6 +276,9 @@ const EditList = () => {
       );
       console.log(response.data);
       toast.success('Business Information updated successfully');
+      setTimeout(() => {
+        router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
+      }, 2000);
     } catch (error) {
       console.error(error);
       // toast.error('Please Try Again!');
@@ -229,6 +291,22 @@ const EditList = () => {
       const data = await getBankInformation(id);
       if (data) {
         setBankData(data.data);
+        console.log('thisis bank info')
+        console.log(data.data);
+      }
+    };
+    fetchData(id);
+
+
+  }, [router.query.id]);
+  useEffect(() => {
+
+    const fetchData = async (id) => {
+
+      const data = await getProofInformation(id);
+      if (data) {
+        setProofData(data.data);
+        console.log('thisis proof info')
         console.log(data.data);
       }
     };
@@ -442,7 +520,7 @@ const EditList = () => {
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Startup Information:
+                Startup Business Information:
               </button>
             </h2>
             <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -833,59 +911,258 @@ const EditList = () => {
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Term and condition:
+              Documents Information:
               </button>
             </h2>
             <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-              <div className="form-part">
+              
+              <div className="form-part form-part-padding">
                 <h3>Personal Information</h3>
                 <form>
                   <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 proof">
+                    <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                Pan Card Number{" "}
+                                <span  className="text-mandatory">*</span>
+                              </label>
                       <div className="form-part">
-                        <input type="text" placeholder="Email" name="" />
+                        <input type="text"  id="pan_number" placeholder="Pan Number" value={proof.pan_number} name="" 
+                         onChange={handleProofChange}
+                         onKeyDown={handleProofChange}
+                         onPaste={handleProofChange}
+                         onCut={handleProofChange}
+                         onCopy={handleProofChange}
+                         readOnly
+                        />
                       </div>
                     </div>
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 proof">
+                    <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                Adhaar Card Number{" "}
+                                <span  className="text-mandatory">*</span>
+                              </label>
                       <div className="form-part">
-                        <input type="text" placeholder="www.linkedin.com" name="" />
+                        
+                        <input type="text" placeholder="Adhaar Number" value={proof.uid} name="uid" onChange={handleProofChange}
+      onKeyDown={handleProofChange}
+      onPaste={handleProofChange}
+      onCut={handleProofChange}
+      onCopy={handleProofChange}
+      readOnly />
                       </div>
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="col-sm-6">
-                      <div className="form-part">
-                        <input type="text" placeholder="Country of Citizenship " name="" />
-                      </div>
+                    <div className="col-sm-6 proof">
+                      
+                      <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                DOB  <span  className="text-mandatory">*</span>
+                              </label>
+                              <div className="form-part">
+                              <input
+                                type="date"
+                                className="form-control same-input"
+                                id="dob" value={proof.dob} onChange={handleProofChange}
+                                onKeyDown={handleProofChange}
+                                onPaste={handleProofChange}
+                                onCut={handleProofChange}
+                                onCopy={handleProofChange}
+                                readOnly
+                                // {...register("dob", {
+                                //   value: true, required: true,
+                                // })}
+                                // value={basicDetails.dob}
+                                name="dob"
+                                // onChange={handleChange}
+                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
+                                max={`${new Date().getFullYear() - 18}-12-31`}
+                              />
+                              </div>
+                              
+                     
                     </div>
-                    <div className="col-sm-6">
-                      <div className="form-part">
-                        <input type="Number" placeholder="Phone number" name="" />
-                      </div>
+                    <div className="col-sm-6 proof">
+                      
+                      <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                Bank Name{" "}
+                                <span className="text-mandatory" >*</span>
+                              </label>
+                              <div className="form-part">
+                              <input
+                                type="text"
+                                className="form-control same-input" 
+                                id="bank_name" value={bank.bank_name} onChange={handleProofChange}
+                                onKeyDown={handleProofChange}
+                                onPaste={handleProofChange}
+                                onCut={handleProofChange}
+                                onCopy={handleProofChange}
+                                readOnly
+                                // {...register("bank_name", {
+                                //  value:true, required: true,
+                                // })} name="bank_name"  onChange={handleChange}  value={bankDetails.bank_name}
+                              />
+                              </div>
+                              
+                     
                     </div>
                   </div>
-
                   <div className="row">
-                    <div className="col-sm-6">
-                      <div className="form-part">
-                        <input type="text" placeholder="City" name="" />
-                      </div>
+                    <div className="col-sm-6 proof">
+                      
+                     
+                              <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                Account Holder's Name{" "}
+                                <span className="text-mandatory">*</span>
+                              </label>
+                              <div className="form-part">
+                              <input
+                                type="text"
+                                className="form-control same-input"
+                                id="account_holder" value={bank.account_holder} onChange={handleProofChange}
+                                onKeyDown={handleProofChange}
+                                onPaste={handleProofChange}
+                                onCut={handleProofChange}
+                                onCopy={handleProofChange}
+                                readOnly
+                                //  {...register("account_holder", {
+                                //  value:true, required: true,
+                                // })}   value={bankDetails.account_holder}  name="account_holder" onChange={handleChange}  
+                              />
+                              </div>
+                             
+                      
+                     
                     </div>
-                    <div className="col-sm-6">
-                      <div className="form-part">
-                        <select>
-                          <option>Gender</option>
-                          <option>Male</option>
-                          <option>Female</option>
-                        </select>
+                    <div className="col-sm-6 proof">
+                  
+                      <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                 Account Number{" "}
+                                <span className="text-mandatory">*</span>
+                              </label>
+                              <div className="form-part">
+                              <input
+                                type="text"
+                                className="form-control same-input" maxLength={17} onChange={handleProofChange}
+                                onKeyDown={handleProofChange}
+                                onPaste={handleProofChange}
+                                onCut={handleProofChange}
+                                onCopy={handleProofChange}
+                                readOnly
+                                id="account_no" value={bank.account_no}
+                                // {...register("account_no", {
+                                //  value:true, required: true,
+                                // })}   value={bankDetails.account_no}  name="account_no" onChange={handleChange}  
+                              />
+                              </div>
+                              
+                     
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-sm-6 proof">
+                   
+                      <label
+                                htmlFor="exampleFormControlInput1"
+                                className="form-label"
+                              >
+                                IFSC Code{" "}
+                                <span className="text-mandatory">*</span>
+                              </label>
+                              <div className="form-part">
+                              <input
+                                type="text" maxLength={11}
+                                className="form-control same-input"
+                                id="ifsc_code"  value={bank.ifsc_code} onChange={handleProofChange}
+                                onKeyDown={handleProofChange}
+                                onPaste={handleProofChange}
+                                onCut={handleProofChange}
+                                onCopy={handleProofChange}
+                                readOnly
+                                // {...register("ifsc_code", {
+                                //  value:true, required: true,max:11
+                                // })}   value={bankDetails.ifsc_code}  name="ifsc_code" onChange={handleChange}
+                              />
+                              </div>
+                             
                       </div>
+                   
+                    <div className="col-sm-6 proof">
+                    <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                              >
+                                 <div className="profile-pic">
+
+                                 {previewImageProof ? (
+  <img src={previewImageProof} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+) : (
+  <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+)}
+
+                                </div>
+                                <input
+                                  className="input-file"
+                                  id="proof_img"
+                                  type="file" 
+                                  name="proof_img" readOnly             
+                                   onChange={handlePoofFileChange}
+                                />
+
+                                <label
+                                  htmlFor="fileupload"
+                                  className="input-file-trigger"
+                                  id="labelFU"
+                                  tabIndex={0}
+                                >
+                                  Drop your pitch deck here to{" "}
+                                  {/* <a href="#">Upload</a> <br /> */}
+                                  {/* <p>
+                                    You can upload any identity card's image
+                                    jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                  </p> */}
+                                </label>
+                              
+                                {imageUrl && (
+  <>
+    {imageUrl.endsWith('.pdf') ? (
+      <a href={imageUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', marginTop: '10px', }}>
+        View PDF
+      </a>
+    ) : (
+      <button onClick={handleDownload} style={{ marginTop: '10px',marginLeft:'3px'}}>
+        View Image
+      </button>
+    )}
+  </>
+)}
+
+
+                                </div>
                     </div>
                     <div className="row mt-3">
                       <div className="col-md-12 text-center">
-                        <button type="submit" className="btn btn-primary">
-                          Update
-                        </button>
+                        {/* <button >
+                         
+                        </button> */}
                       </div>
                     </div>
                   </div>

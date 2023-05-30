@@ -8666,7 +8666,9 @@ section#service-title {
     box-shadow: 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 #0000;
     background: white;
 }
-
+.col-sm-6.proof{
+    margin: 2% auto;
+}
 .formRow {
     display: flex;
     flex-direction: column;
@@ -8678,6 +8680,9 @@ section#service-title {
     background: rgba(#1d3557, 0.8);
 }
 
+.form-part-padding{
+    padding: 2%;
+}
 .steps {
     display: inline-block;
     margin-bottom: 1rem;
@@ -8944,8 +8949,6 @@ div#accordionExample h2 button {
 #title{
     background-color: #23cdff;
 }
-<<<<<<< HEAD
-=======
 .color-span {
     color: #10dce8;
   }
@@ -8988,4 +8991,3 @@ div#accordionExample h2 button {
   .error-content h3 {
     font-size: 20px;
   }
->>>>>>> ee463121ba6f86270d2235621ceb6720c804c551
