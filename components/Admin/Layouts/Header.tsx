@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {getAllActiveFundsCount} from "../../../lib/adminapi";
 import {
   removeToken,
   removeStorageData,
@@ -14,6 +15,7 @@ const Header = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const [totalActiveFunds, setTotalActiveFunds] = useState("");
   const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";
@@ -33,11 +35,22 @@ const Header = () => {
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
+
+    getAllActiveFundsCount()
+                .then((res) => {
+                    if (res.status == true) {
+                        // Set the businessUnits state
+                        setTotalActiveFunds(res.data);
+                    } else {
+                    }
+                })
+                .catch((err) => {
+                });
+
   }, []);
   function collapseSidebar() {
     $('.vertical-menu').toggle();
   }
-
   return (
     <>
       <div id="page-topbar">
@@ -113,10 +126,10 @@ const Header = () => {
                               <span>All Startups</span>
                             </a>
                           </li>
-                          <li>
-                            <a href="#" className="waves-effect">
+                          <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
-                              <span className="badge rounded-pill bg-danger float-end">10</span>
+                              <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
                               <span>Total Active Funds</span>
                             </a>
                           </li>
@@ -221,12 +234,12 @@ const Header = () => {
           </div>
           <div className="d-flex">
             {/* App Search*/}
-            <form className="app-search d-none d-lg-block">
+            {/* <form className="app-search d-none d-lg-block">
               <div className="position-relative">
                 <input type="text" className="form-control" placeholder="Search..." />
                 <span className="fa fa-search" />
               </div>
-            </form>
+            </form> */}
             <div className="dropdown d-inline-block d-lg-none ms-2">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="mdi mdi-magnify" />

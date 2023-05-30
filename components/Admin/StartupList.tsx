@@ -33,7 +33,6 @@ const StartupList = () => {
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     const tableRef = useRef(null);
     useEffect(() => {
-        ;
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
             current_user_data.id
@@ -56,7 +55,7 @@ const StartupList = () => {
     useEffect(() => {
         if (startups.length > 0 && !dataTableInitialized) {
           const table = $('#datatable').DataTable({
-            lengthMenu: [1, 25, 50, 75, 100],
+            lengthMenu: [5, 25, 50, 75, 100],
             columnDefs: [
               // columns sortable
               { targets: [0, 1, 2], orderable: true },

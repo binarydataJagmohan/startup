@@ -225,7 +225,7 @@ export default function HeaderFrontend() {
                   </div>
 
 
-                <div className="others-options">
+                {/* <div className="others-options">
                   <div className="option-item">
                     <i className="search-btn flaticon-search" />
                     <i className="close-btn flaticon-cancel" />
@@ -250,7 +250,7 @@ export default function HeaderFrontend() {
                     <span />
                     <span />
                   </div>
-                </div>
+                </div> */}
               </div>
             </nav>
           </div>

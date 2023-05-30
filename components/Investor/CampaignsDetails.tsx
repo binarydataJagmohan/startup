@@ -220,9 +220,9 @@ export default function CampaignsDetails() {
                     style={{ width: `${inputs.no_of_units}%` }}
                   />
                 </div>
-                <div className="mt-4 text-end" id="Post_Dated">
+                {/* <div className="mt-4 text-end" id="Post_Dated">
                   <a href="#">Post Dated Cheque received for entire amount</a>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="row">
