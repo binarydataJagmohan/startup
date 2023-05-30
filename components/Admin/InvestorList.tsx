@@ -67,6 +67,27 @@ const InvestorList = () => {
             });
     }
 
+
+    //delete for investor
+    function deleteInvestor(id:number) {
+        
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`)
+            .then(response => {
+                const updatedData = investors.filter(investor => investor.id !== id);
+                setInvestors(updatedData);
+                toast.success(response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "success",
+                });
+            })
+            .catch(error => {
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            });
+    }
+
       // for user account status Active and Deactive
       function updateStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, {status: status })
@@ -178,8 +199,8 @@ const InvestorList = () => {
                                                         <span style={{cursor: "pointer"}}  className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                         </td>
                                                         <td>
-                                                            <a href="#" className='m-1' ><span className='fa fa-edit'></span></a>
-                                                            <a href="#" className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                        <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                            <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                         </td>
                                                     </tr>
                                                 ))) : (

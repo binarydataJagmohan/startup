@@ -123,8 +123,8 @@ const EditUser = () => {
             // console.log(response.data);
             toast.success('User updated successfully');
             setTimeout(() => {
-                window.location.href = "/admin/all-users";
-              }, 1000);
+                router.push('/admin/all-users'); // Replace '/admin/all-investors' with the desired route
+              }, 2000);
         } catch (error) {
             console.error(error);
             // toast.error('Please Try Again!');
