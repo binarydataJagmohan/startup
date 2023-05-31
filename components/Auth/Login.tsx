@@ -4,6 +4,7 @@ import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 
 interface User {
   id: string;
@@ -13,22 +14,23 @@ interface User {
   is_profile_completed: string;
   approval_status: string;
 }
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [rememberMe, setRememberMe] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   useEffect(() => {
     removeToken();
     removeStorageData();
   }, []);
 
-const setLocalStorageItems = (user: User) => {
+  const setLocalStorageItems = (user: User) => {
     window.localStorage.setItem("id", user.id);
     window.localStorage.setItem("email", user.email);
     window.localStorage.setItem("username", user.name);
@@ -36,22 +38,31 @@ const setLocalStorageItems = (user: User) => {
     window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
     window.localStorage.setItem("approval_status", user.approval_status);
   };
-  
+
+  const setRememberMeCookie = () => {
+    const expiryDate = new Date();
+    
+    expiryDate.setFullYear(expiryDate.getFullYear() + 10);// Set the expiration time to 10 years from now
+    Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
+  };
+
   const submitForm = () => {
     const logindata = {
       email,
       password,
       rememberMe,
     };
-    
+
     login(logindata)
       .then((res) => {
         if (res.status === true) {
           if (res.authorisation.token) {
             setLocalStorageItems(res.user);
             if (rememberMe) {
+              setRememberMeCookie(); // Set the rememberMe cookie if checked
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
+              Cookies.remove("rememberMe"); // Remove the rememberMe cookie if not checked
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
             switch (window.localStorage.getItem("user_role")) {
@@ -114,6 +125,7 @@ const setLocalStorageItems = (user: User) => {
         });
       });
   };
+
   
   return (
     <>
@@ -194,7 +206,9 @@ const setLocalStorageItems = (user: User) => {
                       type="checkbox"
                       id="checkboxNoLabel"
                       value="1"
-                      name="remember" onChange={(e) => setRememberMe(true)}
+                      name="remember" 
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
                     />
                     <p className="">Keep me Log In
                     </p>
