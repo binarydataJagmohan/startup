@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import {getCountries } from '@/lib/frontendapi';
+import { getCountries } from '@/lib/frontendapi';
 import { getAdminData } from '@/lib/adminapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -35,11 +35,11 @@ const EditAdmin = () => {
 
     const router = useRouter();
 
-  const [id,setId] = useState('');
+    const [id, setId] = useState('');
     //   console.log("this is id "+id);
 
     const [users, setUsers] = useState(
-        { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '',profile_pic:'' });
+        { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
     const [previewImage, setPreviewImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [invalidFields, setInvalidFields] = useState<string[]>([]);
@@ -56,15 +56,15 @@ const EditAdmin = () => {
                 setUsers(data.data);
                 setId(data.data.id);
                 console.log(data.data.profile_pic);
-                
+
             }
         };
-    
+
         fetchData();
-    
+
     }, []);
 
-    const updateAdmin = async (e:any) => {
+    const updateAdmin = async (e: any) => {
         e.preventDefault();
         setMissingFields([]);
         setInvalidFields([]);
@@ -112,14 +112,16 @@ const EditAdmin = () => {
                     ['city']: users.city,
                     ['gender']: users.gender,
                     ['linkedin_url']: users.linkedin_url,
-                    ['profile_pic']:users.profile_pic
-                }
+                    ['profile_pic']: users.profile_pic
+                },
+                {
+                    headers: {
+                      'Content-Type': 'multipart/form-data' // Set the appropriate content type for file uploads
+                    }
+                  }
             );
             // console.log(response.data);
             toast.success('Admin updated successfully');
-            // setTimeout(() => {
-            //     router.push('/admin/'); // Replace '/admin/all-investors' with the desired route
-            //   }, 2000);
         } catch (error) {
             console.error(error);
             // toast.error('Please Try Again!');
@@ -161,23 +163,30 @@ const EditAdmin = () => {
 
         let selectedCountry = countries.find((country) => country.name === value);
         let countryCode = selectedCountry ? selectedCountry.country_code : '';
-        const file = event.target.files && event.target.files[0];
-  
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            setPreviewImage(reader.result);
-          };
-          reader.readAsDataURL(file);
-        }
 
-        setUsers((prevState) => ({
-            ...prevState,
-            [name]: value,
-            id: id || '',
-            country_code: countryCode || '',
-            file: file, 
-        }));
+        if (event.target.name === "profile_pic") {
+            // Handle logo file input change
+            const file = event.target.files && event.target.files[0];
+            console.log(file)
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setPreviewImage(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            setUsers((prevdata) => ({
+                ...prevdata,
+                profile_pic: file || prevdata.profile_pic,
+            }));
+        } else {
+            // Handle other field changes
+            setUsers((prevdata) => ({
+                ...prevdata,
+                [event.target.name]: event.target.value,
+            }));
+        }
     };
 
     const phonClick = (event: any) => {
@@ -366,11 +375,11 @@ const EditAdmin = () => {
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
                                                     >
-                                                        <option value={users.gender}>{users.gender}</option>
-                                                       {users.gender!=='male' && <option value="male">Male</option>}
-                                                        {users.gender!=='female' && <option value="female">Female</option>}
-                                                        {users.gender!=='other' && <option value="other">Other</option>}
-                                                       
+                                                       <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
+                                                        {users.gender !== 'male' && <option value="male">Male</option>}
+                                                        {users.gender !== 'female' && <option value="female">Female</option>}
+                                                        {users.gender !== 'other' && <option value="other">Other</option>}
+
                                                     </select>
                                                     {missingFields.includes("Gender") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -379,71 +388,55 @@ const EditAdmin = () => {
                                                     )}
                                                 </div>
 
-                                               
 
-                                            
-                                                
+
+
+
                                                 <div className="col-md-6">
-                                                <div
-                                id="divHabilitSelectors"
-                                className="input-file-container"
-                              >
-                                <label
-                                  htmlFor="logo"
-                                  className="form-label"
-                                >
-                                  Profile Image
-                                  <span style={{ color: "red" }}>*</span>
-                                </label>
-                                <div className="profile-pic">
-                                  {previewImage ? (
-                                    <Image src={previewImage} alt="profile" width={300} height={300} />
-                                  ) : (
-                                    <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
-                                  )}
-                                </div>
-                                <input
-                                  className="input-file"
-                                  id="logo"
-                                  type="file" name="profile_pic" onChange={handleChange}
+                                                    <div
+                                                        id="divHabilitSelectors"
+                                                        className="input-file-container"
+                                                    >
+                                                        <label
+                                                            htmlFor="logo"
+                                                            className="form-label"
+                                                        >
+                                                            Profile Image
+                                                            <span style={{ color: "red" }}>*</span>
+                                                        </label>
+                                                        <div className="profile-pic">
+                                                            {previewImage ? (
+                                                                <Image src={previewImage} alt="profile" width={300} height={300} />
+                                                            ) : (
+                                                                <img src ={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="Document Image"  style={{ width: '100%', height: 'auto',  margin:' 5% 0% ', objectFit: 'cover' }} />
+                                                            )}
+                                                        </div>
+                                                        <input
+                                                            className="input-file"
+                                                            id="logo"
+                                                            type="file" name="profile_pic" onChange={handleChange}
 
-                                />
+                                                        />
 
-                                <label
-                                  htmlFor="fileupload"
-                                  className="input-file-trigger"
-                                  id="labelFU"
-                                  tabIndex={0}
-                                >
-                                
-                                </label>
-                                {missingFields.includes("Profile") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please choose the profile.
-                                                        </p>
-                                                    )}
-                                {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && ( */}
-                                {/* {businessmissingFields.includes("logo") && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Choose Your Business Logo.
-                                  </p>
-                                )}
-                                {businessmissingFields.includes("type") && bussiness.logo && (<p
-                                  className="text-success"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  Logo Uploaded Successfully.
-                                </p>
-                                )} */}
+                                                        <label
+                                                            htmlFor="fileupload"
+                                                            className="input-file-trigger"
+                                                            id="labelFU"
+                                                            tabIndex={0}
+                                                        >
 
-                              </div>
-                                                
-                            
-                                            </div>
-                                                
+                                                        </label>
+                                                        {missingFields.includes("Profile") && (
+                                                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                Please choose the profile.
+                                                            </p>
+                                                        )}
+
+                                                    </div>
+
+
+                                                </div>
+
                                             </div>
 
                                             <div className="row mt-5">
