@@ -348,11 +348,24 @@ register('website_url', {
                                 name="sector" value={businessDetails ? businessDetails.sector : ""}
                               >
                                 <option value="">--SELECT SECTOR--</option>
+                                
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Food & Restaurents Startups">Food  & Restaurents Startups</option>
                                 <option value="App Development">App Development</option>
                                 <option value="IT/Technologies">IT/Technologies</option>
-                                <option value="AI">AI</option>
+                                <option value="AI and Machine Learning">AI and Machine Learning</option>
                                 <option value="Web Development">Web Development</option>
-                                <option value="Agriculture">Agriculture</option>
+                                <option value="FinTech (Financial Technology)">FinTech (Financial Technology)</option>
+                                <option value="HealthTech (Healthcare Technology)">HealthTech (Healthcare Technology)</option>
+                                <option value="EdTech (Education Technology)">EdTech (Education Technology)</option>
+                                <option value="Real Estate & PropTech (Property Technology)">Real Estate & PropTech (Property Technology)</option>
+                                <option value="Agriculture Startups">Agriculture Startups</option>
+                                <option value="RetailTech (Retail Technology)">RetailTech (Retail Technology)</option>
+                                <option value="CleanTech (Clean Technology)">CleanTech (Clean Technology)</option>
+                                <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>
+                                <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>
+                            
+                              
                               </select>
                               {errors.sector &&
                                 errors.sector.type === "required" &&  ! businessDetails.sector &&  (
@@ -380,8 +393,15 @@ register('website_url', {
                               >
                                 <option value="">--SELECT STAGE--</option>
                                 <option value="Idea Stage">Idea Stage</option>
-                                <option value="Intermediate Stage">Intermediate Stage</option>
-                                <option value="Final Stage">Final Stage</option>
+                                <option value="Validation Stage">Validation Stage</option>
+                                <option value="Development Stage">Development Stage</option>
+                                <option value="Launch Stage">Launch Stage</option>
+                                <option value="Growth Stage">Growth Stage</option>
+                                <option value="Expansion Stage">Expansion Stage</option>
+                                <option value="Maturity Stage">Maturity Stage</option>
+                                {/* <option value="Final Stage">Final Stage</option> */}
+                                {/* <option value="Intermediate Stage">Intermediate Stage</option>
+                                <option value="Final Stage">Final Stage</option> */}
                               </select>
                               {errors.stage &&
                                 errors.stage.type === "required" &&  ! businessDetails.stage && (
@@ -511,7 +531,7 @@ register('website_url', {
                                   id="logo"
                                   type="file"
                                   {...register("logo", {
-                                    value: true, required: ! businessDetails.logo,
+                                    value: true, 
                                   })}
                                   name="logo"  onChange={handleFileChange} 
                                 />
@@ -524,16 +544,16 @@ register('website_url', {
                                 >
                                   Drop your pitch deck here to{" "}
                                   <a href="#">Upload</a> <br />
-                                  <p>You can upload any identity card's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
+                                  <p>You can upload any logo's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
-                                {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
+                                {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
                                   <p
                                     className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please Choose Your Business Logo.
                                   </p>
-                                )}
+                                )} */}
                                 {!errors.logo && businessDetails.logo && (
                                   <p
                                     className="text-success"

@@ -6,12 +6,14 @@ import {
   getCurrentUserData,
 } from "../../../lib/session";
 import { useRouter } from 'next/router';
+import { getSingleUserData} from '@/lib/frontendapi';
+
 interface UserData {
   username?: string;
   role?: string;
   id?: string;
 }
-import { getSingleUserData} from '@/lib/frontendapi';
+
 const Header = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
@@ -63,10 +65,10 @@ const Header = () => {
       });
 
   }, []);
+  
   function collapseSidebar() {
     $('.vertical-menu').toggle();
   }
-  console.log(users)
   return (
     <>
       <div id="page-topbar">

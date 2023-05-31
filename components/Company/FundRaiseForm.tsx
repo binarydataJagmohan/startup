@@ -32,6 +32,7 @@ const FundRaiseForm = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
   const [fundRaiseData, setFundRaiseData] = useState<any>({
+    id:"",
     user_id: current_user_id,
     business_id: businessInfo,
     total_units: "",
@@ -165,7 +166,10 @@ const FundRaiseForm = () => {
       }
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get('id');
-      formData.append('id',id);
+      if(id){
+        formData.append('id',id);
+      }
+
       formData.append('user_id', fundRaiseData.user_id);
       formData.append('business_id', fundRaiseData.business_id);
       formData.append('total_units', fundRaiseData.total_units);
@@ -411,8 +415,16 @@ const FundRaiseForm = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
-                          })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} />
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="closed_in" {...register("closed_in", { value:!fundRaiseData.closed_in,
+                            })}
+                            name="closed_in"
+                            value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""}
+                            onChange={handleChange}/>
+                          {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
+                          })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
                           {errors.closed_in && (
                             <p
                               className="text-danger"

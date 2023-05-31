@@ -19,6 +19,7 @@ interface UserData {
   id?: string;
 }
 export default function AdharInformation():any {
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
@@ -36,7 +37,7 @@ export default function AdharInformation():any {
     ifsc_code: ""
   });
   const {
-    register,
+    register,logo
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -327,7 +328,7 @@ export default function AdharInformation():any {
                               className="col-md-6"
                               style={{ textAlign: "right" }}
                             >
-                              <button type="submit" className="btn btn-primary">
+                              <button type="submit" className="btn btn-primary" onClick={}>
                                  Submit
                               </button>
                             </div>
