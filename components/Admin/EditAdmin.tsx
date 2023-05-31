@@ -406,7 +406,7 @@ const EditAdmin = () => {
                                                         </label>
                                                         <div className="profile-pic">
                                                             {previewImage ? (
-                                                                <Image src={previewImage} alt="profile" width={300} height={300} />
+                                                                <Image src={previewImage} alt="profile" width={300} height={200} style={{   margin:' 5% 0% ', objectFit: 'cover' }}/>
                                                             ) : (
                                                                 <img src ={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="Document Image"  style={{ width: '100%', height: 'auto',  margin:' 5% 0% ', objectFit: 'cover' }} />
                                                             )}
