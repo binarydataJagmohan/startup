@@ -107,13 +107,13 @@ const Footer = () => {
                                 <div className="footer-info-contact">
                                     <i className="flaticon-phone-call"></i>
                                     <h3>Phone</h3>
-                                    <span><a href="tel:+882-569-756">+123(456)123</a></span>
+                                    <span><a href="tel:+882-569-756" style={{color:"black"}}>+123(456)123</a></span>
                                 </div>
 
                                 <div className="footer-info-contact">
                                     <i className="flaticon-envelope"></i>
                                     <h3>Email</h3>
-                                    <span><a href="mailto:example@gmail.com"><span>example@gmail.com</span></a></span>
+                                    <span><a href="mailto:example@gmail.com" style={{color:"black"}}><span>example@gmail.com</span></a></span>
                                 </div>
 
                                 <div className="footer-info-contact">

@@ -7,7 +7,7 @@
 
 #invest .send-btn .default-btn:hover {
   text-decoration: none;
-  background-color: #0e4bae;
+  background-color: #9fe870;
   color: #FFF;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .text-mandatory {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .register-form .nav {
@@ -90,14 +90,14 @@
 }
 
 .register-form .nav-tabs {
-  border-bottom: 1px solid #0d6efd;
+  border-bottom: 1px solid #9fe870;
 }
 
 .register-form .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
   color: #000;
   background-color: #fff;
-  border-bottom: 5px solid #0d6efd;
+  border-bottom: 5px solid #9fe870;
   border-radius: 0px;
 }
 
@@ -402,7 +402,7 @@ div#insertorpage h1 {
 button.btn.btn-primary {
   padding: 10px 50px;
   display: inline-block;
-  background: #23cdff;
+  background: #9fe870;
   color: #fff;
   border: none;
   font-weight: 800;
@@ -555,9 +555,9 @@ margin: 0 0 10px;
 color: #666;
 transition: all 0.3s ease 0s;
 }
-.product-grid .title a:hover{ color: #086AD8; }
+.product-grid .title a:hover{ color: #9fe870; }
 .product-grid .price{
-color: #086AD8;
+color: #1774fd;
 font-size: 17px;
 font-weight: 300;
 line-height: 20px;
@@ -599,19 +599,21 @@ line-height: 1.4;
 letter-spacing: -0.01em;
 font-weight: 700;
 margin: 0px;
-color: #fff;
+/* color: #fff; */
+color: black;
 }
 .price li {
 border-bottom: 1px solid #eee;
 padding: 20px;
 font-size: 16px;
-color: #fff;
+/* color: #fff; */
+color:black;
 }
 
 .invertor-campaign .bar {
 height: 4px;
 width: 85px;
-background: #086ad8;
+background: #9fe870;
 position: relative;
 border-radius: 5px;
 overflow: hidden;
@@ -669,7 +671,7 @@ position: absolute;
 bottom: 0;
 left: 0;
 right: 100%;
-background-color: #086AD8;
+background-color: #9fe870;
 overflow: hidden;
 width: 100%;
 height: 0;
@@ -704,7 +706,7 @@ text-decoration: none;
 }
 
 .pagination a.active {
-background-color: #086AD8;
+background-color: #9fe870;
 color: white;
 border-radius: 5px;
 }
@@ -728,7 +730,7 @@ margin-top: 4px;
 transition: all 0.6s;
 }
 .class-smae:hover {
-background: #17cef9;
+background: #9fe870;
 color: #fff;
 }
 .img img {
@@ -756,7 +758,7 @@ background-color: #efebeb;
 }
 .row.mb-3.pdcover {
 padding: 20px 0px;
-background: #17cef9;
+background: #9fe870;
 border-radius: 30px 30px 0px 0px;
 }
 .button-pdf span {
@@ -786,7 +788,7 @@ max-width: 40%;
 }
 h6.font-60 {
 font-size: 50px;
-color: #17cef9;
+color: #9fe870;
 }
 .class-smae:hover h6.font-60{
 color: #fff;
@@ -1119,10 +1121,10 @@ color: #FFFFFF;
 border: none;
 border-radius: var(--radius-md);
 transition: background-color .2s ease-in-out;
-background: #2979FF;
+background: #9fe870;
 }
 .action button:hover {
-background: #2979FF;
+background: #9fe870;
 }
 
 .input-container {
@@ -1292,7 +1294,7 @@ font-weight: 600;
 div#Post_Dated a {
 padding: 10px;
 text-align: center;
-background: #1081e8;
+background: #9fe870;
 border-radius: 10px;
 color: #fff;
 font-weight: 700;
@@ -1315,7 +1317,7 @@ text-transform: capitalize;
 transition: all 0.9s;
 }
 .centerd-class li a:hover {
-color: #30e1fb;
+color: #9fe870;
 }
 
 @media(max-width:991px){
@@ -1346,7 +1348,8 @@ img{max-width: 100%;}
 }
 div#accordionExample h2 button {
     font-size: 25px;
-    background-color: #0dcaf0;
+    background-color: black;
+    color:white;
 }
 .form-part h3 {
     font-size: 22px;

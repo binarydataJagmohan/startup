@@ -21,7 +21,7 @@ a {
 
 
 /* a:hover, a:focus {
-  color: #086AD8;
+  color: #9fe870;
   text-decoration: none;
 } */
 
@@ -126,8 +126,8 @@ h6:last-child {
 .default-btn {
     display: inline-block;
     padding: 14px 35px;
-    background-color: #10dce8;
-    color: #ffffff;
+    background-color: #9fe870;
+    color: black;
     font-size: 16px;
     font-weight: 500;
     border-radius: 2px;
@@ -135,14 +135,14 @@ h6:last-child {
 }
 
 .default-btn:hover {
-    background-color: #10dce8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
 .optional-btn {
     display: inline-block;
     padding: 14px 35px;
-    background-color: #10dce8;
+    background-color: #9fe870;
     color: #ffffff;
     font-size: 16px;
     font-weight: 500;
@@ -151,7 +151,7 @@ h6:last-child {
 }
 
 .optional-btn:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -168,7 +168,7 @@ h6:last-child {
 }
 
 .section-title span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .section-title p {
@@ -179,7 +179,7 @@ h6:last-child {
 .section-title .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     margin: 20px auto 0;
     position: relative;
     border-radius: 5px;
@@ -318,7 +318,7 @@ Preloader Area CSS
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    background-color: #086AD8 !important;
+    background-color: #9fe870 !important;
     -webkit-animation: preloader 1.3s linear infinite;
     animation: preloader 1.3s linear infinite;
 }
@@ -415,7 +415,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item a:hover,
 .fria-nav .navbar .navbar-nav .nav-item a:focus,
 .fria-nav .navbar .navbar-nav .nav-item a.active {
-    color: #086AD8;
+    color: #9fe870;
     position: relative;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -440,7 +440,7 @@ Navbar Area CSS
 
 .fria-nav .navbar .navbar-nav .nav-item:hover a,
 .fria-nav .navbar .navbar-nav .nav-item.active a {
-    color: #086AD8;
+    color: #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
@@ -488,7 +488,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
     letter-spacing: 1px;
 }
 
@@ -512,7 +512,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -529,7 +529,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -546,7 +546,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -563,7 +563,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -580,7 +580,7 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -597,11 +597,11 @@ Navbar Area CSS
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus,
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -611,7 +611,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -621,7 +621,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -631,7 +631,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -641,7 +641,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -651,7 +651,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li.active a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li:hover .dropdown-menu {
@@ -731,7 +731,7 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .others-options .burger-menu:hover span {
-    background: #086AD8;
+    background: #9fe870;
 }
 
 .fria-nav .navbar .others-options .burger-menu:hover span:nth-child(3) {
@@ -768,7 +768,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-two .fria-nav .navbar .others-options .default-btn:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .navbar-area.is-sticky {
@@ -795,7 +795,7 @@ Navbar Area CSS
 .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a:hover,
 .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a:focus,
 .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a.active {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .navbar-area.is-sticky .fria-nav .navbar .others-options .option-item {
@@ -815,7 +815,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .fria-nav .navbar .others-options .burger-menu:hover span {
-    background: #086AD8;
+    background: #9fe870;
 }
 
 .search-overlay {
@@ -854,7 +854,7 @@ Navbar Area CSS
 }
 
 .search-overlay.search-popup .search-form .search-input:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
 }
 
 .search-overlay.search-popup .search-form .search-button {
@@ -874,7 +874,7 @@ Navbar Area CSS
 
 .search-overlay.search-popup .search-form .search-button:hover,
 .search-overlay.search-popup .search-form .search-button:focus {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .sidebar-modal {
@@ -936,7 +936,7 @@ Navbar Area CSS
 .sidebar-modal .sidebar-modal-inner .contact-form .send-btn .send-btn-one {
     display: inline-block;
     padding: 14px 35px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     font-size: 16px;
     font-weight: 500;
@@ -947,7 +947,7 @@ Navbar Area CSS
 }
 
 .sidebar-modal .sidebar-modal-inner .contact-form .send-btn .send-btn-one:hover {
-    background-color: #10dce8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -991,7 +991,7 @@ Navbar Area CSS
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content h2 a {
     display: inline-block;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content h2 a:hover {
@@ -1003,7 +1003,7 @@ Navbar Area CSS
 }
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content h2 a:not(:first-child):hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content h2 span {
@@ -1044,8 +1044,8 @@ Navbar Area CSS
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content .social li a:hover {
     color: #ffffff;
-    border-color: #086AD8;
-    background-color: #086AD8;
+    border-color: #9fe870;
+    background-color: #9fe870;
 }
 
 .sidebar-modal.active {
@@ -1071,7 +1071,7 @@ Navbar Area CSS
     }
 
     .fria-responsive-nav .fria-responsive-menu.mean-container .mean-nav ul li a.active {
-        color: #086AD8;
+        color: #9fe870;
     }
 
     .fria-responsive-nav .fria-responsive-menu.mean-container .mean-nav ul li a i {
@@ -1149,7 +1149,7 @@ Banner Area CSS
     z-index: -1;
     width: 100%;
     height: 100%;
-    background: #086AD8;
+    /* background: #9fe870; */
     opacity: 0.6;
 }
 
@@ -1186,8 +1186,8 @@ Banner Area CSS
 }
 
 .home-sliders .home-item .main-banner-content .banner-btn .default-btn {
-    -webkit-box-shadow: 5px 5px #10dce875;
-    box-shadow: 5px 5px #10dce875;
+    -webkit-box-shadow: 5px 5px #9fe87075;
+    box-shadow: 5px 5px #9fe87075;
 }
 
 .home-sliders .home-item .main-banner-content .banner-btn .default-btn:hover {
@@ -1252,7 +1252,7 @@ Banner Area CSS
 }
 
 .home-sliders.owl-theme .owl-nav [class*=owl-]:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -1277,7 +1277,7 @@ Banner Area CSS
 
 .home-sliders.owl-theme .owl-dots .owl-dot:hover span,
 .home-sliders.owl-theme .owl-dots .owl-dot.active span {
-    background-color: #10dce8;
+    background-color: #9fe870;
 }
 
 .home-sliders.owl-theme .owl-dots .owl-dot.active span {
@@ -1306,7 +1306,7 @@ Features Area CSS
     width: 70px;
     line-height: 70px;
     background-color: #d1f9fc;
-    color: #10dce8;
+    color: #9fe870;
     text-align: center;
     border-radius: 50px;
     font-size: 35px;
@@ -1338,13 +1338,13 @@ Creative Area CSS
 }
 
 .creative-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .creative-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -1448,7 +1448,7 @@ Creative Area CSS
     line-height: 60px;
     background-color: #ffffff;
     border-radius: 50%;
-    color: #086AD8;
+    color: #9fe870;
     position: absolute;
     left: 0px;
     right: 0;
@@ -1494,7 +1494,7 @@ Creative Area CSS
 }
 
 .creative-video .video-btn:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -1611,7 +1611,7 @@ Services Area CSS
     background-color: #f0f7fd;
     text-align: center;
     font-size: 30px;
-    color: #086AD8;
+    color: #9fe870;
     border-radius: 30px 5px 30px 5px;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -1700,7 +1700,7 @@ Services Area CSS
     z-index: -1;
     width: 100%;
     height: 0%;
-    background: #00b0ee;
+    background: #9fe870;
     border-radius: 0;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -2228,13 +2228,13 @@ Development Area CSS
 }
 
 .development-text span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .development-text .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -2295,7 +2295,7 @@ Development Area CSS
 }
 
 .development-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .development-content h3 {
@@ -2328,7 +2328,7 @@ Video Section CSS
     width: 90px;
     height: 90px;
     line-height: 100px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     border-radius: 50%;
     color: #ffffff;
     position: relative;
@@ -2367,7 +2367,7 @@ Video Section CSS
     bottom: 0;
     left: 0;
     border-radius: 50%;
-    border: 1px solid #086AD8;
+    border: 1px solid #9fe870;
     -webkit-animation: ripple 2s linear infinite;
     animation: ripple 2s linear infinite;
 }
@@ -2375,7 +2375,7 @@ Video Section CSS
 .video-content .video-btn:hover,
 .video-content .video-btn .video-content .video-btn:focus {
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 @keyframes ripple {
@@ -2426,7 +2426,7 @@ Choose Area CSS
     height: 70px;
     width: 70px;
     line-height: 70px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     text-align: center;
     border-radius: 50px;
@@ -2450,7 +2450,7 @@ Choose Area CSS
     z-index: -1;
     width: 0%;
     height: 100%;
-    background: #086AD8;
+    background: #9fe870;
     border-radius: 0;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -2478,7 +2478,7 @@ Choose Area CSS
 
 .choose-content:hover .icon i {
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .choose-text {
@@ -2537,7 +2537,7 @@ Projects Area CSS
     top: 0;
     width: 100%;
     height: 100%;
-    background: #086AD8;
+    background: #9fe870;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: 0.5s;
@@ -2639,7 +2639,7 @@ Clients Area CSS
     height: 80px;
     width: 80px;
     line-height: 80px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     font-size: 40px;
     border-radius: 50px;
@@ -2661,7 +2661,7 @@ Clients Area CSS
     content: "";
     height: 2px;
     width: 30px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     left: 0;
     right: 0;
     margin: auto;
@@ -2694,7 +2694,7 @@ Clients Area CSS
 
 .clients-slider.owl-theme .owl-dots .owl-dot:hover span,
 .clients-slider.owl-theme .owl-dots .owl-dot.active span {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .clients-slider.owl-theme .owl-dots .owl-dot.active span {
@@ -2725,7 +2725,7 @@ Blog Area CSS
 
 .single-blog .content span {
     font-size: 14px;
-    color: #086AD8;
+    color: #277dfd;
 }
 
 .single-blog .content h3 {
@@ -2740,11 +2740,11 @@ Blog Area CSS
 }
 
 .single-blog:hover h3 a {
-    color: #086AD8;
+    color: black;
 }
 
 .single-blog:hover .read-more {
-    color: #086AD8;
+    color: black;
     letter-spacing: 1px;
 }
 
@@ -2867,7 +2867,7 @@ Banner Area Three CSS
 
 .main-banner-area-three .main-banner-content span {
     font-size: 16px;
-    color: #086AD8;
+    color: #9fe870;
     font-weight: 600;
 }
 
@@ -3306,7 +3306,7 @@ Banner Area Eight CSS
 }
 
 .main-banner-area-eight .banner-form form .form-group .form-control:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
 }
 
 .main-banner-area-eight .banner-form form .form-group textarea.form-control {
@@ -3319,9 +3319,9 @@ Banner Area Eight CSS
     width: 100%;
     margin-top: 20px;
     color: #ffffff;
-    background-color: #086AD8;
+    background-color: #9fe870;
     padding: 14px 25px;
-    border: 1px solid #086AD8;
+    border: 1px solid #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     text-transform: capitalize;
@@ -3331,8 +3331,8 @@ Banner Area Eight CSS
 }
 
 .main-banner-area-eight .banner-form form button:hover {
-    border-color: #086AD8;
-    color: #086AD8;
+    border-color: #9fe870;
+    color: #9fe870;
     background-color: transparent;
     -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.02);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.02);
@@ -3414,7 +3414,7 @@ Banner Area Nine CSS
     height: 40px;
     width: 40px;
     line-height: 0px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     border-radius: 50px;
 }
 
@@ -3425,7 +3425,7 @@ Banner Area Nine CSS
 
 .main-banner-area-nine .image-sliders.owl-theme .owl-nav [class*=owl-]:hover {
     color: #ffffff;
-    background-color: #10dce8;
+    background-color: #9fe870;
 }
 
 .main-banner-area-nine .image-sliders.owl-theme:hover .owl-nav {
@@ -3457,7 +3457,7 @@ Work Area CSS
 }
 
 .work-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .work-content p {
@@ -3478,7 +3478,7 @@ Work Area CSS
     margin-bottom: 0;
     line-height: 1;
     font-size: 50px;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .work-content .work-status h3 .sign-icon {
@@ -3515,9 +3515,9 @@ Work Area CSS
     width: 80px;
     height: 80px;
     line-height: 82px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     border-radius: 50%;
-    color: #086AD8;
+    color: #9fe870;
     text-align: center;
     position: absolute;
     left: -25px;
@@ -3543,7 +3543,7 @@ Work Area CSS
     bottom: 0;
     left: 0;
     border-radius: 50%;
-    border: 1px solid #086AD8;
+    border: 1px solid #9fe870;
     -webkit-animation: ripple 2s linear 1s infinite;
     animation: ripple 2s linear 1s infinite;
 }
@@ -3558,15 +3558,15 @@ Work Area CSS
     bottom: 0;
     left: 0;
     border-radius: 50%;
-    border: 1px solid #086AD8;
+    border: 1px solid #9fe870;
     -webkit-animation: ripple 2s linear infinite;
     animation: ripple 2s linear infinite;
 }
 
 .work-video .video-btn:hover,
 .work-video .video-btn .video-content .video-btn:focus {
-    background-color: #086AD8;
-    color: #086AD8;
+    background-color: #9fe870;
+    color: #9fe870;
 }
 
 
@@ -3592,7 +3592,7 @@ Support Area CSS
 
 .support-content .icon i {
     font-size: 50px;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .support-content h3 {
@@ -3624,7 +3624,7 @@ Overview Area CSS
     background-color: #ffffff;
     line-height: 108px;
     border-radius: 50px;
-    border: 1px dashed #086AD8;
+    border: 1px dashed #9fe870;
 }
 
 .overview-content .icon i {
@@ -3691,7 +3691,7 @@ Fun Facts Area CSS
     line-height: 70px;
     text-align: center;
     background-color: #e2edfd;
-    color: #086AD8;
+    color: #9fe870;
     font-size: 30px;
     border-radius: 50px;
 }
@@ -3766,7 +3766,7 @@ Team Area CSS
     height: 40px;
     width: 40px;
     line-height: 40px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     font-size: 14px;
     border-radius: 30px;
@@ -3775,7 +3775,7 @@ Team Area CSS
 }
 
 .single-team .content .social i:hover {
-    background-color: #10dce8;
+    background-color: #9fe870;
 }
 
 .single-team:hover .content .social {
@@ -3828,7 +3828,7 @@ Team Area CSS
     display: block;
     width: 40px;
     height: 40px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     text-align: center;
     position: relative;
     font-size: 20px;
@@ -3847,11 +3847,12 @@ Team Area CSS
     transform: translateY(-50%);
     margin-left: auto;
     margin-right: auto;
+    color:black;
 }
 
 .team-item .image .social li a:hover {
     color: #ffffff;
-    background-color: #10dce8;
+    background-color: #9fe870;
 }
 
 .team-item .image .social li:nth-child(1) {
@@ -3889,7 +3890,7 @@ Team Area CSS
 
 .team-item .content span {
     display: block;
-    color: #086AD8;
+    color: #9fe870;
     font-size: 14px;
     margin-top: 6px;
 }
@@ -3944,13 +3945,13 @@ Skill Area CSS
 }
 
 .skills-area .skills-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .skills-area .skills-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4045,13 +4046,13 @@ Audience Area CSS
 }
 
 .audience-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .audience-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4096,13 +4097,13 @@ Solutions Area CSS
 }
 
 .solutions-content-area .solutions-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .solutions-content-area .solutions-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4210,7 +4211,7 @@ Design Area CSS
 }
 
 .design-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .design-content p {
@@ -4220,7 +4221,7 @@ Design Area CSS
 .design-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4273,7 +4274,7 @@ Design Area CSS
 }
 
 .design-content .design-list i {
-    color: #086AD8;
+    color: #9fe870;
     display: inline-block;
     height: 25px;
     width: 25px;
@@ -4330,7 +4331,7 @@ Counter Area CSS
     line-height: 70px;
     text-align: center;
     background-color: #e2edfd;
-    color: #086AD8;
+    color: #9fe870;
     font-size: 30px;
     border-radius: 50px;
 }
@@ -4343,7 +4344,7 @@ Counter Area CSS
     z-index: -1;
     width: 100%;
     height: 0%;
-    background: #086AD8;
+    background: #9fe870;
     border-radius: 0;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -4439,7 +4440,7 @@ Pricing Area CSS
 }
 
 .single-pricing .pricing-list i {
-    color: #086AD8;
+    color: #9fe870;
     margin-right: 5px;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -4464,7 +4465,7 @@ Pricing Area CSS
 }
 
 .single-pricing:hover .price-btn .default-btn {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -4475,12 +4476,12 @@ Pricing Area CSS
 }
 
 .single-pricing.two:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .single-pricing.two:hover .price-btn .default-btn {
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .single-pricing.two:hover .pricing-header h3 {
@@ -4533,7 +4534,7 @@ Protfolio Area CSS
 }
 
 .single-protfolio:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .single-protfolio:hover h3 {
@@ -4561,7 +4562,7 @@ Process Area CSS
     width: 30px;
     line-height: 30px;
     text-align: center;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     border-radius: 30px;
 }
@@ -4617,7 +4618,7 @@ About Area CSS
 .about-tab .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4657,11 +4658,11 @@ About Area CSS
 }
 
 .about-tab .about-list-tab .tabs li.current {
-    border-bottom: 2px solid #086AD8;
+    border-bottom: 2px solid #9fe870;
 }
 
 .about-tab .about-list-tab .tabs li.current a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .about-tab .about-list-tab .tabs li a {
@@ -4691,7 +4692,7 @@ About Area CSS
 }
 
 .about-tab .about-list-tab .tab_content .tabs_item .list i {
-    color: #086AD8;
+    color: #9fe870;
     margin-right: 5px;
 }
 
@@ -4731,7 +4732,7 @@ Review Area CSS
 }
 
 .review-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .review-content p {
@@ -4741,7 +4742,7 @@ Review Area CSS
 .review-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -4780,7 +4781,7 @@ Review Area CSS
 
 .review-text .icon i {
     font-size: 20px;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .review-text h3 {
@@ -4810,7 +4811,7 @@ Subscribe Area CSS
     width: 100%;
     z-index: -1;
     height: 100%;
-    background-color: #086AD8;
+    background-color: #9fe870;
     opacity: 0.8;
 }
 
@@ -4870,7 +4871,7 @@ Subscribe Area CSS
 }
 
 .subscribe-inner-text .newsletter-form button:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -4956,7 +4957,7 @@ FAQ Area CSS
 }
 
 .faq-accordion .accordion .accordion-content ul li {
-    color: #10dce8;
+    color: #9fe870;
     position: relative;
     margin-bottom: 12px;
     line-height: 25px;
@@ -4970,7 +4971,7 @@ FAQ Area CSS
     left: 0;
     width: 6px;
     height: 6px;
-    background: #086AD8;
+    background: #9fe870;
     border-radius: 50%;
 }
 
@@ -4995,7 +4996,7 @@ Learn Area CSS
 .learn-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5039,7 +5040,7 @@ Learn Area CSS
 }
 
 .learn-content .learn-list i {
-    color: #086AD8;
+    color: #9fe870;
     margin-right: 5px;
     font-size: 20px;
 }
@@ -5066,7 +5067,7 @@ Learn Area CSS
     height: 70px;
     width: 70px;
     line-height: 70px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     font-size: 35px;
     border-radius: 50px;
@@ -5117,7 +5118,7 @@ Learn Area CSS
     z-index: -1;
     width: 100%;
     height: 0%;
-    background: #086AD8;
+    background: #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     border-radius: 10px;
@@ -5146,7 +5147,7 @@ Learn Area CSS
 
 .learn-inner-content:hover .icon i {
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 
@@ -5162,7 +5163,7 @@ App Area CSS
 .app-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5204,7 +5205,7 @@ App Area CSS
     height: 70px;
     width: 70px;
     line-height: 70px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     text-align: center;
     font-size: 35px;
@@ -5237,7 +5238,7 @@ Data Area CSS
 .data-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5273,7 +5274,7 @@ Data Area CSS
     width: 40px;
     line-height: 40px;
     font-size: 20px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     text-align: center;
     border-radius: 5px;
@@ -5306,7 +5307,7 @@ Customer Area CSS
 .customer-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5360,10 +5361,10 @@ More Features Area CSS
     width: 60px;
     line-height: 60px;
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
     font-size: 30px;
     border-radius: 50px;
-    border: 1px dashed #086AD8;
+    border: 1px dashed #9fe870;
 }
 
 .more-features-content h3 {
@@ -5410,7 +5411,7 @@ More Features Area CSS
 }
 
 .more-features-content:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .more-features-content:hover h3 {
@@ -5432,7 +5433,7 @@ Digital Area CSS
 }
 
 .digital-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .digital-content p {
@@ -5442,7 +5443,7 @@ Digital Area CSS
 .digital-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5495,7 +5496,7 @@ Digital Area CSS
 }
 
 .digital-content .digital-list i {
-    color: #086AD8;
+    color: #9fe870;
     display: inline-block;
     height: 25px;
     width: 25px;
@@ -5529,7 +5530,7 @@ Experience Area CSS
 }
 
 .experience-inner-area .experience-content span {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .experience-inner-area .experience-content p {
@@ -5539,7 +5540,7 @@ Experience Area CSS
 .experience-inner-area .experience-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5581,7 +5582,7 @@ Experience Area CSS
     height: 40px;
     width: 40px;
     line-height: 40px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     text-align: center;
     font-size: 20px;
     color: #ffffff;
@@ -5718,7 +5719,7 @@ Tech Area CSS
 .tech-content .bar {
     height: 4px;
     width: 85px;
-    background: #086AD8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -5796,7 +5797,7 @@ Agency Services Area CSS
     z-index: -1;
     width: 100%;
     height: 0%;
-    background: #086AD8;
+    background: #9fe870;
     border-radius: 0;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -5876,12 +5877,12 @@ Tab Area CSS
     display: block;
     font-size: 35px;
     margin-bottom: 8px;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .schedule-list-tab .tabs li.current,
 .schedule-list-tab .tabs li:hover {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .schedule-list-tab .tabs li.current a,
@@ -5916,7 +5917,7 @@ Tab Area CSS
     height: 40px;
     width: 40px;
     line-height: 40px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     text-align: center;
     font-size: 20px;
@@ -5938,7 +5939,7 @@ Tab Area CSS
 }
 
 .schedule-list-tab .tab_content .tabs_item .tab-content .tab-inner-content:hover .icon i {
-    background-color: #10dce8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -5962,7 +5963,8 @@ Page Title Area CSS
 }
 
 .page-title-area.item-bg-1 {
-    background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/630/661/small/abstract-blue-geometric-background-free-vector.jpg);
+    background-image: url(https://t4.ftcdn.net/jpg/03/08/93/55/240_F_308935543_fqRV10NUxWsrDED0oJUrJcEyE8z2mp9H.jpg);
+    /* background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/630/661/small/abstract-blue-geometric-background-free-vector.jpg); */
 }
 
 .page-title-area.item-bg-2 {
@@ -6028,7 +6030,7 @@ Page Title Area CSS
 }
 
 .page-title-content ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .page-title-content ul li::before {
@@ -6039,7 +6041,7 @@ Page Title Area CSS
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .page-title-content ul li:last-child::before {
@@ -6073,7 +6075,7 @@ Pagination Area CSS
 .pagination-area .page-numbers.current,
 .pagination-area .page-numbers:hover,
 .pagination-area .page-numbers:focus {
-    background: #086AD8;
+    background: #9fe870;
     color: #ffffff;
     -webkit-box-shadow: 0 2px 10px 0 #d8dde6;
     box-shadow: 0 2px 10px 0 #d8dde6;
@@ -6130,7 +6132,7 @@ Login In CSS
 }
 
 .login-form form .form-group .form-control:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -6174,8 +6176,8 @@ Login In CSS
 .login-form form .send-btn .default-btn {
     display: inline-block;
     padding: 12px 30px;
-    background: #086AD8;
-    border: 1px solid #086AD8;
+    background: #9fe870;
+    border: 1px solid #9fe870;
     color: #ffffff;
     font-size: 16px;
     font-weight: 400;
@@ -6187,7 +6189,7 @@ Login In CSS
 .login-form form .send-btn .default-btn:hover {
     text-decoration: none;
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .login-form form span {
@@ -6196,7 +6198,7 @@ Login In CSS
 }
 
 .login-form form span a {
-    color: #23cdff;
+    color:var(--bs-link-color);
 }
 
 .login-form .forgot-password {
@@ -6210,7 +6212,7 @@ Login In CSS
 }
 
 .login-form .forgot-password a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 
@@ -6255,7 +6257,7 @@ Sign Up CSS
 }
 
 .signup-form form .form-group .form-control:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -6294,8 +6296,8 @@ Sign Up CSS
 .signup-form form .send-btn .default-btn {
     display: block;
     padding: 12px 30px;
-    background: #086AD8;
-    border: 1px solid #086AD8;
+    background: #9fe870;
+    border: 1px solid #9fe870;
     color: #ffffff;
     font-size: 16px;
     font-weight: 400;
@@ -6308,7 +6310,7 @@ Sign Up CSS
 .signup-form form .send-btn .default-btn:hover {
     text-decoration: none;
     background-color: #ffffff;
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .signup-form form .send-btn .default-btn:focus {
@@ -6321,7 +6323,7 @@ Sign Up CSS
 }
 
 .signup-form form span a {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 
@@ -6429,8 +6431,8 @@ Coming Soon Area CSS
     width: 35px;
     height: 35px;
     line-height: 35px;
-    background: #086AD8;
-    border: 1px solid #086AD8;
+    background: #9fe870;
+    border: 1px solid #9fe870;
     color: #ffffff;
     border-radius: 50%;
     margin: 0 2px;
@@ -6439,7 +6441,7 @@ Coming Soon Area CSS
 
 .coming-soon-area .social-list li a:hover {
     background-color: transparent;
-    color: #086AD8;
+    color: #9fe870;
     -webkit-transition: .6s;
     transition: .6s;
     -webkit-transition: 0.5s;
@@ -6490,7 +6492,7 @@ Coming Soon Area CSS
     right: 3px;
     top: 3px;
     height: 50px;
-    background: #086AD8;
+    background: #9fe870;
     color: #ffffff;
     border: none;
     border-radius: 40px;
@@ -6504,7 +6506,7 @@ Coming Soon Area CSS
 
 .coming-soon-content form .submit-btn:hover,
 .coming-soon-content form .submit-btn:focus {
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .coming-soon-content #timer div {
@@ -6513,7 +6515,7 @@ Coming Soon Area CSS
     border-radius: 50%;
     width: 120px;
     height: 120px;
-    color: #086AD8;
+    color: #9fe870;
     -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5);
     box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5);
     margin: 0 10px;
@@ -6550,18 +6552,18 @@ Contact Section CSS
     line-height: 50px;
     width: 50px;
     height: 50px;
-    border: 1px dashed #086AD8;
+    border: 1px dashed #9fe870;
     border-radius: 50%;
     font-size: 20px;
     display: inline-block;
-    color: #086AD8;
+    color: #9fe870;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     margin-bottom: 20px;
 }
 
 .single-contact-box:hover i {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -6577,7 +6579,7 @@ Contact Section CSS
 }
 
 .single-contact-box .content-title a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 
@@ -6653,7 +6655,7 @@ Services Details CSS
     width: 40px;
     text-align: center;
     height: 100%;
-    background: #086AD8;
+    background: #9fe870;
     color: #ffffff;
 }
 
@@ -6707,7 +6709,7 @@ Services Details CSS
     line-height: 60px;
     background-color: #ffffff;
     border-radius: 50%;
-    color: #086AD8;
+    color: #9fe870;
     position: relative;
     z-index: 1;
 }
@@ -6751,7 +6753,7 @@ Services Details CSS
 
 .services-details-video .details-video .video-btn:hover,
 .services-details-video .details-video .video-btn .video-content .video-btn:focus {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -6849,7 +6851,7 @@ Projects Details Area CSS
 }
 
 .projects-details-desc .project-details-info .single-info-box .social a:hover {
-    color: #086AD8;
+    color: #9fe870;
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
 }
@@ -6880,7 +6882,7 @@ Sidebar Widget Area CSS
 .widget-area .widget .widget-title::before {
     content: '';
     position: absolute;
-    background: #086AD8;
+    background: #9fe870;
     bottom: -1px;
     left: 0;
     width: 50px;
@@ -6920,7 +6922,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_search form .search-field:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
 }
 
 .widget-area .widget_search form button {
@@ -6933,7 +6935,7 @@ Sidebar Widget Area CSS
     z-index: 1;
     border: none;
     color: #ffffff;
-    background-color: #086AD8;
+    background-color: #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
@@ -7034,7 +7036,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_recent_entries ul li::before {
-    background: #086AD8;
+    background: #9fe870;
     position: absolute;
     height: 7px;
     width: 7px;
@@ -7049,7 +7051,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_recent_entries ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .widget-area .widget_recent_entries ul li .post-date {
@@ -7080,7 +7082,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_recent_comments ul li::before {
-    background: #086AD8;
+    background: #9fe870;
     position: absolute;
     height: 7px;
     width: 7px;
@@ -7095,7 +7097,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_recent_comments ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .widget-area .widget_archive ul {
@@ -7118,7 +7120,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_archive ul li::before {
-    background: #086AD8;
+    background: #9fe870;
     height: 7px;
     width: 7px;
     content: '';
@@ -7133,7 +7135,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_archive ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .widget-area .widget_categories ul {
@@ -7156,7 +7158,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_categories ul li::before {
-    background: #086AD8;
+    background: #9fe870;
     height: 7px;
     width: 7px;
     content: '';
@@ -7171,7 +7173,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_categories ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .widget-area .widget_categories ul li .post-count {
@@ -7198,7 +7200,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_meta ul li::before {
-    background: #086AD8;
+    background: #9fe870;
     height: 7px;
     width: 7px;
     content: '';
@@ -7213,7 +7215,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_meta ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .widget-area .widget_tag_cloud .widget-title {
@@ -7234,8 +7236,8 @@ Sidebar Widget Area CSS
 .widget-area .tagcloud a:hover,
 .widget-area .tagcloud a:focus {
     color: #ffffff;
-    background-color: #086AD8;
-    border-color: #086AD8;
+    background-color: #9fe870;
+    border-color: #9fe870;
 }
 
 .widget-area .widget_event_details ul {
@@ -7272,7 +7274,7 @@ Sidebar Widget Area CSS
 }
 
 .widget-area .widget_event_details ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 
@@ -7317,11 +7319,11 @@ Blog Details Area CSS
 }
 
 .blog-details-desc .article-content .entry-meta ul li a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .blog-details-desc .article-content .entry-meta ul li i {
-    color: #086AD8;
+    color: #9fe870;
     margin-right: 2px;
 }
 
@@ -7332,7 +7334,7 @@ Blog Details Area CSS
     right: -15px;
     width: 6px;
     height: 1px;
-    background: #086AD8;
+    background: #9fe870;
 }
 
 .blog-details-desc .article-content .entry-meta ul li:last-child {
@@ -7398,7 +7400,7 @@ Blog Details Area CSS
     text-align: center;
     border-radius: 40px;
     background-color: #faf5f5;
-    color: #086AD8;
+    color: #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     display: inline-block;
@@ -7409,7 +7411,7 @@ Blog Details Area CSS
 }
 
 .blog-details-desc .article-content .features-list li:hover i {
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
 }
 
@@ -7449,7 +7451,7 @@ Blog Details Area CSS
 }
 
 .blog-details-desc .article-footer .article-tags a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .blog-details-desc .article-footer .article-share {
@@ -7479,7 +7481,7 @@ Blog Details Area CSS
 
 .blog-details-desc .article-footer .article-share .social li a {
     display: block;
-    color: #086AD8;
+    color: #9fe870;
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -7491,7 +7493,7 @@ Blog Details Area CSS
 
 .blog-details-desc .article-footer .article-share .social li a:hover {
     color: #ffffff;
-    background-color: #086AD8;
+    background-color: #9fe870;
     -webkit-transform: translateY(-2px);
     transform: translateY(-2px);
 }
@@ -7535,7 +7537,7 @@ blockquote::after,
     top: 0;
     bottom: 0;
     width: 3px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -7653,8 +7655,8 @@ blockquote::after,
 
 .comments-area .comment-body .reply a:hover {
     color: #ffffff;
-    background-color: #086AD8;
-    border-color: #086AD8;
+    background-color: #9fe870;
+    border-color: #9fe870;
 }
 
 .comments-area .comment-author {
@@ -7693,7 +7695,7 @@ blockquote::after,
 }
 
 .comments-area .comment-metadata a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .comments-area .comment-respond {
@@ -7770,7 +7772,7 @@ blockquote::after,
 .comments-area .comment-respond input[type="tel"]:focus,
 .comments-area .comment-respond input[type="number"]:focus,
 .comments-area .comment-respond textarea:focus {
-    border-color: #086AD8;
+    border-color: #9fe870;
 }
 
 .comments-area .comment-respond .comment-form-author {
@@ -7822,7 +7824,7 @@ blockquote::after,
 }
 
 .comments-area .comment-respond .form-submit input {
-    background: #086AD8;
+    background: #9fe870;
     border: none;
     color: #ffffff;
     padding: 10px 30px;
@@ -7900,7 +7902,7 @@ Fooetr Area CSS
     position: absolute;
     right: 4px;
     top: 4px;
-    background-color: #086AD8;
+    background-color: #9fe870;
     color: #ffffff;
     border: none;
     height: 62px;
@@ -7961,8 +7963,8 @@ Fooetr Area CSS
     height: 40px;
     width: 40px;
     line-height: 40px;
-    background-color: #086AD8;
-    color: #ffffff;
+    background-color: #9fe870;
+    color: black;
     text-align: center;
     border-radius: 30px;
     font-size: 16px;
@@ -7971,7 +7973,7 @@ Fooetr Area CSS
 }
 
 .single-footer-widget .footer-social i:hover {
-    background-color: #10dce8;
+    background-color: #9fe870;
 }
 
 .single-footer-widget .footer-quick-links {
@@ -8035,7 +8037,7 @@ Copy Right Area CSS
 }
 
 .copyright-area .copyright-area-content p a:hover {
-    color: #086AD8;
+    color: #9fe870;
 }
 
 .copyright-area .copyright-area-content ul {
@@ -8058,7 +8060,7 @@ Copy Right Area CSS
 }
 
 .copyright-area .copyright-area-content ul li a:hover {
-    color: #086AD8;
+    color: black;
 }
 
 .copyright-area .copyright-area-content ul li::before {
@@ -8068,7 +8070,7 @@ Copy Right Area CSS
     right: -13px;
     width: 1px;
     height: 14px;
-    background-color: #086AD8;
+    background-color: #9fe870;
 }
 
 .copyright-area .copyright-area-content ul li:last-child {
@@ -8094,7 +8096,7 @@ Go Top CSS
     top: 0;
     right: 15px;
     color: #ffffff;
-    background-color: #086AD8;
+    background-color: #9fe870;
     z-index: 4;
     width: 40px;
     text-align: center;
@@ -8105,7 +8107,7 @@ Go Top CSS
     -webkit-transition: .9s;
     transition: .9s;
     border-radius: 50%;
-    border: 1px solid #086AD8;
+    border: 1px solid #9fe870;
 }
 
 .go-top.active {
@@ -8232,7 +8234,7 @@ Buy Now Btn
 #back {
     padding: 10px 50px;
     display: inline-block;
-    background: #23cdff;
+    background: #9fe870;
     color: #fff;
     border: none;
     font-weight: 800;
@@ -8240,7 +8242,7 @@ Buy Now Btn
 }
 
 .buy-now-btn:hover {
-    background-color: #23cdff;
+    background-color: #9fe870;
     color: #ffffff !important;
 }
 
@@ -8334,6 +8336,7 @@ section#service-title {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    background-color: #9fe870;
 }
 
 .dropdown {
@@ -8462,12 +8465,12 @@ ul.footer-quick-links li a {
 }
 
 .step-indicator li.active .step {
-    /*border-color: #4183D7;*/
-    color: #4183D7;
+    /*border-color: #9fe870;*/
+    color: #9fe870;
 }
 
 .step-indicator li.active .caption {
-    color: #4183D7;
+    color: #9fe870;
 }
 
 .step-indicator li.complete:after {
@@ -8627,6 +8630,7 @@ section#service-title {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    background-color: #9fe870;
 }
 
 .dropdown {
@@ -8760,12 +8764,12 @@ ul.footer-quick-links li a {
 }
 
 .step-indicator li.active .step {
-    /*border-color: #4183D7;*/
-    color: #4183D7;
+    /*border-color: #9fe870;*/
+    color: #9fe870;
 }
 
 .step-indicator li.active .caption {
-    color: #4183D7;
+    color: #9fe870;
 }
 
 .step-indicator li.complete:after {
@@ -8899,9 +8903,9 @@ input#checkbox1,
     list-style: decimal;
 }
 
-#title{
-    background-color: #23cdff;
-}
+/* #title{
+    background-color: #9fe870;
+} */
 
 
 
@@ -8946,17 +8950,17 @@ div#accordionExample h2 button {
     font-size: 16px;
     color: #515162;
 }
-#title{
-    background-color: #23cdff;
-}
+/* #title{
+    background-color: #9fe870;
+} */
 .color-span {
-    color: #10dce8;
+    color: #9fe870;
   }
   
   .error-content .bar {
     height: 4px;
     width: 85px;
-    background: #10dce8;
+    background: #9fe870;
     position: relative;
     border-radius: 5px;
     overflow: hidden;

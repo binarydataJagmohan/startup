@@ -28,7 +28,7 @@ Default CSS
   left: 0;
   right: 0;
   bottom: 0;
-  background: #086AD8;
+  background: #9fe870;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -53,12 +53,12 @@ Default CSS
 }
 
 .dark-version input:checked + .slider {
-  background-color: #086AD8;
+  background-color: #9fe870;
 }
 
 .dark-version input:focus + .slider {
-  -webkit-box-shadow: 0 0 1px #086AD8;
-          box-shadow: 0 0 1px #086AD8;
+  -webkit-box-shadow: 0 0 1px #9fe870;
+          box-shadow: 0 0 1px #9fe870;
 }
 
 .dark-version input:checked + .slider:before {
@@ -123,7 +123,7 @@ Default CSS
 }
 
 .theme-dark p a:hover {
-  color: #086AD8 !important;
+  color: #9fe870 !important;
 }
 
 .theme-dark span {
@@ -139,7 +139,7 @@ Default CSS
 }
 
 .theme-dark .h1 a:hover, .theme-dark .h2 a:hover, .theme-dark .h3 a:hover, .theme-dark .h4 a:hover, .theme-dark .h5 a:hover, .theme-dark .h6 a:hover, .theme-dark h1 a:hover, .theme-dark h2 a:hover, .theme-dark h3 a:hover, .theme-dark h4 a:hover, .theme-dark h5 a:hover, .theme-dark h6 a:hover {
-  color: #086AD8 !important;
+  color: #9fe870 !important;
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item a {
@@ -147,11 +147,11 @@ Default CSS
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item a:hover, .theme-dark .fria-nav .navbar .navbar-nav .nav-item a:focus, .theme-dark .fria-nav .navbar .navbar-nav .nav-item a.active {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item:hover a, .theme-dark .fria-nav .navbar .navbar-nav .nav-item.active a {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
@@ -159,7 +159,7 @@ Default CSS
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .fria-nav .navbar .others-options .option-item {
@@ -191,11 +191,11 @@ Default CSS
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a:hover, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a:focus, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a.active {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item:hover a, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item.active a {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
@@ -203,7 +203,7 @@ Default CSS
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .others-options .option-item {
@@ -263,7 +263,7 @@ Default CSS
 }
 
 .theme-dark .contact-form form .form-control:focus {
-  border-color: #086AD8;
+  border-color: #9fe870;
 }
 
 .theme-dark .contact-form form .form-control::-webkit-input-placeholder {
@@ -307,7 +307,7 @@ Default CSS
 }
 
 .theme-dark .single-footer-widget .footer-info-contact span a:hover {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .single-footer-widget .footer-quick-links li a {
@@ -315,7 +315,7 @@ Default CSS
 }
 
 .theme-dark .single-footer-widget .footer-quick-links li a:hover {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .copyright-area .copyright-area-content ul li a {
@@ -323,7 +323,7 @@ Default CSS
 }
 
 .theme-dark .copyright-area .copyright-area-content ul li a:hover {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .main-banner-area-two {
@@ -456,7 +456,7 @@ Default CSS
 }
 
 .theme-dark .single-protfolio:hover .content {
-  background-color: #086AD8;
+  background-color: #9fe870;
 }
 
 .theme-dark .main-banner-area-four {
@@ -510,7 +510,7 @@ Default CSS
 }
 
 .theme-dark .protfolio-section.bg-color .single-protfolio:hover .content {
-  background-color: #086AD8;
+  background-color: #9fe870;
 }
 
 .theme-dark .review-section .single-counter {
@@ -606,7 +606,7 @@ Default CSS
 }
 
 .theme-dark .schedule-list-tab .tabs li.current, .theme-dark .schedule-list-tab .tabs li:hover {
-  background-color: #086AD8;
+  background-color: #9fe870;
 }
 
 .theme-dark .schedule-list-tab .tabs li.current a, .theme-dark .schedule-list-tab .tabs li:hover a {
@@ -670,7 +670,7 @@ Default CSS
 }
 
 .theme-dark .pagination-area .page-numbers:hover {
-  background-color: #086AD8;
+  background-color: #9fe870;
 }
 
 .theme-dark .services-details-overview .services-details-desc .services-details-accordion .accordion .accordion-title {
@@ -756,7 +756,7 @@ Default CSS
 }
 
 .theme-dark .single-contact-box a:hover {
-  color: #086AD8;
+  color: #9fe870;
 }
 
 .theme-dark .subscribe-area .newsletter-form .input-newsletter {
@@ -913,7 +913,7 @@ Default CSS
 }
 
 .theme-dark .comments-area .comment-respond input[type="date"]:focus, .theme-dark .comments-area .comment-respond input[type="time"]:focus, .theme-dark .comments-area .comment-respond input[type="datetime-local"]:focus, .theme-dark .comments-area .comment-respond input[type="week"]:focus, .theme-dark .comments-area .comment-respond input[type="month"]:focus, .theme-dark .comments-area .comment-respond input[type="text"]:focus, .theme-dark .comments-area .comment-respond input[type="email"]:focus, .theme-dark .comments-area .comment-respond input[type="url"]:focus, .theme-dark .comments-area .comment-respond input[type="password"]:focus, .theme-dark .comments-area .comment-respond input[type="search"]:focus, .theme-dark .comments-area .comment-respond input[type="tel"]:focus, .theme-dark .comments-area .comment-respond input[type="number"]:focus, .theme-dark .comments-area .comment-respond textarea:focus {
-  border-color: #086AD8;
+  border-color: #9fe870;
 }
 
 .theme-dark .comments-area .comment-respond .comment-form-cookies-consent label {

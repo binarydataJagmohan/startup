@@ -87,7 +87,7 @@ const Contact = () => {
                   <i className="flaticon-envelope" />
                   <div className="content-title">
                     <h3>Email</h3>
-                    <span><a href="mailto:example@gmail.com"><span>example@gmail.com</span></a></span>
+                    <span><a href="mailto:example@gmail.com" style={{color:"black"}}><p>example@gmail.com</p></a></span>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                   <i className="flaticon-phone-call" />
                   <div className="content-title">
                     <h3>Phone</h3>
-                    <a href="tel:123456123">+123(456)123</a>
+                    <a href="tel:123456123" style={{color:"black"}}><p>+123(456)123</p></a>
                   </div>
                 </div>
               </div>

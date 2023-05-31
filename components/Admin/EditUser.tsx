@@ -224,7 +224,7 @@ const EditUser = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className='card'>
-                                    <div className="card-header text-white" id="title">
+                                    <div className="card-header text-white bg-dark" id="title">
                                         <h3 className="card-title" >Form</h3>
                                     </div>
                                     <div className='card-body'>

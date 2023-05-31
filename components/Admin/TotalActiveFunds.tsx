@@ -111,7 +111,7 @@ const TotalActiveFunds = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-white" id="title">
+                                    <div className="card-header text-white bg-dark" id="title">
                                         <h3 className="card-title" >ALL FUNDS</h3>
                                     </div>
                                     <div className="card-body">
@@ -125,7 +125,7 @@ const TotalActiveFunds = () => {
                                                         borderCollapse: 'collapse',
                                                         borderSpacing: 0,
                                                         width: '100%',
-                                                        overflow: 'hidden',
+                                                        // overflow: 'hidden',
                                                     }}
                                                 >
                                                     <thead>
@@ -133,8 +133,8 @@ const TotalActiveFunds = () => {
                                                             <th>#</th>
                                                             <th>Fund Id</th>
                                                             <th>Tenure</th>
-                                                            <th>Minimum Subscription</th>
-                                                            <th>Average Amount</th>
+                                                            <th>Min. Subscription</th>
+                                                            <th>Avg. Amount</th>
                                                             <th>Repay Date</th>
                                                             <th>Closing Date</th>
                                                             {/* <th>Status</th> */}

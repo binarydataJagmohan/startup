@@ -85,7 +85,7 @@ const Header = () => {
           </ul>
           <div className="others-options">
             <div className="dropdown">
-              <button onClick={toggleDropdown} className="dropbtn bg-info">
+              <button onClick={toggleDropdown} className="dropbtn">
                 {current_user_name} <i className="fa-solid fa-caret-down" />
               </button>
               <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>

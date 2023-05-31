@@ -79,6 +79,56 @@ useEffect(() => {
       <div className="main-banner-area">
         <div className="home-sliders">
           <Slider {...settings}>
+          <div className="home-item item-bg2">
+              <div className="d-table">
+                <div className="d-table-cell">
+                  <div className="container">
+                    <div className="main-banner-content">
+                      <h1>Opportunities Await</h1>
+                      <p>
+                        At our investment firm, opportunities await for those
+                        who are ready to take the next step towards financial
+                        success. Discover a diverse range of investment options
+                        and seize the chance to achieve your financial goals.
+                      </p>
+                      {current_user_id ? (
+                        current_user_role === "investor" ? 
+                        <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
+                          My Profile
+                        </a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
+                        Campaigns
+                        </a>
+                      </div> : <div className="banner-btn">
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
+                          My Profile
+                        </a>
+                        <a href="#" onClick={handleLogout} className="default-btn">
+                          Logout
+                        </a>
+                      </div>
+                       
+                      ) : (
+                      <div className="banner-btn">
+                        <a href="/signup" className="default-btn">
+                          Register
+                        </a>
+                        <a href="/login" className="default-btn">
+                          Log in
+                        </a>
+                      </div>
+                      )}
+                    </div>
+                    <div className="banner-image">
+                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
+                      {/* <img src="assets/img/home-one/image-3.png" class="banner-img" alt="image"> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
             <div className="home-item item-bg1">
               <div className="d-table">
                 <div className="d-table-cell">
@@ -139,56 +189,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="home-item item-bg2">
-              <div className="d-table">
-                <div className="d-table-cell">
-                  <div className="container">
-                    <div className="main-banner-content">
-                      <h1>Opportunities Await</h1>
-                      <p>
-                        At our investment firm, opportunities await for those
-                        who are ready to take the next step towards financial
-                        success. Discover a diverse range of investment options
-                        and seize the chance to achieve your financial goals.
-                      </p>
-                      {current_user_id ? (
-                        current_user_role === "investor" ? 
-                        <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
-                          My Profile
-                        </a>
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
-                        Campaigns
-                        </a>
-                      </div> : <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
-                          My Profile
-                        </a>
-                        <a href="#" onClick={handleLogout} className="default-btn">
-                          Logout
-                        </a>
-                      </div>
-                       
-                      ) : (
-                      <div className="banner-btn">
-                        <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                          Log in
-                        </a>
-                      </div>
-                      )}
-                    </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-3.png" class="banner-img" alt="image"> */}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+         
             <div className="home-item item-bg3">
               <div className="d-table">
                 <div className="d-table-cell">

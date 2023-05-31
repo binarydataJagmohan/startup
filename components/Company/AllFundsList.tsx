@@ -157,7 +157,7 @@ const AllFundsList = () => {
             <div className="row">
               <div className="col-12">
                 <div className="card">
-                  <div className="card-header text-white" id="title">
+                  <div className="card-header text-white bg-dark" id="title">
                     <h3 className="card-title" >FUND RAISE LIST</h3>
                   </div>
                   <div className="card-body">
@@ -176,8 +176,8 @@ const AllFundsList = () => {
                             <th>#</th>
                             <th>Fund Id</th>
                             <th>Tenure</th>
-                            <th>Minimum Subscription</th>
-                            <th>Average Amount</th>
+                            <th>Min. Subscription</th>
+                            <th>Avg. Amount</th>
                             <th>Repay Date</th>
                             <th>Closing Date</th>
                             <th>Status</th>

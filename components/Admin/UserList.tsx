@@ -202,7 +202,7 @@ const UserList = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-white" id="title">
+                                    <div className="card-header text-white bg-dark" id="title">
                                         <h3 className="card-title" >USERS</h3>
                                     </div>
                                     <div className="card-body table-responsive">
