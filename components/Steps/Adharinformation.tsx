@@ -317,7 +317,7 @@ export default function AdharInformation():any {
                             <div className="col-md-6"  style={{ textAlign: "left", fontSize: "12px" }}>
                             <a
                               href={`/steps/customizereview`}
-                              className="btn btn-primary" id="back"
+                              className="btnclasssmae" id="back"
                             >
                               Go back
                             </a>
@@ -327,7 +327,7 @@ export default function AdharInformation():any {
                               className="col-md-6"
                               style={{ textAlign: "right" }}
                             >
-                              <button type="submit" className="btn btn-primary">
+                              <button type="submit" className="btnclasssmae">
                                  Submit
                               </button>
                             </div>

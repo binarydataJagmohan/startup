@@ -3020,7 +3020,12 @@ fieldset:disabled .btn {
     color: #fff;
     background-color: #9fe870;
     border-color: #9fe870;
-    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5); */
+}
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    color:none !important;
+    background-color: none !important;
+    border-color: none !important;
 }
 
 .btn-check:active+.btn-primary,

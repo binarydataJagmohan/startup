@@ -504,7 +504,7 @@ const EditList = () => {
                     <div className="row">
                       <div className="row mt-3">
                         <div className="col-md-12 text-center">
-                          <button type="submit" className="btn btn-primary">
+                          <button type="submit" className="btnclasssmae">
                             Update
                           </button>
                         </div>
@@ -897,7 +897,7 @@ const EditList = () => {
                       </div>
                       <div className="row mt-3">
                         <div className="col-md-12 text-center">
-                          <button type="submit" className="btn btn-primary">
+                          <button type="submit" className="btnclasssmae">
                             Submit
                           </button>
                         </div>

@@ -259,7 +259,7 @@ export default function InvestorType():any {
                                                         >
                                                             <a
                                                                 href={`/investor-steps/findbusiness`}
-                                                                className="btn btn-primary"
+                                                                className="btnclasssmae"
                                                                 id="back"
                                                             >
                                                                 Go back
@@ -270,7 +270,7 @@ export default function InvestorType():any {
                                                             className="col-md-6"
                                                             style={{ textAlign: "right" }}
                                                         >
-                                                            <button type="submit" className="btn btn-primary">
+                                                            <button type="submit" className="btnclasssmae">
                                                                 NEXT
                                                             </button>
                                                         </div>

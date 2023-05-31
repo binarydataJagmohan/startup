@@ -372,7 +372,7 @@ export default function AccreditedInvestors() {
                                                         >
                                                             <a
                                                                 href={`/investor-steps/investor-type`}
-                                                                className="btn btn-primary"
+                                                                className="btnclasssmae"
                                                                 id="back"
                                                             >
                                                                 Go back
@@ -383,7 +383,7 @@ export default function AccreditedInvestors() {
                                                             className="col-md-6"
                                                             style={{ textAlign: "right" }}
                                                         >
-                                                            <button type="submit" className="btn btn-primary" onClick={SubmitForm}>
+                                                            <button type="submit" className="btnclasssmae" onClick={SubmitForm}>
                                                                 Submit
                                                             </button>
                                                         </div>

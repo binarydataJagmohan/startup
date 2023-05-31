@@ -95,7 +95,7 @@ const ResetPassword = () => {
 
                                         <div className="row">
                                             <div className="col-md-12 text-start">
-                                                <button type="submit" className="btn btn-primary">
+                                                <button type="submit" className="btnclasssmae">
                                                 Reset Password
                                                 </button>
                                             </div>

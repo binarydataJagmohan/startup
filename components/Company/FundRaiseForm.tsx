@@ -506,7 +506,7 @@ const FundRaiseForm = () => {
 
                       <div className="row mt-3">
                         <div className="col-md-6" style={{ textAlign: "right" }}>
-                          <button type="submit" className="btn btn-primary">
+                          <button type="submit" className="btnclasssmae">
                             SUBMIT
                           </button>
                         </div>

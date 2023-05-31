@@ -43,6 +43,14 @@ const Signup = () => {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
   });
+  const setLocalStorageItems = (user: User) => {
+    window.localStorage.setItem("id", user.id);
+    window.localStorage.setItem("email", user.email);
+    window.localStorage.setItem("username", user.name);
+    window.localStorage.setItem("user_role", user.role);
+    window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
+    window.localStorage.setItem("approval_status", user.approval_status);
+  };
 
   const SubmitForm = () => {
     const user = {
@@ -57,10 +65,60 @@ const Signup = () => {
       .then((res) => {
         console.log(res);
         if (res.status == true) {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "success",
-          });
+          console.log(res.data[0]);
+          console.log(res.data.user);
+
+          if (res.data[0]) {
+            setLocalStorageItems(res.data.user);
+            
+            switch (window.localStorage.getItem("user_role")) {
+              case "admin":
+                setTimeout(() => {
+                  window.location.href = "/admin/dashboard/";
+                }, 1000);
+                break;
+              case "startup":
+                setTimeout(() => {
+                  window.location.href = "/steps/findbusiness";
+                }, 1000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
+                  setTimeout(() => {
+                    window.location.href = "/company/thank-you";
+                  }, 1000);
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
+                  setTimeout(() => {
+                    window.location.href = "/company/dashboard";
+                  }, 1000);
+                }
+                break;
+              case "investor":
+                setTimeout(() => {
+                  window.location.href = "/investor-steps/findbusiness";
+                }, 1000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
+                  setTimeout(() => {
+                    window.location.href = "/investor/thank-you";
+                  }, 1000);
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
+                  setTimeout(() => {
+                    window.location.href = "/investor/campaign";
+                  }, 1000);
+                }
+                break;
+            }
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+          } else {
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+          }
+
           // if(user.role == 'investor')
           // {
           //   setTimeout(() => {
@@ -68,9 +126,9 @@ const Signup = () => {
           //   }, 1000);
           // }
           // if(user.role == 'startup')
-          setTimeout(() => {
-            router.push("/login"); // Redirect to login page
-          }, 1000);
+          // setTimeout(() => {
+          //   router.push("/login"); // Redirect to login page
+          // }, 1000);
         }
         else {
           toast.error(res.message, {
@@ -284,7 +342,7 @@ const Signup = () => {
                         <div className="row mt-3">
                           <div
                             className="col-md-12 text-center" >
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btnclasssmae">
                               Register
                             </button>
                           </div>

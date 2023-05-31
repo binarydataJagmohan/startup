@@ -456,7 +456,7 @@ export default function Findbusiness():any {
                               className="col-md-12"
                               style={{ textAlign: "right" }}
                             >
-                              <button type="submit" className="btn btn-primary">
+                              <button type="submit" className="btnclasssmae">
                                 NEXT
                               </button>
                             </div>

@@ -444,7 +444,7 @@ const EditAdmin = () => {
                                                     className="col-md-12"
                                                     style={{ textAlign: "center" }}
                                                 >
-                                                    <button type="submit" className="btn btn-primary">
+                                                    <button type="submit" className="btnclasssmae">
                                                         Submit
                                                     </button>
                                                 </div>

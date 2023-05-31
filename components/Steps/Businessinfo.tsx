@@ -615,7 +615,7 @@ register('website_url', {
                             >
                               <a
                                 href={`/steps/findbusiness`}
-                                className="btn btn-primary"
+                                className="btnclasssmae"
                                 id="back"
                               >
                                 Go back
@@ -626,7 +626,7 @@ register('website_url', {
                               className="col-md-6"
                               style={{ textAlign: "right" }}
                             >
-                              <button type="submit" className="btn btn-primary">
+                              <button type="submit" className="btnclasssmae">
                                 NEXT
                               </button>
                             </div>

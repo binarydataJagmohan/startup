@@ -372,7 +372,7 @@ export default function Customereview():any {
                             <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
                               <a
                                 href={`/steps/businessinfo`}
-                                className="btn btn-primary" id="back"
+                                className="btnclasssmae" id="back"
                               >
                                 Go back
                               </a>
@@ -382,7 +382,7 @@ export default function Customereview():any {
                               className="col-md-6"
                               style={{ textAlign: "right" }}
                             >
-                              <button type="submit" className="btn btn-primary">
+                              <button type="submit" className="btnclasssmae">
                                 NEXT
                               </button>
                             </div>

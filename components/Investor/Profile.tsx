@@ -454,7 +454,7 @@ const Profile = () => {
 
                                             <div className="row mt-3">
                                                 <div className="col-md-12 text-center">
-                                                    <button type="submit" className="btn btn-primary">
+                                                    <button type="submit" className="btnclasssmae">
                                                         UPDATE
                                                     </button>
                                                 </div>
@@ -529,7 +529,7 @@ const Profile = () => {
                                                                     </div>
                                                                     <div className="row mt-3">
                                                                         <div className="col-md-12 text-center">
-                                                                            <button type="submit" className="btn btn-primary">
+                                                                            <button type="submit" className="btnclasssmae">
                                                                                 UPDATE
                                                                             </button>
                                                                         </div>

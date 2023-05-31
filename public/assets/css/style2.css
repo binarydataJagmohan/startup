@@ -399,7 +399,7 @@ div#insertorpage h1 {
 
 /* / end point / */
 
-button.btn.btn-primary {
+button.btnclasssmae {
   padding: 10px 50px;
   display: inline-block;
   background: #9fe870;
@@ -407,6 +407,7 @@ button.btn.btn-primary {
   border: none;
   font-weight: 800;
   font-size: 18px;
+  border-radius: 10px;
 }
 
 .error {
@@ -1347,9 +1348,10 @@ img{max-width: 100%;}
     box-shadow: unset;
 }
 div#accordionExample h2 button {
-    font-size: 25px;
+    font-size: 18px;
     background-color: black;
     color:white;
+    height: 45px;
 }
 .form-part h3 {
     font-size: 22px;

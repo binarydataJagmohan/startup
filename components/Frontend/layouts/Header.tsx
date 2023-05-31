@@ -195,7 +195,7 @@ export default function HeaderFrontend() {
                 <div className="others-options">
                     {current_user_name ? (
                       <div className="dropdown">
-                        <a onClick={myFunction} className="dropbtn bg-info">
+                        <a onClick={myFunction} className="dropbtn text-white">
                           {current_user_name}&nbsp;<i className="fa-solid fa-caret-down" />
                         </a>
                         <div
@@ -218,7 +218,7 @@ export default function HeaderFrontend() {
                         </div>
                       </div>
                     ) : (
-                      <button  className="btn btn-primary" style={{ margin: "-45px" }}>
+                      <button  className="btnclasssmae" style={{ margin: "-45px" }}>
                        <a href="/login" style={{ color: "#fff" }}>Login</a>
                       </button>
                     )}
@@ -308,7 +308,7 @@ export default function HeaderFrontend() {
             </li>
             <li className="nav-item">
               <div className="dropdown">
-                <a onClick={myFunction} className="dropbtn nav-link">
+                <a onClick={myFunction} className="dropbtn text-white">
                   {current_user_name}
                 </a>
                 <div
