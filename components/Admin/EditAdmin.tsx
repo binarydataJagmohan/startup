@@ -44,7 +44,7 @@ const EditAdmin = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [invalidFields, setInvalidFields] = useState<string[]>([]);
     const [missingFields, setMissingFields] = useState<string[]>([]);
-    const imageUrl = `http://localhost:8000/${users.profile_pic}`;
+    const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}${users.profile_pic}`;
 
 
 

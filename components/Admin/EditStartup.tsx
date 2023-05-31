@@ -47,7 +47,8 @@ const EditList = () => {
 });
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
-  const imageUrl = 'http://localhost:8000/docs/' + proof.proof_img;
+  const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
+ 
   const [previewImageProof, setPreviewImageProof] = useState(null);
   const router = useRouter();
   const [missingFields, setMissingFields] = useState<string[]>([]);
@@ -91,7 +92,7 @@ const EditList = () => {
   const handleDownload = (event) => {
     event.preventDefault();
   
-    const imageUrl = `http://localhost:8000/docs/${proof.proof_img}`;
+    const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
   
     const downloadLink = document.createElement('a');
     downloadLink.href = imageUrl;
