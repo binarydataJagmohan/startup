@@ -1676,6 +1676,7 @@ Services Area CSS
     margin: 20px 0 10px 0;
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    color:black;
 }
 
 .single-services p {

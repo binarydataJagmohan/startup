@@ -4,7 +4,7 @@ import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 interface User {
   id: string;
@@ -39,12 +39,12 @@ export default function Login() {
     window.localStorage.setItem("approval_status", user.approval_status);
   };
 
-  const setRememberMeCookie = () => {
-    const expiryDate = new Date();
+  // const setRememberMeCookie = () => {
+  //   const expiryDate = new Date();
     
-    expiryDate.setFullYear(expiryDate.getFullYear() + 10);// Set the expiration time to 10 years from now
-    Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
-  };
+  //   expiryDate.setFullYear(expiryDate.getFullYear() + 10);// Set the expiration time to 10 years from now
+  //   Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
+  // };
 
   const submitForm = () => {
     const logindata = {
@@ -59,10 +59,10 @@ export default function Login() {
           if (res.authorisation.token) {
             setLocalStorageItems(res.user);
             if (rememberMe) {
-              setRememberMeCookie(); // Set the rememberMe cookie if checked
+              // setRememberMeCookie(); // Set the rememberMe cookie if checked
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
-              Cookies.remove("rememberMe"); // Remove the rememberMe cookie if not checked
+              // Cookies.remove("rememberMe"); // Remove the rememberMe cookie if not checked
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
             switch (window.localStorage.getItem("user_role")) {
