@@ -38,7 +38,9 @@ const Thankyou = () => {
                     window.location.reload();
                   }, 10000); 
                 } else {
-                  window.location.href = "/company/thank-you";
+                  setTimeout(() => {
+                    window.location.href = "/company/thank-you";
+                  }, 10000);
                 }
               }
             }
