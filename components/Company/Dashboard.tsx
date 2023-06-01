@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import {getCurrentUserData,} from "../../lib/session";
+import {CheckUserApprovalStatus} from "../../lib/frontendapi";
+
 interface UserData {
     id?: string;
   }
@@ -15,6 +17,31 @@ const Dashboard = () => {
         } else {
           window.location.href = "/login";
         }
+
+        const checkUserStatus = async () => {
+            try {
+              const res = await CheckUserApprovalStatus(current_user_data.id);
+              
+              if (res.status === true) {
+                console.log(res.data.approval_status);
+                
+                if (res.data.role === "startup") {
+                  if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
+                    window.location.href = "/company/thank-you";
+                  } else if (res.data.approval_status === "approved") {
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 10000); 
+                  } else {
+                    window.location.href = "/company/thank-you";
+                  }
+                } 
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          checkUserStatus();
     
       }, []);
     return (

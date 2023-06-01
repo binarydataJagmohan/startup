@@ -1,19 +1,57 @@
 import React,{useState,useEffect} from 'react'
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
+import {CheckUserApprovalStatus} from '../../lib/frontendapi';
 interface UserData {
     id?: number;
     approval_status?: string;
+    role?:string;
   }
 const Thankyou = () => {
     const [current_user_id, setCurrentUserId] = useState(false);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
-        if(current_user_data.approval_status == "approved"){
-            setTimeout(() => {
-                window.location.href = "/admin/dashboard/";
-              }, 1000);
-        }
+        
+        const checkUserStatus = async () => {
+          try {
+            const res = await CheckUserApprovalStatus(current_user_data.id);
+            
+            if (res.status === true) {
+              console.log(res.data.approval_status);
+              
+              if (res.data.role === "investor") {
+                if (res.data.approval_status === "approved") {
+                  window.location.href = "/investor/campaign";
+                } else if (res.data.approval_status === "pending") {
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 10000); 
+                } else {
+                    setTimeout(() => {
+                        window.location.href = "/investor/thank-you";
+                      }, 10000);
+                }
+              } else if (res.data.role === "startup") {
+                if (res.data.approval_status === "approved") {
+                  window.location.href = "/company/dashboard";
+                } else if (res.data.approval_status === "pending") {
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 10000); 
+                } else {
+                  setTimeout(() => {
+                    window.location.href = "/company/thank-you";
+                  }, 10000);
+                }
+              }
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        };
+        
+        checkUserStatus();
       }, []);
+      
     return (
         <>
             {/* Start Preloader Area */}

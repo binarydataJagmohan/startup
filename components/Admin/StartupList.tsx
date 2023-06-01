@@ -257,14 +257,14 @@ const StartupList = () => {
                                                                 <td>{startup.name}</td>
                                                                 <td>{startup.email}</td>
                                                                 <td>{startup.business_name}</td>
-                                                                {/* <td>{startup.stage}</td> */}
-                                                                <td>
+                                                                <td>{startup.stage}</td>
+                                                                {/* <td>
                                                                     <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(String(startup.id), e.target.value)}>
                                                                         <option value="Idea Stage">Idea Stage</option>
                                                                         <option value="Intermediate Stage">Intermediate Stage</option>
                                                                         <option value="Final Stage">Final Stage</option>
                                                                     </select>
-                                                                </td>
+                                                                </td> */}
                                                                 <td>
                                                                     <span style={{ cursor: "pointer" }} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
                                                                 </td>
