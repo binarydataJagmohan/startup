@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllActiveFundsCount } from "../../../lib/adminapi";
+import Cookies from "js-cookie";
 
 import {
   removeToken,
@@ -20,21 +21,16 @@ const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [users, setUsers] = useState(
     { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
   const router = useRouter();
   function redirectToLogin() {
-    const currentUrl = window.location.pathname;
-    if (currentUrl !== '/login') {
-      window.location.href = "/login";
-    }
+    window.location.href = "/login";
   }
-  function handleLogout() {
-    
-    clearTimeout(timeoutId as NodeJS.Timeout);
+  function handleLogout(e: any) {
+    e.preventDefault();
     removeToken();
- 
+    Cookies.remove("rememberMe");
     removeStorageData();
     redirectToLogin();
   }
@@ -72,42 +68,6 @@ const Header = () => {
       });
 
   }, []);
-  const resetTimeout = () => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    setTimeoutId(setTimeout(handleLogout, 2 * 60 * 60 * 1000)); // 2 hours
-  };
-
-  const handleUserActivity = () => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    resetTimeout();
-  };
-
-  useEffect(() => {
-    // Attach the event listener to reset the timeout on user activity
-    document.addEventListener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
-
-    // Start the timeout on initial page load
-    resetTimeout();
-
-    // Clean up the event listener on component unmount
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      document.removeEventListener('mousemove', handleUserActivity);
-      document.removeEventListener('keydown', handleUserActivity);
-    };
-  }, []);  // Empty dependency array to run only once on component mount
-
-  // This component doesn't render anything, just handles the auto-logout logic
-
   
   function collapseSidebar() {
     $('.vertical-menu').toggle();
@@ -362,7 +322,7 @@ const Header = () => {
             </div>
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="" />
+                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="Header Avatar" />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>
