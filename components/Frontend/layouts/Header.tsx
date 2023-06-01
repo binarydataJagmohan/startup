@@ -19,15 +19,20 @@ export default function HeaderFrontend() {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   function myFunction() {
     setDropdownVisible(!dropdownVisible);
   }
   function redirectToLogin() {
-    window.location.href = "/login";
+    const currentUrl = window.location.pathname;
+    if (currentUrl !== '/login') {
+      window.location.href = "/login";
+    }
+  
     //router.push("/auth/login");
   }
-  function handleLogout(e: any) {
-    e.preventDefault();
+  function handleLogout() {
+    clearTimeout(timeoutId as NodeJS.Timeout);
     removeToken();
     removeStorageData();
     redirectToLogin();
@@ -52,6 +57,33 @@ export default function HeaderFrontend() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const resetTimeout = () => {
+    clearTimeout(timeoutId as NodeJS.Timeout);
+    setTimeoutId(setTimeout(handleLogout, 2 * 60 * 60 * 1000)); // 2 hours
+  };
+
+  // Event listener to reset the timeout on user activity
+  const handleUserActivity = () => {
+    resetTimeout();
+  };
+
+  useEffect(() => {
+    // Attach the event listener to reset the timeout on user activity
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+
+    // Start the timeout on initial page load
+    resetTimeout();
+
+    // Clean up the event listener on component unmount
+   
+      clearTimeout(timeoutId as NodeJS.Timeout);
+      document.removeEventListener('mousemove', handleUserActivity);
+  
+  }, []); // Empty dependency array to run only once on component mount
+
+
   const SubmitForm = () => {
     const logindata = {
       name: name,
@@ -82,6 +114,7 @@ export default function HeaderFrontend() {
           toastId: "error",
         });
       });
+      
   };
   return (
     <>

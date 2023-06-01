@@ -116,7 +116,7 @@ const StartupList = () => {
                 });
             })
             .catch(error => {
-                // console.log(error);
+               
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -191,7 +191,7 @@ const StartupList = () => {
                 }
             })
             .catch(err => {
-                console.log(err);
+       
             });
     };
 

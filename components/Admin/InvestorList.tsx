@@ -108,7 +108,7 @@ const InvestorList = () => {
                 });
             })
             .catch(error => {
-                // console.log(error);
+              
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",

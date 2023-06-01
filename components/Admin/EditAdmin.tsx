@@ -36,7 +36,7 @@ const EditAdmin = () => {
     const router = useRouter();
 
     const [id, setId] = useState('');
-    //   console.log("this is id "+id);
+  
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
@@ -52,10 +52,10 @@ const EditAdmin = () => {
         const fetchData = async () => {
             const data = await getAdminData();
             if (data) {
-                console.log(data.data);
+              
                 setUsers(data.data);
                 setId(data.data.id);
-                console.log(data.data.profile_pic);
+             
 
             }
         };
@@ -99,8 +99,7 @@ const EditAdmin = () => {
         }
 
         try {
-            // console.log("this is updated" + id);
-            // console.log(users);
+           
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-admin`,
@@ -120,10 +119,10 @@ const EditAdmin = () => {
                     }
                   }
             );
-            // console.log(response.data);
+   
             toast.success('Admin updated successfully');
         } catch (error) {
-            console.error(error);
+         
             // toast.error('Please Try Again!');
         }
     };
@@ -167,7 +166,7 @@ const EditAdmin = () => {
         if (event.target.name === "profile_pic") {
             // Handle logo file input change
             const file = event.target.files && event.target.files[0];
-            console.log(file)
+           
             if (file) {
                 const reader = new FileReader();
                 reader.onload = () => {

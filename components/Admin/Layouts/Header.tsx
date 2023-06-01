@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllActiveFundsCount } from "../../../lib/adminapi";
+
+
 import {
   removeToken,
   removeStorageData,
@@ -19,15 +21,21 @@ const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [users, setUsers] = useState(
     { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
   const router = useRouter();
   function redirectToLogin() {
-    window.location.href = "/login";
+    const currentUrl = window.location.pathname;
+    if (currentUrl !== '/login') {
+      window.location.href = "/login";
+    }
   }
-  function handleLogout(e: any) {
-    e.preventDefault();
+  function handleLogout() {
+    
+    clearTimeout(timeoutId as NodeJS.Timeout);
     removeToken();
+ 
     removeStorageData();
     redirectToLogin();
   }
@@ -65,6 +73,43 @@ const Header = () => {
       });
 
   }, []);
+  const resetTimeout = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    setTimeoutId(setTimeout(handleLogout, 2 * 60 * 60 * 1000)); // 2 hours
+  };
+
+  const handleUserActivity = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    resetTimeout();
+  };
+
+  useEffect(() => {
+    // Attach the event listener to reset the timeout on user activity
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+
+    // Start the timeout on initial page load
+    resetTimeout();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      document.removeEventListener('mousemove', handleUserActivity);
+      document.removeEventListener('keydown', handleUserActivity);
+    };
+  }, []);  // Empty dependency array to run only once on component mount
+
+  // This component doesn't render anything, just handles the auto-logout logic
+
+  
   function collapseSidebar() {
     $('.vertical-menu').toggle();
   }
@@ -267,7 +312,7 @@ const Header = () => {
                     <div className="input-group">
                       <input type="text" className="form-control" placeholder="Search ..." aria-label="Recipient's username" />
                       <div className="input-group-append" >
-                        <button className="btnclasssmae" type="submit"><i className="mdi mdi-magnify" /></button>
+                        <button className="btn btn-primary" type="submit"><i className="mdi mdi-magnify" /></button>
                       </div>
                     </div>
                   </div>
