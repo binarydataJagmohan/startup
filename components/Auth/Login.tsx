@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../lib/frontendapi";
+
 import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +17,7 @@ interface User {
 }
 
 
-export default function Login() {
+export default function Login()  {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -75,7 +76,7 @@ export default function Login() {
     };
     const setRememberMeCookie = () => {
       const expiryDate = new Date();
-      expiryDate.setSeconds(expiryDate.getSeconds() + 10); // Set the expiration time to 30 seconds from now
+      expiryDate.setMonth(expiryDate.getMonth() + 1); // Set the expiration time to 1 month from now
   Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
     };
 
