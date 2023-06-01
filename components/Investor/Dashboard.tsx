@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import {getAllBusiness,getSingleBusinessDetails } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
+import {CheckUserApprovalStatus} from "../../lib/frontendapi";
 interface UserData {
   id?: string;
+  approval_status?:string;
 }
 const Dashboard = () => {
 
@@ -21,14 +23,45 @@ const Dashboard = () => {
       window.location.href = "/login";
     }
 
+    // if (current_user_data.approval_status != "approved") {
+    //   window.location.href = "/investor/thank-you";
+    // } else {
+    //   window.location.href = "/investor/campaign";
+    // }
+
+    const checkUserStatus = async () => {
+      try {
+        const res = await CheckUserApprovalStatus(current_user_data.id);
+        
+        if (res.status === true) {
+          console.log(res.data.approval_status);
+          
+          if (res.data.role === "investor") {
+            if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
+              window.location.href = "/investor/thank-you";
+            } else if (res.data.approval_status === "approved") {
+              setTimeout(() => {
+                window.location.reload();
+              }, 10000); 
+            } else {
+              window.location.href = "/investor/thank-you";
+            }
+          } 
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     const fetchData = async () => {
       const data = await  getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
-          console.log(data.data);
+          // console.log(data.data);
       }
   };
 
+  checkUserStatus();
   fetchData();
   }, []);
    
@@ -40,8 +73,6 @@ const Dashboard = () => {
     });
   };
    
-
-  // console.log(businessDetails.status);
     
   return (
     <>

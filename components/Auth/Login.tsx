@@ -65,6 +65,7 @@ export default function Login() {
               // Cookies.remove("rememberMe"); // Remove the rememberMe cookie if not checked
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
+            console.log(res)
             switch (window.localStorage.getItem("user_role")) {
               case "admin":
                 setTimeout(() => {
