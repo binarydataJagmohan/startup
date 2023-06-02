@@ -35,7 +35,7 @@ const EditUser = () => {
     const router = useRouter();
 
     const { id } = router.query;
-    //   console.log("this is id "+id);
+   
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
@@ -53,7 +53,7 @@ const EditUser = () => {
             //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
-                // console.log(data.data);
+              
                 setUsers(data.data);
 
 
@@ -103,8 +103,7 @@ const EditUser = () => {
         }
 
         try {
-            // console.log("this is updated" + id);
-            // console.log(users);
+        
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
@@ -120,14 +119,13 @@ const EditUser = () => {
                     ['linkedin_url']: users.linkedin_url
                 }
             );
-            // console.log(response.data);
+          
             toast.success('User updated successfully');
             setTimeout(() => {
                 router.push('/admin/all-users'); // Replace '/admin/all-investors' with the desired route
               }, 2000);
         } catch (error) {
-            console.error(error);
-            // toast.error('Please Try Again!');
+         
         }
     };
 

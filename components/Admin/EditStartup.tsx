@@ -65,10 +65,10 @@ const EditList = () => {
   useEffect(() => {
     const fetchData = async (id:any) => {
       const data = await getBusinessInformation(id);
-      console.log("this id is first" + id);
+ 
       if (data) {
         setBussinessData(data.data);
-        console.log(data.data);
+      
       }
     };
 
@@ -129,7 +129,6 @@ const EditList = () => {
 
   }, []);
   const handleBusinessChange = (e:any) => {
-    console.log("hited business");
     setBusinessMissingFields([]);
 
     if (e.target.type === "checkbox" && e.target.name === "cofounder") {
@@ -175,7 +174,6 @@ const EditList = () => {
 
 
   const handleStartupChange = (e:any) => {
-    console.log("hited startup");
     setMissingFields([]);
     setStartupData((prevStartup) => ({
       ...prevStartup,
@@ -203,10 +201,7 @@ const EditList = () => {
     if (!startup.city) setMissingFields(prevFields => [...prevFields, "city"]);
     if (!startup.gender) setMissingFields(prevFields => [...prevFields, "gender"]);
     try {
-      console.log(id);
-      console.log("startup");
-
-      console.log(startup);
+     
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/update-startup-personal-info/${id}`,
@@ -221,14 +216,14 @@ const EditList = () => {
 
         }
       );
-      console.log(response.data);
+     
       toast.success('Startup Personal Information updated successfully');
       setTimeout(() => {
         router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
       }, 2000);
     } catch (error) {
-      console.error(error);
-      // toast.error('Please Try Again!');
+  
+      
     }
   };
 
@@ -248,11 +243,8 @@ const EditList = () => {
     if (!bussiness.website_url) setBusinessMissingFields(prevFields => [...prevFields, "website_url"]);
     // 
     try {
-      console.log(id);
-      console.log("bussiness");
-
-      console.log(bussiness);
-      console.log("this is bussiness id" + (bussiness.user_id))
+      
+     
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/business-information-update/${bussiness.user_id}`,
 
@@ -279,14 +271,14 @@ const EditList = () => {
           },
         }
       );
-      console.log(response.data);
+     
       toast.success('Business Information updated successfully');
       setTimeout(() => {
         router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
       }, 2000);
     } catch (error) {
-      console.error(error);
-      // toast.error('Please Try Again!');
+     
+      
     }
   }
   useEffect(() => {
@@ -296,8 +288,7 @@ const EditList = () => {
       const data = await getBankInformation(id);
       if (data) {
         setBankData(data.data);
-        console.log('thisis bank info')
-        console.log(data.data);
+       
       }
     };
     fetchData(id);
@@ -311,8 +302,7 @@ const EditList = () => {
       const data = await getProofInformation(id);
       if (data) {
         setProofData(data.data);
-        console.log('thisis proof info')
-        console.log(data.data);
+       
       }
     };
     fetchData(id);
@@ -348,15 +338,14 @@ const EditList = () => {
       const data = await getSinglestartup(id);
       if (data) {
         setStartupData(data.data);
-        console.log(data.data);
+     
       }
     };
     fetchData(id);
 
 
   }, [router.query.id]);
-  bussiness
-  // console.log(id);
+ 
   return (
     <div className="form-faq pt-5 pb-5">
       <div className="container">

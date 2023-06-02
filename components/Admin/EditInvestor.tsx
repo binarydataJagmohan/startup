@@ -75,14 +75,14 @@ const EditInvestor = () => {
 
     }
   );
-  console.log(response.data);
+ 
   toast.success('Investor Personal Information updated successfully');
   setTimeout(() => {
     router.push('/admin/all-investors'); // Replace '/admin/all-investors' with the desired route
   }, 2000);
 }
     catch(error){
-      console.error(error);
+      
     }
 
   }
@@ -116,7 +116,7 @@ const EditInvestor = () => {
       const data = await getSingleInvestor(id);
       if (data) {
         setInvestor(data.data);
-        console.log(data.data);
+      
       }
 
     };

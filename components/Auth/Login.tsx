@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../lib/frontendapi";
+
 import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 interface User {
   id: string;
@@ -15,7 +16,8 @@ interface User {
   approval_status: string;
 }
 
-export default function Login() {
+
+export default function Login()  {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -24,12 +26,20 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
+ 
   useEffect(() => {
-    removeToken();
-    removeStorageData();
+    checkCookieExpiration();
   }, []);
-
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkCookieExpiration();
+    }, 1000); // Check expiration every second
+  
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
   const setLocalStorageItems = (user: User) => {
     window.localStorage.setItem("id", user.id);
     window.localStorage.setItem("email", user.email);
@@ -38,19 +48,36 @@ export default function Login() {
     window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
     window.localStorage.setItem("approval_status", user.approval_status);
   };
+  
+  const checkCookieExpiration = () => {
+    const rememberMeCookie = Cookies.get("rememberMe");
+    const token = window.localStorage.getItem("token");
 
-  // const setRememberMeCookie = () => {
-  //   const expiryDate = new Date();
+  
+    if (!rememberMeCookie || !token) {
+      
+      return;
+    }
+  
     
-  //   expiryDate.setFullYear(expiryDate.getFullYear() + 10);// Set the expiration time to 10 years from now
-  //   Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
-  // };
+  const expirationDate = new Date(rememberMeCookie);
+  const isExpired = expirationDate.getTime() <= Date.now();
+    if (isExpired ) {
+      Cookies.remove("rememberMe");
+    }
+  };
+  
 
   const submitForm = () => {
     const logindata = {
       email,
       password,
       rememberMe,
+    };
+    const setRememberMeCookie = () => {
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1); // Set the expiration time to 1 month from now
+  Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
     };
 
     login(logindata)
@@ -59,10 +86,10 @@ export default function Login() {
           if (res.authorisation.token) {
             setLocalStorageItems(res.user);
             if (rememberMe) {
-              // setRememberMeCookie(); // Set the rememberMe cookie if checked
+              setRememberMeCookie();
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
-              // Cookies.remove("rememberMe"); // Remove the rememberMe cookie if not checked
+              Cookies.remove("rememberMe"); 
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
             console.log(res)

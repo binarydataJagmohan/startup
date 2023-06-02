@@ -30,7 +30,7 @@ const TotalActiveFunds = () => {
             current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
             getAllActiveFunds()
                 .then((res) => {
-                    console.log(res);
+              
                     if (res.status == true) {
                         // Set the businessUnits state
                         setFundsData(res.data);
