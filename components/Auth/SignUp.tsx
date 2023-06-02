@@ -43,7 +43,7 @@ const Signup = () => {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
   });
-  const setLocalStorageItems = (user: User) => {
+  const setLocalStorageItems = (user:any) => {
     window.localStorage.setItem("id", user.id);
     window.localStorage.setItem("email", user.email);
     window.localStorage.setItem("username", user.name);

@@ -49,7 +49,7 @@ const EditUser = () => {
 
     useEffect(() => {
 
-        const fetchData = async (id) => {
+        const fetchData = async (id:any) => {
             //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {

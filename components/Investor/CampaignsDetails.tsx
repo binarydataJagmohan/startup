@@ -24,8 +24,8 @@ interface InputData {
   pdc?: string;
   invoice?: string;
   website_url?: string;
-  terms?:string;
-  amount?:string;
+  terms?: string;
+  amount?: string;
 }
 
 export default function CampaignsDetails() {
@@ -43,7 +43,8 @@ export default function CampaignsDetails() {
   const router = useRouter();
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
-  
+  const [ButtonDisabled, setButtonDisabled] = useState(true);
+
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data?.id != null) {
@@ -64,7 +65,7 @@ export default function CampaignsDetails() {
     fetchData();
   }, [id]);
 
-  const handleChangeTerms= (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox' && name === 'terms') {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
@@ -93,12 +94,13 @@ export default function CampaignsDetails() {
       InvestorBooking(data)
         .then((res) => {
           if (res.status == true) {
-            console.log(data);
+            setButtonDisabled(true);
 
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
+
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -182,7 +184,7 @@ export default function CampaignsDetails() {
                       <div className="logo-company">
                         <div className="img">
                           {/* {inputs && inputs.logo && ( */}
-                            <img src={inputs.logo}   alt="" />
+                          <img src={inputs.logo} alt="" />
                           {/* )} */}
                         </div>
                       </div>
@@ -195,7 +197,7 @@ export default function CampaignsDetails() {
               <div className="col-md-5">
                 <div className="d-flex justify-content-between">
                   <div>
-                    <span>Amount</span>
+                    <span>Total Amount</span>
                     <h3 className="progressbar-title">₹{inputs.amount}</h3>
                   </div>
                   <div>
@@ -214,9 +216,8 @@ export default function CampaignsDetails() {
                   <div
                     className="progress-bar progress-bar-success"
                     role="progressbar"
-                    // aria-valuenow={45}
                     aria-valuemin={0}
-                    aria-valuemax={inputs.total_units}
+                    aria-valuemax={inputs.total_units !== undefined ? parseInt(inputs.total_units) : undefined}
                     style={{ width: `${inputs.no_of_units}%` }}
                   />
                 </div>
@@ -474,8 +475,8 @@ export default function CampaignsDetails() {
                       <div className="css-wsc10v">
                         <span>Repayment Date</span>
                         <p
-                          className="css-37nqt7" 
-                          onChange={(e: any) => setRepay_date(e.target.value)} 
+                          className="css-37nqt7"
+                          onChange={(e: any) => setRepay_date(e.target.value)}
                         >
                           {inputs.repay_date}
                         </p>
@@ -498,8 +499,8 @@ export default function CampaignsDetails() {
                         className="form-check-input"
                         type="checkbox"
                         id="inlineCheckbox1"
-                        defaultValue="option1" 
-                        name="terms"  onChange={(e: any) => setRepayment_value(e.target.checked)} value="1"
+                        defaultValue="option1"
+                        name="terms" onChange={(e: any) => setRepayment_value(e.target.checked)} value="1"
                       />
                       <label
                         className="form-check-label"
@@ -512,7 +513,7 @@ export default function CampaignsDetails() {
                       </label>
                     </div>
                     <div className="text-center viwe_all">
-                      <a href="#" onClick={handleSubmit}>
+                      <a href="#" onClick={handleSubmit}    className={ButtonDisabled ? "disabled d-none" : ""}>
                         Continue to Pay
                       </a>
                     </div>

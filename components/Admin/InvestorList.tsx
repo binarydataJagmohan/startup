@@ -4,6 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken,getCurrentUserData } from "../../lib/session";
+import dynamic from 'next/dynamic';
+
+const DynamicDataTable = dynamic(():any => import('datatables.net'), {
+  ssr: false,
+});
 type Investor = {
     id: number;
     name: string;
@@ -117,21 +122,18 @@ const InvestorList = () => {
     }
 
     useEffect(() => {
-        // Initialize the datatable for investors
         if (investors.length > 0 && !dataTableInitialized) {
-            $(document).ready(() => {
-                $('#datatable').DataTable({
-                    lengthMenu: [5, 25, 50, 75, 100],
-                  columnDefs: [
-                    //  columns  sortable
-                    { targets: [0, 1, 2], orderable: true }, 
-                    // Disable sorting 
-                    { targets: '_all', orderable: false }, 
-                  ],
-                });
-              });
+          $(document).ready(() => {
+            $('#datatable').DataTable({
+              lengthMenu: [5, 25, 50, 75, 100],
+              columnDefs: [
+                { targets: [0, 1, 2], orderable: true },
+                { targets: '_all', orderable: false },
+              ],
+            });
+          });
         }
-    }, [investors]);
+      }, [investors]);
 
     return (
         <>

@@ -7,6 +7,11 @@ import PhoneInput from "react-phone-input-2";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
 import "react-phone-input-2/lib/style.css";
+
+type Country = {
+  name: string;
+  country_code: string;
+}
 const EditInvestor = () => {
   const [investor, setInvestor] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
  
@@ -40,7 +45,7 @@ const EditInvestor = () => {
     });
   }
 
-  const updateInvestorInformation = async(e) =>{
+  const updateInvestorInformation = async(e:any) =>{
     e.preventDefault();
     if(!investor.email){
       setMissingFields(prevField =>[...prevField,"Email"])
@@ -97,7 +102,7 @@ const EditInvestor = () => {
     fetchData();
 
   }, []);
-  const handleInvestorChange = (e) => {
+  const handleInvestorChange = (e:any) => {
     setMissingFields([]);
     setInvalidFields([]);
     setInvestor((prevInvestor) => ({
@@ -107,7 +112,7 @@ const EditInvestor = () => {
   }
 
   useEffect(() => {
-    const fetchData = async (id) => {
+    const fetchData = async (id:any) => {
       const data = await getSingleInvestor(id);
       if (data) {
         setInvestor(data.data);

@@ -19,8 +19,8 @@ const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
-  const [users, setUsers] = useState(
-    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
+  const [users, setUsers] = useState<any>(
+    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '',profile_pic:'' });
   const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";

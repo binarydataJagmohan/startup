@@ -10,7 +10,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
 
-
+type Country = {
+  name: string;
+  country_code: string;
+}
 const EditList = () => {
   const [startup, setStartupData] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
   const [bussiness, setBussinessData] = useState({
@@ -27,6 +30,7 @@ const EditList = () => {
     description: "",
     cofounder: "0",
     kyc_purposes: "0",
+    user_id:"",
   });
 
   const [bank, setBankData] = useState({
@@ -45,11 +49,11 @@ const EditList = () => {
 
 
   });
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
   const [selectedImage, setSelectedImage] = useState('');
   const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
 
-  const [previewImageProof, setPreviewImageProof] = useState(null);
+  const [previewImageProof, setPreviewImageProof] = useState<string | ArrayBuffer | null>(null);
   const router = useRouter();
   const [missingFields, setMissingFields] = useState<string[]>([]);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
@@ -59,7 +63,7 @@ const EditList = () => {
   const { id } = router.query;
 
   useEffect(() => {
-    const fetchData = async (id) => {
+    const fetchData = async (id:any) => {
       const data = await getBusinessInformation(id);
       console.log("this id is first" + id);
       if (data) {
@@ -72,7 +76,7 @@ const EditList = () => {
       fetchData(router.query.id);
     }
   }, [router.query.id]);
-  const handlePoofFileChange = (e) => {
+  const handlePoofFileChange = (e:any) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -84,12 +88,12 @@ const EditList = () => {
 
   }
 
-  const handleProofChange = (e) => {
+  const handleProofChange = (e:any) => {
     // Ignore input changes
 
     e.preventDefault();
   };
-  const handleDownload = (event) => {
+  const handleDownload = (event:any) => {
     event.preventDefault();
 
     const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
@@ -124,14 +128,14 @@ const EditList = () => {
     fetchData();
 
   }, []);
-  const handleBusinessChange = (e) => {
+  const handleBusinessChange = (e:any) => {
     console.log("hited business");
     setBusinessMissingFields([]);
 
     if (e.target.type === "checkbox" && e.target.name === "cofounder") {
       // Handle cofounder checkbox change
       const cofounderValue = e.target.checked ? "1" : "0";
-      setBussinessData((prevBusiness) => ({
+      setBussinessData((prevBusiness:any) => ({
         ...prevBusiness,
         cofounder: cofounderValue,
         user_id: id,
@@ -139,7 +143,7 @@ const EditList = () => {
     } else if (e.target.type === "checkbox" && e.target.name === "kyc_purposes") {
       // Handle kyc_purposes checkbox change
       const kycValue = e.target.checked ? "1" : "0";
-      setBussinessData((prevBusiness) => ({
+      setBussinessData((prevBusiness:any) => ({
         ...prevBusiness,
         kyc_purposes: kycValue,
         user_id: id,
@@ -170,7 +174,7 @@ const EditList = () => {
   };
 
 
-  const handleStartupChange = (e) => {
+  const handleStartupChange = (e:any) => {
     console.log("hited startup");
     setMissingFields([]);
     setStartupData((prevStartup) => ({
@@ -180,7 +184,7 @@ const EditList = () => {
     }));
   }
 
-  const updatePersonalInfo = async (e) => {
+  const updatePersonalInfo = async (e:any) => {
     e.preventDefault();
     setInvalidFields([]);
 
@@ -228,7 +232,7 @@ const EditList = () => {
     }
   };
 
-  const updateBusinessInfo = async (e) => {
+  const updateBusinessInfo = async (e:any) => {
     e.preventDefault();
     if (!bussiness.business_name) setBusinessMissingFields(prevFields => [...prevFields, "business_name"]);
     if (!bussiness.cofounder) setBusinessMissingFields(prevFields => [...prevFields, "cofounder"]);
@@ -287,7 +291,7 @@ const EditList = () => {
   }
   useEffect(() => {
 
-    const fetchData = async (id) => {
+    const fetchData = async (id:any) => {
 
       const data = await getBankInformation(id);
       if (data) {
@@ -302,7 +306,7 @@ const EditList = () => {
   }, [router.query.id]);
   useEffect(() => {
 
-    const fetchData = async (id) => {
+    const fetchData = async (id:any) => {
 
       const data = await getProofInformation(id);
       if (data) {
@@ -339,7 +343,7 @@ const EditList = () => {
   }
   useEffect(() => {
 
-    const fetchData = async (id) => {
+    const fetchData = async (id:any) => {
 
       const data = await getSinglestartup(id);
       if (data) {
@@ -825,6 +829,24 @@ const EditList = () => {
                                 </label>
                                 <div className="profile-pic">
                                   {previewImage ? (
+                                    <Image
+                                      src={typeof previewImage === 'string' ? previewImage : ''}
+                                      alt="profile"
+                                      width={300}
+                                      height={300}
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={`${process.env.NEXT_PUBLIC_BASE_URL}assets/img/profile.webp`}
+                                      alt="profile"
+                                      className="profile-pic"
+                                      width={300}
+                                      height={300}
+                                    />
+                                  )}
+                                </div>
+                                {/* <div className="profile-pic">
+                                  {previewImage ? (
                                     <Image src={previewImage} alt="profile" width={300} height={300} />
                                   ) : (
                                     <Image
@@ -835,7 +857,7 @@ const EditList = () => {
                                       height={300}
                                     />
                                   )}
-                                </div>
+                                </div> */}
                                 <input
                                   className="input-file"
                                   id="logo"
@@ -1135,7 +1157,15 @@ const EditList = () => {
                         id="divHabilitSelectors"
                         className="input-file-container"
                       >
-                        <div className="profile-pic">
+                          <div className="profile-pic">
+                          {previewImageProof ? (
+                            <img src={typeof previewImageProof === 'string' ? previewImageProof : undefined} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+                          ) : (
+                            <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+                          )}
+                        </div>
+
+                        {/* <div className="profile-pic">
 
                           {previewImageProof ? (
                             <img src={previewImageProof} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
@@ -1143,7 +1173,7 @@ const EditList = () => {
                             <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
                           )}
 
-                        </div>
+                        </div> */}
                         <input
                           className="input-file"
                           id="proof_img"

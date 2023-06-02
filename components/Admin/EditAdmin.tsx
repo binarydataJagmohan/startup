@@ -40,7 +40,7 @@ const EditAdmin = () => {
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
-    const [previewImage, setPreviewImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [invalidFields, setInvalidFields] = useState<string[]>([]);
     const [missingFields, setMissingFields] = useState<string[]>([]);
@@ -116,9 +116,9 @@ const EditAdmin = () => {
                 },
                 {
                     headers: {
-                      'Content-Type': 'multipart/form-data' // Set the appropriate content type for file uploads
+                        'Content-Type': 'multipart/form-data' // Set the appropriate content type for file uploads
                     }
-                  }
+                }
             );
             // console.log(response.data);
             toast.success('Admin updated successfully');
@@ -153,7 +153,7 @@ const EditAdmin = () => {
         fetchData();
 
     }, []);
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (event: any) => {
         const { name, value } = event.target;
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
@@ -375,7 +375,7 @@ const EditAdmin = () => {
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
                                                     >
-                                                       <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
+                                                        <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
                                                         {users.gender !== 'male' && <option value="male">Male</option>}
                                                         {users.gender !== 'female' && <option value="female">Female</option>}
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
@@ -406,11 +406,29 @@ const EditAdmin = () => {
                                                         </label>
                                                         <div className="profile-pic">
                                                             {previewImage ? (
+                                                                <Image
+                                                                    src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                    alt="profile"
+                                                                    width={300}
+                                                                    height={200}
+                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
+                                                                    alt="Document Image"
+                                                                    style={{ width: '100%', height: 'auto', margin: '5% 0%', objectFit: 'cover' }}
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {/* <div className="profile-pic">
+                                                            {previewImage ? (
                                                                 <Image src={previewImage} alt="profile" width={300} height={200} style={{   margin:' 5% 0% ', objectFit: 'cover' }}/>
                                                             ) : (
                                                                 <img src ={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="Document Image"  style={{ width: '100%', height: 'auto',  margin:' 5% 0% ', objectFit: 'cover' }} />
                                                             )}
-                                                        </div>
+                                                        </div> */}
                                                         <input
                                                             className="input-file"
                                                             id="logo"

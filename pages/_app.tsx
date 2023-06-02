@@ -12,7 +12,8 @@ const FrontendLayout = dynamic(() => import('../components/Frontend/layouts/Layo
 const InvestorLayout = dynamic(() => import('../components/Investor/Layouts/Layouts'));
 const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layouts'));
 let current_user: {id?:string, role?: string,approval_status?:string } = {}; // define type of current_user "role"
-const [users, setUsers] = useState({});
+const [users, setUsers] = useState<any>({});
+
 
 useEffect(() => {
 

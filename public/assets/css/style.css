@@ -8996,3 +8996,7 @@ div#accordionExample h2 button {
   .error-content h3 {
     font-size: 20px;
   }
+
+  .progress-bar {
+    background-color: #4d48c9 !important;
+}

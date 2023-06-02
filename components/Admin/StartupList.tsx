@@ -21,6 +21,7 @@ interface UserData {
 }
 
 const StartupList = () => {
+    const tableRef = useRef<HTMLTableElement | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     // const [prevPage, setPrevPage] = useState(0);
     // const [nextPage, setNextPage] = useState(0);
@@ -31,7 +32,7 @@ const StartupList = () => {
     const [selectedStage, setSelectedStage] = useState([]);
     const [current_user_id, setCurrentUserId] = useState("");
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
-    const tableRef = useRef(null);
+    // const tableRef = useRef(null);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
@@ -64,7 +65,7 @@ const StartupList = () => {
             ],
           });
     
-          tableRef.current = table;
+         tableRef.current = table as any;
           setDataTableInitialized(true);
         }
       }, [startups, dataTableInitialized]);
