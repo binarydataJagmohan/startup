@@ -480,7 +480,7 @@ const EditList = () => {
                         </label>
                         <div className="form-part">
                           <select name="gender" onChange={handleStartupChange}>
-                            <option value={startup.gender}>{startup.gender}</option>
+                            <option value={startup.gender?startup.gender:''}>{startup.gender?startup.gender:'--SELECT GENDER--'}</option>
                             {startup.gender !== 'male' && <option value="male">male</option>}
                             {startup.gender !== 'female' && <option value="female">female</option>}
                             {startup.gender !== 'other' && <option value="other">other</option>}
@@ -624,14 +624,7 @@ const EditList = () => {
                               // {...register("sector", {validate: (value) => value != "", required: true,})} 
                               // name="sector"  onChange={handleChange}   value={businessDetails ? businessDetails.sector : ""}
                               >
-                                <option value={bussiness.sector}>{bussiness.sector}</option>
-                                {/* {bussiness.sector !== 'App Development' && <option value="App Development">App Development</option>}
-                                {bussiness.sector !== 'IT/Technologies' && <option value="IT/Technologies">IT/Technologies</option>}
-                                {bussiness.sector !== 'AI' && <option value="AI">AI</option>}
-                                {bussiness.sector !== 'Web Development' && <option value="Web Development">Web Development</option>}
-                                {bussiness.sector !== 'Agriculture' && <option value="Agriculture">Agriculture</option>} */}
-
-
+                                <option value={bussiness.sector?bussiness.sector:''}>{bussiness.sector?bussiness.sector:'--SELECT SECTOR--'}</option>
                                 {bussiness.sector !== 'E-commerce' && <option value="E-commerce">E-commerce</option>}
                                 {bussiness.sector !== 'Food & Restaurents Startups' && <option value="Food & Restaurents Startups">Food  & Restaurents Startups</option>}
                                 {bussiness.sector !== 'App Development' && <option value="App Development">App Development</option>}
@@ -759,7 +752,7 @@ const EditList = () => {
                                 aria-label="Default select example" name="type" onChange={handleBusinessChange}
 
                               >
-                                <option value={bussiness.type}>{bussiness.type}</option>
+                                <option value={bussiness.type ? bussiness.type:''}>{bussiness.type ? bussiness.type:'--SELECT FUND TYPE--'}</option>
                                 {bussiness.type !== 'Dicounting Invoice' && <option value="Dicounting Invoice">Dicounting Invoice</option>}
                                 {bussiness.type !== 'CSOP' && <option value="CSOP">CSOP</option>}
                                 {bussiness.type !== 'CCSP' && <option value="CCSP">CCSP</option>}
@@ -1163,27 +1156,7 @@ const EditList = () => {
                           )}
 
                         </div> */}
-                        <input
-                          className="input-file"
-                          id="proof_img"
-                          type="file"
-                          name="proof_img" readOnly
-                          onChange={handlePoofFileChange}
-                        />
-
-                        <label
-                          htmlFor="fileupload"
-                          className="input-file-trigger"
-                          id="labelFU"
-                          tabIndex={0}
-                        >
-                          Drop your pitch deck here to{" "}
-                          {/* <a href="#">Upload</a> <br /> */}
-                          {/* <p>
-                                    You can upload any identity card's image
-                                    jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                  </p> */}
-                        </label>
+                      
 
                         {imageUrl && (
                           <>

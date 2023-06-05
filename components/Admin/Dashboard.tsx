@@ -1,11 +1,48 @@
 import React,{ useEffect ,useState} from 'react';
 import { getCurrentUserData } from "../../lib/session";
+import { getTotalUsers,getInvestorCounts, getStartupCounts } from '@/lib/adminapi';
 
 interface UserData {
   id?: string;
 }
 const Dashboard = () => {
   const [current_user_id, setCurrentUserId] = useState("");
+  const [userCount, setUserCount] = useState(0);
+  const[investorCount,setInvestorCount] = useState(0);
+  const[startupCount,setStartupCount] = useState(0);
+
+
+   useEffect(()=>{
+    const fetchUser = async() =>{
+      const data = await getTotalUsers();
+      if(data){
+        setUserCount(data.data);
+      }
+    };
+    fetchUser();
+
+   },[]);
+
+
+    useEffect(()=>{
+      const fetchInvestor = async()=>{
+            const data = await getInvestorCounts();
+            if(data){
+                setInvestorCount(data.data);
+            }
+      };
+      fetchInvestor();
+
+    },[]);
+    useEffect(()=>{
+      const fetchStartupCount = async()=>{
+        const data = await getStartupCounts();
+        if(data){
+          setStartupCount(data.data);
+        }
+      };
+      fetchStartupCount();
+    },[]);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data?.id != null) {
@@ -50,13 +87,13 @@ const Dashboard = () => {
             {/* end page title */}
             <div className="row">
               <div className="col-xl-3 col-md-6">
-                <div className="card mini-stat bg-primary text-white">
+                <div className="card mini-stat  dashcard" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} >
                   <div className="card-body">
                     <div className="mb-4">
                     
-                      <h5 className="font-size-16 text-uppercase text-white-50">Total Fund Raised</h5>
-                      <h4 className="fw-medium font-size-24">1,685 <i className="mdi mdi-arrow-up text-success ms-2" /></h4>
-                      <div className="mini-stat-label bg-success">
+                      <h5 className="font-size-16 text-uppercase text-white">Total Fund Raised</h5>
+                      <h4 className="fw-medium font-size-24">1,685 <i className="mdi mdi-arrow-up text-success ms-2 text-white" /></h4>
+                      <div className="mini-stat-label" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                         <p className="mb-0 text-white">+ 12%</p>
                           {/* <div className="float-start mini-stat-img me-4">
                         <img src="/assets/images/services-icon/01.png" />
@@ -65,66 +102,85 @@ const Dashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5 text-white-50" /></a>
+                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
                       </div>
-                      <p className="text-white-50 mb-0 mt-1">Since last month</p>
+                      <p className=" mb-0 mt-1 text-white">Since last month</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-md-6">
-                <div className="card mini-stat bg-primary text-white">
+                <div className="card mini-stat  dashcard" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                   <div className="card-body">
                     <div className="mb-4">
-                      <h5 className="font-size-16 text-uppercase text-white-50">Total Revenue</h5>
-                      <h4 className="fw-medium font-size-24">52,368 <i className="mdi mdi-arrow-down text-danger ms-2" /></h4>
-                      <div className="mini-stat-label bg-danger">
+                      <h5 className="font-size-16 text-uppercase text-white">Total Revenue</h5>
+                      <h4 className="fw-medium font-size-24">52,368 <i className="mdi mdi-arrow-down text-danger ms-2 text-white" /></h4>
+                      <div className="mini-stat-label" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                         <p className="mb-0 text-white">- 28%</p>
                       </div>
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5 text-white-50" /></a>
+                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 text-white"style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
                       </div>
-                      <p className="text-white-50 mb-0 mt-1">Since last month</p>
+                      <p className="mb-0 mt-1 text-white">Since last month</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-md-6">
-                <div className="card mini-stat bg-primary text-white">
+                <div className="card mini-stat dashcard " style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                   <div className="card-body">
                     <div className="mb-4">
-                      <h5 className="font-size-16 text-uppercase text-white-50">Total Users</h5>
-                      <h4 className="fw-medium font-size-24">15.8 <i className="mdi mdi-arrow-up text-success ms-2" /></h4>
-                      <div className="mini-stat-label bg-info">
+                      <h5 className="font-size-16 text-uppercase ">Total Users</h5>
+                      <h4 className="fw-medium font-size-24">{userCount}<i className="mdi mdi-arrow-up text-success ms-2 text-white" /></h4>
+                      <div className="mini-stat-label" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                         <p className="mb-0 text-white"> 00%</p>
                       </div>
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5 text-white-50" /></a>
+                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
                       </div>
-                      <p className="text-white-50 mb-0 mt-1">Since last month</p>
+                      <p className=" mb-0 mt-1 text-white">Since last month</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-md-6">
-                <div className="card mini-stat bg-primary text-white">
+                <div className="card mini-stat dashcard "  style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                   <div className="card-body">
                     <div className="mb-4">
-                      <h5 className="font-size-16 text-uppercase text-white-50">Investers</h5>
-                      <h4 className="fw-medium font-size-24">2436 <i className="mdi mdi-arrow-up text-success ms-2" /></h4>
-                      <div className="mini-stat-label bg-warning">
+                      <h5 className="font-size-16 text-uppercase ">Total Startups</h5>
+                      <h4 className="fw-medium font-size-24">{startupCount}<i className="mdi mdi-arrow-up text-success ms-2 text-white" /></h4>
+                      <div className="mini-stat-label" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
+                        <p className="mb-0 text-white "> 00%</p>
+                      </div>
+                    </div>
+                    <div className="pt-2">
+                      <div className="float-end">
+                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
+                      </div>
+                      <p className=" mb-0 mt-1 text-white">Since last month</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card mini-stat dashcard"  style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
+                  <div className="card-body">
+                    <div className="mb-4">
+                      <h5 className="font-size-16 text-uppercase">Total Investers</h5>
+                      <h4 className="fw-medium font-size-24">{investorCount} <i className="mdi mdi-arrow-up text-success ms-2 text-white" /></h4>
+                      <div className="mini-stat-label"style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}>
                         <p className="mb-0 text-white">+ 84%</p>
                       </div>
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5 text-white-50" /></a>
+                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
                       </div>
-                      <p className="text-white-50 mb-0 mt-1">Since last month</p>
+                      <p className="mb-0 mt-1 text-white">Since last month</p>
                     </div>
                   </div>
                 </div>

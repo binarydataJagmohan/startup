@@ -263,7 +263,7 @@ const EditInvestor = () => {
                         </label>
                         <div className="form-part">
                           <select name="gender" onChange={handleInvestorChange} >
-                            <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender : "Select Gender "}</option>
+                            <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender : "--SELECT GENDER--"}</option>
                             {investor.gender !== 'male' && <option value="male">male</option>}
                             {investor.gender !== 'female' && <option value="female">Female</option>}
                             {investor.gender !== 'other' && <option value="other">Other</option>}

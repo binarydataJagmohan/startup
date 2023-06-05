@@ -134,7 +134,7 @@ const FundRaiseForm = () => {
         getSingleFundRaiseData(id)
             .then((res) => {
                 if (res.status == true) {
-                  console.log(res.data);
+                  // console.log(res.data);
                     setFundRaiseData(res.data);
                     // console.log(setUser);
                 } else {
@@ -200,7 +200,7 @@ const FundRaiseForm = () => {
         });
       }
     } catch (err) {
-      toast.error("Business Details have not been saved successfully", {
+      toast.error("Sorry you cannot raise fund again..", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
