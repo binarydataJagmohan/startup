@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
+import { useRouter } from 'next/router';
+import { getSingleFrontEndData} from '@/lib/frontendapi';
 import Link from 'next/link'
 interface UserData {
   id?: string;
@@ -10,6 +12,10 @@ const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const[userName,setUserName] = useState("");
+  const router = useRouter();
+ 
+
 
   function redirectToLogin() {
     window.location.href= "/login";
@@ -30,6 +36,24 @@ const Header = () => {
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
   }, []);
+
+
+  useEffect(() => {
+   
+    if (current_user_id) { // Check if current_user_id is set
+      getSingleFrontEndData(current_user_id)
+        .then((res) => {
+          if (res.status == true) {
+            setUserName(res.data.name);
+         
+          }
+        })
+        .catch((err) => {
+          // Handle error
+        });
+    }
+  }, [current_user_id]);
+
   // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -86,7 +110,7 @@ const Header = () => {
           <div className="others-options">
             <div className="dropdown">
               <button onClick={toggleDropdown} className="dropbtn">
-                {current_user_name} <i className="fa-solid fa-caret-down" />
+                {userName} <i className="fa-solid fa-caret-down" />
               </button>
               <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                 {/* <a href="">{current_user_name}</a> */}

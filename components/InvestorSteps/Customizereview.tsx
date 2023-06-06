@@ -161,10 +161,10 @@ export default function Customizereview():any {
       });
       }
     } catch (err) {
-      toast.error((err as ErrorMessage).message, {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // toast.error((err as ErrorMessage).message, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
     }
   };
 

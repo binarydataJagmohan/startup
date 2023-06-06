@@ -347,7 +347,7 @@ const FundRaiseForm = () => {
                             })} name="tenure" value={fundRaiseData.tenure ? fundRaiseData.tenure:""}
                             aria-label="Default select example"
                           >
-                            <option value="">--SELECT TENURE--</option>
+                            <option value="" disabled>--SELECT TENURE--</option>
                             <option value="15">15 Days</option>
                             <option value="30">30 Days</option>
                             <option value="45">45 Days</option>
