@@ -13,6 +13,7 @@ const Header = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const[userName,setUserName] = useState("");
+  const[investorStatus,setInvestorStatus] = useState('pending');
   const router = useRouter();
  
 
@@ -38,21 +39,51 @@ const Header = () => {
   }, []);
 
 
+ 
+
+
+
   useEffect(() => {
-   
-    if (current_user_id) { // Check if current_user_id is set
+    let isMounted = true;
+ 
+    if (current_user_id) {
       getSingleFrontEndData(current_user_id)
         .then((res) => {
-          if (res.status == true) {
+          if (res.status === true) {
+            setInvestorStatus(res.data.approval_status);
             setUserName(res.data.name);
-         
           }
         })
         .catch((err) => {
           // Handle error
         });
     }
-  }, [current_user_id]);
+    return () => {
+      isMounted = false; // Cleanup function to handle unmounting
+    };
+  }, [current_user_id, investorStatus]);
+
+  
+
+  // useEffect(() => {
+   
+  //   if (current_user_id) { // Check if current_user_id is set
+  //     getSingleFrontEndData(current_user_id)
+  //       .then((res) => {
+  //         if (res.status == true) {
+           
+         
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         // Handle error
+  //       });
+  //   }
+  // }, [current_user_id]);
+
+
+
+  
 
   // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -91,7 +122,7 @@ const Header = () => {
           id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="nav-link active">
+              <a  href={investorStatus === 'pending' || investorStatus === 'reject' ? `${process.env.NEXT_PUBLIC_BASE_URL}/investor/thank-you` : `${process.env.NEXT_PUBLIC_BASE_URL}/investor/campaign`} className="nav-link active">
                 Explore
               </a>
             </li>
@@ -100,11 +131,7 @@ const Header = () => {
                 Subscribe
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <a href="#" className="nav-link">
-                Portfolio
-              </a>
-            </li> */}
+           
             <li></li>
           </ul>
           <div className="others-options">

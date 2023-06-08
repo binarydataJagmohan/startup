@@ -52,6 +52,7 @@ export default function AdharInformation():any {
         ...prevState,
         [name]: value,
         id: current_user_id,
+         user_id:current_user_id
         // business_id :current_business_id
       };
     });

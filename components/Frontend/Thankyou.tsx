@@ -8,49 +8,72 @@ interface UserData {
   }
 const Thankyou = () => {
     const [current_user_id, setCurrentUserId] = useState(false);
+    const[investorStatus,setInvestorStatus] = useState('');
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
-        
-        const checkUserStatus = async () => {
-          try {
-            const res = await CheckUserApprovalStatus(current_user_data.id);
-            
-            if (res.status === true) {
-              console.log(res.data.approval_status);
-              
-              if (res.data.role === "investor") {
-                if (res.data.approval_status === "approved") {
+      const current_user_data: UserData = getCurrentUserData();
+      setInvestorStatus(current_user_data.approval_status);
+      // console.log("this is up"+current_user_data.approval_status)
+      const checkUserStatus = async () => {
+        try {
+          const res = await CheckUserApprovalStatus(current_user_data.id);          
+          if (res.status === true) {
+            // console.log(res.data.approval_status);           
+            if (res.data.role === "investor") {
+              if (res.data.approval_status === "approved" &&(res.data.approval_status !=="pending" && res.data.approval_status !=="reject")) {
+                if (window.location.pathname !== "/investor/campaign") {
                   window.location.href = "/investor/campaign";
-                } else if (res.data.approval_status === "pending") {
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 10000); 
-                } else {
-                    setTimeout(() => {
-                        window.location.href = "/investor/thank-you";
-                      }, 10000);
                 }
-              } else if (res.data.role === "startup") {
-                if (res.data.approval_status === "approved") {
-                  window.location.href = "/company/dashboard";
-                } else if (res.data.approval_status === "pending") {
+              } else if (res.data.approval_status === "pending") {
+                if (window.location.pathname !== "/investor/thank-you") {
                   setTimeout(() => {
-                    window.location.reload();
-                  }, 10000); 
-                } else {
-                  setTimeout(() => {
-                    window.location.href = "/company/thank-you";
+                    window.location.href = "/investor/thank-you";
                   }, 10000);
                 }
+              } else {
+                
+                  setTimeout(() => {
+                    window.location.href = "/investor/thank-you";
+                  }, 10000);
+               
+              }
+            } else if (res.data.role === "startup") {
+              if (res.data.approval_status === "approved") {
+                if (window.location.pathname !== "/company/dashboard") {
+                  window.location.href = "/company/dashboard";
+                }
+              } else if (res.data.approval_status === "pending") {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 10000);
+              } else {
+                setTimeout(() => {
+                  window.location.href = "/company/thank-you";
+                }, 10000);
               }
             }
-          } catch (err) {
-            console.error(err);
           }
-        };
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      
+      checkUserStatus();
+    }, []);
+    useEffect(() => {
+      if (investorStatus === 'approved' && window.location.pathname !=="/investor/campaign") {
         
-        checkUserStatus();
-      }, []);
+        
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/investor/campaign`;
+      } else if (investorStatus === 'pending' || investorStatus === 'reject') {
+        
+        if(window.location.pathname !=="/investor/thank-you"){
+          window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/investor/thank-you`;
+        }
+
+      }
+    }, [investorStatus]);
+  
+  
       
     return (
         <>

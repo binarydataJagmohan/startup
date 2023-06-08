@@ -63,10 +63,10 @@ const Signup = () => {
 
     userRegister(user)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status == true) {
-          console.log(res.data[0]);
-          console.log(res.data.user);
+          // console.log(res.data[0]);
+          // console.log(res.data.user);
 
           if (res.data[0]) {
             setLocalStorageItems(res.data.user);

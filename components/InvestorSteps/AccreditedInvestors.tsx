@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,8 +14,8 @@ const textStyle = {
     textTransform: 'capitalize',
 };
 
-interface UserData{
-    id?:string;
+interface UserData {
+    id?: string;
 }
 
 export default function AccreditedInvestors() {
@@ -34,7 +34,7 @@ export default function AccreditedInvestors() {
     });
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
-    const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = event.target;
         if (type === 'checkbox' && name === 'annual_income') {
             // Set the value of annual_income to '1' if the checkbox is checked, '0' otherwise
@@ -46,7 +46,7 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'financial_net_worth') {
+        } else if (type === 'checkbox' && name === 'financial_net_worth') {
             // Set the value of  financial_net_worth to '1' if the checkbox is checked, '0' otherwise
             const financial_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -56,7 +56,7 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'financial_annual_net_worth') {
+        } else if (type === 'checkbox' && name === 'financial_annual_net_worth') {
             // Set the value of financial_annual_net_worth to '1' if the checkbox is checked, '0' otherwise
             const financial_annual_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -66,7 +66,7 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'foreign_annual_income') {
+        } else if (type === 'checkbox' && name === 'foreign_annual_income') {
             // Set the value of foreign_annual_income to '1' if the checkbox is checked, '0' otherwise
             const foreign_annual_incomeValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -76,10 +76,10 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'foreign_net_worth') {
+        } else if (type === 'checkbox' && name === 'foreign_net_worth') {
             // Set the value of  foreign_net_worth to '1' if the checkbox is checked, '0' otherwise
             const foreign_net_worthValue = checked ? '1' : '0';
-            console.log( foreign_net_worthValue);
+            // console.log( foreign_net_worthValue);
             setTerms((prevState) => {
                 return {
                     ...prevState,
@@ -87,7 +87,7 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'foreign_annual_net_worth') {
+        } else if (type === 'checkbox' && name === 'foreign_annual_net_worth') {
             // Set the value of foreign_annual_net_worth to '1' if the checkbox is checked, '0' otherwise
             const foreign_annual_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -97,7 +97,7 @@ export default function AccreditedInvestors() {
                     user_id: current_user_id,
                 };
             });
-        }else if(type === 'checkbox' && name === 'corporate_net_worth') {
+        } else if (type === 'checkbox' && name === 'corporate_net_worth') {
             // Set the value of corporate_net_worth to '1' if the checkbox is checked, '0' otherwise
             const corporate_net_worthValue = checked ? '1' : '0';
             setTerms((prevState) => {
@@ -108,7 +108,7 @@ export default function AccreditedInvestors() {
                 };
             });
         }
-        else{
+        else {
             setTerms((prevState) => {
                 return {
                     ...prevState,
@@ -117,7 +117,7 @@ export default function AccreditedInvestors() {
                 };
             });
         }
-       
+
     };
 
     useEffect(() => {
@@ -156,6 +156,68 @@ export default function AccreditedInvestors() {
 
 
     const SubmitForm = async () => {
+        const updatedTerms = {
+            ...terms,
+            annual_income: terms.annual_income === '1' ? '1' : '0',
+            financial_net_worth: terms.financial_net_worth === '1' ? '1' : '0',
+            corporate_net_worth: terms.corporate_net_worth === '1' ? '1' : '0',
+            financial_annual_net_worth: terms.financial_annual_net_worth === '1' ? '1' : '0',
+            foreign_annual_income: terms.foreign_annual_income === '1' ? '1' : '0',
+            foreign_annual_net_worth: terms.foreign_annual_net_worth === '1' ? '1' : '0',
+            foreign_net_worth: terms.foreign_net_worth === '1' ? '1' : '0'
+        }
+        const category = updatedTerms.category;
+
+        const checkAnnualIncome = category === '1';
+
+        if (checkAnnualIncome && updatedTerms.annual_income !== '1') {
+            toast.error('First One Option Is Required', {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+
+            });
+            return;
+        }
+
+        if (checkAnnualIncome && !(updatedTerms.financial_net_worth === '1' || updatedTerms.financial_annual_net_worth === '1')) {
+            toast.error('One More Option is Required.', {
+
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+
+            });
+            return;
+        }
+
+        const checkFinancialNetWorth = category ==='2';
+        if(checkFinancialNetWorth && updatedTerms.foreign_annual_income!=='1'){
+            toast.error('First One Option Is Required',{
+                position: toast.POSITION.TOP_RIGHT,
+                toastId:"error",
+            });
+            return;
+        }
+
+        if(checkFinancialNetWorth && !( updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1' )){
+            toast.error('One More Option is Required.',{
+                position: toast.POSITION.TOP_RIGHT,
+                toastId:"error",
+
+            });
+           return;
+        }
+
+
+        const selectedCategoryRequiresCheckbox =  category === '3';
+        if (selectedCategoryRequiresCheckbox && !(updatedTerms.corporate_net_worth === '1')) {
+            toast.error('Option Is Required', {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+            });
+            return;
+        }
+
+
         try {
             const res = await angelAccreditedTermsSave(terms);
 
@@ -268,7 +330,7 @@ export default function AccreditedInvestors() {
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
-                                                    <select className="options" {...register("category", { validate: (value) => value != "", required: true,  onChange:handleChange})}
+                                                    <select className="options" {...register("category", { validate: (value) => value != "", required: true, onChange: handleChange })}
                                                         name="category" value={terms ? terms.category : ""}>
                                                         <option value="">--SELECT CATEGORY--</option>
                                                         <option value="1">Indian Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
@@ -294,7 +356,7 @@ export default function AccreditedInvestors() {
                                                             <div className="row">
                                                                 <div className="col-auto">
                                                                     <input type="checkbox" id="checkbox2" value="1" {...register("financial_net_worth", { value: true, required: true })}
-                                                                        name="financial_net_worth" onChange={handleChange} checked={terms.financial_net_worth === '1'}  />
+                                                                        name="financial_net_worth" onChange={handleChange} checked={terms.financial_net_worth === '1'} />
                                                                 </div>
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox2">Have a net worth of at least ₹7.5 crore with more than ₹3.75 crore of financial assets.</label>

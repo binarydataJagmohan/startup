@@ -23,15 +23,18 @@ const Dashboard = () => {
               const res = await CheckUserApprovalStatus(current_user_data.id);
               
               if (res.status === true) {
-                console.log(res.data.approval_status);
+                // console.log(res.data.approval_status);
                 
                 if (res.data.role === "startup") {
                   if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
                     window.location.href = "/company/thank-you";
                   } else if (res.data.approval_status === "approved") {
-                    setTimeout(() => {
-                      window.location.reload();
-                    }, 10000); 
+                    if (window.location.pathname !== '/company/dashboard') {
+                        window.location.href = "/company/dashboard";
+                      }
+                    // setTimeout(() => {
+                    //   window.location.reload();
+                    // }, 10000); 
                   } else {
                     window.location.href = "/company/thank-you";
                   }

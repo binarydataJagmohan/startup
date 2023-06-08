@@ -38,7 +38,7 @@ const AllFundsList = () => {
             setBusinessInfo(res.data.id);
             getAllFunds(res.data.id)
               .then((res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.status == true) {
                   // Set the businessUnits state
                   setFundsData(res.data);

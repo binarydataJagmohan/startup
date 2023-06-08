@@ -19,6 +19,9 @@ const Dashboard = () => {
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+  
+
+
 
   const itemsPerPage = 3;
 
@@ -40,35 +43,36 @@ const Dashboard = () => {
       window.location.href = "/login";
     }
 
-
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user_data.id);
 
         if (res.status === true) {
-          // console.log(res.data.approval_status);
-
+            
           if (res.data.role === "investor") {
             if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
               window.location.href = "/investor/thank-you";
             } else if (res.data.approval_status === "approved") {
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 2000); 
+              if (window.location.pathname !== '/investor/campaign') {
+                window.location.href = "/investor/campaign";
+              }
             } else {
-              window.location.href = "/investor/thank-you";
+              if (window.location.pathname !== '/investor/thank-you') {
+                window.location.href = "/investor/thank-you";
+              }
             }
           }
         }
       } catch (err) {
-        console.error(err);
+        // console.error(err);
       }
     };
-
+   
     const fetchData = async () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
+      
         // Set the initial page to 0
         setCurrentPage(0);
         setCurrentPageCOP(0);
@@ -81,6 +85,8 @@ const Dashboard = () => {
     checkUserStatus();
     fetchData();
   }, []);
+
+ 
 
   const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
@@ -339,7 +345,7 @@ const Dashboard = () => {
               containerClassName={'pagination'}
               forcePage={currentPageopen}
               disableInitialCallback={true}
-              
+
               activeClassName={'active'}
               pageClassName="page-item"
               pageLinkClassName="page-link"
@@ -462,7 +468,7 @@ const Dashboard = () => {
               onPageChange={handlePageChangeDiscount}
               forcePage={currentPagediscount}
               disableInitialCallback={true}
-              
+
               containerClassName={'pagination'}
               activeClassName={'active'}
               pageClassName="page-item"
@@ -584,7 +590,7 @@ const Dashboard = () => {
               onPageChange={handlePageChange}
               forcePage={currentPage}
               disableInitialCallback={true}
-             
+
               containerClassName={'pagination'}
               activeClassName={'active'}
               pageClassName="page-item"

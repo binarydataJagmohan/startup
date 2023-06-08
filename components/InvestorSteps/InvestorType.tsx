@@ -79,14 +79,14 @@ export default function InvestorType():any {
 
     const SubmitForm = async () => {
         try {
-            console.log(investorDetails)
+            // console.log(investorDetails)
             const res = await investorTypeInfoSave(investorDetails);
             if (res.status == true) {
                 // toast.success(res.message, {
                 //     position: toast.POSITION.TOP_RIGHT,
                 //     toastId: "success",
                 //   });
-                  console.log(res.data.data.investorType);
+                //   console.log(res.data.data.investorType);
                   if(res.data.data.investorType=="Angel Investor")
                   {
                     setTimeout(() => {

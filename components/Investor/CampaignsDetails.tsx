@@ -44,9 +44,12 @@ export default function CampaignsDetails() {
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
   const [ButtonDisabled, setButtonDisabled] = useState(true);
+ 
+  
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+   
     if (current_user_data?.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -64,6 +67,7 @@ export default function CampaignsDetails() {
     };
     fetchData();
   }, [id]);
+  
 
   const handleChangeTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
@@ -155,7 +159,7 @@ export default function CampaignsDetails() {
       const data3 = data2 / 366;
       const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
       const newRepayValue = newSubscriptionValue + data4;
-      console.log(newRepayValue)
+      // console.log(newRepayValue)
       setRepayValue(newRepayValue);
     }
   };
