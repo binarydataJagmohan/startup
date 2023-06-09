@@ -11,7 +11,8 @@ const Thankyou = () => {
     const[investorStatus,setInvestorStatus] = useState('');
     useEffect(() => {
       const current_user_data: UserData = getCurrentUserData();
-      setInvestorStatus(current_user_data.approval_status);
+      setInvestorStatus(current_user_data.approval_status || '');
+
       // console.log("this is up"+current_user_data.approval_status)
       const checkUserStatus = async () => {
         try {
