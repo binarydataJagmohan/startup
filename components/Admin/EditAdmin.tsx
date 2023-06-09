@@ -405,7 +405,7 @@ const EditAdmin = () => {
                                                         </label>
                                                         <div className="profile-pic">
                                                             {previewImage ? (
-                                                                <Image
+                                                                <img
                                                                     src={typeof previewImage === 'string' ? previewImage : ''}
                                                                     width={300}
                                                                     height={200}
