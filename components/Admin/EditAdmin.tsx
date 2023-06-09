@@ -407,7 +407,6 @@ const EditAdmin = () => {
                                                             {previewImage ? (
                                                                 <Image
                                                                     src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                    alt="profile"
                                                                     width={300}
                                                                     height={200}
                                                                     style={{ margin: '5% 0%', objectFit: 'cover' }}

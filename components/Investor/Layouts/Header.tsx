@@ -105,7 +105,7 @@ const Header = () => {
       <div className="fria-responsive-menu">
         <div className="logo">
           <a href={process.env.NEXT_PUBLIC_BASE_URL}>
-            <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
+            <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="" />
           </a>
         </div>
       </div>
@@ -115,7 +115,7 @@ const Header = () => {
     <div className="container">
       <nav className="navbar navbar-expand-md navbar-light">
         <a className="navbar-brand" href={process.env.NEXT_PUBLIC_BASE_URL}>
-          <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
+          <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="" />
         </a>
         <div
           className="collapse navbar-collapse mean-menu"

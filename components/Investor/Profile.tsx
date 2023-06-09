@@ -354,7 +354,6 @@ const Profile = () => {
                                                         {user && user.profile_pic ? (
                                                             <img
                                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + user.profile_pic}
-                                                                alt="profile"
                                                                 className="profile-pic"
                                                                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                                                     const target = e.target as HTMLImageElement;

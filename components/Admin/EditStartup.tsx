@@ -360,7 +360,7 @@ const EditList = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Edit form For Startups:
+               Startups Personnal Information:
               </button>
             </h2>
             <div
@@ -379,7 +379,7 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="Email" onChange={handleStartupChange} value={startup.email} name="email" />
+                          <input type="text" placeholder="Email" value={startup.email} name="email" readOnly/>
                           <div className="help-block with-errors" />
                           {missingFields.includes("Email") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -479,11 +479,11 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <select name="gender" onChange={handleStartupChange}>
-                            <option value={startup.gender?startup.gender:''}>{startup.gender?startup.gender:'--SELECT GENDER--'}</option>
-                            {startup.gender !== 'male' && <option value="male">male</option>}
-                            {startup.gender !== 'female' && <option value="female">female</option>}
-                            {startup.gender !== 'other' && <option value="other">other</option>}
+                          <select name="gender" onChange={handleStartupChange} className='css-1492t68 form-select'>
+                            <option value={startup.gender?startup.gender:''}>{startup.gender?startup.gender.charAt(0).toUpperCase() + startup.gender.slice(1):'--SELECT GENDER--'}</option>
+                            {startup.gender !== 'male' && <option value="male">Male</option>}
+                            {startup.gender !== 'female' && <option value="female">Female</option>}
+                            {startup.gender !== 'other' && <option value="other">Other</option>}
                           </select>
                           <div className="help-block with-errors" />
                           {missingFields.includes("gender") && (
@@ -548,7 +548,7 @@ const EditList = () => {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="business_name" name="business_name" value={bussiness.business_name} onChange={handleBusinessChange}
+                                id="business_name" name="￼business_name" value={bussiness.business_name} onChange={handleBusinessChange}
 
                               />
 

@@ -253,14 +253,15 @@ const UserList = () => {
                                                                     ))}
                                                             </select>
                                                         </td> */}
-                                                        <td>
+                                                    <td>{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
+                                                        {/* <td>
                                                             <select className="form-select w-sm form-select-lg mb-3 css-1492t68 mt-0" value={user.role} onChange={(e) => updateusersRole(String(user.id), e.target.value)}>
                                                                <option value="">--SELECT ROLE--</option>
                                                                 <option value="admin">Admin</option>
                                                                 <option value="startup">Startup</option>
                                                                 <option value="investor">Investor</option>
                                                             </select>
-                                                        </td>
+                                                        </td> */}
                                                         <td><span style={{ cursor: "pointer" }} className={user.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(user.id, user.status === 'active' ? 'deactive' : 'active')}> {user.status.toUpperCase()}</span></td>
                                                         <td>
 

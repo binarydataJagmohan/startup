@@ -557,7 +557,7 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} alt="profile" className="profile-pic" />
+                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic}  className="profile-pic" />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">

@@ -35,7 +35,7 @@ const EditUser = () => {
     const router = useRouter();
 
     const { id } = router.query;
-   
+
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
@@ -49,11 +49,11 @@ const EditUser = () => {
 
     useEffect(() => {
 
-        const fetchData = async (id:any) => {
+        const fetchData = async (id: any) => {
             //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
-              
+
                 setUsers(data.data);
 
 
@@ -69,7 +69,7 @@ const EditUser = () => {
     }, [router.query.id]);
 
 
-    const updateUser = async (e:any) => {
+    const updateUser = async (e: any) => {
         e.preventDefault();
         setMissingFields([]);
         setInvalidFields([]);
@@ -103,7 +103,7 @@ const EditUser = () => {
         }
 
         try {
-        
+
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
@@ -119,13 +119,13 @@ const EditUser = () => {
                     ['linkedin_url']: users.linkedin_url
                 }
             );
-          
+
             toast.success('User updated successfully');
             setTimeout(() => {
                 router.push('/admin/all-users'); // Replace '/admin/all-investors' with the desired route
-              }, 2000);
+            }, 2000);
         } catch (error) {
-         
+
         }
     };
 
@@ -251,8 +251,8 @@ const EditUser = () => {
                                                         className="form-control"
                                                         value={users.email}
                                                         name="email"
-                                                        onChange={handleChange}
-
+                                                        // onChange={handleChange}
+                                                        readOnly
                                                     />
                                                     <div className="help-block with-errors" />
                                                     {missingFields.includes("Email") && (
@@ -359,7 +359,7 @@ const EditUser = () => {
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
                                                     >
-                                                        <option value="" >--SELECT GENDER--</option>
+                                                        <option value="">--SELECT GENDER-</option>
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
                                                         <option value="other">Other</option>
@@ -379,7 +379,7 @@ const EditUser = () => {
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <select className="form-select w-lg form-select-lg css-1492t68" onChange={handleChange}  name="role" value={users.role} >
+                                                    <select className="form-select w-lg form-select-lg css-1492t68" onChange={handleChange} name="role" value={users.role} >
                                                         {/* <option value={users.role}>{users.role}</option>
                                                         {users.role !== 'admin' && <option value="admin">Admin</option>}
                                                         {users.role !== 'startup' && <option value="startup">startup</option>}
@@ -387,8 +387,8 @@ const EditUser = () => {
 
                                                         <option value="">--SELECT ROLE--</option>
                                                         <option value="admin">Admin</option>
-                                                        <option value="startup">startup</option>
-                                                        <option value="investor">investor</option>
+                                                        <option value="startup">Startup</option>
+                                                        <option value="investor">Investor</option>
 
                                                     </select>
                                                     {missingFields.includes("Role") && (
@@ -411,9 +411,9 @@ const EditUser = () => {
                                                         {/* <option value={users.status}>{users.status}</option>
                                                         {users.status !== 'active' && <option value="active">active</option>}
                                                         {users.status !== 'deactive' && <option value="deactive">deactive</option>} */}
-                                                         <option value="">--SELECT STATUS--</option>
-                                                         <option value="active">active</option>
-                                                         <option value="deactive">deactive</option>
+                                                        <option value="">--SELECT STATUS--</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="deactive">Deactive</option>
                                                     </select>
                                                     {missingFields.includes("Status") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>

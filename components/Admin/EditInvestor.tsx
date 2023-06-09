@@ -160,7 +160,9 @@ const EditInvestor = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="Email" name="email" onChange={handleInvestorChange} value={investor.email} />
+                          <input type="text" placeholder="Email" name="email"
+                          //  onChange={handleInvestorChange} 
+                           value={investor.email} readOnly />
                           <div className="help-block with-errors" />
                           {missingFields.includes("Email") && (
                                 <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -263,8 +265,8 @@ const EditInvestor = () => {
                         </label>
                         <div className="form-part">
                           <select name="gender" onChange={handleInvestorChange} >
-                            <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender : "--SELECT GENDER--"}</option>
-                            {investor.gender !== 'male' && <option value="male">male</option>}
+                            <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender.charAt(0).toUpperCase() + investor.gender.slice(1) : "--SELECT GENDER--"}</option>
+                            {investor.gender !== 'male' && <option value="male">Male</option>}
                             {investor.gender !== 'female' && <option value="female">Female</option>}
                             {investor.gender !== 'other' && <option value="other">Other</option>}
                           </select>
