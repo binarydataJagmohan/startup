@@ -160,10 +160,10 @@ export default function Customizereview(): any {
     const selectCategoryFirst = category === '1';
     if (selectCategoryFirst && updatedTerms.principal_residence !== '1') {
       setMissingFields(prevFields => [...prevFields, "principal_residence"]);
-      toast.error('First One Option Is Required', {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // toast.error('First One Option Is Required', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
       return;
     }
 
@@ -173,10 +173,10 @@ export default function Customizereview(): any {
         updatedTerms.experience === '1');
     if (selectCategoryFirst && !selectedOptionCount) {
       setMissingFields(prevFields => [...prevFields, "selectedOptionCount"]);
-      toast.error('Atleast One More Option is Required.', {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // toast.error('Atleast One More Option is Required.', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
       return;
     }
     const selectedCategoryRequiresCheckbox =
@@ -196,10 +196,10 @@ export default function Customizereview(): any {
       if (updatedTerms.no_requirements !== '1') {
         setMissingFields(prevFields => [...prevFields, "no_requirements"]);
       }
-      toast.error('Option is required', {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // toast.error('Option is required', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
       return;
     }
     try {

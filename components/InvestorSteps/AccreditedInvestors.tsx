@@ -174,41 +174,38 @@ export default function AccreditedInvestors() {
 
         if (checkAnnualIncome && updatedTerms.annual_income !== '1') {
             setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])
-            toast.error('First One Option Is Required', {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+            // toast.error('First One Option Is Required', {
+            //     position: toast.POSITION.TOP_RIGHT,
+            //     toastId: "error",
+            // });
             return;
         }
 
         if (checkAnnualIncome && !(updatedTerms.financial_net_worth === '1' || updatedTerms.financial_annual_net_worth === '1')) {
             setMissingFields(prevFields => [...prevFields, "financial_net_worth"])
-            toast.error('Atleast One More Option is Required.', {
+            // toast.error('Atleast One More Option is Required.', {
 
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
+            //     position: toast.POSITION.TOP_RIGHT,
+            //     toastId: "error",
 
-            });
+            // });
             return;
         }
 
         const checkFinancialNetWorth = category === '2';
         if (checkFinancialNetWorth && updatedTerms.foreign_annual_income !== '1') {
             setMissingFields(prevFields => [...prevFields, "foreign_annual_income"])
-            toast.error('First One Option Is Required', {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+          
             return;
         }
 
         if (checkFinancialNetWorth && !(updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1')) {
             setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])
-            toast.error('Atleast One More Option is Required.', {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
+            // toast.error('Atleast One More Option is Required.', {
+            //     position: toast.POSITION.TOP_RIGHT,
+            //     toastId: "error",
 
-            });
+            // });
             return;
         }
 
@@ -216,10 +213,10 @@ export default function AccreditedInvestors() {
         const selectedCategoryRequiresCheckbox = category === '3';
         if (selectedCategoryRequiresCheckbox && !(updatedTerms.corporate_net_worth === '1')) {
             setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])
-            toast.error('Option Is Required', {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+            // toast.error('Option Is Required', {
+            //     position: toast.POSITION.TOP_RIGHT,
+            //     toastId: "error",
+            // });
             return;
         }
 
