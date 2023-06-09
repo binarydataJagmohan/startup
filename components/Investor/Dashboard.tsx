@@ -10,9 +10,12 @@ interface UserData {
   id?: string;
   approval_status?: string;
 }
+interface BusinessDetails {
+  status: string;
+}
 const Dashboard = () => {
 
-  const [businessDetails, setBusinessDetails] = useState([]);
+  const [businessDetails, setBusinessDetails] = useState<BusinessDetails[]>([]);
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
   const [currentPageCOP, setCurrentPageCOP] = useState(0);
@@ -99,16 +102,16 @@ const Dashboard = () => {
   const pageCountOpen = Math.ceil(OpenfilteredBusinessDetails.length / itemsPerPage);
 
 
-  const handlePageChange = (selectedPage) => {
+  const handlePageChange = (selectedPage:any) => {
     setCurrentPage(selectedPage.selected);
   };
-  const handlePageChangeCOP = (selectedPage) => {
+  const handlePageChangeCOP = (selectedPage:any) => {
     setCurrentPageCOP(selectedPage.selected);
   };
-  const handlePageChangeDiscount = (selectedPage) => {
+  const handlePageChangeDiscount = (selectedPage:any) => {
     setcurrentPagediscount(selectedPage.selected);
   };
-  const handlePageChangeOpen = (selectedPage) => {
+  const handlePageChangeOpen = (selectedPage:any) => {
     setCurrentPageopen(selectedPage.selected);
   };
   const displayedBusinessDetails = filteredBusinessDetails.slice(
