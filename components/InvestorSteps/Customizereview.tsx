@@ -33,11 +33,13 @@ export default function Customizereview(): any {
     no_requirements: "0"
   });
   const { register, handleSubmit, formState: { errors }, } = useForm();
+  const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMissingFields([]);
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox' && name === 'principal_residence') {
-       // Set the value of principal_residence to '1' if the checkbox is checked, '0' otherwise
+      // Set the value of principal_residence to '1' if the checkbox is checked, '0' otherwise
       const principal_residenceValue = checked ? '1' : '0';
       setTerms((prevState) => {
         return {
@@ -47,7 +49,7 @@ export default function Customizereview(): any {
         };
       });
     } else if (type === 'checkbox' && name === 'cofounder') {
-        // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
+      // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
       const cofounderValue = checked ? '1' : '0';
       setTerms((prevState) => {
         return {
@@ -57,7 +59,7 @@ export default function Customizereview(): any {
         };
       });
     } else if (type === 'checkbox' && name === 'prev_investment_exp') {
-        // Set the value of prev_investment_exp to '1' if the checkbox is checked, '0' otherwise
+      // Set the value of prev_investment_exp to '1' if the checkbox is checked, '0' otherwise
       const prev_investment_expValue = checked ? '1' : '0';
       setTerms((prevState) => {
         return {
@@ -67,7 +69,7 @@ export default function Customizereview(): any {
         };
       });
     } else if (type === 'checkbox' && name === 'experience') {
-       // Set the value of experience to '1' if the checkbox is checked, '0' otherwise
+      // Set the value of experience to '1' if the checkbox is checked, '0' otherwise
       const experienceValue = checked ? '1' : '0';
       setTerms((prevState) => {
         return {
@@ -157,6 +159,7 @@ export default function Customizereview(): any {
     const category = updatedTerms.category;
     const selectCategoryFirst = category === '1';
     if (selectCategoryFirst && updatedTerms.principal_residence !== '1') {
+      setMissingFields(prevFields => [...prevFields, "principal_residence"]);
       toast.error('First One Option Is Required', {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
@@ -166,10 +169,11 @@ export default function Customizereview(): any {
 
     const selectedOptionCount =
       (updatedTerms.prev_investment_exp === '1' ||
-      updatedTerms.cofounder === '1'||
-      updatedTerms.experience === '1');
+        updatedTerms.cofounder === '1' ||
+        updatedTerms.experience === '1');
     if (selectCategoryFirst && !selectedOptionCount) {
-      toast.error('One More Option is Required.', {
+      setMissingFields(prevFields => [...prevFields, "selectedOptionCount"]);
+      toast.error('Atleast One More Option is Required.', {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
@@ -185,7 +189,14 @@ export default function Customizereview(): any {
         updatedTerms.no_requirements === '1'
       )
     ) {
-      toast.error('Please Choose Atleast One of The Options', {
+      if (updatedTerms.net_worth !== '1') {
+        setMissingFields(prevFields => [...prevFields, "net_worth"]);
+      }
+
+      if (updatedTerms.no_requirements !== '1') {
+        setMissingFields(prevFields => [...prevFields, "no_requirements"]);
+      }
+      toast.error('Option is required', {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
@@ -193,7 +204,6 @@ export default function Customizereview(): any {
     }
     try {
       const res = await angelInvestorTermsSave(terms);
-
       if (res.status == true) {
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
@@ -209,10 +219,7 @@ export default function Customizereview(): any {
         });
       }
     } catch (err) {
-      // toast.error((err as ErrorMessage).message, {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
+     
     }
   };
 
@@ -318,21 +325,28 @@ export default function Customizereview(): any {
                                     {...register("principal_residence", { value: true, required: true })}
                                     name="principal_residence" onChange={handleChange} checked={terms.principal_residence === '1' ? true : false} />
                                 </div>
-                                {errors.principal_residence && errors.principal_residence.type === "required" && (
+
+                                {/* {errors.principal_residence && errors.principal_residence.type === "required" && (
                                   <p
                                     className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please select the Principal Residence.
                                   </p>
-                                )}
+                                )} */}
                                 <div className="col">
                                   <label htmlFor="checkbox1">
                                     Net tangible assets of at least INR 2 Crore excluding value of his principal residence
                                   </label>
+                                  {missingFields.includes("principal_residence") && (
+                                    <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                      * Principal residence option is required.
+                                    </p>
+                                  )}
                                 </div>
 
                               </div>
+
                             </div>
                             <div className="same-card">
                               <div className="row">
@@ -368,7 +382,13 @@ export default function Customizereview(): any {
                                   <label htmlFor="checkbox4">Senior management professional with at least 10 years of
                                     experience
                                   </label>
+                                  {missingFields.includes("selectedOptionCount") && (
+                                    <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                      * One more option is required.
+                                    </p>
+                                  )}
                                 </div>
+
                               </div>
                             </div>
                           </div>
@@ -382,7 +402,13 @@ export default function Customizereview(): any {
                                 </div>
                                 <div className="col">
                                   <label htmlFor="checkbox5">Net worth of at least INR 10 Crore</label>
+                                  {missingFields.includes("net_worth") && (
+                                    <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                      * Net worth option is required.
+                                    </p>
+                                  )}
                                 </div>
+
                               </div>
                             </div>
                           </div>
@@ -395,7 +421,13 @@ export default function Customizereview(): any {
                                 </div>
                                 <div className="col">
                                   <label htmlFor="checkbox6">No Requirement</label>
+                                  {missingFields.includes("no_requirements") && (
+                                    <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                      * No Requirement option is required.
+                                    </p>
+                                  )}
                                 </div>
+
                               </div>
                             </div>
                           </div>

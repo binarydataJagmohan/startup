@@ -33,8 +33,10 @@ export default function AccreditedInvestors() {
         category: "",
     });
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    const [missingFields, setMissingFields] = useState<string[]>([]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMissingFields([]);
         const { name, value, type, checked } = event.target;
         if (type === 'checkbox' && name === 'annual_income') {
             // Set the value of annual_income to '1' if the checkbox is checked, '0' otherwise
@@ -171,16 +173,17 @@ export default function AccreditedInvestors() {
         const checkAnnualIncome = category === '1';
 
         if (checkAnnualIncome && updatedTerms.annual_income !== '1') {
+            setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])
             toast.error('First One Option Is Required', {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
-
             });
             return;
         }
 
         if (checkAnnualIncome && !(updatedTerms.financial_net_worth === '1' || updatedTerms.financial_annual_net_worth === '1')) {
-            toast.error('One More Option is Required.', {
+            setMissingFields(prevFields => [...prevFields, "financial_net_worth"])
+            toast.error('Atleast One More Option is Required.', {
 
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
@@ -189,27 +192,30 @@ export default function AccreditedInvestors() {
             return;
         }
 
-        const checkFinancialNetWorth = category ==='2';
-        if(checkFinancialNetWorth && updatedTerms.foreign_annual_income!=='1'){
-            toast.error('First One Option Is Required',{
+        const checkFinancialNetWorth = category === '2';
+        if (checkFinancialNetWorth && updatedTerms.foreign_annual_income !== '1') {
+            setMissingFields(prevFields => [...prevFields, "foreign_annual_income"])
+            toast.error('First One Option Is Required', {
                 position: toast.POSITION.TOP_RIGHT,
-                toastId:"error",
+                toastId: "error",
             });
             return;
         }
 
-        if(checkFinancialNetWorth && !( updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1' )){
-            toast.error('One More Option is Required.',{
+        if (checkFinancialNetWorth && !(updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1')) {
+            setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])
+            toast.error('Atleast One More Option is Required.', {
                 position: toast.POSITION.TOP_RIGHT,
-                toastId:"error",
+                toastId: "error",
 
             });
-           return;
+            return;
         }
 
 
-        const selectedCategoryRequiresCheckbox =  category === '3';
+        const selectedCategoryRequiresCheckbox = category === '3';
         if (selectedCategoryRequiresCheckbox && !(updatedTerms.corporate_net_worth === '1')) {
+            setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])
             toast.error('Option Is Required', {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
@@ -349,6 +355,11 @@ export default function AccreditedInvestors() {
                                                                     <label htmlFor="checkbox1">
                                                                         Have an annual income of at least ₹2 crore in the preceding financial year.
                                                                     </label>
+                                                                    {missingFields.includes("annual_income") && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            * Annual income option is required.
+                                                                        </p>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -372,6 +383,11 @@ export default function AccreditedInvestors() {
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox3">Have an annual income of at least ₹1 crore and a net worth of at least ₹ 5 crore with more
                                                                         than ₹ 2.5 crore of financial assets.</label>
+                                                                    {missingFields.includes("financial_net_worth") && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            * One more option is required.
+                                                                        </p>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -385,6 +401,11 @@ export default function AccreditedInvestors() {
                                                                 </div>
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox4">Have an annual income of at least $300,000.</label>
+                                                                    {missingFields.includes("foreign_annual_income") && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            * Annual income option is required.
+                                                                        </p>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -408,6 +429,11 @@ export default function AccreditedInvestors() {
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox6">Have an annual income of at least $150,000 and a net worth of at least $750,000 with more
                                                                         than $350,000 of financial assets.</label>
+                                                                    {missingFields.includes("foreign_net_worth") && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            *One more options is required.
+                                                                        </p>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -421,6 +447,11 @@ export default function AccreditedInvestors() {
                                                                 </div>
                                                                 <div className="col">
                                                                     <label htmlFor="checkbox7">Net worth greater than or equal to INR 50 crore or, $7.5 million.</label>
+                                                                    {missingFields.includes("corporate_net_worth") && (
+                                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                            * Net worth option is required.
+                                                                        </p>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>

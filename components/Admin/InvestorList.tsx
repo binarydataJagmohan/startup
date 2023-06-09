@@ -1,26 +1,26 @@
-import React, { useState, useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getAllInvestors } from '../../lib/frontendapi';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { getToken,getCurrentUserData } from "../../lib/session";
+import { getToken, getCurrentUserData } from "../../lib/session";
 import dynamic from 'next/dynamic';
 
-const DynamicDataTable = dynamic(():any => import('datatables.net'), {
-  ssr: false,
+const DynamicDataTable = dynamic((): any => import('datatables.net'), {
+    ssr: false,
 });
 type Investor = {
     id: number;
     name: string;
-    email:string;
-    investorType:string;
-    status:string;
-    approval_status:string;
-  }
-  
-  interface UserData {
+    email: string;
+    investorType: string;
+    status: string;
+    approval_status: string;
+}
+
+interface UserData {
     id?: string;
-  }
+}
 const InvestorList = () => {
     const tableRef = useRef(null);
     const [investors, setInvestors] = useState<Investor[]>([]);
@@ -29,12 +29,12 @@ const InvestorList = () => {
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
-          current_user_data.id
-            ? setCurrentUserId(current_user_data.id)
-            : setCurrentUserId("");
-    
+            current_user_data.id
+                ? setCurrentUserId(current_user_data.id)
+                : setCurrentUserId("");
+
         } else {
-          window.location.href = "/login";
+            window.location.href = "/login";
         }
 
         const fetchData = async () => {
@@ -51,14 +51,14 @@ const InvestorList = () => {
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
-                      return {
-                        ...investor,
-                        approval_status: status,
-                      };
+                        return {
+                            ...investor,
+                            approval_status: status,
+                        };
                     }
                     return investor;
-                  });
-                  setInvestors(updatedData);
+                });
+                setInvestors(updatedData);
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
@@ -74,8 +74,8 @@ const InvestorList = () => {
 
 
     //delete for investor
-    function deleteInvestor(id:number) {
-        
+    function deleteInvestor(id: number) {
+
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`)
             .then(response => {
                 const updatedData = investors.filter(investor => investor.id !== id);
@@ -93,27 +93,27 @@ const InvestorList = () => {
             });
     }
 
-      // for user account status Active and Deactive
-      function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, {status: status })
-            .then(response => { 
+    // for user account status Active and Deactive
+    function updateStatus(id: number, status: string) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { status: status })
+            .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
-                      return {
-                        ...investor,
-                        status: status,
-                      };
+                        return {
+                            ...investor,
+                            status: status,
+                        };
                     }
                     return investor;
-                  });
-                  setInvestors(updatedData);
-                  toast.success(response.data.message, {
+                });
+                setInvestors(updatedData);
+                toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
             })
             .catch(error => {
-              
+
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -123,17 +123,17 @@ const InvestorList = () => {
 
     useEffect(() => {
         if (investors.length > 0 && !dataTableInitialized) {
-          $(document).ready(() => {
-            $('#datatable').DataTable({
-              lengthMenu: [5, 25, 50, 75, 100],
-              columnDefs: [
-                { targets: [0, 1, 2], orderable: true },
-                { targets: '_all', orderable: false },
-              ],
+            $(document).ready(() => {
+                $('#datatable').DataTable({
+                    lengthMenu: [10, 25, 50, 75, 100],
+                    columnDefs: [
+                        { targets: [0, 1, 2], orderable: true },
+                        { targets: '_all', orderable: false },
+                    ],
+                });
             });
-          });
         }
-      }, [investors]);
+    }, [investors]);
 
     return (
         <>
@@ -166,52 +166,52 @@ const InvestorList = () => {
                                     </div>
                                     <div className="card-body">
                                         <div className='table-responsive'>
-                                        <table
-                                            id="datatable" ref={tableRef}
-                                            className="table  dt-responsive nowrap"
-                                            style={{
-                                                borderCollapse: "collapse",
-                                                borderSpacing: 0,
-                                                width: "100%"
-                                            }}
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email Address</th>
-                                                    <th>Type</th>
-                                                    <th>Status</th>
-                                                    <th>Approval</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {investors && investors.length > 0 ? (
-                                                investors.map((investor, index) => (
-                                                    <tr key={investor.id}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{investor.name}</td>
-                                                        <td>{investor.email}</td>
-                                                        <td>{investor.investorType}</td>
-                                                        <td>
-                                                        <span style={{cursor: "pointer"}} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
-                                                        </td>
-                                                        <td>
-                                                        <span style={{cursor: "pointer"}}  className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
-                                                        </td>
-                                                        <td>
-                                                        <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
-                                                            <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
-                                                        </td>
-                                                    </tr>
-                                                ))) : (
+                                            <table
+                                                id="datatable" ref={tableRef}
+                                                className="table  dt-responsive nowrap"
+                                                style={{
+                                                    borderCollapse: "collapse",
+                                                    borderSpacing: 0,
+                                                    width: "100%"
+                                                }}
+                                            >
+                                                <thead>
                                                     <tr>
-                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Email Address</th>
+                                                        <th>Type</th>
+                                                        <th>Status</th>
+                                                        <th>Approval</th>
+                                                        <th>Action</th>
                                                     </tr>
-                                                  )}
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {investors && investors.length > 0 ? (
+                                                        investors.map((investor, index) => (
+                                                            <tr key={investor.id}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{investor.name}</td>
+                                                                <td>{investor.email}</td>
+                                                                <td>{investor.investorType}</td>
+                                                                <td>
+                                                                    <span style={{ cursor: "pointer" }} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                                    <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                                </td>
+                                                            </tr>
+                                                        ))) : (
+                                                        <tr>
+                                                            <td className="text-center" colSpan={8}>No funds found.</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

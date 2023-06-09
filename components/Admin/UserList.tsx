@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getAllUsers } from '../../lib/adminapi';
 import { getCountries } from '../../lib/frontendapi';
 import "react-toastify/dist/ReactToastify.css";
@@ -12,14 +12,14 @@ type Country = {
 }
 interface User {
     id: number;
-    name:string;
-    email:string;
-    phone:string;
-    city:string;
-    country:string;
-    role:string;
-    status:string;
-  }
+    name: string;
+    email: string;
+    phone: string;
+    city: string;
+    country: string;
+    role: string;
+    status: string;
+}
 const UserList = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [usersId, setUsersId] = useState('');
@@ -53,20 +53,20 @@ const UserList = () => {
         if (users.length > 0 && !dataTableInitialized) {
             $(document).ready(() => {
                 $('#datatable').DataTable({
-                    lengthMenu: [5, 25, 50, 75, 100],
-                  columnDefs: [
-                    //  columns  sortable
-                    { targets: [0, 1, 2], orderable: true }, 
-                    // Disable sorting 
-                    { targets: '_all', orderable: false }, 
-                  ],
+                    lengthMenu: [10, 25, 50, 75, 100],
+                    columnDefs: [
+                        //  columns  sortable
+                        { targets: [0, 1, 2], orderable: true },
+                        // Disable sorting 
+                        { targets: '_all', orderable: false },
+                    ],
                 });
-              });
+            });
         }
-    }, [users,dataTableInitialized]);
+    }, [users, dataTableInitialized]);
 
-    function deleteUser(id:number) {
-        
+    function deleteUser(id: number) {
+
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`)
             .then(response => {
                 const updatedData = users.filter(user => user.id !== id);
@@ -133,7 +133,7 @@ const UserList = () => {
                 });
             })
             .catch(error => {
-           
+
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -206,17 +206,17 @@ const UserList = () => {
                                         <h3 className="card-title" >USERS</h3>
                                     </div>
                                     <div className="card-body table-responsive">
-                                        
-                                    <table
-                                                    id="datatable" ref={tableRef}
-                                                    className="table dt-responsive nowrap"
-                                                    style={{
-                                                        borderCollapse: 'collapse',
-                                                        borderSpacing: 0,
-                                                        width: '100%',
-                                                        overflow: 'hidden',
-                                                    }}
-                                                >
+
+                                        <table
+                                            id="datatable" ref={tableRef}
+                                            className="table dt-responsive nowrap"
+                                            style={{
+                                                borderCollapse: 'collapse',
+                                                borderSpacing: 0,
+                                                width: '100%',
+                                                overflow: 'hidden',
+                                            }}
+                                        >
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -231,14 +231,14 @@ const UserList = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {users && users.length > 0 ? (
-                                                users.map((user, index) => (
-                                                    <tr key={user.id}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{user.name}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.phone}</td>
-                                                        {/* <td>{user.city}</td>
+                                                {users && users.length > 0 ? (
+                                                    users.map((user, index) => (
+                                                        <tr key={user.id}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{user.name}</td>
+                                                            <td>{user.email}</td>
+                                                            <td>{user.phone}</td>
+                                                            {/* <td>{user.city}</td>
                                                         <td>
                                                            <select className="form-select form-select-lg css-1492t68 mt-0 w-sm mb-3" value={user.country} onChange={(e) => updateCountry(String(user.id), e.target.value)}>
                                                                     <option value="">--SELECT COUNTRY--</option>
@@ -265,16 +265,16 @@ const UserList = () => {
                                                         <td><span style={{ cursor: "pointer" }} className={user.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(user.id, user.status === 'active' ? 'deactive' : 'active')}> {user.status.toUpperCase()}</span></td>
                                                         <td>
 
-                                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                                <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
 
-                                                            <a href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
-                                                        </td>
-                                                    </tr>
-                                                ))) : (
+                                                                <a href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                            </td>
+                                                        </tr>
+                                                    ))) : (
                                                     <tr>
-                                                      <td className="text-center" colSpan={8}>No funds found.</td>
+                                                        <td className="text-center" colSpan={8}>No funds found.</td>
                                                     </tr>
-                                                  )}
+                                                )}
                                             </tbody>
                                         </table>
                                     </div>

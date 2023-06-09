@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getAllStartupBusiness } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -55,20 +55,20 @@ const StartupList = () => {
     }, []);
     useEffect(() => {
         if (startups.length > 0 && !dataTableInitialized) {
-          const table = $('#datatable').DataTable({
-            lengthMenu: [5, 25, 50, 75, 100],
-            columnDefs: [
-              // columns sortable
-              { targets: [0, 1, 2], orderable: true },
-              // Disable sorting
-              { targets: '_all', orderable: false },
-            ],
-          });
-    
-         tableRef.current = table as any;
-          setDataTableInitialized(true);
+            const table = $('#datatable').DataTable({
+                lengthMenu: [10, 25, 50, 75, 100],
+                columnDefs: [
+                    // columns sortable
+                    { targets: [0, 1, 2], orderable: true },
+                    // Disable sorting
+                    { targets: '_all', orderable: false },
+                ],
+            });
+
+            tableRef.current = table as any;
+            setDataTableInitialized(true);
         }
-      }, [startups, dataTableInitialized]);
+    }, [startups, dataTableInitialized]);
 
     // for approval status update
     function updateApprovalStatus(id: number, status: number | string) {
@@ -117,7 +117,7 @@ const StartupList = () => {
                 });
             })
             .catch(error => {
-               
+
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -192,7 +192,7 @@ const StartupList = () => {
                 }
             })
             .catch(err => {
-       
+
             });
     };
 

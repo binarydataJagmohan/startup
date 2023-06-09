@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { getCurrentUserData } from '@/lib/session';
@@ -21,6 +21,8 @@ const Profile = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const [current_user_id, setCurrentUserId] = useState("");
     const [profile_pic, setProfilePic] = useState(null);
+    const [missingFields, setMissingFields] = useState<string[]>([]);
+    const [invalidFields, setInvalidFields] = useState<string[]>([]);
 
     const [user, setUser] = useState({
         id: current_user_id,
@@ -148,6 +150,8 @@ const Profile = () => {
 
 
     const handleChange = (event: any) => {
+        setMissingFields([]);
+        setInvalidFields([]);
         let { name, value } = event.target;
 
         setUser((prevState) => {
@@ -161,6 +165,31 @@ const Profile = () => {
     };
     const submitPersonalInfoForm = async () => {
         try {
+
+           if(!user.name){
+            setMissingFields(prevFields=>[...prevFields,"Name"]);
+           }
+
+           if(!user.city){
+            setMissingFields(prevFields=>[...prevFields,"city"]);
+           }
+           if(!user.country){
+            setMissingFields(prevFields=>[...prevFields,"country"]);
+           }
+ 
+        if(!user.gender){
+            setMissingFields(prevFields=>[...prevFields,"gender"]);
+        }
+
+        if(!user.phone){
+            setMissingFields(prevFields=>[...prevFields,"phone"]);
+        }
+        if(!user.linkedin_url){
+            setMissingFields(prevFields=>[...prevFields,"linkedin_url"]);
+        }else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/(in|company)\/[\w-]+$/i.test(user.linkedin_url)) {
+            setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
+          }
+
             const formData = new FormData();
             if (profile_pic !== null) {
                 formData.append('profile_pic', profile_pic);
@@ -257,8 +286,17 @@ const Profile = () => {
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="form-part">
-                                                        <input type="text" className="form-control form-css" placeholder="Name"  {...register("name", { value: true, required: true, })} onChange={handleChange} name="name" value={user.name} />
-                                                        {errors.name &&
+                                                        <input type="text" className="form-control form-css" placeholder="Name" onChange={handleChange} name="name" value={user.name} />
+                                                        {missingFields.includes("Name") &&(
+                                                         <p
+                                                         className="text-danger"
+                                                         style={{ textAlign: "left", fontSize: "12px" }}
+                                                     >
+                                                         *Please Enter Your Name.
+                                                     </p>
+
+                                                        )}
+                                                        {/* {errors.name &&
                                                             errors.name.type === "required" && (
                                                                 <p
                                                                     className="text-danger"
@@ -266,7 +304,7 @@ const Profile = () => {
                                                                 >
                                                                     *Please Enter Your Name.
                                                                 </p>
-                                                            )}
+                                                            )} */}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
@@ -275,16 +313,10 @@ const Profile = () => {
                                                             onChange: handleChange,
                                                             required: true,
                                                             value: true,
-                                                            // pattern: {
-                                                            //     value: /^\S+@\S+$/i,
-                                                            //     message: "Invalid email address"
-                                                            // }
+                                                           
                                                         })} onChange={handleChange} readOnly name="email" value={user.email} />
-                                                        {errors.email && (
-                                                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                                <span>*Email Required</span>
-                                                            </p>
-                                                        )}
+                                                        
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -292,6 +324,20 @@ const Profile = () => {
                                                 <div className="col-sm-6">
                                                     <div className="form-part">
                                                         <input type="text" className="form-control form-css" placeholder="www.linkedin.com" onChange={handleChange} name="linkedin_url" value={user.linkedin_url} />
+                                                        {missingFields.includes("linkedin_url") && (
+                                                        
+                                                            <p
+                                                            className="text-danger"
+                                                            style={{ textAlign: "left", fontSize: "12px" }}
+                                                        >
+                                                            * Please enter a linkedin_url address
+                                                        </p>
+                                                         )}
+                                                          {invalidFields.includes("linkedin_url") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                               * Please enter a valid linkedin_url address.
+                            </p>
+                          )}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
@@ -303,6 +349,15 @@ const Profile = () => {
                                                             value={user.phone} inputClass={'form-css'}
                                                             onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
                                                         />
+                                                        {missingFields.includes("phone") && (
+                                                        
+                                                        <p
+                                                        className="text-danger"
+                                                        style={{ textAlign: "left", fontSize: "12px" }}
+                                                    >
+                                                        *Please Enter Your Phone Number.
+                                                    </p>
+                                                     )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,11 +381,29 @@ const Profile = () => {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                        {missingFields.includes("country") && (
+                                                        
+                                                        <p
+                                                        className="text-danger"
+                                                        style={{ textAlign: "left", fontSize: "12px" }}
+                                                    >
+                                                        *Please Select Country .
+                                                    </p>
+                                                     )}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
                                                     <div className="form-part">
                                                         <input type="text" className="form-control form-css" placeholder="City" onChange={handleChange} name="city" value={user.city} />
+                                                        {missingFields.includes("city") && (
+                                                        
+                                                        <p
+                                                        className="text-danger"
+                                                        style={{ textAlign: "left", fontSize: "12px" }}
+                                                    >
+                                                        *Please Enter Your city.
+                                                    </p>
+                                                     )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -347,6 +420,15 @@ const Profile = () => {
                                                             <option value="female">Female</option>
                                                             <option value="other">Other</option>
                                                         </select>
+                                                        {missingFields.includes("gender") && (
+                                                        
+                                                        <p
+                                                        className="text-danger"
+                                                        style={{ textAlign: "left", fontSize: "12px" }}
+                                                    >
+                                                        *Please Select Gender.
+                                                    </p>
+                                                     )}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-2">
