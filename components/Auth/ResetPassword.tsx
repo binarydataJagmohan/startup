@@ -28,6 +28,7 @@ const ResetPassword = () => {
         resetPassword(data)
             .then((res) => {
                 if (res.status == true) {
+                    console.log(res);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",

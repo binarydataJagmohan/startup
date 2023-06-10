@@ -8,7 +8,7 @@ import {
   getCurrentUserData,
 } from "../../../lib/session";
 import { useRouter } from 'next/router';
-import { getSingleUserData} from '@/lib/frontendapi';
+import { getSingleUserData } from '@/lib/frontendapi';
 
 interface UserData {
   username?: string;
@@ -22,7 +22,7 @@ const Header = () => {
   const [current_user_role, setCurrentUserRole] = useState("");
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
   const [users, setUsers] = useState<any>(
-    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '',profile_pic:'' });
+    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
   const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";
@@ -57,18 +57,18 @@ const Header = () => {
       .catch((err) => {
       });
 
-      getSingleUserData(current_user_data.id)
+    getSingleUserData(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
           // Set the businessUnits state
           setUsers(res.data);
-        } 
+        }
       })
       .catch((err) => {
       });
 
   }, []);
-  
+
   function collapseSidebar() {
     $('.vertical-menu').toggle();
   }
@@ -135,26 +135,26 @@ const Header = () => {
                               <span>Dashboard</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-investors' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-investors' || router.pathname.startsWith('/admin/edit-investor') ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup')  ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-active-funds'? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
                               <span>Total Active Funds</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-users' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-users' || router.pathname.startsWith('/admin/edit-user') ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>All Users</span>
@@ -322,7 +322,7 @@ const Header = () => {
             </div>
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="" />
+                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>

@@ -813,18 +813,19 @@ const EditList = () => {
                                   {previewImage ? (
                                     <Image
                                       src={typeof previewImage === 'string' ? previewImage : ''}
-                                      alt="profile"
+                                      alt=""
                                       width={300}
                                       height={300}
                                     />
                                   ) : (
-                                    <Image
-                                      src={`${process.env.NEXT_PUBLIC_BASE_URL}assets/img/profile.webp`}
-                                      alt="profile"
-                                      className="profile-pic"
-                                      width={300}
-                                      height={300}
-                                    />
+                                    ""
+                                    // <Image
+                                    //   src={`${process.env.NEXT_PUBLIC_BASE_URL}assets/img/profile.webp`}
+                                    //   alt=""
+                                    //   className="profile-pic"
+                                    //   width={300}
+                                    //   height={300}
+                                    // />
                                   )}
                                 </div>
                                 {/* <div className="profile-pic">
