@@ -9,6 +9,7 @@ interface UserData {
 const Thankyou = () => {
     const [current_user_id, setCurrentUserId] = useState(false);
     const[investorStatus,setInvestorStatus] = useState('');
+    const[role,setRole] = useState('');
     useEffect(() => {
       const current_user_data: UserData = getCurrentUserData();
       setInvestorStatus(current_user_data.approval_status || '');
@@ -18,6 +19,8 @@ const Thankyou = () => {
         try {
           const res = await CheckUserApprovalStatus(current_user_data.id);          
           if (res.status === true) {
+            setInvestorStatus(res.data.approval_status);
+            setRole(res.data.role);
             // console.log(res.data.approval_status);           
             if (res.data.role === "investor") {
               if (res.data.approval_status === "approved" &&(res.data.approval_status !=="pending" && res.data.approval_status !=="reject")) {
@@ -61,7 +64,7 @@ const Thankyou = () => {
       checkUserStatus();
     }, []);
     useEffect(() => {
-      if (investorStatus === 'approved' && window.location.pathname !=="/investor/campaign") {
+      if (investorStatus === 'approved' && window.location.pathname !=="/investor/campaign" && role !=='startup' ) {
         
         
         window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/investor/campaign`;
