@@ -67,7 +67,7 @@ const Header = () => {
 
   useEffect(()=>{
 
-    if(current_user_id){
+    if(current_user_id && investorStatus === 'approved'){
       getFundRaiseCount()
       .then((res)=>{
              if(res.status === true){

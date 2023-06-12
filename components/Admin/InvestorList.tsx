@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
+
 import dynamic from 'next/dynamic';
 
 const DynamicDataTable = dynamic((): any => import('datatables.net'), {
@@ -131,9 +132,10 @@ const InvestorList = () => {
                         { targets: '_all', orderable: false },
                     ],
                 });
+                setDataTableInitialized(true);
             });
         }
-    }, [investors]);
+    }, [investors, dataTableInitialized]);
 
     return (
         <>

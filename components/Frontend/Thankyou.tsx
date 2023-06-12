@@ -70,7 +70,7 @@ const Thankyou = () => {
         window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/investor/campaign`;
       } else if (investorStatus === 'pending' || investorStatus === 'reject') {
         
-        if(window.location.pathname !=="/investor/thank-you"){
+        if(window.location.pathname !=="/investor/thank-you" && role !=='startup'){
           window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/investor/thank-you`;
         }
 

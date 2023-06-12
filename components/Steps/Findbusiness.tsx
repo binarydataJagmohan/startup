@@ -24,11 +24,12 @@ type Country = {
   name: string;
   country_code: string;
 }
-export default function Findbusiness():any {
+export default function Findbusiness(): any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
+  const [missingFields, setMissingFields] = useState<string[]>([]);
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
@@ -50,7 +51,7 @@ export default function Findbusiness():any {
     formState: { errors },
   } = useForm();
 
-  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === 'phone') {
       // Remove all non-digit characters from value
@@ -136,7 +137,16 @@ export default function Findbusiness():any {
   }, []);
 
   const SubmitForm = async (event: any) => {
+
     try {
+      if (!user.country) {
+        setMissingFields(prevFields => [...prevFields, "country"]);
+
+      }
+      if (!user.gender) {
+        setMissingFields(prevFields => [...prevFields, "gender"]);
+
+      }
       const res = await personalInformationSave(user);
       if (res.status == true) {
         setTimeout(() => {
@@ -301,7 +311,7 @@ export default function Findbusiness():any {
                                 type="text"
                                 className="form-control same-input"
                                 {...register("linkedin_url", {
-                                  required: !user.linkedin_url,  onChange: handleChange,
+                                  required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
                                     value: /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
@@ -311,7 +321,7 @@ export default function Findbusiness():any {
                                 name="linkedin_url"
                                 value={user.linkedin_url}
                               />
-                               {errors.linkedin_url && errors.linkedin_url.type === "required" && (
+                              {errors.linkedin_url && errors.linkedin_url.type === "required" && (
                                 <p className="text-danger">*Please enter your LinkedIn URL</p>
                               )}
                               {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
@@ -331,11 +341,12 @@ export default function Findbusiness():any {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("country", {
-                                  validate: (value) => value != "",onChange:handleChange,
-                                  required: true,
+                                  // validate: (value) => value != "",
+                                  onChange: handleChange,
+                                  // required: true,
                                 })}
                                 name="country"
-                                
+
                                 aria-label="Default select example"
                               >
                                 <option value="">
@@ -352,13 +363,20 @@ export default function Findbusiness():any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                              {errors.country &&
+                              {
+                                missingFields.includes("country") && (
+                                  <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                    *Please Select Country.
+                                  </p>
+                                )
+                              }
+                              {/* {errors.country &&
                                 errors.country.type === "required" &&
                                 !user.country && (
                                   <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                     *Please Select Country.
                                   </p>
-                                )}
+                                )} */}
 
                             </div>
 
@@ -371,7 +389,7 @@ export default function Findbusiness():any {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                                 <PhoneInput
+                                <PhoneInput
                                   onClick={phonClick}
                                   country={"us"}
                                   {...register("phone", { required: !user.phone })}
@@ -439,11 +457,12 @@ export default function Findbusiness():any {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("gender", {
-                                  validate: (value) => value != "",onChange:handleChange,
-                                  required: true,
+                                  // validate: (value) => value != "",
+                                  onChange: handleChange,
+                                  // required: true,
                                 })}
                                 name="gender"
-                                
+
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
                               >
@@ -453,7 +472,16 @@ export default function Findbusiness():any {
                                 <option value="other">Other</option>
                               </select>
                               <div className="help-block with-errors" />
-                              {errors.gender && errors.gender.type === "required" &&
+
+                              {missingFields.includes("gender") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Select Gender.
+                                </p>
+                              )}
+                              {/* {errors.gender && errors.gender.type === "required" &&
                                 !user.gender && (
                                   <p
                                     className="text-danger"
@@ -461,7 +489,7 @@ export default function Findbusiness():any {
                                   >
                                     *Please Select Gender.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                           </div>
                           <div className="row mt-3">
