@@ -14,7 +14,7 @@ type Country = {
 }
 const EditInvestor = () => {
   const [investor, setInvestor] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
- 
+
   const [countries, setcountries] = useState<Country[]>([]);
   const [missingFields, setMissingFields] = useState<string[]>([]);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
@@ -45,7 +45,7 @@ const EditInvestor = () => {
     });
   }
 
-  const updateInvestorInformation = async(e:any) =>{
+  const updateInvestorInformation = async (e: any) => {
     e.preventDefault();
     setMissingFields([]);
     setInvalidFields([]);
@@ -75,20 +75,20 @@ const EditInvestor = () => {
       ['linkedin_url']: investor.linkedin_url,
       ['gender']: investor.gender
 
+        }
+      );
+
+      toast.success('Investor Personal Information updated successfully');
+      setTimeout(() => {
+        router.push('/admin/all-investors'); // Replace '/admin/all-investors' with the desired route
+      }, 2000);
     }
-  );
- 
-  toast.success('Investor Personal Information updated successfully');
-  setTimeout(() => {
-    router.push('/admin/all-investors'); // Replace '/admin/all-investors' with the desired route
-  }, 2000);
-}
-    catch(error){
-      
+    catch (error) {
+
     }
 
   }
- 
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -104,7 +104,7 @@ const EditInvestor = () => {
     fetchData();
 
   }, []);
-  const handleInvestorChange = (e:any) => {
+  const handleInvestorChange = (e: any) => {
     setMissingFields([]);
     setInvalidFields([]);
     setInvestor((prevInvestor) => ({
@@ -114,11 +114,11 @@ const EditInvestor = () => {
   }
 
   useEffect(() => {
-    const fetchData = async (id:any) => {
+    const fetchData = async (id: any) => {
       const data = await getSingleInvestor(id);
       if (data) {
         setInvestor(data.data);
-      
+
       }
 
     };
@@ -155,7 +155,7 @@ const EditInvestor = () => {
               <div className="accordion-body">
                 <div className="form-part">
                   <h3>Personal Information</h3>
-                  <form onSubmit ={updateInvestorInformation}>
+                  <form onSubmit={updateInvestorInformation}>
                     <div className="row">
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Email{" "}
@@ -163,19 +163,19 @@ const EditInvestor = () => {
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="Email" name="email"
-                          //  onChange={handleInvestorChange} 
-                           value={investor.email} readOnly />
+                            //  onChange={handleInvestorChange} 
+                            value={investor.email} readOnly />
                           <div className="help-block with-errors" />
                           {missingFields.includes("Email") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the Email field.
-                                </p>
-                              )}
-                              {invalidFields.includes("Email") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please enter a valid email address.
-                                </p>
-                              )}
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the Email field.
+                            </p>
+                          )}
+                          {invalidFields.includes("Email") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please enter a valid email address.
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -186,19 +186,19 @@ const EditInvestor = () => {
                           <input
                             type="text"
                             placeholder="www.linkedin.com" name="linkedin_url" onChange={handleInvestorChange} value={investor.linkedin_url}
-              
+
                           />
                           <div className="help-block with-errors" />
                           {missingFields.includes("linkedin_url") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the linkedin_url field.
-                                </p>
-                              )}
-                              {invalidFields.includes("linkedin_url") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please enter a valid linkedin_url address.
-                                </p>
-                              )}
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the linkedin_url field.
+                            </p>
+                          )}
+                          {invalidFields.includes("linkedin_url") && (
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please enter a valid linkedin_url address.
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -213,10 +213,10 @@ const EditInvestor = () => {
                           <input type="text" placeholder="Country of Citizenship " onChange={handleInvestorChange} name="country" value={investor.country} />
                           <div className="help-block with-errors" />
                           {missingFields.includes("country") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the country field.
-                                </p>
-                              )}
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the country field.
+                            </p>
+                          )}
 
                         </div>
                       </div>
@@ -236,11 +236,11 @@ const EditInvestor = () => {
                             }}
                           />
                           {missingFields.includes("Phone") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the Phone field.
-                                </p>
-                              )}
-                       
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the Phone field.
+                            </p>
+                          )}
+
 
                         </div>
                       </div>
@@ -255,10 +255,10 @@ const EditInvestor = () => {
                           <input type="text" placeholder="City" name="city" onChange={handleInvestorChange} value={investor.city} />
                           <div className="help-block with-errors" />
                           {missingFields.includes("City") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the city field.
-                                </p>
-                              )}
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the city field.
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -274,10 +274,10 @@ const EditInvestor = () => {
                           </select>
                           <div className="help-block with-errors" />
                           {missingFields.includes("gender") && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  Please fill in the gender field.
-                                </p>
-                              )}
+                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                              Please fill in the gender field.
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
