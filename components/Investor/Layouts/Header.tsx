@@ -1,8 +1,9 @@
 import { useEffect, useState,useRef } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { useRouter } from 'next/router';
-import { getSingleFrontEndData} from '@/lib/frontendapi';
+import { getSingleFrontEndData,getFundRaiseCount} from '@/lib/frontendapi';
 import Link from 'next/link'
+
 interface UserData {
   id?: string;
   username?: string;
@@ -14,6 +15,7 @@ const Header = () => {
   const [current_user_role, setCurrentUserRole] = useState("");
   const[userName,setUserName] = useState("");
   const[investorStatus,setInvestorStatus] = useState('pending');
+  const[fundRaiseCount,setFundRaiseCount] = useState(0);
   const router = useRouter();
  
 
@@ -63,7 +65,23 @@ const Header = () => {
     };
   }, [current_user_id, investorStatus]);
 
-  
+  useEffect(()=>{
+
+    if(current_user_id && investorStatus === 'approved'){
+      getFundRaiseCount()
+      .then((res)=>{
+             if(res.status === true){
+              setFundRaiseCount(res.data);
+              // console.log("this is count"+res.data);
+             }
+      })
+      .catch((err) => {
+        // Handle error
+      });
+     
+    }
+
+  },[current_user_id]);
 
   // useEffect(() => {
    
@@ -134,6 +152,51 @@ const Header = () => {
            
             <li></li>
           </ul>
+          {investorStatus === 'approved' && (
+            <div className="dropdown d-inline-block">
+            <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i className="mdi mdi-bell-outline" />
+              <span className="badge bg-danger rounded-pill">{fundRaiseCount}</span>
+            </button>
+            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+              <div className="p-3">
+                <div className="row align-items-center">
+                  <div className="col">
+                    <h5 className="m-0 font-size-16"> Notifications ({fundRaiseCount}) </h5>
+                  </div>
+                </div>
+              </div>
+              <div data-simplebar style={{ maxHeight: '230px' }}>
+                <a href="#" className="text-reset notification-item">
+                  <div className="d-flex">
+                    <div className="flex-shrink-0 me-3">
+                      <div className="avatar-xs">
+                        <span className="avatar-title bg-danger rounded-circle font-size-16">
+                          <i className="mdi mdi-message-text-outline" />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex-grow-1">
+                      <h6 className="mb-1">New Message received</h6>
+                      <div className="font-size-12 text-muted">
+                        <p className="mb-1">You have {fundRaiseCount} unread messages</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div className="p-2 border-top">
+                <div className="d-grid">
+                  <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
+                    View all
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          )}
+          
+
           <div className="others-options">
             <div className="dropdown">
               <button onClick={toggleDropdown} className="dropbtn">

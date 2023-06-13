@@ -23,6 +23,7 @@ export default function Businessinfo():any {
   const router = useRouter();
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
+  const [missingFields, setMissingFields] = useState<string[]>([]);
  
   const [current_user_id, setCurrentUserId] = useState("");
   const [business_name, setBusinessName] = useState("");
@@ -31,7 +32,6 @@ export default function Businessinfo():any {
 
   const {register,handleSubmit,formState: { errors },} = useForm();
   const [logo, setLogo] = useState(null);
-
   const handleFileChange = (event: any) => {
     setLogo(event.target.files[0]);
   };
@@ -52,6 +52,7 @@ export default function Businessinfo():any {
   });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
+    setMissingFields([]);
     if (type === 'checkbox' && name === 'cofounder') {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
       const cofounderValue = checked ? '1' : '0';
@@ -111,6 +112,16 @@ export default function Businessinfo():any {
 
 const SubmitForm = async () => {
   try {
+
+    if(!businessDetails.sector){
+      setMissingFields(prevFields=>[...prevFields,"sector"]);
+    }
+    if(!businessDetails.stage){
+      setMissingFields(prevFields=>[...prevFields,"stage"])
+    }
+    if(!businessDetails.type){
+     setMissingFields(prevFields=>[...prevFields,"type"])
+    }
     const formData = new FormData();
     if (logo !== null) {
       formData.append('logo', logo);
@@ -140,10 +151,10 @@ const SubmitForm = async () => {
       });
     }
   } catch (err) {
-    toast.error("Please fill correct information", {
-      position: toast.POSITION.TOP_RIGHT,
-      toastId: "error",
-    });
+    // toast.error("Please fill correct information", {
+    //   position: toast.POSITION.TOP_RIGHT,
+    //   toastId: "error",
+    // });
   }
 };
 
@@ -344,7 +355,9 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("sector", {validate: (value) => value != "", required: true,onChange:handleChange})} 
+                                {...register("sector", {
+                                  // validate: (value) => value != "", required: true,
+                                  onChange:handleChange})} 
                                 name="sector" value={businessDetails ? businessDetails.sector : ""}
                               >
                                 <option value="">--SELECT SECTOR--</option>
@@ -367,7 +380,17 @@ register('website_url', {
                             
                               
                               </select>
-                              {errors.sector &&
+                              {
+                                missingFields.includes("sector") && (
+                                  <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Select Sector of Your Business.
+                                </p>
+                                )
+                              }
+                              {/* {errors.sector &&
                                 errors.sector.type === "required" &&  ! businessDetails.sector &&  (
                                   <p
                                     className="text-danger"
@@ -375,7 +398,7 @@ register('website_url', {
                                   >
                                     *Please Select Sector of Your Business.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -388,7 +411,9 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("stage", { validate: (value) => value != "", required: true, onChange:handleChange})}
+                                {...register("stage", { 
+                                  // validate: (value) => value != "", required: true,
+                                   onChange:handleChange})}
                                 name="stage"   value={businessDetails ? businessDetails.stage : ""}
                               >
                                 <option value="">--SELECT STAGE--</option>
@@ -403,7 +428,17 @@ register('website_url', {
                                 {/* <option value="Intermediate Stage">Intermediate Stage</option>
                                 <option value="Final Stage">Final Stage</option> */}
                               </select>
-                              {errors.stage &&
+                              {
+                                missingFields.includes("stage") && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Select Stage of Your Business.
+                                  </p>
+                                )
+                              }
+                              {/* {errors.stage &&
                                 errors.stage.type === "required" &&  ! businessDetails.stage && (
                                   <p
                                     className="text-danger"
@@ -411,7 +446,7 @@ register('website_url', {
                                   >
                                     *Please Select Stage of Your Business.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -475,7 +510,9 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("type", { validate: (value) => value != "", required: true,onChange:handleChange})}
+                                {...register("type", {
+                                  //  validate: (value) => value != "", required: true,
+                                   onChange:handleChange})}
                                 name="type"    value={businessDetails ? businessDetails.type : ""}
                               >
                                 <option value="">--SELECT FUND TYPE--</option>
@@ -483,7 +520,17 @@ register('website_url', {
                                 <option value="CSOP">CSOP</option>
                                 <option value="CCSP">CCSP</option>
                               </select>
-                              {errors.type &&
+                              {
+                                missingFields.includes("type") && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Select type of Your Business.
+                                  </p>
+                                )
+                              }
+                              {/* {errors.type &&
                                 errors.type.type === "required" &&  ! businessDetails.type && (
                                   <p
                                     className="text-danger"
@@ -491,7 +538,7 @@ register('website_url', {
                                   >
                                     *Please Select type of Your Business.
                                   </p>
-                                )}
+                                )} */}
                             </div>
 
                           

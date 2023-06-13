@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { log } from "console";
@@ -23,11 +23,12 @@ type Country = {
   country_code: string;
 };
 
-export default function Findbusiness():any {
+export default function Findbusiness(): any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
+  const [missingFields, setMissingFields] = useState<string[]>([]);
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
@@ -46,11 +47,12 @@ export default function Findbusiness():any {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
   } = useForm();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value }: { name: string, value: string } = event.target;
+    setMissingFields([]);
     if (name === 'phone') {
       // Remove all non-digit characters
       value = value.replace(/\D/g, '');
@@ -65,7 +67,7 @@ export default function Findbusiness():any {
     if (selectedCountry) {
       countryCode = selectedCountry.country_code;
     }
-  
+
     setUser((prevState) => {
       return {
         ...prevState,
@@ -74,10 +76,10 @@ export default function Findbusiness():any {
         country_code: countryCode ? `${countryCode}` : " ",
       };
     });
-    
+
   };
 
-  const phonClick = (event:any) => {
+  const phonClick = (event: any) => {
     let { name, value } = event.target;
     var selectedCountry = countries.find(
       (country) => country.name === value
@@ -132,7 +134,17 @@ export default function Findbusiness():any {
   }, []);
 
   const SubmitForm = async (event: any) => {
+
     try {
+
+      if (!user.country) {
+        setMissingFields(prevFields => [...prevFields, "country"]);
+
+      }
+      if (!user.gender) {
+        setMissingFields(prevFields => [...prevFields, "gender"]);
+
+      }
       const res = await personalInformationSave(user);
       if (res.status == true) {
         setTimeout(() => {
@@ -183,7 +195,7 @@ export default function Findbusiness():any {
       <div className="left-bar">
         <div className="container">
           <div id="app">
-          <ol className="step-indicator">
+            <ol className="step-indicator">
               <li className="active">
                 <div className="step_name">
                   Step <span>1</span>
@@ -290,7 +302,7 @@ export default function Findbusiness():any {
                                 type="text"
                                 className="form-control same-input"
                                 {...register("linkedin_url", {
-                                  required: !user.linkedin_url,  onChange: handleChange,
+                                  required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
                                     value: /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
@@ -300,11 +312,11 @@ export default function Findbusiness():any {
                                 name="linkedin_url"
                                 value={user.linkedin_url}
                               />
-                               {errors.linkedin_url && errors.linkedin_url.type === "required" && (
+                              {errors.linkedin_url && errors.linkedin_url.type === "required" && (
                                 <p className="text-danger">*Please enter your LinkedIn URL</p>
                               )}
                               {errors.linkedin_url && errors.linkedin_url.type === "pattern" && (
-                               <p className="text-danger">*Please enter a valid LinkedIn URL</p>
+                                <p className="text-danger">*Please enter a valid LinkedIn URL</p>
                               )}
                             </div>
 
@@ -319,12 +331,12 @@ export default function Findbusiness():any {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("country", {
-                                  validate: (value) => value != "",
-                                  required: true,
-                                  onChange:handleChange
+                                  // validate: (value) => value != "",
+                                  // required: true,
+                                  onChange: handleChange
                                 })}
                                 name="country"
-                               
+                                value={user.country ? user.country : ""}
                                 aria-label="Default select example"
                               >
                                 <option value="">
@@ -341,13 +353,20 @@ export default function Findbusiness():any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                              {errors.country &&
+                              {
+                                missingFields.includes("country") && (
+                                  <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                    *Please Select Country.
+                                  </p>
+                                )
+                              }
+                              {/* {errors.country &&
                                 errors.country.type === "required" &&
                                 !user.country && (
                                   <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                     *Please Select Country.
                                   </p>
-                                )}
+                                )} */}
 
                             </div>
 
@@ -360,10 +379,10 @@ export default function Findbusiness():any {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <div className="input-group">
-                             
-                              <PhoneInput onClick={phonClick} country={"us"} {...register("phone", {required :! user.phone})}
+
+                                <PhoneInput onClick={phonClick} country={"us"} {...register("phone", { required: !user.phone })}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                  value={user.phone}/>
+                                  value={user.phone} />
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (
@@ -425,12 +444,11 @@ export default function Findbusiness():any {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("gender", {
-                                  validate: (value) => value != "",
-                                  required: true,
-                                  onChange:handleChange
+                                  // validate: (value) => value != "",
+                                  // required: true,
+                                  onChange: handleChange
                                 })}
                                 name="gender"
-                              
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
                               >
@@ -440,7 +458,17 @@ export default function Findbusiness():any {
                                 <option value="other">Other</option>
                               </select>
                               <div className="help-block with-errors" />
-                              {errors.gender && errors.gender.type === "required" &&
+                              {
+                                missingFields.includes("gender") && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Select Gender.
+                                  </p>
+                                )
+                              }
+                              {/* {errors.gender && errors.gender.type === "required" &&
                                 !user.gender && (
                                   <p
                                     className="text-danger"
@@ -448,7 +476,7 @@ export default function Findbusiness():any {
                                   >
                                     *Please Select Gender.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                           </div>
                           <div className="row mt-3">

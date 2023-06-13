@@ -68,7 +68,7 @@ export default function AdharInformation():any {
         .then((res) => {
           if (res.status == true) {
             setBankDetails( res.data);
-            console.log(res.data);
+            // console.log(res.data);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,

@@ -61,6 +61,7 @@ const UserList = () => {
                         { targets: '_all', orderable: false },
                     ],
                 });
+                setDataTableInitialized(true);
             });
         }
     }, [users, dataTableInitialized]);
