@@ -47,6 +47,8 @@ const EditInvestor = () => {
 
   const updateInvestorInformation = async(e:any) =>{
     e.preventDefault();
+    setMissingFields([]);
+    setInvalidFields([]);
     if(!investor.email){
       setMissingFields(prevField =>[...prevField,"Email"])
     } else if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/i.test(investor.email)) {
@@ -63,7 +65,7 @@ const EditInvestor = () => {
     if(!investor.phone) setMissingFields(prevField =>[...prevField,"Phone"]);
 
     try{
-    const response  = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/update-investor-personal-info/${id}}`,
+    const response  = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/update-investor-personal-info/${id}`,
     {
 
       ['email']: investor.email,
@@ -71,7 +73,7 @@ const EditInvestor = () => {
       ['phone']: investor.phone,
       ['city']: investor.city,
       ['linkedin_url']: investor.linkedin_url,
-      ['gender']: investor.gender,
+      ['gender']: investor.gender
 
     }
   );
