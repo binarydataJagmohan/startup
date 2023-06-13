@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-import { getToken, getCurrentUserData } from "../../lib/session";
+import { getToken, getCurrentUserData } from "@/lib/session";
 
 type Country = {
     name: string;
@@ -115,7 +115,8 @@ const EditAdmin = () => {
                 },
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data' // Set the appropriate content type for file uploads
+                        'Content-Type': 'multipart/form-data', // Set the appropriate content type for file uploads
+                        'Accept': 'application/json',
                     }
                 }
             );

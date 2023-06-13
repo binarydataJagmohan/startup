@@ -137,7 +137,7 @@ const TotalActiveFunds = () => {
                                                             <th>Avg. Amount</th>
                                                             <th>Repay Date</th>
                                                             <th>Closing Date</th>
-                                                            <th>Status</th>
+                                                            {/* <th>Status</th> */}
                                                             {/* <th>Action</th> */}
                                                         </tr>
                                                     </thead>
@@ -152,11 +152,11 @@ const TotalActiveFunds = () => {
                                                                     <td>{fund.avg_amt_per_person}</td>
                                                                     <td>{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
                                                                     <td>{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
-                                                                    <td>
+                                                                    {/* <td>
                                                                         <span style={{ cursor: "pointer" }} className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
                                                                             {fund.status.toUpperCase()}
                                                                         </span>
-                                                                    </td>
+                                                                    </td> */}
                                                                      {/*<td>
                                                                         <a href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
                                                                         <a href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
