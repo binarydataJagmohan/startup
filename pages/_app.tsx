@@ -4,7 +4,9 @@ import { getCurrentUserData } from '@/lib/session';
 import 'bootstrap/dist/css/bootstrap.css';
 import dynamic from 'next/dynamic';
 import {CheckUserApprovalStatus} from "../lib/frontendapi";
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState} from 'react';
+
+import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
 const AdminLayout = dynamic(() => import('../components/Admin/Layouts/Layouts'));
@@ -14,7 +16,7 @@ const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layout
 let current_user: {id?:string, role?: string,approval_status?:string } = {}; // define type of current_user "role"
 const [users, setUsers] = useState<any>({});
 
-
+const router = useRouter();
 useEffect(() => {
 
   const checkUserStatus = async () => {
@@ -41,6 +43,12 @@ useEffect(() => {
   let Layout=FrontendLayout; // default layout is FrontendLayout
   if (current_user && current_user.role === 'admin') {
     Layout = AdminLayout;
+   } 
+   if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||
+   router.pathname === '/about' ||
+   router.pathname === '/services'||router.pathname === '/blogs'||router.pathname === '/contact')
+)  {
+    Layout=FrontendLayout;
    } 
  
   if (current_user.role === 'investor') {
