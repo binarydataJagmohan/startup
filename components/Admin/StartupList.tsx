@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { getAllStartupBusiness } from '../../lib/frontendapi'
+import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
@@ -81,9 +81,31 @@ const StartupList = () => {
                             approval_status: status,
                         };
                     }
-                    return startup;
+                   
+
+
+                    const data = {
+                        notify_from_user: startup.id,
+                        notify_to_user: current_user_id,
+                        notify_msg:"User has been Approved Successfully.",
+                        notification_type: "Approval Notification",
+                        each_read: "unread",
+                        status: "active"
+                      };
+                      // Send Notifications to admin When new user is register
+                      sendNotification(data)
+                      .then((notificationRes) => {
+                        console.log('success')
+                      })
+                      .catch((error) => {
+                        console.log('error occured')
+                      });
+                      return startup;
                 });
                 setStartupData(updatedData);
+
+               
+        
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
