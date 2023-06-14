@@ -1,6 +1,7 @@
 import React,{ useEffect ,useState} from 'react';
 import { getCurrentUserData } from "../../lib/session";
 import { getTotalUsers,getInvestorCounts, getStartupCounts } from '@/lib/adminapi';
+import { useRouter } from 'next/router';
 
 interface UserData {
   id?: string;
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const[investorCount,setInvestorCount] = useState(0);
   const[startupCount,setStartupCount] = useState(0);
 
+  const router = useRouter();
 
    useEffect(()=>{
     const fetchUser = async() =>{
@@ -72,7 +74,9 @@ const Dashboard = () => {
     <>
       <div className="main-content" id='your-element-id1'>
         <div className="page-content">
-          <div className="container-fluid">
+          {
+            router.pathname !== '/' ?(
+<div className="container-fluid">
             {/* start page title */}
             <div className="page-title-box">
               <div className="row align-items-center">
@@ -102,7 +106,7 @@ const Dashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
                       </div>
                       <p className=" mb-0 mt-1 text-white">Since last month</p>
                     </div>
@@ -140,9 +144,9 @@ const Dashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}}/></a>
                       </div>
-                      <p className=" mb-0 mt-1 text-white">Since last month</p>
+                      <p className="mb-0 mt-1 text-white">Since last month</p>
                     </div>
                   </div>
                 </div>
@@ -159,7 +163,7 @@ const Dashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
                       </div>
                       <p className=" mb-0 mt-1 text-white">Since last month</p>
                     </div>
@@ -178,7 +182,7 @@ const Dashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
-                        <a href="#" className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
+                        <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 "style={{backgroundImage:'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)',color:'white'}} /></a>
                       </div>
                       <p className="mb-0 mt-1 text-white">Since last month</p>
                     </div>
@@ -187,7 +191,14 @@ const Dashboard = () => {
               </div>
             </div>
             {/* end row */}
-          </div> {/* container-fluid */}
+          </div>
+            ):(
+              <div>
+
+              </div>
+            )
+          }
+          
         </div>
         {/* End Page-content */}
       </div>
