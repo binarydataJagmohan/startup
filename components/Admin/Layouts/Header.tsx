@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllActiveFundsCount,getAllNotifications } from "../../../lib/adminapi";
+import { getAllActiveFundsCount, getTotalCountOfNotifications, getCountOfUnreadNotifications } from "../../../lib/adminapi";
 import Cookies from "js-cookie";
 
 import {
@@ -21,20 +21,22 @@ const Header = () => {
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
+  const [totalNotifications, setTotalNotifications] = useState("");
+  const [unreadNotifications, setUnreadNotifications] = useState("");
   const [users, setUsers] = useState<any>(
-      {
-      name: '', 
-      email: '', 
-      country: '', 
-      phone: '', 
-      city: '', 
-      status: '', 
-      role: '', 
-      linkedin_url: '', 
-      gender: '', 
+    {
+      name: '',
+      email: '',
+      country: '',
+      phone: '',
+      city: '',
+      status: '',
+      role: '',
+      linkedin_url: '',
+      gender: '',
       profile_pic: ''
-     });
-  const [notifications,setNotifications]=useState({});
+    });
+  const [notifications, setNotifications] = useState({});
   const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";
@@ -79,12 +81,22 @@ const Header = () => {
       .catch((err) => {
       });
 
-      getAllNotifications(current_user_data.id)
+    getTotalCountOfNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          // Set the businessUnits state
-          console.log(res);
-          setNotifications(res.data);
+          setTotalNotifications(res.data);
+        } else {
+        }
+      })
+      .catch((err) => {
+      });
+
+    getCountOfUnreadNotifications(current_user_data.id)
+      .then((res) => {
+        if (res.status == true) {
+          console.log(res)
+          setUnreadNotifications(res.data);
+        } else {
         }
       })
       .catch((err) => {
@@ -164,13 +176,13 @@ const Header = () => {
                               <span>Investors</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup')  ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup') ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
                             </a>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-active-funds'? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
@@ -181,6 +193,13 @@ const Header = () => {
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>All Users</span>
+                            </a>
+                          </li>
+                          <li className={`nav-item ${router.pathname === '/admin/all-notifications' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="waves-effect">
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">{unreadNotifications}</span>
+                              <span>Notifications</span>
                             </a>
                           </li>
                           <li>
@@ -305,18 +324,18 @@ const Header = () => {
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="mdi mdi-bell-outline" />
-                <span className="badge bg-danger rounded-pill">3</span>
+                <span className="badge bg-danger rounded-pill">{unreadNotifications}</span>
               </button>
               <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                 <div className="p-3">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="m-0 font-size-16"> Notifications (258) </h5>
+                      <h5 className="m-0 font-size-16"> Notifications ({totalNotifications}) </h5>
                     </div>
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <a href="#" className="text-reset notification-item">
+                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -326,17 +345,23 @@ const Header = () => {
                         </div>
                       </div>
                       <div className="flex-grow-1">
-                        <h6 className="mb-1">New Message received</h6>
-                        <div className="font-size-12 text-muted">
-                          <p className="mb-1">You have 87 unread messages</p>
-                        </div>
+                        {unreadNotifications > 0 ? (
+                          <>
+                            <h6 className="mb-1">New Notification received</h6>
+                            <div className="font-size-10 text-muted">
+                              <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
+                            </div>
+                          </>
+                        ) : (
+                          <p>There are no new notifications.</p>
+                        )}
                       </div>
                     </div>
                   </a>
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
+                    <a className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
                       View all
                     </a>
                   </div>

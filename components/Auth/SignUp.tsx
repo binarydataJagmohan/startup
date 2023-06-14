@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { userRegister } from "../../lib/frontendapi";
+import { userRegister,sendNotification } from "../../lib/frontendapi";
 import { useRouter } from "next/router";
 
 interface FormData {
@@ -19,6 +19,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const router = useRouter();
+  const [notifications,setNotifications]=useState("");
   const {
     register,
     handleSubmit,
@@ -26,8 +27,6 @@ const Signup = () => {
   } = useForm<FormData>();
 
   // const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~\-=?]).{8,}$/;
-
-  // Add a validation rule for the password field
   register('password', {
     required: 'Password is required',
     minLength: {
@@ -60,14 +59,14 @@ const Signup = () => {
       password: password,
       role: role,
     };
+    
 
     userRegister(user)
       .then((res) => {
-        // console.log(res);
         if (res.status == true) {
           // console.log(res.data[0]);
           // console.log(res.data.user);
-
+         
           if (res.data[0]) {
             setLocalStorageItems(res.data.user);
             
@@ -108,6 +107,24 @@ const Signup = () => {
                 }
                 break;
             }
+
+            const data = {
+              notify_from_user: window.localStorage.getItem("id"),
+              notify_to_user: "1",
+              notify_msg:"New User Registered Successfully.",
+              notification_type: "New User Registerd",
+              each_read: "unread",
+              status: "active"
+            };
+            // Send Notifications to admin When new user is register
+            sendNotification(data)
+            .then((notificationRes) => {
+              console.log('success')
+            })
+            .catch((error) => {
+              console.log('error occured')
+            });
+  
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
