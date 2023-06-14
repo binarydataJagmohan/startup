@@ -375,7 +375,12 @@ const EditAdmin = () => {
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
                                                     >
-                                                        <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
+                                                        {
+                                                            users.gender && (
+                                                                <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
+                                                            )
+                                                        }
+                                                       
                                                         {users.gender !== 'male' && <option value="male">Male</option>}
                                                         {users.gender !== 'female' && <option value="female">Female</option>}
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
