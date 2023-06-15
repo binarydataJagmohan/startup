@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
+import { sendNotification} from '../../lib/frontendapi'
 
 interface UserData {
   id?: number;
@@ -82,6 +83,23 @@ const AllFundsList = () => {
           return fund;
         });
         setFundsData(updatedFunds);
+
+        
+        const data = {
+          notify_from_user: current_user_id,
+          notify_to_user: "1",
+          notify_msg: "Fund Raised Status is Updated.",
+          notification_type: "Fund Raised Status",
+          each_read: "unread",
+          status: "active"
+      };
+        sendNotification(data)
+        .then((notificationRes) => {
+          console.log('success')
+        })
+        .catch((error) => {
+          console.log('error occured')
+        });
         toast.success(response.data.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",

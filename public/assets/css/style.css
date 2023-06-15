@@ -402,8 +402,11 @@ Navbar Area CSS
 
 .fria-nav .navbar .navbar-nav .nav-item span {
     display: block;
-    font-size: 12px;
-    color: #918ac5;
+    /* font-size:12px; */
+    font-size: larger;
+    /* color: #918ac5;
+     */
+     color:#9fe870;
 }
 
 .fria-nav .navbar .navbar-nav .nav-item a {
@@ -675,7 +678,9 @@ Navbar Area CSS
 }
 
 .fria-nav .navbar .others-options {
-    margin-left: 100px;
+    /* margin-left: 100px; */
+    /* margin-left: 12px; */
+    margin-left: 67px;
 }
 
 .fria-nav .navbar .others-options .option-item {
@@ -8345,7 +8350,20 @@ section#service-title {
     border: none;
     cursor: pointer;
     background-color: #9fe870;
+    border-bottom-left-radius: 47px;
+
 }
+.dropbtn1 {
+    /* color: white; */
+    color:#9fe870;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-bottom-left-radius: 47px;
+    margin-right: 116px;
+}
+
 
 .dropdown {
     position: relative;
@@ -8358,7 +8376,8 @@ section#service-title {
     background-color: #ffffff;
     min-width: 160px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+    box-shadow: 1px 20px 4px 7px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -9003,3 +9022,4 @@ div#accordionExample h2 button {
   .progress-bar {
     background-color: #4d48c9 !important;
 }
+

@@ -5,13 +5,14 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
-import {getSingleFundRaiseData} from "../../lib/adminapi"
+import { getSingleFundRaiseData } from "../../lib/adminapi"
+import {sendNotification} from "../../lib/frontendapi"
 
 interface UserData {
   id?: string;
 }
 interface FundRaiseData {
-  id:"";
+  id: "";
   user_id?: number;
   business_id?: number;
   total_units?: string;
@@ -32,7 +33,7 @@ const FundRaiseForm = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
   const [fundRaiseData, setFundRaiseData] = useState<any>({
-    id:"",
+    id: "",
     user_id: current_user_id,
     business_id: businessInfo,
     total_units: "",
@@ -129,31 +130,39 @@ const FundRaiseForm = () => {
     }
 
     const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
+    const id = urlParams.get('id');
 
-        getSingleFundRaiseData(id)
-            .then((res) => {
-                if (res.status == true) {
-                  // console.log(res.data);
-                    setFundRaiseData(res.data);
-                    // console.log(setUser);
-                } else {
-                    toast.error(res.message, {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                }
-            })
-            .catch((err) => {
-                toast.error(err.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                });
-            });
+    getSingleFundRaiseData(id)
+      .then((res) => {
+        if (res.status == true) {
+          // console.log(res.data);
+          setFundRaiseData(res.data);
+          // console.log(setUser);
+        } else {
+          toast.error(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
 
   }, []);
 
   const SubmitForm = async () => {
     try {
       // console.log(fundRaiseData);
+      const data = {
+        notify_from_user: current_user_id,
+        notify_to_user: "1",
+        notify_msg: "New Fund has been Raised By Startup.",
+        notification_type: "Fund Raised",
+        each_read: "unread",
+        status: "active"
+    };
       const formData = new FormData();
       if (agreement !== null) {
         formData.append('agreement', agreement);
@@ -166,8 +175,8 @@ const FundRaiseForm = () => {
       }
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get('id');
-      if(id){
-        formData.append('id',id);
+      if (id) {
+        formData.append('id', id);
       }
 
       formData.append('user_id', fundRaiseData.user_id);
@@ -185,6 +194,17 @@ const FundRaiseForm = () => {
       const res = await fundInformationSave(formData);
 
       if (res.status === true) {
+        sendNotification(data)
+          .then((notificationRes) => {
+            console.log('success')
+          })
+          .catch((error) => {
+            console.log('error occured')
+          });
+        toast.success("Profile has been Updated Successfully.", {
+          position: toast.POSITION.TOP_RIGHT,
+          toastId: "success",
+        });
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
@@ -244,9 +264,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="amount"  {...register("amount", {
-                        required: true,
+                            required: true,
                           })} name="amount" placeholder="Total Amount"
-                            onChange={handleChange} value={fundRaiseData.amount ? fundRaiseData.amount :"" }/>
+                            onChange={handleChange} value={fundRaiseData.amount ? fundRaiseData.amount : ""} />
                           {errors.amount && (
                             <p
                               className="text-danger mt-1"
@@ -261,9 +281,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="total_units"  {...register("total_units", {
-                           value:!fundRaiseData.total_units,required: true,
+                            value: !fundRaiseData.total_units, required: true,
                           })} name="total_units" placeholder="Total Units"
-                            onChange={handleChange} value={fundRaiseData.total_units ? fundRaiseData.total_units : ""}/>
+                            onChange={handleChange} value={fundRaiseData.total_units ? fundRaiseData.total_units : ""} />
                           {errors.total_units && (
                             <p
                               className="text-danger mt-1"
@@ -281,9 +301,9 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
-                           value:!fundRaiseData.avg_amt_per_person, required: true,
+                            value: !fundRaiseData.avg_amt_per_person, required: true,
                           })} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
-                            onChange={handleChange} value={fundRaiseData.avg_amt_per_person? fundRaiseData.avg_amt_per_person:""} />
+                            onChange={handleChange} value={fundRaiseData.avg_amt_per_person ? fundRaiseData.avg_amt_per_person : ""} />
                           {errors.avg_amt_per_person && (
                             <p
                               className="text-danger mt-1"
@@ -299,7 +319,8 @@ const FundRaiseForm = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
-                           value:!fundRaiseData.minimum_subscription})} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription ? fundRaiseData.minimum_subscription:""}
+                            value: !fundRaiseData.minimum_subscription
+                          })} name="minimum_subscription" placeholder="Total Subscription" value={fundRaiseData.minimum_subscription ? fundRaiseData.minimum_subscription : ""}
                             onChange={handleChange} />
                           {errors.minimum_subscription && (
                             <p
@@ -318,9 +339,10 @@ const FundRaiseForm = () => {
                             Resouce<span style={{ color: "red" }}>*</span>
                           </label>
                           <select
-                            className="form-select form-select-lg css-1492t68" {...register("resource", {value:!fundRaiseData.resource,
-                             required: true, onChange: handleChange
-                            })} name="resource" value={fundRaiseData.resource ? fundRaiseData.resource:""}
+                            className="form-select form-select-lg css-1492t68" {...register("resource", {
+                              value: !fundRaiseData.resource,
+                              required: true, onChange: handleChange
+                            })} name="resource" value={fundRaiseData.resource ? fundRaiseData.resource : ""}
                             aria-label="Default select example"
                           >
                             <option value="">--SELECT RESOURCE--</option>
@@ -343,8 +365,8 @@ const FundRaiseForm = () => {
                           <select
                             className="form-select form-select-lg  css-1492t68"
                             {...register("tenure", {
-                             required: true, onChange: handleChange,value:!fundRaiseData.tenure
-                            })} name="tenure" value={fundRaiseData.tenure ? fundRaiseData.tenure:""}
+                              required: true, onChange: handleChange, value: !fundRaiseData.tenure
+                            })} name="tenure" value={fundRaiseData.tenure ? fundRaiseData.tenure : ""}
                             aria-label="Default select example"
                           >
                             <option value="" disabled>--SELECT TENURE--</option>
@@ -397,11 +419,12 @@ const FundRaiseForm = () => {
                           <input
                             type="date"
                             className="form-control"
-                            id="repay_date" {...register("repay_date", { value:!fundRaiseData.repay_date,
+                            id="repay_date" {...register("repay_date", {
+                              value: !fundRaiseData.repay_date,
                             })}
                             name="repay_date"
-                            value={fundRaiseData.repay_date ? fundRaiseData.repay_date:""}
-                            onChange={handleChange}/>
+                            value={fundRaiseData.repay_date ? fundRaiseData.repay_date : ""}
+                            onChange={handleChange} />
                           {errors.repay_date && (
                             <p
                               className="text-danger"
@@ -418,11 +441,12 @@ const FundRaiseForm = () => {
                           <input
                             type="date"
                             className="form-control"
-                            id="closed_in" {...register("closed_in", { value:!fundRaiseData.closed_in,
+                            id="closed_in" {...register("closed_in", {
+                              value: !fundRaiseData.closed_in,
                             })}
                             name="closed_in"
-                            value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""}
-                            onChange={handleChange}/>
+                            value={fundRaiseData.closed_in ? fundRaiseData.closed_in : ""}
+                            onChange={handleChange} />
                           {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
                           })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
                           {errors.closed_in && (
@@ -445,8 +469,9 @@ const FundRaiseForm = () => {
                           <textarea
                             rows={4}
                             placeholder="Enter details here"
-                            className="form-control"{...register("desc", {value:!fundRaiseData.desc,
-                            })} name="desc"  onChange={handleChange} value={fundRaiseData.desc ? fundRaiseData.desc:""}
+                            className="form-control"{...register("desc", {
+                              value: !fundRaiseData.desc,
+                            })} name="desc" onChange={handleChange} value={fundRaiseData.desc ? fundRaiseData.desc : ""}
                           />
                         </div>
                       </div>
@@ -458,9 +483,9 @@ const FundRaiseForm = () => {
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="xirr" {...register("xirr", {
-                          value:!fundRaiseData.xirr, required: true,
+                            value: !fundRaiseData.xirr, required: true,
                           })} name="xirr" placeholder='Xirr( calculate in%)'
-                            onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr:""}/>
+                            onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr : ""} />
                           {errors.xirr && (
                             <p
                               className="text-danger"

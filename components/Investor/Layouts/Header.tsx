@@ -105,13 +105,18 @@ const Header = () => {
 
   // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showBellDropdown, setBellShowDropdown] = useState(false);
 
   function toggleDropdown() {
     setShowDropdown(!showDropdown);
   }
 
+  function toggleBellDropdown() {
+    setBellShowDropdown(!showDropdown);
+  }
+
   function handleOutsideClick(event :any) {
-    if (!event.target.matches('.dropbtn')) {
+    if (!event.target.matches('.dropbtn','.dropbtn2')) {
       setShowDropdown(false);
     }
   }
@@ -130,77 +135,57 @@ const Header = () => {
     </div>
   </div>
   <div className="fria-nav" id="dashboard">
-    <div className="container">
+  <div className="container">
       <nav className="navbar navbar-expand-md navbar-light">
         <a className="navbar-brand" href={process.env.NEXT_PUBLIC_BASE_URL}>
-          <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="" />
+          <img src={process.env.NEXT_PUBLIC_BASE_URL +"assets/img/logo.png"} className="black-logo" alt="image" />
         </a>
         <div
           className="collapse navbar-collapse mean-menu"
           id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a  href={investorStatus === 'pending' || investorStatus === 'reject' ? `${process.env.NEXT_PUBLIC_BASE_URL}/investor/thank-you` : `${process.env.NEXT_PUBLIC_BASE_URL}/investor/campaign`} className="nav-link active">
+              <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="nav-link active">
                 Explore
               </a>
             </li>
-            <li className="nav-item">
+                {/* <li className="nav-item">
+                  <a href="#" className="nav-link">
+                    <span className="fa fa-bell belll"></span>
+                    <ul className="d-none">
+                      <li className="nav-item">12</li>
+                      <li className="nav-item">12</li>
+                    </ul>
+                  </a>
+                </li> */}
+            {/* <li className="nav-item">
               <Link href="#" className="nav-link">
                 Subscribe
               </Link>
-            </li>
-           
-            <li></li>
+            </li> */}
+            {/* <li className="nav-item">
+              <a href="#" className="nav-link">
+                Portfolio
+              </a>
+            </li> */}
+         
           </ul>
-          {investorStatus === 'approved' && (
-            <div className="dropdown d-inline-block">
-            <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="mdi mdi-bell-outline" />
-              <span className="badge bg-danger rounded-pill">{fundRaiseCount}</span>
-            </button>
-            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
-              <div className="p-3">
-                <div className="row align-items-center">
-                  <div className="col">
-                    <h5 className="m-0 font-size-16"> Notifications ({fundRaiseCount}) </h5>
-                  </div>
-                </div>
-              </div>
-              <div data-simplebar style={{ maxHeight: '230px' }}>
-                <a href="#" className="text-reset notification-item">
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 me-3">
-                      <div className="avatar-xs">
-                        <span className="avatar-title bg-danger rounded-circle font-size-16">
-                          <i className="mdi mdi-message-text-outline" />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex-grow-1">
-                      <h6 className="mb-1">New Message received</h6>
-                      <div className="font-size-12 text-muted">
-                        <p className="mb-1">You have {fundRaiseCount} unread messages</p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="p-2 border-top">
-                <div className="d-grid">
-                  <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
-                    View all
-                  </a>
-                </div>
+          <div className="others-options">
+            <div className="dropdown">
+              <a onClick={toggleBellDropdown} className="dropbtn1">
+               <span className="fa fa-bell"></span>
+              </a>
+              <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
+                {/* <a href="">{current_user_name}</a> */}
+                 <a href="#">1</a>
+                   <a href="#">1</a>
               </div>
             </div>
           </div>
-          )}
-          
-
           <div className="others-options">
             <div className="dropdown">
               <button onClick={toggleDropdown} className="dropbtn">
-                {userName} <i className="fa-solid fa-caret-down" />
+                {current_user_name} <i className="fa-solid fa-caret-down" />
               </button>
               <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                 {/* <a href="">{current_user_name}</a> */}

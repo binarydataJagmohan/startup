@@ -64,12 +64,11 @@ const Signup = () => {
     userRegister(user)
       .then((res) => {
         if (res.status == true) {
-          // console.log(res.data[0]);
-          // console.log(res.data.user);
-         
+        //   console.log(res.data[0]);
+        //   console.log(res.data['user']);
+        //  return false;
           if (res.data[0]) {
-            setLocalStorageItems(res.data.user);
-            
+            setLocalStorageItems(res.data['user']);
             switch (window.localStorage.getItem("user_role")) {
               case "admin":
                 setTimeout(() => {
@@ -116,6 +115,7 @@ const Signup = () => {
               each_read: "unread",
               status: "active"
             };
+            
             // Send Notifications to admin When new user is register
             sendNotification(data)
             .then((notificationRes) => {

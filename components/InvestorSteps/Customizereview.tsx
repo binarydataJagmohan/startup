@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { getAngelInvestorTerms, angelInvestorTermsSave } from "../../lib/frontendapi";
+import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification } from "../../lib/frontendapi";
 import $ from "jquery";
 const alertStyle = {
   color: 'red',
@@ -202,9 +202,30 @@ export default function Customizereview(): any {
       // });
       return;
     }
+
+
+
     try {
       const res = await angelInvestorTermsSave(terms);
+      const data = {
+        notify_from_user: current_user_id,
+        notify_to_user: "1",
+        notify_msg: "User Profile has been Completed.",
+        notification_type: "Profile Completed",
+        each_read: "unread",
+        status: "active"
+      };
       if (res.status == true) {
+        // Send Notifications to admin When new user is register
+        sendNotification(data)
+          .then((notificationRes) => {
+            console.log('success')
+          })
+          .catch((error) => {
+            console.log('error occured')
+          });
+
+
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
@@ -219,7 +240,7 @@ export default function Customizereview(): any {
         });
       }
     } catch (err) {
-     
+
     }
   };
 

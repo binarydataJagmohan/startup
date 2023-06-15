@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { getBankInformation,bankInformationSave } from "../../lib/frontendapi";
+import { getBankInformation,bankInformationSave,sendNotification } from "../../lib/frontendapi";
 import {removeToken,removeStorageData,getCurrentUserData,} from "../../lib/session";
 
 
@@ -90,7 +90,22 @@ export default function AdharInformation():any {
   const SubmitForm = async () => {
      try {
       const res = await bankInformationSave(bankDetails);
+      const data = {
+        notify_from_user: current_user_id,
+        notify_to_user: "1",
+        notify_msg: "User Profile has been Completed.",
+        notification_type: "Profile Completed",
+        each_read: "unread",
+        status: "active"
+    };
       if (res.status == true) {
+        sendNotification(data)
+                    .then((notificationRes) => {
+                        console.log('success')
+                    })
+                    .catch((error) => {
+                        console.log('error occured')
+                    });
         toast.success("Profile has been Updated Successfully.", {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",

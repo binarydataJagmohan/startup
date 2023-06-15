@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { angelAccreditedTermsSave, getAccreditedInvestorTerms } from "../../lib/frontendapi";
+import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification } from "../../lib/frontendapi";
 import $ from "jquery";
 const alertStyle = {
     color: 'red',
@@ -195,7 +195,7 @@ export default function AccreditedInvestors() {
         const checkFinancialNetWorth = category === '2';
         if (checkFinancialNetWorth && updatedTerms.foreign_annual_income !== '1') {
             setMissingFields(prevFields => [...prevFields, "foreign_annual_income"])
-          
+
             return;
         }
 
@@ -223,8 +223,24 @@ export default function AccreditedInvestors() {
 
         try {
             const res = await angelAccreditedTermsSave(terms);
+            const data = {
+                notify_from_user: current_user_id,
+                notify_to_user: "1",
+                notify_msg: "User Profile has been Completed.",
+                notification_type: "Profile Completed",
+                each_read: "unread",
+                status: "active"
+            };
 
             if (res.status == true) {
+                // Send Notifications to admin When new user is register
+                sendNotification(data)
+                    .then((notificationRes) => {
+                        console.log('success')
+                    })
+                    .catch((error) => {
+                        console.log('error occured')
+                    });
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",

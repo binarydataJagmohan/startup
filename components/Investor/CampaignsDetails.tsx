@@ -517,7 +517,7 @@ export default function CampaignsDetails() {
                       </label>
                     </div>
                     <div className="text-center viwe_all">
-                      <a href="#" onClick={handleSubmit}    className={ButtonDisabled ? "disabled d-none" : ""}>
+                      <a href="#" onClick={handleSubmit}   >
                         Continue to Pay
                       </a>
                     </div>

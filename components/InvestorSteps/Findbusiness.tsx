@@ -171,6 +171,7 @@ export default function Findbusiness(): any {
   const handleSelect = (find_business_location: any) => {
     setFindBusinessLocation(find_business_location);
   };
+  console.log(user);
 
   if (signup_success) return router.push("/steps/businessinfo");
 

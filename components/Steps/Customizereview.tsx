@@ -115,8 +115,8 @@ export default function Customereview():any {
           toastId: "error",
         });
       }
-    } catch (err) {
-      toast.error("Basic Information has not been stored.", {
+    } catch (err:any) {
+      toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
