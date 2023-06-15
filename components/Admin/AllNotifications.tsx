@@ -48,6 +48,7 @@ const AllNotifications = () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
                 setNotifications(data.data);
+                console.log(data.data)
                 updateNotification(current_user_data.id)
                 .then((res) => {
                   if (res.status == true) {
