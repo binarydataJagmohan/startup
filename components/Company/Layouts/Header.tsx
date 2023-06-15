@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { useRouter } from 'next/router';
 import { getSingleUserData,CheckUserApprovalStatus} from '@/lib/frontendapi';
+import { getTotalCountOfNotifications, getCountOfUnreadNotifications} from '../../../lib/adminapi';
 interface UserData {
   id?: string;
   username?: string;
@@ -11,6 +12,8 @@ const Header = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const [totalNotifications, setTotalNotifications] = useState("");
+  const [unreadNotifications, setUnreadNotifications] = useState("");
   const [users, setUsers] = useState<any>(
     { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '',profile_pic:'' });
   const router = useRouter();
@@ -44,6 +47,29 @@ const Header = () => {
       })
       .catch((err) => {
       });
+
+
+      getTotalCountOfNotifications(current_user_data.id)
+      .then((res) => {
+        if (res.status == true) {
+          setTotalNotifications(res.data);
+        } else {
+        }
+      })
+      .catch((err) => {
+      });
+
+    getCountOfUnreadNotifications(current_user_data.id)
+      .then((res) => {
+        if (res.status == true) {
+          console.log(res)
+          setUnreadNotifications(res.data);
+        } else {
+        }
+      })
+      .catch((err) => {
+      });
+
   }, []);
   
   return (
@@ -243,13 +269,13 @@ const Header = () => {
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="mdi mdi-bell-outline" />
-                <span className="badge bg-danger rounded-pill">3</span>
+                <span className="badge bg-danger rounded-pill">{unreadNotifications}</span>
               </button>
               <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                 <div className="p-3">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="m-0 font-size-16"> Notifications (258) </h5>
+                      <h5 className="m-0 font-size-16"> Notifications ({totalNotifications}) </h5>
                     </div>
                   </div>
                 </div>
@@ -264,10 +290,16 @@ const Header = () => {
                         </div>
                       </div>
                       <div className="flex-grow-1">
-                        <h6 className="mb-1">New Message received</h6>
-                        <div className="font-size-12 text-muted">
-                          <p className="mb-1">You have 87 unread messages</p>
-                        </div>
+                      {parseInt(unreadNotifications)> 0 ? (
+                          <>
+                            <h6 className="mb-1">New Notification received</h6>
+                            <div className="font-size-10 text-muted">
+                              <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
+                            </div>
+                          </>
+                        ) : (
+                          <p>There are no new notifications.</p>
+                        )}
                       </div>
                     </div>
                   </a>

@@ -345,7 +345,7 @@ const Header = () => {
                         </div>
                       </div>
                       <div className="flex-grow-1">
-                        {unreadNotifications > 0 ? (
+                        {parseInt(unreadNotifications) > 0 ? (
                           <>
                             <h6 className="mb-1">New Notification received</h6>
                             <div className="font-size-10 text-muted">
