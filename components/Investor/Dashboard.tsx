@@ -423,7 +423,7 @@ const Dashboard = () => {
                       </div>
                       <div className="text-center mt-3">
                         <a href="#" className="card-link">
-                          💡13.6% Discount Rate
+                          💡{details.xirr}% Discount Rate
                         </a>
                         <a href="#" className="card-link">
                           🌟Repayment/Unit- ₹10,167

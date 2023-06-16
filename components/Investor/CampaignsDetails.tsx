@@ -206,9 +206,7 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                          {inputs && inputs.logo && (
-                            <img src={inputs.logo.replace('docs', 'public/docs')} alt="" />
-                          )}
+                            <img src={inputs.logo} alt="" />
                         </div>
                       </div>
 
@@ -289,7 +287,7 @@ export default function CampaignsDetails() {
                     <div className="d-flex justify-content-between all-btn py-3">
                       <div className="">
                         <div className="text-center button-pdf">
-                          <a href={"http://localhost:8000/pdf/" + inputs.agreement} download target='_blank'>
+                          <a href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.agreement}`} download target='_blank'>
                             <span>
                               Agreement <i className="fa-solid fa-download" />
                             </span>
@@ -298,7 +296,7 @@ export default function CampaignsDetails() {
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
-                          <a href={"http://localhost:8000/pdf/" + inputs.pdc} download target='_blank'>
+                          <a href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.pdc}`} download target='_blank'>
                             <span>
                               PDC <i className="fa-solid fa-download" />
                             </span>
@@ -307,7 +305,7 @@ export default function CampaignsDetails() {
                       </div>
                       <div className="">
                         <div className="text-center button-pdf">
-                          <a href={"http://localhost:8000/pdf/" + inputs.invoice} download target='_blank'>
+                          <a href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.invoice}`} download target='_blank'>
                             <span>
                               Invoice <i className="fa-solid fa-download" />
                             </span>
