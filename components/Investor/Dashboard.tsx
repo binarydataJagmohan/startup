@@ -149,7 +149,7 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={`/${details.logo}`}
+                          src={details.logo}
                         />
                       </a>
                     </div>
