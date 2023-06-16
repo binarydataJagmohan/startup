@@ -75,13 +75,14 @@ const Dashboard = () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
+        
       
         // Set the initial page to 0
         setCurrentPage(0);
         setCurrentPageCOP(0);
         setcurrentPagediscount(0);
         setCurrentPageopen(0);
-        // console.log(data.data);
+        //  console.log(data.data);
       }
     };
 
@@ -147,9 +148,10 @@ const Dashboard = () => {
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
                     <div className="product-image">
                       <a href="#" className="image">
+                        {}
                         <img
                           className="pic-1 image"
-                          src={details.logo}
+                          src={details.logo.replace('docs', 'public/docs')}
                         />
                       </a>
                     </div>
@@ -263,7 +265,7 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo}
+                          src={details.logo.replace('docs', 'public/docs')}
                         />
                       </a>
                     </div>
@@ -386,7 +388,7 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo}
+                          src={details.logo.replace('docs', 'public/docs')}
                         />
                       </a>
                     </div>
@@ -508,7 +510,7 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo}
+                          src={details.logo.replace('docs', 'public/docs')}
                         />
                       </a>
                     </div>

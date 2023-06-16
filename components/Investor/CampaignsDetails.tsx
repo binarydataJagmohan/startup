@@ -4,7 +4,7 @@ import { getSingleBusinessDetails, InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {sendNotification} from '../../lib/frontendapi'
+import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
   // role?:string;
@@ -45,12 +45,12 @@ export default function CampaignsDetails() {
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
   const [ButtonDisabled, setButtonDisabled] = useState(true);
- 
-  
+
+
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-   
+
     if (current_user_data?.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -68,7 +68,7 @@ export default function CampaignsDetails() {
     };
     fetchData();
   }, [id]);
-  
+
 
   const handleChangeTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
@@ -96,28 +96,28 @@ export default function CampaignsDetails() {
       no_of_units: value,
     };
 
-  //   const notification = {
-  //     notify_from_user: current_user_id,
-  //     notify_to_user: "1",
-  //     notify_msg: "New Fund has been Raised By Startup.",
-  //     notification_type: "Fund Raised",
-  //     each_read: "unread",
-  //     status: "active"
-  // };
+    //   const notification = {
+    //     notify_from_user: current_user_id,
+    //     notify_to_user: "1",
+    //     notify_msg: "New Fund has been Raised By Startup.",
+    //     notification_type: "Fund Raised",
+    //     each_read: "unread",
+    //     status: "active"
+    // };
     try {
       InvestorBooking(data)
         .then((res) => {
           if (res.status == true) {
             setButtonDisabled(true);
 
-          // send notification
-          // sendNotification(data)
-          // .then((notificationRes) => {
-          //   console.log('success')
-          // })
-          // .catch((error) => {
-          //   console.log('error occured')
-          // });
+            // send notification
+            // sendNotification(data)
+            // .then((notificationRes) => {
+            //   console.log('success')
+            // })
+            // .catch((error) => {
+            //   console.log('error occured')
+            // });
 
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -206,11 +206,12 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                          {/* {inputs && inputs.logo && ( */}
-                          <img src={inputs.logo} alt="" />
-                          {/* )} */}
+                          {inputs && inputs.logo && (
+                            <img src={inputs.logo.replace('docs', 'public/docs')} alt="" />
+                          )}
                         </div>
                       </div>
+
                       <h5><a href={inputs.website_url} target='_blank' style={{ color: "black" }}>{inputs.business_name}</a></h5>
                       <p>STARTUP</p>
                     </div>
