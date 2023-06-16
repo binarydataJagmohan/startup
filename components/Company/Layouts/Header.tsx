@@ -242,7 +242,7 @@ const Header = () => {
           </div>
           <div className="d-flex">
             {/* App Search*/}
-            <form className="app-search d-none d-lg-block">
+            {/* <form className="app-search d-none d-lg-block">
               <div className="position-relative">
                 <input type="text" className="form-control" placeholder="Search..." />
                 <span className="fa fa-search" />
@@ -264,7 +264,7 @@ const Header = () => {
                   </div>
                 </form>
               </div>
-            </div>
+            </div> */}
 
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -280,7 +280,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <a href="#" className="text-reset notification-item">
+                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -306,7 +306,7 @@ const Header = () => {
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <a className="btn btn-sm btn-link font-size-14 text-center" href="#">
+                    <a className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
                       View all
                     </a>
                   </div>

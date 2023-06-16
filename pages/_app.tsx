@@ -3,23 +3,23 @@ import type { AppProps } from 'next/app'
 import { getCurrentUserData } from '@/lib/session';
 import 'bootstrap/dist/css/bootstrap.css';
 import dynamic from 'next/dynamic';
-import {CheckUserApprovalStatus} from "../lib/frontendapi";
-import React,{useEffect,useState} from 'react';
+import { CheckUserApprovalStatus } from "../lib/frontendapi";
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
-const AdminLayout = dynamic(() => import('../components/Admin/Layouts/Layouts'));
-const FrontendLayout = dynamic(() => import('../components/Frontend/layouts/Layout'));
-const InvestorLayout = dynamic(() => import('../components/Investor/Layouts/Layouts'));
-const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layouts'));
-let current_user: {id?:string, role?: string,approval_status?:string } = {}; // define type of current_user "role"
-const [users, setUsers] = useState<any>({});
+  const AdminLayout = dynamic(() => import('../components/Admin/Layouts/Layouts'));
+  const FrontendLayout = dynamic(() => import('../components/Frontend/layouts/Layout'));
+  const InvestorLayout = dynamic(() => import('../components/Investor/Layouts/Layouts'));
+  const CompanyLayout = dynamic(() => import('../components/Company/Layouts/Layouts'));
+  let current_user: { id?: string, role?: string, approval_status?: string } = {}; // define type of current_user "role"
+  const [users, setUsers] = useState<any>({});
 
-const router = useRouter();
-useEffect(() => {
+  const router = useRouter();
+  useEffect(() => {
 
-  const checkUserStatus = async () => {
+    const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user.id);
         if (res.status === true) {
@@ -31,33 +31,51 @@ useEffect(() => {
     };
     checkUserStatus();
 
-}, []);
+  }, []);
 
-//  console.log(users);
+  //  console.log(users);
   try {
     current_user = getCurrentUserData() || {};
   } catch (error) {
     console.error('Error getting current user data:', error);
   }
+  
+// default layout is FrontendLayout
+  let Layout = FrontendLayout; 
 
-  let Layout=FrontendLayout; // default layout is FrontendLayout
+  // admin header
   if (current_user && current_user.role === 'admin') {
     Layout = AdminLayout;
-   } 
-   if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||
-   router.pathname === '/about' ||
-   router.pathname === '/services'||router.pathname === '/blogs'||router.pathname === '/contact')
-)  {
-    Layout=FrontendLayout;
-   } 
- 
-  if (current_user.role === 'investor') {
-       Layout = InvestorLayout;
   }
+  if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||
+    router.pathname === '/about' ||
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+  ) {
+    Layout = FrontendLayout;
+  }
+
+  // investor header
+  if (current_user.role === 'investor') {
+    Layout = InvestorLayout;
+  }
+  if (current_user && current_user.role === 'investor' && (router.pathname === '/' ||
+    router.pathname === '/about' ||
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+  ) {
+    Layout = FrontendLayout;
+  }
+
+
+  // startup header
   if (users.role === 'startup' && users.approval_status === 'approved') {
     Layout = CompanyLayout;
-}
-
+  }
+  if (current_user && current_user.role === 'startup' && (router.pathname === '/' ||
+    router.pathname === '/about' ||
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+  ) {
+    Layout = FrontendLayout;
+  }
   return (
     <>
       {Layout && <Layout> {/* check if Layout is defined before rendering */}

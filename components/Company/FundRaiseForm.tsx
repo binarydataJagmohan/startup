@@ -7,6 +7,7 @@ import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/s
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 import { getSingleFundRaiseData } from "../../lib/adminapi"
 import {sendNotification} from "../../lib/frontendapi"
+import { FundRaisedSendNotification} from '../../lib/investorapi'
 
 interface UserData {
   id?: string;
@@ -201,7 +202,17 @@ const FundRaiseForm = () => {
           .catch((error) => {
             console.log('error occured')
           });
-        toast.success("Profile has been Updated Successfully.", {
+
+          FundRaisedSendNotification(data)
+          .then((notificationRes) => {
+            console.log('success')
+          })
+          .catch((error) => {
+            console.log('error occured')
+          });
+
+
+        toast.success(res.msg, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
         });

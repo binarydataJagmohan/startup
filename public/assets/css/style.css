@@ -450,7 +450,7 @@ Navbar Area CSS
 
 .fria-nav .navbar .navbar-nav .nav-item:hover a,
 .fria-nav .navbar .navbar-nav .nav-item.active a {
-    color: #9fe870;
+    color:  #9fe870;
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
@@ -8377,13 +8377,14 @@ section#service-title {
     min-width: 160px;
     overflow: auto;
     /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
-    box-shadow: 1px 20px 4px 7px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 1px 20px 4px 7px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.2) !important;
     z-index: 1;
 }
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px !important;
+ 
     text-decoration: none;
     display: block;
 }
@@ -8673,11 +8674,23 @@ section#service-title {
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    padding: 12px;
+    font-size: 15px;
+    line-height: 23px;
+    text-transform: capitalize;
+    font-weight: 500;
+
+}
+div#myDropdown p {
+    font-size: 15px;
+    color: #000;
+    text-transform: capitalize;
+    font-weight: 600;
 }
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px !important;
+
     text-decoration: none;
     display: block;
 }
@@ -9023,3 +9036,13 @@ div#accordionExample h2 button {
     background-color: #4d48c9 !important;
 }
 
+a.dropbtn1:hover {
+  color: #368b00;
+}
+a:hover{
+    color: #368b00 !important;
+}
+
+.others-options a {
+    color: #000 !important;
+}

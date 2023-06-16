@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { getSingleUserData, getCountries } from '@/lib/frontendapi';
+import { getSingleUserData, getCountries,sendNotification } from '@/lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -104,6 +104,14 @@ const EditUser = () => {
 
         try {
 
+            const data = {
+                notify_from_user:"1",
+                notify_to_user:id,
+                notify_msg: "Your Profile has been Updated by Admin.",
+                notification_type: "Profile Updated",
+                each_read: "unread",
+                status: "active"
+            };
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
@@ -119,6 +127,14 @@ const EditUser = () => {
                     ['linkedin_url']: users.linkedin_url
                 }
             );
+
+            sendNotification(data)
+                .then((notificationRes) => {
+                    console.log('success')
+                })
+                .catch((error) => {
+                    console.log('error occured')
+                });
 
             toast.success('User updated successfully');
             setTimeout(() => {
