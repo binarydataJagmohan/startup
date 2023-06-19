@@ -19,12 +19,17 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [notifications,setNotifications]=useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   // const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~\-=?]).{8,}$/;
   register('password', {
@@ -42,14 +47,8 @@ const Signup = () => {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
   });
-  const setLocalStorageItems = (user:any) => {
-    window.localStorage.setItem("id", user.id);
-    window.localStorage.setItem("email", user.email);
-    window.localStorage.setItem("username", user.name);
-    window.localStorage.setItem("user_role", user.role);
-    window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
-    window.localStorage.setItem("approval_status", user.approval_status);
-  };
+
+ 
 
   const SubmitForm = () => {
     const user = {
@@ -59,7 +58,14 @@ const Signup = () => {
       password: password,
       role: role,
     };
-    
+    const setLocalStorageItems = (user:any) => {
+      window.localStorage.setItem("id", user.id);
+      window.localStorage.setItem("email", user.email);
+      window.localStorage.setItem("username", user.firstname);
+      window.localStorage.setItem("user_role", user.role);
+      window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
+      window.localStorage.setItem("approval_status", user.approval_status);
+    };
 
     userRegister(user)
       .then((res) => {
@@ -110,8 +116,8 @@ const Signup = () => {
             const data = {
               notify_from_user: window.localStorage.getItem("id"),
               notify_to_user: "1",
-              notify_msg:"New User Registered Successfully.",
-              notification_type: "New User Registerd",
+              notify_msg:`${user.firstname} has been registered successfully as a ${user.role}.`,
+              notification_type: "New User Registered",
               each_read: "unread",
               status: "active"
             };
@@ -268,18 +274,21 @@ const Signup = () => {
 
 
 
-                      <div className="form-group col-md-6">
+                      <div className="form-group col-md-6 position-relative">
                         <label>
                           Password<span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                          type="password"
+                           type={showPassword ? 'text' : 'password'}
                           id="password"
                           className="form-control" maxLength={16}
                           {...register("password", {
                             onChange: (e) => setPassword(e.target.value),
                           })}
                         />
+                       <span className="passwordView1" onClick={handleTogglePassword}>
+                      {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
+                    </span>
                         <div className="help-block with-errors" />
                         {errors.password && (
                           <p

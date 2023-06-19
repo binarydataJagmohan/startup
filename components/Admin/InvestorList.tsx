@@ -203,7 +203,7 @@ const InvestorList = () => {
                                                                     <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-eye'></span></a>
                                                                     <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                                 </td>
                                                             </tr>

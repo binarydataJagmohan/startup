@@ -6,7 +6,7 @@ import router from "next/router";
 import { useForm } from "react-hook-form";
 import { getBankInformation,bankInformationSave,sendNotification } from "../../lib/frontendapi";
 import {removeToken,removeStorageData,getCurrentUserData,} from "../../lib/session";
-
+import { getSingleUserData } from '@/lib/frontendapi';
 
 const alertStyle = {
   color: "red",
@@ -17,6 +17,7 @@ const textStyle = {
 
 interface UserData {
   id?: string;
+  name?:string;
 }
 export default function AdharInformation():any {
   const [blId, setBlId] = useState("");
@@ -26,7 +27,8 @@ export default function AdharInformation():any {
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
-  // const [current_business_id , setCurrentBusinessId ] = useState(false);
+  const [current_user_name, setCurrentUsername]=useState("");
+  const [users, setUsers] = useState<any>({});
   const [bankDetails, setBankDetails] = useState({
     user_id:current_user_id,
     // business_id :current_business_id ,
@@ -59,10 +61,25 @@ export default function AdharInformation():any {
   };
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    current_user_data.name
+    ? setCurrentUsername(current_user_data.name)
+    : setCurrentUsername("");
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
         : setCurrentUserId("");
+
+        getSingleUserData(current_user_data.id)
+        .then((res) => {
+          if (res.status == true) {
+            setUsers(res.data);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+        });
 
         getBankInformation(current_user_data.id)
         .then((res) => {
@@ -84,16 +101,16 @@ export default function AdharInformation():any {
       window.location.href = "/login";
     }
 
+    
   }, []);
 
-  
   const SubmitForm = async () => {
      try {
       const res = await bankInformationSave(bankDetails);
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
-        notify_msg: "User Profile has been Completed.",
+        notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
         notification_type: "Profile Completed",
         each_read: "unread",
         status: "active"

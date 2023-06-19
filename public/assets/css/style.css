@@ -9046,3 +9046,42 @@ a:hover{
 .others-options a {
     color: #000 !important;
 }
+
+.passwordView{
+    position: absolute;
+    top: 20px;
+    right: 33px;
+}
+span.passwordView1 {
+    position: absolute;
+    top: 53%;
+    right: 4%;
+}
+.accordion-button:focus {
+    z-index: 3;
+    border-color:none !important;
+    outline: 0;
+    box-shadow:none !important;
+}
+
+.accordion-button::after{
+    background-color: #fff;
+}
+@media(min-width:991px){
+    .container .accordion {
+        margin-top: 5%;
+        margin-left: 23%;
+    }
+}
+@media(max-width:991px){
+    .container .accordion {
+        margin-left: 0%;
+        margin-top: 10%;
+    }
+}
+
+@media (max-width:767px){
+    span.passwordView1 {
+        right: 7%;
+    }
+}

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification } from "../../lib/frontendapi";
+import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData} from "../../lib/frontendapi";
 import $ from "jquery";
 const alertStyle = {
   color: 'red',
@@ -15,6 +15,7 @@ const textStyle = {
 };
 interface CurrentUserData {
   id?: string;
+  name?:string;
 }
 interface ErrorMessage {
   message: string;
@@ -22,6 +23,7 @@ interface ErrorMessage {
 export default function Customizereview(): any {
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
+  const [current_user_name, setCurrentUsername]=useState("");
   const [terms, setTerms] = useState({
     user_id: current_user_id,
     category: "",
@@ -34,7 +36,7 @@ export default function Customizereview(): any {
   });
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const [missingFields, setMissingFields] = useState<string[]>([]);
-
+  const [users, setUsers] = useState<any>({});
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMissingFields([]);
     const { name, value, type, checked } = event.target;
@@ -120,6 +122,23 @@ export default function Customizereview(): any {
       });
     });
     const current_user_data: CurrentUserData = getCurrentUserData();
+    current_user_data.name
+    ? setCurrentUsername(current_user_data.name)
+    : setCurrentUsername("");
+
+    getSingleUserData(current_user_data.id)
+    .then((res) => {
+      if (res.status == true) {
+        setUsers(res.data);
+      }
+    })
+    .catch((err) => {
+      toast.error(err.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+
+
     if (current_user_data.id) {
       setCurrentUserId(current_user_data.id.toString());
       getAngelInvestorTerms(current_user_data.id)
@@ -210,7 +229,7 @@ export default function Customizereview(): any {
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
-        notify_msg: "User Profile has been Completed.",
+        notify_msg:`The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
         notification_type: "Profile Completed",
         each_read: "unread",
         status: "active"

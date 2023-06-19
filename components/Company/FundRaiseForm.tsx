@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
@@ -49,6 +49,29 @@ const FundRaiseForm = () => {
     amount: "",
     desc: ""
   });
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current !== null) {
+      fileInputRef.current.click(); 
+    }
+  };
+
+  const fileInputRef1 = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick1 = () => {
+    if (fileInputRef1.current !== null) {
+      fileInputRef1.current.click(); 
+    }
+  };
+
+  const fileInputRef2 = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick2 = () => {
+    if (fileInputRef2.current !== null) {
+      fileInputRef2.current.click(); 
+    }
+  };
 
   const [agreement, setAgreement] = useState(null);
   const [invoice, setInvoice] = useState(null);
@@ -159,7 +182,7 @@ const FundRaiseForm = () => {
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
-        notify_msg: "New Fund has been Raised By Startup.",
+        notify_msg: "The startup has successfully raised funds! Please review the details and take necessary actions.",
         notification_type: "Fund Raised",
         each_read: "unread",
         status: "active"
@@ -509,8 +532,8 @@ const FundRaiseForm = () => {
 
                         <div className="col-md-6 mt-5">
                           <div id="divHabilitSelectors" className="input-file-container">
-                            <input className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Agreement here to <a href="#">Upload</a> <br />
+                            <input ref={fileInputRef} className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Agreement here to <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>
@@ -520,8 +543,8 @@ const FundRaiseForm = () => {
                       <div className="row g-3 mt-1">
                         <div className="col-md-6">
                           <div id="divHabilitSelectors" className="input-file-container">
-                            <input className="input-file" id="fileupload" name="invoice" type="file" onChange={handleInvoiceFileChange} />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Invoice here to <a href="#">Upload</a> <br />
+                            <input ref={fileInputRef1} className="input-file" id="fileupload" name="invoice" type="file" onChange={handleInvoiceFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Invoice here to <a href="#" onClick={handleUploadClick1}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>
@@ -529,8 +552,8 @@ const FundRaiseForm = () => {
 
                         <div className="col-md-6 mt-3">
                           <div id="divHabilitSelectors" className="input-file-container">
-                            <input className="input-file" id="fileupload" name="pdc" type="file" onChange={handlePDCFileChange} />
-                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your PDC here to <a href="#">Upload</a> <br />
+                            <input ref={fileInputRef2} className="input-file" id="fileupload" name="pdc" type="file" onChange={handlePDCFileChange} />
+                            <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your PDC here to <a href="#" onClick={handleUploadClick2}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
                           </div>

@@ -17,17 +17,18 @@ interface User {
 }
 
 
-export default function Login()  {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  
- 
+  const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit, formState: { errors }, } = useForm();
+
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   useEffect(() => {
     checkCookieExpiration();
   }, []);
@@ -35,7 +36,7 @@ export default function Login()  {
     const interval = setInterval(() => {
       checkCookieExpiration();
     }, 1000); // Check expiration every second
-  
+
     return () => {
       clearInterval(interval);
     };
@@ -46,27 +47,27 @@ export default function Login()  {
     window.localStorage.setItem("username", user.name);
     window.localStorage.setItem("user_role", user.role);
     window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
-    window.localStorage.setItem("approval_status", user.approval_status);
+    window.localStorage.setItem("approval_status", user.approval_status.toString());
   };
-  
+
   const checkCookieExpiration = () => {
     const rememberMeCookie = Cookies.get("rememberMe");
     const token = window.localStorage.getItem("token");
 
-  
+
     if (!rememberMeCookie || !token) {
-      
+
       return;
     }
-  
-    
-  const expirationDate = new Date(rememberMeCookie);
-  const isExpired = expirationDate.getTime() <= Date.now();
-    if (isExpired ) {
+
+
+    const expirationDate = new Date(rememberMeCookie);
+    const isExpired = expirationDate.getTime() <= Date.now();
+    if (isExpired) {
       Cookies.remove("rememberMe");
     }
   };
-  
+
 
   const submitForm = () => {
     const logindata = {
@@ -77,7 +78,7 @@ export default function Login()  {
     const setRememberMeCookie = () => {
       const expiryDate = new Date();
       expiryDate.setMonth(expiryDate.getMonth() + 1); // Set the expiration time to 1 month from now
-  Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
+      Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
     };
 
     login(logindata)
@@ -89,7 +90,7 @@ export default function Login()  {
               setRememberMeCookie();
               window.localStorage.setItem("token", res.authorisation.token);
             } else {
-              Cookies.remove("rememberMe"); 
+              Cookies.remove("rememberMe");
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
             console.log(res)
@@ -154,7 +155,7 @@ export default function Login()  {
       });
   };
 
-  
+
   return (
     <>
       <div className="page-title-area item-bg-1">
@@ -187,10 +188,10 @@ export default function Login()  {
                   <div className="form-group">
                     <input
                       type="email"
-                      {...register("email", { required: true,onChange: (e) => setEmail(e.target.value) })}
+                      {...register("email", { required: true, onChange: (e) => setEmail(e.target.value) })}
                       name="email"
                       id="email"
-                      
+
                       className="form-control"
                       placeholder="Email"
                     />
@@ -205,26 +206,31 @@ export default function Login()  {
                     )}
                   </div>
                 </div>
-                <div className="col-lg-12">
+                <div className="col-lg-12 position-relative">
                   <div className="form-group">
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       id="password"
-                      {...register("password", { required:true,
+                      {...register("password", {
+                        required: true,
                         onChange: (e) => setPassword(e.target.value),
-                      })}    name="password"
+                      })} name="password"
                       className="form-control"
                       placeholder="Password"
+
                     />
+                    <span className="passwordView" onClick={handleTogglePassword}>
+                      {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
+                    </span>
                     <div className="help-block with-errors" />
-                     {errors.password && errors.password.type==="required" &&(
-                          <p
-                            className="text-danger"
-                            style={{ textAlign: "left", fontSize: "12px" }}
-                          >
-                            *Password field is required.
-                          </p>
-                        )}
+                    {errors.password && errors.password.type === "required" && (
+                      <p
+                        className="text-danger"
+                        style={{ textAlign: "left", fontSize: "12px" }}
+                      >
+                        *Password field is required.
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className=" mt-2 d-flex align-items-left">
@@ -234,7 +240,7 @@ export default function Login()  {
                       type="checkbox"
                       id="checkboxNoLabel"
                       value="1"
-                      name="remember" 
+                      name="remember"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
                     />

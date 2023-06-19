@@ -228,7 +228,7 @@ const EditAdmin = () => {
                                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"}>Admin</a>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
-                                            Admin Edit Form
+                                          Form
                                         </li>
                                     </ol>
                                 </div>
@@ -295,11 +295,11 @@ const EditAdmin = () => {
                                                         value={users.phone}
                                                         onChange={(value) => setUsers((prevState) => ({ ...prevState, phone: value }))}
                                                     />
-                                                    {missingFields.includes("Phone") && (
+                                                    {/* {missingFields.includes("Phone") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the Phone field.
                                                         </p>
-                                                    )}
+                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -308,11 +308,11 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" className="form-control" id="linkedin_url" onChange={handleChange} value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
-                                                    {missingFields.includes("linkedin_url") && (
+                                                    {/* {missingFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the linkedin_url field.
                                                         </p>
-                                                    )}
+                                                    )} */}
                                                     {invalidFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please enter a valid linkedin_url address.
@@ -328,11 +328,11 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
-                                                    {missingFields.includes("City") && (
+                                                    {/* {missingFields.includes("City") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the City field.
                                                         </p>
-                                                    )}
+                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -356,11 +356,11 @@ const EditAdmin = () => {
                                                             </option>
                                                         ))}
                                                     </select>
-                                                    {missingFields.includes("Country") && (
+                                                    {/* {missingFields.includes("Country") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the Country field.
                                                         </p>
-                                                    )}
+                                                    )} */}
                                                 </div>
                                             </div>
 
@@ -386,11 +386,11 @@ const EditAdmin = () => {
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
 
                                                     </select>
-                                                    {missingFields.includes("Gender") && (
+                                                    {/* {missingFields.includes("Gender") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the Gender field.
                                                         </p>
-                                                    )}
+                                                    )} */}
                                                 </div>
 
 
@@ -448,11 +448,11 @@ const EditAdmin = () => {
                                                         >
 
                                                         </label>
-                                                        {missingFields.includes("Profile") && (
+                                                        {/* {missingFields.includes("Profile") && (
                                                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                                 Please choose the profile.
                                                             </p>
-                                                        )}
+                                                        )} */}
 
                                                     </div>
 

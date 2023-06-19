@@ -243,9 +243,6 @@ export default function CampaignsDetails() {
                     style={{ width: `${inputs.no_of_units}%` }}
                   />
                 </div>
-                {/* <div className="mt-4 text-end" id="Post_Dated">
-                  <a href="#">Post Dated Cheque received for entire amount</a>
-                </div> */}
               </div>
             </div>
             <div className="row">
@@ -321,16 +318,6 @@ export default function CampaignsDetails() {
                           {inputs.desc}
                         </p>
                       </div>
-                      {/* <div className="seller">
-                        <h6>About the Buyer</h6>
-                        <p>
-                          The One-stop Shopping Destination. E-commerce is
-                          revolutionizing the way people shop in India. Zepto is
-                          your next-door quick commerce app, delivering online
-                          groceries,fruits,vegetables, personal care,
-                          electronics &amp; much more to you in just minutes.
-                        </p>
-                      </div> */}
                     </div>
                   </div>
                   <div className="section-title pt-4">

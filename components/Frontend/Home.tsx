@@ -5,11 +5,13 @@ import "slick-carousel/slick/slick-theme.css";
 import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
-import { getCurrentUserData,removeToken,removeStorageData} from '../../lib/session'
-interface UserData{
-  id?:string;
-  username?:string;
-  role?:string;
+import { getCurrentUserData, removeToken, removeStorageData } from '../../lib/session'
+import {CheckUserApprovalStatus} from '../../lib/frontendapi'
+interface UserData {
+  id?: string;
+  username?: string;
+  role?: string;
+  approval_status?: string;
 }
 const settings = {
   dots: true,
@@ -64,22 +66,36 @@ export default function Home() {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const [users, setUsers] = useState<any>({});
 
-useEffect(() => {
-  const current_user:UserData = getCurrentUserData();
-  current_user.username ? setCurrentUserName(current_user.username) : setCurrentUserName("");
-  current_user.role ? setCurrentUserRole(current_user.role) : setCurrentUserRole("");
-  current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");
-}, []);
-  // console.log(current_user);
-  
+  useEffect(() => {
+    const current_user: UserData = getCurrentUserData();
+    current_user.username ? setCurrentUserName(current_user.username) : setCurrentUserName("");
+    current_user.role ? setCurrentUserRole(current_user.role) : setCurrentUserRole("");
+    current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");
+    // current_user_approved ? setCurrentUserApproaved(current_user.approval_status ? current_user.approval_status : "") : setCurrentUserApproaved("");
+
+    console.log(current_user);
+    const checkUserStatus = async () => {
+      try {
+        const res = await CheckUserApprovalStatus(current_user.id);
+        if (res.status === true) {
+          setUsers(res.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    checkUserStatus();
+  }, []);
+
   return (
     <>
       {/* Start Banner Area */}
       <div className="main-banner-area">
         <div className="home-sliders">
           <Slider {...settings}>
-          <div className="home-item item-bg2">
+            <div className="home-item item-bg2">
               <div className="d-table">
                 <div className="d-table-cell">
                   <div className="container">
@@ -92,6 +108,59 @@ useEffect(() => {
                         and seize the chance to achieve your financial goals.
                       </p>
                       {current_user_id ? (
+                        current_user_role === "investor" ? (
+                          <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            {users.approval_status === "approved" ? (
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                              Campaigns
+                            </a>
+                            ) : (
+                              <a href="#" onClick={handleLogout} className="default-btn">
+                                Logout
+                              </a>
+                            )}
+                          </div>
+                        ) : current_user_role === "admin" ? (
+                          <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              My Profile
+                            </a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              Dashboard
+                            </a>
+                          </div>
+                        ) : current_user_role === "startup" ? (
+                          <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            {users.approval_status === "approved" ? (
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                Dashboard
+                              </a>
+                            ) : (
+                              <a href="#" onClick={handleLogout} className="default-btn">
+                                Logout
+                              </a>
+                            )}
+
+                          </div>
+                        ) : null
+                      ) : (
+                        <div className="banner-btn">
+                          <a href="/signup" className="default-btn">
+                            Register
+                          </a>
+                          <a href="/login" className="default-btn">
+                            Log in
+                          </a>
+                        </div>
+                      )}
+
+                      {/* {current_user_id ? (
                         current_user_role === "investor" ? 
                         <div className="banner-btn">
                         <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
@@ -105,7 +174,7 @@ useEffect(() => {
                           My Profile
                         </a>
                         <a href="#" onClick={handleLogout} className="default-btn">
-                          Logout
+                         Dashboard
                         </a>
                       </div>
                        
@@ -118,7 +187,7 @@ useEffect(() => {
                           Log in
                         </a>
                       </div>
-                      )}
+                      )} */}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
@@ -145,32 +214,32 @@ useEffect(() => {
                         goals.
                       </p>
                       {current_user_id ? (
-                        current_user_role === "investor" ? 
-                        <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
-                          My Profile
-                        </a>
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
-                        Campaigns
-                        </a>
-                      </div> : <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
-                          My Profile
-                        </a>
-                        <a href="#" onClick={handleLogout} className="default-btn">
-                          Logout
-                        </a>
-                      </div>
-                       
+                        current_user_role === "investor" ?
+                          <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                              Campaigns
+                            </a>
+                          </div> : <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            <a href="#" onClick={handleLogout} className="default-btn">
+                              Logout
+                            </a>
+                          </div>
+
                       ) : (
-                      <div className="banner-btn">
-                        <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                          Log in
-                        </a>
-                      </div>
+                        <div className="banner-btn">
+                          <a href="/signup" className="default-btn">
+                            Register
+                          </a>
+                          <a href="/login" className="default-btn">
+                            Log in
+                          </a>
+                        </div>
                       )}
                       {/* <div className="banner-btn">
                         <a href="/signup" className="default-btn">
@@ -189,7 +258,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-         
+
             <div className="home-item item-bg3">
               <div className="d-table">
                 <div className="d-table-cell">
@@ -204,34 +273,33 @@ useEffect(() => {
                         with innovative investment opportunities that can help
                         you grow your wealth and achieve your financial goals.
                       </p>
-                      {/* <p>TD={current_user_id}</p> */}
                       {current_user_id ? (
-                        current_user_role === "investor" ? 
-                        <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
-                          My Profile
-                        </a>
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
-                        Campaigns
-                        </a>
-                      </div> : <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
-                          My Profile
-                        </a>
-                        <a href="#" onClick={handleLogout} className="default-btn">
-                          Logout
-                        </a>
-                      </div>
-                       
+                        current_user_role === "investor" ?
+                          <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                              Campaigns
+                            </a>
+                          </div> : <div className="banner-btn">
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                              My Profile
+                            </a>
+                            <a href="#" onClick={handleLogout} className="default-btn">
+                              Logout
+                            </a>
+                          </div>
+
                       ) : (
-                      <div className="banner-btn">
-                        <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                          Log in
-                        </a>
-                      </div>
+                        <div className="banner-btn">
+                          <a href="/signup" className="default-btn">
+                            Register
+                          </a>
+                          <a href="/login" className="default-btn">
+                            Log in
+                          </a>
+                        </div>
                       )}
                     </div>
                     <div className="banner-image">
@@ -477,7 +545,7 @@ useEffect(() => {
             <div className="bar" />
           </div>
           <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/1.jpg" alt="image" />
@@ -492,7 +560,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/2.jpg" alt="image" />
@@ -507,7 +575,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/3.jpg" alt="image" />
@@ -522,7 +590,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/4.jpg" alt="image" />
@@ -537,7 +605,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/5.jpg" alt="image" />
@@ -565,7 +633,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 col-md-6">
               <div className="single-projects">
                 <div className="projects-image">
                   <img src="assets/img/projects/7.jpg" alt="image" />

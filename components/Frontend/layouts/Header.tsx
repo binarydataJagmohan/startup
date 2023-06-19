@@ -6,6 +6,7 @@ import { saveContact } from '../../../lib/frontendapi';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import {CheckUserApprovalStatus} from '../../../lib/frontendapi'
 
 type UserData = {
   id?: string;
@@ -18,6 +19,7 @@ export default function HeaderFrontend() {
   const [current_user_id, setCurrentUserId] = useState("");
   const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
+  const [users, setUsers] = useState<any>({});
   const [dropdownVisible, setDropdownVisible] = useState(false);
   function myFunction() {
     setDropdownVisible(!dropdownVisible);
@@ -41,6 +43,21 @@ export default function HeaderFrontend() {
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
+
+
+    const checkUserStatus = async () => {
+      try {
+        const res = await CheckUserApprovalStatus(current_user_data.id);
+        if (res.status === true) {
+          setUsers(res.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    checkUserStatus();
+
+
   }, []);
 
   const [name, setName] = useState("");
@@ -193,24 +210,39 @@ export default function HeaderFrontend() {
                   </li> */}
                 </ul>
                 <div className="others-options">
-                    {current_user_name ? (
+                    {users.name ? (
                       <div className="dropdown">
                         <a onClick={myFunction} className="dropbtn text-white">
-                          {current_user_name}&nbsp;<i className="fa-solid fa-caret-down" />
+                          {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
                         </a>
                         <div
                           id="myDropdown"
                           className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
                         >
-                          {current_user_role === 'startup' ? (
-                            <a href="/steps/findbusiness" className="colortwo">
-                              Profile
+                          {users.role === 'startup' && users.approval_status === 'approved' ? (
+                            <a href="/company/dashboard" className="colortwo">
+                             Dashboard
                             </a>
                           ) : (
-                            <a href="/investor-steps/findbusiness" className="colortwo">
-                              Profile
-                            </a>
+                            ""
                           )}
+                           {users.role === 'investor' && users.approval_status === 'approved' ? (
+                            <a href="/investor/campaign" className="colortwo">
+                             Dashboard
+                            </a>
+                          ) : (
+                            ""
+                          )}
+                             {users.role === 'admin' ? (
+                            <a href="/admin/dashboard" className="colortwo">
+                              Dashboard
+                            </a>
+                          ) : (
+                            ""
+                          )}
+
+
+
 
                           <a href="#" onClick={handleLogout} className="colortwo">
                             Logout

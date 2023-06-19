@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
@@ -31,6 +31,13 @@ export default function Businessinfo():any {
   const [signup_success, setSignupSuccess] = useState(false);
 
   const {register,handleSubmit,formState: { errors },} = useForm();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current !== null) {
+      fileInputRef.current.click(); 
+    }
+  };
   const [logo, setLogo] = useState(null);
   const handleFileChange = (event: any) => {
     setLogo(event.target.files[0]);
@@ -574,13 +581,14 @@ register('website_url', {
                                   <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
+                                  ref={fileInputRef}
                                   className="input-file"
                                   id="logo"
                                   type="file"
-                                  {...register("logo", {
-                                    value: true, 
-                                  })}
-                                  name="logo"  onChange={handleFileChange} 
+                                  name="logo"
+                                  accept="image/jpeg, image/png" // Restrict to JPEG and PNG files
+                                  onChange={handleFileChange}
+                                  style={{ display: 'none' }} // Hide the input element
                                 />
                                
                                 <label
@@ -590,7 +598,7 @@ register('website_url', {
                                   tabIndex={0}
                                 >
                                   Drop your pitch deck here to{" "}
-                                  <a href="#">Upload</a> <br />
+                                  <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>You can upload any logo's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
                                 {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (

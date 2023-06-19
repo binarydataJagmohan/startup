@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification } from "../../lib/frontendapi";
+import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification ,getSingleUserData} from "../../lib/frontendapi";
 import $ from "jquery";
 const alertStyle = {
     color: 'red',
@@ -16,11 +16,13 @@ const textStyle = {
 
 interface UserData {
     id?: string;
+    name?:string;
 }
 
 export default function AccreditedInvestors() {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState("");
+    const [current_user_name, setCurrentUsername]=useState("");
     const [terms, setTerms] = useState({
         user_id: current_user_id,
         annual_income: "0",
@@ -33,6 +35,7 @@ export default function AccreditedInvestors() {
         category: "",
     });
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    const [users, setUsers] = useState<any>({});
     const [missingFields, setMissingFields] = useState<string[]>([]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,6 +127,22 @@ export default function AccreditedInvestors() {
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        current_user_data.name
+      ? setCurrentUsername(current_user_data.name)
+      : setCurrentUsername("");
+
+      getSingleUserData(current_user_data.id)
+      .then((res) => {
+        if (res.status == true) {
+          setUsers(res.data);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
+
         if (current_user_data.id) {
             setCurrentUserId(current_user_data.id);
             getAccreditedInvestorTerms(current_user_data.id)
@@ -226,7 +245,7 @@ export default function AccreditedInvestors() {
             const data = {
                 notify_from_user: current_user_id,
                 notify_to_user: "1",
-                notify_msg: "User Profile has been Completed.",
+                notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
                 notification_type: "Profile Completed",
                 each_read: "unread",
                 status: "active"

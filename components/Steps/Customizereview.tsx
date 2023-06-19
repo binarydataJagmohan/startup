@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { basicInformationSave, getBasicInformation } from "../../lib/frontendapi";
+import { basicInformationSave, getBasicInformation,getSingleUserData } from "../../lib/frontendapi";
 import {
   removeToken,
   removeStorageData,
@@ -29,6 +29,7 @@ export default function Customereview():any {
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
   const [proof_img, setProofImg] = useState(null);
+  const [users, setUsers] = useState<any>({});
   const [basicDetails, setBasicDetails] = useState({
     user_id: current_user_id,
     pan_number: "",
@@ -41,6 +42,14 @@ export default function Customereview():any {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current !== null) {
+      fileInputRef.current.click(); 
+    }
+  };
+
   const handleFileChange = (event: any) => {
     setProofImg(event.target.files[0]);
   };
@@ -69,6 +78,7 @@ export default function Customereview():any {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
         : setCurrentUserId("");
+        
 
       getBasicInformation(current_user_data.id)
         .then((res) => {
@@ -92,6 +102,7 @@ export default function Customereview():any {
   }, []);
   const SubmitForm = async () => {
     try {
+      
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
@@ -325,12 +336,14 @@ export default function Customereview():any {
                                 className="input-file-container"
                               >
                                 <input
+                                 ref={fileInputRef}
                                   className="input-file"
                                   id="proof_img"
                                   type="file"
-                                  {...register("proof_img", {
-                                    value: true, required: ! basicDetails.proof_img,
-                                  })}
+                                  // {...register("proof_img", {
+                                  //   value: true, required: ! basicDetails.proof_img,
+                                  // })}
+                                  accept="image/jpeg, image/png" 
                                   name="proof_img"
                                   onChange={handleFileChange}
                                 />
@@ -342,7 +355,7 @@ export default function Customereview():any {
                                   tabIndex={0}
                                 >
                                   Drop your pitch deck here to{" "}
-                                  <a href="#">Upload</a> <br />
+                                  <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>
                                     You can upload any identity card's image
                                     jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>

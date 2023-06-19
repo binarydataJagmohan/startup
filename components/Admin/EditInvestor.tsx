@@ -138,12 +138,12 @@ const EditInvestor = () => {
               <button
                 className="accordion-button"
                 type="button"
-                data-bs-toggle="collapse"
+                data-bs-toggle="collapse show"
                 data-bs-target="#collapseOne"
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Edit form For Investors:
+                 Personal Information for Investors:
               </button>
             </h2>
             <div
@@ -154,7 +154,7 @@ const EditInvestor = () => {
             >
               <div className="accordion-body">
                 <div className="form-part">
-                  <h3>Personal Information</h3>
+                  {/* <h3>Personal Information</h3> */}
                   <form onSubmit={updateInvestorInformation}>
                     <div className="row">
                       <div className="col-sm-6">
@@ -166,7 +166,7 @@ const EditInvestor = () => {
                             //  onChange={handleInvestorChange} 
                             value={investor.email} readOnly />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("Email") && (
+                          {/* {missingFields.includes("Email") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the Email field.
                             </p>
@@ -175,7 +175,7 @@ const EditInvestor = () => {
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please enter a valid email address.
                             </p>
-                          )}
+                          )} */}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -185,11 +185,11 @@ const EditInvestor = () => {
                         <div className="form-part">
                           <input
                             type="text"
-                            placeholder="www.linkedin.com" name="linkedin_url" onChange={handleInvestorChange} value={investor.linkedin_url}
+                            placeholder="www.linkedin.com" name="linkedin_url" onChange={handleInvestorChange} value={investor.linkedin_url} readOnly
 
                           />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("linkedin_url") && (
+                          {/* {missingFields.includes("linkedin_url") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the linkedin_url field.
                             </p>
@@ -198,7 +198,7 @@ const EditInvestor = () => {
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please enter a valid linkedin_url address.
                             </p>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>
@@ -210,13 +210,13 @@ const EditInvestor = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="Country of Citizenship " onChange={handleInvestorChange} name="country" value={investor.country} />
+                          <input type="text" placeholder="Country of Citizenship " onChange={handleInvestorChange} name="country" value={investor.country} readOnly/>
                           <div className="help-block with-errors" />
-                          {missingFields.includes("country") && (
+                          {/* {missingFields.includes("country") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the country field.
                             </p>
-                          )}
+                          )} */}
 
                         </div>
                       </div>
@@ -232,14 +232,14 @@ const EditInvestor = () => {
                             value={investor.phone}
                             onChange={(value) => {
                               setMissingFields([]);
-                              setInvestor((prevState) => ({ ...prevState, phone: value }));
-                            }}
+                              setInvestor((prevState) => ({ ...prevState, phone: value })); 
+                            }} disabled
                           />
-                          {missingFields.includes("Phone") && (
+                          {/* {missingFields.includes("Phone") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the Phone field.
                             </p>
-                          )}
+                          )} */}
 
 
                         </div>
@@ -252,13 +252,13 @@ const EditInvestor = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="City" name="city" onChange={handleInvestorChange} value={investor.city} />
+                          <input type="text" placeholder="City" name="city" onChange={handleInvestorChange} value={investor.city} readOnly />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("City") && (
+                          {/* {missingFields.includes("City") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the city field.
                             </p>
-                          )}
+                          )} */}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -266,7 +266,7 @@ const EditInvestor = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <select name="gender" onChange={handleInvestorChange} >
+                          <select name="gender" value={investor.gender ? investor.gender : ""} onChange={handleInvestorChange} aria-selected disabled >
                             <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender.charAt(0).toUpperCase() + investor.gender.slice(1) : "--SELECT GENDER--"}</option>
                             {investor.gender !== 'male' && <option value="male">Male</option>}
                             {investor.gender !== 'female' && <option value="female">Female</option>}
@@ -282,7 +282,7 @@ const EditInvestor = () => {
                       </div>
                     </div>
 
-                    <div className="row">
+                    {/* <div className="row">
                       <div className="row mt-3">
                         <div className="col-md-12 text-center">
                           <button type="submit" className="btnclasssmae">
@@ -290,14 +290,12 @@ const EditInvestor = () => {
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Add code for other accordion items */}
         </div>
 
       </div>

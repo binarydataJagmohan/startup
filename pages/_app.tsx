@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   // investor header
-  if (current_user.role === 'investor') {
+  if (current_user.role === 'investor' && users.approval_status === 'approved') {
     Layout = InvestorLayout;
   }
   if (current_user && current_user.role === 'investor' && (router.pathname === '/' ||
@@ -72,7 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   if (current_user && current_user.role === 'startup' && (router.pathname === '/' ||
     router.pathname === '/about' ||
-    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact' || router.pathname === '/steps/findbusiness' || router.pathname === '/steps/businessinfo' || router.pathname === '/steps/customizereview' || router.pathname === '/steps/adharinformation')
   ) {
     Layout = FrontendLayout;
   }
