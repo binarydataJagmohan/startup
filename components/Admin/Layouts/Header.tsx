@@ -202,6 +202,18 @@ const Header = () => {
                               <span>Notifications</span>
                             </a>
                           </li>
+                          <li className={`nav-item ${router.pathname === '/admin/terms-and-conditions' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
+                            <i className="fas fa-clipboard-list term-icon"></i>
+                              <span>Term & Condition </span>
+                            </a>
+                          </li>
+                          <li className={`nav-item ${router.pathname === '/admin/privacy-policy' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
+                            <i className="fas fa-user-secret privacy-icon"></i>
+                              <span>Privacy Policy</span>
+                            </a>
+                          </li>
                           <li>
                             <a href="#" className="waves-effect">
                               <i className="fa fa-cogs"></i>

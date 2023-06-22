@@ -1,6 +1,31 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  });
 export default function TermCondition() {
+    const [termdata, setTermData] = useState('');
+    useEffect(() => {
+        // Fetch existing data from the database
+        fetchTermsAndConditions();
+    }, []);
+    const fetchTermsAndConditions = async () => {
+        try {
+            const response = await fetchTermsAndConditionsdata();
+            const data = response.data;
+
+
+            // Set the fetched data as initial content in the editor
+
+            setTermData(data);
+        } catch (error) {
+            // Handle error
+        }
+    };
     return (
         <>
             <div className="page-title-area item-bg-1">
@@ -21,7 +46,16 @@ export default function TermCondition() {
             <section className="conditions-section ptb-100">
                 <div className="container">
                     <div className="single-privacy">
-                        <h3 className="mt-0">Introduction</h3>
+                        
+                            <QuillNoSSRWrapper
+                                value={termdata}
+                                readOnly={true}
+                                theme="snow"
+                                modules={{ toolbar: false }}
+                                style={{border:'none'}}
+                            />
+                        
+                        {/* <h3 className="mt-0">Introduction</h3>
                         <p>Welcome to Start Up. By accessing and using this website, you agree to be bound by the terms and conditions set forth below.</p>
                         <h3 className="mt-0">Acceptable Use</h3>
                         <p>You agree to use this website only for lawful purposes and in accordance with these terms and conditions. You must not use this website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p>
@@ -41,7 +75,7 @@ export default function TermCondition() {
                         <p>Start Up may terminate your access to the website at any time, without notice, for any reason whatsoever.
                         </p>
                         <h3 className="mt-0">Contact Information</h3>
-                        <p>If you have any questions or concerns regarding these terms and conditions, please contact us at [email address or phone number].</p>
+                        <p>If you have any questions or concerns regarding these terms and conditions, please contact us at [email address or phone number].</p> */}
                     </div>
                 </div>
                 <div className="default-shape">
