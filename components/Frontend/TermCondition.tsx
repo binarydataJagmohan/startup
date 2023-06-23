@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
