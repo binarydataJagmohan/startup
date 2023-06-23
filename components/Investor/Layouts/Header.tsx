@@ -42,7 +42,7 @@ const Header = () => {
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
 
-
+console.log(current_user_data);
 
 
     getTotalCountOfNotifications(current_user_data.id)
