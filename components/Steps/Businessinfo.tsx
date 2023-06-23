@@ -33,14 +33,18 @@ export default function Businessinfo():any {
   const {register,handleSubmit,formState: { errors },} = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = () => {
+  const handleUploadClick = (event:any) => {
+    event.preventDefault();
+    setMissingFields([])
     if (fileInputRef.current !== null) {
-      fileInputRef.current.click(); 
+      (fileInputRef.current as HTMLInputElement).click(); 
     }
   };
   const [logo, setLogo] = useState(null);
   const handleFileChange = (event: any) => {
+    setMissingFields([])
     setLogo(event.target.files[0]);
+    
   };
   const [businessDetails, setBusinessDetails] = useState({
       user_id: current_user_id,
@@ -129,6 +133,9 @@ const SubmitForm = async () => {
     if(!businessDetails.type){
      setMissingFields(prevFields=>[...prevFields,"type"])
     }
+    if(!logo && !businessDetails.logo){
+      setMissingFields(prevFields=>[...prevFields,"logo"])
+     }
     const formData = new FormData();
     if (logo !== null) {
       formData.append('logo', logo);
@@ -385,7 +392,7 @@ register('website_url', {
                                 <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>
                                 <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>
                             
-                              
+                             
                               </select>
                               {
                                 missingFields.includes("sector") && (
@@ -601,6 +608,16 @@ register('website_url', {
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>You can upload any logo's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
+                                {
+                                  missingFields.includes("logo") && (
+                                    <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Choose Your Business Logo.
+                                  </p>
+                                  )
+                                }
                                 {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
                                   <p
                                     className="text-danger"
@@ -609,7 +626,7 @@ register('website_url', {
                                     *Please Choose Your Business Logo.
                                   </p>
                                 )} */}
-                                {!errors.logo && businessDetails.logo && (
+                                {!errors.logo && (businessDetails.logo || logo) && (
                                   <p
                                     className="text-success"
                                     style={{ textAlign: "left", fontSize: "12px" }}

@@ -1,9 +1,9 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { basicInformationSave, getBasicInformation,getSingleUserData } from "../../lib/frontendapi";
+import { basicInformationSave, getBasicInformation, getSingleUserData } from "../../lib/frontendapi";
 import {
   removeToken,
   removeStorageData,
@@ -20,11 +20,13 @@ const textStyle = {
 interface UserData {
   id?: string;
 }
-export default function Customereview():any {
+export default function Customereview(): any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
+  const [missingFields, setMissingFields] = useState<string[]>([]);
+  const [imageUploadStatus, setImageUploadStatus] = useState<null | 'success'>(null);
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
@@ -44,14 +46,24 @@ export default function Customereview():any {
   } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = () => {
+  const handleUploadClick = (event:any) => {
+    event.preventDefault();
+    setMissingFields([])
     if (fileInputRef.current !== null) {
-      fileInputRef.current.click(); 
+      (fileInputRef.current as HTMLInputElement).click(); 
     }
   };
 
   const handleFileChange = (event: any) => {
-    setProofImg(event.target.files[0]);
+    setMissingFields([])
+    const selectedFile = event.target.files[0];
+    setProofImg(selectedFile);
+    
+    if (selectedFile) {
+      setTimeout(() => {
+        setImageUploadStatus('success');
+      }, 2000);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +90,7 @@ export default function Customereview():any {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
         : setCurrentUserId("");
-        
+
 
       getBasicInformation(current_user_data.id)
         .then((res) => {
@@ -102,10 +114,12 @@ export default function Customereview():any {
   }, []);
   const SubmitForm = async () => {
     try {
-      
+
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
+      }else if(!basicDetails.proof_img){
+        setMissingFields(prevFields => [...prevFields, "image"]);
       }
       formData.append("user_id", basicDetails.user_id);
       formData.append("pan_number", basicDetails.pan_number);
@@ -126,7 +140,7 @@ export default function Customereview():any {
           toastId: "error",
         });
       }
-    } catch (err:any) {
+    } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
@@ -336,14 +350,14 @@ export default function Customereview():any {
                                 className="input-file-container"
                               >
                                 <input
-                                 ref={fileInputRef}
+                                  ref={fileInputRef}
                                   className="input-file"
                                   id="proof_img"
                                   type="file"
                                   // {...register("proof_img", {
                                   //   value: true, required: ! basicDetails.proof_img,
                                   // })}
-                                  accept="image/jpeg, image/png" 
+                                  accept="image/jpeg, image/png"
                                   name="proof_img"
                                   onChange={handleFileChange}
                                 />
@@ -362,19 +376,24 @@ export default function Customereview():any {
                                   </p>
                                 </label>
                                 <div className="help-block with-errors" />
-                                {errors.proof_img  &&  (
-                                    <p
-                                      className="text-danger"
-                                      style={{ textAlign: "left", fontSize: "12px" }}
-                                    >
-                                      *Please upload Your Proof.
-                                    </p>
-                                  )}
-                                {!errors.proof_img && basicDetails.proof_img && (
+                                { missingFields.includes('image') && (
+                                   <p
+                                   className="text-danger"
+                                   style={{ textAlign: "left", fontSize: "12px" }}
+                                 >
+                                   *Please upload Your Proof.
+                                 </p>
+                                ) }
+                                {/* {errors.proof_img && (
                                   <p
-                                    className="text-success"
+                                    className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
                                   >
+                                    *Please upload Your Proof.
+                                  </p>
+                                )} */}
+                                {(imageUploadStatus === 'success' || !errors.proof_img && basicDetails.proof_img) && (
+                                  <p className="text-success" style={{ textAlign: "left", fontSize: "12px" }}>
                                     Image Uploaded Successfully.
                                   </p>
                                 )}

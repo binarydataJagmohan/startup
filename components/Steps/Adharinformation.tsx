@@ -137,10 +137,10 @@ export default function AdharInformation():any {
         });
       }
     } catch (err) {
-      toast.error("Details has not been saved successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // toast.error("Details has not been saved successfully", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
     }
   };
 

@@ -33,6 +33,7 @@ const FundRaiseForm = () => {
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const [current_user_id, setCurrentUserId] = useState("");
   const [businessInfo, setBusinessInfo] = useState('');
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [fundRaiseData, setFundRaiseData] = useState<any>({
     id: "",
     user_id: current_user_id,
@@ -51,25 +52,28 @@ const FundRaiseForm = () => {
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = () => {
+  const handleUploadClick = (event:any) => {
+    event.preventDefault();
     if (fileInputRef.current !== null) {
-      fileInputRef.current.click(); 
+     (fileInputRef.current as HTMLInputElement).click(); 
     }
   };
 
   const fileInputRef1 = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick1 = () => {
+  const handleUploadClick1 = (event:any) => {
+    event.preventDefault();
     if (fileInputRef1.current !== null) {
-      fileInputRef1.current.click(); 
+      (fileInputRef1.current as HTMLInputElement).click(); 
     }
   };
 
   const fileInputRef2 = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick2 = () => {
+  const handleUploadClick2 = (event:any) => {
+    event.preventDefault();
     if (fileInputRef2.current !== null) {
-      fileInputRef2.current.click(); 
+     ( fileInputRef2.current as HTMLInputElement).click(); 
     }
   };
 
@@ -78,17 +82,61 @@ const FundRaiseForm = () => {
   const [pdc, setPdc] = useState(null);
 
   // handleInvoiceFileChange for agreement pdf
-  const handleAgreementFileChange = (event: any) => {
-    setAgreement(event.target.files[0]);
+  const handleAgreementFileChange = (event:any) => {
+    const file = event.target.files[0];
+    const allowedExtensions = ["pdf"];
+  
+    if (file) {
+      const fileNameParts = file.name.split(".");
+      const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+  
+      if (allowedExtensions.includes(fileExtension)) {
+        setInvalidFields(prevFields => prevFields.filter(field => field !== "pdfvalidate"));
+        setAgreement(file);
+        // File is a PDF, do further processing
+      } else {
+        setInvalidFields (prevFields =>[...prevFields,"pdfvalidate"]);
+        // File is not a PDF, show error message or handle accordingly
+      }
+    }
   };
 
   // handleInvoiceFileChange for invoice pdf
   const handleInvoiceFileChange = (event: any) => {
-    setInvoice(event.target.files[0]);
+      const file = event.target.files[0];
+    const allowedExtensions = ["pdf"];
+    if (file) {
+      const fileNameParts = file.name.split(".");
+      const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+  
+      if (allowedExtensions.includes(fileExtension)) {
+        setInvalidFields(prevFields => prevFields.filter(field => field !== "invoicevalidate"));
+        setInvoice(file);
+        // File is a PDF, do further processing
+      } else {
+        setInvalidFields (prevFields =>[...prevFields,"invoicevalidate"]);
+        // File is not a PDF, show error message or handle accordingly
+      }
+    }
   };
   // handlePDCFileChange for invoice pdf
   const handlePDCFileChange = (event: any) => {
-    setPdc(event.target.files[0]);
+    // setPdc(event.target.files[0]);
+    const file = event.target.files[0];
+    const allowedExtensions = ["pdf"];
+    if (file) {
+      const fileNameParts = file.name.split(".");
+      const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+  
+      if (allowedExtensions.includes(fileExtension)) {
+        setInvalidFields(prevFields => prevFields.filter(field => field !== "pdcvalidate"));
+        setPdc(file);
+        // File is a PDF, do further processing
+      } else {
+        setInvalidFields (prevFields =>[...prevFields,"pdcvalidate"]);
+        // File is not a PDF, show error message or handle accordingly
+      }
+    }
   };
   const handleChange = (event: any) => {
     let { name, value } = event.target;
@@ -179,6 +227,10 @@ const FundRaiseForm = () => {
   const SubmitForm = async () => {
     try {
       // console.log(fundRaiseData);
+      if (invalidFields.length > 0) {
+        // Show error message or handle accordingly
+        return;
+      }
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
@@ -253,8 +305,8 @@ const FundRaiseForm = () => {
           toastId: "error",
         });
       }
-    } catch (err) {
-      toast.error("Sorry you cannot raise fund again..", {
+    } catch (err:any) {
+      toast.error(err.response.data.message, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
       });
@@ -444,56 +496,59 @@ const FundRaiseForm = () => {
                         </div> */}
                       </div>
 
-                      <div className="row g-3 mt-1">
-                        <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label">
-                            Repay On Date{" "}
-                            <span style={{ color: "red" }}>*</span>
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="repay_date" {...register("repay_date", {
-                              value: !fundRaiseData.repay_date,
-                            })}
-                            name="repay_date"
-                            value={fundRaiseData.repay_date ? fundRaiseData.repay_date : ""}
-                            onChange={handleChange} />
-                          {errors.repay_date && (
-                            <p
-                              className="text-danger"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please fill repay date field.
-                            </p>
-                          )}
+                 
+                        <div className="row g-3 mt-1">
+                          <div className="col-md-6">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">
+                              Repay On Date{" "}
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
+                            <input
+                              type="date"
+                              className="form-control"
+                              id="repay_date" {...register("repay_date", {
+                                value: fundRaiseData.repay_date || "",
+                              })}
+                              name="repay_date"
+                              value={fundRaiseData.repay_date ? fundRaiseData.repay_date : ""}
+                              readOnly
+                              onChange={handleChange} />
+                            {errors.repay_date && (
+                              <p
+                                className="text-danger"
+                                style={{ textAlign: "left", fontSize: "12px" }}
+                              >
+                                *Please fill repay date field.
+                              </p>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
+                            <input
+                              type="date"
+                              className="form-control"
+                              id="closed_in" {...register("closed_in", {
+                                value: fundRaiseData.closed_in || "",
+                              })}
+                              name="closed_in"
+                              value={fundRaiseData.closed_in ? fundRaiseData.closed_in : ""}
+                              readOnly
+                              onChange={handleChange} />
+                            {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
+                             })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
+                            {errors.closed_in && (
+                              <p
+                                className="text-danger"
+                                style={{ textAlign: "left", fontSize: "12px" }}
+                              >
+                                *Please fill closing date field.
+                              </p>
+                            )}
+                          </div>
                         </div>
-                        <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label"> Closing Date{" "}
-                            <span style={{ color: "red" }}>*</span>
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="closed_in" {...register("closed_in", {
-                              value: !fundRaiseData.closed_in,
-                            })}
-                            name="closed_in"
-                            value={fundRaiseData.closed_in ? fundRaiseData.closed_in : ""}
-                            onChange={handleChange} />
-                          {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
-                          })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
-                          {errors.closed_in && (
-                            <p
-                              className="text-danger"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please fill closing date field.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
+                    
 
                       <div className="row g-3 mt-1">
                         <div className="col-md-12">
@@ -517,8 +572,14 @@ const FundRaiseForm = () => {
                             XIRR(in %)<span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="xirr" {...register("xirr", {
-                            value: !fundRaiseData.xirr, required: true,
-                          })} name="xirr" placeholder='Xirr( calculate in%)'
+                            value: !fundRaiseData.xirr, required: true,  pattern: /^[0-9]*$/,
+                          })} name="xirr"  onInput={(e) => {
+                            const input = (e.target as HTMLInputElement).value;
+                            const numericInput = input.replace(/[^0-9.]/g, ""); // Remove non-numeric characters except dot
+                            if (numericInput !== input) {
+                              (e.target as HTMLInputElement).value = numericInput;
+                            }
+                          }} placeholder='Xirr( calculate in%)'  inputMode="numeric"
                             onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr : ""} />
                           {errors.xirr && (
                             <p
@@ -536,6 +597,15 @@ const FundRaiseForm = () => {
                             <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Agreement here to <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
+                            {invalidFields.includes("pdfvalidate") &&(
+                              <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                             
+                            )}
                           </div>
                         </div>
                       </div>
@@ -547,6 +617,15 @@ const FundRaiseForm = () => {
                             <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Invoice here to <a href="#" onClick={handleUploadClick1}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
+                            {invalidFields.includes("invoicevalidate") &&(
+                              <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                             
+                            )}
                           </div>
                         </div>
 
@@ -556,6 +635,15 @@ const FundRaiseForm = () => {
                             <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your PDC here to <a href="#" onClick={handleUploadClick2}>Upload</a> <br />
                               <p style={{ fontSize: "13px" }}>You can upload a pdf file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
                             </label>
+                            {invalidFields.includes("pdcvalidate") &&(
+                              <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                             
+                            )}
                           </div>
                         </div>
                       </div>
