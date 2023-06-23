@@ -146,6 +146,7 @@ const AllFundsList = () => {
             { targets: '_all', orderable: false },
           ],
         });
+        setDataTableInitialized(true);
       });
     }
   }, [funds, dataTableInitialized]);
