@@ -49,7 +49,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||
     router.pathname === '/about' ||
-    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact' || router.pathname === '/terms-condition' 
+    || router.pathname === '/privacy-policy' || router.pathname === '/business-planning' || router.pathname === '/website-development'
+    || router.pathname === '/company-incorporation' || router.pathname === '/app-development' || router.pathname === '/marketing-branding' || router.pathname === '/cfo-services'
+    || router.pathname === '/faq' || router.pathname === '/single-blog' || router.pathname === '/team')
   ) {
     Layout = FrontendLayout;
   }
@@ -60,7 +63,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   if (current_user && current_user.role === 'investor' && (router.pathname === '/' ||
     router.pathname === '/about' ||
-    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact')
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact' || router.pathname === '/terms-condition' 
+    || router.pathname === '/privacy-policy' || router.pathname === '/business-planning' || router.pathname === '/website-development' || router.pathname === '/company-incorporation'
+    || router.pathname === '/app-development' || router.pathname === '/marketing-branding' || router.pathname === '/cfo-services' || router.pathname === '/faq' || router.pathname === '/single-blog'
+    || router.pathname === '/team')
   ) {
     Layout = FrontendLayout;
   }
@@ -72,7 +78,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   if (current_user && current_user.role === 'startup' && (router.pathname === '/' ||
     router.pathname === '/about' ||
-    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact' || router.pathname === '/steps/findbusiness' || router.pathname === '/steps/businessinfo' || router.pathname === '/steps/customizereview' || router.pathname === '/steps/adharinformation')
+    router.pathname === '/services' || router.pathname === '/blogs' || router.pathname === '/contact' || router.pathname === '/steps/findbusiness' || router.pathname === '/steps/businessinfo' || router.pathname === '/steps/customizereview' || router.pathname === '/steps/adharinformation' || router.pathname === '/terms-condition' 
+    || router.pathname === '/privacy-policy' || router.pathname === '/business-planning' || router.pathname === '/website-development'  || router.pathname === '/company-incorporation' 
+    || router.pathname === '/app-development' || router.pathname === '/marketing-branding' || router.pathname === '/cfo-services' || router.pathname === '/faq' || router.pathname === '/single-blog'
+    || router.pathname === '/team')
   ) {
     Layout = FrontendLayout;
   }
