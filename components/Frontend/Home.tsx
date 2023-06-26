@@ -551,10 +551,10 @@ export default function Home() {
                   <img src="assets/img/projects/1.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>App Update &amp; Rebrand</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -566,10 +566,10 @@ export default function Home() {
                   <img src="assets/img/projects/2.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>IT Consultancy</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -581,10 +581,10 @@ export default function Home() {
                   <img src="assets/img/projects/3.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>Funding Trends</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -596,10 +596,10 @@ export default function Home() {
                   <img src="assets/img/projects/4.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>App Development</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -611,10 +611,10 @@ export default function Home() {
                   <img src="assets/img/projects/5.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>IT Solutions</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -624,10 +624,10 @@ export default function Home() {
                   <img src="assets/img/projects/6.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>Data Management</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
@@ -639,10 +639,10 @@ export default function Home() {
                   <img src="assets/img/projects/7.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <h3>E-commerce Development</h3>
                   </a>
-                  <a href="single-projects.html">
+                  <a href="javascript:void(0);">
                     <span>Research and startup</span>
                   </a>
                 </div>
