@@ -132,7 +132,7 @@ export default function CampaignsDetails() {
           }
         })
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       // handle the error, such as showing an error message
     }
   };
