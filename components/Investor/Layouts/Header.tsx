@@ -58,7 +58,7 @@ console.log(current_user_data);
     getCountOfUnreadNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          console.log(res)
+          // console.log(res)
           setUnreadNotifications(res.data);
         } else {
         }
@@ -212,11 +212,11 @@ console.log(current_user_data);
                 <div className="others-options">
                   <div className="dropdown">
                     <button onClick={toggleDropdown} className="dropbtn">
-                      {current_user_name} <i className="fa-solid fa-caret-down" />
+                      {userName} <i className="fa-solid fa-caret-down" />
                     </button>
                     <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                       {/* <a href="">{current_user_name}</a> */}
-                      <a href="/InvestorSteps/findbusiness" className="colortwo">
+                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
                           Profile
                         </a>
                       {/* {current_user_role == "startup" ?

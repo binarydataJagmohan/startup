@@ -75,7 +75,7 @@ export default function Home() {
     current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");
     // current_user_approved ? setCurrentUserApproaved(current_user.approval_status ? current_user.approval_status : "") : setCurrentUserApproaved("");
 
-    console.log(current_user);
+    // console.log(current_user);
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user.id);
