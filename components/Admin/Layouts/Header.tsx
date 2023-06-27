@@ -214,8 +214,8 @@ const Header = () => {
                               <span>Privacy Policy</span>
                             </a>
                           </li>
-                          <li>
-                            <a href="#" className="waves-effect">
+                          <li className={`nav-item ${router.pathname === '/admin/notification-settings' ? 'active p1' : ''}`}>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/notification-settings"} className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
                             </a>
