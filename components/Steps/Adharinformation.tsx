@@ -252,7 +252,7 @@ export default function AdharInformation():any {
                                 className="form-label"
                               >
                                 Bank Name{" "}
-                                <span className="text-mandatory" style={{color:""}}>*</span>
+                                <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text"
@@ -277,7 +277,7 @@ export default function AdharInformation():any {
                                 className="form-label"
                               >
                                 Account Holder's Name{" "}
-                                <span className="text-mandatory">*</span>
+                                <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text"
@@ -302,7 +302,7 @@ export default function AdharInformation():any {
                                 className="form-label"
                               >
                                  Account Number{" "}
-                                <span className="text-mandatory">*</span>
+                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text"
@@ -327,7 +327,7 @@ export default function AdharInformation():any {
                                 className="form-label"
                               >
                                 IFSC Code{" "}
-                                <span className="text-mandatory">*</span>
+                                <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text" maxLength={11}

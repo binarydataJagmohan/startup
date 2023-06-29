@@ -76,18 +76,13 @@ const StartupList = () => {
             .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
-                        return {
-                            ...startup,
-                            approval_status: status,
-                        };
-                    }
-                   
+
 
 
                     const data = {
-                        notify_from_user: startup.id,
-                        notify_to_user: current_user_id,
-                        notify_msg:"User has been Approved Successfully.",
+                        notify_from_user: current_user_id,
+                        notify_to_user: startup.id,
+                        notify_msg:`${startup.name}  has been Approved Successfully.`,
                         notification_type: "Approval Notification",
                         each_read: "unread",
                         status: "active"
@@ -100,6 +95,12 @@ const StartupList = () => {
                       .catch((error) => {
                         console.log('error occured')
                       });
+                        return {
+                            ...startup,
+                            approval_status: status,
+                        };
+                    }
+                   
                       return startup;
                 });
                 setStartupData(updatedData);

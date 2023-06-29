@@ -96,14 +96,14 @@ export default function CampaignsDetails() {
       no_of_units: value,
     };
 
-    //   const notification = {
-    //     notify_from_user: current_user_id,
-    //     notify_to_user: "1",
-    //     notify_msg: "New Fund has been Raised By Startup.",
-    //     notification_type: "Fund Raised",
-    //     each_read: "unread",
-    //     status: "active"
-    // };
+      const notification = {
+        notify_from_user: currentUserData.id,
+        notify_to_user: "1",
+        notify_msg: "Payment Successfully Done.",
+        notification_type: "Investment Notification",
+        each_read: "unread",
+        status: "active"
+    };
     try {
       InvestorBooking(data)
         .then((res) => {
@@ -111,13 +111,13 @@ export default function CampaignsDetails() {
             setButtonDisabled(true);
 
             // send notification
-            // sendNotification(data)
-            // .then((notificationRes) => {
-            //   console.log('success')
-            // })
-            // .catch((error) => {
-            //   console.log('error occured')
-            // });
+            sendNotification(notification)
+            .then((notificationRes) => {
+              console.log('success')
+            })
+            .catch((error) => {
+              console.log('error occured')
+            });
 
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,

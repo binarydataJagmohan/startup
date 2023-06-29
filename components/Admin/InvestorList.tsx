@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
-
+import { sendNotification } from '../../lib/frontendapi';
 import dynamic from 'next/dynamic';
 
 const DynamicDataTable = dynamic((): any => import('datatables.net'), {
@@ -52,6 +52,22 @@ const InvestorList = () => {
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
+                        const data = {
+                            notify_from_user:current_user_id ,
+                            notify_to_user:  investor.id,
+                            notify_msg:`${investor.name}  has been Approved Successfully.`,
+                            notification_type: "Approval Notification",
+                            each_read: "unread",
+                            status: "active"
+                          };
+                          // Send Notifications to admin When new user is register
+                          sendNotification(data)
+                          .then((notificationRes) => {
+                            console.log('success')
+                          })
+                          .catch((error) => {
+                            console.log('error occured')
+                          });
                         return {
                             ...investor,
                             approval_status: status,
@@ -100,6 +116,7 @@ const InvestorList = () => {
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
+                    
                         return {
                             ...investor,
                             status: status,
@@ -203,7 +220,7 @@ const InvestorList = () => {
                                                                     <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-eye'></span></a>
+                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
                                                                     <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                                 </td>
                                                             </tr>

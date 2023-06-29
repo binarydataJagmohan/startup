@@ -103,8 +103,6 @@ const Header = () => {
 
   }, []);
 
-console.log(users);
-
   function collapseSidebar() {
     $('.vertical-menu').toggle();
   }
@@ -284,7 +282,7 @@ console.log(users);
                             <a href="#" className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-primary float-end">10</span>
-                              <span>Total Active Funds</span>
+                              <span>Active Funds</span>
                             </a>
                           </li>
                           <li>

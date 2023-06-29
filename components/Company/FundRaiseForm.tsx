@@ -184,7 +184,7 @@ const FundRaiseForm = () => {
         .then((res) => {
             console.log(res);
           if (res.status == true) {
-            setBusinessInfo(res.data.business_id);
+            setBusinessInfo(res.data.id);
           
 
           } else {

@@ -9,10 +9,14 @@ import "react-phone-input-2/lib/style.css";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
-
+import { getToken, getCurrentUserData } from "../../lib/session";
+import { sendNotification } from '../../lib/frontendapi';
 type Country = {
   name: string;
   country_code: string;
+}
+interface UserData {
+  id?: string;
 }
 const EditList = () => {
   const [startup, setStartupData] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
@@ -193,6 +197,23 @@ const EditList = () => {
     e.preventDefault();
     setInvalidFields([]);
 
+    const current_user_data: UserData = getCurrentUserData();
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const data = {
+      notify_from_user:current_user_data.id ,
+      notify_to_user:  id,
+      notify_msg:`User has been Updated his profile Successfully by Admin.`,
+      notification_type: "Upadte Notification",
+      each_read: "unread",
+      status: "active"
+    };
+    // Send Notifications to investor when admin update his profile is register
+    sendNotification(data)
+    .then((notificationRes) => {
+      console.log('success')
+    })
+
     if (!startup.email) {
       setMissingFields(prevFields => [...prevFields, "Email"]);
     } else if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/i.test(startup.email)) {
@@ -224,7 +245,7 @@ const EditList = () => {
         }
       );
      
-      toast.success('Startup Personal Information updated successfully');
+      toast.success('Information updated successfully');
       setTimeout(() => {
         router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
       }, 2000);
@@ -236,6 +257,24 @@ const EditList = () => {
 
   const updateBusinessInfo = async (e:any) => {
     e.preventDefault();
+
+    const current_user_data: UserData = getCurrentUserData();
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const data = {
+      notify_from_user:current_user_data.id ,
+      notify_to_user:  id,
+      notify_msg:`User has been Updated his Business Information Successfully by Admin.`,
+      notification_type: "Business Upadte Notification",
+      each_read: "unread",
+      status: "active"
+    };
+    // Send Notifications to investor when admin update his profile is register
+    sendNotification(data)
+    .then((notificationRes) => {
+      console.log('success')
+    })
+
     if (!bussiness.business_name) setBusinessMissingFields(prevFields => [...prevFields, "business_name"]);
     if (!bussiness.cofounder) setBusinessMissingFields(prevFields => [...prevFields, "cofounder"]);
     if (!bussiness.description) setBusinessMissingFields(prevFields => [...prevFields, "description"]);
@@ -281,7 +320,7 @@ const EditList = () => {
      
       toast.success('Business Information updated successfully');
       setTimeout(() => {
-        router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
+        router.push('/admin/all-startup-companies'); 
       }, 2000);
     } catch (error) {
      
@@ -409,19 +448,19 @@ const EditList = () => {
                             type="text"
                             placeholder="www.linkedin.com"
                             value={startup.linkedin_url}
-                            name="linkedin_url" onChange={handleStartupChange} readOnly
+                            name="linkedin_url" onChange={handleStartupChange}
                           />
                           <div className="help-block with-errors" />
-                          {/* {missingFields.includes("linkedin_url") && (
+                          {missingFields.includes("linkedin_url") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the linkedin_url field.
                             </p>
-                          )} */}
-                          {/* {invalidFields.includes("linkedin_url") && (
+                          )}
+                          {invalidFields.includes("linkedin_url") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please enter a valid linkedin_url address.
                             </p>
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </div>
@@ -433,13 +472,13 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="Country of Citizenship " name="country" value={startup.country} onChange={handleStartupChange} readOnly />
+                          <input type="text" placeholder="Country of Citizenship " name="country" value={startup.country} onChange={handleStartupChange} />
                           <div className="help-block with-errors" />
-                          {/* {missingFields.includes("country") && (
+                          {missingFields.includes("country") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the country field.
                             </p>
-                          )} */}
+                          )}
 
                         </div>
                       </div>
@@ -453,13 +492,13 @@ const EditList = () => {
                             onClick={phonClick}
                             country={"us"}
                             value={startup.phone}
-                            onChange={(value) => setStartupData((prevState) => ({ ...prevState, phone: value }))}disabled
+                            onChange={(value) => setStartupData((prevState) => ({ ...prevState, phone: value }))}
                           />
-                          {/* {missingFields.includes("Phone") && (
+                          {missingFields.includes("Phone") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the Phone field.
                             </p>
-                          )} */}
+                          )}
 
 
                         </div>
@@ -472,13 +511,13 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="City" value={startup.city} name="city" onChange={handleStartupChange} readOnly/>
+                          <input type="text" placeholder="City" value={startup.city} name="city" onChange={handleStartupChange} />
                           <div className="help-block with-errors" />
-                          {/* {missingFields.includes("city") && (
+                          {missingFields.includes("city") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the city field.
                             </p>
-                          )} */}
+                          )}
                         </div>
                       </div>
                       <div className="col-sm-6">
@@ -486,23 +525,23 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <select name="gender" onChange={handleStartupChange} className='css-1492t68 form-select' value={startup.gender} aria-readonly disabled>
+                          <select name="gender" onChange={handleStartupChange} className='css-1492t68 form-select' value={startup.gender} >
                             <option value={startup.gender?startup.gender:''}>{startup.gender?startup.gender.charAt(0).toUpperCase() + startup.gender.slice(1):'--SELECT GENDER--'}</option>
                             {startup.gender !== 'male' && <option value="male">Male</option>}
                             {startup.gender !== 'female' && <option value="female">Female</option>}
                             {startup.gender !== 'other' && <option value="other">Other</option>}
                           </select>
                           <div className="help-block with-errors" />
-                          {/* {missingFields.includes("gender") && (
+                          {missingFields.includes("gender") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the gender field.
                             </p>
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </div>
 
-                    {/* <div className="row">
+                    <div className="row">
                       <div className="row mt-3">
                         <div className="col-md-12 text-center">
                           <button type="submit" className="btnclasssmae">
@@ -510,7 +549,7 @@ const EditList = () => {
                           </button>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </form>
                 </div>
               </div>
@@ -555,18 +594,18 @@ const EditList = () => {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="business_name" name="￼business_name" value={bussiness.business_name} onChange={handleBusinessChange}
-                                readOnly
+                                id="business_name" name="business_name" value={bussiness.business_name} onChange={handleBusinessChange}
+                                
                               />
 
-                              {/* {businessmissingFields.includes("business_name") && (
+                              {businessmissingFields.includes("business_name") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Company Name.
                                 </p>
-                              )} */}
+                              )}
                               {/* )} */}
                             </div>
                             <div className="col-md-6 mt-3">
@@ -580,17 +619,16 @@ const EditList = () => {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname" readOnly
-
+                                id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname" 
                               />
-                              {/* {businessmissingFields.includes("reg_businessname") && (
+                              {businessmissingFields.includes("reg_businessname") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter  Registered Company Name.
                                 </p>
-                              )} */}
+                              )}
                               {/* )} */}
                             </div>
                             <div className="col-md-6 mt-3">
@@ -603,17 +641,17 @@ const EditList = () => {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url" readOnly
+                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url" 
                               />
                               {/* {errors.website_url && ( */}
-                              {/* {businessmissingFields.includes("website_url") && (
+                              {businessmissingFields.includes("website_url") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Comapny's Website Url.
                                 </p>
-                              )} */}
+                              )} 
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -625,7 +663,7 @@ const EditList = () => {
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68" 
-                                aria-label="Default select example" onChange={handleBusinessChange} name="sector" aria-selected disabled
+                                aria-label="Default select example" onChange={handleBusinessChange} name="sector" 
                               >
                                 <option value={bussiness.sector?bussiness.sector:''}>{bussiness.sector?bussiness.sector:'--SELECT SECTOR--'}</option>
                                 {bussiness.sector !== 'E-commerce' && <option value="E-commerce">E-commerce</option>}
@@ -644,14 +682,14 @@ const EditList = () => {
                                 {bussiness.sector !== 'SaaS (Software as a Service)' && <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>}
                                 {bussiness.sector !== 'Travel & Transportation and Mobility' && <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>}
                               </select>
-                              {/* {businessmissingFields.includes("sector") && (
+                              {businessmissingFields.includes("sector") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Select Sector of Your Business.
                                 </p>
-                              )} */}
+                              )}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -663,7 +701,7 @@ const EditList = () => {
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                aria-label="Default select example" onChange={handleBusinessChange} name="stage" aria-selected disabled
+                                aria-label="Default select example" onChange={handleBusinessChange} name="stage" 
                               >
                                 <option value={bussiness.stage}>{bussiness.stage}</option>
                                 {/* {bussiness.stage !== 'Idea Stage' && <option value="Idea Stage">Idea Stage</option>}
@@ -682,14 +720,14 @@ const EditList = () => {
                               </select>
                               {/* {errors.stage &&
                                 errors.stage.type === "required" &&  ! businessDetails.stage && ( */}
-                              {/* {businessmissingFields.includes("stage") && (
+                               {businessmissingFields.includes("stage") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Select Stage of Your Business.
                                 </p>
-                              )} */}
+                              )} 
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -724,17 +762,17 @@ const EditList = () => {
                                 type="text"
                                 className="form-control same-input" onChange={handleBusinessChange}
                                 id="tagline" value={bussiness.tagline} name="tagline"
-                                readOnly
+                               
                               />
 
-                              {/* {businessmissingFields.includes("tagline") && (
+                              {businessmissingFields.includes("tagline") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Your Business Tagline.
                                 </p>
-                              )} */}
+                              )}
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -747,7 +785,7 @@ const EditList = () => {
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68" 
-                                aria-label="Default select example" name="type" onChange={handleBusinessChange} aria-selected disabled
+                                aria-label="Default select example" name="type" onChange={handleBusinessChange} 
 
                               >
                                 <option value={bussiness.type ? bussiness.type:''}>{bussiness.type ? bussiness.type:'--SELECT FUND TYPE--'}</option>
@@ -758,14 +796,14 @@ const EditList = () => {
 
                               </select>
 
-                              {/* {businessmissingFields.includes("type") && (
+                              {businessmissingFields.includes("type") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Select type of Your Business.
                                 </p>
-                              )} */}
+                              )}
                             </div>
 
 
@@ -783,16 +821,15 @@ const EditList = () => {
                                 maxLength={100}
                                 placeholder="Enter details here"
                                 className="form-control" value={bussiness.description} onChange={handleBusinessChange} name="description"
-                                readOnly
-                              />
-                              {/* {businessmissingFields.includes("description") && (
+                               />
+                              {businessmissingFields.includes("description") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Fill Description of Your Business.
                                 </p>
-                              )} */}
+                              )}
                             </div>
 
                             <div className="col-md-6">
@@ -831,7 +868,7 @@ const EditList = () => {
                                     <img src={bussiness.logo} alt="profile" width={300} height={800} />
                                 }
                                 </div>
-                                {/* <input
+                                <input
                                   ref={fileInputRef}
                                   className="input-file"
                                   id="logo"
@@ -850,9 +887,9 @@ const EditList = () => {
                                   Drop your pitch deck here to{" "}
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>You can upload any identity card's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
-                                </label> */}
+                                </label>
                                 {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && ( */}
-                                {/* {businessmissingFields.includes("logo") && (
+                                {businessmissingFields.includes("logo") && (
                                   <p
                                     className="text-danger"
                                     style={{ textAlign: "left", fontSize: "12px" }}
@@ -866,7 +903,7 @@ const EditList = () => {
                                 >
                                   Logo Uploaded Successfully.
                                 </p>
-                                )} */}
+                                )}
 
                               </div>
                             </div>
@@ -877,8 +914,7 @@ const EditList = () => {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="checkboxNoLabel"
-                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange} readOnly disabled
-                              // {...register("cofounder", { value:true, })}
+                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange} 
                               // name="cofounder"  onChange={handleChange}   
                               />
                               <p className="">
@@ -892,7 +928,7 @@ const EditList = () => {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="checkboxNoLabel"
-                                value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange} readOnly disabled
+                                value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange}
                               />
                               <p className="">
                                 I certify that all the information provided by
@@ -901,26 +937,26 @@ const EditList = () => {
                                 requested.
                               </p>
                             </div>
-                            {/* {businessmissingFields.includes("kyc_purposes") && (
+                            {businessmissingFields.includes("kyc_purposes") && (
                               <p
                                 className="text-danger"
                                 style={{ textAlign: "left", fontSize: "12px" }}
                               >
                                 *Please certify the kyc information.
                               </p>
-                            )} */}
+                            )}
                           </div>
 
                         </div>
 
                       </div>
-                      {/* <div className="row mt-3">
+                      <div className="row mt-3">
                         <div className="col-md-12 text-center">
                           <button type="submit" className="btnclasssmae">
                             Submit
                           </button>
                         </div>
-                      </div> */}
+                      </div>
                     </form>
                   </div>
                 </div>
