@@ -113,6 +113,7 @@ const AllNotifications = () => {
         deleteNotification(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
+                    console.log(res);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
@@ -120,7 +121,6 @@ const AllNotifications = () => {
                     window.location.reload();
                 } else {
                     toast.error(res.message, {
-                        position: toast.POSITION.TOP_RIGHT,
                         toastId: "error",
                     });
                 }
@@ -132,7 +132,6 @@ const AllNotifications = () => {
                 });
             });
     };
-
     return (
         <>
             <div className="main-content">
@@ -152,7 +151,6 @@ const AllNotifications = () => {
                                         </li>
                                     </ol>
                                 </div>
-
                                 <div className="col">
                                     <button className='btn btn-danger float-end' onClick={SubmitForm}>Clear All</button>
                                 </div>

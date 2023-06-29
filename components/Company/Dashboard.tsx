@@ -105,9 +105,9 @@ const Dashboard = () => {
                                         <h4 className="fw-medium font-size-24">
                                             52,368 <i className="mdi mdi-arrow-down text-danger ms-2" />
                                         </h4>
-                                        <div className="mini-stat-label bg-danger">
+                                        {/* <div className="mini-stat-label bg-danger">
                                             <p className="mb-0">- 28%</p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="pt-2">
                                         <div className="float-end">
@@ -128,14 +128,14 @@ const Dashboard = () => {
                                             <img src="assets/images/services-icon/03.png" alt="" />
                                         </div> */}
                                         <h5 className="font-size-16 text-uppercase text-white-50">
-                                            Average Price
+                                           Total Units
                                         </h5>
                                         <h4 className="fw-medium font-size-24">
                                             15.8 <i className="mdi mdi-arrow-up text-success ms-2" />
                                         </h4>
-                                        <div className="mini-stat-label bg-info">
+                                        {/* <div className="mini-stat-label bg-info">
                                             <p className="mb-0"> 00%</p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="pt-2">
                                         <div className="float-end">
@@ -161,9 +161,9 @@ const Dashboard = () => {
                                         <h4 className="fw-medium font-size-24">
                                             2436 <i className="mdi mdi-arrow-up text-success ms-2" />
                                         </h4>
-                                        <div className="mini-stat-label bg-warning">
+                                        {/* <div className="mini-stat-label bg-warning">
                                             <p className="mb-0">+ 84%</p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="pt-2">
                                         <div className="float-end">

@@ -148,6 +148,12 @@ const Header = () => {
                             </a>
                           </li>
                           <li>
+                          <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}  className="waves-effect">
+                              <i className="fa fa-bell"></i>
+                              <span>Notifications</span>
+                            </a>
+                          </li>
+                          <li>
                             <a href="#" className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
@@ -226,6 +232,12 @@ const Header = () => {
                             </a>
                           </li>
                           <li>
+                          <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}  className="waves-effect">
+                              <i className="fa fa-bell"></i>
+                              <span>Notifications</span>
+                            </a>
+                          </li>
+                          <li>
                             <a href="#" className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
@@ -280,7 +292,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
+                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -306,7 +318,7 @@ const Header = () => {
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <a className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
+                    <a className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}>
                       View all
                     </a>
                   </div>

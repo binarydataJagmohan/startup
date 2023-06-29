@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-
+import { getToken } from '@/lib/session';
 
 
 type Country = {
@@ -101,7 +101,10 @@ try{
         {
             ['terms_and_conditions']: editorContent,
           
-        }
+        },{ headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + getToken(), 
+        }}
     );   
     toast.success(response.data.message);
  

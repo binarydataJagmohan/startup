@@ -185,7 +185,7 @@ const Header = () => {
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
-                              <span>Total Active Funds</span>
+                              <span>Active Funds</span>
                             </a>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-users' || router.pathname.startsWith('/admin/edit-user') ? 'active p1' : ''}`}>

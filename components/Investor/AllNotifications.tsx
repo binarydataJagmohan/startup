@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getTotalNotifications, updateNotification } from "../../lib/adminapi";
+import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -82,42 +82,73 @@ const AllNotifications = () => {
             setDataTableInitialized(true);
         }
     }, [notifications, dataTableInitialized]);
+    const SubmitForm = () => {
+        const current_user_data: UserData = getCurrentUserData();
+        deleteNotification(current_user_data.id)
+            .then((res) => {
+                if (res.status == true) {
+                    console.log(res);
+                    toast.success(res.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        toastId: "success",
+                    });
+                    window.location.reload();
+                } else {
+                    toast.error(res.message, {
+                        toastId: "error",
+                    });
+                }
+            })
+            .catch((err) => {
+                toast.error(err, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            });
+    };
 
     return (
         <>
 
+
             <div className='table-responsive border-top p-lg'>
-                <table
-                    id="datatable"
-                    className="table dt-responsive nowrap"
-                    style={{
-                        borderCollapse: 'collapse',
-                        borderSpacing: 0,
-                        width: '100%',
-                        overflow: 'hidden',
-                    }}
-                >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Notifications Type</th>
-                            <th>Notifications</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {notifications.map((notification: any, index) => (
-                            <tr key={notification.id}>
-                                <td>{index + 1}</td>
-                                <td>{notification.notification_type}</td>
-                                <td>{notification.notify_msg}</td>
-                                {/* <td>{notification.notify_to_user}</td> */}
-                                {/* <td onChange={() => getSingleUserData(notification.notify_from_user)}>
+                <div className="row">
+                    <div className='col'>
+                        <button className='btn btn-danger float-end' onClick={SubmitForm}>Clear All</button>
+                    </div>
+                </div>
+                {notifications.length > 0 ? (
+                    <table
+                        id="datatable"
+                        className="table dt-responsive nowrap"
+                        style={{
+                            borderCollapse: 'collapse',
+                            borderSpacing: 0,
+                            width: '100%',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Notifications Type</th>
+                                <th>Notifications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {notifications.map((notification: any, index) => (
+                                <tr key={notification.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{notification.notification_type}</td>
+                                    <td>{notification.notify_msg}</td>
+                                    {/* <td>{notification.notify_to_user}</td> */}
+                                    {/* <td onChange={() => getSingleUserData(notification.notify_from_user)}>
                                                             {users.fromUser?.name}
                                                             </td>
                                                             <td onChange={() => getSingleUserData(notification.notify_to_user)}>
                                                             {users.toUser?.name}</td> */}
 
-                                {/* <td className='text-center'> 
+                                    {/* <td className='text-center'> 
                                                                 <span style={{ cursor: "pointer" }} className={notification.each_read === 'read' ? 'badge bg-success' : 'badge bg-danger'}
                                                                 >  {typeof notification.each_read === 'string' ? notification.each_read.toUpperCase() : notification.each_read}</span></td>
                                                             <td>
@@ -127,11 +158,15 @@ const AllNotifications = () => {
                                                             <td className='text-center'>
                                                                 <a href="javascript:void(0);"><span className='fa fa-close text-danger'></span></a>
                                                             </td> */}
-                            </tr>
-                        ))}
+                                </tr>
+                            ))}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                ) : (
+                    
+                    <p className='border-top border-bottom mt-3 text-center'>No data available in Notifications</p>
+                )}
             </div>
 
         </>

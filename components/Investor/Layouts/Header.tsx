@@ -200,12 +200,14 @@ console.log(current_user_data);
                           <div className="font-size-10 text-muted">
                             <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
                           </div>
-                          <hr/>
-                          <a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</a>
+                          {/* <hr/> */}
+                        
                         </>
                       ) : (
-                        <p>There are no new notifications.</p>
+                        <a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>There are no new notifications.</a>
                       )}
+                      <hr/>
+                        <a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</a>
                     </div>
                   </div>
                 </div>

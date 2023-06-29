@@ -56,24 +56,24 @@ const EditInvestor = () => {
 
 
     const current_user_data: UserData = getCurrentUserData();
-      const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get('id');
-      const data = {
-        notify_from_user:current_user_data.id ,
-        notify_to_user:  id,
-        notify_msg:`User has been Updated his profile Successfully by Admin.`,
-        notification_type: "Upadte Notification",
-        each_read: "unread",
-        status: "active"
-      };
-      // Send Notifications to investor when admin update his profile is register
-      sendNotification(data)
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const data = {
+      notify_from_user: current_user_data.id,
+      notify_to_user: id,
+      notify_msg: `User has been Updated his profile Successfully by Admin.`,
+      notification_type: "Upadte Notification",
+      each_read: "unread",
+      status: "active"
+    };
+    // Send Notifications to investor when admin update his profile is register
+    sendNotification(data)
       .then((notificationRes) => {
         console.log('success')
       })
 
-    if(!investor.email){
-      setMissingFields(prevField =>[...prevField,"Email"])
+    if (!investor.email) {
+      setMissingFields(prevField => [...prevField, "Email"])
     } else if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/i.test(investor.email)) {
       setInvalidFields(prevFields => [...prevFields, "Email"]);
     }
@@ -82,30 +82,37 @@ const EditInvestor = () => {
     } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/(in|company)\/[\w-]+$/i.test(investor.linkedin_url)) {
       setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
     }
-    if(!investor.city)  setMissingFields(prevField =>[...prevField,"City"]);
-    if(!investor.country) setMissingFields(prevField=>[...prevField,"country"]);
-    if(!investor.gender) setMissingFields(prevField=>[...prevField,"gender"]);
-    if(!investor.phone) setMissingFields(prevField =>[...prevField,"Phone"]);
+    if (!investor.city) setMissingFields(prevField => [...prevField, "City"]);
+    if (!investor.country) setMissingFields(prevField => [...prevField, "country"]);
+    if (!investor.gender) setMissingFields(prevField => [...prevField, "gender"]);
+    if (!investor.phone) setMissingFields(prevField => [...prevField, "Phone"]);
 
-    try{
-    const response  = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/update-investor-personal-info/${id}`,
-    {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/update-investor-personal-info/${id}`,
+        {
 
-      ['email']: investor.email,
-      ['country']: investor.country,
-      ['phone']: investor.phone,
-      ['city']: investor.city,
-      ['linkedin_url']: investor.linkedin_url,
-      ['gender']: investor.gender
+          ['email']: investor.email,
+          ['country']: investor.country,
+          ['phone']: investor.phone,
+          ['city']: investor.city,
+          ['linkedin_url']: investor.linkedin_url,
+          ['gender']: investor.gender
 
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
+          }
         }
       );
-      
+
 
       toast.success('Information updated successfully');
-      
+
       setTimeout(() => {
-        router.push('/admin/all-investors'); 
+        router.push('/admin/all-investors');
       }, 2000);
     }
     catch (error) {
@@ -168,7 +175,7 @@ const EditInvestor = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                 Personal Information:
+                Personal Information:
               </button>
             </h2>
             <div
@@ -210,7 +217,7 @@ const EditInvestor = () => {
                         <div className="form-part">
                           <input
                             type="text"
-                            placeholder="www.linkedin.com" name="linkedin_url" onChange={handleInvestorChange} value={investor.linkedin_url} 
+                            placeholder="www.linkedin.com" name="linkedin_url" onChange={handleInvestorChange} value={investor.linkedin_url}
 
                           />
                           <div className="help-block with-errors" />
@@ -257,8 +264,8 @@ const EditInvestor = () => {
                             value={investor.phone}
                             onChange={(value) => {
                               setMissingFields([]);
-                              setInvestor((prevState) => ({ ...prevState, phone: value })); 
-                            }} 
+                              setInvestor((prevState) => ({ ...prevState, phone: value }));
+                            }}
                           />
                           {missingFields.includes("Phone") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -277,7 +284,7 @@ const EditInvestor = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="City" name="city" onChange={handleInvestorChange} value={investor.city}  />
+                          <input type="text" placeholder="City" name="city" onChange={handleInvestorChange} value={investor.city} />
                           <div className="help-block with-errors" />
                           {missingFields.includes("City") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>

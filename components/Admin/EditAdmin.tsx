@@ -115,8 +115,9 @@ const EditAdmin = () => {
                 },
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data', // Set the appropriate content type for file uploads
-                        'Accept': 'application/json',
+                        'Content-Type': 'multipart/form-data', 
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + getToken(), 
                     }
                 }
             );

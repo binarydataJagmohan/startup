@@ -107,6 +107,9 @@ export default function AdharInformation():any {
   const SubmitForm = async () => {
      try {
       const res = await bankInformationSave(bankDetails);
+      setTimeout(() => {
+        router.push("/company/thank-you");
+      }, 1000);
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
@@ -127,9 +130,7 @@ export default function AdharInformation():any {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
         });
-        setTimeout(() => {
-          router.push("/company/thank-you");
-        }, 1000);
+       
       } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,

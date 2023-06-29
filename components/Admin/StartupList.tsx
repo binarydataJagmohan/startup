@@ -72,7 +72,13 @@ const StartupList = () => {
 
     // for approval status update
     function updateApprovalStatus(id: number, status: number | string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status },
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + getToken(), 
+            },
+          })
             .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
@@ -82,7 +88,7 @@ const StartupList = () => {
                     const data = {
                         notify_from_user: current_user_id,
                         notify_to_user: startup.id,
-                        notify_msg:`${startup.name}  has been Approved Successfully.`,
+                        notify_msg:`${startup.name}   Approval Status has been Updated Successfully.`,
                         notification_type: "Approval Notification",
                         each_read: "unread",
                         status: "active"
@@ -101,9 +107,9 @@ const StartupList = () => {
                         };
                     }
                    
+                setStartupData(updatedData);
                       return startup;
                 });
-                setStartupData(updatedData);
 
                
         
@@ -122,7 +128,14 @@ const StartupList = () => {
 
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, { status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, { status: status },
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + getToken(), 
+            },
+          }
+        )
             .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
@@ -151,7 +164,13 @@ const StartupList = () => {
     // For update business stage
     function updateStartupStage(id: string, stage: string) {
         const startupId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage },
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + getToken(), 
+            },
+          })
             .then(response => {
                 // set value in startups state
                 const updatedStartupData = startups.map(startup => {
@@ -180,10 +199,16 @@ const StartupList = () => {
     const handleChange = (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
         updateStartupStage(id, e.target.value);
     };
+
     // delete the startup 
     const deleteStartup = async (id: number) => {
         // console.log("this is id again"+id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`)
+        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`,{
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + getToken(), 
+            },
+          })
             .then(response => {
 
                 const updatedData = startups.filter(startup => startup.id !== id);

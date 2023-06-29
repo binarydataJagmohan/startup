@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
+import { removeToken, removeStorageData, getCurrentUserData, getToken} from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
 import { sendNotification} from '../../lib/frontendapi'
 
@@ -73,7 +73,10 @@ const AllFundsList = () => {
   }, []);
 
   function updateStatus(id: number, status: string) {
-    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status })
+    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status },{ headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + getToken(), 
+    }})
       .then(response => {
         // Update the status in the state
         const updatedFunds = funds.map(fund => {
@@ -116,7 +119,10 @@ const AllFundsList = () => {
 
   // Delete Funding from DB..
   function deleteFund(id: number) {
-    axios.post(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`)
+    axios.delete(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`,{ headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + getToken(), 
+    }})
       .then(response => {
         const updatedData = funds.filter(fund => fund.id !== id);
         setFundsData(updatedData);

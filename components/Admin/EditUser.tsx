@@ -125,7 +125,10 @@ const EditUser = () => {
                     ['role']: users.role,
                     ['gender']: users.gender,
                     ['linkedin_url']: users.linkedin_url
-                }
+                },{ headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + getToken(), 
+                  }},
             );
 
             sendNotification(data)

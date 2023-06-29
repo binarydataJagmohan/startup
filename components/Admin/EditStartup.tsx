@@ -314,6 +314,8 @@ const EditList = () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
           },
         }
       );

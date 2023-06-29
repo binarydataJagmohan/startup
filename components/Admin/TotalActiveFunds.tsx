@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from '@/lib/session';
 import { getAllActiveFunds } from '@/lib/adminapi';
+import { getToken } from '@/lib/session';
 import axios from 'axios';
 interface UserData {
     id?: number;
@@ -70,7 +71,10 @@ const TotalActiveFunds = () => {
 
     // Delete Funding from DB..
     function deleteFund(id: number) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`)
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`,{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = funds.filter(fund => fund.id !== id);
                 setFundsData(updatedData);

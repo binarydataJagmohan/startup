@@ -478,9 +478,9 @@ const Profile = () => {
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
                                                                     <input type="email" className="form-control form-css" placeholder="Email" {...register("email", {
-                                                                       onChange:handleChange,
-                                                                      required: true,
-                                                                      value:true,
+                                                                        onChange: handleChange,
+                                                                        required: true,
+                                                                        value: true,
                                                                         // pattern: {
                                                                         //     value: /^\S+@\S+$/i,
                                                                         //     message: "Invalid email address"
@@ -557,7 +557,7 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic}  className="profile-pic" />
+                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
@@ -650,11 +650,21 @@ const Profile = () => {
                                                                         aria-label="Default select example"
                                                                     >
                                                                         <option value="">--SELECT SECTOR--</option>
+                                                                        <option value="E-commerce">E-commerce</option>
+                                                                        <option value="Food & Restaurents Startups">Food  & Restaurents Startups</option>
                                                                         <option value="App Development">App Development</option>
                                                                         <option value="IT/Technologies">IT/Technologies</option>
-                                                                        <option value="AI">AI</option>
+                                                                        <option value="AI and Machine Learning">AI and Machine Learning</option>
                                                                         <option value="Web Development">Web Development</option>
-                                                                        <option value="Agriculture">Agriculture</option>
+                                                                        <option value="FinTech (Financial Technology)">FinTech (Financial Technology)</option>
+                                                                        <option value="HealthTech (Healthcare Technology)">HealthTech (Healthcare Technology)</option>
+                                                                        <option value="EdTech (Education Technology)">EdTech (Education Technology)</option>
+                                                                        <option value="Real Estate & PropTech (Property Technology)">Real Estate & PropTech (Property Technology)</option>
+                                                                        <option value="Agriculture Startups">Agriculture Startups</option>
+                                                                        <option value="RetailTech (Retail Technology)">RetailTech (Retail Technology)</option>
+                                                                        <option value="CleanTech (Clean Technology)">CleanTech (Clean Technology)</option>
+                                                                        <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>
+                                                                        <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>
                                                                     </select>
                                                                     {errors.sector &&
                                                                         errors.sector.type === "required" && !businessDetails.sector && (
@@ -677,8 +687,12 @@ const Profile = () => {
                                                                     >
                                                                         <option value="">--SELECT STAGE--</option>
                                                                         <option value="Idea Stage">Idea Stage</option>
-                                                                        <option value="Intermediate Stage">Intermediate Stage</option>
-                                                                        <option value="Final Stage">Final Stage</option>
+                                                                        <option value="Validation Stage">Validation Stage</option>
+                                                                        <option value="Development Stage">Development Stage</option>
+                                                                        <option value="Launch Stage">Launch Stage</option>
+                                                                        <option value="Growth Stage">Growth Stage</option>
+                                                                        <option value="Expansion Stage">Expansion Stage</option>
+                                                                        <option value="Maturity Stage">Maturity Stage</option>
                                                                     </select>
                                                                     {errors.stage &&
                                                                         errors.stage.type === "required" && !businessDetails.stage && (

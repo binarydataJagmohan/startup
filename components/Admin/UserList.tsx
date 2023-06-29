@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import Link from 'next/link';
-
+import { getToken } from '@/lib/session';
 type Country = {
     name: string;
     country_code: string;
@@ -68,7 +68,10 @@ const UserList = () => {
 
     function deleteUser(id: number) {
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`)
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`,{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = users.filter(user => user.id !== id);
                 setUsers(updatedData);
@@ -86,7 +89,10 @@ const UserList = () => {
     }
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-status/${id}`, { status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-status/${id}`, { status: status },{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = users.map(user => {
                     if (user.id === id) {
@@ -115,7 +121,10 @@ const UserList = () => {
     // For update business stage
     function updateusersRole(id: string, role: string) {
         const userId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-role/${id}`, { role })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-role/${id}`, { role },{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 // set value in user role state
                 const updatedUserData = users.map(user => {
@@ -148,7 +157,10 @@ const UserList = () => {
     // For update business stage
     function updateCountry(id: string, country: string) {
         const userId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-country/${id}`, { country })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-country/${id}`, { country },{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 // set value in user country state
                 const updatedUserData = users.map(user => {

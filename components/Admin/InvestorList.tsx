@@ -48,14 +48,18 @@ const InvestorList = () => {
         fetchData();
     }, []);
     function updateApprovalStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-approvalstatus/${id}`, { approval_status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-approvalstatus/${id}`, { approval_status: status },
+       { headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
                         const data = {
                             notify_from_user:current_user_id ,
                             notify_to_user:  investor.id,
-                            notify_msg:`${investor.name}  has been Approved Successfully.`,
+                            notify_msg:`${investor.name}   Approval Status has been Updated Successfully.`,
                             notification_type: "Approval Notification",
                             each_read: "unread",
                             status: "active"
@@ -93,7 +97,10 @@ const InvestorList = () => {
     //delete for investor
     function deleteInvestor(id: number) {
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`)
+        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`, { headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = investors.filter(investor => investor.id !== id);
                 setInvestors(updatedData);
@@ -112,7 +119,10 @@ const InvestorList = () => {
 
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { status: status })
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { status: status },{ headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(), 
+          }})
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
