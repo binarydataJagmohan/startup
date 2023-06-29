@@ -67,13 +67,10 @@ const Dashboard = () => {
                     </div>
                     {/* end page title */}
                     <div className="row">
-                        <div className="col-xl-3 col-md-6">
+                        {/* <div className="col-xl-3 col-md-6">
                             <div className="card mini-stat bg-primary text-white">
                                 <div className="card-body">
                                     <div className="mb-4">
-                                        {/* <div className="float-start mini-stat-img me-4">
-                                            <img src="assets/images/services-icon/01.png" alt="" />
-                                        </div> */}
                                         <h5 className="font-size-16 text-uppercase text-white-50">
                                             Total Revenue
                                         </h5>
@@ -94,8 +91,8 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
+                        </div> */}
+                        <div className="col-xl-4 col-md-6">
                             <div className="card mini-stat bg-primary text-white">
                                 <div className="card-body">
                                     <div className="mb-4">
@@ -123,7 +120,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-3 col-md-6">
+                        <div className="col-xl-4 col-md-6">
                             <div className="card mini-stat bg-primary text-white">
                                 <div className="card-body">
                                     <div className="mb-4">
@@ -151,7 +148,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-3 col-md-6">
+                        <div className="col-xl-4 col-md-6">
                             <div className="card mini-stat bg-primary text-white">
                                 <div className="card-body">
                                     <div className="mb-4">
