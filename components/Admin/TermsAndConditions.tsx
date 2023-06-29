@@ -159,7 +159,7 @@ try{
                   modules={modules}
                   formats={formats}
                   theme="snow"
-                  style={{ height: '200px' }} 
+                  // style={{ height: '200px' }} 
                 />
                 
               </div>

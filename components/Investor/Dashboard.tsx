@@ -145,7 +145,7 @@ const Dashboard = () => {
               .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         {}
@@ -260,7 +260,7 @@ const Dashboard = () => {
               .filter((details: any) => details.type === "CSOP" && details.status === "open")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
@@ -383,7 +383,7 @@ const Dashboard = () => {
               .filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
@@ -505,7 +505,7 @@ const Dashboard = () => {
               .filter((details: any) => details.status === "closed")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.id)}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img

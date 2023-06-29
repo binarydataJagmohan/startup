@@ -94,7 +94,6 @@ const Header = () => {
     getCountOfUnreadNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          console.log(res)
           setUnreadNotifications(res.data);
         } else {
         }
@@ -103,6 +102,8 @@ const Header = () => {
       });
 
   }, []);
+
+console.log(users);
 
   function collapseSidebar() {
     $('.vertical-menu').toggle();
@@ -179,7 +180,7 @@ const Header = () => {
                           <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup') ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
-                              <span>All Startups</span>
+                              <span>Startups</span>
                             </a>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
@@ -192,7 +193,7 @@ const Header = () => {
                           <li className={`nav-item ${router.pathname === '/admin/all-users' || router.pathname.startsWith('/admin/edit-user') ? 'active p1' : ''}`}>
                             <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
-                              <span>All Users</span>
+                              <span>Users</span>
                             </a>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-notifications' ? 'active p1' : ''}`}>

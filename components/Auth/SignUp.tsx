@@ -38,10 +38,10 @@ const Signup = () => {
       value: 8,
       message: 'Password must be at least 8 characters long',
     },
-    maxLength: {
-      value: 16,
-      message: 'Password cannot be more 16 characters.',
-    },
+    // maxLength: {
+    //   value: 16,
+    //   message: 'Password cannot be more 16 characters.',
+    // },
     pattern: {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',

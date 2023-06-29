@@ -132,7 +132,7 @@ export default function CampaignsDetails() {
           }
         })
     } catch (error) {
-      // console.error(error);
+      console.error(error);
       // handle the error, such as showing an error message
     }
   };
@@ -206,7 +206,9 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                            <img src={inputs.logo} alt="" />
+                            {inputs.logo && (
+      <img src={inputs.logo.replace('docs', 'public/docs')} alt="" />
+    )}
                         </div>
                       </div>
 

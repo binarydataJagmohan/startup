@@ -182,9 +182,10 @@ const FundRaiseForm = () => {
 
       getSingleBusinessInformation(current_user_data.id)
         .then((res) => {
+            console.log(res);
           if (res.status == true) {
-            setBusinessInfo(res.data.id);
-            // console.log(res.data);
+            setBusinessInfo(res.data.business_id);
+          
 
           } else {
             toast.error(res.message, {
