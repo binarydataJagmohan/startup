@@ -319,7 +319,7 @@ const StartupList = () => {
                                                                 </td>
                                                                 <td>
                                                                     <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/edit-startup/?id=${startup.id}`} className='m-1'>
-                                                                        <span className='fa fa-eye'></span>
+                                                                        <span className='fa fa-edit'></span>
                                                                     </a>
                                                                     <a href="javascript:void(0);" onClick={() => deleteStartup(startup.id)} className='m-1'>
                                                                         <span className='fa fa-trash text-danger'></span>
