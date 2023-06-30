@@ -82,9 +82,6 @@ const StartupList = () => {
             .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
-
-
-
                     const data = {
                         notify_from_user: current_user_id,
                         notify_to_user: startup.id,
@@ -107,12 +104,12 @@ const StartupList = () => {
                         };
                     }
                    
-                setStartupData(updatedData);
+              
                       return startup;
                 });
 
                
-        
+                setStartupData(updatedData);
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",

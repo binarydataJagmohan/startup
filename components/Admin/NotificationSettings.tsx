@@ -162,7 +162,7 @@ const NotificationSettings = () => {
                                         <h3 className="card-title">Notifications Configurations</h3>
                                     </div>
                                     <div className="card-body">
-                                        {Array.isArray(options) ? (
+                                        {/* {Array.isArray(options) ? ( */}
                                             options.map((option: any) => (
                                                 <div className="row notification" key={option.option_name}>
                                                     <label className="col-md-6">{option.option_name}</label>
@@ -200,9 +200,9 @@ const NotificationSettings = () => {
                                                     </div>
                                                 </div>
                                             ))
-                                        ) : (
+                                        {/* ) : (
                                             <p>No options available.</p>
-                                        )}
+                                        )} */}
                                     </div>
 
 
