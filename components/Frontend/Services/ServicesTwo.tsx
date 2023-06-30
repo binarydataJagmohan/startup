@@ -5,7 +5,7 @@ export default function serviceTwo() {
         <>
             <div className="page-title-area item-bg-4">
                 <div className="d-table">
-                    <div className="d-table-cell">
+                    <div className="d-table-cell service-title">
                         <div className="container">
                             <div className="page-title-content">
                                 <h2>Business Planning</h2>
@@ -22,7 +22,7 @@ export default function serviceTwo() {
                 <div className="container">
                     <div className="services-details-video">
                         <div className="details-image">
-                            <img src="assets/img/services-details/business-planning.jpg" alt="image" />
+                            <img src="assets/img/services-details/business-planning.png" alt="image" />
                         </div>
                         {/* <div className="details-video">
                             <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">

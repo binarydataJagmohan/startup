@@ -5,7 +5,7 @@ export default function serviceFour() {
         <>
             <div className="page-title-area item-bg-4">
                 <div className="d-table">
-                    <div className="d-table-cell">
+                    <div className="d-table-cell service-title">
                         <div className="container">
                             <div className="page-title-content">
                                 <h2>App Development</h2>

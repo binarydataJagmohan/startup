@@ -9097,3 +9097,11 @@ span.passwordView1 {
     top: 5px;
 } */
 
+.service-title{
+    background-color:#9fe870;
+}
+
+.services-details-video .text{
+    margin-top: -70px;
+    color: black;
+}
