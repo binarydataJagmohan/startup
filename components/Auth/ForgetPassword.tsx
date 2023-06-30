@@ -44,9 +44,9 @@ const ForgetPassword = () => {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
-          setTimeout(() => {
-            router.push("/login"); // Redirect to login page
-          }, 2000);
+          // setTimeout(() => {
+          //   router.push("/login"); // Redirect to login page
+          // }, 2000);
         } else {
           toast.error(res.error, {
             position: toast.POSITION.TOP_RIGHT,

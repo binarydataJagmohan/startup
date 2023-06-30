@@ -103,12 +103,8 @@ const StartupList = () => {
                             approval_status: status,
                         };
                     }
-                   
-              
                       return startup;
                 });
-
-               
                 setStartupData(updatedData);
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,

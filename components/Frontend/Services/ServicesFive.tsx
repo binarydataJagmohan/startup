@@ -22,7 +22,7 @@ export default function serviceFive() {
                 <div className="container">
                     <div className="services-details-video">
                         <div className="details-image">
-                            <img src="assets/img/services-details/Marketing-and-Branding.png" alt="image" />
+                            <img src="assets/img/services-details/servicefour.jpg" alt="image" />
                         </div>
                         {/* <div className="details-video">
                             <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
