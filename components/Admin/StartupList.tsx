@@ -85,7 +85,7 @@ const StartupList = () => {
                     const data = {
                         notify_from_user: current_user_id,
                         notify_to_user: startup.id,
-                        notify_msg:`${startup.name}   Approval Status has been Updated Successfully.`,
+                        notify_msg:`Congratulations! Your profile has been approved successfully`,
                         notification_type: "Approval Notification",
                         each_read: "unread",
                         status: "active"
