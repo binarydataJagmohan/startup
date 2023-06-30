@@ -249,9 +249,15 @@ export default function Customizereview(): any {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
         });
+        if(users.approval_status === '0'){
         setTimeout(() => {
           router.push("/investor/thank-you");
         }, 1000);
+        }else{
+          setTimeout(() => {
+            router.push("/investor/campaign");
+          }, 1000);
+        }
       } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,
