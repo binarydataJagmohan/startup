@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  
+
 
 
 
@@ -51,7 +51,7 @@ const Dashboard = () => {
         const res = await CheckUserApprovalStatus(current_user_data.id);
 
         if (res.status === true) {
-            
+
           if (res.data.role === "investor") {
             if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
               window.location.href = "/investor/thank-you";
@@ -70,13 +70,13 @@ const Dashboard = () => {
         // console.error(err);
       }
     };
-   
+
     const fetchData = async () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
-        
-      
+
+
         // Set the initial page to 0
         setCurrentPage(0);
         setCurrentPageCOP(0);
@@ -90,7 +90,7 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
- 
+
 
   const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
@@ -103,16 +103,16 @@ const Dashboard = () => {
   const pageCountOpen = Math.ceil(OpenfilteredBusinessDetails.length / itemsPerPage);
 
 
-  const handlePageChange = (selectedPage:any) => {
+  const handlePageChange = (selectedPage: any) => {
     setCurrentPage(selectedPage.selected);
   };
-  const handlePageChangeCOP = (selectedPage:any) => {
+  const handlePageChangeCOP = (selectedPage: any) => {
     setCurrentPageCOP(selectedPage.selected);
   };
-  const handlePageChangeDiscount = (selectedPage:any) => {
+  const handlePageChangeDiscount = (selectedPage: any) => {
     setcurrentPagediscount(selectedPage.selected);
   };
-  const handlePageChangeOpen = (selectedPage:any) => {
+  const handlePageChangeOpen = (selectedPage: any) => {
     setCurrentPageopen(selectedPage.selected);
   };
   const displayedBusinessDetails = filteredBusinessDetails.slice(
@@ -148,10 +148,10 @@ const Dashboard = () => {
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
-                        {}
+                        { }
                         <img
                           className="pic-1 image"
-                          src={details.logo.replace('docs', 'public/docs')}
+                          src={details.logo}
                         />
                       </a>
                     </div>
@@ -189,7 +189,7 @@ const Dashboard = () => {
                           💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
-                          🌟Repayment/Unit- ₹10,167
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
                     </div>
@@ -256,16 +256,17 @@ const Dashboard = () => {
           <div className="bar" />
 
           <div className="row">
-            {opendisplayedBusinessDetails
-              .filter((details: any) => details.type === "CSOP" && details.status === "open")
-              .map((details: any, index: any) => (
-                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+            {opendisplayedBusinessDetails.filter((details: any) => details.type === "CSOP" && details.status === "open").length > 0 ? (
+              opendisplayedBusinessDetails
+                .filter((details: any) => details.type === "CSOP" && details.status === "open")
+                .map((details: any, index: any) => (
+                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo.replace('docs', 'public/docs')}
+                          src={details.logo}
                         />
                       </a>
                     </div>
@@ -303,7 +304,7 @@ const Dashboard = () => {
                           💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
-                          🌟Repayment/Unit- ₹10,167
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
                     </div>
@@ -335,7 +336,300 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+                ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+
+            {/* {opendisplayedBusinessDetails
+              .filter((details: any) => details.type === "CSOP" && details.status === "open")
+              .map((details: any, index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                            Closes in <span>{details.tenure}&nbsp;days</span>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              proptech
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))} */}
+          </div>
+          <div className="my-3">
+            <ReactPaginate
+              previousLabel={'«'}
+              nextLabel={'»'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={pageCountOpen}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChangeOpen}
+              containerClassName={'pagination'}
+              forcePage={currentPageopen}
+              disableInitialCallback={true}
+
+              activeClassName={'active'}
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              nextClassName="page-item"
+              previousLinkClassName="page-link"
+              nextLinkClassName="page-link"
+              activeLinkClassName="active"
+            />
+          </div>
+
+          {/* <div className="text-end mt-4">
+            <div className="pagination">
+              <a href="#">«</a>
+              <a href="#" className="active">
+                1
+              </a>
+              <a href="#">»</a>
+            </div>
+          </div> */}
+        </div>
+
+        <div className="container py-5">
+          <h3 className="featurred">CCSP</h3>
+          <h6 className="trending">
+            Subscribe to fast growth businesses with low minimum
+          </h6>
+          <div className="bar" />
+
+          <div className="row">
+            {opendisplayedBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open").length > 0 ? (
+              opendisplayedBusinessDetails
+                .filter((details: any) => details.type === "CCSP" && details.status === "open")
+                .map((details: any, index: any) => (
+                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                      <div className="product-image">
+                        <a href="#" className="image">
+                          <img
+                            className="pic-1 image"
+                            src={details.logo}
+                          />
+                        </a>
+                      </div>
+                      <div className="main-padding">
+                        <div className="d-flex justify-content-between">
+                          <div className="product-content">
+                            <h3 className="title">
+                              <a href="#">{details.business_name} </a>
+                            </h3>
+                            <div className="price">Anchor</div>
+                          </div>
+                          <div className="product-content">
+                            <h3 className="title">
+                              <a href="#">{details.tenure} days </a>
+                            </h3>
+                            <div className="price">Tenure</div>
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <div className="product-content">
+                            <h3 className="title">
+                              <a href="#">{details.no_of_units}/{details.total_units} </a>
+                            </h3>
+                            <div className="price">Units Left</div>
+                          </div>
+                          <div className="product-content text-end">
+                            <h3 className="title">
+                              <a href="#">₹{details.minimum_subscription} </a>
+                            </h3>
+                            <div className="price">Min. Subscription</div>
+                          </div>
+                        </div>
+                        <div className="text-center mt-3">
+                          <a href="#" className="card-link">
+                            💡13.6% Discount Rate
+                          </a>
+                          <a href="#" className="card-link">
+                            🌟Repayment/Unit- ₹{details.minimum_subscription}
+                          </a>
+                        </div>
+                      </div>
+                      <div className="overlay">
+                        <div className="columns">
+                          <ul className="price">
+                            <li>
+                              Subscribers <span>32</span>
+                            </li>
+                            <li>
+                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                            </li>
+                            <li>
+                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                            </li>
+                            <li>
+                              Closes in <span>{details.tenure}&nbsp;days</span>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                className="button-class"
+                              >
+                                proptech
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+            {/* {opendisplayedBusinessDetails
+              .filter((details: any) => details.type === "CCSP" && details.status === "open")
+              .map((details: any, index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                            Closes in <span>{details.tenure}&nbsp;days</span>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              proptech
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))} */}
           </div>
           <div className="my-3">
             <ReactPaginate
@@ -379,16 +673,17 @@ const Dashboard = () => {
           <div className="bar" />
 
           <div className="row">
-            {opendisplayedBusinessDetailsDiscounting
-              .filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open")
-              .map((details: any, index: any) => (
-                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+          {opendisplayedBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open").length > 0 ? (
+              opendisplayedBusinessDetails
+                .filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open")
+                .map((details: any, index: any) => (
+                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo.replace('docs', 'public/docs')}
+                          src={details.logo}
                         />
                       </a>
                     </div>
@@ -396,13 +691,13 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">{details.business_name}</a>
+                            <a href="#">{details.business_name} </a>
                           </h3>
-                          <div className="price"></div>
+                          <div className="price">Anchor</div>
                         </div>
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">{details.tenure}</a>
+                            <a href="#">{details.tenure} days </a>
                           </h3>
                           <div className="price">Tenure</div>
                         </div>
@@ -410,23 +705,23 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">{details.no_of_units}/{details.total_units}</a>
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
                           </h3>
                           <div className="price">Units Left</div>
                         </div>
                         <div className="product-content text-end">
                           <h3 className="title">
-                            <a href="#">₹{details.minimum_subscription}</a>
+                            <a href="#">₹{details.minimum_subscription} </a>
                           </h3>
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
                       <div className="text-center mt-3">
                         <a href="#" className="card-link">
-                          💡{details.xirr}% Discount Rate
+                          💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
-                          🌟Repayment/Unit- ₹10,167
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
                     </div>
@@ -458,7 +753,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+                ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
           </div>
 
           <div className="my-3">
@@ -502,7 +800,7 @@ const Dashboard = () => {
           <div className="bar" />
           <div className="row">
             {displayedBusinessDetails
-              .filter((details: any) => details.status === "closed")
+              .filter((details: any) => details.status === "closed").len
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
@@ -510,7 +808,7 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         <img
                           className="pic-1 image"
-                          src={details.logo.replace('docs', 'public/docs')}
+                          src={details.logo}
                         />
                       </a>
                     </div>
@@ -548,7 +846,7 @@ const Dashboard = () => {
                           💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
-                          🌟Repayment/Unit- ₹10,167
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
                     </div>

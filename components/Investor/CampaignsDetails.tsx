@@ -96,13 +96,13 @@ export default function CampaignsDetails() {
       no_of_units: value,
     };
 
-      const notification = {
-        notify_from_user: currentUserData.id,
-        notify_to_user: "1",
-        notify_msg: "Payment Successfully Done.",
-        notification_type: "Investment Notification",
-        each_read: "unread",
-        status: "active"
+    const notification = {
+      notify_from_user: currentUserData.id,
+      notify_to_user: "1",
+      notify_msg: "Payment Successfully Done.",
+      notification_type: "Investment Notification",
+      each_read: "unread",
+      status: "active"
     };
     try {
       InvestorBooking(data)
@@ -112,12 +112,12 @@ export default function CampaignsDetails() {
 
             // send notification
             sendNotification(notification)
-            .then((notificationRes) => {
-              console.log('success')
-            })
-            .catch((error) => {
-              console.log('error occured')
-            });
+              .then((notificationRes) => {
+                console.log('success')
+              })
+              .catch((error) => {
+                console.log('error occured')
+              });
 
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -206,9 +206,9 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso">
                       <div className="logo-company">
                         <div className="img">
-                            {inputs.logo && (
-      <img src={inputs.logo.replace('docs', 'public/docs')} alt="" />
-    )}
+                          {inputs.logo && (
+                            <img src={inputs.logo} alt="" />
+                          )}
                         </div>
                       </div>
 
