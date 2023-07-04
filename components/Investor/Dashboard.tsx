@@ -800,7 +800,7 @@ const Dashboard = () => {
           <div className="bar" />
           <div className="row">
             {displayedBusinessDetails
-              .filter((details: any) => details.status === "closed").len
+              .filter((details: any) => details.status === "closed")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
