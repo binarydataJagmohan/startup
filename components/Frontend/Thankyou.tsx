@@ -30,7 +30,8 @@ const Thankyou = () => {
               } else if (res.data.approval_status === "pending") {
                 if (window.location.pathname !== "/investor/thank-you") {
                   setTimeout(() => {
-                    window.location.href = "/investor/thank-you";
+                    window.location.reload();
+                    // window.location.href = "/investor/thank-you";
                   }, 10000);
                 }
               } else {
@@ -40,15 +41,20 @@ const Thankyou = () => {
                   }, 10000);
                
               }
-            } else if (res.data.role === "startup") {
-              if (res.data.approval_status === "approved") {
+            } 
+             if (res.data.role === "startup") {
+              if (res.data.approval_status === "approved" &&(res.data.approval_status !=="pending" && res.data.approval_status !=="reject")) {
                 if (window.location.pathname !== "/company/dashboard") {
                   window.location.href = "/company/dashboard";
                 }
               } else if (res.data.approval_status === "pending") {
                 setTimeout(() => {
                   window.location.reload();
+                  // window.location.href = "/company/thank-you";
                 }, 10000);
+                // setTimeout(() => {
+                //   window.location.reload();
+                // }, 10000);
               } else {
                 setTimeout(() => {
                   window.location.href = "/company/thank-you";

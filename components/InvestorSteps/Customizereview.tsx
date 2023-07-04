@@ -249,15 +249,16 @@ export default function Customizereview(): any {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
         });
-        if(users.approval_status === '0'){
-        setTimeout(() => {
-          router.push("/investor/thank-you");
-        }, 1000);
-        }else{
+        if(users.approval_status === 'pending'){
           setTimeout(() => {
-            router.push("/investor/campaign");
+            router.push("/investor/thank-you");
           }, 1000);
-        }
+          }
+          if(users.approval_status === 'approved'){
+            setTimeout(() => {
+              router.push("/investor/campaign");
+            }, 1000);
+          }
       } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,

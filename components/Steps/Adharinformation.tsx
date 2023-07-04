@@ -107,9 +107,22 @@ export default function AdharInformation():any {
   const SubmitForm = async () => {
      try {
       const res = await bankInformationSave(bankDetails);
-      setTimeout(() => {
-        router.push("/company/thank-you");
-      }, 1000);
+
+      toast.success("Profile has been Updated Successfully.", {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: "success",
+      });
+      if(users.approval_status === 'pending'){
+        setTimeout(() => {
+          router.push("/company/thank-you");
+        }, 1000);
+        }
+        if(users.approval_status === 'approved'){
+          setTimeout(() => {
+            router.push("/company/dashboard");
+          }, 1000);
+        }
+
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
@@ -126,10 +139,7 @@ export default function AdharInformation():any {
                     .catch((error) => {
                         console.log('error occured')
                     });
-        toast.success("Profile has been Updated Successfully.", {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
+       
        
       } else {
         toast.error(res.message, {
@@ -137,11 +147,11 @@ export default function AdharInformation():any {
           toastId: "error",
         });
       }
-    } catch (err) {
-      // toast.error("Details has not been saved successfully", {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
+    } catch (err:any) {
+      toast.error(err, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: "error",
+      });
     }
   };
 

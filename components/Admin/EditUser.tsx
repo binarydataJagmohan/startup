@@ -83,7 +83,7 @@ const EditUser = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/(in|company)\/[\w-]+$/i.test(users.linkedin_url)) {
+        } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(users.linkedin_url)) {
             setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);

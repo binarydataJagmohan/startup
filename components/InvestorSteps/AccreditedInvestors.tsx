@@ -264,9 +264,19 @@ export default function AccreditedInvestors() {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
-                setTimeout(() => {
-                    router.push("/investor/thank-you");
-                }, 1000);
+                // setTimeout(() => {
+                //     router.push("/investor/thank-you");
+                // }, 1000);
+                if(users.approval_status === 'pending'){
+                    setTimeout(() => {
+                      router.push("/investor/thank-you");
+                    }, 1000);
+                    }
+                    if(users.approval_status === 'approved'){
+                      setTimeout(() => {
+                        router.push("/investor/campaign");
+                      }, 1000);
+                    }
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -372,7 +382,7 @@ export default function AccreditedInvestors() {
                                                         name="category" value={terms ? terms.category : ""}>
                                                         <option value="">--SELECT CATEGORY--</option>
                                                         <option value="1">Indian Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
-                                                        <option value="2">Foreign Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
+                                                        <option value="2">Foreign Individuals/Family Trusts/Sole Proprietorships</option>
                                                         <option value="3">Body Corporates</option>
                                                     </select>
                                                     <div id="checkbox-group-1" className="hidden">

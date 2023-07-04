@@ -346,8 +346,9 @@ register('website_url', {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="website_url"  {...register("website_url")} 
-                                name="website_url"  onChange={handleChange} value={businessDetails.website_url}
+                                id="website_url"  {...register("website_url",{onChange:handleChange,value:true,
+                                required: true})} 
+                                name="website_url"value={businessDetails.website_url}
                               />
                               {errors.website_url && (
                                   <p

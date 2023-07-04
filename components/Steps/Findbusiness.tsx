@@ -313,7 +313,7 @@ export default function Findbusiness(): any {
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
-                                    value: /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/,
+                                    value: /^(https?:\/\/)?(www\.)?linkedin\.com\/[A-Za-z0-9_-]+\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
                                   }
                                 })}

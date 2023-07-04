@@ -6,7 +6,7 @@ import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
 import { getCurrentUserData, removeToken, removeStorageData } from '../../lib/session'
-import {CheckUserApprovalStatus} from '../../lib/frontendapi'
+import { CheckUserApprovalStatus } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
   username?: string;
@@ -107,48 +107,68 @@ export default function Home() {
                         success. Discover a diverse range of investment options
                         and seize the chance to achieve your financial goals.
                       </p>
+
+                      {/* previous code...[4July,2023] */}
                       {current_user_id ? (
                         current_user_role === "investor" ? (
                           <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
+
                             {users.approval_status === "approved" ? (
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
-                              Campaigns
-                            </a>
+                              <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                    Campaigns
+                                  </a>
+                              </>
                             ) : (
+                             <>
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
+                                    My Profile
+                                  </a>
                               <a href="#" onClick={handleLogout} className="default-btn">
                                 Logout
                               </a>
+                             </>
                             )}
                           </div>
-                        ) : current_user_role === "admin" ? (
-                          <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
-                              My Profile
-                            </a>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
-                              Dashboard
-                            </a>
-                          </div>
-                        ) : current_user_role === "startup" ? (
-                          <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
-                            {users.approval_status === "approved" ? (
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                        )
+                          : current_user_role === "admin" ? (
+                            <div className="banner-btn">
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                                My Profile
+                              </a>
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
                                 Dashboard
                               </a>
-                            ) : (
-                              <a href="#" onClick={handleLogout} className="default-btn">
-                                Logout
-                              </a>
-                            )}
+                            </div>
+                          ) : current_user_role === "startup" ? (
+                            <div className="banner-btn">
 
-                          </div>
-                        ) : null
+                              {users.approval_status === "approved" ? (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                    Dashboard
+                                  </a>
+                                </>
+                              ) : (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/thank-you"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                  <a href="#" onClick={handleLogout} className="default-btn">
+                                    Logout
+                                  </a>
+                                </>
+
+                              )}
+
+                            </div>
+                          ) : null
                       ) : (
                         <div className="banner-btn">
                           <a href="/signup" className="default-btn">
@@ -160,34 +180,6 @@ export default function Home() {
                         </div>
                       )}
 
-                      {/* {current_user_id ? (
-                        current_user_role === "investor" ? 
-                        <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor-steps/findbusiness"} className="default-btn">
-                          My Profile
-                        </a>
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/investor/campaign"} className="default-btn">
-                        Campaigns
-                        </a>
-                      </div> : <div className="banner-btn">
-                        <a href={process.env.NEXT_PUBLIC_BASE_URL +"/steps/findbusiness"}className="default-btn">
-                          My Profile
-                        </a>
-                        <a href="#" onClick={handleLogout} className="default-btn">
-                         Dashboard
-                        </a>
-                      </div>
-                       
-                      ) : (
-                      <div className="banner-btn">
-                        <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                          Log in
-                        </a>
-                      </div>
-                      )} */}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
@@ -214,23 +206,52 @@ export default function Home() {
                         goals.
                       </p>
                       {current_user_id ? (
-                        current_user_role === "investor" ?
-                          <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
-                              Campaigns
-                            </a>
-                          </div> : <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
-                            <a href="#" onClick={handleLogout} className="default-btn">
-                              Logout
-                            </a>
-                          </div>
+                        <>
+                          {current_user_role === "investor" && (
+                            <div className="banner-btn">
 
+                              {users.approval_status === "approved" ? (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                    Campaigns
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                </>
+                              ) : (
+                                null
+                              )}
+                            </div>
+                          )}
+                          {current_user_role === "admin" && (
+                            <div className="banner-btn">
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                                My Profile
+                              </a>
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                                Dashboard
+                              </a>
+                            </div>
+                          )}
+                          {current_user_role === "startup" && (
+                            <div className="banner-btn">
+                              {users.approval_status === "approved" ? (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                    Dashboard
+                                  </a>
+                                </>
+
+                              ) : (
+                                null
+                              )}
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div className="banner-btn">
                           <a href="/signup" className="default-btn">
@@ -241,14 +262,6 @@ export default function Home() {
                           </a>
                         </div>
                       )}
-                      {/* <div className="banner-btn">
-                        <a href="/signup" className="default-btn">
-                          Register
-                        </a>
-                        <a href="/login" className="default-btn">
-                          Log in
-                        </a>
-                      </div> */}
                     </div>
                     <div className="banner-image">
                       {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
@@ -274,23 +287,52 @@ export default function Home() {
                         you grow your wealth and achieve your financial goals.
                       </p>
                       {current_user_id ? (
-                        current_user_role === "investor" ?
-                          <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
-                              Campaigns
-                            </a>
-                          </div> : <div className="banner-btn">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
-                              My Profile
-                            </a>
-                            <a href="#" onClick={handleLogout} className="default-btn">
-                              Logout
-                            </a>
-                          </div>
+                        <>
+                          {current_user_role === "investor" && (
+                            <div className="banner-btn">
 
+                              {users.approval_status === "approved" ? (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                    Campaigns
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                </>
+                              ) : (
+                                null
+                              )}
+                            </div>
+                          )}
+                          {current_user_role === "admin" && (
+                            <div className="banner-btn">
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                                My Profile
+                              </a>
+                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                                Dashboard
+                              </a>
+                            </div>
+                          )}
+                          {current_user_role === "startup" && (
+                            <div className="banner-btn">
+                              {users.approval_status === "approved" ? (
+                                <>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                    My Profile
+                                  </a>
+                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                    Dashboard
+                                  </a>
+                                </>
+
+                              ) : (
+                                null
+                              )}
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div className="banner-btn">
                           <a href="/signup" className="default-btn">
