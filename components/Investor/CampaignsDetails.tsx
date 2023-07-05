@@ -109,7 +109,8 @@ export default function CampaignsDetails() {
         .then((res) => {
           if (res.status == true) {
             setButtonDisabled(true);
-
+            router.push(`/investor/payment`);
+            
             // send notification
             sendNotification(notification)
               .then((notificationRes) => {
@@ -119,10 +120,10 @@ export default function CampaignsDetails() {
                 console.log('error occured')
               });
 
-            toast.success(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-              toastId: "success",
-            });
+            // toast.success(res.message, {
+            //   position: toast.POSITION.TOP_RIGHT,
+            //   toastId: "success",
+            // });
 
           } else {
             toast.error(res.message, {

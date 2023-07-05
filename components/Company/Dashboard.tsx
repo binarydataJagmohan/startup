@@ -177,7 +177,7 @@ const Dashboard = () => {
                                             </h5>
                                             <h4 className="fw-medium font-size-24">
                                                 {totalUnitsCount && totalUnitsCount.total_units ? (
-                                                    <p>{totalUnitsCount.total_units}</p>
+                                                    <>{totalUnitsCount.total_units}</>
                                                 ) : (
                                                     "0"
                                                 )}<i className="mdi mdi-arrow-up text-success ms-2" />
@@ -209,7 +209,7 @@ const Dashboard = () => {
                                             </h5>
                                             <h4 className="fw-medium font-size-24">
                                             {totalUnitsCount && totalUnitsCount.no_of_units ? (
-                                                    <p>{totalUnitsCount.no_of_units}</p>
+                                                    <>{totalUnitsCount.no_of_units}</>
                                                 ) : (
                                                     "0"
                                                 )}<i className="mdi mdi-arrow-up text-success ms-2" />
