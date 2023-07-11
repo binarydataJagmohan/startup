@@ -100,7 +100,7 @@ export default function Home() {
                 <div className="d-table-cell">
                   <div className="container">
                     <div className="main-banner-content">
-                      <h1>Opportunities Await</h1>
+                      <h1>Opportunities  <br/> Await</h1>
                       <p>
                         At our investment firm, opportunities await for those
                         who are ready to take the next step towards financial
