@@ -109,7 +109,7 @@ export default function CampaignsDetails() {
         .then((res) => {
           if (res.status == true) {
             setButtonDisabled(true);
-            router.push(`/investor/payment`);
+            router.push(`/investor/checkout`);
             
             // send notification
             sendNotification(notification)
