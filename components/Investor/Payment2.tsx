@@ -1,7 +1,7 @@
+import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { getCurrentUserData } from "../../lib/session";
-import { loadStripe} from '@stripe/stripe-js';
 import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
@@ -38,7 +38,6 @@ const Payment = () => {
         });
 
     };
-
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
@@ -82,48 +81,32 @@ const Payment = () => {
             });
 
     },[]);
-  
 
-const stripePromise = loadStripe('pk_test_FQu4ActGupRmMrkmBpwU26js');
+    // useEffect(() => {
 
-// Handle form submission
-const SubmitForm = async (event:any) => {
-//   event.preventDefault();
+    // });
 
-  const stripe = await stripePromise;
-//   const elements = useElements();
-  // Create a payment method
-  const paymentMethod = await stripe.createPaymentMethod({
-    type: 'card',
-    card: cardElement,
-  });
 
-  // Send the payment method to your Laravel API endpoint
-  const response = await fetch('/api/payment', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ paymentMethod: paymentMethod.id }),
-  });
+    console.log(businessdata)
+    const SubmitForm = async () => {
+        try {
+            const res = await savepayment(paymentdata);
+            alert("test");
+            toast.success("Data has been Updated Successfully.", {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
+            });
+        } catch (err: any) {
+            toast.error(err, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+            });
+        }
+    };
 
-  // Handle the response from the API
-  const { clientSecret } = await response.json();
-
-  // Confirm the payment intent
-  const { error } = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: paymentMethod.id,
-  });
-
-  if (error) {
-    // Handle payment error
-  } else {
-    // Payment successful
-  }
-};
-  return (
-    <>
-    <section className='form-section  join-back'>
+    return (
+        <>
+            <section className='form-section  join-back'>
                 <div className="container">
                     <div id="Checkout" className="inline">
                         <h1>Pay Invoice</h1>
@@ -211,8 +194,8 @@ const SubmitForm = async (event:any) => {
                     </div>
                 </div>
             </section>
-    </>
-  )
+        </>
+    )
 }
 
 export default Payment
