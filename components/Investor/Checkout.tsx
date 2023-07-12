@@ -8,6 +8,9 @@ import { getCurrentUserData } from "../../lib/session";
 import { getInvestorBookingDetails,savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
+import Success from '../Frontend/Common/Success';
+import Swal from 'sweetalert2';
+
 interface UserData {
     id?: string;
   }
@@ -16,6 +19,7 @@ interface UserData {
     // const { register, handleSubmit, formState: { errors }, } = useForm();
     const [bookingdata, setBookingData] = useState<any>({});
     const [businessdata, setBusinessData] = useState<any>({});
+    const [showModal, setShowModal] = useState(false);
     const [paymentdata, setPaymentData] = useState<any>({
         user_id:current_user_id,
         repayment:bookingdata.repayment_value,
@@ -91,18 +95,33 @@ interface UserData {
         savepayment([paymentMethod,bookingdata,businessdata])
           .then((res) => {
             if (res.status == true) {
-              router.push(`/success`);
-              toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-              });
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: 'Your Payment Successfully Credited.',
+                  confirmButtonColor: '#64bb2b',
+                }).then(() => {
+                  router.push('/investor/campaign');
+                });
+              // toast.success(res.message, {
+              //   position: toast.POSITION.TOP_RIGHT,
+              //   toastId: "success",
+              // });
   
             } else {
-                router.push(`/_error`);
-              toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
+              Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#64bb2b',
+              }).then(() => {
+                router.push(`/`);
               });
+                
+              //  toast.error(res.message, {
+              //   position: toast.POSITION.TOP_RIGHT,
+              //   toastId: "error",
+              // });
             }
           })
       } catch (error) {
@@ -159,7 +178,9 @@ const WrappedCheckoutForm = () => {
     <Elements stripe={stripePromise}>
       <CheckoutForm />
     </Elements>
+    
   );
 };
+
 
 export default WrappedCheckoutForm;
