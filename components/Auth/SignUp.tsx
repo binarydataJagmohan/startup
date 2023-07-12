@@ -193,11 +193,11 @@ const Signup = () => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-12">
-                <div className="contact-text text-center pt-4">
-                  <h3>Lets Get Started</h3>
+                <div className="contact-text text-center pt-4"> 
                 </div>
                 <div className="contact-form">
                   <form id="contactForm" onSubmit={handleSubmit(SubmitForm)}>
+                   <h3>Lets Get Started</h3>
                     <div className="row">
                       <div className="form-group col-md-6">
                         <label>

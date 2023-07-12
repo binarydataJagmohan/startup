@@ -101,22 +101,22 @@ const Dashboard = () => {
                 {/* end page title */}
                 <div className="row">
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat  dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} >
+                    <div className="card mini-stat  dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #0EB1D2 17%, #0055BA 76.13%)', color: 'white' }} >
                       <div className="card-body">
                         <div className="mb-4">
 
                           <h5 className="font-size-16 text-uppercase text-white">Total Fund Raised</h5>
                           <h4 className="fw-medium font-size-24">{activeFundCount} <i className="fa fa-chart-line text-success ms-2 text-white" /></h4>
-                          <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {/* <p className="mb-0 text-white">+ 12%</p> */}
-                            {/* <div className="float-start mini-stat-img me-4">
-                        <img src="/assets/images/services-icon/01.png" />
-                      </div> */}
-                          </div>
+                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                            {  <p className="mb-0 text-white">+ 12%</p>  }
+                            { <div className="float-start mini-stat-img me-4">
+                            <img src="/assets/images/services-icon/01.png" />
+                            </div>  }
+                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} /></a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white"  /></a>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -143,18 +143,18 @@ const Dashboard = () => {
                     </div>
                   </div> */}
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, rgb(100 187 43) 17%, rgb(69 159 11) 76.13%)', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Users</h5>
                           <h4 className="fw-medium font-size-24">{userCount}<i className="fa fa-users text-success ms-2 text-white" /></h4>
-                          <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {/* <p className="mb-0 text-white"> 00%</p> */}
-                          </div>
+                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                            {  <p className="mb-0 text-white"> 00%</p>  }
+                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} /></a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{  color: 'white' }} /></a>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -162,18 +162,18 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, #1dc4e7 17%, #0a8ba5 76.13%)', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Startups</h5>
                           <h4 className="fw-medium font-size-24">{startupCount}<i className="fa fa-user text-success ms-2 text-white" /></h4>
-                          <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {/* <p className="mb-0 text-white "> 00%</p> */}
-                          </div>
+                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                            {  <p className="mb-0 text-white "> 00%</p>}
+                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} /></a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{   color: 'white' }} /></a>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -181,18 +181,18 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #f78267 17%, #f35836 76.13%)', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase">Total Investers</h5>
                           <h4 className="fw-medium font-size-24">{investorCount} <i className="fa fa-user text-success ms-2 text-white" /></h4>
-                          <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {/* <p className="mb-0 text-white">+ 84%</p> */}
-                          </div>
+                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
+                            {  <p className="mb-0 text-white">+ 84%</p>  }
+                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} /></a>
+                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{   color: 'white' }} /></a>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>
