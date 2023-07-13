@@ -338,7 +338,54 @@ export default function HeaderFrontend() {
                 Contact
               </a>
             </li>
-            <li className="nav-item">
+            <div className="others-options">
+                    {users.name ? (
+                      <div className="dropdown">
+                        <a onClick={myFunction} className="dropbtn text-white">
+                          {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
+                        </a>
+                        <div
+                          id="myDropdown"
+                          className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
+                        >
+                          {users.role === 'startup' && users.approval_status === 'approved' ? (
+                            <a href="/company/dashboard" className="colortwo">
+                             Dashboard
+                            </a>
+                          ) : (
+                            ""
+                          )}
+                           {users.role === 'investor' && users.approval_status === 'approved' ? (
+                            <a href="/investor/campaign" className="colortwo">
+                             Dashboard
+                            </a>
+                          ) : (
+                            ""
+                          )}
+                             {users.role === 'admin' ? (
+                            <a href="/admin/dashboard" className="colortwo">
+                              Dashboard
+                            </a>
+                          ) : (
+                            ""
+                          )}
+
+
+
+
+                          <a href="#" onClick={handleLogout} className="colortwo">
+                            Logout
+                          </a>
+                        </div>
+                      </div>
+                    ) : (
+                      <button  className="btnclasssmae" style={{ margin: "-45px" }}>
+                       <a href="/login" style={{ color: "#fff" }}>Login</a>
+                      </button>
+                    )}
+                  </div>
+            
+            {/* <li className="nav-item">
               <div className="dropdown">
                 <a onClick={myFunction} className="dropbtn text-white">
                   {current_user_name}
@@ -364,7 +411,7 @@ export default function HeaderFrontend() {
                   </a>
                 </div>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

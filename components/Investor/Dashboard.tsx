@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails } from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails,getSingleClosedBusinessDetails } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 
@@ -97,6 +97,15 @@ const Dashboard = () => {
     // alert(id)
     getSingleBusinessDetails(id).then((res) => {
       router.push(`campaign/details?id=${id}`);
+    });
+  };
+
+
+  const getClosedBusinessdetails = (e: any, id: any) => {
+    e.preventDefault();
+    // alert(id)
+    getSingleClosedBusinessDetails(id).then((res) => {
+      router.push(`campaign/closed?id=${id}`);
     });
   };
   const pageCount = Math.ceil(filteredBusinessDetails.length / itemsPerPage);
@@ -208,14 +217,15 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>{details.tenure}&nbsp;days</span>
+                          Closes in <span>20&nbsp;days</span>
+                            {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                           </li>
                           <li>
                             <a
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>
@@ -324,14 +334,15 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>{details.tenure}&nbsp;days</span>
+                             Closes in <span>20&nbsp;days</span>
+                            {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                           </li>
                           <li>
                             <a
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>
@@ -415,7 +426,7 @@ const Dashboard = () => {
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>
@@ -535,14 +546,15 @@ const Dashboard = () => {
                               Minimum Subscription <span>₹{details.minimum_subscription}</span>
                             </li>
                             <li>
-                              Closes in <span>{details.tenure}&nbsp;days</span>
+                               Closes in <span>20&nbsp;days</span>
+                              {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                             </li>
                             <li>
                               <a
                                 href="#"
                                 className="button-class"
                               >
-                                proptech
+                               View Details Details Details
                               </a>
                             </li>
                           </ul>
@@ -618,14 +630,14 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>{details.tenure}&nbsp;days</span>
+                            Closes in <span>{details.closed_in}&nbsp;days</span>
                           </li>
                           <li>
                             <a
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>
@@ -742,14 +754,15 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>{details.tenure}&nbsp;days</span>
+                            {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
+                            Closes in <span>20&nbsp;days</span>
                           </li>
                           <li>
                             <a
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>
@@ -807,7 +820,7 @@ const Dashboard = () => {
               .filter((details: any) => details.status === "closed")
               .map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                  <div className="product-grid container1" onClick={(e) => getClosedBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         <img
@@ -874,7 +887,7 @@ const Dashboard = () => {
                               href="#"
                               className="button-class"
                             >
-                              proptech
+                             View Details Details Details
                             </a>
                           </li>
                         </ul>

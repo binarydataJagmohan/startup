@@ -176,6 +176,11 @@ const Header = () => {
                       Explore
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/invested-funds"} className="nav-link active">
+                     Investments
+                    </a>
+                  </li>
 
                 </ul>
                 <div className="others-options1">

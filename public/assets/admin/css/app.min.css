@@ -2373,7 +2373,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
     height: 8px
 }
 
-.swal2-container .swal2-title {
+/* .swal2-container .swal2-title {
     font-size: 24px;
     font-weight: 500;
     color: var(--bs-body-color)
@@ -2425,7 +2425,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
 
 .swal2-popup {
     background-color: var(--bs-white)
-}
+} */
 
 .symbol {
     border-color: var(--bs-white)

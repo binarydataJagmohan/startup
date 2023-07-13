@@ -45,6 +45,7 @@
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.2",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.7.16",
     "yup": "^1.1.0"
   },
   "devDependencies": {

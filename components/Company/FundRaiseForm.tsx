@@ -156,7 +156,8 @@ const FundRaiseForm = () => {
       const today = new Date();
       const repayDate = new Date(today.getTime() + tenureDays * 24 * 60 * 60 * 1000)
         .toISOString().substr(0, 10);
-      const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
+      // const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
+      const closedDate = new Date(today.getTime() + 20 * 24 * 60 * 60 * 1000)
         .toISOString().substr(0, 10);
       setFundRaiseData({ ...fundRaiseData, [name]: value, repay_date: repayDate, closed_in: closedDate });
     }
@@ -260,7 +261,7 @@ const FundRaiseForm = () => {
       formData.append('business_id', fundRaiseData.business_id);
       formData.append('total_units', fundRaiseData.total_units);
       formData.append('minimum_subscription', fundRaiseData.minimum_subscription);
-      formData.append('avg_amt_per_person', fundRaiseData.avg_amt_per_person);
+      formData.append('avg_amt_per_person', fundRaiseData.minimum_subscription);
       formData.append('tenure', fundRaiseData.tenure);
       formData.append('repay_date', fundRaiseData.repay_date);
       formData.append('closed_in', fundRaiseData.closed_in);
@@ -383,11 +384,11 @@ const FundRaiseForm = () => {
                       </div>
 
                       <div className="row g-3 mt-1">
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <label htmlFor="exampleFormControlInput1" className="form-label">Average Amount(Per Unit){" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input type="text" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
+                          <input type="hidden" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
                             value: !fundRaiseData.avg_amt_per_person, required: true,
                           })} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
                             onChange={handleChange} value={fundRaiseData.avg_amt_per_person ? fundRaiseData.avg_amt_per_person : ""} />
@@ -399,10 +400,33 @@ const FundRaiseForm = () => {
                               *Please fill average amount field.
                             </p>
                           )}
+                        </div> */}
+                         <div className="col-md-6">
+                          <label htmlFor="exampleFormControlInput1" className="form-label">
+                            XIRR(in %)<span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input type="text" className="form-control" id="xirr" {...register("xirr", {
+                            value: !fundRaiseData.xirr, required: true,  pattern: /^[0-9]*$/,
+                          })} name="xirr"  onInput={(e) => {
+                            const input = (e.target as HTMLInputElement).value;
+                            const numericInput = input.replace(/[^0-9.]/g, ""); // Remove non-numeric characters except dot
+                            if (numericInput !== input) {
+                              (e.target as HTMLInputElement).value = numericInput;
+                            }
+                          }} placeholder='Xirr( calculate in%)'  inputMode="numeric"
+                            onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr : ""} />
+                          {errors.xirr && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please fill xirr field.
+                            </p>
+                          )}
                         </div>
 
                         <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label" >Minimum Subscription{" "}
+                          <label htmlFor="exampleFormControlInput1" className="form-label" >Amount(Per Unit){" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input type="text" className="form-control" id="minimum_subscription" {...register("minimum_subscription", {
@@ -463,6 +487,7 @@ const FundRaiseForm = () => {
                             <option value="60">60 Days</option>
                             <option value="90">90 Days(60Days+30Days)</option>
                             <option value="120">120 Days(90Days+30Days)</option>
+                            <option value="120">365 Days(1Year)</option>
                           </select>
                           {errors.tenure && (
                             <p
@@ -568,29 +593,7 @@ const FundRaiseForm = () => {
 
 
                       <div className="row g-3 mt-1">
-                        <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label">
-                            XIRR(in %)<span style={{ color: "red" }}>*</span>
-                          </label>
-                          <input type="text" className="form-control" id="xirr" {...register("xirr", {
-                            value: !fundRaiseData.xirr, required: true,  pattern: /^[0-9]*$/,
-                          })} name="xirr"  onInput={(e) => {
-                            const input = (e.target as HTMLInputElement).value;
-                            const numericInput = input.replace(/[^0-9.]/g, ""); // Remove non-numeric characters except dot
-                            if (numericInput !== input) {
-                              (e.target as HTMLInputElement).value = numericInput;
-                            }
-                          }} placeholder='Xirr( calculate in%)'  inputMode="numeric"
-                            onChange={handleChange} value={fundRaiseData.xirr ? fundRaiseData.xirr : ""} />
-                          {errors.xirr && (
-                            <p
-                              className="text-danger"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please fill xirr field.
-                            </p>
-                          )}
-                        </div>
+                       
 
                         <div className="col-md-6 mt-5">
                           <div id="divHabilitSelectors" className="input-file-container">

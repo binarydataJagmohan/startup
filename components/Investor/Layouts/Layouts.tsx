@@ -1,12 +1,15 @@
-//import Header from "../../Frontend/layouts/Header";
-import Header from './Header'
-import Footer from "./Footer";
-const Layout = ({ children }:any) => {
+import dynamic from 'next/dynamic';
+
+const Layout = ({ children }: any) => {
+  const Header = dynamic(() => import('./Header'));
+  const Footer = dynamic(() => import('../../Frontend/layouts/Footer'));
+  const CopyRight = dynamic(() => import('../../Frontend/layouts/Copyright'));
   return (
     <>
       <Header />
       <main>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
+      <CopyRight />
     </>
   );
 };
