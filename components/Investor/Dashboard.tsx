@@ -149,10 +149,12 @@ const Dashboard = () => {
                     <div className="product-image">
                       <a href="#" className="image">
                         { }
-                        <img
+                        
+                        {/* <img
                           className="pic-1 image"
                           src={details.logo}
-                        />
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                       </a>
                     </div>
                     <div className="main-padding">
@@ -264,10 +266,11 @@ const Dashboard = () => {
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
-                        <img
+                        {/* <img
                           className="pic-1 image"
                           src={details.logo}
-                        />
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                       </a>
                     </div>
                     <div className="main-padding">
@@ -474,10 +477,11 @@ const Dashboard = () => {
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
                         <a href="#" className="image">
-                          <img
+                          {/* <img
                             className="pic-1 image"
                             src={details.logo}
-                          />
+                          /> */}
+                          <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                         </a>
                       </div>
                       <div className="main-padding">

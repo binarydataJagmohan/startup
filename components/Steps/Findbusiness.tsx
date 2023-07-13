@@ -287,7 +287,7 @@ export default function Findbusiness(): any {
                               </label>
                               <input
                                 type="email"
-                                className="form-control same-input"
+                                className="form-control same-input pl-5"
                                 {...register("email", {
                                   value: true,
                                   required: true,
@@ -309,7 +309,7 @@ export default function Findbusiness(): any {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input"
+                                className="form-control same-input pl-5"
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
@@ -388,7 +388,7 @@ export default function Findbusiness(): any {
                                 Phone number{" "}
                                 <span style={{ color: "red" }}>*</span>
                               </label>
-                              <div className="input-group">
+                              <div className="input-group spac">
                                 <PhoneInput
                                   onClick={phonClick}
                                   country={"us"}
@@ -425,7 +425,7 @@ export default function Findbusiness(): any {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input"
+                                className="form-control same-input "
                                 {...register("city", {
                                   value: true,
                                   required: true,

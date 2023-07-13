@@ -9235,6 +9235,9 @@ div#sidebar-menu span.badge.rounded-pill.bg-danger.float-end {
 .vertical-menu.bg-dark.text-white {
     margin-top: 10px;
 }
+
+
+
 .contact-form {
     box-shadow: 0 0 30px 6px #ddd;
     border-radius: 10px;
@@ -9282,8 +9285,88 @@ ul.role-classs {
     font-weight: 600;
 }
 
+#back {
+    background: #64bb2b!important;
+    font-weight: 700!important;
+    border-radius: 40px !important;
+}
+div#option_select select {
+    color: #000;
+    font-weight: 500;
+    font-size: 14px;
+}
+div#checkbox-group-1 .same-card {
+    padding: 12px 0 0 0;
+}
+.register-form {
+    box-shadow: 0 0 30px 6px #ddd;
+    border-radius: 10px;
+    border: solid 1px #64bb2b;
+    padding: 25px;
+}
+.register-form input {
+    border: solid 1px #e3e3e3 !important;
+    border-radius: 100px !important;
+    padding: 20px 12px !important;
+} 
+.register-form select {
+    border: solid 1px #e3e3e3 !important;
+    border-radius: 100px !important;
+    padding: 20px 12px !important;
+}
+.input-group .react-tel-input input.form-control {
+    padding-left: 50px !important;
+}
+.input-group .react-tel-input  .flag-dropdown {
+    margin: 0 2px;
+    border-color: #efefef;
+    border-radius: 25px 0 0 25px;
+    border-right: 0;
+}
+.form-select.form-select-lg.css-1492t68 {
+    color: rgb(128, 128, 128);
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 600;
+    height: 45px !important;
+    margin-top: -14px;
+    padding: 5px 10px !important;
+}
 
-
+.register-form h3 {
+    color: #64bb2b;
+    font-weight: 700;
+    font-size: 45px !important;
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+.register-form h4 {
+    color: #64bb2b;
+    font-weight: 700;
+    font-size: 45px !important;
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+.product-grid .price {
+    color: #64bb2b !important;
+    font-family: 'Sarabun' !important;
+    font-weight: 600 !important;
+}
+.product-grid a {
+    font-size: 12px !important;
+    margin-right: 3px !important;
+    color: #64bb2b ;
+    font-family: sans-serif !important;
+    font-weight: 600 !important;
+}.price span {
+    font-size: unset !important;
+}
+.dropbtn1 { 
+    margin-right: 0 !important;
+}
+/* .fria-nav .navbar .others-options { 
+    margin-left: 10px;
+} */
 @media (max-width:991px){
     .about-tab {
         max-width: 100%; 
@@ -9297,7 +9380,14 @@ ul.role-classs {
 
 }
 
+
 @media (max-width:767px){
+.contact-form  h3 {font-size: 28px !important;}
+.register-form h3   {font-size: 28px !important;} 
+.login-form h3 {font-size: 28px !important;}
+.register-form h4 { 
+    font-size: 25px !important; 
+}
 .clients-item {
     padding: 0 28px;
 }
@@ -9320,5 +9410,40 @@ ul.role-classs {
 .bg-overlay {
     padding: 50px 0; 
 }
+button.btnclasssmae {
+    padding: 10px 20px !important; 
+    font-size: 13px !important; 
+    width: 100%;
+    text-align: center;
 }
+#back {
+    padding: 10px 10px !important;
+    font-size: 13px !important;
+    width: 100%;
+    text-align: center;
+}
+ul.investor-classs {
+    padding: 0 !important;
+}
+.register-form { 
+    padding: 20px; 
+}
+#back {
+    margin-bottom: 10px;
+}
+
+}
+
+@media (max-width:350px){
+    .step-indicator {
+        left: -14px;
+    }
+    .step-indicator li.active {
+        max-width: 100px;
+    }
+    .step-indicator li .caption span {
+        font-size: 11px;
+    }
+}
+
 

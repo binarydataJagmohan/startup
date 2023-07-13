@@ -263,7 +263,7 @@ register('website_url', {
               </li>
             </ol>
             <div className="container">
-              <div className="register-form">
+              <div className="register-form ">
                 <div className="row step_one">
                   <div className="col-md-12">
                     <form className="needs-validation mb-4" encType="multipart/form-data"  onSubmit={handleSubmit(SubmitForm)}>

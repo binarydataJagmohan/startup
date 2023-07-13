@@ -254,7 +254,7 @@ export default function InvestorType():any {
                                                     </div>
                                                     <div className="row mt-3">
                                                         <div
-                                                            className="col-md-6"
+                                                            className="col-md-6 col-6"
                                                             style={{ textAlign: "left" }}
                                                         >
                                                             <a
@@ -267,7 +267,7 @@ export default function InvestorType():any {
                                                         </div>
 
                                                         <div
-                                                            className="col-md-6"
+                                                            className="col-md-6 col-6"
                                                             style={{ textAlign: "right" }}
                                                         >
                                                             <button type="submit" className="btnclasssmae">
