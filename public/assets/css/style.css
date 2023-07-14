@@ -9367,6 +9367,46 @@ div#checkbox-group-1 .same-card {
 /* .fria-nav .navbar .others-options { 
     margin-left: 10px;
 } */
+
+.btn .badge {
+    position: relative;
+    top: -15px !important;
+    right: 9px !important;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 8px;
+    text-align: center;
+    background: #4fa815 !important;
+    padding: 5px 0;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate a.paginate_button.current {
+    background: linear-gradient(to bottom, #64bb2b 0%, #64bb2b 100%) !important;
+    color: #fff !important;
+    padding: 0 !important;
+    border: solid 1px #64bb2b !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: linear-gradient(to bottom, #64bb2b 0%, #64bb2b 100%) !important;
+    color: #fff !important;
+    padding: 0 !important;
+    border: solid 1px #64bb2b !important;
+}
+a.paginate_button{ 
+    padding: 0 !important;
+    border: solid 1px #64bb2b !important;
+}
+td span.badge {
+    border-radius: 100px;
+    padding: 7px 10px;
+    font-size: 10px;
+}
+span.bg-success {
+    background: #5cb521 !important;
+}
+
+
+
+
 @media (max-width:991px){
     .about-tab {
         max-width: 100%; 
@@ -9376,6 +9416,12 @@ div#checkbox-group-1 .same-card {
     }
 .section-title h2 {
     font-size: 30px; 
+}
+.d-block.d-lg-none a {
+    position: relative !important;
+}
+#page-header-user-dropdown {
+    padding: 5px;
 }
 
 }
