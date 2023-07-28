@@ -75,7 +75,7 @@ const Dashboard = () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
-
+       //console.log(data.data);
 
         // Set the initial page to 0
         setCurrentPage(0);

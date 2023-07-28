@@ -235,6 +235,19 @@ export default function Findbusiness(): any {
                 </div>
                 <div className="step_border">
                   <div className="step">
+                    <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
+                  </div>
+                </div>
+                <div className="caption hidden-xs hidden-sm">
+                  <span>DOCUMENTS UPLOAD</span>
+                </div>
+              </li>
+              <li className="">
+                <div className="step_name">
+                  Step <span>4</span>
+                </div>
+                <div className="step_border">
+                  <div className="step">
                     <img
                       className="sidebar-img w-50"
                       src="/assets/img/investor/download2.png"

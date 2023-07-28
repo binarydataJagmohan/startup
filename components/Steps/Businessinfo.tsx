@@ -250,11 +250,21 @@ register('website_url', {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
+                <div className="step">
+                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                  </div>
+                </div>
+                <div className="caption hidden-xs hidden-sm">
+                  <span>DOCUMENTS UPLOAD</span>
+                </div>
+              </li>
+              <li className="">
+                <div className="step_name">
+                  Step <span>5</span>
+                </div>
+                <div className="step_border">
                   <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/bank.png"
-                    />
+                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">

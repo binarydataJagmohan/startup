@@ -224,12 +224,23 @@ export default function AdharInformation():any {
                   <span>BASIC INFORMATION</span>
                 </div>
               </li>
-              <li className="active">
+              <li className="">
                 <div className="step_name">
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
+                <i className="flaticon-checked"  aria-hidden="true"></i>
+                </div>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                  <span>DOCUMENTS UPLOAD</span>
+                </div>
+              </li>
+              <li className="">
+                <div className="step_name">
+                  Step <span>5</span>
+                </div>
+                <div className="step_border">
+                <div className="step">
                   <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
                   </div>
                 </div>
@@ -360,7 +371,7 @@ export default function AdharInformation():any {
                           <div className="row mt-3">
                             <div className="col-md-6"  style={{ textAlign: "left", fontSize: "12px" }}>
                             <a
-                              href={`/steps/customizereview`}
+                              href={`/steps/documentsupload`}
                               className="btnclasssmae" id="back"
                             >
                               Go back

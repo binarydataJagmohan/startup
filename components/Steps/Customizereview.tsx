@@ -125,6 +125,7 @@ export default function Customereview(): any {
       formData.append("pan_number", basicDetails.pan_number);
       formData.append("uid", basicDetails.uid);
       formData.append("dob", basicDetails.dob);
+      console.log(formData);
       const res = await basicInformationSave(formData);
       if (res.status == true) {
         // toast.success(res.message, {
@@ -132,7 +133,7 @@ export default function Customereview(): any {
         //   toastId: "success",
         // });
         setTimeout(() => {
-          router.push("/steps/adharinformation");
+          router.push("/steps/documentsupload");
         }, 1000);
       } else {
         toast.error(res.message, {
@@ -219,11 +220,23 @@ export default function Customereview(): any {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png" />
+                <div className="step">
+                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
                   </div>
                 </div>
-
+                <div className="caption hidden-xs hidden-sm">
+                  <span>DOCUMENTS UPLOAD</span>
+                </div>
+              </li>
+              <li className="">
+                <div className="step_name">
+                  Step <span>5</span>
+                </div>
+                <div className="step_border">
+                  <div className="step">
+                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                  </div>
+                </div>
                 <div className="caption hidden-xs hidden-sm">
                   <span>BANK INFORMATION</span>
                 </div>

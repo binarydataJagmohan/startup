@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData} from "../../lib/frontendapi";
+import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData } from "../../lib/frontendapi";
 import $ from "jquery";
 const alertStyle = {
   color: 'red',
@@ -15,7 +15,7 @@ const textStyle = {
 };
 interface CurrentUserData {
   id?: string;
-  name?:string;
+  name?: string;
 }
 interface ErrorMessage {
   message: string;
@@ -23,7 +23,7 @@ interface ErrorMessage {
 export default function Customizereview(): any {
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUsername]=useState("");
+  const [current_user_name, setCurrentUsername] = useState("");
   const [terms, setTerms] = useState({
     user_id: current_user_id,
     category: "",
@@ -123,20 +123,20 @@ export default function Customizereview(): any {
     });
     const current_user_data: CurrentUserData = getCurrentUserData();
     current_user_data.name
-    ? setCurrentUsername(current_user_data.name)
-    : setCurrentUsername("");
+      ? setCurrentUsername(current_user_data.name)
+      : setCurrentUsername("");
 
     getSingleUserData(current_user_data.id)
-    .then((res) => {
-      if (res.status == true) {
-        setUsers(res.data);
-      }
-    })
-    .catch((err) => {
-      toast.error(err.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      .then((res) => {
+        if (res.status == true) {
+          setUsers(res.data);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
-    });
 
 
     if (current_user_data.id) {
@@ -229,7 +229,7 @@ export default function Customizereview(): any {
       const data = {
         notify_from_user: current_user_id,
         notify_to_user: "1",
-        notify_msg:`The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
+        notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
         notification_type: "Profile Completed",
         each_read: "unread",
         status: "active"
@@ -249,16 +249,16 @@ export default function Customizereview(): any {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
         });
-        if(users.approval_status === 'pending'){
+        if (users.approval_status === 'pending') {
           setTimeout(() => {
             router.push("/investor/thank-you");
           }, 1000);
-          }
-          if(users.approval_status === 'approved'){
-            setTimeout(() => {
-              router.push("/investor/campaign");
-            }, 1000);
-          }
+        }
+        if (users.approval_status === 'approved') {
+          setTimeout(() => {
+            router.push("/investor/campaign");
+          }, 1000);
+        }
       } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,
@@ -320,9 +320,20 @@ export default function Customizereview(): any {
                   <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
-              <li className="active">
+              <li className="">
                 <div className="step_name">
                   Step <span>3</span>
+                </div>
+                <div className="step_border">
+                    <i className="flaticon-checked" aria-hidden="true"></i>
+                </div>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                  <span>DOCUMENTS UPLOAD</span>
+                </div>
+              </li>
+              <li className="active">
+                <div className="step_name">
+                  Step <span>4</span>
                 </div>
                 <div className="step_border">
                   <div className="step">
@@ -486,7 +497,7 @@ export default function Customizereview(): any {
                               style={{ textAlign: "left" }}
                             >
                               <a
-                                href={`/investor-steps/investor-type`}
+                                href={`/investor-steps/documentsupload`}
                                 className="btnclasssmae"
                                 id="back"
                               >
@@ -507,8 +518,6 @@ export default function Customizereview(): any {
                         </div>
                       </div>
                     </div>
-
-
                   </div>
                 </div>
               </div>

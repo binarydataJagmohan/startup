@@ -4914,10 +4914,10 @@ FAQ Area CSS
     margin-bottom: 0;
 }
 
-/* .container .accordion{
+.container .accordion{
     margin-top: 5%;
     margin-left: 16%;
-} */
+}
 
 .faq-accordion .accordion .accordion-item {
     border-radius: 5px;

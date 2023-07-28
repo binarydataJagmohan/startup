@@ -341,9 +341,22 @@ export default function AccreditedInvestors() {
                                     <span>INVESTOR INFORMATION</span>
                                 </div>
                             </li>
-                            <li className="active">
+                            <li className="">
                                 <div className="step_name">
                                     Step <span>3</span>
+                                </div>
+                                <div className="step_border">
+                                    <div className="step">
+                                        <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
+                                    </div>
+                                </div>
+                                <div className="caption hidden-xs hidden-sm">
+                                    <span>DOCUMENTS UPLOAD</span>
+                                </div>
+                            </li>
+                            <li className="active">
+                                <div className="step_name">
+                                    Step <span>4</span>
                                 </div>
                                 <div className="step_border">
                                     <div className="step">

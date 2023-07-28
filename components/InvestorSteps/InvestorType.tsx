@@ -1,9 +1,9 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { investorTypeInfoSave, getInvestorType} from "../../lib/frontendapi";
+import { investorTypeInfoSave, getInvestorType } from "../../lib/frontendapi";
 import {
     removeToken,
     removeStorageData,
@@ -18,31 +18,31 @@ const textStyle = {
 };
 interface UserData {
     id?: string;
-  }
-export default function InvestorType():any {
+}
+export default function InvestorType(): any {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState("");
     const [signup_success, setSignupSuccess] = useState(false);
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const [ investorDetails,  seInvestorDetails] = useState({
+    const [investorDetails, seInvestorDetails] = useState({
         user_id: current_user_id,
         investorType: ""
     });
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked} = event.target;
+        const { name, value, type, checked } = event.target;
         if (type === 'radio' && name === 'investorType') {
             // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
             const typeValue = checked ? 'Accredited Investors' : 'Angel Investor';
             seInvestorDetails((prevState) => {
-              return {
-                ...prevState,
-                investorDetails: typeValue,
-                user_id: current_user_id,
-              };
+                return {
+                    ...prevState,
+                    investorDetails: typeValue,
+                    user_id: current_user_id,
+                };
             });
-          }
-         seInvestorDetails((prevState) => {
+        }
+        seInvestorDetails((prevState) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -52,14 +52,14 @@ export default function InvestorType():any {
     };
 
     useEffect(() => {
-        
-        const current_user_data:  UserData = getCurrentUserData();
+
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.id) {
             setCurrentUserId(current_user_data.id);
             getInvestorType(current_user_data.id)
                 .then((res) => {
                     if (res.status === true) {
-                         seInvestorDetails(res.data);
+                        seInvestorDetails(res.data);
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -87,18 +87,17 @@ export default function InvestorType():any {
                 //     toastId: "success",
                 //   });
                 //   console.log(res.data.data.investorType);
-                  if(res.data.data.investorType=="Angel Investor")
-                  {
+                if (res.data.data.investorType == "Angel Investor") {
                     setTimeout(() => {
-                        router.push("/investor-steps/customizereview");
+                        router.push("/investor-steps/documentsupload");
                     }, 1000);
-                
-                  }else{
+
+                } else {
                     setTimeout(() => {
-                        router.push("/investor-steps/accredited-investors");
+                        router.push("/investor-steps/documentsupload");
                     }, 1000);
-                  }
-               
+                }
+
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -113,7 +112,7 @@ export default function InvestorType():any {
         }
     };
 
-    if (signup_success) return router.push("/steps/customizereview");
+    if (signup_success) return router.push("/investor-steps/documentsupload");
     return (
         <>
             <div className="page-title-area item-bg-5">
@@ -163,9 +162,22 @@ export default function InvestorType():any {
                                     <span>INVESTOR INFORMATION</span>
                                 </div>
                             </li>
-                            <li className="active">
+                            <li className="">
                                 <div className="step_name">
                                     Step <span>3</span>
+                                </div>
+                                <div className="step_border">
+                                    <div className="step">
+                                        <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
+                                    </div>
+                                </div>
+                                <div className="caption hidden-xs hidden-sm">
+                                    <span>DOCUMENTS UPLOAD</span>
+                                </div>
+                            </li>
+                            <li className="">
+                                <div className="step_name">
+                                    Step <span>4</span>
                                 </div>
                                 <div className="step_border">
                                     <div className="step">
@@ -179,7 +191,7 @@ export default function InvestorType():any {
                                     <span>BASIC INFORMATION</span>
                                 </div>
                             </li>
-                           
+
                         </ol>
                         <div className="container">
                             <div className="register-form">
@@ -188,7 +200,7 @@ export default function InvestorType():any {
                                         <form className="needs-validation mb-4" onSubmit={handleSubmit(SubmitForm)}>
                                             <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
                                                 {" "}
-                                               Investor Information{" "}
+                                                Investor Information{" "}
                                                 <i
                                                     style={{ cursor: "pointer" }}
                                                     className="fa fa-info-circle"
@@ -210,7 +222,7 @@ export default function InvestorType():any {
                                                                             <input
                                                                                 className="form-check-input gender-radio" id="myCheckbox1"
                                                                                 {...register("investorType", {
-                                                                                    required: true,value:true
+                                                                                    required: true, value: true
                                                                                 })}
                                                                                 onChange={handleChange}
                                                                                 type="radio"
