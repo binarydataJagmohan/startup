@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { uploadDocuments } from "../../lib/frontendapi";
+import { uploadDocuments, fetchSingleUserDocuments } from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
 
 interface UserData {
@@ -15,12 +15,56 @@ export default function DocumentsUpload(): any {
     const [adhar_card_front, setAdharCardFront] = useState(null);
     const [adhar_card_back, setAdharCardBack] = useState(null);
     const [signup_success, setSignupSuccess] = useState(false);
+    const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
-        'pan_card_front': "",
-        'pan_card_back': "",
-        'adhar_card_front': "",
-        'adhar_card_back': "",
+        pan_card_front: "",
+        pan_card_back: "",
+        adhar_card_front: "",
+        adhar_card_back: "",
     });
+    const [basicDetails, setBasicDetails] = useState({
+        pan_card_front: "",
+        pan_card_back: "",
+        adhar_card_front: "",
+        adhar_card_back: "",
+        documnet_id: '',
+    });
+    const [current_user_id, setCurrentUserId] = useState("");
+
+
+    useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.id != null) {
+            current_user_data.id
+                ? setCurrentUserId(current_user_data.id)
+                : setCurrentUserId("");
+
+            fetchSingleUserDocuments(current_user_data.id)
+                .then((res) => {
+                    if (res.status == true) {
+                        setBasicDetails(res.data);
+                        //console.log(res.data);
+                        setPanCardFront(res.data.pan_card_front);
+                        setPanCardBack(res.data.pan_card_back);
+                        setAdharCardFront(res.data.adhar_card_front);
+                        setAdharCardBack(res.data.adhar_card_back);
+                        console.log(res.data);
+                    } else {
+                        toast.error(res.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(err.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                });
+        } else {
+            window.location.href = "/login";
+        }
+
+    }, []);
 
     const handlMenuSubmit = (event: any) => {
         event.preventDefault();
@@ -194,6 +238,14 @@ export default function DocumentsUpload(): any {
                                                                 jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
                                                             {errors.pan_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_front}</span>}
+
+                                                            {basicDetails.pan_card_front ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '50%', height: 'auto', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+
                                                         </div>
                                                         <div className="col-md-6 mt-5">
                                                             <label
@@ -209,6 +261,14 @@ export default function DocumentsUpload(): any {
                                                                 jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
                                                             {errors.pan_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_back}</span>}
+
+                                                            {basicDetails.pan_card_back ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '50%', height: 'auto', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+
                                                         </div>
                                                         <div className="col-md-6 mt-5">
                                                             <label
@@ -224,6 +284,14 @@ export default function DocumentsUpload(): any {
                                                                 jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
                                                             {errors.adhar_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_front}</span>}
+
+                                                            {basicDetails.adhar_card_front ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '50%', height: 'auto', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+
                                                         </div>
                                                         <div className="col-md-6 mt-5 mb-5">
                                                             <label
@@ -233,12 +301,20 @@ export default function DocumentsUpload(): any {
                                                                 Adhar Card back view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="adhar_card_front" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
+                                                            <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
                                                             <p>
                                                                 You can upload any identity card's image
                                                                 jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-                                                            {errors.adhar_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_front}</span>}
+                                                            {errors.adhar_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_back}</span>}
+
+                                                            {basicDetails.adhar_card_back ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '50%', height: 'auto', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+
                                                         </div>
                                                     </div>
                                                     <div className="row mt-3">
