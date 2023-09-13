@@ -320,7 +320,7 @@ export default function Customizereview(): any {
                   <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="step_name">
                   Step <span>3</span>
                 </div>
@@ -330,10 +330,10 @@ export default function Customizereview(): any {
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
-              </li>
+              </li> */}
               <li className="active">
                 <div className="step_name">
-                  Step <span>4</span>
+                  Step <span>3</span>
                 </div>
                 <div className="step_border">
                   <div className="step">
@@ -497,7 +497,7 @@ export default function Customizereview(): any {
                               style={{ textAlign: "left" }}
                             >
                               <a
-                                href={`/investor-steps/documentsupload`}
+                                href={`/investor-steps/investor-type`}
                                 className="btnclasssmae"
                                 id="back"
                               >

@@ -89,12 +89,12 @@ export default function InvestorType(): any {
                 //   console.log(res.data.data.investorType);
                 if (res.data.data.investorType == "Angel Investor") {
                     setTimeout(() => {
-                        router.push("/investor-steps/documentsupload");
+                        router.push("/investor-steps/customizereview");
                     }, 1000);
 
                 } else {
                     setTimeout(() => {
-                        router.push("/investor-steps/documentsupload");
+                        router.push("/investor-steps/customizereview");
                     }, 1000);
                 }
 
@@ -112,7 +112,7 @@ export default function InvestorType(): any {
         }
     };
 
-    if (signup_success) return router.push("/investor-steps/documentsupload");
+    if (signup_success) return router.push("/investor-steps/customizereview");
     return (
         <>
             <div className="page-title-area item-bg-5">
@@ -162,7 +162,7 @@ export default function InvestorType(): any {
                                     <span>INVESTOR INFORMATION</span>
                                 </div>
                             </li>
-                            <li className="">
+                            {/* <li className="">
                                 <div className="step_name">
                                     Step <span>3</span>
                                 </div>
@@ -174,10 +174,10 @@ export default function InvestorType(): any {
                                 <div className="caption hidden-xs hidden-sm">
                                     <span>DOCUMENTS UPLOAD</span>
                                 </div>
-                            </li>
+                            </li> */}
                             <li className="">
                                 <div className="step_name">
-                                    Step <span>4</span>
+                                    Step <span>3</span>
                                 </div>
                                 <div className="step_border">
                                     <div className="step">

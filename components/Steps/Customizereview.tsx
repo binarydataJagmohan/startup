@@ -133,7 +133,7 @@ export default function Customereview(): any {
         //   toastId: "success",
         // });
         setTimeout(() => {
-          router.push("/steps/documentsupload");
+          router.push("/steps/adharinformation");
         }, 1000);
       } else {
         toast.error(res.message, {
@@ -215,7 +215,7 @@ export default function Customereview(): any {
                   <span>BASIC INFORMATION</span>
                 </div>
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="step_name">
                   Step <span>4</span>
                 </div>
@@ -227,10 +227,10 @@ export default function Customereview(): any {
                 <div className="caption hidden-xs hidden-sm">
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
-              </li>
+              </li> */}
               <li className="">
                 <div className="step_name">
-                  Step <span>5</span>
+                  Step <span>4</span>
                 </div>
                 <div className="step_border">
                   <div className="step">

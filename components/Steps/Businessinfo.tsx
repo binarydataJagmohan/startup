@@ -245,7 +245,7 @@ register('website_url', {
                   <span>BASIC INFORMATION</span>
                 </div>
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="step_name">
                   Step <span>4</span>
                 </div>
@@ -257,10 +257,10 @@ register('website_url', {
                 <div className="caption hidden-xs hidden-sm">
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
-              </li>
+              </li> */}
               <li className="">
                 <div className="step_name">
-                  Step <span>5</span>
+                  Step <span>4</span>
                 </div>
                 <div className="step_border">
                   <div className="step">

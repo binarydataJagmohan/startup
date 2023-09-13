@@ -229,7 +229,7 @@ export default function Findbusiness(): any {
                   <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="step_name">
                   Step <span>3</span>
                 </div>
@@ -241,10 +241,10 @@ export default function Findbusiness(): any {
                 <div className="caption hidden-xs hidden-sm">
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
-              </li>
+              </li> */}
               <li className="">
                 <div className="step_name">
-                  Step <span>4</span>
+                  Step <span>3</span>
                 </div>
                 <div className="step_border">
                   <div className="step">
