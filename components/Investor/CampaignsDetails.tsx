@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getSingleBusinessDetails, InvestorBooking } from '@/lib/investorapi';
+import { getSingleBusinessDetails, InvestorBooking} from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -47,7 +47,6 @@ export default function CampaignsDetails() {
   const [ButtonDisabled, setButtonDisabled] = useState(true);
 
 
-
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
 
@@ -66,6 +65,7 @@ export default function CampaignsDetails() {
       //  console.log(userData);
       setCurrentUserData(userData);
     };
+
     fetchData();
   }, [id]);
 

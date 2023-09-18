@@ -13,6 +13,7 @@ const InvestedFunds = () => {
                 setBusinessDetails(data.data);
                 const openDetails = data.data.filter((details:any)=> details.status === 'open');
                 setOpenBusinessDetails(openDetails);
+                console.log(openDetails);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -36,10 +37,10 @@ const InvestedFunds = () => {
                 <div className="container py-5">
                     <h3 className="featurred">Purchased Funds</h3>
                     <h6 className="trending">Invested in Startup Funds</h6>
-                    <div className="bar" />
+                    <div className="bar" ></div>
                     <div className="row">
-                    {openBusinessDetails.map((details: any) => (
-                        <div className="col-md-6 col-sm-12 col-lg-4">
+                    {openBusinessDetails.map((details: any ,index:any) => (
+                        <div className="col-md-6 col-sm-12 col-lg-4 mb-3" key="index">
                             <div className="product-grid container1">
                                 <div className="product-image">
                                     <a href="javascript:void(0)" className="image">

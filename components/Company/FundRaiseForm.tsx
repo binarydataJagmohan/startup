@@ -593,8 +593,6 @@ const FundRaiseForm = () => {
 
 
                       <div className="row g-3 mt-1">
-                       
-
                         <div className="col-md-6 mt-5">
                           <div id="divHabilitSelectors" className="input-file-container">
                             <input ref={fileInputRef} className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} />
@@ -612,10 +610,7 @@ const FundRaiseForm = () => {
                             )}
                           </div>
                         </div>
-                      </div>
-
-                      <div className="row g-3 mt-1">
-                        <div className="col-md-6">
+                        <div className="col-md-6 mt-5">
                           <div id="divHabilitSelectors" className="input-file-container">
                             <input ref={fileInputRef1} className="input-file" id="fileupload" name="invoice" type="file" onChange={handleInvoiceFileChange} />
                             <label htmlFor="fileupload" className="input-file-trigger" id="labelFU" style={{ fontSize: "12px" }} tabIndex={0}>Drop your Legal Invoice here to <a href="#" onClick={handleUploadClick1}>Upload</a> <br />
@@ -632,6 +627,9 @@ const FundRaiseForm = () => {
                             )}
                           </div>
                         </div>
+                      </div>
+
+                      <div className="row g-3 mt-1">
 
                         <div className="col-md-6 mt-3">
                           <div id="divHabilitSelectors" className="input-file-container">

@@ -8,7 +8,6 @@ import { getCurrentUserData } from "../../lib/session";
 import { getInvestorBookingDetails,savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
-import Success from '../Frontend/Common/Success';
 import Swal from 'sweetalert2';
 
 interface UserData {

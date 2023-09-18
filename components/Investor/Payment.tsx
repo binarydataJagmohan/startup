@@ -7,6 +7,8 @@ import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useElements } from '@stripe/react-stripe-js';
+
 
 interface UserData {
     id?: string;
@@ -87,40 +89,57 @@ const Payment = () => {
 const stripePromise = loadStripe('pk_test_FQu4ActGupRmMrkmBpwU26js');
 
 // Handle form submission
-const SubmitForm = async (event:any) => {
-//   event.preventDefault();
-
-  const stripe = await stripePromise;
-//   const elements = useElements();
-  // Create a payment method
-  const paymentMethod = await stripe.createPaymentMethod({
-    type: 'card',
-    card: cardElement,
-  });
-
-  // Send the payment method to your Laravel API endpoint
-  const response = await fetch('/api/payment', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ paymentMethod: paymentMethod.id }),
-  });
-
-  // Handle the response from the API
-  const { clientSecret } = await response.json();
-
-  // Confirm the payment intent
-  const { error } = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: paymentMethod.id,
-  });
-
-  if (error) {
-    // Handle payment error
-  } else {
-    // Payment successful
-  }
-};
+const SubmitForm = async (event: any) => {
+    // Prevent the form from submitting (if applicable)
+    event.preventDefault();
+  
+    const stripe = await stripePromise;
+    const elements = useElements();
+  
+    if (stripe === null || stripe === undefined) {
+      // Handle the case where stripe is null or undefined
+      console.error('Stripe is null or undefined.');
+      return;
+    }
+  
+    // Use optional chaining (?.) to safely access cardElement
+    const cardElement = elements?.getElement('card');
+  
+    if (cardElement) {
+      // Create a payment method
+      const paymentMethod:any = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+      });
+  
+      // Send the payment method to your Laravel API endpoint
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentMethod: paymentMethod.id }),
+      });
+  
+      // Handle the response from the API
+      const { clientSecret } = await response.json();
+  
+      // Confirm the payment intent
+      const { error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethod.id,
+      });
+  
+      if (error) {
+        // Handle payment error
+      } else {
+        // Payment successful
+      }
+    } else {
+      // Handle the case where cardElement is not found
+      console.error('Card element not found.');
+    }
+  };
+  
   return (
     <>
     <section className='form-section  join-back'>
