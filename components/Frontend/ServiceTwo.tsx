@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 export default function ServiceTwo() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function ServiceTwo() {
                             <div className="page-title-content">
                                 <h2>Services</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Services II</li>
                                 </ul>
                             </div>
@@ -28,117 +28,117 @@ export default function ServiceTwo() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/1.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Market Forecast</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Web Design</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/2.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Strategic planning</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Agency</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/3.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Budget Accounting</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Solutions</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/4.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Target Marketing</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Analysis</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/5.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Case Analysis</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Marketing</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-agency">
                                 <div className="image">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <img src="assets/img/agency-services/6.jpg" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-services.html">
+                                    <Link href="single-services.html">
                                         <h3>Strategic Advice</h3>
-                                    </a>
-                                    {/* <a href="single-services.html">
+                                    </Link>
+                                    {/* <Link href="single-services.html">
                                         <span>Explanation</span>
-                                    </a> */}
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
                         {/* <div className="col-lg-12 col-md-12">
                             <div className="pagination-area">
-                                <a href="#" className="prev page-numbers">
+                                <Link href="#" className="prev page-numbers">
                                     <i className="flaticon-left" />
-                                </a>
-                                <a href="#" className="page-numbers">1</a>
+                                </Link>
+                                <Link href="#" className="page-numbers">1</Link>
                                 <span className="page-numbers current" aria-current="page">2</span>
-                                <a href="#" className="page-numbers">3</a>
-                                <a href="#" className="page-numbers">4</a>
-                                <a href="#" className="next page-numbers">
+                                <Link href="#" className="page-numbers">3</Link>
+                                <Link href="#" className="page-numbers">4</Link>
+                                <Link href="#" className="next page-numbers">
                                     <i className="flaticon-right" />
-                                </a>
+                                </Link>
                             </div>
                         </div> */}
                     </div>

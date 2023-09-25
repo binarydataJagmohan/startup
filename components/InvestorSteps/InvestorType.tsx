@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import Link from 'next/link';
 import { investorTypeInfoSave, getInvestorType } from "../../lib/frontendapi";
 import {
     removeToken,
@@ -269,13 +270,13 @@ export default function InvestorType(): any {
                                                             className="col-md-6 col-6"
                                                             style={{ textAlign: "left" }}
                                                         >
-                                                            <a
+                                                            <Link
                                                                 href={`/investor-steps/findbusiness`}
                                                                 className="btnclasssmae"
                                                                 id="back"
                                                             >
                                                                 Go back
-                                                            </a>
+                                                            </Link>
                                                         </div>
 
                                                         <div

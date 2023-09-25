@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function serviceSix() {
@@ -108,7 +109,7 @@ export default function serviceSix() {
                             </div>
                             <div className="col-lg-12 col-md-12">
                             <div className="send-btn text-center mt-5">
-                            <a href="/contact"><button className="default-btn">Contact-us</button></a>
+                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
                             </div>
                             </div>
                         </div>

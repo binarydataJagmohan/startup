@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { getSingleUserData } from '@/lib/frontendapi';
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
-
+import Link from 'next/link';
 interface UserData {
     username?: string;
     role?: string;
@@ -144,7 +144,7 @@ const AllNotifications = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             All Notifications

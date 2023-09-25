@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { getBankInformation,bankInformationSave,sendNotification } from "../../lib/frontendapi";
 import {removeToken,removeStorageData,getCurrentUserData,} from "../../lib/session";
 import { getSingleUserData } from '@/lib/frontendapi';
-
+import Link from 'next/link';
 const alertStyle = {
   color: "red",
 };
@@ -370,12 +370,12 @@ export default function AdharInformation():any {
                           </div>
                           <div className="row mt-3">
                             <div className="col-md-6"  style={{ textAlign: "left", fontSize: "12px" }}>
-                            <a
+                            <Link
                               href={`/steps/customizereview `}
                               className="btnclasssmae" id="back"
                             >
                               Go back
-                            </a>
+                            </Link>
                             </div>
 
                             <div

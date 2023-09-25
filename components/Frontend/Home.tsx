@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
 import NextNProgress from "nextjs-progressbar";
+import Link from 'next/link';
 import { getCurrentUserData, removeToken, removeStorageData } from '../../lib/session'
 import { CheckUserApprovalStatus } from '../../lib/frontendapi'
 interface UserData {
@@ -115,18 +116,18 @@ export default function Home() {
 
                             {users.approval_status === "approved" ? (
                               <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
                                     Campaigns
-                                  </a>
+                                  </Link>
                               </>
                             ) : (
                              <>
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
                                     My Profile
-                                  </a>
+                                  </Link>
                               <a href="#" onClick={handleLogout} className="default-btn">
                                 Logout
                               </a>
@@ -136,30 +137,30 @@ export default function Home() {
                         )
                           : current_user_role === "admin" ? (
                             <div className="banner-btn">
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
                                 My Profile
-                              </a>
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              </Link>
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
                                 Dashboard
-                              </a>
+                              </Link>
                             </div>
                           ) : current_user_role === "startup" ? (
                             <div className="banner-btn">
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
                                     Dashboard
-                                  </a>
+                                  </Link>
                                 </>
                               ) : (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/thank-you"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/thank-you"} className="default-btn">
                                     My Profile
-                                  </a>
+                                  </Link>
                                   <a href="#" onClick={handleLogout} className="default-btn">
                                     Logout
                                   </a>
@@ -171,12 +172,12 @@ export default function Home() {
                           ) : null
                       ) : (
                         <div className="banner-btn">
-                          <a href="/signup" className="default-btn">
+                          <Link href="/signup" className="default-btn">
                             Register
-                          </a>
-                          <a href="/login" className="default-btn">
+                          </Link>
+                          <Link href="/login" className="default-btn">
                             Log in
-                          </a>
+                          </Link>
                         </div>
                       )}
 
@@ -212,12 +213,12 @@ export default function Home() {
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
                                     Campaigns
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
+                                  </Link>
                                 </>
                               ) : (
                                 null
@@ -226,24 +227,24 @@ export default function Home() {
                           )}
                           {current_user_role === "admin" && (
                             <div className="banner-btn">
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
                                 My Profile
-                              </a>
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              </Link>
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
                                 Dashboard
-                              </a>
+                              </Link>
                             </div>
                           )}
                           {current_user_role === "startup" && (
                             <div className="banner-btn">
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
                                     Dashboard
-                                  </a>
+                                  </Link>
                                 </>
 
                               ) : (
@@ -254,12 +255,12 @@ export default function Home() {
                         </>
                       ) : (
                         <div className="banner-btn">
-                          <a href="/signup" className="default-btn">
+                          <Link href="/signup" className="default-btn">
                             Register
-                          </a>
-                          <a href="/login" className="default-btn">
+                          </Link>
+                          <Link href="/login" className="default-btn">
                             Log in
-                          </a>
+                          </Link>
                         </div>
                       )}
                     </div>
@@ -293,12 +294,12 @@ export default function Home() {
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
                                     Campaigns
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
+                                  </Link>
                                 </>
                               ) : (
                                 null
@@ -307,24 +308,24 @@ export default function Home() {
                           )}
                           {current_user_role === "admin" && (
                             <div className="banner-btn">
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
                                 My Profile
-                              </a>
-                              <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              </Link>
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
                                 Dashboard
-                              </a>
+                              </Link>
                             </div>
                           )}
                           {current_user_role === "startup" && (
                             <div className="banner-btn">
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
                                     My Profile
-                                  </a>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  </Link>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
                                     Dashboard
-                                  </a>
+                                  </Link>
                                 </>
 
                               ) : (
@@ -335,12 +336,12 @@ export default function Home() {
                         </>
                       ) : (
                         <div className="banner-btn">
-                          <a href="/signup" className="default-btn">
+                          <Link href="/signup" className="default-btn">
                             Register
-                          </a>
-                          <a href="/login" className="default-btn">
+                          </Link>
+                          <Link href="/login" className="default-btn">
                             Log in
-                          </a>
+                          </Link>
                         </div>
                       )}
                     </div>
@@ -593,12 +594,12 @@ export default function Home() {
                   <img src="assets/img/projects/1.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>App Update &amp; Rebrand</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -608,12 +609,12 @@ export default function Home() {
                   <img src="assets/img/projects/2.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>IT Consultancy</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -623,12 +624,12 @@ export default function Home() {
                   <img src="assets/img/projects/3.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>Funding Trends</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -638,12 +639,12 @@ export default function Home() {
                   <img src="assets/img/projects/4.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>App Development</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -653,12 +654,12 @@ export default function Home() {
                   <img src="assets/img/projects/5.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>IT Solutions</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="single-projects">
@@ -666,12 +667,12 @@ export default function Home() {
                   <img src="assets/img/projects/6.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>Data Management</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -681,12 +682,12 @@ export default function Home() {
                   <img src="assets/img/projects/7.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="javascript:void(0);">
+                  <Link href="javascript:void(0);">
                     <h3>E-commerce Development</h3>
-                  </a>
-                  <a href="javascript:void(0);">
+                  </Link>
+                  <Link href="javascript:void(0);">
                     <span>Research and startup</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -717,72 +718,72 @@ export default function Home() {
             <div className="col-lg-4 col-md-6">
               <div className="single-blog">
                 <div className="image">
-                  <a href="/single-blog">
+                  <Link href="/single-blog">
                     <img src="assets/img/blog/1.jpg" alt="image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="content">
                   <span>20 March 2022</span>
                   <h3>
-                    <a href="/single-blog">
+                    <Link href="/single-blog">
                       Great Tips To Earn More Money From Digital Industry
-                    </a>
+                    </Link>
                   </h3>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
                     do eiusmod tempor
                   </p>
-                  <a href="/single-blog" className="read-more">
+                  <Link href="/single-blog" className="read-more">
                     Read More
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-blog">
                 <div className="image">
-                  <a href="/single-blog">
+                  <Link href="/single-blog">
                     <img src="assets/img/blog/2.jpg" alt="image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="content">
                   <span>25 April 2022</span>
                   <h3>
-                    <a href="/single-blog">
+                    <Link href="/single-blog">
                       The Billionaire Guide On Design That will Get You Rich
-                    </a>
+                    </Link>
                   </h3>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
                     do eiusmod tempor
                   </p>
-                  <a href="/single-blog" className="read-more">
+                  <Link href="/single-blog" className="read-more">
                     Read More
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
               <div className="single-blog">
                 <div className="image">
-                  <a href="/single-blog">
+                  <Link href="/single-blog">
                     <img src="assets/img/blog/3.jpg" alt="image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="content">
                   <span>30 July 2022</span>
                   <h3>
-                    <a href="/single-blog">
+                    <Link href="/single-blog">
                       Making Peace With The Feast Or Famine Of Freelancing
-                    </a>
+                    </Link>
                   </h3>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
                     do eiusmod tempor
                   </p>
-                  <a href="/single-blog" className="read-more">
+                  <Link href="/single-blog" className="read-more">
                     Read More
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

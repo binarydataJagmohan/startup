@@ -3,7 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveContact } from '../../lib/frontendapi';
 import { useForm } from 'react-hook-form';
-
+import Link from 'next/link';
 
 const Contact = () => {
 
@@ -59,7 +59,7 @@ const Contact = () => {
                   <h2>Contact</h2>
                   <ul>
                     <li>
-                      <a href="/">Home</a>
+                      <Link href="/">Home</Link>
                     </li>
                     <li>Contact</li>
                   </ul>
@@ -87,7 +87,7 @@ const Contact = () => {
                   <i className="flaticon-envelope" />
                   <div className="content-title">
                     <h3>Email</h3>
-                    <span><a href="mailto:example@gmail.com" style={{color:"black"}}><p>example@gmail.com</p></a></span>
+                    <span><Link href="mailto:example@gmail.com" style={{color:"black"}}><p>example@gmail.com</p></Link></span>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                   <i className="flaticon-phone-call" />
                   <div className="content-title">
                     <h3>Phone</h3>
-                    <a href="tel:123456123" style={{color:"black"}}><p>+123(456)123</p></a>
+                    <Link href="tel:123456123" style={{color:"black"}}><p>+123(456)123</p></Link>
                   </div>
                 </div>
               </div>

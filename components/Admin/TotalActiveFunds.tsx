@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from '@/lib/session';
 import { getAllActiveFunds } from '@/lib/adminapi';
 import { getToken } from '@/lib/session';
+import Link from 'next/link';
 import axios from 'axios';
 interface UserData {
     id?: number;
@@ -102,7 +103,7 @@ const TotalActiveFunds = () => {
                                     <h6 className="page-title">Dashboard</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             All Active Funds
@@ -162,8 +163,8 @@ const TotalActiveFunds = () => {
                                                                         </span>
                                                                     </td> */}
                                                                      {/*<td>
-                                                                        <a href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
-                                                                        <a href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                                        <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
+                                                                        <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
                                                                     </td> */}
                                                                 </tr>
                                                             ))

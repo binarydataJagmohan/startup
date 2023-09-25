@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function Team() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function Team() {
                             <div className="page-title-content">
                                 <h2>Team</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Team</li>
                                 </ul>
                             </div>
@@ -32,24 +32,24 @@ export default function Team() {
                                     <img src="assets/img/team/1.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -65,24 +65,24 @@ export default function Team() {
                                     <img src="assets/img/team/2.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -98,24 +98,24 @@ export default function Team() {
                                     <img src="assets/img/team/3.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -131,24 +131,24 @@ export default function Team() {
                                     <img src="assets/img/team/4.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -164,24 +164,24 @@ export default function Team() {
                                     <img src="assets/img/team/5.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -197,24 +197,24 @@ export default function Team() {
                                     <img src="assets/img/team/6.jpg" alt="image" />
                                     <ul className="social">
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-facebook" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-twitter" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-linkedin" />
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" target="_blank">
+                                            <Link href="#" target="_blank">
                                                 <i className="bx bxl-instagram" />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -227,16 +227,16 @@ export default function Team() {
                     </div>
                     <div className="col-lg-12 col-md-12">
                         <div className="pagination-area">
-                            <a href="#" className="prev page-numbers">
+                            <Link href="#" className="prev page-numbers">
                                 <i className="flaticon-left" />
-                            </a>
-                            <a href="#" className="page-numbers">1</a>
+                            </Link>
+                            <Link href="#" className="page-numbers">1</Link>
                             <span className="page-numbers current" aria-current="page">2</span>
-                            <a href="#" className="page-numbers">3</a>
-                            <a href="#" className="page-numbers">4</a>
-                            <a href="#" className="next page-numbers">
+                            <Link href="#" className="page-numbers">3</Link>
+                            <Link href="#" className="page-numbers">4</Link>
+                            <Link href="#" className="next page-numbers">
                                 <i className="flaticon-right" />
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

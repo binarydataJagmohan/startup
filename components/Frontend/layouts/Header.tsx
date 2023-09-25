@@ -107,7 +107,7 @@ export default function HeaderFrontend() {
           <div className="container">
             <div className="fria-responsive-menu">
               <div className="logo">
-                <a href="/">
+                <Link href="/">
                   <img
                     src={
                       process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"
@@ -120,7 +120,7 @@ export default function HeaderFrontend() {
                     className="white-logo"
                     alt="image"
                   /> */}
-                </a>
+                </Link>
               </div>
               <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <span />
@@ -134,7 +134,7 @@ export default function HeaderFrontend() {
         <div className="fria-nav">
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
-              <a className="navbar-brand" href="/">
+              <Link className="navbar-brand" href="/">
                 <img
                   src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                   className="black-logo"
@@ -145,26 +145,26 @@ export default function HeaderFrontend() {
                   className="white-logo"
                   alt="image"
                 /> */}
-              </a>
+              </Link>
               <div
                 className="collapse navbar-collapse mean-menu"
                 id="navbarSupportedContent"
               >
                 <ul className="navbar-nav">
                   <li className={`nav-item ${router.pathname === '/' ? 'active' : ''}`}>
-                    <a href="/" className="nav-link">
+                    <Link href="/" className="nav-link">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li className={`nav-item ${router.pathname === '/about' ? 'active' : ''}`}>
-                    <a href="/about" className="nav-link">
+                    <Link href="/about" className="nav-link">
                       About
-                    </a>
+                    </Link>
                   </li>
                   <li className={`nav-item ${router.pathname === '/services' ? 'active' : ''}`}>
-                    <a href="/services" className="nav-link">
+                    <Link href="/services" className="nav-link">
                       Services
-                    </a>
+                    </Link>
                   </li>
                   {/* <li className="nav-item">
                     <a href="/projects" className="nav-link">
@@ -172,14 +172,14 @@ export default function HeaderFrontend() {
                     </a>
                   </li> */}
                   <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
-                    <a href="/blogs" className="nav-link">
+                    <Link href="/blogs" className="nav-link">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className={`nav-item ${router.pathname === '/contact' ? 'active' : ''}`}>
-                    <a href="/contact" className="nav-link">
+                    <Link href="/contact" className="nav-link">
                       Contact
-                    </a>
+                    </Link>
                   </li>
                   {/* <li className="nav-item">
                     <div className="dropdown">
@@ -220,23 +220,23 @@ export default function HeaderFrontend() {
                           className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
                         >
                           {users.role === 'startup' && users.approval_status === 'approved' ? (
-                            <a href="/company/dashboard" className="colortwo">
+                            <Link href="/company/dashboard" className="colortwo">
                              Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
                            {users.role === 'investor' && users.approval_status === 'approved' ? (
-                            <a href="/investor/campaign" className="colortwo">
+                            <Link href="/investor/campaign" className="colortwo">
                              Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
                              {users.role === 'admin' ? (
-                            <a href="/admin/dashboard" className="colortwo">
+                            <Link href="/admin/dashboard" className="colortwo">
                               Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
@@ -244,14 +244,14 @@ export default function HeaderFrontend() {
 
 
 
-                          <a href="#" onClick={handleLogout} className="colortwo">
+                          <Link href="#" onClick={handleLogout} className="colortwo">
                             Logout
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     ) : (
                       <button  className="btnclasssmae" style={{ margin: "-45px" }}>
-                       <a href="/login" style={{ color: "#fff" }}>Login</a>
+                       <Link href="/login" style={{ color: "#fff" }}>Login</Link>
                       </button>
                     )}
                   </div>
@@ -291,7 +291,7 @@ export default function HeaderFrontend() {
       <div className="offcanvas offcanvas-end" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div className="">
           <h5 className="offcanvas-title text-center" id="offcanvasRightLabel">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" href="/">
               <img
                 src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                 className="black-logo pt-5"
@@ -302,26 +302,26 @@ export default function HeaderFrontend() {
                   className="white-logo"
                   alt="image"
                 /> */}
-            </a>
+            </Link>
           </h5>
           <button type="button" className="btn-close claoseclasss" data-bs-dismiss="offcanvas" aria-label="Close" />
         </div>
         <div className="offcanvas-body">
           <ul className="navbar-nav text-center centerd-class">
             <li className={`nav-item ${router.pathname === '/' ? 'active' : ''}`}>
-              <a href="/" className="nav-link">
+              <Link href="/" className="nav-link">
                 Home
-              </a>
+              </Link>
             </li>
             <li className={`nav-item ${router.pathname === '/about' ? 'active' : ''}`}>
-              <a href="/about" className="nav-link">
+              <Link href="/about" className="nav-link">
                 About
-              </a>
+              </Link>
             </li>
             <li className={`nav-item ${router.pathname === '/services' ? 'active' : ''}`}>
-              <a href="/services" className="nav-link">
+              <Link href="/services" className="nav-link">
                 Services
-              </a>
+              </Link>
             </li>
             {/* <li className="nav-item">
                     <a href="/projects" className="nav-link">
@@ -329,14 +329,14 @@ export default function HeaderFrontend() {
                     </a>
                   </li> */}
             <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
-              <a href="/blogs" className="nav-link">
+              <Link href="/blogs" className="nav-link">
                 Blog
-              </a>
+              </Link>
             </li>
             <li className={`nav-item ${router.pathname === '/contact' ? 'active' : ''}`}>
-              <a href="/contact" className="nav-link">
+              <Link href="/contact" className="nav-link">
                 Contact
-              </a>
+              </Link>
             </li>
             <div className="others-options">
                     {users.name ? (
@@ -349,23 +349,23 @@ export default function HeaderFrontend() {
                           className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
                         >
                           {users.role === 'startup' && users.approval_status === 'approved' ? (
-                            <a href="/company/dashboard" className="colortwo">
+                            <Link href="/company/dashboard" className="colortwo">
                              Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
                            {users.role === 'investor' && users.approval_status === 'approved' ? (
-                            <a href="/investor/campaign" className="colortwo">
+                            <Link href="/investor/campaign" className="colortwo">
                              Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
                              {users.role === 'admin' ? (
-                            <a href="/admin/dashboard" className="colortwo">
+                            <Link href="/admin/dashboard" className="colortwo">
                               Dashboard
-                            </a>
+                            </Link>
                           ) : (
                             ""
                           )}
@@ -380,7 +380,7 @@ export default function HeaderFrontend() {
                       </div>
                     ) : (
                       <button  className="btnclasssmae" style={{ margin: "-45px" }}>
-                       <a href="/login" style={{ color: "#fff" }}>Login</a>
+                       <Link href="/login" style={{ color: "#fff" }}>Login</Link>
                       </button>
                     )}
                   </div>
@@ -477,30 +477,30 @@ export default function HeaderFrontend() {
             <div className="contact-info">
               <div className="contact-info-content">
                 <h2>
-                  <a href="tel:+882-569-756">+882-569-756</a>
+                  <Link href="tel:+882-569-756">+882-569-756</Link>
                   <span>OR</span>
-                  <a href="mailto:example@gmail.com">example@gmail.com</a>
+                  <Link href="mailto:example@gmail.com">example@gmail.com</Link>
                 </h2>
                 <ul className="social">
                   <li>
-                    <a href="#" target="_blank">
+                    <Link href="#" target="_blank">
                       <i className="flaticon-facebook" />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" target="_blank">
+                    <Link href="#" target="_blank">
                       <i className="flaticon-twitter" />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" target="_blank">
+                    <Link href="#" target="_blank">
                       <i className="flaticon-instagram" />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" target="_blank">
+                    <Link href="#" target="_blank">
                       <i className="flaticon-pinterest" />
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

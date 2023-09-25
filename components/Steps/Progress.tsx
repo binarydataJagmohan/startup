@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from "next/router";
 export default function Progress() {
     const router = useRouter();
@@ -15,7 +16,7 @@ export default function Progress() {
                 <div>1</div>
                 <div>
                 {isSecondStep || isThirdStep ? (
-                    <a href="/steps/firststep">Step 1</a>
+                    <Link href="/steps/firststep">Step 1</Link>
                 ) : (
                     'Step 1'
                 )}
@@ -24,7 +25,7 @@ export default function Progress() {
             <div className={`${isSecondStep ? 'step active' : 'step'}`}>
                 <div>2</div>
                 <div>
-                {isThirdStep ? <a href="/steps/secondstep">Step 2</a> : 'Step 2'}
+                {isThirdStep ? <Link href="/steps/secondstep">Step 2</Link> : 'Step 2'}
                 </div>
             </div>
             <div className={`${router.pathname === '/steps/thirdstep' ? 'step active' : 'step'}`}>

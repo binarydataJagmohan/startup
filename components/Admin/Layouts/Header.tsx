@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllActiveFundsCount, getTotalCountOfNotifications, getCountOfUnreadNotifications } from "../../../lib/adminapi";
 import Cookies from "js-cookie";
-
+import Link from 'next/link';
 import {
   removeToken,
   removeStorageData,
@@ -113,14 +113,14 @@ const Header = () => {
           <div className="d-flex align-items-center">
             {/* LOGO */}
             <div className="navbar-brand-box">
-              {/* <a href="/" className="logo logo-dark">
+              {/* <Link href="/" className="logo logo-dark">
                 <span className="logo-sm class-as">
                   <img src="/assets/img/logo2.png" alt="" height={22} />
                 </span>
                 <span className="logo-lg">
                   <img src="/assets/img/logo2.png" alt="" height={17} />
                 </span>
-              </a> */}
+              </Link> */}
               {/* <a href="/" className="logo logo-light">
                 <span className="logo-sm">
                   <img src="/assets/img/logo2.png" alt="" height={22} />
@@ -137,22 +137,22 @@ const Header = () => {
               <div className="offcanvas offcanvas-start show" tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                   <div className="navbar-brand-box p-0">
-                    <a href="/" className="logo logo-dark">
+                    <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <img src="/assets/img/logo.png" alt="" height={22} />
                       </span>
                       <span className="logo-lg">
                         <img src="/assets/img/logo.png" alt="" height={17} />
                       </span>
-                    </a>
-                    <a href="/" className="logo logo-light">
+                    </Link>
+                    <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <img src="/assets/img/logo.png" alt="" height={22} />
                       </span>
                       <span className="logo-lg">
                         <img src="/assets/img/logo.png" alt="" height={18} />
                       </span>
-                    </a>
+                    </Link>
                   </div>
                   <button type="button" className="btn-close d-none" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
@@ -164,60 +164,60 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li className={`nav-item ${router.pathname === '/admin/dashboard' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect" >
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect" >
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-investors' || router.pathname.startsWith('/admin/edit-investor') ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup') ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>Startups</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
                               <span>Active Funds</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-users' || router.pathname.startsWith('/admin/edit-user') ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>Users</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-notifications' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span className="badge rounded-pill bg-danger float-end">{unreadNotifications}</span>
                               <span>Notifications</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/terms-and-conditions' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
                             <i className="fas fa-clipboard-list term-icon"></i>
                               <span>Term & Condition </span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/privacy-policy' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
                             <i className="fas fa-user-secret privacy-icon"></i>
                               <span>Privacy Policy</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/notification-settings' ? 'active p1' : ''}`}>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/notification-settings"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/notification-settings"} className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -234,22 +234,22 @@ const Header = () => {
               <div className="offcanvas offcanvas-start" tabIndex={-1} id="offcanvasExample1" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                   <div className="navbar-brand-box p-0">
-                    <a href="/" className="logo logo-dark">
+                    <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <img src="/assets/img/logo.png" alt="" height={22} />
                       </span>
                       <span className="logo-lg">
                         <img src="/assets/img/logo.png" alt="" height={17} />
                       </span>
-                    </a>
-                    <a href="/" className="logo logo-light">
+                    </Link>
+                    <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <img src="/assets/img/logo.png" alt="" height={22} />
                       </span>
                       <span className="logo-lg">
                         <img src="/assets/img/logo.png" alt="" height={18} />
                       </span>
-                    </a>
+                    </Link>
                   </div>
                   <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
@@ -261,41 +261,41 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="#" className="waves-effect">
+                            <Link href="#" className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-primary float-end">10</span>
                               <span>Active Funds</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="#" className="waves-effect">
+                            <Link href="#" className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>All Users</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="#" className="waves-effect">
+                            <Link href="#" className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -346,7 +346,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
+                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -368,13 +368,13 @@ const Header = () => {
                         )}
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <a className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
+                    <Link className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
                       View all
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -386,9 +386,9 @@ const Header = () => {
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>
                 <div className="dropdown-divider" />
-                <a className="dropdown-item" href={`${process.env.NEXT_PUBLIC_BASE_URL}admin/admin-update`}><i className="mdi mdi-account-circle font-size-17 align-middle me-1" />Profile</a>
-                <a className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</a>
-                {/* <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a> */}
+                <Link className="dropdown-item" href={`${process.env.NEXT_PUBLIC_BASE_URL}admin/admin-update`}><i className="mdi mdi-account-circle font-size-17 align-middle me-1" />Profile</Link>
+                <Link className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</Link>
+                {/* <Link className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></Link> */}
                 <div className="dropdown-divider" />
                 <button className="dropdown-item text-danger" onClick={handleLogout}><i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" /> Logout</button>
               </div>

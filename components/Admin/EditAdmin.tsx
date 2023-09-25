@@ -5,7 +5,7 @@ import { getCountries } from '@/lib/frontendapi';
 import { getAdminData } from '@/lib/adminapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import "react-toastify/dist/ReactToastify.css";
@@ -223,10 +223,10 @@ const EditAdmin = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"}>Admin</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"}>Admin</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                           Form

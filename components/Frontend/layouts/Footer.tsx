@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 const Footer = () => {
   return (
     <div>
@@ -10,39 +10,39 @@ const Footer = () => {
                             <div className="single-footer-widget">
                                 <div className="footer-heading">
                                     <div className="logo" id="logo-id">
-                                        <a href="/">
+                                        <Link href="/">
                                             <img
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                                                 className="black-logo"
                                                 alt="image"
                                             />
-                                        </a>
+                                        </Link>
                                         <p>We are dedicated to providing you with innovative investment opportunities that can help you grow your wealth and achieve your financial goals.</p>
                                     </div>
                                 </div>
                                 <ul className="footer-social">
                                     <li>
-                                        <a href="https://www.facebook.com/">
+                                        <Link href="https://www.facebook.com/">
                                             <i className="flaticon-facebook"></i>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a href="https://twitter.com/">
+                                        <Link href="https://twitter.com/">
                                             <i className="flaticon-twitter"></i>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a href="https://in.pinterest.com/">
+                                        <Link href="https://in.pinterest.com/">
                                             <i className="flaticon-pinterest"></i>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a href="https://www.instagram.com/">
+                                        <Link href="https://www.instagram.com/">
                                             <i className="flaticon-instagram"></i>
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -55,19 +55,19 @@ const Footer = () => {
                                 </div>
                                 <ul className="footer-quick-links">
                                     <li>
-                                        <a href="/about">About Us</a>
+                                        <Link href="/about">About Us</Link>
                                     </li>
                                     {/* <li>
-                                        <a href="/project-one">Project</a>
+                                        <Link href="/project-one">Project</Link>
                                     </li> */}
                                     <li>
-                                        <a href="/services">Services</a>
+                                        <Link href="/services">Services</Link>
                                     </li>
                                     <li>
-                                        <a href="/blogs">Blog</a>
+                                        <Link href="/blogs">Blog</Link>
                                     </li>
                                     <li>
-                                        <a href="/contact">Contact</a>
+                                        <Link href="/contact">Contact</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -80,19 +80,19 @@ const Footer = () => {
                                 </div>
                                 <ul className="footer-quick-links">
                                     <li>
-                                        <a href="/team">Team</a>
+                                        <Link href="/team">Team</Link>
                                     </li>
                                     {/* <li>
-                                        <a href="/pricing">Pricing</a>
+                                        <Link href="/pricing">Pricing</Link>
                                     </li> */}
                                     <li>
-                                        <a href="/faq">FAQ</a>
+                                        <Link href="/faq">FAQ</Link>
                                     </li>
                                     <li>
-                                        <a href="/terms-condition">Term & Condition</a>
+                                        <Link href="/terms-condition">Term & Condition</Link>
                                     </li>
                                     <li>
-                                        <a href="/privacy-policy">Privacy policy</a>
+                                        <Link href="/privacy-policy">Privacy policy</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -107,13 +107,13 @@ const Footer = () => {
                                 <div className="footer-info-contact">
                                     <i className="flaticon-phone-call"></i>
                                     <h3>Phone</h3>
-                                    <span><a href="tel:+882-569-756" style={{color:"black"}}>+123(456)123</a></span>
+                                    <span><Link href="tel:+882-569-756" style={{color:"black"}}>+123(456)123</Link></span>
                                 </div>
 
                                 <div className="footer-info-contact">
                                     <i className="flaticon-envelope"></i>
                                     <h3>Email</h3>
-                                    <span><a href="mailto:example@gmail.com" style={{color:"black"}}><span>example@gmail.com</span></a></span>
+                                    <span><Link href="mailto:example@gmail.com" style={{color:"black"}}><span>example@gmail.com</span></Link></span>
                                 </div>
 
                                 <div className="footer-info-contact">

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function ProjectDetails() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function ProjectDetails() {
                             <div className="page-title-content">
                                 <h2>Projects</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Single Projects</li>
                                 </ul>
                             </div>
@@ -60,10 +60,10 @@ export default function ProjectDetails() {
                                     <div className="single-info-box">
                                         <h4>Share</h4>
                                         <ul className="social">
-                                            <li><a href="https://www.facebook.com/" target="_blank"><i className="flaticon-facebook" /></a></li>
-                                            <li><a href="https://twitter.com/" target="_blank"><i className="flaticon-twitter" /></a></li>
-                                            <li><a href="https://in.pinterest.com/" target="_blank"><i className="flaticon-pinterest" /></a></li>
-                                            <li><a href="https://www.instagram.com/" target="_blank"><i className="flaticon-instagram" /></a></li>
+                                            <li><Link href="https://www.facebook.com/" target="_blank"><i className="flaticon-facebook" /></Link></li>
+                                            <li><Link href="https://twitter.com/" target="_blank"><i className="flaticon-twitter" /></Link></li>
+                                            <li><Link href="https://in.pinterest.com/" target="_blank"><i className="flaticon-pinterest" /></Link></li>
+                                            <li><Link href="https://www.instagram.com/" target="_blank"><i className="flaticon-instagram" /></Link></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { removeToken, removeStorageData, getCurrentUserData, getToken} from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
 import { sendNotification} from '../../lib/frontendapi'
-
+import Link from 'next/link';
 interface UserData {
   id?: number;
 }
@@ -169,7 +169,7 @@ const AllFundsList = () => {
                   <h6 className="page-title">Startup</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
-                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       All Funds Raise List
@@ -226,8 +226,8 @@ const AllFundsList = () => {
                                   </span>
                                 </td>
                                 <td>
-                                  <a href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
-                                  <a href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
+                                  <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
                                 </td>
                               </tr>
                             ))

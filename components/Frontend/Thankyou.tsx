@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import {CheckUserApprovalStatus} from '../../lib/frontendapi';
+import Link from 'next/link';
 interface UserData {
     id?: number;
     approval_status?: string;
@@ -109,7 +110,7 @@ const Thankyou = () => {
                                 <p>
                                 Your Profile has been completed successfully please wait for the administrators level verification.Your request has been received and is currently pending approval from our administrators. We appreciate your patience and will respond your request as soon as possible. 
                                 </p>
-                                <a href={process.env.NEXT_PUBLIC_BASE_URL +"/"} className="default-btn">Go to Home</a>
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL +"/"} className="default-btn">Go to Home</Link>
                             </div>
                         </div>
                     </div>

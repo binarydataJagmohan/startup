@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function Errors() {
   return (
     <div>
@@ -11,7 +11,7 @@ export default function Errors() {
                 <img src="assets/img/404.png" alt="error" />
                 <h3>Page Not Found</h3>
                 <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-                <a href="/" className="default-btn">Go to Home</a>
+                <Link href="/" className="default-btn">Go to Home</Link>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { basicInformationSave, getBasicInformation, getSingleUserData } from "../../lib/frontendapi";
 import {
@@ -415,12 +416,12 @@ export default function Customereview(): any {
                           </div>
                           <div className="row mt-3">
                             <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
-                              <a
+                              <Link
                                 href={`/steps/businessinfo`}
                                 className="btnclasssmae" id="back"
                               >
                                 Go back
-                              </a>
+                              </Link>
                             </div>
 
                             <div

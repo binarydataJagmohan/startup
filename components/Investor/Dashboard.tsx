@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { getAllBusiness, getSingleBusinessDetails,getSingleClosedBusinessDetails,investorViewer} from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
-
+import Link from 'next/link';
 
 import { CheckUserApprovalStatus } from "../../lib/frontendapi";
 interface UserData {
@@ -167,7 +167,7 @@ const Dashboard = () => {
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
-                      <a href="#" className="image">
+                      <Link href="#" className="image">
                         { }
                         
                         <img
@@ -175,7 +175,7 @@ const Dashboard = () => {
                           src={details.logo}
                         />
                         {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
-                      </a>
+                      </Link>
                     </div>
                     <div className="main-padding">
                       <div className="d-flex justify-content-between">

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link'
 
 const Copyright = () => {
   return (
@@ -18,10 +19,10 @@ const Copyright = () => {
               <div className="col-lg-6 col-md-6">
                 <ul>
                   <li>
-                    <a href="/terms-condition">Terms & Conditions</a>
+                    <Link href="/terms-condition">Terms & Conditions</Link>
                   </li>
                   <li>
-                    <a href="/privacy-policy">Privacy Policy</a>
+                    <Link href="/privacy-policy">Privacy Policy</Link>
                   </li>
                 </ul>
               </div>

@@ -3,6 +3,7 @@ import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading...</p>,
@@ -35,7 +36,7 @@ export default function TermCondition() {
                             <div className="page-title-content">
                                 <h2>Terms &amp; Conditions</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Terms &amp; Conditions</li>
                                 </ul>
                             </div>

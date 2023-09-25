@@ -3,6 +3,7 @@ import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import Link from 'next/link';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import Pagination from "../../components/Frontend/Common/Pagination";
 import { paginate } from "../../helpers/paginate";
@@ -250,7 +251,7 @@ const StartupList = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             All Startup Companies
@@ -314,12 +315,12 @@ const StartupList = () => {
                                                                     <span style={{ cursor: "pointer" }} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/edit-startup/?id=${startup.id}`} className='m-1'>
+                                                                    <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/edit-startup/?id=${startup.id}`} className='m-1'>
                                                                         <span className='fa fa-edit'></span>
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" onClick={() => deleteStartup(startup.id)} className='m-1'>
+                                                                    </Link>
+                                                                    <Link href="javascript:void(0);" onClick={() => deleteStartup(startup.id)} className='m-1'>
                                                                         <span className='fa fa-trash text-danger'></span>
-                                                                    </a>
+                                                                    </Link>
                                                                 </td>
                                                             </tr>
                                                         ))}

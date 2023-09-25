@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../lib/frontendapi";
-
+import Link from 'next/link';
 import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -166,7 +166,7 @@ export default function Login() {
                 <h2>Log In</h2>
                 <ul>
                   <li>
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </li>
                   <li>Log In</li>
                 </ul>
@@ -251,7 +251,7 @@ export default function Login() {
 
                 <div className="col-lg-12 mt-2">
                   <p className="forgot-password">
-                    <a href="/reset-password">Forgot Password?</a>
+                    <Link href="/reset-password">Forgot Password?</Link>
                   </p>
                 </div>
                 <div className="row mt-3">
@@ -262,7 +262,7 @@ export default function Login() {
                   </div>
                   <br />
                   <span className="mt-3">
-                    Don't have account? <a href="/signup">Signup!</a>
+                    Don't have account? <Link href="/signup">Signup!</Link>
                   </span>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from 'next/link';
 export default function ProjectOne() {
   return (
     <>
@@ -11,7 +11,7 @@ export default function ProjectOne() {
                 <h2>Projects</h2>
                 <ul>
                   <li>
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </li>
                   <li>Projects</li>
                 </ul>
@@ -39,14 +39,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/1.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                     <h3>Sustainable Housing Development</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to build affordable, energy-efficient housing for low-income families.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -56,14 +56,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/2.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                     <h3>Clean Water Initiative</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to provide clean drinking water to communities in need.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -73,14 +73,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/3.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                   <h3>Community Solar Farm</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to build a solar farm that provides clean energy to the surrounding community.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -90,14 +90,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/4.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                   <h3>Urban Garden Initiative</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to establish community gardens in urban areas with limited access to fresh produce.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -107,14 +107,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/5.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                   <h3>Youth Mentorship Program</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to provide mentorship and guidance to at-risk youth in the community.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="single-projects">
@@ -122,14 +122,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/6.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                   <h3>Road Safety Campaign</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to promote road safety awareness and reduce the number of accidents on the roads.
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -139,14 +139,14 @@ export default function ProjectOne() {
                   <img src="assets/img/projects/7.jpg" alt="image" />
                 </div>
                 <div className="projects-content">
-                  <a href="single-projects.html">
+                  <Link href="single-projects.html">
                   <h3>Online Learning Platform</h3>
-                  </a>
-                  <a href="single-projects.html">
+                  </Link>
+                  <Link href="single-projects.html">
                     <span>
                     A project to create an online learning platform that provides free educational resources to the public. 
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

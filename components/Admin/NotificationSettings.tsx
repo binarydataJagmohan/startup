@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Switch from 'react-switch';
+import Link from 'next/link';
 import { notificationConfigStore, getOptionsConfig } from '../../lib/adminapi';
 import { getCurrentUserData } from '@/lib/session';
 type UserData = {
@@ -145,7 +146,7 @@ const NotificationSettings = () => {
                                     <h6 className="page-title">Notification Configurations</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             Notifications

@@ -4,6 +4,7 @@ import { getSingleBusinessDetails, InvestorBooking} from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from 'next/link';
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;

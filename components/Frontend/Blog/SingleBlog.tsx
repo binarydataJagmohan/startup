@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function SingleBlog() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function SingleBlog() {
                             <div className="page-title-content">
                                 <h2>Blog</h2>
                                 <ul>
-                                    <li><a href="#">Home</a></li>
+                                    <li><Link href="#">Home</Link></li>
                                     <li>Single Blog</li>
                                 </ul>
                             </div>
@@ -31,11 +31,11 @@ export default function SingleBlog() {
                                         <ul>
                                             <li>
                                                 <span>Posted On:</span>
-                                                <a href="#">September 31, 2022</a>
+                                                <Link href="#">September 31, 2022</Link>
                                             </li>
                                             <li>
                                                 <span>Posted By:</span>
-                                                <a href="#">John Anderson</a>
+                                                <Link href="#">John Anderson</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -94,26 +94,26 @@ export default function SingleBlog() {
                                         <span>
                                             <i className="bx bx-bookmark" />
                                         </span>
-                                        <a href="#">Fashion</a>,
-                                        <a href="#">Travel</a>
+                                        <Link href="#">Fashion</Link>,
+                                        <Link href="#">Travel</Link>
                                     </div>
                                     <div className="article-share">
                                         <ul className="social">
                                             <li><span>Share:</span></li>
                                             <li>
-                                                <a href="#" target="_blank">
+                                                <Link href="#" target="_blank">
                                                     <i className="flaticon-facebook" />
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#" target="_blank">
+                                                <Link href="#" target="_blank">
                                                     <i className="flaticon-twitter" />
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#" target="_blank">
+                                                <Link href="#" target="_blank">
                                                     <i className="flaticon-instagram" />
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -121,16 +121,16 @@ export default function SingleBlog() {
                                 <div className="post-navigation">
                                     <div className="navigation-links">
                                         <div className="nav-previous">
-                                            <a href="#">
+                                            <Link href="#">
                                                 <i className="flaticon-left" />
                                                 Prev Post
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="nav-next">
-                                            <a href="#">
+                                            <Link href="#">
                                                 Next Post
                                                 <i className="flaticon-right" />
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -146,16 +146,16 @@ export default function SingleBlog() {
                                                         <span className="says">says:</span>
                                                     </div>
                                                     <div className="comment-metadata">
-                                                        <a href="#">
+                                                        <Link href="#">
                                                             <time>April 24, 2022 at 10:59 am</time>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </footer>
                                                 <div className="comment-content">
                                                     <p>Great post! I loved the tips on time management - I'm definitely going to try implementing some of them.</p>
                                                 </div>
                                                 <div className="reply">
-                                                    <a href="#" className="comment-reply-link">Reply</a>
+                                                    <Link href="#" className="comment-reply-link">Reply</Link>
                                                 </div>
                                             </article>
                                             <ol className="children">
@@ -168,16 +168,16 @@ export default function SingleBlog() {
                                                                 <span className="says">says:</span>
                                                             </div>
                                                             <div className="comment-metadata">
-                                                                <a href="#">
+                                                                <Link href="#">
                                                                     <time>April 24, 2022 at 10:59 am</time>
-                                                                </a>
+                                                                </Link>
                                                             </div>
                                                         </footer>
                                                         <div className="comment-content">
                                                             <p>I completely agree with your insights on building a strong personal brand. It's so important in today's digital age.</p>
                                                         </div>
                                                         <div className="reply">
-                                                            <a href="#" className="comment-reply-link">Reply</a>
+                                                            <Link href="#" className="comment-reply-link">Reply</Link>
                                                         </div>
                                                     </article>
                                                 </li>
@@ -191,16 +191,16 @@ export default function SingleBlog() {
                                                                     <span className="says">says:</span>
                                                                 </div>
                                                                 <div className="comment-metadata">
-                                                                    <a href="#">
+                                                                    <Link href="#">
                                                                         <time>April 24, 2022 at 10:59 am</time>
-                                                                    </a>
+                                                                    </Link>
                                                                 </div>
                                                             </footer>
                                                             <div className="comment-content">
                                                                 <p>I appreciate the way you break down complex topics in your blog posts. Your article on marketing trends was easy to understand and really informative.</p>
                                                             </div>
                                                             <div className="reply">
-                                                                <a href="#" className="comment-reply-link">Reply</a>
+                                                                <Link href="#" className="comment-reply-link">Reply</Link>
                                                             </div>
                                                         </article>
                                                     </li>
@@ -217,16 +217,16 @@ export default function SingleBlog() {
                                                         <span className="says">says:</span>
                                                     </div>
                                                     <div className="comment-metadata">
-                                                        <a href="#">
+                                                        <Link href="#">
                                                             <time>April 24, 2022 at 10:59 am</time>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </footer>
                                                 <div className="comment-content">
                                                     <p>Thanks for sharing your personal experiences with self-care. It's refreshing to see entrepreneurs talking openly about the importance of taking care of ourselves.</p>
                                                 </div>
                                                 <div className="reply">
-                                                    <a href="#" className="comment-reply-link">Reply</a>
+                                                    <Link href="#" className="comment-reply-link">Reply</Link>
                                                 </div>
                                             </article>
                                         </li>
@@ -283,35 +283,35 @@ export default function SingleBlog() {
                                 <section className="widget widget_fria_posts_thumb">
                                     <h3 className="widget-title">Popular Posts</h3>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg1" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 10, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="#">10 Tips for Running a Successful Online Business</a>
+                                                <Link href="#">10 Tips for Running a Successful Online Business</Link>
                                             </h4>
                                         </div>
                                     </article>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg2" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 21, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="#">The Benefits of Mindfulness Meditation for Entrepreneurs</a>
+                                                <Link href="#">The Benefits of Mindfulness Meditation for Entrepreneurs</Link>
                                             </h4>
                                         </div>
                                     </article>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg3" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 30, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="#">How to Build a Strong Personal Brand in the Digital Age</a>
+                                                <Link href="#">How to Build a Strong Personal Brand in the Digital Age</Link>
                                             </h4>
                                         </div>
                                     </article>

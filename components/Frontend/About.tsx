@@ -1,6 +1,6 @@
 import React from "react";
 import FrequentlyQuestions from "./FrequentlyQuestions";
-
+import Link from 'next/link';
 const About = () => {
   return (
     <div>
@@ -14,7 +14,7 @@ const About = () => {
                   <h2>About</h2>
                   <ul>
                     <li>
-                      <a href="/">Home</a>
+                      <Link href="/">Home</Link>
                     </li>
                     <li>About</li>
                   </ul>
@@ -43,13 +43,13 @@ const About = () => {
                   <div className="tab about-list-tab">
                     <ul className="tabs">
                       <li>
-                        <a href="#">Our History</a>
+                        <Link href="#">Our History</Link>
                       </li>
                       <li>
-                        <a href="#">Our Mission</a>
+                        <Link href="#">Our Mission</Link>
                       </li>
                       <li>
-                        <a href="#">Friendly Support</a>
+                        <Link href="#">Friendly Support</Link>
                       </li>
                     </ul>
                     <div className="tab_content">
@@ -59,9 +59,9 @@ const About = () => {
 
 Over the years, we have grown into a trusted resource for investors around the world. With our commitment to transparency, security, and user-friendliness, we have earned a reputation as one of the most reliable investment platforms on the market.
                         </p>
-                        <a className="default-btn" href="#">
+                        <Link className="default-btn" href="#">
                           Discover More
-                        </a>
+                        </Link>
                       </div>
                       <div className="tabs_item">
                         <p>
@@ -69,9 +69,9 @@ Over the years, we have grown into a trusted resource for investors around the w
 
 Our team of experienced professionals is dedicated to helping our users achieve their financial goals. We are constantly innovating and improving our platform to ensure that it remains the best resource for anyone who wants to invest wisely and confidently.
                         </p>
-                        <a className="default-btn" href="#">
+                        <Link className="default-btn" href="#">
                           Discover More
-                        </a>
+                        </Link>
                       </div>
                       <div className="tabs_item">
                         <p>
@@ -79,9 +79,9 @@ Our team of experienced professionals is dedicated to helping our users achieve 
 
 We understand that investing can be intimidating, which is why we take a personalized approach to support. Our team of experts is always available to answer your questions, provide guidance, and help you make the most of our platform. Whether you are a beginner or a seasoned investor, you can count on us to provide the support you need to succeed.
                         </p>
-                        <a className="default-btn" href="#">
+                        <Link className="default-btn" href="#">
                           Discover More
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -108,24 +108,24 @@ We understand that investing can be intimidating, which is why we take a persona
                     <img src="assets/img/team/1.jpg" alt="image" />
                     <ul className="social">
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-facebook" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-twitter" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-linkedin" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-instagram" />
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -141,24 +141,24 @@ We understand that investing can be intimidating, which is why we take a persona
                     <img src="assets/img/team/2.jpg" alt="image" />
                     <ul className="social">
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-facebook" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-twitter" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-linkedin" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-instagram" />
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -174,24 +174,24 @@ We understand that investing can be intimidating, which is why we take a persona
                     <img src="assets/img/team/3.jpg" alt="image" />
                     <ul className="social">
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-facebook" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-twitter" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-linkedin" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" target="_blank">
+                        <Link href="#" target="_blank">
                           <i className="bx bxl-instagram" />
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
