@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { saveContact } from '../../lib/frontendapi';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-
+import Image from 'next/image';
 const Contact = () => {
 
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+
   const SubmitForm = () => {
 
     //e.preventDefault();
@@ -87,7 +87,7 @@ const Contact = () => {
                   <i className="flaticon-envelope" />
                   <div className="content-title">
                     <h3>Email</h3>
-                    <span><Link href="mailto:example@gmail.com" style={{color:"black"}}><p>example@gmail.com</p></Link></span>
+                    <span><Link href="mailto:example@gmail.com" style={{ color: "black" }}><p>example@gmail.com</p></Link></span>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                   <i className="flaticon-phone-call" />
                   <div className="content-title">
                     <h3>Phone</h3>
-                    <Link href="tel:123456123" style={{color:"black"}}><p>+123(456)123</p></Link>
+                    <Link href="tel:123456123" style={{ color: "black" }}><p>+123(456)123</p></Link>
                   </div>
                 </div>
               </div>
@@ -173,8 +173,8 @@ const Contact = () => {
                 </div>
               </div>
               <div className="col-lg-6">
-                <div className="contact-image">
-                  <img src="assets/img/contact.png" alt="image" />
+                <div className="contact-image">                  
+                  <Image src="assets/img/contact.png" alt="image" width={540} height={580} />
                 </div>
               </div>
             </div>

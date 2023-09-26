@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function FrequentlyQuestions() {
     return (
         <>
@@ -105,7 +106,7 @@ export default function FrequentlyQuestions() {
                         </div>
                         <div className="col-lg-6">
                             <div className="faq-image">
-                                <img src="assets/img/faq.png" alt="image" />
+                                <Image src="assets/img/faq.png" alt="image" width={546} height={423} />
                             </div>
                         </div>
                     </div>

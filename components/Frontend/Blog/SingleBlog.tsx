@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function SingleBlog() {
     return (
         <>
@@ -24,7 +25,7 @@ export default function SingleBlog() {
                         <div className="col-lg-8 col-md-12">
                             <div className="blog-details-desc">
                                 <div className="article-image">
-                                    <img src="assets/img/blog-details/blog-1.jpg" alt="image" />
+                                    <Image src="assets/img/blog-details/blog-1.jpg" alt="image" width={736} height={504} />
                                 </div>
                                 <div className="article-content">
                                     <div className="entry-meta">
@@ -49,17 +50,17 @@ export default function SingleBlog() {
                                     <ul className="wp-block-gallery columns-3">
                                         <li className="blocks-gallery-item">
                                             <figure>
-                                                <img src="assets/img/blog-details/4.jpg" alt="image" />
+                                                <Image src="assets/img/blog-details/4.jpg" alt="image" width={232} height={182} />
                                             </figure>
                                         </li>
                                         <li className="blocks-gallery-item">
                                             <figure>
-                                                <img src="assets/img/blog-details/2.jpg" alt="image" />
+                                                <Image src="assets/img/blog-details/2.jpg" alt="image" width={232} height={182} />
                                             </figure>
                                         </li>
                                         <li className="blocks-gallery-item">
                                             <figure>
-                                                <img src="assets/img/blog-details/3.jpg" alt="image" />
+                                                <Image src="assets/img/blog-details/3.jpg" alt="image" width={232} height={182} />
                                             </figure>
                                         </li>
                                     </ul>
@@ -67,7 +68,7 @@ export default function SingleBlog() {
                                     <ul className="features-list">
                                         <li>
                                             <i className="flaticon-tick" />
-                                            <b>Strategy</b> : The foundation of any successful business is a strong and effective strategy. We work with our clients to develop comprehensive strategies that are tailored to their specific needs and goals. Our team has extensive experience in strategic planning and can help businesses identify new opportunities, overcome obstacles, and stay ahead of the competition. 
+                                            <b>Strategy</b> : The foundation of any successful business is a strong and effective strategy. We work with our clients to develop comprehensive strategies that are tailored to their specific needs and goals. Our team has extensive experience in strategic planning and can help businesses identify new opportunities, overcome obstacles, and stay ahead of the competition.
                                         </li>
                                         <li>
                                             <i className="flaticon-tick" />
@@ -141,7 +142,7 @@ export default function SingleBlog() {
                                             <article className="comment-body">
                                                 <footer className="comment-meta">
                                                     <div className="comment-author vcard">
-                                                        <img src="assets/img/client/1.jpg" className="avatar" alt="image" />
+                                                        <Image src="assets/img/client/1.jpg" className="avatar" alt="image" width={50} height={50} />
                                                         <b className="fn">John Jones</b>
                                                         <span className="says">says:</span>
                                                     </div>
@@ -163,7 +164,7 @@ export default function SingleBlog() {
                                                     <article className="comment-body">
                                                         <footer className="comment-meta">
                                                             <div className="comment-author vcard">
-                                                                <img src="assets/img/client/2.jpg" className="avatar" alt="image" />
+                                                                <Image src="assets/img/client/2.jpg" className="avatar" alt="image" width={50} height={50} />
                                                                 <b className="fn">Steven Smith</b>
                                                                 <span className="says">says:</span>
                                                             </div>
@@ -186,7 +187,7 @@ export default function SingleBlog() {
                                                         <article className="comment-body">
                                                             <footer className="comment-meta">
                                                                 <div className="comment-author vcard">
-                                                                    <img src="assets/img/client/3.jpg" className="avatar" alt="image" />
+                                                                    <Image src="assets/img/client/3.jpg" className="avatar" alt="image" width={50} height={50} />
                                                                     <b className="fn">Sarah Taylor</b>
                                                                     <span className="says">says:</span>
                                                                 </div>
@@ -212,7 +213,7 @@ export default function SingleBlog() {
                                             <article className="comment-body">
                                                 <footer className="comment-meta">
                                                     <div className="comment-author vcard">
-                                                        <img src="assets/img/client/4.jpg" className="avatar" alt="image" />
+                                                        <Image src="assets/img/client/4.jpg" className="avatar" alt="image" width={50} height={50} />
                                                         <b className="fn">James Anderson</b>
                                                         <span className="says">says:</span>
                                                     </div>
@@ -245,7 +246,7 @@ export default function SingleBlog() {
                                             </p>
                                             <p className="comment-form-author">
                                                 <label>Name <span className="required">*</span></label>
-                                                <input type="text" id="author" name="author" required/>
+                                                <input type="text" id="author" name="author" required />
                                             </p>
                                             <p className="comment-form-email">
                                                 <label>Email <span className="required">*</span></label>
@@ -315,7 +316,7 @@ export default function SingleBlog() {
                                             </h4>
                                         </div>
                                     </article>
-                                    
+
                                 </section>
                                 <section className="widget widget_categories">
                                     <h3 className="widget-title">Categories</h3>

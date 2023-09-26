@@ -1,20 +1,23 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 const Footer = () => {
-  return (
-    <div>
-      <section className="footer-section pt-100 pb-70" id="footer-sec">
-            <div className="container">
-            <div className="row">
+    return (
+        <div>
+            <section className="footer-section pt-100 pb-70" id="footer-sec">
+                <div className="container">
+                    <div className="row">
                         <div className="col-lg-3 col-md-6 col-sm-6">
                             <div className="single-footer-widget">
                                 <div className="footer-heading">
                                     <div className="logo" id="logo-id">
-                                        <Link href="/">
-                                            <img
+                                        <Link href="/">                                           
+                                            <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                                                 className="black-logo"
                                                 alt="image"
+                                                width={150}
+                                                height={70}
                                             />
                                         </Link>
                                         <p>We are dedicated to providing you with innovative investment opportunities that can help you grow your wealth and achieve your financial goals.</p>
@@ -107,13 +110,13 @@ const Footer = () => {
                                 <div className="footer-info-contact">
                                     <i className="flaticon-phone-call"></i>
                                     <h3>Phone</h3>
-                                    <span><Link href="tel:+882-569-756" style={{color:"black"}}>+123(456)123</Link></span>
+                                    <span><Link href="tel:+882-569-756" style={{ color: "black" }}>+123(456)123</Link></span>
                                 </div>
 
                                 <div className="footer-info-contact">
                                     <i className="flaticon-envelope"></i>
                                     <h3>Email</h3>
-                                    <span><Link href="mailto:example@gmail.com" style={{color:"black"}}><span>example@gmail.com</span></Link></span>
+                                    <span><Link href="mailto:example@gmail.com" style={{ color: "black" }}><span>example@gmail.com</span></Link></span>
                                 </div>
 
                                 <div className="footer-info-contact">
@@ -124,10 +127,10 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-            </div>
-        </section>
-    </div>
-  )
+                </div>
+            </section>
+        </div>
+    )
 }
 
 export default Footer

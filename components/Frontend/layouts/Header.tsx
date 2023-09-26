@@ -6,8 +6,8 @@ import { saveContact } from '../../../lib/frontendapi';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {CheckUserApprovalStatus} from '../../../lib/frontendapi'
-
+import { CheckUserApprovalStatus } from '../../../lib/frontendapi'
+import Image from 'next/image';
 type UserData = {
   id?: string;
   username?: string;
@@ -108,25 +108,27 @@ export default function HeaderFrontend() {
             <div className="fria-responsive-menu">
               <div className="logo">
                 <Link href="/">
-                  <img
+                  <Image
                     src={
                       process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"
                     }
                     className="black-logo"
                     alt="image"
+                    width={150}
+                    height={70}
                   />
-                  {/* <img
-                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo-2.png"}
-                    className="white-logo"
-                    alt="image"
-                  /> */}
                 </Link>
               </div>
               <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <span />
                 <span />
                 <span />
-                <img src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png" alt="" />
+                <Image
+                  src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png"
+                  alt="menu-bar"
+                  width={33}
+                  height={33}
+                />
               </div>
             </div>
           </div>
@@ -135,16 +137,13 @@ export default function HeaderFrontend() {
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
               <Link className="navbar-brand" href="/">
-                <img
+                <Image
                   src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                   className="black-logo"
-                  alt="image"
+                  alt="logo-image"
+                  width={150}
+                  height={70}
                 />
-                {/* <img
-                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo-2.png"}
-                  className="white-logo"
-                  alt="image"
-                /> */}
               </Link>
               <div
                 className="collapse navbar-collapse mean-menu"
@@ -210,51 +209,51 @@ export default function HeaderFrontend() {
                   </li> */}
                 </ul>
                 <div className="others-options">
-                    {users.name ? (
-                      <div className="dropdown">
-                        <a onClick={myFunction} className="dropbtn text-white">
-                          {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
-                        </a>
-                        <div
-                          id="myDropdown"
-                          className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
-                        >
-                          {users.role === 'startup' && users.approval_status === 'approved' ? (
-                            <Link href="/company/dashboard" className="colortwo">
-                             Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-                           {users.role === 'investor' && users.approval_status === 'approved' ? (
-                            <Link href="/investor/campaign" className="colortwo">
-                             Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-                             {users.role === 'admin' ? (
-                            <Link href="/admin/dashboard" className="colortwo">
-                              Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-
-
-
-
-                          <Link href="#" onClick={handleLogout} className="colortwo">
-                            Logout
+                  {users.name ? (
+                    <div className="dropdown">
+                      <a onClick={myFunction} className="dropbtn text-white">
+                        {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
+                      </a>
+                      <div
+                        id="myDropdown"
+                        className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
+                      >
+                        {users.role === 'startup' && users.approval_status === 'approved' ? (
+                          <Link href="/company/dashboard" className="colortwo">
+                            Dashboard
                           </Link>
-                        </div>
+                        ) : (
+                          ""
+                        )}
+                        {users.role === 'investor' && users.approval_status === 'approved' ? (
+                          <Link href="/investor/campaign" className="colortwo">
+                            Dashboard
+                          </Link>
+                        ) : (
+                          ""
+                        )}
+                        {users.role === 'admin' ? (
+                          <Link href="/admin/dashboard" className="colortwo">
+                            Dashboard
+                          </Link>
+                        ) : (
+                          ""
+                        )}
+
+
+
+
+                        <Link href="#" onClick={handleLogout} className="colortwo">
+                          Logout
+                        </Link>
                       </div>
-                    ) : (
-                      <button  className="btnclasssmae" style={{ margin: "-45px" }}>
-                       <Link href="/login" style={{ color: "#fff" }}>Login</Link>
-                      </button>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <button className="btnclasssmae" style={{ margin: "-45px" }}>
+                      <Link href="/login" style={{ color: "#fff" }}>Login</Link>
+                    </button>
+                  )}
+                </div>
 
 
                 {/* <div className="others-options">
@@ -292,16 +291,13 @@ export default function HeaderFrontend() {
         <div className="">
           <h5 className="offcanvas-title text-center" id="offcanvasRightLabel">
             <Link className="navbar-brand" href="/">
-              <img
+              <Image
                 src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                 className="black-logo pt-5"
-                alt="image"
+                alt="logo-image"
+                width={150}
+                height={70}
               />
-              {/* <img
-                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo-2.png"}
-                  className="white-logo"
-                  alt="image"
-                /> */}
             </Link>
           </h5>
           <button type="button" className="btn-close claoseclasss" data-bs-dismiss="offcanvas" aria-label="Close" />
@@ -339,52 +335,52 @@ export default function HeaderFrontend() {
               </Link>
             </li>
             <div className="others-options">
-                    {users.name ? (
-                      <div className="dropdown">
-                        <a onClick={myFunction} className="dropbtn text-white">
-                          {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
-                        </a>
-                        <div
-                          id="myDropdown"
-                          className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
-                        >
-                          {users.role === 'startup' && users.approval_status === 'approved' ? (
-                            <Link href="/company/dashboard" className="colortwo">
-                             Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-                           {users.role === 'investor' && users.approval_status === 'approved' ? (
-                            <Link href="/investor/campaign" className="colortwo">
-                             Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-                             {users.role === 'admin' ? (
-                            <Link href="/admin/dashboard" className="colortwo">
-                              Dashboard
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-
-
-
-
-                          <a href="#" onClick={handleLogout} className="colortwo">
-                            Logout
-                          </a>
-                        </div>
-                      </div>
+              {users.name ? (
+                <div className="dropdown">
+                  <a onClick={myFunction} className="dropbtn text-white">
+                    {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
+                  </a>
+                  <div
+                    id="myDropdown"
+                    className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
+                  >
+                    {users.role === 'startup' && users.approval_status === 'approved' ? (
+                      <Link href="/company/dashboard" className="colortwo">
+                        Dashboard
+                      </Link>
                     ) : (
-                      <button  className="btnclasssmae" style={{ margin: "-45px" }}>
-                       <Link href="/login" style={{ color: "#fff" }}>Login</Link>
-                      </button>
+                      ""
                     )}
+                    {users.role === 'investor' && users.approval_status === 'approved' ? (
+                      <Link href="/investor/campaign" className="colortwo">
+                        Dashboard
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                    {users.role === 'admin' ? (
+                      <Link href="/admin/dashboard" className="colortwo">
+                        Dashboard
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+
+
+
+
+                    <a href="#" onClick={handleLogout} className="colortwo">
+                      Logout
+                    </a>
                   </div>
-            
+                </div>
+              ) : (
+                <button className="btnclasssmae" style={{ margin: "-45px" }}>
+                  <Link href="/login" style={{ color: "#fff" }}>Login</Link>
+                </button>
+              )}
+            </div>
+
             {/* <li className="nav-item">
               <div className="dropdown">
                 <a onClick={myFunction} className="dropbtn text-white">

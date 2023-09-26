@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function Team() {
     return (
         <>
@@ -29,7 +30,7 @@ export default function Team() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
                                 <div className="image">
-                                    <img src="assets/img/team/1.jpg" alt="image" />
+                                    <Image src="assets/img/team/1.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">
@@ -62,7 +63,7 @@ export default function Team() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
                                 <div className="image">
-                                    <img src="assets/img/team/2.jpg" alt="image" />
+                                    <Image src="assets/img/team/2.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">
@@ -95,7 +96,7 @@ export default function Team() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
                                 <div className="image">
-                                    <img src="assets/img/team/3.jpg" alt="image" />
+                                    <Image src="assets/img/team/3.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">
@@ -127,8 +128,8 @@ export default function Team() {
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
-                                <div className="image">
-                                    <img src="assets/img/team/4.jpg" alt="image" />
+                                <div className="image">                                    
+                                    <Image src="assets/img/team/4.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">
@@ -160,8 +161,8 @@ export default function Team() {
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
-                                <div className="image">
-                                    <img src="assets/img/team/5.jpg" alt="image" />
+                                <div className="image">                                    
+                                    <Image src="assets/img/team/5.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">
@@ -193,8 +194,8 @@ export default function Team() {
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="team-item">
-                                <div className="image">
-                                    <img src="assets/img/team/6.jpg" alt="image" />
+                                <div className="image">                                    
+                                    <Image src="assets/img/team/6.jpg" alt="image" width={356} height={478} />
                                     <ul className="social">
                                         <li>
                                             <Link href="#" target="_blank">

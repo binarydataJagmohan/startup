@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function BlogRightSidebar() {
     return (
         <>
@@ -27,7 +28,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/1.jpg" alt="image" />
+                                                <Image src="assets/img/blog/1.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -46,7 +47,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/2.jpg" alt="image" />
+                                                <Image src="assets/img/blog/2.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -65,7 +66,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/3.jpg" alt="image" />
+                                                <Image src="assets/img/blog/3.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -84,7 +85,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/4.jpg" alt="image" />
+                                                <Image src="assets/img/blog/4.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -103,7 +104,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/5.jpg" alt="image" />
+                                                <Image src="assets/img/blog/5.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -122,7 +123,7 @@ export default function BlogRightSidebar() {
                                     <div className="single-blog">
                                         <div className="image">
                                             <Link href="single-blog.html">
-                                                <img src="assets/img/blog/6.jpg" alt="image" />
+                                                <Image src="assets/img/blog/6.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -140,8 +141,8 @@ export default function BlogRightSidebar() {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <Link href="single-blog.html">
-                                                <img src="assets/img/blog/7.jpg" alt="image" />
+                                            <Link href="single-blog.html">                                                
+                                                <Image src="assets/img/blog/7.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">
@@ -159,8 +160,8 @@ export default function BlogRightSidebar() {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <Link href="single-blog.html">
-                                                <img src="assets/img/blog/8.jpg" alt="image" />
+                                            <Link href="single-blog.html">                                                
+                                                <Image src="assets/img/blog/8.jpg" alt="image" width={356} height={478} />
                                             </Link>
                                         </div>
                                         <div className="content">

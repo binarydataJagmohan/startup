@@ -1,6 +1,7 @@
 import React from "react";
 import FrequentlyQuestions from "./FrequentlyQuestions";
 import Link from 'next/link';
+import Image from 'next/image';
 const About = () => {
   return (
     <div>
@@ -30,7 +31,7 @@ const About = () => {
             <div className="row">
               <div className="col-lg-6 p-0">
                 <div className="about-image">
-                  <img src="assets/img/about/about-2.jpg" alt="image" />
+                  <Image src="assets/img/about/aboust-2.jpg" alt="image" width={1000} height={1000} layout="responsive"/>
                 </div>
               </div>
               <div className="col-lg-6">
@@ -38,7 +39,7 @@ const About = () => {
                   <h2>About Our Agency</h2>
                   <div className="bar" />
                   <p>
-                  <b>Welcome to our startup and investment website!</b> We are a team of passionate professionals dedicated to helping people make informed decisions about their investments. Our platform provides you with the tools and resources you need to take control of your financial future.
+                    <b>Welcome to our startup and investment website!</b> We are a team of passionate professionals dedicated to helping people make informed decisions about their investments. Our platform provides you with the tools and resources you need to take control of your financial future.
                   </p>
                   <div className="tab about-list-tab">
                     <ul className="tabs">
@@ -55,9 +56,9 @@ const About = () => {
                     <div className="tab_content">
                       <div className="tabs_item">
                         <p>
-                        <b>Our startup and investment</b> website was founded in [year] with a mission to revolutionize the way people invest their money. Our team of financial experts and technology enthusiasts recognized the need for a platform that provides everyone with the ability to make informed investment decisions, regardless of their financial knowledge or experience.
+                          <b>Our startup and investment</b> website was founded in [year] with a mission to revolutionize the way people invest their money. Our team of financial experts and technology enthusiasts recognized the need for a platform that provides everyone with the ability to make informed investment decisions, regardless of their financial knowledge or experience.
 
-Over the years, we have grown into a trusted resource for investors around the world. With our commitment to transparency, security, and user-friendliness, we have earned a reputation as one of the most reliable investment platforms on the market.
+                          Over the years, we have grown into a trusted resource for investors around the world. With our commitment to transparency, security, and user-friendliness, we have earned a reputation as one of the most reliable investment platforms on the market.
                         </p>
                         <Link className="default-btn" href="#">
                           Discover More
@@ -65,9 +66,9 @@ Over the years, we have grown into a trusted resource for investors around the w
                       </div>
                       <div className="tabs_item">
                         <p>
-                        <b>Our mission</b> is to empower individuals to take control of their financial future by providing them with the knowledge, tools, and resources they need to make informed investment decisions. We believe that everyone should have access to the same opportunities and information, regardless of their financial status, and we are committed to creating a platform that levels the playing field.
+                          <b>Our mission</b> is to empower individuals to take control of their financial future by providing them with the knowledge, tools, and resources they need to make informed investment decisions. We believe that everyone should have access to the same opportunities and information, regardless of their financial status, and we are committed to creating a platform that levels the playing field.
 
-Our team of experienced professionals is dedicated to helping our users achieve their financial goals. We are constantly innovating and improving our platform to ensure that it remains the best resource for anyone who wants to invest wisely and confidently.
+                          Our team of experienced professionals is dedicated to helping our users achieve their financial goals. We are constantly innovating and improving our platform to ensure that it remains the best resource for anyone who wants to invest wisely and confidently.
                         </p>
                         <Link className="default-btn" href="#">
                           Discover More
@@ -75,9 +76,9 @@ Our team of experienced professionals is dedicated to helping our users achieve 
                       </div>
                       <div className="tabs_item">
                         <p>
-                        <b>At our startup and investment</b> website, we pride ourselves on providing friendly and helpful support to our users. Whether you have a question about your account, need help navigating the platform, or want to learn more about investing, our team is here to assist you.
+                          <b>At our startup and investment</b> website, we pride ourselves on providing friendly and helpful support to our users. Whether you have a question about your account, need help navigating the platform, or want to learn more about investing, our team is here to assist you.
 
-We understand that investing can be intimidating, which is why we take a personalized approach to support. Our team of experts is always available to answer your questions, provide guidance, and help you make the most of our platform. Whether you are a beginner or a seasoned investor, you can count on us to provide the support you need to succeed.
+                          We understand that investing can be intimidating, which is why we take a personalized approach to support. Our team of experts is always available to answer your questions, provide guidance, and help you make the most of our platform. Whether you are a beginner or a seasoned investor, you can count on us to provide the support you need to succeed.
                         </p>
                         <Link className="default-btn" href="#">
                           Discover More
@@ -97,15 +98,15 @@ We understand that investing can be intimidating, which is why we take a persona
             <div className="section-title">
               <h2>Our <span> Expert </span> Team</h2>
               <p>
-              <b>At our startup and investment website</b> , we are proud to have assembled a team of experts with decades of combined experience in the financial industry. Our team includes professionals from a range of backgrounds, including finance, economics, technology, and more.
+                <b>At our startup and investment website</b> , we are proud to have assembled a team of experts with decades of combined experience in the financial industry. Our team includes professionals from a range of backgrounds, including finance, economics, technology, and more.
               </p>
               <div className="bar" />
             </div>
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="team-item">
-                  <div className="image">
-                    <img src="assets/img/team/1.jpg" alt="image" />
+                  <div className="image">                    
+                    <Image  src="assets/img/team/1.jpg" alt="image"  width={356} height={478} />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -137,8 +138,8 @@ We understand that investing can be intimidating, which is why we take a persona
               </div>
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="team-item">
-                  <div className="image">
-                    <img src="assets/img/team/2.jpg" alt="image" />
+                  <div className="image">                  
+                    <Image src="assets/img/team/2.jpg" alt="image" width={356} height={478} />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -170,8 +171,8 @@ We understand that investing can be intimidating, which is why we take a persona
               </div>
               <div className="col-lg-4 col-md-6 col-sm-6 offset-lg-0 offset-md-3">
                 <div className="team-item">
-                  <div className="image">
-                    <img src="assets/img/team/3.jpg" alt="image" />
+                  <div className="image">                    
+                    <Image src="assets/img/team/3.jpg" alt="image" width={356} height={478} />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -223,7 +224,7 @@ We understand that investing can be intimidating, which is why we take a persona
         </section>
         {/* End Team Area */}
         {/* Start Faq Area */}
-        <FrequentlyQuestions/>
+        <FrequentlyQuestions />
         {/* End Faq Area */}
         {/* Start Clients Area */}
         <section className="clients-section pb-100">
@@ -231,7 +232,7 @@ We understand that investing can be intimidating, which is why we take a persona
             <div className="section-title">
               <h2>What Clients Say About Us</h2>
               <p>
-              We are grateful for the feedback we receive from our clients and are committed to continuing to provide the highest level of service and support. If you are looking for a reliable and trustworthy platform to help you achieve your financial goals, we invite you to join our community of satisfied clients today.
+                We are grateful for the feedback we receive from our clients and are committed to continuing to provide the highest level of service and support. If you are looking for a reliable and trustworthy platform to help you achieve your financial goals, we invite you to join our community of satisfied clients today.
               </p>
               <div className="bar" />
             </div>

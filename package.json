@@ -36,6 +36,7 @@
     "react-bootstrap-switch": "^15.5.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-native-pg-react-native-sdk": "^2.1.10",
     "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
     "react-quill": "^2.0.0",

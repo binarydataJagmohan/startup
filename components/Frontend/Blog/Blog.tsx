@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 import Link from 'next/link';
 export default function Blog() {
     return (
@@ -31,7 +32,7 @@ export default function Blog() {
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/1.jpg" alt="image" />
+                                        <Image src="assets/img/blog/1.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -50,7 +51,7 @@ export default function Blog() {
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/2.jpg" alt="image" />
+                                        <Image src="assets/img/blog/2.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -70,7 +71,7 @@ export default function Blog() {
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/3.jpg" alt="image" />
+                                        <Image src="assets/img/blog/3.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -81,7 +82,7 @@ export default function Blog() {
                                         </Link>
                                     </h3>
                                     <p>alk about the latest funding trends in the startup world, such as the rise of angel investing and crowdfunding.
-                                        Provide some statistics and data on the current state of funding in the industry.<br/><br/><br/></p>
+                                        Provide some statistics and data on the current state of funding in the industry.<br /><br /><br /></p>
                                     <Link href="/single-blog" className="read-more">Read More</Link>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@ export default function Blog() {
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/4.jpg" alt="image" />
+                                        <Image src="assets/img/blog/4.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -101,7 +102,7 @@ export default function Blog() {
                                         </Link>
                                     </h3>
                                     <p>Discuss any recent regulatory changes that may impact startups, such as new tax laws or changes to data privacy regulations.
-                                        Explain how startups can navigate these changes and stay compliant.<br/><br/></p>
+                                        Explain how startups can navigate these changes and stay compliant.<br /><br /></p>
                                     <Link href="/single-blog" className="read-more">Read More</Link>
                                 </div>
                             </div>
@@ -110,18 +111,18 @@ export default function Blog() {
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/5.jpg" alt="image" />
+                                        <Image src="assets/img/blog/5.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
                                     <span>20 March 2022</span>
                                     <h3>
                                         <Link href="/single-blog">
-                                        Choose the Right Platforms
+                                            Choose the Right Platforms
                                         </Link>
                                     </h3>
                                     <p>Explain the importance of choosing the right social media platforms based on your target audience and goals.
-Provide some tips on how to evaluate different platforms and decide which ones to focus on.<br/><br/></p>
+                                        Provide some tips on how to evaluate different platforms and decide which ones to focus on.<br /><br /></p>
                                     <Link href="/single-blog" className="read-more">Read More</Link>
                                 </div>
                             </div>
@@ -130,18 +131,18 @@ Provide some tips on how to evaluate different platforms and decide which ones t
                             <div className="single-blog">
                                 <div className="image">
                                     <Link href="/single-blog">
-                                        <img src="assets/img/blog/6.jpg" alt="image" />
+                                        <Image src="assets/img/blog/6.jpg" alt="image" width={356} height={478} />
                                     </Link>
                                 </div>
                                 <div className="content">
                                     <span>17 March 2022</span>
                                     <h3>
                                         <Link href="/single-blog">
-                                        Create Engaging Content
+                                            Create Engaging Content
                                         </Link>
                                     </h3>
                                     <p>Discuss the importance of creating content that resonates with your target audience and drives engagement.
-Provide some tips on how to create compelling social media content, such as using visuals and leveraging user-generated content.</p>
+                                        Provide some tips on how to create compelling social media content, such as using visuals and leveraging user-generated content.</p>
                                     <Link href="/single-blog" className="read-more">Read More</Link>
                                 </div>
                             </div>
