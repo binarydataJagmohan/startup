@@ -2,15 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { userRegister,sendNotification } from "../../lib/frontendapi";
+import { userRegister, sendNotification } from "../../lib/frontendapi";
 import { useRouter } from "next/router";
 
 interface FormData {
-  firstname:string;
-  lastname:string;
+  firstname: string;
+  lastname: string;
   email: string;
-  password:string;
-  role:string;
+  password: string;
+  role: string;
 }
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
@@ -20,7 +20,7 @@ const Signup = () => {
   const [role, setRole] = useState("");
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [notifications,setNotifications]=useState("");
+  const [notifications, setNotifications] = useState("");
   const {
     register,
     handleSubmit,
@@ -48,7 +48,7 @@ const Signup = () => {
     },
   });
 
- 
+
 
   const SubmitForm = () => {
     const user = {
@@ -58,7 +58,7 @@ const Signup = () => {
       password: password,
       role: role,
     };
-    const setLocalStorageItems = (user:any) => {
+    const setLocalStorageItems = (user: any) => {
       window.localStorage.setItem("id", user.id);
       window.localStorage.setItem("email", user.email);
       window.localStorage.setItem("username", user.firstname);
@@ -70,9 +70,9 @@ const Signup = () => {
     userRegister(user)
       .then((res) => {
         if (res.status == true) {
-        //   console.log(res.data[0]);
-        //   console.log(res.data['user']);
-        //  return false;
+          //   console.log(res.data[0]);
+          //   console.log(res.data['user']);
+          //  return false;
           if (res.data[0]) {
             setLocalStorageItems(res.data['user']);
             switch (window.localStorage.getItem("user_role")) {
@@ -116,21 +116,21 @@ const Signup = () => {
             const data = {
               notify_from_user: window.localStorage.getItem("id"),
               notify_to_user: "1",
-              notify_msg:`${user.firstname} has been registered successfully as a ${user.role}.`,
+              notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
               notification_type: "New User Registered",
               each_read: "unread",
               status: "active"
             };
-            
+
             // Send Notifications to admin When new user is register
             sendNotification(data)
-            .then((notificationRes) => {
-              console.log('success')
-            })
-            .catch((error) => {
-              console.log('error occured')
-            });
-  
+              .then((notificationRes) => {
+                console.log('success')
+              })
+              .catch((error) => {
+                console.log('error occured')
+              });
+
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
@@ -172,7 +172,7 @@ const Signup = () => {
   return (
     <>
       <div>
-        <div className="page-title-area item-bg-5">
+        {/* <div className="page-title-area item-bg-5">
           <div className="d-table">
             <div className="d-table-cell">
               <div className="container">
@@ -188,124 +188,168 @@ const Signup = () => {
               </div>
             </div>
           </div>
-        </div>
-        <section className="contact-section pb-100">
+        </div> */}
+        <section className="contact-section">
           <div className="container">
             <div className="row align-items-center">
-              <div className="col-lg-12">
-                <div className="contact-text text-center pt-4"> 
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="contact_content" data-aos="fade-right">
+                  <h1 className="pb-4 text-lg-start text-center" style={{ fontWeight: '700' }}>Lets Get Started!</h1>
+                  <div className="contact-box">
+                    <div className="box-image">
+                      <figure className="contact-location">
+                        <i className="fa-solid fa-location-dot"></i>
+                      </figure>
+                    </div>
+                    <div className="box-content">
+                      <h4>Location:</h4>
+                      <a href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9" target="_blank" style={{ color: '#232323' }}><p className="text-size-18">
+                        32 st Kilda Road, Melbourne VIC, 3004 Australia
+                      </p></a>
+                    </div>
+                  </div>
+                  <div className="contact-box box-mb">
+                    <div className="box-image">
+                      <figure className="contact-phone">
+                        <i className="fa-solid fa-phone"></i>
+                      </figure>
+                    </div>
+                    <div className="box-content">
+                      <h4 className="heading">Phone:</h4>
+                      <p>
+                        <a
+                          href="tel:+123(456)123"
+                          className="text-decoration-none  text-size-18"
+                        >
+                          +123(456)123
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="contact-box">
+                    <div className="box-image">
+                      <figure className="contact-email">
+                        <i className="fa-solid fa-envelope"></i>
+                      </figure>
+                    </div>
+                    <div className="box-content">
+                      <h4 className="heading">Email:</h4>
+                      <p className="mt-2">
+                        <a
+                          href="mailto:support@risingcapitalist.com"
+                          className="text-decoration-none text-size-18"
+                        >
+                          support@risingcapitalist.com
+                        </a>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="contact-form">
-                  <form id="contactForm" onSubmit={handleSubmit(SubmitForm)}>
-                   <h3>Lets Get Started</h3>
-                    <div className="row">
-                      <div className="form-group col-md-6">
-                        <label>
-                          First Name<span style={{ color: "red" }}>*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="firstname"
-                          className="form-control"
-                          {...register("firstname", {
-                            onChange: (e) => setFirstName(e.target.value),
-                            required: true,
-                          })} />
-                        <div className="help-block with-errors" />
-                        {errors.firstname &&
-                          errors.firstname.type === "required" && (
-                            <p
-                              className="text-danger"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please Enter Your First Name.
-                            </p>
-                          )}
-                      </div>
-                      <div className="form-group col-md-6">
-                        <label>
-                          Last Name<span style={{ color: "red" }}>*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="lastname"
-                          className="form-control"
-                          {...register("lastname", {
-                            onChange: (e) => setLastName(e.target.value),
-                            required: true,
-                          })} />
-                        <div className="help-block with-errors" />
-                        {errors.lastname &&
-                          errors.lastname.type === "required" && (
-                            <p
-                              className="text-danger"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please Enter Your Last Name.
-                            </p>
-                          )}
-                      </div>
-
-                      <div className="form-group col-md-6">
-                        <label>
-                          Email<span style={{ color: "red" }}>*</span>
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          className="form-control"
-                          {...register("email", {
-                            onChange: (e) => setEmail(e.target.value),
-                            required: "Email is required",
-                            pattern: {
-                              value: /^\S+@\S+$/i,
-                              message: "Invalid email address"
-                            }
-                          })}
-                        />
-
-                        {errors.email && (
-                          <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                            <span>{errors.email.message}</span>
-                          </p>
-                        )}
-
-                      </div>
-
-
-
-                      <div className="form-group col-md-6 position-relative">
-                        <label>
-                          Password<span style={{ color: "red" }}>*</span>
-                        </label>
-                        <input
-                           type={showPassword ? 'text' : 'password'}
-                          id="password"
-                          className="form-control" maxLength={16}
-                          {...register("password", {
-                            onChange: (e) => setPassword(e.target.value),
-                          })}
-                        />
-                       <span className="passwordView1" onClick={handleTogglePassword}>
-                      {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
-                    </span>
-                        <div className="help-block with-errors" />
-                        {errors.password && (
-                          <p
-                            className="text-danger"
-                            style={{ textAlign: "left", fontSize: "12px" }}
-                          >
-                            *{errors.password.message}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="form-group col-md-12">
-                        <label>
+              </div>
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="need-section">
+                  <div className="need_content">
+                    <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="pb-4" />
+                    <form id="contactpage" onSubmit={handleSubmit(SubmitForm)}>
+                      <div className="row align-items-center">
+                        <div className="col-12">
+                          <div className="form-group mb-0">
+                            <input
+                              type="text"
+                              id="firstname"
+                              className="form_style sign-style"
+                              {...register("firstname", {
+                                onChange: (e) => setFirstName(e.target.value),
+                                required: true,
+                              })} placeholder="First Name" />
+                            <div className="help-block with-errors" />
+                            {errors.firstname &&
+                              errors.firstname.type === "required" && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your First Name.
+                                </p>
+                              )}
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group mb-0">
+                            <input
+                              type="text"
+                              id="lastname"
+                              className="form_style sign-style"
+                              {...register("lastname", {
+                                onChange: (e) => setLastName(e.target.value),
+                                required: true,
+                              })} placeholder="Last Name" />
+                            <div className="help-block with-errors" />
+                            {errors.lastname &&
+                              errors.lastname.type === "required" && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your Last Name.
+                                </p>
+                              )}
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group mb-0">
+                            <input
+                              type="email"
+                              id="email"
+                              className="form_style sign-style"
+                              {...register("email", {
+                                onChange: (e) => setEmail(e.target.value),
+                                required: "Email is required",
+                                pattern: {
+                                  value: /^\S+@\S+$/i,
+                                  message: "Invalid email address"
+                                }
+                              })}
+                              placeholder="Email"
+                            />
+                            {errors.email && (
+                              <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                <span>{errors.email.message}</span>
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group mb-0 position-relative">
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              id="password"
+                              className="form_style sign-style" maxLength={16}
+                              {...register("password", {
+                                onChange: (e) => setPassword(e.target.value),
+                              })}
+                              placeholder="Password"
+                            />
+                            <div className="help-block with-errors" />
+                            {errors.password && (
+                              <p
+                                className="text-danger"
+                                style={{ textAlign: "left", fontSize: "12px" }}
+                              >
+                                *{errors.password.message}
+                              </p>
+                            )}
+                            <span className="passwordView1" onClick={handleTogglePassword}>
+                              {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
+                            </span>
+                          </div>
+                        </div>
+                        <label className="text-start">
                           Registered As:
                           <span style={{ color: "red" }}>*</span>
                         </label>
-
+                      </div>
+                      <div className="form-group col-md-12 mt-3">
                         <div className="col-md-12 text-center twobox">
                           <div className="images-investor text-center">
                             <ul className="role-classs">
@@ -344,7 +388,6 @@ const Signup = () => {
                                 </label>
                               </li>
                             </ul>
-
                           </div>
                           <div className="help-block with-errors" />
                           <div className="error text-center">
@@ -358,24 +401,27 @@ const Signup = () => {
                             )}
                           </div>
                         </div>
-
-
                       </div>
-
-                      <div className="form-group col-md-12 mt-3">
-                        <div className="help-block with-errors" />
-
-                        <div className="row mt-3">
-                          <div
-                            className="col-md-12 text-center" >
-                            <button type="submit" className="btnclasssmae">
-                              Register
-                            </button>
-                          </div>
-                        </div>
+                      <div className="manage-button text-center mt-4">
+                        <button
+                          type="submit"
+                          className="submit_now text-decoration-none"
+                        >
+                          Register
+                          <i className="circle fa-regular fa-angle-right" />
+                        </button>
                       </div>
-                    </div>
-                  </form>
+                      <p className="mt-3">
+                        Already have account?{" "}
+                        <strong>
+                          <a href="/login" style={{ color: "#088395" }}>
+                            {" "}
+                            Login!
+                          </a>
+                        </strong>{" "}
+                      </p>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

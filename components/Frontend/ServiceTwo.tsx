@@ -3,7 +3,7 @@ import React from 'react';
 export default function ServiceTwo() {
     return (
         <>
-            <div className="page-title-area item-bg-2">
+            {/* <div className="page-title-area item-bg-2">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -17,7 +17,7 @@ export default function ServiceTwo() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="agency-services-section pt-100 pb-100" id="service-title">
                 <div className="container">
                     <div className="section-title">

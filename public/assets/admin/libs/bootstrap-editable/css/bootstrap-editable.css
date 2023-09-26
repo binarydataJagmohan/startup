@@ -325,7 +325,7 @@ a.editable-click.editable-disabled:hover {
   border-color: #fdf59a #fdf59a #fbed50;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  color: #000;
+  color: #232323;
 }
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today:hover:hover,
@@ -360,7 +360,7 @@ a.editable-click.editable-disabled:hover {
   background-color: #fbf069 \9;
 }
 .datepicker table tr td.today:hover:hover {
-  color: #000;
+  color: #232323;
 }
 .datepicker table tr td.today.active:hover {
   color: #fff;

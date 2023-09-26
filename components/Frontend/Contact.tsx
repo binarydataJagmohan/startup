@@ -51,7 +51,7 @@ const Contact = () => {
     <div>
       <div>
         {/* Start Page Title Area */}
-        <div className="page-title-area item-bg-5">
+        {/* <div className="page-title-area item-bg-5">
           <div className="d-table">
             <div className="d-table-cell">
               <div className="container">
@@ -67,7 +67,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* End Page Title Area */}
         {/* Start Contact Box Area */}
         <section className="contact-box pt-100 pb-70">
@@ -87,7 +87,10 @@ const Contact = () => {
                   <i className="flaticon-envelope" />
                   <div className="content-title">
                     <h3>Email</h3>
-                    <span><a href="mailto:example@gmail.com" style={{color:"black"}}><p>example@gmail.com</p></a></span>
+                    <span><a href="mailto:support@risingcapitalist.com" style={{color:"black"}}><p className="p-0">support@risingcapitalist.com</p></a></span>
+                    <span><a href="mailto:info@risingcapitalist.com" style={{color:"black"}}><p className="p-0">info@risingcapitalist.com</p></a></span>
+                    <span><a href="mailto:anjul@risingcapitalist.com" style={{color:"black"}}><p className="p-0">anjul@risingcapitalist.com</p></a></span>
+                    <span><a href="mailto:megha@risingcapitalist.com" style={{color:"black"}}><p className="p-0">megha@risingcapitalist.com</p></a></span>
                   </div>
                 </div>
               </div>

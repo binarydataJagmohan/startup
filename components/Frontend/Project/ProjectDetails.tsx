@@ -3,7 +3,7 @@ import React from 'react'
 export default function ProjectDetails() {
     return (
         <>
-            <div className="page-title-area item-bg-5">
+            {/* <div className="page-title-area item-bg-5">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -17,7 +17,7 @@ export default function ProjectDetails() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="project-details-area ptb-100">
                 <div className="container">
                     <div className="row">

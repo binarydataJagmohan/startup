@@ -93,7 +93,7 @@ const ForgetPassword = () => {
         });
       });
   }
-  function validatePassword(password:string) {
+  function validatePassword(password: string) {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
     return regex.test(password);
   }
@@ -154,7 +154,7 @@ const ForgetPassword = () => {
 
   const handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
     const errors = {} as { password?: string; confirmPassword?: string; };
-  
+
     if (!event.currentTarget.value) {
       errors.password = "Password is required";
     } else if (event.currentTarget.value.length < 8) {
@@ -165,7 +165,7 @@ const ForgetPassword = () => {
     setErrors(errors);
     setPassword(event.currentTarget.value);
   };
-  
+
 
   const handleConfirmPasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
@@ -178,24 +178,20 @@ const ForgetPassword = () => {
     setErrors(errors);
     setConfirmPassword(value);
   };
-  
+
 
   return (
     <>
       <section className="contact-section pb-70">
         <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-12">
-              <div className="contact-text text-center pt-4">
-                <h3>Change New Password</h3>
-              </div>
-            </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="contact-form col-md-6">
+          <div className="row justify-content-center" id="resetpassword">
+            <div className="need_content col-md-6">
               <form id="contactForm" onSubmit={handleResetSubmit}>
+                <div className="contact-text text-center pt-4">
+                  <h3>Change New Password</h3>
+                </div>
                 <div className="row justify-content-center">
-                  <div className="form-group">
+                  <div className="form-group text-start">
                     <label className="col-form-label">
                       New Password<span style={{ color: "red" }}>*</span>
                     </label>
@@ -203,14 +199,14 @@ const ForgetPassword = () => {
                       <input
                         type="password" style={{ height: "35px" }}
                         id="password"
-                        className="form-control"
+                        className="form-control form_style form-div1"
                         name='password' value={password} onChange={handlePasswordChange}
                       />
-                      <p style={{ fontSize: "9px" }}>Your password must be 8 character.</p>
+                      <p style={{ fontSize: "14px", padding: '0' }}>Your password must be 8 character.</p>
                       {errors.password && <span className="small error text-danger mb-2 d-inline-block error_register" style={{ fontSize: "10px" }}>{errors.password}</span>}
                     </div>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group text-start">
                     <label className="col-form-label">
                       Confirm Password<span style={{ color: "red" }}>*</span>
                     </label>
@@ -218,20 +214,18 @@ const ForgetPassword = () => {
                       <input
                         type="password" style={{ height: "35px" }}
                         id="confirmPassword"
-                        className="form-control"
+                        className="form-control form_style form-div1"
                         name='confirmPassword' value={confirmPassword} onChange={handleConfirmPasswordChange}
                       />
                       {errors.confirmPassword && <span className="small error text-danger mb-2 d-inline-block error_register" style={{ fontSize: "10px" }}>{errors.confirmPassword}</span>}
-
                     </div>
                   </div>
-                  <div className="form-group col-md-12 mt-3">
+                  <div className="form-group text-start col-md-12 mt-3">
                     <div className="help-block with-errors" />
-
                     <div className="row">
-                      <div className="col-md-12 text-center">
-                        <button type="submit" className="btnclasssmae">
-                          Submit
+                      <div className="col-md-12 mt-3">
+                        <button type="submit" className="btnclasssmae reset-btn">
+                          Forget Password
                         </button>
                       </div>
                     </div>

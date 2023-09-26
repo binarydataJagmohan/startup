@@ -69,7 +69,7 @@ const Dashboard = () => {
     const handleWindowLoad = () => {
       const element = document.getElementById('your-element-id1');
       if (element) {
-        element.style.paddingLeft = '40px';
+        element.style.paddingLeft = '0px';
         element.style.transition = 'padding-left 0.5s ease-in-out';
       }
     };
@@ -101,7 +101,7 @@ const Dashboard = () => {
                 {/* end page title */}
                 <div className="row">
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat  dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #0EB1D2 17%, #0055BA 76.13%)', color: 'white' }} >
+                    <div className="card mini-stat  dashcard" style={{ background: '#088395', color: 'white'}} >
                       <div className="card-body">
                         <div className="mb-4">
 
@@ -143,7 +143,7 @@ const Dashboard = () => {
                     </div>
                   </div> */}
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, rgb(100 187 43) 17%, rgb(69 159 11) 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard " style={{ background: '#088395', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Users</h5>
@@ -162,7 +162,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard " style={{ backgroundImage: 'linear-gradient(2.97deg, #1dc4e7 17%, #0a8ba5 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard " style={{ background: '#088395', color: 'white'}}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Startups</h5>
@@ -181,7 +181,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #f78267 17%, #f35836 76.13%)', color: 'white' }}>
+                    <div className="card mini-stat dashcard" style={{ background: '#088395', color: 'white'}}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase">Total Investers</h5>

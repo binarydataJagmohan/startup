@@ -55,26 +55,22 @@ const ResetPassword = () => {
         <>
             <section className="contact-section pb-70">
                 <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-12">
-                            <div className="contact-text text-center pt-4">
+                    <div className="row justify-content-center" id="resetpassword">
+                        <div className="need_content col-md-6">
+                            <form id="contactForm" onClick={handleSubmit(SubmitForm)}>
+                            <div className="contact-text text-center">
                                 <h3>Reset Password</h3>
                             </div>
-                        </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="contact-form col-md-6">
-                            <form id="contactForm" onClick={handleSubmit(SubmitForm)}>
                                 <div className="row justify-content-center">
-                                    <div className="form-group">
-                                        <label className="col-sm-1 col-form-label">
+                                    <div className="form-group text-start ">
+                                        <label className="">
                                             Email<span style={{ color: "red" }}>*</span>
                                         </label>
                                         <div className="col-sm-12">
                                             <input
                                                 type="email" style={{ height: "35px" }}
                                                 id="email"
-                                                className="form-control"
+                                                className="form-control form_style form-div1"
                                                 {...register("email", {
                                                     onChange: (e) => setEmail(e.target.value),
                                                     required: true,
@@ -96,7 +92,7 @@ const ResetPassword = () => {
 
                                         <div className="row">
                                             <div className="col-md-12 text-start">
-                                                <button type="submit" className="btnclasssmae">
+                                                <button type="submit" className="btnclasssmae reset-btn">
                                                 Reset Password
                                                 </button>
                                             </div>
@@ -109,7 +105,6 @@ const ResetPassword = () => {
                 </div>
                 <ToastContainer autoClose={2000} />
             </section>
-
         </>
     )
 }

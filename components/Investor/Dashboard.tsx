@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails,getSingleClosedBusinessDetails,investorViewer} from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails,getSingleClosedBusinessDetails } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 
@@ -22,9 +22,9 @@ const Dashboard = () => {
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [data, setData] = useState(null);
 
-  const current_user_data: UserData = getCurrentUserData();
+
+
 
   const itemsPerPage = 3;
 
@@ -91,25 +91,14 @@ const Dashboard = () => {
   }, []);
 
 
-  const getBusinessdetails = async (e: any, id: any) => {
+
+  const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
-  
-    try {
-      // Make the API call to get business details
-      const businessDetailsResponse = await getSingleBusinessDetails(id);
+    // alert(id)
+    getSingleBusinessDetails(id).then((res) => {
       router.push(`campaign/details?id=${id}`);
-      // Make the API call to get investor data
-      const investorResponse = await investorViewer(current_user_data.id, id);
-      if (investorResponse) {
-        console.log('Success');
-      } else {
-        console.error('Failed to fetch investor data');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    });
   };
-  
 
 
   const getClosedBusinessdetails = (e: any, id: any) => {
@@ -170,11 +159,11 @@ const Dashboard = () => {
                       <a href="#" className="image">
                         { }
                         
-                        <img
+                        {/* <img
                           className="pic-1 image"
                           src={details.logo}
-                        />
-                        {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                       </a>
                     </div>
                     <div className="main-padding">
@@ -206,7 +195,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -217,7 +206,7 @@ const Dashboard = () => {
                     </div>
                     <div className="overlay">
                       <div className="columns">
-                        <ul className="price">
+                        <ul className="price m-0 p-0">
                           <li>
                             Subscribers <span>32</span>
                           </li>
@@ -231,12 +220,12 @@ const Dashboard = () => {
                           Closes in <span>20&nbsp;days</span>
                             {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                           </li>
-                          <li>
+                          <li  className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                             View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>
@@ -287,11 +276,11 @@ const Dashboard = () => {
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
-                        <img
+                        {/* <img
                           className="pic-1 image"
                           src={details.logo}
-                        />
-                        {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                       </a>
                     </div>
                     <div className="main-padding">
@@ -323,7 +312,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -334,7 +323,7 @@ const Dashboard = () => {
                     </div>
                     <div className="overlay">
                       <div className="columns">
-                        <ul className="price">
+                        <ul className="price m-0 p-0">
                           <li>
                             Subscribers <span>32</span>
                           </li>
@@ -348,12 +337,12 @@ const Dashboard = () => {
                              Closes in <span>20&nbsp;days</span>
                             {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                           </li>
-                          <li>
+                          <li  className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                             View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>
@@ -499,11 +488,11 @@ const Dashboard = () => {
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
                         <a href="#" className="image">
-                          <img
+                          {/* <img
                             className="pic-1 image"
                             src={details.logo}
-                          />
-                          {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                          /> */}
+                          <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                         </a>
                       </div>
                       <div className="main-padding">
@@ -535,7 +524,7 @@ const Dashboard = () => {
                             <div className="price">Min. Subscription</div>
                           </div>
                         </div>
-                        <div className="text-center mt-3">
+                        <div className="text-center mt-3 d-flex">
                           <a href="#" className="card-link">
                             💡13.6% Discount Rate
                           </a>
@@ -546,7 +535,7 @@ const Dashboard = () => {
                       </div>
                       <div className="overlay">
                         <div className="columns">
-                          <ul className="price">
+                          <ul className="price m-0 p-0">
                             <li>
                               Subscribers <span>32</span>
                             </li>
@@ -560,12 +549,12 @@ const Dashboard = () => {
                                Closes in <span>20&nbsp;days</span>
                               {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                             </li>
-                            <li>
+                            <li  className="border-0">
                               <a
                                 href="#"
                                 className="button-class"
                               >
-                               View Details Details Details
+                               View Details
                               </a>
                             </li>
                           </ul>
@@ -743,7 +732,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -754,7 +743,7 @@ const Dashboard = () => {
                     </div>
                     <div className="overlay">
                       <div className="columns">
-                        <ul className="price">
+                        <ul className="price m-0 p-0">
                           <li>
                             Subscribers <span>32</span>
                           </li>
@@ -768,12 +757,12 @@ const Dashboard = () => {
                             {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                             Closes in <span>20&nbsp;days</span>
                           </li>
-                          <li>
+                          <li  className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                             View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>
@@ -869,7 +858,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -893,12 +882,12 @@ const Dashboard = () => {
                           <li>
                             Closed at <span>{new Date(details.closed_in).toLocaleDateString()}</span>
                           </li>
-                          <li>
+                          <li className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                             View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>

@@ -3,7 +3,7 @@ import React from 'react'
 export default function ServiceDetail() {
     return (
         <>
-            <div className="page-title-area item-bg-4">
+            {/* <div className="page-title-area item-bg-4">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -17,7 +17,7 @@ export default function ServiceDetail() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="services-details-area ptb-100">
                 <div className="container">
                     <div className="services-details-video">

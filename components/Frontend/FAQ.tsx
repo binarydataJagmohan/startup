@@ -4,7 +4,7 @@ import FrequentlyQuestions from './FrequentlyQuestions'
 export default function FAQ() {
     return (
         <>
-            <div className="page-title-area item-bg-4">
+            {/* <div className="page-title-area item-bg-4">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function FAQ() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <FrequentlyQuestions/>
         </>
     )

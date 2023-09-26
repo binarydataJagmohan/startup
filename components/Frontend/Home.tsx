@@ -224,6 +224,9 @@ export default function Home() {
                               )}
                             </div>
                           )}
+
+
+                          
                           {current_user_role === "admin" && (
                             <div className="banner-btn">
                               <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
@@ -361,7 +364,7 @@ export default function Home() {
       <section className="features-section pt-100 pb-70">
         <div className="container">
           <div className="section-title">
-            <h2>Creative Features</h2>
+            <h1>Creative Features</h1>
             <p>
               Our investment site offers a range of creative features to help
               you make informed investment decisions. Explore our intuitive
@@ -372,7 +375,7 @@ export default function Home() {
           </div>
           <div className="row">
             <div className="col-lg-3 col-md-6">
-              <div className="features-content">
+              <div className="features-content transtion">
                 <div className="icon">
                   <img src="assets/img/icon1.jpeg" alt="risk management" />
                 </div>
@@ -384,7 +387,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div className="features-content">
+              <div className="features-content transtion">
                 <div className="icon">
                   <img src="assets/img/icon2.png" alt="social investing" />
                 </div>
@@ -396,7 +399,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div className="features-content">
+              <div className="features-content transtion">
                 <div className="icon left-icon">
                   <img src="assets/img/icon3.png" alt="low fees" />
                 </div>
@@ -408,7 +411,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div className="features-content">
+              <div className="features-content transtion">
                 <div className="icon">
                   <img src="assets/img/icon4.webp" alt="" />
                 </div>
@@ -422,21 +425,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* End Features Area */}
-
-      {/* Start Creative Area */}
-      {/*  */}
-      {/* End Creative Area */}
-
-      {/* IT-Agency Section */}
       <Agency />
-
-      {/* Start Development Area */}
       <section className="development-area ptb-100">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <div className="development-image">
+              <div className="development-image transtion">
                 <img src="assets/img/development.png" alt="image" />
               </div>
             </div>
@@ -481,23 +475,10 @@ export default function Home() {
                   their investments, and monitor it.
                 </p>
               </div>
-              {/* <div className="development-content">
-                <div className="icon bg-66a6ff">
-                  <i className="flaticon-devices" />
-                </div>
-                <h3>Responsive Design</h3>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry.
-                </p>
-              </div> */}
             </div>
           </div>
         </div>
       </section>
-      {/* End Development Area */}
-
-      {/* Start Video Section */}
       <div className="video-section">
         <div className="container">
           <div className="video-content">
@@ -511,13 +492,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* End Video Section */}
-
-      {/* Start Choose Area */}
       <section className="choose-section ptb-100">
         <div className="container">
           <div className="section-title">
-            <h2>Why Choose Us</h2>
+            <h1>Why Choose Us</h1>
             <p>
               Choose us because we are dedicated to helping investors find the
               best startup opportunities. Our platform offers unparalleled
@@ -564,20 +542,17 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="choose-image">
+              <div className="choose-image transtion">
                 <img src="assets/img/choose.png" alt="image" />
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* End Choose Area */}
-
-      {/* Start Projects Area */}
       <section className="projects-section pb-70">
         <div className="container-fluid">
           <div className="section-title">
-            <h2>Projects</h2>
+            <h1>Projects</h1>
             <p>
               At Startup or Invesment, we're committed to investing in
               innovative startups and bringing cutting-edge solutions to the
@@ -693,18 +668,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* End Projects Area */}
-
-      {/* Client-Section */}
       <ClientSection />
-
-      {/* Start Blog Area */}
       <section className="blog-section pt-100 pb-70">
         <div className="container">
           <div className="section-title">
-            <h2>
+            <h1>
               Our <span>Latest</span> Blogs
-            </h2>
+            </h1>
             <p>
               Discover the newest and most exciting startup companies on our
               platform. Our team of experts scours the market for the latest

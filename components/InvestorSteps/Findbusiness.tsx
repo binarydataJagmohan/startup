@@ -177,22 +177,18 @@ export default function Findbusiness(): any {
 
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
               <div className="page-title-content">
                 <h2>Complete Account Details</h2>
-                {/* <ul>
-                  <li>
-                    <a href="/"></a>
-                  </li>
-                </ul> */}
+                
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -208,7 +204,7 @@ export default function Findbusiness(): any {
                 </div>
                 <div
                   className="caption hidden-xs hidden-sm"
-                  style={{ color: "#82b440" }}
+                  style={{ color: "#79AC78" }}
                 >
                   <span>PERSONAL INFORMATION</span>
                 </div>
@@ -242,7 +238,7 @@ export default function Findbusiness(): any {
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
               </li> */}
-              <li className="">
+              {/* <li className="">
                 <div className="step_name">
                   Step <span>3</span>
                 </div>
@@ -257,7 +253,7 @@ export default function Findbusiness(): any {
                 <div className="caption hidden-xs hidden-sm">
                   <span>Terms & Conditions</span>
                 </div>
-              </li>
+              </li> */}
             </ol>
             <div className="container">
               <div className="register-form">
@@ -318,9 +314,9 @@ export default function Findbusiness(): any {
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
-                                    value: /^(https?:\/\/)?(www\.)?linkedin\.com\/[A-Za-z0-9_-]+\/?$/,
+                                    value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
-                                  }
+                                  }                                              
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
