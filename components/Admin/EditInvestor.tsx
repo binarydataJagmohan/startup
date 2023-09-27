@@ -79,7 +79,7 @@ const EditInvestor = () => {
     }
     if (!investor.linkedin_url) {
       setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-    } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(investor.linkedin_url)) {
+    } else if (!/^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/.test(investor.linkedin_url)) {
       setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
     }
     if (!investor.city) setMissingFields(prevField => [...prevField, "City"]);

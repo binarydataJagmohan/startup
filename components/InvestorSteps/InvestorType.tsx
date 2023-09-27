@@ -35,6 +35,13 @@ export default function InvestorType(): any {
 
     const [termscondition, setTermsCondition] = useState(false);
     const trueTermsCondition = () => {
+        setSelectedOption('');
+        setPrincipalResidence(false);
+        setExperience(false);
+        setNetWorth(false);
+        setPrevInvestmentExp(false);
+        setNoRequirements(false);
+        setCofounder(false);
         setTermsCondition(true);
     }
     const [investorDetails, seInvestorDetails] = useState({
@@ -154,33 +161,6 @@ export default function InvestorType(): any {
             });
         }
     };
-
-    // const handleCheckboxChange = (event: any) => {
-    //     const { name, checked } = event.target;
-    //     // Use name to determine which checkbox is being updated
-    //     switch (name) {
-    //         case 'principal_residence':
-    //             setPrincipalResidence(checked);
-    //             break;
-    //         case 'prev_investment_exp':
-    //             setPrevInvestmentExp(checked);
-    //             break;
-    //         case 'cofounder':
-    //             setCofounder(checked);
-    //             break;
-    //         case 'experience':
-    //             setExperience(checked);
-    //             break;
-    //         case 'net_worth':
-    //             setNetWorth(checked);
-    //             break;
-    //         case 'no_requirements':
-    //             setNoRequirements(checked);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // };
 
     useEffect(() => {
         const current_user_data: any = getCurrentUserData();
@@ -473,7 +453,7 @@ export default function InvestorType(): any {
 
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox4">
-                                                                                        Net tangible assets of at least INR 2 Crore excluding value of his principal residence.(Required*)
+                                                                                        Net tangible assets of at least INR 2 Crore excluding value of his principal residence.<span className="requiredclass">*</span>
                                                                                     </label>
                                                                                     {errors.principal_residence && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
@@ -517,7 +497,7 @@ export default function InvestorType(): any {
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox7">Senior management professional with at least 10 years of
-                                                                                        experience.(Required*)
+                                                                                        experience.<span className="requiredclass">*</span>
                                                                                     </label>
                                                                                     {errors.experience && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
@@ -536,7 +516,7 @@ export default function InvestorType(): any {
                                                                                         name="net_worth" onChange={() => setNetWorth(!net_worth)} checked={net_worth} />
                                                                                 </div>
                                                                                 <div className="col">
-                                                                                    <label htmlFor="checkbox8">Net worth of at least INR 10 Crore</label><br></br>
+                                                                                    <label htmlFor="checkbox8">Net worth of at least INR 10 Crore.<span className="requiredclass">*</span></label><br></br>
                                                                                     {errors.net_worth && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
                                                                                             *No Requirement option is required.
@@ -555,7 +535,7 @@ export default function InvestorType(): any {
                                                                                         name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={no_requirements} />
                                                                                 </div>
                                                                                 <div className="col">
-                                                                                    <label htmlFor="checkbox9">No Requirement</label><br></br>
+                                                                                    <label htmlFor="checkbox9">No Requirement.<span className="requiredclass">*</span></label><br></br>
                                                                                     {errors.no_requirements && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
                                                                                             *No Requirement option is required.

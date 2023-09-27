@@ -774,7 +774,7 @@ const Profile = () => {
                                                                     />
                                                                 </div>
                                                             </div>
-
+                                                           
                                                             <div className="col-sm-2">
                                                                 <div className="logo">
                                                                     <img src={businessDetails.logo} alt="logo" className="logo" />

@@ -203,13 +203,13 @@ const Header = () => {
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/terms-and-conditions' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
-                            <i className="fas fa-clipboard-list term-icon"></i>
+                              <i className="fas fa-clipboard-list term-icon"></i>
                               <span>Term & Condition </span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/privacy-policy' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
-                            <i className="fas fa-user-secret privacy-icon"></i>
+                              <i className="fas fa-user-secret privacy-icon"></i>
                               <span>Privacy Policy</span>
                             </Link>
                           </li>
@@ -381,7 +381,11 @@ const Header = () => {
             </div>
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" />
+                {users && users.profile_pic ? (
+                  <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" />
+                ) : (
+                  <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images.profile.webp"} alt="" />
+                )}
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>

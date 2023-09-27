@@ -131,7 +131,7 @@ try{
             <div className="page-title-box">
               <div className="row align-items-center">
                 <div className="col-md-8">
-                  <h6 className="page-title">Startup</h6>
+                  <h6 className="page-title"> Privacy Policy</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
                       <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>

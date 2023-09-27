@@ -74,37 +74,37 @@ const StartupList = () => {
     // for approval status update
     function updateApprovalStatus(id: number, status: number | string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-status/${id}`, { approval_status: status },
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + getToken(), 
-            },
-          })
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + getToken(),
+                },
+            })
             .then(response => {
                 const updatedData = startups.map(startup => {
                     if (startup.id === id) {
-                    const data = {
-                        notify_from_user: current_user_id,
-                        notify_to_user: startup.id,
-                        notify_msg:`Congratulations! Your profile has been approved successfully`,
-                        notification_type: "Approval Notification",
-                        each_read: "unread",
-                        status: "active"
-                      };
-                      // Send Notifications to admin When new user is register
-                      sendNotification(data)
-                      .then((notificationRes) => {
-                        console.log('success')
-                      })
-                      .catch((error) => {
-                        console.log('error occured')
-                      });
+                        const data = {
+                            notify_from_user: current_user_id,
+                            notify_to_user: startup.id,
+                            notify_msg: `Congratulations! Your profile has been approved successfully`,
+                            notification_type: "Approval Notification",
+                            each_read: "unread",
+                            status: "active"
+                        };
+                        // Send Notifications to admin When new user is register
+                        sendNotification(data)
+                            .then((notificationRes) => {
+                                console.log('success')
+                            })
+                            .catch((error) => {
+                                console.log('error occured')
+                            });
                         return {
                             ...startup,
                             approval_status: status,
                         };
                     }
-                      return startup;
+                    return startup;
                 });
                 setStartupData(updatedData);
                 toast.success(response.data.message, {
@@ -123,12 +123,12 @@ const StartupList = () => {
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-status/${id}`, { status: status },
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + getToken(), 
-            },
-          }
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + getToken(),
+                },
+            }
         )
             .then(response => {
                 const updatedData = startups.map(startup => {
@@ -159,12 +159,12 @@ const StartupList = () => {
     function updateStartupStage(id: string, stage: string) {
         const startupId = parseInt(id);
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage },
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + getToken(), 
-            },
-          })
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + getToken(),
+                },
+            })
             .then(response => {
                 // set value in startups state
                 const updatedStartupData = startups.map(startup => {
@@ -197,12 +197,12 @@ const StartupList = () => {
     // delete the startup 
     const deleteStartup = async (id: number) => {
         // console.log("this is id again"+id);
-        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`,{
+        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`, {
             headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + getToken(), 
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
             },
-          })
+        })
             .then(response => {
 
                 const updatedData = startups.filter(startup => startup.id !== id);
@@ -264,79 +264,67 @@ const StartupList = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-white bg-dark" id="title">
-                                        <h3 className="card-title" >COMPANIES</h3>
+                                    <div className="card-header bg-088395 text-white" id="title">
+                                        <h3 className="card-title">COMPANIES</h3>
                                     </div>
                                     <div className="card-body">
-                                        <div className='table-responsive'>
-                                            {startups.length > 0 ? (
-                                                <table
-                                                    id="datatable"
-                                                    ref={tableRef}
-                                                    className="table dt-responsive nowrap"
-                                                    style={{
-                                                        borderCollapse: 'collapse',
-                                                        borderSpacing: 0,
-                                                        width: '100%',
-                                                        overflow: 'hidden',
-                                                    }}
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Name</th>
-                                                            <th>Email Address</th>
-                                                            <th>Company</th>
-                                                            <th>Stage</th>
-                                                            <th>Status</th>
-                                                            <th>Approval</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {startups.map((startup, index) => (
-                                                            <tr key={startup.id}>
-                                                                <td>{index + 1}</td>
-                                                                <td>{startup.name}</td>
-                                                                <td>{startup.email}</td>
-                                                                <td>{startup.business_name}</td>
-                                                                <td>{startup.stage}</td>
-                                                                {/* <td>
-                                                                    <select className="form-select form-select-lg mb-3 css-1492t68 mt-0" value={startup.stage} onChange={(e) => updateStartupStage(String(startup.id), e.target.value)}>
-                                                                        <option value="Idea Stage">Idea Stage</option>
-                                                                        <option value="Intermediate Stage">Intermediate Stage</option>
-                                                                        <option value="Final Stage">Final Stage</option>
-                                                                    </select>
-                                                                </td> */}
-                                                                <td>
-                                                                    <span style={{ cursor: "pointer" }} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span style={{ cursor: "pointer" }} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}>  {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/edit-startup/?id=${startup.id}`} className='m-1'>
-                                                                        <span className='fa fa-edit'></span>
-                                                                    </Link>
-                                                                    <Link href="javascript:void(0);" onClick={() => deleteStartup(startup.id)} className='m-1'>
-                                                                        <span className='fa fa-trash text-danger'></span>
-                                                                    </Link>
-                                                                </td>
+                                        <div className="table-responsive1">
+                                            <div className="box-card recent-reviews mb-4">
+                                                {startups.length > 0 ? (
+                                                    <table className="table-dash" id="datatable" ref={tableRef}>
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Email Address</th>
+                                                                <th scope="col">Company</th>
+                                                                <th scope="col">Stage</th>
+                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Approvel</th>
+                                                                <th scope="col">Action</th>
                                                             </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            ) : (
-                                                <p>No data available in table</p>
-                                            )}
+                                                        </thead>
+                                                        <tbody>
+                                                            {startups.map((startup, index) => (
+                                                                <tr key={startup.id}>
+                                                                    <td data-label="Account">{index + 1}</td>
+                                                                    <td data-label="Account">{startup.name}</td>
+                                                                    <td data-label="Due Date">{startup.email}</td>
+                                                                    <td data-label="Amount">{startup.business_name}</td>
+                                                                    <td data-label="Amount">{startup.stage}</td>
+                                                                    <td data-label="Period">
+                                                                        <span style={{ cursor: "pointer" }} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
+                                                                    </td>
+                                                                    <td data-label="Period">
+                                                                        <span style={{ cursor: "pointer" }} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
+                                                                    </td>
+                                                                    <td data-label="Period">
+                                                                        <ul className="table-icons-right">
+                                                                            <li className="edit">
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-startup/?id=${startup.id}`}>
+                                                                                    <i className="fa-regular fa-pen-to-square" />
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li className="trash">
+                                                                                <Link href="#" onClick={() => { deleteStartup(startup.id); }} >
+                                                                                    <i className="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                ) : (
+                                                    <p>No data available in table</p>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>{" "}
                             {/* end col */}
-                            {/* <Pagination items={startups.length} currentPage={currentPage} pageSize={pageSize}
-                                onPageChange={onPageChange} /> */}
-
                         </div>{" "}
                         {/* end row */}
                     </div>{" "}

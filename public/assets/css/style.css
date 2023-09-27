@@ -8755,15 +8755,17 @@ section#service-title {
   display: none;
   position: absolute;
   background-color: #ffffff;
-  min-width: 160px;
+  min-width: 298px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 999999;
   padding: 12px;
   font-size: 15px;
   line-height: 23px;
   text-transform: capitalize;
   font-weight: 500;
+  top: 40px;
+  left: -91px;
 }
 
 div#myDropdown p {
@@ -9547,10 +9549,10 @@ div#checkbox-group-1 .same-card {
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate a.paginate_button.current {
-  background: linear-gradient(to bottom, #088395 0%, #088395 100%) !important;
+  background: linear-gradient(to bottom, #232323 0%, #232323 100%) !important;
   color: #fff !important;
   padding: 4px 14px !important;
-  border: solid 1px #088395 !important;
+  border: solid 1px #232323 !important;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -9574,7 +9576,7 @@ table.dataTable.no-footer {
 
 a.paginate_button {
   padding: 4px 6px !important;
-  border: solid 1px #088395 !important;
+  border: solid 1px #232323 !important;
   margin-top: 10px;
 }
 
@@ -10261,9 +10263,9 @@ text-align: left;
 }
 
 table.table-dash th {
-  font-size: 16px;
-  text-transform: uppercase;
-  color: #088395;
+  font-size: 15px;
+  /* text-transform: uppercase; */
+  color: #232323;
 }
 
 table.table-dash td {
@@ -10418,4 +10420,12 @@ span.logo-sm img {
     font-weight: 700;
     padding-bottom: 15px;
     color: #088395;
+}
+.same-card span.requiredclass {
+  color: red;
+}
+.form-faq .container .accordion {
+    max-width: 69%;
+    margin: 60px auto;
+    margin-left: 290px;
 }

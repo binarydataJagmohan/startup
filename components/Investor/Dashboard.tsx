@@ -23,9 +23,6 @@ const Dashboard = () => {
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-
-
-
   const itemsPerPage = 3;
 
   const filteredBusinessDetails = businessDetails.filter(
@@ -153,12 +150,13 @@ const Dashboard = () => {
             {opendisplayedBusinessDetailsCOP
               .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
               .map((details: any, index: any) => (
+               
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <Link href="#" className="image">
                         { }
-                        
+                       
                         {/* <img
                           className="pic-1 image"
                           src={details.logo}

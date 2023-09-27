@@ -68,10 +68,12 @@ const UserList = () => {
 
     function deleteUser(id: number) {
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`,{ headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/user-delete/${id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 const updatedData = users.filter(user => user.id !== id);
                 setUsers(updatedData);
@@ -89,10 +91,12 @@ const UserList = () => {
     }
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-status/${id}`, { status: status },{ headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-status/${id}`, { status: status }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 const updatedData = users.map(user => {
                     if (user.id === id) {
@@ -121,10 +125,12 @@ const UserList = () => {
     // For update business stage
     function updateusersRole(id: string, role: string) {
         const userId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-role/${id}`, { role },{ headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-role/${id}`, { role }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 // set value in user role state
                 const updatedUserData = users.map(user => {
@@ -157,10 +163,12 @@ const UserList = () => {
     // For update business stage
     function updateCountry(id: string, country: string) {
         const userId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-country/${id}`, { country },{ headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-user-country/${id}`, { country }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 // set value in user country state
                 const updatedUserData = users.map(user => {
@@ -199,7 +207,7 @@ const UserList = () => {
                         <div className="page-title-box">
                             <div className="row align-items-center">
                                 <div className="col-md-8">
-                                    <h6 className="page-title">User</h6>
+                                    <h6 className="page-title">Users</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
@@ -215,81 +223,60 @@ const UserList = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-white bg-dark" id="title">
-                                        <h3 className="card-title" >USERS</h3>
+                                    <div className="card-header bg-088395 text-white" id="title">
+                                        <h3 className="card-title">USERS</h3>
                                     </div>
-                                    <div className="card-body table-responsive">
-
-                                        <table
-                                            id="datatable" ref={tableRef}
-                                            className="table dt-responsive nowrap"
-                                            style={{
-                                                borderCollapse: 'collapse',
-                                                borderSpacing: 0,
-                                                width: '100%',
-                                                overflow: 'hidden',
-                                            }}
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email Address</th>
-                                                    <th>Phone</th>
-                                                    {/* <th>City</th>
-                                                    <th>Country</th> */}
-                                                    <th>Role</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {users && users.length > 0 ? (
-                                                    users.map((user, index) => (
-                                                        <tr key={user.id}>
-                                                            <td>{index + 1}</td>
-                                                            <td>{user.name}</td>
-                                                            <td>{user.email}</td>
-                                                            <td>{user.phone}</td>
-                                                            {/* <td>{user.city}</td>
-                                                        <td>
-                                                           <select className="form-select form-select-lg css-1492t68 mt-0 w-sm mb-3" value={user.country} onChange={(e) => updateCountry(String(user.id), e.target.value)}>
-                                                                    <option value="">--SELECT COUNTRY--</option>
-                                                                    {countries.map((country, index) => (
-                                                                        <option
-                                                                            key={index}
-                                                                            value={country.name}
-                                                                            // selected={user.country === country.name}
-                                                                        >
-                                                                            {country.name}
-                                                                        </option>
-                                                                    ))}
-                                                            </select>
-                                                        </td> */}
-                                                    <td>{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
-                                                        {/* <td>
-                                                            <select className="form-select w-sm form-select-lg mb-3 css-1492t68 mt-0" value={user.role} onChange={(e) => updateusersRole(String(user.id), e.target.value)}>
-                                                               <option value="">--SELECT ROLE--</option>
-                                                                <option value="admin">Admin</option>
-                                                                <option value="startup">Startup</option>
-                                                                <option value="investor">Investor</option>
-                                                            </select>
-                                                        </td> */}
-                                                        <td><span style={{ cursor: "pointer" }} className={user.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(user.id, user.status === 'active' ? 'deactive' : 'active')}> {user.status.toUpperCase()}</span></td>
-                                                        <td>
-
-                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
-
-                                                                <Link href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
-                                                            </td>
+                                    <div className="card-body">
+                                        <div className="table-responsive1">
+                                            <div className="box-card recent-reviews mb-4">
+                                                <table className="table-dash" id="datatable" ref={tableRef}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Email Address</th>
+                                                            <th scope="col">Phone</th>
+                                                            <th scope="col">Role</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Action</th>
                                                         </tr>
-                                                    ))) : (
-                                                    <tr>
-                                                        <td className="text-center" colSpan={8}>No funds found.</td>
-                                                    </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        {users && users.length > 0 ? (
+                                                            users.map((user, index) => (
+                                                                <tr key={index}>
+                                                                    <td data-label="Account">{index + 1}</td>
+                                                                    <td data-label="Account">{user.name}</td>
+                                                                    <td data-label="Due Date">{user.email}</td>
+                                                                    <td data-label="Amount">{user.phone}</td>
+                                                                    <td data-label="Amount">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
+                                                                    <td data-label="Period">
+                                                                        <span style={{ cursor: "pointer" }} className={user.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(user.id, user.status === 'active' ? 'deactive' : 'active')}> {user.status.toUpperCase()}</span>
+                                                                    </td>
+                                                                    <td data-label="Period">
+                                                                        <ul className="table-icons-right">
+                                                                            <li className="edit">
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} >
+                                                                                    <i className="fa-regular fa-pen-to-square" />
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li className="trash">
+                                                                                <Link href="#" onClick={() => { deleteUser(user.id); }} >
+                                                                                    <i className="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                            ))) : (
+                                                            <tr>
+                                                                <td className="text-center" colSpan={8}>No funds found.</td>
+                                                            </tr>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>{" "}

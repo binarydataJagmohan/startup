@@ -83,7 +83,7 @@ const EditUser = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(users.linkedin_url)) {
+        } else if (!/^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/.test(users.linkedin_url)) {
             setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
@@ -222,7 +222,7 @@ const EditUser = () => {
                         <div className="page-title-box">
                             <div className="row align-items-center">
                                 <div className="col-md-8">
-                                    <h6 className="page-title">Startup</h6>
+                                    <h6 className="page-title">Edit Users</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>Dashboard</Link>
@@ -324,7 +324,7 @@ const EditUser = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="row g-3 mt-1">
+                                            <div className="row">
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
                                                         <span style={{ color: "red" }}>*</span>
