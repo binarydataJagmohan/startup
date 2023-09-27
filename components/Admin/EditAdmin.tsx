@@ -7,7 +7,6 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import axios from 'axios';
