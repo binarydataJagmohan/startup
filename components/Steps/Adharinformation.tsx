@@ -4,10 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { getBankInformation,bankInformationSave,sendNotification } from "../../lib/frontendapi";
-import {removeToken,removeStorageData,getCurrentUserData,} from "../../lib/session";
+import { getBankInformation, bankInformationSave, sendNotification } from "../../lib/frontendapi";
+import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { getSingleUserData } from '@/lib/frontendapi';
 import Link from 'next/link';
+import Image from 'next/image';
 const alertStyle = {
   color: "red",
 };
@@ -17,9 +18,9 @@ const textStyle = {
 
 interface UserData {
   id?: string;
-  name?:string;
+  name?: string;
 }
-export default function AdharInformation():any {
+export default function AdharInformation(): any {
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
@@ -27,10 +28,10 @@ export default function AdharInformation():any {
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUsername]=useState("");
+  const [current_user_name, setCurrentUsername] = useState("");
   const [users, setUsers] = useState<any>({});
   const [bankDetails, setBankDetails] = useState({
-    user_id:current_user_id,
+    user_id: current_user_id,
     // business_id :current_business_id ,
     bank_name: "",
     account_holder: "",
@@ -42,7 +43,7 @@ export default function AdharInformation():any {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === 'account_no') {
@@ -54,7 +55,7 @@ export default function AdharInformation():any {
         ...prevState,
         [name]: value,
         id: current_user_id,
-         user_id:current_user_id
+        user_id: current_user_id
         // business_id :current_business_id
       };
     });
@@ -62,14 +63,14 @@ export default function AdharInformation():any {
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     current_user_data.name
-    ? setCurrentUsername(current_user_data.name)
-    : setCurrentUsername("");
+      ? setCurrentUsername(current_user_data.name)
+      : setCurrentUsername("");
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
         : setCurrentUserId("");
 
-        getSingleUserData(current_user_data.id)
+      getSingleUserData(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
             setUsers(res.data);
@@ -81,10 +82,10 @@ export default function AdharInformation():any {
           });
         });
 
-        getBankInformation(current_user_data.id)
+      getBankInformation(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
-            setBankDetails( res.data);
+            setBankDetails(res.data);
             // console.log(res.data);
           } else {
             toast.error(res.message, {
@@ -101,27 +102,27 @@ export default function AdharInformation():any {
       window.location.href = "/login";
     }
 
-    
+
   }, []);
 
   const SubmitForm = async () => {
-     try {
+    try {
       const res = await bankInformationSave(bankDetails);
 
       toast.success("Profile has been Updated Successfully.", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "success",
       });
-      if(users.approval_status === 'pending'){
+      if (users.approval_status === 'pending') {
         setTimeout(() => {
           router.push("/company/thank-you");
         }, 1000);
-        }
-        if(users.approval_status === 'approved'){
-          setTimeout(() => {
-            router.push("/company/dashboard");
-          }, 1000);
-        }
+      }
+      if (users.approval_status === 'approved') {
+        setTimeout(() => {
+          router.push("/company/dashboard");
+        }, 1000);
+      }
 
       const data = {
         notify_from_user: current_user_id,
@@ -130,24 +131,24 @@ export default function AdharInformation():any {
         notification_type: "Profile Completed",
         each_read: "unread",
         status: "active"
-    };
+      };
       if (res.status == true) {
         sendNotification(data)
-                    .then((notificationRes) => {
-                        console.log('success')
-                    })
-                    .catch((error) => {
-                        console.log('error occured')
-                    });
-       
-       
+          .then((notificationRes) => {
+            console.log('success')
+          })
+          .catch((error) => {
+            console.log('error occured')
+          });
+
+
       } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "error",
         });
       }
-    } catch (err:any) {
+    } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "error",
@@ -163,8 +164,8 @@ export default function AdharInformation():any {
   const handleSelect = (find_business_location: any) => {
     setFindBusinessLocation(find_business_location);
   };
-  
-  
+
+
 
   if (signup_success) return router.push("/");
 
@@ -190,8 +191,8 @@ export default function AdharInformation():any {
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#82b440"}} aria-hidden="true"></i>
+                  <div className="step_complete">
+                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
@@ -203,8 +204,8 @@ export default function AdharInformation():any {
                   Step <span>2</span>
                 </div>
                 <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#82b440"}} aria-hidden="true"></i>
+                  <div className="step_complete">
+                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
@@ -217,7 +218,7 @@ export default function AdharInformation():any {
                 </div>
                 <div className="step_border">
                   <div className="step_complete">
-                       <i className="flaticon-checked"  aria-hidden="true"></i>
+                    <i className="flaticon-checked" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
@@ -240,8 +241,13 @@ export default function AdharInformation():any {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                <div className="step">
-                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                  <div className="step">                    
+                    <Image
+                      className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
+                      alt="bank-icon"
+                      width={30}
+                      height={38}
+                    />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
@@ -255,7 +261,7 @@ export default function AdharInformation():any {
                   <div className="col-md-12">
                     <form className="needs-validation mb-4" onSubmit={handleSubmit(SubmitForm)}>
                       <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
-                         Bank Details{" "}
+                        Bank Details{" "}
                         <i
                           style={{ cursor: "pointer" }}
                           className="fa fa-info-circle"
@@ -278,16 +284,16 @@ export default function AdharInformation():any {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input" 
+                                className="form-control same-input"
                                 id="bank_name" {...register("bank_name", {
-                                 value:true, required: true,
-                                })} name="bank_name"  onChange={handleChange}  value={bankDetails.bank_name}
+                                  value: true, required: true,
+                                })} name="bank_name" onChange={handleChange} value={bankDetails.bank_name}
                               />
                               {errors.bank_name &&
                                 errors.bank_name.type === "required" && (
                                   <p
                                     className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                    style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please Enter Your Bank Name.
                                   </p>
@@ -305,14 +311,14 @@ export default function AdharInformation():any {
                                 type="text"
                                 className="form-control same-input"
                                 id="account_holder" {...register("account_holder", {
-                                 value:true, required: true,
-                                })}   value={bankDetails.account_holder}  name="account_holder" onChange={handleChange}  
+                                  value: true, required: true,
+                                })} value={bankDetails.account_holder} name="account_holder" onChange={handleChange}
                               />
                               {errors.account_holder &&
                                 errors.account_holder.type === "required" && (
                                   <p
                                     className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                    style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please Enter Your Account Holder Name.
                                   </p>
@@ -323,21 +329,21 @@ export default function AdharInformation():any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label"
                               >
-                                 Account Number{" "}
-                                 <span style={{ color: "red" }}>*</span>
+                                Account Number{" "}
+                                <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text"
                                 className="form-control same-input" maxLength={17}
                                 id="account_no" {...register("account_no", {
-                                 value:true, required: true,
-                                })}   value={bankDetails.account_no}  name="account_no" onChange={handleChange}  
+                                  value: true, required: true,
+                                })} value={bankDetails.account_no} name="account_no" onChange={handleChange}
                               />
-                               {errors.account_no &&
+                              {errors.account_no &&
                                 errors.account_no.type === "required" && (
                                   <p
                                     className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
+                                    style={{ textAlign: "left", fontSize: "12px" }}
                                   >
                                     *Please Enter Your Account Number.
                                   </p>
@@ -355,27 +361,27 @@ export default function AdharInformation():any {
                                 type="text" maxLength={11}
                                 className="form-control same-input"
                                 id="ifsc_code" {...register("ifsc_code", {
-                                 value:true, required: true,max:11
-                                })}   value={bankDetails.ifsc_code}  name="ifsc_code" onChange={handleChange}
+                                  value: true, required: true, max: 11
+                                })} value={bankDetails.ifsc_code} name="ifsc_code" onChange={handleChange}
                               />
-                               {errors.ifsc_code  && (
-                                  <p
-                                    className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your valid IFSC Code.
-                                  </p>
-                                )}
+                              {errors.ifsc_code && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Your valid IFSC Code.
+                                </p>
+                              )}
                             </div>
                           </div>
                           <div className="row mt-3">
-                            <div className="col-md-6"  style={{ textAlign: "left", fontSize: "12px" }}>
-                            <Link
-                              href={`/steps/customizereview `}
-                              className="btnclasssmae" id="back"
-                            >
-                              Go back
-                            </Link>
+                            <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
+                              <Link
+                                href={`/steps/customizereview `}
+                                className="btnclasssmae" id="back"
+                              >
+                                Go back
+                              </Link>
                             </div>
 
                             <div
@@ -383,7 +389,7 @@ export default function AdharInformation():any {
                               style={{ textAlign: "right" }}
                             >
                               <button type="submit" className="btnclasssmae">
-                                 Submit
+                                Submit
                               </button>
                             </div>
                           </div>

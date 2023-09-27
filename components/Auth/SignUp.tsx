@@ -2,15 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { userRegister,sendNotification } from "../../lib/frontendapi";
+import { userRegister, sendNotification } from "../../lib/frontendapi";
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import Image from 'next/image';
 interface FormData {
-  firstname:string;
-  lastname:string;
+  firstname: string;
+  lastname: string;
   email: string;
-  password:string;
-  role:string;
+  password: string;
+  role: string;
 }
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
@@ -20,7 +21,7 @@ const Signup = () => {
   const [role, setRole] = useState("");
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [notifications,setNotifications]=useState("");
+  const [notifications, setNotifications] = useState("");
   const {
     register,
     handleSubmit,
@@ -48,7 +49,7 @@ const Signup = () => {
     },
   });
 
- 
+
 
   const SubmitForm = () => {
     const user = {
@@ -58,7 +59,7 @@ const Signup = () => {
       password: password,
       role: role,
     };
-    const setLocalStorageItems = (user:any) => {
+    const setLocalStorageItems = (user: any) => {
       window.localStorage.setItem("id", user.id);
       window.localStorage.setItem("email", user.email);
       window.localStorage.setItem("username", user.firstname);
@@ -70,9 +71,9 @@ const Signup = () => {
     userRegister(user)
       .then((res) => {
         if (res.status == true) {
-        //   console.log(res.data[0]);
-        //   console.log(res.data['user']);
-        //  return false;
+          //   console.log(res.data[0]);
+          //   console.log(res.data['user']);
+          //  return false;
           if (res.data[0]) {
             setLocalStorageItems(res.data['user']);
             switch (window.localStorage.getItem("user_role")) {
@@ -116,21 +117,21 @@ const Signup = () => {
             const data = {
               notify_from_user: window.localStorage.getItem("id"),
               notify_to_user: "1",
-              notify_msg:`${user.firstname} has been registered successfully as a ${user.role}.`,
+              notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
               notification_type: "New User Registered",
               each_read: "unread",
               status: "active"
             };
-            
+
             // Send Notifications to admin When new user is register
             sendNotification(data)
-            .then((notificationRes) => {
-              console.log('success')
-            })
-            .catch((error) => {
-              console.log('error occured')
-            });
-  
+              .then((notificationRes) => {
+                console.log('success')
+              })
+              .catch((error) => {
+                console.log('error occured')
+              });
+
             toast.success(res.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
@@ -193,11 +194,11 @@ const Signup = () => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-12">
-                <div className="contact-text text-center pt-4"> 
+                <div className="contact-text text-center pt-4">
                 </div>
                 <div className="contact-form">
                   <form id="contactForm" onSubmit={handleSubmit(SubmitForm)}>
-                   <h3>Lets Get Started</h3>
+                    <h3>Lets Get Started</h3>
                     <div className="row">
                       <div className="form-group col-md-6">
                         <label>
@@ -279,16 +280,16 @@ const Signup = () => {
                           Password<span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                           type={showPassword ? 'text' : 'password'}
+                          type={showPassword ? 'text' : 'password'}
                           id="password"
                           className="form-control" maxLength={16}
                           {...register("password", {
                             onChange: (e) => setPassword(e.target.value),
                           })}
                         />
-                       <span className="passwordView1" onClick={handleTogglePassword}>
-                      {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
-                    </span>
+                        <span className="passwordView1" onClick={handleTogglePassword}>
+                          {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
+                        </span>
                         <div className="help-block with-errors" />
                         {errors.password && (
                           <p
@@ -323,7 +324,12 @@ const Signup = () => {
                                   value="investor"
                                 />
                                 <label htmlFor="myCheckbox1">
-                                  <img src="assets/img/invest.png" />
+                                  <Image
+                                    src="assets/img/invest.png"
+                                    alt="startup-image"
+                                    width={187}
+                                    height={56}
+                                  />
                                 </label>
                               </li>
                               <li>
@@ -340,7 +346,12 @@ const Signup = () => {
                                   value="startup"
                                 />
                                 <label htmlFor="myCheckbox2">
-                                  <img src="assets/img/startup.png" />
+                                  <Image
+                                    src="assets/img/startup.png"
+                                    alt="startup-image"
+                                    width={187}
+                                    height={56}
+                                  />
                                 </label>
                               </li>
                             </ul>

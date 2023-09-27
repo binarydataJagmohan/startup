@@ -1,7 +1,8 @@
-import React, { useState, useEffect,useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import Image from 'next/image';
 import { useForm } from "react-hook-form";
 import { businessInfoSave, getBusinessInformation } from "../../lib/frontendapi";
 import Link from 'next/link';
@@ -17,50 +18,50 @@ const alertStyle = {
 const textStyle = {
   textTransform: "capitalize",
 };
-interface UserData{
+interface UserData {
   id?: string;
 }
-export default function Businessinfo():any {
+export default function Businessinfo(): any {
   const router = useRouter();
   const [blId, setBlId] = useState("");
   const [forwarduId, setForwarduId] = useState("");
   const [missingFields, setMissingFields] = useState<string[]>([]);
- 
+
   const [current_user_id, setCurrentUserId] = useState("");
   const [business_name, setBusinessName] = useState("");
 
   const [signup_success, setSignupSuccess] = useState(false);
 
-  const {register,handleSubmit,formState: { errors },} = useForm();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = (event:any) => {
+  const handleUploadClick = (event: any) => {
     event.preventDefault();
     setMissingFields([])
     if (fileInputRef.current !== null) {
-      (fileInputRef.current as HTMLInputElement).click(); 
+      (fileInputRef.current as HTMLInputElement).click();
     }
   };
   const [logo, setLogo] = useState(null);
   const handleFileChange = (event: any) => {
     setMissingFields([])
     setLogo(event.target.files[0]);
-    
+
   };
   const [businessDetails, setBusinessDetails] = useState({
-      user_id: current_user_id,
-      business_name: "",
-      reg_businessname: "",
-      website_url: "",
-      sector: "",
-      stage: "",
-      startup_date: "",
-      tagline: "",
-      logo: "",
-      type:"",
-      description: "",
-      cofounder: "0",
-      kyc_purposes: "0",
+    user_id: current_user_id,
+    business_name: "",
+    reg_businessname: "",
+    website_url: "",
+    sector: "",
+    stage: "",
+    startup_date: "",
+    tagline: "",
+    logo: "",
+    type: "",
+    description: "",
+    cofounder: "0",
+    kyc_purposes: "0",
   });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
@@ -95,91 +96,91 @@ export default function Businessinfo():any {
       });
     }
   };
-  
- useEffect(() => {
-  const current_user_data:UserData = getCurrentUserData();
-  if (current_user_data.id) {
-    setCurrentUserId(current_user_data.id);
-    getBusinessInformation(current_user_data.id)
-      .then((res) => {
-        if (res.status === true) {
-          setBusinessDetails(res.data);
-          
-        } else {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
+
+  useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.id) {
+      setCurrentUserId(current_user_data.id);
+      getBusinessInformation(current_user_data.id)
+        .then((res) => {
+          if (res.status === true) {
+            setBusinessDetails(res.data);
+
+          } else {
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
           });
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
         });
-      });
-   
-  } else {
-    window.location.href = "/login";
-  }
-}, []);
 
-const SubmitForm = async () => {
-  try {
-
-    if(!businessDetails.sector){
-      setMissingFields(prevFields=>[...prevFields,"sector"]);
-    }
-    if(!businessDetails.stage){
-      setMissingFields(prevFields=>[...prevFields,"stage"])
-    }
-    if(!businessDetails.type){
-     setMissingFields(prevFields=>[...prevFields,"type"])
-    }
-    if(!logo && !businessDetails.logo){
-      setMissingFields(prevFields=>[...prevFields,"logo"])
-     }
-    const formData = new FormData();
-    if (logo !== null) {
-      formData.append('logo', logo);
-    }
-    formData.append("user_id", businessDetails.user_id);
-    formData.append("business_name", businessDetails.business_name);
-    formData.append("reg_businessname", businessDetails.reg_businessname);
-    formData.append("website_url", businessDetails.website_url);
-    formData.append("sector", businessDetails.sector);
-    formData.append("stage", businessDetails.stage);
-    formData.append("startup_date", businessDetails.startup_date);
-    formData.append("tagline", businessDetails.tagline);
-    formData.append("description", businessDetails.description);
-    formData.append("cofounder", businessDetails.cofounder);
-    formData.append("kyc_purposes", businessDetails.kyc_purposes);
-    formData.append("type", businessDetails.type);
-    const res = await businessInfoSave(formData);
-
-    if (res.status === true) {
-      setTimeout(() => {
-        router.push("/steps/customizereview");
-      }, 1000);
     } else {
-      toast.error(res.msg, {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      window.location.href = "/login";
     }
-  } catch (err) {
-    // toast.error("Please fill correct information", {
-    //   position: toast.POSITION.TOP_RIGHT,
-    //   toastId: "error",
-    // });
-  }
-};
+  }, []);
 
-register('website_url', {
-  required: 'Company website url is required',
-  pattern: {
-    value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
-    message: 'Enter a valid website',
-  },
-});
+  const SubmitForm = async () => {
+    try {
+
+      if (!businessDetails.sector) {
+        setMissingFields(prevFields => [...prevFields, "sector"]);
+      }
+      if (!businessDetails.stage) {
+        setMissingFields(prevFields => [...prevFields, "stage"])
+      }
+      if (!businessDetails.type) {
+        setMissingFields(prevFields => [...prevFields, "type"])
+      }
+      if (!logo && !businessDetails.logo) {
+        setMissingFields(prevFields => [...prevFields, "logo"])
+      }
+      const formData = new FormData();
+      if (logo !== null) {
+        formData.append('logo', logo);
+      }
+      formData.append("user_id", businessDetails.user_id);
+      formData.append("business_name", businessDetails.business_name);
+      formData.append("reg_businessname", businessDetails.reg_businessname);
+      formData.append("website_url", businessDetails.website_url);
+      formData.append("sector", businessDetails.sector);
+      formData.append("stage", businessDetails.stage);
+      formData.append("startup_date", businessDetails.startup_date);
+      formData.append("tagline", businessDetails.tagline);
+      formData.append("description", businessDetails.description);
+      formData.append("cofounder", businessDetails.cofounder);
+      formData.append("kyc_purposes", businessDetails.kyc_purposes);
+      formData.append("type", businessDetails.type);
+      const res = await businessInfoSave(formData);
+
+      if (res.status === true) {
+        setTimeout(() => {
+          router.push("/steps/customizereview");
+        }, 1000);
+      } else {
+        toast.error(res.msg, {
+          position: toast.POSITION.TOP_RIGHT,
+          toastId: "error",
+        });
+      }
+    } catch (err) {
+      // toast.error("Please fill correct information", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   toastId: "error",
+      // });
+    }
+  };
+
+  register('website_url', {
+    required: 'Company website url is required',
+    pattern: {
+      value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
+      message: 'Enter a valid website',
+    },
+  });
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
@@ -220,9 +221,12 @@ register('website_url', {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img
+                    <Image
                       className="sidebar-img w-75"
                       src="/assets/img/sidebar/business.png"
+                      alt="bussiness-icon"
+                      width={30}
+                      height={38}
                     />
                   </div>
                 </div>
@@ -236,9 +240,12 @@ register('website_url', {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img
+                    <Image
                       className="sidebar-img w-75"
                       src="/assets/img/sidebar/docs.png"
+                      alt="doc-icon"
+                      width={45}
+                      height={40}
                     />
                   </div>
                 </div>
@@ -265,7 +272,12 @@ register('website_url', {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                    <Image
+                      className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
+                      alt="bank-icon"
+                      width={45}
+                      height={45}
+                    />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
@@ -277,7 +289,7 @@ register('website_url', {
               <div className="register-form ">
                 <div className="row step_one">
                   <div className="col-md-12">
-                    <form className="needs-validation mb-4" encType="multipart/form-data"  onSubmit={handleSubmit(SubmitForm)}>
+                    <form className="needs-validation mb-4" encType="multipart/form-data" onSubmit={handleSubmit(SubmitForm)}>
                       <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
                         {" "}
                         Business Information{" "}
@@ -306,9 +318,9 @@ register('website_url', {
                                 className="form-control same-input"
                                 id="business_name"
                                 {...register("business_name", {
-                                  value:true,
+                                  value: true,
                                   required: true,
-                                })}  name="business_name"  onChange={handleChange} value={businessDetails.business_name}
+                                })} name="business_name" onChange={handleChange} value={businessDetails.business_name}
                               />
                               {errors.business_name &&
                                 errors.business_name.type === "required" && (
@@ -332,11 +344,13 @@ register('website_url', {
                                 type="text"
                                 className="form-control same-input"
                                 id="reg_businessname"
-                                {...register("reg_businessname", {onChange:handleChange,value:true,
-                                  required: true,})} 
-                                name="reg_businessname"   value={businessDetails.reg_businessname}
+                                {...register("reg_businessname", {
+                                  onChange: handleChange, value: true,
+                                  required: true,
+                                })}
+                                name="reg_businessname" value={businessDetails.reg_businessname}
                               />
-                               {errors.reg_businessname &&
+                              {errors.reg_businessname &&
                                 errors.reg_businessname.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -357,18 +371,20 @@ register('website_url', {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="website_url"  {...register("website_url",{onChange:handleChange,value:true,
-                                required: true})} 
-                                name="website_url"value={businessDetails.website_url}
+                                id="website_url"  {...register("website_url", {
+                                  onChange: handleChange, value: true,
+                                  required: true
+                                })}
+                                name="website_url" value={businessDetails.website_url}
                               />
                               {errors.website_url && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Comapny's Website Url.
-                                  </p>
-                                )}
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Enter Comapny's Website Url.
+                                </p>
+                              )}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -383,11 +399,12 @@ register('website_url', {
                                 aria-label="Default select example"
                                 {...register("sector", {
                                   // validate: (value) => value != "", required: true,
-                                  onChange:handleChange})} 
+                                  onChange: handleChange
+                                })}
                                 name="sector" value={businessDetails ? businessDetails.sector : ""}
                               >
                                 <option value="">--SELECT SECTOR--</option>
-                                
+
                                 <option value="E-commerce">E-commerce</option>
                                 <option value="Food & Restaurents Startups">Food  & Restaurents Startups</option>
                                 <option value="App Development">App Development</option>
@@ -403,17 +420,17 @@ register('website_url', {
                                 <option value="CleanTech (Clean Technology)">CleanTech (Clean Technology)</option>
                                 <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>
                                 <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>
-                            
-                             
+
+
                               </select>
                               {
                                 missingFields.includes("sector") && (
                                   <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Select Sector of Your Business.
-                                </p>
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Select Sector of Your Business.
+                                  </p>
                                 )
                               }
                               {/* {errors.sector &&
@@ -437,10 +454,11 @@ register('website_url', {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("stage", { 
+                                {...register("stage", {
                                   // validate: (value) => value != "", required: true,
-                                   onChange:handleChange})}
-                                name="stage"   value={businessDetails ? businessDetails.stage : ""}
+                                  onChange: handleChange
+                                })}
+                                name="stage" value={businessDetails ? businessDetails.stage : ""}
                               >
                                 <option value="">--SELECT STAGE--</option>
                                 <option value="Idea Stage">Idea Stage</option>
@@ -486,11 +504,13 @@ register('website_url', {
                                 type="date"
                                 className="form-control same-input"
                                 id="startup_date"
-                                {...register("startup_date", { value:true,
-                                  required: true,})}
-                                name="startup_date"  onChange={handleChange} value={businessDetails.startup_date}
+                                {...register("startup_date", {
+                                  value: true,
+                                  required: true,
+                                })}
+                                name="startup_date" onChange={handleChange} value={businessDetails.startup_date}
                                 max={new Date().toISOString().split("T")[0]}
-                             />
+                              />
                               {errors.startup_date &&
                                 errors.startup_date.type === "required" && (
                                   <p
@@ -510,11 +530,13 @@ register('website_url', {
                                 type="text"
                                 className="form-control same-input"
                                 id="tagline"
-                                {...register("tagline", { value:true,
-                                  required: true,})}
-                                name="tagline"  onChange={handleChange} value={businessDetails.tagline}
+                                {...register("tagline", {
+                                  value: true,
+                                  required: true,
+                                })}
+                                name="tagline" onChange={handleChange} value={businessDetails.tagline}
                               />
-                               {errors.tagline &&
+                              {errors.tagline &&
                                 errors.tagline.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -524,7 +546,7 @@ register('website_url', {
                                   </p>
                                 )}
                             </div>
-                            
+
                             <div className="col-md-6 mt-3">
                               <label
                                 htmlFor="stage"
@@ -538,8 +560,9 @@ register('website_url', {
                                 aria-label="Default select example"
                                 {...register("type", {
                                   //  validate: (value) => value != "", required: true,
-                                   onChange:handleChange})}
-                                name="type"    value={businessDetails ? businessDetails.type : ""}
+                                  onChange: handleChange
+                                })}
+                                name="type" value={businessDetails ? businessDetails.type : ""}
                               >
                                 <option value="">--SELECT FUND TYPE--</option>
                                 <option value="Dicounting Invoice">Dicounting Invoice</option>
@@ -567,7 +590,7 @@ register('website_url', {
                                 )} */}
                             </div>
 
-                          
+
 
                             <div className="col-sm-6 ">
                               <label
@@ -582,8 +605,8 @@ register('website_url', {
                                 maxLength={1000}
                                 placeholder="Enter details here"
                                 className="form-control"
-                                {...register("description", { value:true, required: true,onChange:handleChange})}
-                                name="description"   value={businessDetails.description}
+                                {...register("description", { value: true, required: true, onChange: handleChange })}
+                                name="description" value={businessDetails.description}
                               />
                             </div>
 
@@ -609,7 +632,7 @@ register('website_url', {
                                   onChange={handleFileChange}
                                   style={{ display: 'none' }} // Hide the input element
                                 />
-                               
+
                                 <label
                                   htmlFor="fileupload"
                                   className="input-file-trigger"
@@ -623,11 +646,11 @@ register('website_url', {
                                 {
                                   missingFields.includes("logo") && (
                                     <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Choose Your Business Logo.
-                                  </p>
+                                      className="text-danger"
+                                      style={{ textAlign: "left", fontSize: "12px" }}
+                                    >
+                                      *Please Choose Your Business Logo.
+                                    </p>
                                   )
                                 }
                                 {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
@@ -650,15 +673,15 @@ register('website_url', {
                               </div>
                             </div>
 
-                          
+
                             <div className=" mt-5 d-flex align-content-center">
                               <input
                                 className="form-check-input"
                                 type="checkbox"
                                 id="checkboxNoLabel"
                                 value="1"
-                                {...register("cofounder", { value:true, })}
-                                name="cofounder"  onChange={handleChange}   checked={businessDetails.cofounder === '1' ? true : false}
+                                {...register("cofounder", { value: true, })}
+                                name="cofounder" onChange={handleChange} checked={businessDetails.cofounder === '1' ? true : false}
                               />
                               <p className="">
                                 You come from an entrepreneurial family or have
@@ -672,8 +695,8 @@ register('website_url', {
                                 type="checkbox"
                                 id="checkboxNoLabel"
                                 value="1"
-                                {...register("kyc_purposes", { value:true,required:true })}
-                                name="kyc_purposes"  onChange={handleChange}  checked={businessDetails.kyc_purposes === '1'}
+                                {...register("kyc_purposes", { value: true, required: true })}
+                                name="kyc_purposes" onChange={handleChange} checked={businessDetails.kyc_purposes === '1'}
                               />
                               <p className="">
                                 I certify that all the information provided by
@@ -683,14 +706,14 @@ register('website_url', {
                               </p>
                             </div>
                             {errors.kyc_purposes &&
-                                errors.kyc_purposes.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please certify the kyc information.
-                                  </p>
-                                )}
+                              errors.kyc_purposes.type === "required" && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please certify the kyc information.
+                                </p>
+                              )}
                           </div>
                           <div className="row mt-3">
                             <div

@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getSingleBusinessDetails, InvestorBooking} from '@/lib/investorapi';
+import { getSingleBusinessDetails, InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
+import Image from 'next/image';
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
@@ -111,7 +112,7 @@ export default function CampaignsDetails() {
           if (res.status == true) {
             setButtonDisabled(true);
             router.push(`/investor/checkout`);
-            
+
             // send notification
             sendNotification(notification)
               .then((notificationRes) => {
@@ -209,7 +210,11 @@ export default function CampaignsDetails() {
                       <div className="logo-company">
                         <div className="img">
                           {inputs.logo && (
-                            <img src={inputs.logo} alt="" />
+                            <Image
+                              src={inputs.logo} alt=""
+                              width={60}
+                              height={60}
+                            />
                           )}
                         </div>
                       </div>

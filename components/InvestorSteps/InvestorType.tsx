@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import Image from 'next/image';
 import Link from 'next/link';
 import { investorTypeInfoSave, getInvestorType } from "../../lib/frontendapi";
 import {
@@ -153,9 +154,12 @@ export default function InvestorType(): any {
                                 </div>
                                 <div className="step_border">
                                     <div className="step">
-                                        <img
+                                        <Image
                                             className="sidebar-img w-100"
                                             src="/assets/img/investor/dollar.png"
+                                            alt="dollar-sign"
+                                            width={60}
+                                            height={35}
                                         />
                                     </div>
                                 </div>
@@ -182,9 +186,12 @@ export default function InvestorType(): any {
                                 </div>
                                 <div className="step_border">
                                     <div className="step">
-                                        <img
+                                        <Image
                                             className="sidebar-img w-50"
                                             src="/assets/img/investor/download2.png"
+                                            alt="term-condition"
+                                            width={30}
+                                            height={38}
                                         />
                                     </div>
                                 </div>
@@ -231,7 +238,12 @@ export default function InvestorType(): any {
                                                                                 value="Accredited Investors" checked={investorDetails.investorType === 'Accredited Investors'}
                                                                             />
                                                                             <label htmlFor="myCheckbox1">
-                                                                                <img src="/assets/img/investor/accredited.png" />
+                                                                                <Image
+                                                                                    src="/assets/img/investor/accredited.png"
+                                                                                    alt=""
+                                                                                    width={187}
+                                                                                    height={150}
+                                                                                />
                                                                             </label>
                                                                         </li>
                                                                         <li>
@@ -246,7 +258,12 @@ export default function InvestorType(): any {
                                                                                 value="Angel Investor" checked={investorDetails.investorType === 'Angel Investor'}
                                                                             />
                                                                             <label htmlFor="myCheckbox2">
-                                                                                <img src="/assets/img/investor/angel.png" />
+                                                                                <Image
+                                                                                    src="/assets/img/investor/angel.png"
+                                                                                    alt=""
+                                                                                    width={187}
+                                                                                    height={150}
+                                                                                />
                                                                             </label>
                                                                         </li>
                                                                     </ul>

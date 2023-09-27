@@ -411,12 +411,17 @@ const EditAdmin = () => {
                                                         </label>
                                                         <div className="profile-pic">
                                                             {previewImage ? (
-                                                                <img
-                                                                    src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                    width={300}
-                                                                    height={200}
-                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                />
+                                                                // <img
+                                                                //     src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                //     width={300}
+                                                                //     height={200}
+                                                                //     style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                // />
+                                                                <Image src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                width={300}
+                                                                height={200}
+                                                                alt=''
+                                                                style={{ margin: '5% 0%', objectFit: 'cover' }} />
                                                             ) : (
                                                                 <img
                                                                     src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}

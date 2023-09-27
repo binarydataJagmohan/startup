@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-
+import Image from 'next/image';
 export default function serviceThree() {
     return (
         <>
@@ -21,12 +21,12 @@ export default function serviceThree() {
             </div> */}
 
             <section className='Services-box ser-banner-5'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>Website Development Services for Investment Projects</h3>
-                <p>A well-designed website is critical to the success of any business, and this is especially true for investment projects. A website is often the first point of contact that potential investors have with your project, and it can be a powerful tool for generating interest and building trust.</p>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>Website Development Services for Investment Projects</h3>
+                        <p>A well-designed website is critical to the success of any business, and this is especially true for investment projects. A website is often the first point of contact that potential investors have with your project, and it can be a powerful tool for generating interest and building trust.</p>
+                    </div>
                 </div>
-             </div>
             </section>
 
             <section className="services-details-area ptb-50">
@@ -52,7 +52,7 @@ export default function serviceThree() {
                                     <h3>Our website development services include:</h3>
                                     <p>development a company offers several benefits to investment projects, including:</p>
                                     <ul>
-                                    <li><p>Custom website design</p></li>
+                                        <li><p>Custom website design</p></li>
                                         <li><p>User experience optimization</p></li>
                                         <li><p>Website maintenance</p></li>
                                         <li><p>Responsive design</p></li>
@@ -65,7 +65,11 @@ export default function serviceThree() {
                             </div>
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/Website-Development-single.jpg" alt="image" />
+                                    <Image
+                                        src="assets/img/services-details/Website-Development-single.jpg" alt="image"
+                                        width={440}
+                                        height={370}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -74,7 +78,11 @@ export default function serviceThree() {
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/2.jpg" alt="image" />
+                                    <Image
+                                        src="assets/img/services-details/2.jpg" alt="image"
+                                        width={546}
+                                        height={546}
+                                    />
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
@@ -109,9 +117,9 @@ export default function serviceThree() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

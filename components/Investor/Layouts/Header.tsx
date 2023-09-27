@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { getSingleFrontEndData, getFundRaiseCount } from '@/lib/frontendapi';
 import { getTotalCountOfNotifications, getCountOfUnreadNotifications } from '../../../lib/adminapi'
 import Link from 'next/link'
-
+import Image from 'next/image';
 interface UserData {
   id?: string;
   username?: string;
@@ -154,8 +154,12 @@ const Header = () => {
           <div className="container">
             <div className="fria-responsive-menu">
               <div className="logo">
-                <Link href="/">
-                  <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="" />
+                <Link href="/">                  
+                  <Image
+                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
+                    width={150}
+                    height={70}
+                  />
                 </Link>
               </div>
             </div>
@@ -164,8 +168,12 @@ const Header = () => {
         <div className="fria-nav" id="dashboard">
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
-              <Link className="navbar-brand" href="/">
-                <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="image" />
+              <Link className="navbar-brand" href="/">               
+                <Image
+                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
+                    width={150}
+                    height={87}
+                  />
               </Link>
               <div
                 className="collapse navbar-collapse mean-menu"
@@ -178,7 +186,7 @@ const Header = () => {
                   </li>
                   <li className="nav-item">
                     <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/invested-funds"} className="nav-link active">
-                     Investments
+                      Investments
                     </Link>
                   </li>
 
@@ -193,11 +201,11 @@ const Header = () => {
                       <div className="row align-items-center">
                         <div className="col">
                           <h5 className="m-0 font-size-15"><span className="p-1 text-white bg-danger rounded-circle font-size-10">
-                            <i className="mdi mdi-message-text-outline"></i></span> Notifications ({totalNotifications}) 
+                            <i className="mdi mdi-message-text-outline"></i></span> Notifications ({totalNotifications})
                           </h5>
                         </div>
                       </div>
-                      <hr/>
+                      <hr />
                       {/* <a href="">{current_user_name}</a> */}
                       {parseInt(unreadNotifications) > 0 ? (
                         <>
@@ -206,13 +214,13 @@ const Header = () => {
                             <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
                           </div>
                           {/* <hr/> */}
-                        
+
                         </>
                       ) : (
                         <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>There are no new notifications.</Link>
                       )}
-                      <hr/>
-                        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</Link>
+                      <hr />
+                      <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</Link>
                     </div>
                   </div>
                 </div>
@@ -224,8 +232,8 @@ const Header = () => {
                     <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                       {/* <a href="">{current_user_name}</a> */}
                       <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
-                          Profile
-                        </Link>
+                        Profile
+                      </Link>
                       {/* {current_user_role == "startup" ?
                         <a href="/steps/findbusiness" className="colortwo">
                           Profile

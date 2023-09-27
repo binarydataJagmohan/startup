@@ -6,6 +6,7 @@ import { getSingleUserData, getCountries, getInvestorType, investorTypeInfoSave 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
+import Image from 'next/image';
 import { useRouter } from "next/router";
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
 type Country = {
@@ -434,9 +435,12 @@ const Profile = () => {
                                                 <div className="col-sm-2">
                                                     <div className="profile-pic">
                                                         {user && user.profile_pic ? (
-                                                            <img
+                                                            <Image
                                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + user.profile_pic}
                                                                 className="profile-pic"
+                                                                alt=''
+                                                                width={120}
+                                                                height={120}
                                                                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                                                     const target = e.target as HTMLImageElement;
                                                                     target.onerror = null;
@@ -444,10 +448,12 @@ const Profile = () => {
                                                                   }}
                                                             />
                                                         ) : (
-                                                            <img
+                                                            <Image
                                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/profile.webp"}
                                                                 alt="default profile"
                                                                 className="profile-pic"
+                                                                width={120}
+                                                                height={120}
                                                             />
                                                         )}
                                                     </div>

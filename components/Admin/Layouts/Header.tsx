@@ -9,7 +9,7 @@ import {
 } from "../../../lib/session";
 import { useRouter } from 'next/router';
 import { getSingleUserData } from '@/lib/frontendapi';
-
+import Image from 'next/image';
 interface UserData {
   username?: string;
   role?: string;
@@ -139,18 +139,18 @@ const Header = () => {
                   <div className="navbar-brand-box p-0">
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
-                        <img src="/assets/img/logo.png" alt="" height={22} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                       <span className="logo-lg">
-                        <img src="/assets/img/logo.png" alt="" height={17} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                     </Link>
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
-                        <img src="/assets/img/logo.png" alt="" height={22} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                       <span className="logo-lg">
-                        <img src="/assets/img/logo.png" alt="" height={18} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                     </Link>
                   </div>
@@ -203,13 +203,13 @@ const Header = () => {
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/terms-and-conditions' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
-                            <i className="fas fa-clipboard-list term-icon"></i>
+                              <i className="fas fa-clipboard-list term-icon"></i>
                               <span>Term & Condition </span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/privacy-policy' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
-                            <i className="fas fa-user-secret privacy-icon"></i>
+                              <i className="fas fa-user-secret privacy-icon"></i>
                               <span>Privacy Policy</span>
                             </Link>
                           </li>
@@ -236,18 +236,18 @@ const Header = () => {
                   <div className="navbar-brand-box p-0">
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
-                        <img src="/assets/img/logo.png" alt="" height={22} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                       <span className="logo-lg">
-                        <img src="/assets/img/logo.png" alt="" height={17} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                     </Link>
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
-                        <img src="/assets/img/logo.png" alt="" height={22} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                       <span className="logo-lg">
-                        <img src="/assets/img/logo.png" alt="" height={18} />
+                        <Image src="/assets/img/logo.png" alt="logo-image" width={150} height={70} />
                       </span>
                     </Link>
                   </div>
@@ -381,7 +381,7 @@ const Header = () => {
             </div>
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" />
+                <Image className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" width={32} height={32} />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
 import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification ,getSingleUserData} from "../../lib/frontendapi";
 import $ from "jquery";
+import Image from 'next/image';
 import Link from 'next/link';
 const alertStyle = {
     color: 'red',
@@ -360,10 +361,13 @@ export default function AccreditedInvestors() {
                                     Step <span>3</span>
                                 </div>
                                 <div className="step_border">
-                                    <div className="step">
-                                        <img
+                                    <div className="step">                                     
+                                         <Image
                                             className="sidebar-img w-50"
                                             src="/assets/img/investor/download2.png"
+                                            alt="term-condition"
+                                            width={30}
+                                            height={38}
                                         />
                                     </div>
                                 </div>

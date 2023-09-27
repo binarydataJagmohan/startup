@@ -8,6 +8,7 @@ import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import Image from 'next/image';
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
 type Country = {
     name: string;
@@ -558,7 +559,11 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" />
+                                                                    <Image
+                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt=""
+                                                                        width={120}
+                                                                        height={120}
+                                                                    />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
@@ -777,7 +782,11 @@ const Profile = () => {
 
                                                             <div className="col-sm-2">
                                                                 <div className="logo">
-                                                                    <img src={businessDetails.logo} alt="logo" className="logo" />
+                                                                    <Image
+                                                                        src={businessDetails.logo} alt="logo" className="logo"
+                                                                        width={120}
+                                                                        height={120}
+                                                                    />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
@@ -913,7 +922,11 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img" />
+                                                                    <Image
+                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
+                                                                        width={120}
+                                                                        height={120}
+                                                                    />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
