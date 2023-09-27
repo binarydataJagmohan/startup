@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function BlogRightSidebar() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function BlogRightSidebar() {
                             <div className="page-title-content">
                                 <h2>Blog Right Sidebar</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Blog Right Sidebar</li>
                                 </ul>
                             </div>
@@ -26,167 +26,167 @@ export default function BlogRightSidebar() {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/1.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>20 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Great Tips To Earn More Money From Digital Industry
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/2.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>25 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     The Billionaire Guide On Design That will Get You Rich
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/3.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>17 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Making Peace With The Feast Or Famine Of Freelancing
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/4.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>20 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Startup Marketing Solution for Business Owner
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/5.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>19 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Creative solutions to improve your business!
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/6.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>13 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Making Peace With The Feast Or Famine Of Freelancing
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/7.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>19 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     Instagram Feed Add To Your WordPress Site
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="single-blog">
                                         <div className="image">
-                                            <a href="single-blog.html">
+                                            <Link href="single-blog.html">
                                                 <img src="assets/img/blog/8.jpg" alt="image" />
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="content">
                                             <span>25 March 2022</span>
                                             <h3>
-                                                <a href="single-blog.html">
+                                                <Link href="single-blog.html">
                                                     I Used The Web For A Day On A 50 MB Budget
-                                                </a>
+                                                </Link>
                                             </h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</p>
-                                            <a href="single-blog.html" className="read-more">Read More</a>
+                                            <Link href="single-blog.html" className="read-more">Read More</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="pagination-area">
-                                        <a href="#" className="prev page-numbers">
+                                        <Link href="#" className="prev page-numbers">
                                             <i className="flaticon-left" />
-                                        </a>
-                                        <a href="#" className="page-numbers">1</a>
+                                        </Link>
+                                        <Link href="#" className="page-numbers">1</Link>
                                         <span className="page-numbers current" aria-current="page">2</span>
-                                        <a href="#" className="page-numbers">3</a>
-                                        <a href="#" className="page-numbers">4</a>
-                                        <a href="#" className="next page-numbers">
+                                        <Link href="#" className="page-numbers">3</Link>
+                                        <Link href="#" className="page-numbers">4</Link>
+                                        <Link href="#" className="next page-numbers">
                                             <i className="flaticon-right" />
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -207,35 +207,35 @@ export default function BlogRightSidebar() {
                                 <section className="widget widget_fria_posts_thumb">
                                     <h3 className="widget-title">Popular Posts</h3>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg1" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 10, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="index.html">Making Peace With The Feast Or Famine Of Freelancing</a>
+                                                <Link href="index.html">Making Peace With The Feast Or Famine Of Freelancing</Link>
                                             </h4>
                                         </div>
                                     </article>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg2" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 21, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="index.html">Be healthy, Enjoy life with Trifles organic</a>
+                                                <Link href="index.html">Be healthy, Enjoy life with Trifles organic</Link>
                                             </h4>
                                         </div>
                                     </article>
                                     <article className="item">
-                                        <a href="#" className="thumb">
+                                        <Link href="#" className="thumb">
                                             <span className="fullimage cover bg3" role="img" />
-                                        </a>
+                                        </Link>
                                         <div className="info">
                                             <time className="2022-06-30">June 30, 2022</time>
                                             <h4 className="title usmall">
-                                                <a href="index.html">Buy organic food online and be healthy</a>
+                                                <Link href="index.html">Buy organic food online and be healthy</Link>
                                             </h4>
                                         </div>
                                     </article>
@@ -244,19 +244,19 @@ export default function BlogRightSidebar() {
                                     <h3 className="widget-title">Categories</h3>
                                     <ul>
                                         <li>
-                                            <a href="index.html">Business</a>
+                                            <Link href="index.html">Business</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Privacy</a>
+                                            <Link href="index.html">Privacy</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Technology</a>
+                                            <Link href="index.html">Technology</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Tips</a>
+                                            <Link href="index.html">Tips</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Uncategorized</a>
+                                            <Link href="index.html">Uncategorized</Link>
                                         </li>
                                     </ul>
                                 </section>
@@ -265,38 +265,38 @@ export default function BlogRightSidebar() {
                                     <ul>
                                         <li>
                                             <span className="comment-author-link">
-                                                <a href="index.html">A WordPress Commenter</a>
+                                                <Link href="index.html">A WordPress Commenter</Link>
                                             </span>
                                             on
-                                            <a href="index.html">Hello world!</a>
+                                            <Link href="index.html">Hello world!</Link>
                                         </li>
                                         <li>
                                             <span className="comment-author-link">
-                                                <a href="index.html">Fria</a>
+                                                <Link href="index.html">Fria</Link>
                                             </span>
                                             on
-                                            <a href="index.html">Hello world!</a>
+                                            <Link href="index.html">Hello world!</Link>
                                         </li>
                                         <li>
                                             <span className="comment-author-link">
-                                                <a href="index.html">Wordpress</a>
+                                                <Link href="index.html">Wordpress</Link>
                                             </span>
                                             on
-                                            <a href="index.html">Hello world!</a>
+                                            <Link href="index.html">Hello world!</Link>
                                         </li>
                                         <li>
                                             <span className="comment-author-link">
-                                                <a href="index.html">A WordPress Commenter</a>
+                                                <Link href="index.html">A WordPress Commenter</Link>
                                             </span>
                                             on
-                                            <a href="index.html">Hello world!</a>
+                                            <Link href="index.html">Hello world!</Link>
                                         </li>
                                         <li>
                                             <span className="comment-author-link">
-                                                <a href="index.html">Fria</a>
+                                                <Link href="index.html">Fria</Link>
                                             </span>
                                             on
-                                            <a href="index.html">Hello world!</a>
+                                            <Link href="index.html">Hello world!</Link>
                                         </li>
                                     </ul>
                                 </section>
@@ -304,19 +304,19 @@ export default function BlogRightSidebar() {
                                     <h3 className="widget-title">Recent Posts</h3>
                                     <ul>
                                         <li>
-                                            <a href="index.html">How to Become a Successful Entry Level UX Designer</a>
+                                            <Link href="index.html">How to Become a Successful Entry Level UX Designer</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">How to start your business as an entrepreneur</a>
+                                            <Link href="index.html">How to start your business as an entrepreneur</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">How to be a successful entrepreneur</a>
+                                            <Link href="index.html">How to be a successful entrepreneur</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">10 Building Mobile Apps With Ionic And React</a>
+                                            <Link href="index.html">10 Building Mobile Apps With Ionic And React</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Protect your workplace from cyber attacks</a>
+                                            <Link href="index.html">Protect your workplace from cyber attacks</Link>
                                         </li>
                                     </ul>
                                 </section>
@@ -324,20 +324,20 @@ export default function BlogRightSidebar() {
                                     <h3 className="widget-title">Meta</h3>
                                     <ul>
                                         <li>
-                                            <a href="index.html">Log in</a>
+                                            <Link href="index.html">Log in</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Entries
+                                            <Link href="index.html">Entries
                                                 <abbr title="Really Simple Syndication">RSS</abbr>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">Comments
+                                            <Link href="index.html">Comments
                                                 <abbr title="Really Simple Syndication">RSS</abbr>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">WordPress.org</a>
+                                            <Link href="index.html">WordPress.org</Link>
                                         </li>
                                     </ul>
                                 </section>
@@ -345,51 +345,51 @@ export default function BlogRightSidebar() {
                                     <h3 className="widget-title">Archives</h3>
                                     <ul>
                                         <li>
-                                            <a href="index.html">May 2022</a>
+                                            <Link href="index.html">May 2022</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">April 2022</a>
+                                            <Link href="index.html">April 2022</Link>
                                         </li>
                                         <li>
-                                            <a href="index.html">June 2022</a>
+                                            <Link href="index.html">June 2022</Link>
                                         </li>
                                     </ul>
                                 </section>
                                 <section className="widget widget_tag_cloud">
                                     <h3 className="widget-title">Tags</h3>
                                     <div className="tagcloud section-bottom">
-                                        <a href="index.html">
+                                        <Link href="index.html">
                                             IT
                                             <span className="tag-link-count"> (3)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Fria
                                             <span className="tag-link-count"> (3)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Games
                                             <span className="tag-link-count"> (2)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Fashion
                                             <span className="tag-link-count"> (2)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Travel
                                             <span className="tag-link-count"> (1)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Smart
                                             <span className="tag-link-count"> (1)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Marketing
                                             <span className="tag-link-count"> (1)</span>
-                                        </a>
-                                        <a href="index.html">
+                                        </Link>
+                                        <Link href="index.html">
                                             Tips
                                             <span className="tag-link-count"> (2)</span>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </section>
                             </aside>

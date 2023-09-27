@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function ProjectTwo() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function ProjectTwo() {
                             <div className="page-title-content">
                                 <h2>Projects Two</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Projects Two</li>
                                 </ul>
                             </div>
@@ -29,117 +29,117 @@ export default function ProjectTwo() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/1.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Creative Web Develop</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>Web Design</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/2.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Digital Services</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>App Development</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/3.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Complex Design</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>Software Development</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/4.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Creative Web Develop</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>React Development</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/5.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Digital Services</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>E-commerce Development</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-protfolio">
                                 <div className="image">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <img src="assets/img/portfolio/6.png" alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="content">
-                                    <a href="single-projects.html">
+                                    <Link href="single-projects.html">
                                         <h3>Complex Design</h3>
-                                    </a>
-                                    <a href="single-projects.html">
+                                    </Link>
+                                    <Link href="single-projects.html">
                                         <span>Software Engineering</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-12 col-md-12">
                             <div className="pagination-area">
-                                <a href="#" className="prev page-numbers">
+                                <Link href="#" className="prev page-numbers">
                                     <i className="flaticon-left" />
-                                </a>
-                                <a href="#" className="page-numbers">1</a>
+                                </Link>
+                                <Link href="#" className="page-numbers">1</Link>
                                 <span className="page-numbers current" aria-current="page">2</span>
-                                <a href="#" className="page-numbers">3</a>
-                                <a href="#" className="page-numbers">4</a>
-                                <a href="#" className="next page-numbers">
+                                <Link href="#" className="page-numbers">3</Link>
+                                <Link href="#" className="page-numbers">4</Link>
+                                <Link href="#" className="next page-numbers">
                                     <i className="flaticon-right" />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

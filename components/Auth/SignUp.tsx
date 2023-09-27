@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { userRegister, sendNotification } from "../../lib/frontendapi";
 import { useRouter } from "next/router";
-
+import Link from 'next/link';
 interface FormData {
   firstname: string;
   lastname: string;
@@ -180,7 +180,7 @@ const Signup = () => {
                   <h2>Signup</h2>
                   <ul>
                     <li>
-                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "/"}>Home</a>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/"}>Home</Link>
                     </li>
                     <li>Signup</li>
                   </ul>

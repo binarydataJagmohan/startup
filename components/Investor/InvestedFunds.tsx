@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import {
-    getAllInvestedFundDetails,
-    getSingleBusinessDetails,
-} from "@/lib/investorapi";
-
+import { useRouter } from 'next/router';
+import { getAllInvestedFundDetails,getSingleBusinessDetails} from "@/lib/investorapi";
+import Link from 'next/link';
 const InvestedFunds = () => {
     const router = useRouter();
     const [businessDetails, setBusinessDetails] = useState<any>([]);
@@ -47,24 +44,24 @@ const InvestedFunds = () => {
                             <div className="col-md-6 col-sm-12 col-lg-4" key={index}>
                                 <div className="product-grid container1 transtion">
                                     <div className="product-image">
-                                        <a href="javascript:void(0)" className="image">
+                                        <Link href="javascript:void(0)" className="image">
                                             <img className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} />
                                             {/* <img class="pic-2" src="images/img-2.jpg"> */}
-                                        </a>
+                                        </Link>
                                     </div>
                                     <div className="main-padding">
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
                                                 <h3 className="title">
-                                                    <a href="javascript:void(0)">
+                                                    <Link href="javascript:void(0)">
                                                         {details.business_name}{" "}
-                                                    </a>
+                                                    </Link>
                                                 </h3>
                                                 <div className="price">Anchor</div>
                                             </div>
                                             <div className="product-content">
                                                 <h3 className="title text-end">
-                                                    <a href="javascript:void(0)">{details.tenure}</a>
+                                                    <Link href="javascript:void(0)">{details.tenure}</Link>
                                                 </h3>
                                                 <div className="price">Tenure</div>
                                             </div>
@@ -72,15 +69,15 @@ const InvestedFunds = () => {
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
                                                 <h3 className="title">
-                                                    <a href="javascript:void(0)">
+                                                    <Link href="javascript:void(0)">
                                                         {details.investor_no_of_units}{" "}
-                                                    </a>
+                                                    </Link>
                                                 </h3>
                                                 <div className="price">Units Purchased</div>
                                             </div>
                                             <div className="product-content text-end">
                                                 <h3 className="title">
-                                                    <a href="javascript:void(0)">₹{details.amount}</a>
+                                                    <Link href="javascript:void(0)">₹{details.amount}</Link>
                                                 </h3>
                                                 <div className="price">Paid Amount</div>
                                             </div>
@@ -88,13 +85,13 @@ const InvestedFunds = () => {
                                     </div>
                                     <div className="text-center mt-3">
                                         {/* <a href="javascript:void(0)" className="card-link">💡13.6% Discount Rate</a> */}
-                                        <a
+                                        <Link
                                             href="javascript:void(0)"
                                             onClick={(e) => getBusinessdetails(e, details.bid)}
                                             className="card-link"
                                         >
                                             <span className="view-invoice"> View Invoice </span>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -104,11 +101,11 @@ const InvestedFunds = () => {
                 <div className="container mb-3">
                     <div className="text-end">
                         <div className="pagination">
-                            <a href="javascript:void(0)">«</a>
-                            <a href="javascript:void(0)" className="active">
+                            <Link href="javascript:void(0)">«</Link>
+                            <Link href="javascript:void(0)" className="active">
                                 1
-                            </a>
-                            <a href="javascript:void(0)">»</a>
+                            </Link>
+                            <Link href="javascript:void(0)">»</Link>
                         </div>
                     </div>
                 </div>

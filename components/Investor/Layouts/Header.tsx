@@ -154,9 +154,9 @@ const Header = () => {
           <div className="container">
             <div className="fria-responsive-menu">
               <div className="logo">
-                <a href={process.env.NEXT_PUBLIC_BASE_URL}>
+                <Link href="/">
                   <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -164,22 +164,22 @@ const Header = () => {
         <div className="fria-nav" id="dashboard">
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
-              <a className="navbar-brand" href={process.env.NEXT_PUBLIC_BASE_URL}>
+              <Link className="navbar-brand" href="/">
                 <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="image" />
-              </a>
+              </Link>
               <div
                 className="collapse navbar-collapse mean-menu"
                 id="navbarSupportedContent">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="nav-link active">
+                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="nav-link active">
                       Explore
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/invested-funds"} className="nav-link active">
+                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/invested-funds"} className="nav-link active">
                      Investments
-                    </a>
+                    </Link>
                   </li>
 
                 </ul>
@@ -201,7 +201,7 @@ const Header = () => {
                       {/* <a href="">{current_user_name}</a> */}
                       {parseInt(unreadNotifications) > 0 ? (
                         <>
-                          <h6 className="mb-1 font-size-14"><a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>New Notification received</a></h6>
+                          <h6 className="mb-1 font-size-14"><Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>New Notification received</Link></h6>
                           <div className="font-size-10 text-muted">
                             <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
                           </div>
@@ -209,10 +209,10 @@ const Header = () => {
                         
                         </>
                       ) : (
-                        <a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>There are no new notifications.</a>
+                        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>There are no new notifications.</Link>
                       )}
                       <hr/>
-                        <a href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</a>
+                        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</Link>
                     </div>
                   </div>
                 </div>
@@ -223,9 +223,9 @@ const Header = () => {
                     </button>
                     <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
                       {/* <a href="">{current_user_name}</a> */}
-                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
                           Profile
-                        </a>
+                        </Link>
                       {/* {current_user_role == "startup" ?
                         <a href="/steps/findbusiness" className="colortwo">
                           Profile
@@ -234,9 +234,9 @@ const Header = () => {
                         <a href="/investor/profile" className="colortwo">
                           Profile
                         </a>} */}
-                      <a href="" className="colorclass" onClick={handleLogout}>
+                      <Link href="" className="colorclass" onClick={handleLogout}>
                         Logout
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
 import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData } from "../../lib/frontendapi";
 import $ from "jquery";
+import Link from 'next/link';
 const alertStyle = {
   color: 'red',
 };
@@ -269,7 +270,7 @@ export default function Customizereview(): any {
               <div className="page-title-content">
                 <h2>Complete Account Details</h2>
                 <ul>
-                  <li><a href="/">Home</a></li>
+                  <li><Link href="/">Home</Link></li>
                 </ul>
               </div>
             </div>
@@ -488,13 +489,13 @@ export default function Customizereview(): any {
                               className="col-md-6"
                               style={{ textAlign: "left" }}
                             >
-                              <a
+                              <Link
                                 href={`/investor-steps/investor-type`}
                                 className="btnclasssmae"
                                 id="back"
                               >
                                 Go back
-                              </a>
+                              </Link>
                             </div>
 
                             <div

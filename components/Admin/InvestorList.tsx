@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { sendNotification } from '../../lib/frontendapi';
 import dynamic from 'next/dynamic';
-
+import Link from 'next/link';
 const DynamicDataTable = dynamic((): any => import('datatables.net'), {
     ssr: false,
 });
@@ -177,7 +177,7 @@ const InvestorList = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             All Investors
@@ -230,7 +230,7 @@ const InvestorList = () => {
                                                                     <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
                                                                     <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
                                                                 </td>
                                                             </tr>

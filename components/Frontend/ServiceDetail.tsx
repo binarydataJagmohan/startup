@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 export default function ServiceDetail() {
     return (
         <>
@@ -10,7 +10,7 @@ export default function ServiceDetail() {
                             <div className="page-title-content">
                                 <h2>Services</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Services Detail</li>
                                 </ul>
                             </div>
@@ -25,9 +25,9 @@ export default function ServiceDetail() {
                             <img src="assets/img/services-details/bg.jpg" alt="image" />
                         </div>
                         <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
+                            <Link href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
                                 <i className="bx bx-play" />
-                            </a>
+                            </Link>
                         </div>
                         <div className="text">
                             <h3>How investment and startup services are beneficial?</h3>
@@ -71,24 +71,24 @@ export default function ServiceDetail() {
                                     <div className="services-details-accordion">
                                         <ul className="accordion">
                                             <li className="accordion-item">
-                                                <a className="accordion-title active" href="#">
+                                                <Link className="accordion-title active" href="#">
                                                     <i className="bx bx-plus" />
                                                     Are there any risks associated with starting a business or making investments?
-                                                </a>
+                                                </Link>
                                                 <p className="accordion-content show">Yes, there are always risks involved with any business venture or investment. However, by doing your research, seeking advice, and making informed decisions, you can help mitigate those risks and increase your chances of success.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="#">
+                                                <Link className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     What should I look for when choosing a service?
-                                                </a>
+                                                </Link>
                                                 <p className="accordion-content">It's important to look for a service that has a strong track record of success, offers personalized guidance and support, and aligns with your values and goals.</p>
                                             </li>
                                             <li className="accordion-item">
-                                                <a className="accordion-title" href="#">
+                                                <Link className="accordion-title" href="#">
                                                     <i className="bx bx-plus" />
                                                     How do I get started with a startup or investment service?
-                                                </a>
+                                                </Link>
                                                 <p className="accordion-content">You can typically get started by scheduling a consultation with a service provider, or by exploring their website and resources to learn more about their offerings and approach.</p>
                                             </li>
                                         </ul>

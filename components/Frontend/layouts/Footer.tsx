@@ -1,5 +1,5 @@
-import React from "react";
-
+import React from 'react'
+import Link from 'next/link';
 const Footer = () => {
   return (
     <div>
@@ -10,7 +10,7 @@ const Footer = () => {
               <div className="single-footer-widget">
                 <div className="footer-heading">
                   <div className="logo" id="logo-id">
-                    <a href="/">
+                    <Link href="/">
                       <img
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +
@@ -19,7 +19,7 @@ const Footer = () => {
                         className="black-logo"
                         alt="image"
                       />
-                    </a>
+                    </Link>
                     <p className="text-white">
                       We are dedicated to providing you with innovative
                       investment opportunities that can help you grow your
@@ -29,27 +29,27 @@ const Footer = () => {
                 </div>
                 <ul className="footer-social">
                   <li>
-                    <a href="https://www.facebook.com/">
+                    <Link href="https://www.facebook.com/">
                       <i className="flaticon-facebook"></i>
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a href="https://twitter.com/">
+                    <Link href="https://twitter.com/">
                       <i className="flaticon-twitter"></i>
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a href="https://in.pinterest.com/">
+                    <Link href="https://in.pinterest.com/">
                       <i className="flaticon-pinterest"></i>
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a href="https://www.instagram.com/">
+                    <Link href="https://www.instagram.com/">
                       <i className="flaticon-instagram"></i>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -62,24 +62,24 @@ const Footer = () => {
                 </div>
                 <ul className="footer-quick-links text-white">
                   <li>
-                    <a href="/about" className="text-white">
+                    <Link href="/about" className="text-white">
                       About Us
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/services" className="text-white">
+                    <Link href="/services" className="text-white">
                       Services
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/blogs" className="text-white">
+                    <Link href="/blogs" className="text-white">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/contact" className="text-white">
+                    <Link href="/contact" className="text-white">
                       Contact
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -92,24 +92,24 @@ const Footer = () => {
                 </div>
                 <ul className="footer-quick-links">
                   <li>
-                    <a href="/team" className="text-white">
+                    <Link href="/team" className="text-white">
                       Team
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/faq" className="text-white">
+                    <Link href="/faq" className="text-white">
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/terms-condition" className="text-white">
+                    <Link href="/terms-condition" className="text-white">
                       Term & Condition
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/privacy-policy" className="text-white">
+                    <Link href="/privacy-policy" className="text-white">
                       Privacy policy
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -126,13 +126,13 @@ const Footer = () => {
                   <div className="d-md-flex align-items-center">
                     <h3 className="text-white"><strong>Phone :</strong></h3>
                     <span>
-                      <a
+                      <Link
                         href="tel:+882-569-756"
                         style={{ color: "black" }}
                         className="text-white mx-md-2"
                       >
                         +123(456)123
-                      </a>
+                      </Link>
                     </span>
                   </div>
                 </div>
@@ -143,13 +143,13 @@ const Footer = () => {
                   <div className="d-md-flex align-items-center">
                     <h3 className="text-white"><strong>Email :</strong></h3>
                     <span>
-                      <a
+                      <Link
                         href="mailto:support@risingcapitalist.com"
                         style={{ color: "black" }}
                         className="text-white mx-md-2"
                       >
                         <span>support@risingcapitalist.com</span>
-                      </a>
+                      </Link>
                     </span>
                   </div>
                 </div>
@@ -159,14 +159,14 @@ const Footer = () => {
                   <div className="d-md-flex align-items-center">
                     <h3 className="text-white"><strong>Address :</strong></h3>
                     <span>
-                      <a
+                      <Link
                         href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9"
                         style={{ color: "#232323" }}
                         className="text-white mx-md-2"
                         target="_blank"
                       >
                         32 st Kilda Road, Melbourne VIC, 3004 Australia
-                      </a>
+                      </Link>
                     </span>
                   </div>
                 </div>

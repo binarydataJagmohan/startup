@@ -9,6 +9,7 @@ import {
     removeStorageData,
     getCurrentUserData,
 } from "../../lib/session";
+import Link from 'next/link';
 
 const alertStyle = {
     color: "red",
@@ -573,13 +574,13 @@ export default function InvestorType(): any {
                                                             className="col-md-6 col-6"
                                                             style={{ textAlign: "left" }}
                                                         >
-                                                            <a
+                                                            <Link
                                                                 href={`/investor-steps/findbusiness`}
                                                                 className="btnclasssmae"
                                                                 id="back"
                                                             >
                                                                 Go back
-                                                            </a>
+                                                            </Link>
                                                         </div>
 
                                                         <div

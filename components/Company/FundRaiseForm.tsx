@@ -3,18 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import {
-  removeToken,
-  removeStorageData,
-  getCurrentUserData,
-} from "../../lib/session";
-import {
-  fundInformationSave,
-  getSingleBusinessInformation,
-} from "../../lib/companyapi";
-import { getSingleFundRaiseData } from "../../lib/adminapi";
-import { sendNotification } from "../../lib/frontendapi";
-import { FundRaisedSendNotification } from "../../lib/investorapi";
+import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
+import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
+import { getSingleFundRaiseData } from "../../lib/adminapi"
+import {sendNotification} from "../../lib/frontendapi"
+import { FundRaisedSendNotification} from '../../lib/investorapi'
+import Link from 'next/link';
 
 interface UserData {
   id?: string;
@@ -355,14 +349,7 @@ const FundRaiseForm = () => {
                   <h6 className="page-title">Startup</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
-                      <a
-                        href={
-                          process.env.NEXT_PUBLIC_BASE_URL +
-                          "/company/dashboard"
-                        }
-                      >
-                        Dashboard
-                      </a>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"}>Dashboard</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Fund Raise

@@ -1,5 +1,6 @@
 import React from 'react'
 import Agency from "../Frontend/ItAgency";
+import Link from 'next/link';
 export default function Service() {
     return (
         <>
@@ -10,7 +11,7 @@ export default function Service() {
                             <div className="page-title-content">
                                 <h2>Services</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Services One</li>
                                 </ul>
                             </div>

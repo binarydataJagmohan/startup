@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { businessInfoSave, getBusinessInformation } from "../../lib/frontendapi";
+import Link from 'next/link';
 import {
   removeToken,
   removeStorageData,
@@ -696,13 +697,13 @@ register('website_url', {
                               className="col-md-6"
                               style={{ textAlign: "left" }}
                             >
-                              <a
+                              <Link
                                 href={`/steps/findbusiness`}
                                 className="btnclasssmae"
                                 id="back"
                               >
                                 Go back
-                              </a>
+                              </Link>
                             </div>
 
                             <div

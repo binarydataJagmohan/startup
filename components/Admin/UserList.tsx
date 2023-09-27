@@ -202,7 +202,7 @@ const UserList = () => {
                                     <h6 className="page-title">User</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             All Users
@@ -278,9 +278,9 @@ const UserList = () => {
                                                         <td><span style={{ cursor: "pointer" }} className={user.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(user.id, user.status === 'active' ? 'deactive' : 'active')}> {user.status.toUpperCase()}</span></td>
                                                         <td>
 
-                                                                <a href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></a>
+                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
 
-                                                                <a href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
+                                                                <Link href="#" onClick={() => { deleteUser(user.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
                                                             </td>
                                                         </tr>
                                                     ))) : (

@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from 'next/link';
 const It = () => {
   return (
     <>
@@ -15,7 +15,7 @@ const It = () => {
           </div>
           <div className="row g-4">
             <div className="col-lg-4 col-md-6">
-              <a href="/company-incorporation" className="read-btn">
+              <Link href="/company-incorporation" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-it" />
@@ -26,10 +26,10 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
-              <a href="/business-planning" className="read-btn">
+              <Link href="/business-planning" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-setting" />
@@ -40,10 +40,10 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
-              <a href="/website-development" className="read-btn">
+              <Link href="/website-development" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-promotion" />
@@ -54,10 +54,10 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
-              <a href="/app-development" className="read-btn">
+              <Link href="/app-development" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-cellphone" />
@@ -68,10 +68,10 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
-              <a href="/marketing-branding" className="read-btn">
+              <Link href="/marketing-branding" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-shopping-cart" />
@@ -82,10 +82,10 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
-              <a href="/cfo-services" className="read-btn">
+              <Link href="/cfo-services" className="read-btn">
                 <div className="single-services">
                   <div className="icon">
                     <i className="flaticon-optimize" />
@@ -96,7 +96,7 @@ const It = () => {
                   </p>
                   Read More
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

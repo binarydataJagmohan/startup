@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../lib/frontendapi";
-
+import Link from 'next/link';
 import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -166,7 +166,7 @@ export default function Login() {
                 <h2>Log In</h2>
                 <ul>
                   <li>
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </li>
                   <li>Log In</li>
                 </ul>
@@ -203,12 +203,12 @@ export default function Login() {
                   <div className="box-content">
                     <h4 className="heading">Phone:</h4>
                     <p>
-                      <a
+                      <Link
                         href="tel:+123(456)123"
                         className="text-decoration-none  text-size-18"
                       >
                         +123(456)123
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </div>

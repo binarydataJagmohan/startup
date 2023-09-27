@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
 type Country = {
     name: string;
@@ -437,7 +438,7 @@ const Profile = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <a href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"}>Dashboard</a>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             Profile

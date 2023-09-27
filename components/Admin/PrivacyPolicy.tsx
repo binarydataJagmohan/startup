@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken } from '@/lib/session';
-
+import Link from 'next/link';
 
 type Country = {
     name: string;
@@ -134,14 +134,14 @@ try{
                   <h6 className="page-title">Startup</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
-                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>
                         Dashboard
-                      </a>
+                      </Link>
                     </li>
                     <li className="breadcrumb-item">
-                      <a href={process.env.NEXT_PUBLIC_BASE_URL + "admin/privacy-policy"}>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/privacy-policy"}>
                       Privacy Policy
-                      </a>
+                      </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Editor

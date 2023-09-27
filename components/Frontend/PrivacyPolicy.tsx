@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { fetchPrivacyPoliciesdata } from '@/lib/frontendapi';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,
@@ -36,7 +37,7 @@ export default function PrivacyPolicy() {
                             <div className="page-title-content">
                                 <h2>Privacy Policy</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Privacy Policy</li>
                                 </ul>
                             </div>

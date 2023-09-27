@@ -1,5 +1,6 @@
 import React from 'react'
 import FrequentlyQuestions from './FrequentlyQuestions'
+import Link from 'next/link';
 
 export default function FAQ() {
     return (
@@ -11,7 +12,7 @@ export default function FAQ() {
                             <div className="page-title-content">
                                 <h2>Faq</h2>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><Link href="index.html">Home</Link></li>
                                     <li>Faq</li>
                                 </ul>
                             </div>

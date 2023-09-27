@@ -8,6 +8,7 @@ import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/se
 import { log } from "console";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Link from 'next/link';
 const alertStyle = {
   color: "red",
 };
