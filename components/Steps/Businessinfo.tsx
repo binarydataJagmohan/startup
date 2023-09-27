@@ -184,7 +184,7 @@ export default function Businessinfo(): any {
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
@@ -194,7 +194,7 @@ export default function Businessinfo(): any {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -210,7 +210,7 @@ export default function Businessinfo(): any {
                 </div>
                 <div
                   className="caption hidden-xs hidden-sm"
-                  style={{ color: "#82b440" }}
+                  style={{ color: "#79AC78" }}
                 >
                   <span>PERSONAL INFORMATION</span>
                 </div>

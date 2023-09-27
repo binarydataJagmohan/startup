@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, investorViewer } from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails,getSingleClosedBusinessDetails } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { CheckUserApprovalStatus } from "../../lib/frontendapi";
 interface UserData {
   id?: string;
@@ -22,9 +22,9 @@ const Dashboard = () => {
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [data, setData] = useState(null);
 
-  const current_user_data: UserData = getCurrentUserData();
+
+
 
   const itemsPerPage = 3;
 
@@ -75,7 +75,7 @@ const Dashboard = () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
-        //console.log(data.data);
+       //console.log(data.data);
 
         // Set the initial page to 0
         setCurrentPage(0);
@@ -91,25 +91,14 @@ const Dashboard = () => {
   }, []);
 
 
-  const getBusinessdetails = async (e: any, id: any) => {
+
+  const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
-
-    try {
-      // Make the API call to get business details
-      const businessDetailsResponse = await getSingleBusinessDetails(id);
+    // alert(id)
+    getSingleBusinessDetails(id).then((res) => {
       router.push(`campaign/details?id=${id}`);
-      // Make the API call to get investor data
-      const investorResponse = await investorViewer(current_user_data.id, id);
-      if (investorResponse) {
-        console.log('Success');
-      } else {
-        console.error('Failed to fetch investor data');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    });
   };
-
 
 
   const getClosedBusinessdetails = (e: any, id: any) => {
@@ -169,9 +158,12 @@ const Dashboard = () => {
                     <div className="product-image">
                       <Link href="#" className="image">
                         { }
-                        <Image className="pic-1 image"
-                          src={details.logo} alt="" width={356} height={146} />
-                        {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                        
+                        {/* <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                       </Link>
                     </div>
                     <div className="main-padding">
@@ -203,7 +195,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -214,7 +206,7 @@ const Dashboard = () => {
                     </div>
                     <div className="overlay">
                       <div className="columns">
-                        <ul className="price">
+                        <ul className="price m-0 p-0">
                           <li>
                             Subscribers <span>32</span>
                           </li>
@@ -225,15 +217,15 @@ const Dashboard = () => {
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
                           <li>
-                            Closes in <span>20&nbsp;days</span>
+                          Closes in <span>20&nbsp;days</span>
                             {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                           </li>
-                          <li>
+                          <li  className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                              View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>
@@ -281,81 +273,83 @@ const Dashboard = () => {
                 .filter((details: any) => details.type === "CSOP" && details.status === "open")
                 .map((details: any, index: any) => (
                   <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">
-                          <Image className="pic-1 image"
-                            src={details.logo} alt="" width={356} height={146} />
-                          {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        {/* <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        /> */}
+                        <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3 d-flex">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price">
-                            <li>
-                              Subscribers <span>32</span>
-                            </li>
-                            <li>
-                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
-                            </li>
-                            <li>
-                              Closes in <span>20&nbsp;days</span>
-                              {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
-                            </li>
-                            <li>
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details Details Details
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price m-0 p-0">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                             Closes in <span>20&nbsp;days</span>
+                            {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
+                          </li>
+                          <li  className="border-0">
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                             View Details
+                            </a>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
+                </div>
                 ))
             ) : (
               <p>No Fund Raised</p>
@@ -493,10 +487,12 @@ const Dashboard = () => {
                   <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
-                        <a href="#" className="image">                        
-                           <Image  className="pic-1 image"
-                          src={details.logo} alt="" width={356} height={146}/>
-                          {/* <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} /> */}
+                        <a href="#" className="image">
+                          {/* <img
+                            className="pic-1 image"
+                            src={details.logo}
+                          /> */}
+                          <img src={process.env.NEXT_PUBLIC_BASE_URL+'assets/images/small/img-1.jpg'} />
                         </a>
                       </div>
                       <div className="main-padding">
@@ -528,7 +524,7 @@ const Dashboard = () => {
                             <div className="price">Min. Subscription</div>
                           </div>
                         </div>
-                        <div className="text-center mt-3">
+                        <div className="text-center mt-3 d-flex">
                           <a href="#" className="card-link">
                             💡13.6% Discount Rate
                           </a>
@@ -539,7 +535,7 @@ const Dashboard = () => {
                       </div>
                       <div className="overlay">
                         <div className="columns">
-                          <ul className="price">
+                          <ul className="price m-0 p-0">
                             <li>
                               Subscribers <span>32</span>
                             </li>
@@ -550,15 +546,15 @@ const Dashboard = () => {
                               Minimum Subscription <span>₹{details.minimum_subscription}</span>
                             </li>
                             <li>
-                              Closes in <span>20&nbsp;days</span>
+                               Closes in <span>20&nbsp;days</span>
                               {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
                             </li>
-                            <li>
+                            <li  className="border-0">
                               <a
                                 href="#"
                                 className="button-class"
                               >
-                                View Details Details Details
+                               View Details
                               </a>
                             </li>
                           </ul>
@@ -693,85 +689,87 @@ const Dashboard = () => {
           <div className="bar" />
 
           <div className="row">
-            {opendisplayedBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open").length > 0 ? (
+          {opendisplayedBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open").length > 0 ? (
               opendisplayedBusinessDetails
                 .filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open")
                 .map((details: any, index: any) => (
                   <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">                         
-                           <Image  className="pic-1 image"
-                          src={details.logo} alt="" width={356} height={146}/>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3 d-flex">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price">
-                            <li>
-                              Subscribers <span>32</span>
-                            </li>
-                            <li>
-                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
-                            </li>
-                            <li>
-                              {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
-                              Closes in <span>20&nbsp;days</span>
-                            </li>
-                            <li>
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details Details Details
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price m-0 p-0">
+                          <li>
+                            Subscribers <span>32</span>
+                          </li>
+                          <li>
+                            Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                          </li>
+                          <li>
+                            {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
+                            Closes in <span>20&nbsp;days</span>
+                          </li>
+                          <li  className="border-0">
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                             View Details
+                            </a>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
+                </div>
                 ))
             ) : (
               <p>No Fund Raised</p>
@@ -824,9 +822,11 @@ const Dashboard = () => {
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getClosedBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
-                      <a href="#" className="image">                       
-                         <Image  className="pic-1 image"
-                          src={details.logo} alt="" width={356} height={146}/>
+                      <a href="#" className="image">
+                        <img
+                          className="pic-1 image"
+                          src={details.logo}
+                        />
                       </a>
                     </div>
                     <div className="main-padding">
@@ -858,7 +858,7 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3">
+                      <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
@@ -882,12 +882,12 @@ const Dashboard = () => {
                           <li>
                             Closed at <span>{new Date(details.closed_in).toLocaleDateString()}</span>
                           </li>
-                          <li>
+                          <li className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                              View Details Details Details
+                             View Details
                             </a>
                           </li>
                         </ul>

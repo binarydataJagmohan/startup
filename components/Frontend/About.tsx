@@ -7,7 +7,7 @@ const About = () => {
     <div>
       <div>
         {/* Start Page Title Area */}
-        <div className="page-title-area item-bg-1">
+        {/* <div className="page-title-area item-bg-1">
           <div className="d-table">
             <div className="d-table-cell">
               <div className="container">
@@ -23,7 +23,7 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* End Page Title Area */}
         {/* Start About Area */}
         <section className="about-section ptb-100">
@@ -31,7 +31,9 @@ const About = () => {
             <div className="row">
               <div className="col-lg-6 p-0">
                 <div className="about-image">
-                  <Image src="assets/img/about/aboust-2.jpg" alt="image" width={1000} height={1000} layout="responsive"/>
+                  <Image src="assets/img/about/about-2.jpg" alt="image" width={1000} height={1000} 
+                  // layout="responsive"
+                  />
                 </div>
               </div>
               <div className="col-lg-6">
@@ -96,17 +98,26 @@ const About = () => {
         <section className="team-section pb-70">
           <div className="container">
             <div className="section-title">
-              <h2>Our <span> Expert </span> Team</h2>
+              <h2>
+                Our <span> Expert </span> Team
+              </h2>
               <p>
-                <b>At our startup and investment website</b> , we are proud to have assembled a team of experts with decades of combined experience in the financial industry. Our team includes professionals from a range of backgrounds, including finance, economics, technology, and more.
+                <b>At our startup and investment website</b> , we are proud to
+                have assembled a team of experts with decades of combined
+                experience in the financial industry. Our team includes
+                professionals from a range of backgrounds, including finance,
+                economics, technology, and more.
               </p>
               <div className="bar" />
             </div>
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="team-item">
-                  <div className="image">                    
-                    <Image  src="assets/img/team/1.jpg" alt="image"  width={356} height={478} />
+                  <div className="image">
+                    <img
+                      src="https://images.unsplash.com/photo-1542596594-649edbc13630?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjJ8fGhhcHB5JTIwY2xpZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                      alt="image"
+                    />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -130,7 +141,7 @@ const About = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="content">
+                  <div className="content d-flex justify-content-between">
                     <h3>Alex Maxwel</h3>
                     <span>Founder</span>
                   </div>
@@ -138,8 +149,11 @@ const About = () => {
               </div>
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="team-item">
-                  <div className="image">                  
-                    <Image src="assets/img/team/2.jpg" alt="image" width={356} height={478} />
+                  <div className="image">
+                    <img
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGhhcHB5JTIwY2xpZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                      alt="image"
+                    />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -163,7 +177,7 @@ const About = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="content">
+                  <div className="content d-flex justify-content-between">
                     <h3>Williams Halimton</h3>
                     <span>Manager</span>
                   </div>
@@ -171,8 +185,11 @@ const About = () => {
               </div>
               <div className="col-lg-4 col-md-6 col-sm-6 offset-lg-0 offset-md-3">
                 <div className="team-item">
-                  <div className="image">                    
-                    <Image src="assets/img/team/3.jpg" alt="image" width={356} height={478} />
+                  <div className="image">
+                    <img
+                      src="https://images.unsplash.com/photo-1550682290-d071c75759f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGhhcHB5JTIwY2xpZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                      alt="image"
+                    />
                     <ul className="social">
                       <li>
                         <Link href="#" target="_blank">
@@ -196,7 +213,7 @@ const About = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="content">
+                  <div className="content d-flex justify-content-between">
                     <h3>Juhon Dew</h3>
                     <span>CEO</span>
                   </div>

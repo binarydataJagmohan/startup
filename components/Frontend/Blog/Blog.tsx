@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Blog() {
     return (
         <>
-            <div className="page-title-area item-bg-1">
+            {/* <div className="page-title-area item-bg-1">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function Blog() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="blog-section pt-100 pb-100">
                 <div className="container">
                     <div className="section-title">

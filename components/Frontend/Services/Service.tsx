@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Service() {
     return (
         <>
-            <div className="page-title-area item-bg-1">
+            {/* <div className="page-title-area item-bg-1">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function Service() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* Start Services Area */}
             <Agency/>
             {/* <section className="services-section pt-100 pb-100">

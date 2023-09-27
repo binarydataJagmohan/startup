@@ -163,7 +163,7 @@ export default function Customereview(): any {
 
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
@@ -173,7 +173,7 @@ export default function Customereview(): any {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -256,7 +256,7 @@ export default function Customereview(): any {
               </li>
             </ol>
             <div className="container">
-              <div className="register-form">
+              <div className="register-form regis">
                 <div className="row step_one">
                   <div className="col-md-12">
                     <form
@@ -377,7 +377,7 @@ export default function Customereview(): any {
                               >
                                 <input
                                   ref={fileInputRef}
-                                  className="input-file"
+                                  className="input-file class-unset"
                                   id="proof_img"
                                   type="file"
                                   // {...register("proof_img", {

@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function BlogRightSidebar() {
     return (
         <>
-            <div className="page-title-area item-bg-2">
+            {/* <div className="page-title-area item-bg-2">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function BlogRightSidebar() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="blog-section pt-100 pb-100">
                 <div className="container">
                     <div className="row">

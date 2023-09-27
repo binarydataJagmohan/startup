@@ -137,12 +137,10 @@ export default function HeaderFrontend() {
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
               <Link className="navbar-brand" href="/">
-                <Image
+                <img
                   src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
-                  className="black-logo"
-                  alt="logo-image"
-                  width={150}
-                  height={70}
+                  className="black-logo headerlogo"
+                  alt="image"
                 />
               </Link>
               <div
@@ -165,11 +163,6 @@ export default function HeaderFrontend() {
                       Services
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
-                    <a href="/projects" className="nav-link">
-                      Projects
-                    </a>
-                  </li> */}
                   <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
                     <Link href="/blogs" className="nav-link">
                       Blog
@@ -180,33 +173,6 @@ export default function HeaderFrontend() {
                       Contact
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
-                    <div className="dropdown">
-                      <a onClick={myFunction} className="dropbtn nav-link">
-                        {current_user_name}
-                      </a>
-                      <div
-                        id="myDropdown"
-                        className={`${dropdownVisible
-                          ? "dropdown-content show"
-                          : "dropdown-content"
-                          }`}
-                      >
-                        {current_user_role == "startup" ?
-                          <a href="/steps/findbusiness" className="colortwo">
-                            Profile
-                          </a>
-                          :
-                          <a href="/investor-steps/findbusiness" className="colortwo">
-                            Profile
-                          </a>}
-
-                        <a href="#" onClick={handleLogout} className="colortwo">
-                          Logout
-                        </a>
-                      </div>
-                    </div>
-                  </li> */}
                 </ul>
                 <div className="others-options">
                   {users.name ? (
@@ -219,69 +185,39 @@ export default function HeaderFrontend() {
                         className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
                       >
                         {users.role === 'startup' && users.approval_status === 'approved' ? (
-                          <Link href="/company/dashboard" className="colortwo">
+                          <a href="/company/dashboard" className="colortwo">
                             Dashboard
-                          </Link>
+                          </a>
                         ) : (
                           ""
                         )}
                         {users.role === 'investor' && users.approval_status === 'approved' ? (
-                          <Link href="/investor/campaign" className="colortwo">
+                          <a href="/investor/campaign" className="colortwo">
                             Dashboard
-                          </Link>
+                          </a>
                         ) : (
                           ""
                         )}
                         {users.role === 'admin' ? (
-                          <Link href="/admin/dashboard" className="colortwo">
+                          <a href="/admin/dashboard" className="colortwo">
                             Dashboard
-                          </Link>
+                          </a>
                         ) : (
                           ""
                         )}
-
-
-
-
-                        <Link href="#" onClick={handleLogout} className="colortwo">
+                        <a href="#" onClick={handleLogout} className="colortwo">
                           Logout
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   ) : (
-                    <button className="btnclasssmae" style={{ margin: "-45px" }}>
-                      <Link href="/login" style={{ color: "#fff" }}>Login</Link>
-                    </button>
+                    <Link href="/login" style={{ color: "#fff" }}>
+                      <button className="btnclasssmae" style={{ margin: "-45px" }}>
+                        Login
+                      </button>
+                    </Link>
                   )}
                 </div>
-
-
-                {/* <div className="others-options">
-                  <div className="option-item">
-                    <i className="search-btn flaticon-search" />
-                    <i className="close-btn flaticon-cancel" />
-                    <div className="search-overlay search-popup">
-                      <div className="search-box">
-                        <form className="search-form">
-                          <input
-                            className="search-input"
-                            name="search"
-                            placeholder="Search"
-                            type="text"
-                          />
-                          <button className="search-button" type="submit">
-                            <i className="flaticon-search" />
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="burger-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div> */}
               </div>
             </nav>
           </div>
@@ -319,11 +255,6 @@ export default function HeaderFrontend() {
                 Services
               </Link>
             </li>
-            {/* <li className="nav-item">
-                    <a href="/projects" className="nav-link">
-                      Projects
-                    </a>
-                  </li> */}
             <li className={`nav-item ${router.pathname === '/blogs' ? 'active' : ''}`}>
               <Link href="/blogs" className="nav-link">
                 Blog
@@ -337,9 +268,9 @@ export default function HeaderFrontend() {
             <div className="others-options">
               {users.name ? (
                 <div className="dropdown">
-                  <a onClick={myFunction} className="dropbtn text-white">
+                  <Link  href="#" onClick={myFunction} className="dropbtn text-white">
                     {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
-                  </a>
+                  </Link>
                   <div
                     id="myDropdown"
                     className={`${dropdownVisible ? 'dropdown-content show' : 'dropdown-content'}`}
@@ -365,49 +296,19 @@ export default function HeaderFrontend() {
                     ) : (
                       ""
                     )}
-
-
-
-
-                    <a href="#" onClick={handleLogout} className="colortwo">
+                    <Link href="#" onClick={handleLogout} className="colortwo">
                       Logout
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ) : (
-                <button className="btnclasssmae" style={{ margin: "-45px" }}>
-                  <Link href="/login" style={{ color: "#fff" }}>Login</Link>
-                </button>
+                <Link href="/login" style={{ color: "#fff" }}>
+                  <button className="btnclasssmae" style={{ margin: "-45px" }}>
+                    Login
+                  </button>
+                </Link>
               )}
             </div>
-
-            {/* <li className="nav-item">
-              <div className="dropdown">
-                <a onClick={myFunction} className="dropbtn text-white">
-                  {current_user_name}
-                </a>
-                <div
-                  id="myDropdown"
-                  className={`${dropdownVisible
-                    ? "dropdown-content show"
-                    : "dropdown-content"
-                    }`}
-                >
-                  {current_user_role == "startup" ?
-                    <a href="/steps/findbusiness" className="colortwo">
-                      Profile
-                    </a>
-                    :
-                    <a href="/investor-steps/findbusiness" className="colortwo">
-                      Profile
-                    </a>}
-
-                  <a href="#" onClick={handleLogout} className="colortwo">
-                    Logout
-                  </a>
-                </div>
-              </div>
-            </li> */}
           </ul>
         </div>
       </div>
@@ -441,14 +342,12 @@ export default function HeaderFrontend() {
                       <div className="help-block with-errors" style={{ fontSize: "12px" }} />
                     </div>
                   </div>
-
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <input type="text" id="subject" className="form-control" required data-error="Please enter your subject" placeholder="Your Subject" value={subject} {...register('subject', { onChange: (e) => setSubject(e.target.value), required: true })} />
                       <div className="help-block with-errors" style={{ fontSize: "12px" }} />
                     </div>
                   </div>
-
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <textarea className="form-control" id="message" cols={30} rows={6} required data-error="Write your message" placeholder="Your Message" value={message} {...register('message', { onChange: (e) => setMessage(e.target.value), required: true })} />

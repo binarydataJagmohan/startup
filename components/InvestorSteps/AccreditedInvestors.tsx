@@ -296,7 +296,7 @@ export default function AccreditedInvestors() {
 
     return (
         <>
-            <div className="page-title-area item-bg-5">
+            {/* <div className="page-title-area item-bg-5">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -309,7 +309,7 @@ export default function AccreditedInvestors() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="left-bar">
                 <div className="container">
                     <div id="app">
@@ -325,7 +325,7 @@ export default function AccreditedInvestors() {
                                 </div>
                                 <div
                                     className="caption hidden-xs hidden-sm"
-                                    style={{ color: "#82b440" }}
+                                    style={{ color: "#79AC78" }}
                                 >
                                     <span>PERSONAL INFORMATION</span>
                                 </div>
@@ -339,7 +339,7 @@ export default function AccreditedInvestors() {
                                         <i className="flaticon-checked" aria-hidden="true"></i>
                                     </div>
                                 </div>
-                                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                                     <span>INVESTOR INFORMATION</span>
                                 </div>
                             </li>
@@ -356,7 +356,7 @@ export default function AccreditedInvestors() {
                                     <span>DOCUMENTS UPLOAD</span>
                                 </div>
                             </li> */}
-                            <li className="active">
+                            {/* <li className="active">
                                 <div className="step_name">
                                     Step <span>3</span>
                                 </div>
@@ -374,7 +374,7 @@ export default function AccreditedInvestors() {
                                 <div className="caption hidden-xs hidden-sm">
                                     <span>Terms & Conditions</span>
                                 </div>
-                            </li>
+                            </li> */}
                         </ol>
                         <div className="container">
                             <div className="register-form">

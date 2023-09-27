@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Pricing() {
     return (
         <>
-            <div className="page-title-area item-bg-1">
+            {/* <div className="page-title-area item-bg-1">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function Pricing() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="pricing-section pt-100 pb-70">
                 <div className="container">
                     <div className="section-title">

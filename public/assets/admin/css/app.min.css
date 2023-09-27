@@ -120,7 +120,7 @@
 
 .noti-icon i {
     font-size: 24px;
-    color: #000;
+    color: #232323;
 }
 
 .noti-icon .badge {
@@ -1463,7 +1463,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
 .waves-circle {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    -webkit-mask-image: -webkit-radial-gradient(circle, #fff 100%, #000 100%)
+    -webkit-mask-image: -webkit-radial-gradient(circle, #fff 100%, #232323 100%)
 }
 
 .waves-button,
@@ -2298,7 +2298,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
 }
 
 .fc-day-grid-event.bg-dark {
-    background-color: #000 !important
+    background-color: #232323 !important
 }
 
 #external-events .external-event {
@@ -4191,7 +4191,7 @@ ul#side-menu li a {
     color: #fff !important;
   }
   #page-topbar i.mdi.mdi-menu {
-    color: #000;
+    color: #232323;
     font-size: 30px;
     padding-left: 25px;
 }

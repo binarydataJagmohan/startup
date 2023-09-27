@@ -171,22 +171,18 @@ export default function Findbusiness(): any {
 
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
               <div className="page-title-content">
                 <h2>Complete Account Details</h2>
-                {/* <ul>
-                  <li>
-                    <Link href="/"></Link>
-                  </li>
-                </ul> */}
+          
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -338,9 +334,9 @@ export default function Findbusiness(): any {
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
                                   pattern: {
-                                    value: /^(https?:\/\/)?(www\.)?linkedin\.com\/[A-Za-z0-9_-]+\/?$/,
+                                    value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
-                                  }
+                                  }  
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"

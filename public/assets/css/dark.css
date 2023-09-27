@@ -110,7 +110,7 @@ Default CSS
 }
 
 .theme-dark body {
-  background-color: #000000;
+  background-color: #232323000;
   color: #f1f1f1;
 }
 
@@ -155,7 +155,7 @@ Default CSS
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
-  color: #000000;
+  color: #232323000;
 }
 
 .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .theme-dark .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
@@ -183,7 +183,7 @@ Default CSS
 }
 
 .theme-dark .navbar-area.is-sticky {
-  background-color: #000000 !important;
+  background-color: #232323000 !important;
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item a {
@@ -199,7 +199,7 @@ Default CSS
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
-  color: #000000;
+  color: #232323000;
 }
 
 .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .theme-dark .navbar-area.is-sticky .fria-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
@@ -240,7 +240,7 @@ Default CSS
 }
 
 .theme-dark .single-services {
-  background-color: #000000;
+  background-color: #232323000;
   border: 1px solid #0a0b0b;
 }
 
@@ -258,8 +258,8 @@ Default CSS
 
 .theme-dark .contact-form form .form-control {
   color: #ffffff;
-  background-color: #000000;
-  border: 1px solid #000000;
+  background-color: #232323000;
+  border: 1px solid #232323000;
 }
 
 .theme-dark .contact-form form .form-control:focus {
@@ -345,7 +345,7 @@ Default CSS
   content: "";
   height: 100%;
   width: 100%;
-  background-color: #000000;
+  background-color: #232323000;
   left: 0;
   right: 0;
   top: 0;
@@ -367,7 +367,7 @@ Default CSS
   content: "";
   height: 100%;
   width: 100%;
-  background-color: #000000;
+  background-color: #232323000;
   left: 0;
   right: 0;
   top: 0;
@@ -376,7 +376,7 @@ Default CSS
 }
 
 .theme-dark .single-fun-fact {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .single-team .content {
@@ -397,7 +397,7 @@ Default CSS
   content: "";
   height: 100%;
   width: 100%;
-  background-color: #000000;
+  background-color: #232323000;
   left: 0;
   right: 0;
   top: 0;
@@ -418,7 +418,7 @@ Default CSS
 }
 
 .theme-dark .single-counter {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .team-item .content {
@@ -430,7 +430,7 @@ Default CSS
 }
 
 .theme-dark .single-pricing {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .single-pricing .pricing-header p {
@@ -469,7 +469,7 @@ Default CSS
   content: "";
   height: 100%;
   width: 100%;
-  background-color: #000000;
+  background-color: #232323000;
   left: 0;
   right: 0;
   top: 0;
@@ -506,7 +506,7 @@ Default CSS
 }
 
 .theme-dark .protfolio-section.bg-color .single-protfolio .content {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .protfolio-section.bg-color .single-protfolio:hover .content {
@@ -550,7 +550,7 @@ Default CSS
 }
 
 .theme-dark .data-inner-content {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .customer-section {
@@ -594,7 +594,7 @@ Default CSS
 }
 
 .theme-dark .single-agency .content {
-  background-color: #000000;
+  background-color: #232323000;
 }
 
 .theme-dark .schedule-list-tab .tabs li {
@@ -631,7 +631,7 @@ Default CSS
 
 .theme-dark .main-banner-area-eight .banner-form form .form-group .form-control {
   color: #ffffff;
-  border: 1px solid #000000;
+  border: 1px solid #232323000;
 }
 
 .theme-dark .main-banner-area-eight .banner-form form .form-group .form-control::-webkit-input-placeholder {
@@ -691,7 +691,7 @@ Default CSS
 
 .theme-dark .login-form form .form-group .form-control {
   color: #ffffff;
-  border: 1px solid #000000;
+  border: 1px solid #232323000;
 }
 
 .theme-dark .login-form form .form-group .form-control::-webkit-input-placeholder {
@@ -720,7 +720,7 @@ Default CSS
 
 .theme-dark .signup-form form .form-group .form-control {
   color: #ffffff;
-  border: 1px solid #000000;
+  border: 1px solid #232323000;
 }
 
 .theme-dark .signup-form form .form-group .form-control::-webkit-input-placeholder {
@@ -760,7 +760,7 @@ Default CSS
 }
 
 .theme-dark .subscribe-area .newsletter-form .input-newsletter {
-  background-color: #000000;
+  background-color: #232323000;
   color: #ffffff;
 }
 
@@ -789,7 +789,7 @@ Default CSS
 }
 
 .theme-dark .widget-area .widget_search form .search-field {
-  background-color: #000000;
+  background-color: #232323000;
   color: #ffffff;
   border: 1px solid #0a0b0b;
 }
@@ -896,7 +896,7 @@ Default CSS
 }
 
 .theme-dark .comments-area .comment-body {
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #232323000;
 }
 
 .theme-dark .comments-area .comment-body .reply a {
@@ -908,8 +908,8 @@ Default CSS
 }
 
 .theme-dark .comments-area .comment-respond input[type="date"], .theme-dark .comments-area .comment-respond input[type="time"], .theme-dark .comments-area .comment-respond input[type="datetime-local"], .theme-dark .comments-area .comment-respond input[type="week"], .theme-dark .comments-area .comment-respond input[type="month"], .theme-dark .comments-area .comment-respond input[type="text"], .theme-dark .comments-area .comment-respond input[type="email"], .theme-dark .comments-area .comment-respond input[type="url"], .theme-dark .comments-area .comment-respond input[type="password"], .theme-dark .comments-area .comment-respond input[type="search"], .theme-dark .comments-area .comment-respond input[type="tel"], .theme-dark .comments-area .comment-respond input[type="number"], .theme-dark .comments-area .comment-respond textarea {
-  background-color: #000000;
-  border: 1px solid #000000;
+  background-color: #232323000;
+  border: 1px solid #232323000;
 }
 
 .theme-dark .comments-area .comment-respond input[type="date"]:focus, .theme-dark .comments-area .comment-respond input[type="time"]:focus, .theme-dark .comments-area .comment-respond input[type="datetime-local"]:focus, .theme-dark .comments-area .comment-respond input[type="week"]:focus, .theme-dark .comments-area .comment-respond input[type="month"]:focus, .theme-dark .comments-area .comment-respond input[type="text"]:focus, .theme-dark .comments-area .comment-respond input[type="email"]:focus, .theme-dark .comments-area .comment-respond input[type="url"]:focus, .theme-dark .comments-area .comment-respond input[type="password"]:focus, .theme-dark .comments-area .comment-respond input[type="search"]:focus, .theme-dark .comments-area .comment-respond input[type="tel"]:focus, .theme-dark .comments-area .comment-respond input[type="number"]:focus, .theme-dark .comments-area .comment-respond textarea:focus {

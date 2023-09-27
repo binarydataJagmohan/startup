@@ -130,7 +130,7 @@ interface UserData {
   };
 
   return (
-    <section className='form-section  join-back'>
+    <section className='form-section  join-back py-5'>
     <div className="container">
         <div id="Checkout" className="inline">
             <h1>Pay Invoice</h1>

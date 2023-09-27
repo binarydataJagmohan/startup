@@ -159,7 +159,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="page-title-area item-bg-1">
+      {/* <div className="page-title-area item-bg-1">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
@@ -175,120 +175,205 @@ export default function Login() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="login-section ptb-100">
+      </div> */}
+      <section className="contact-section">
         <div className="container">
-          <div className="login-form">
-            <div className="login-title">
-              <h3>Welcome Back!</h3>
-              <p>Please login to your account.</p>
-            </div>
-            <form onSubmit={handleSubmit(submitForm)}>
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      {...register("email", { required: true, onChange: (e) => setEmail(e.target.value) })}
-                      name="email"
-                      id="email"
-
-                      className="form-control"
-                      placeholder="Email"
-                    />
-                    <div className="help-block with-errors" />
-                    {errors.email && errors.email.type === "required" && (
-                      <p
-                        className="text-danger"
-                        style={{ textAlign: "left", fontSize: "12px" }}
-                      >
-                        *Enter your valid email address.
-                      </p>
-                    )}
+          <div className="row align-items-center">
+            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div className="contact_content" data-aos="fade-right">
+                <h1 className="pb-4 text-lg-start text-center" style={{ fontWeight: '700' }}>Welcome Back!</h1>
+                <div className="contact-box">
+                  <div className="box-image">
+                    <figure className="contact-location">
+                      <i className="fa-solid fa-location-dot"></i>
+                    </figure>
                   </div>
-                </div>
-                <div className="col-lg-12 position-relative">
-                  <div className="form-group">
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      id="password"
-                      {...register("password", {
-                        required: true,
-                        onChange: (e) => setPassword(e.target.value),
-                      })} name="password"
-                      className="form-control"
-                      placeholder="Password"
-
-                    />
-                    <span className="passwordView" onClick={handleTogglePassword}>
-                      {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
-                    </span>
-                    <div className="help-block with-errors" />
-                    {errors.password && errors.password.type === "required" && (
-                      <p
-                        className="text-danger"
-                        style={{ textAlign: "left", fontSize: "12px" }}
-                      >
-                        *Password field is required.
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className=" mt-2 d-flex align-items-left">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="checkboxNoLabel"
-                      value="1"
-                      name="remember"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <p className="">Keep me Log In
+                  <div className="box-content">
+                    <h4>Location:</h4>
+                    <p className="text-size-18">
+                      32 st Kilda Road, Melbourne VIC, 3004 Australia
                     </p>
                   </div>
                 </div>
-
-                <div className="col-lg-12 mt-2">
-                  <p className="forgot-password">
-                    <Link href="/reset-password">Forgot Password?</Link>
-                  </p>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-md-12 text-center">
-                    <button type="submit" className="btnclasssmae">
-                      Log In Now
-                    </button>
+                <div className="contact-box box-mb">
+                  <div className="box-image">
+                    <figure className="contact-phone">
+                      <i className="fa-solid fa-phone"></i>
+                    </figure>
                   </div>
-                  <br />
-                  <span className="mt-3">
-                    Don't have account? <Link href="/signup">Signup!</Link>
-                  </span>
+                  <div className="box-content">
+                    <h4 className="heading">Phone:</h4>
+                    <p>
+                      <Link
+                        href="tel:+123(456)123"
+                        className="text-decoration-none  text-size-18"
+                      >
+                        +123(456)123
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+                <div className="contact-box">
+                  <div className="box-image">
+                    <figure className="contact-email">
+                      <i className="fa-solid fa-envelope"></i>
+                    </figure>
+                  </div>
+                  <div className="box-content">
+                    <h4 className="heading">Email:</h4>
+                    <p className="  ">
+                      <a
+                        href="mailto:support@risingcapitalist.com"
+                        className="text-decoration-none text-size-18"
+                      >
+                       support@risingcapitalist.com
+                      </a>
+                    </p>
+                    {/* <p>
+                      <a
+                        href="mailto:info@risingcapitalist.com"
+                        className="text-decoration-none text-size-18"
+                      >
+                        info@risingcapitalist.com
+                      </a>
+                    </p>
+                    <p>
+                      <a
+                        href="mailto:anjul@risingcapitalist.com"
+                        className="text-decoration-none text-size-18"
+                      >
+                        anjul@risingcapitalist.com
+                      </a>
+                    </p>
+                    <p className="p-0">
+                      <a
+                        href="mailto:megha@risingcapitalist.com"
+                        className="text-decoration-none text-size-18"
+                      >
+                        megha@risingcapitalist.com
+                      </a>
+                    </p> */}
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <div className="default-shape">
-          <div className="shape-1">            
-            <Image src="assets/img/shape/4.png" alt="image" width={15} height={15}/>
-          </div>
-          <div className="shape-2 rotateme">
-          <Image src="assets/img/shape/5.svg" alt="image" width={22} height={22}/>
-          </div>
-          <div className="shape-3">
-          <Image src="assets/img/shape/6.svg" alt="image" width={21} height={20}/>
-          </div>
-          <div className="shape-4">
-          <Image src="assets/img/shape/7.png" alt="image" width={18} height={18}/>
-          </div>
-          <div className="shape-5">
-          <Image src="assets/img/shape/8.png" alt="image" width={12} height={12}/>
+            </div>
+            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div className="need-section">
+                <div className="need_content">
+                <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png" } className="pb-4" />
+                  <form onSubmit={handleSubmit(submitForm)}>
+                    <div className="row align-items-center">
+                      <div className="col-12">
+                        <div className="form-group mb-0">
+                          <input
+                            type="email"
+                            {...register("email", { required: true, onChange: (e) => setEmail(e.target.value) })}
+                            name="email"
+                            className="form_style form-div"
+                            placeholder="Email"
+                          />
+                          <div className="help-block with-errors" />
+                          {errors.email && errors.email.type === "required" && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Enter your valid email address.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mb-0 position-relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            {...register("password", {
+                              required: true,
+                              onChange: (e) => setPassword(e.target.value),
+                            })}
+                            name="password"
+                            className="form_style m-0 form-div"
+                            placeholder="Password"
+
+                          />
+                          <div className="help-block with-errors" />
+                          {errors.password && errors.password.type === "required" && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Password field is required.
+                            </p>
+                          )}
+                             <span className="passwordView" onClick={handleTogglePassword}>
+                            {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
+                          </span>
+                        </div>
+                        <div className="col-lg-12 mt-3 mb-3 text-end">
+                          <div className="d-flex justify-content-between align-items-center">
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="checkboxNoLabel"
+                                value="1"
+                                name="remember"
+                                checked={rememberMe}
+                                onChange={(e) =>
+                                  setRememberMe(e.target.checked)
+                                }
+                              />
+                              <p className="p-0">Keep me Log In</p>
+                            </div>
+                            <div className="forgetpassword">
+                              <p className="forgot-password p-0">
+                                <a
+                                  href="/reset-password"
+                                  style={{ color: "#666666" }}
+                                >
+                                  Forgot Password?
+                                </a>
+                              </p>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className=" mt-2 d-flex align-items-left">
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="checkboxNoLabel"
+                            value="1"
+                            name="remember"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                          />
+                          <p className="">Keep me Log In
+                          </p>
+                        </div>
+                      </div> */}
+
+                      <div className="manage-button text-center">
+                        <button
+                          type="submit"
+                          className="submit_now text-decoration-none"
+                        >
+                          Login Now
+                          <i className="circle fa-regular fa-angle-right" />
+                        </button>
+                      </div>
+                      <p className="mt-3">Don't have account? <strong><a href="/signup" style={{ color: '#088395' }}> Sign up!</a></strong> </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <ToastContainer autoClose={1000} />
-      </div>
+      </section>
     </>
   );
 }

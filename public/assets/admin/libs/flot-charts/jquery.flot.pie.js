@@ -35,7 +35,7 @@ The plugin supports these options:
 				formatter:  a user-defined function that modifies the text/style of the label text
 				radius: 0-1 for percentage of fullsize, or a specified pixel length
 				background: {
-					color: any hexidecimal color value (other formats may or may not work, so best to stick with something like '#000')
+					color: any hexidecimal color value (other formats may or may not work, so best to stick with something like '#232323')
 					opacity: 0-1
 				},
 				threshold: 0-1 for the percentage value at which to hide labels (if they're too small)
@@ -355,7 +355,7 @@ More detail and specific examples can be found in the included HTML file.
 				ctx.save();
 				ctx.translate(shadowLeft,shadowTop);
 				ctx.globalAlpha = alpha;
-				ctx.fillStyle = "#000";
+				ctx.fillStyle = "#232323";
 
 				// center and rotate to starting position
 

@@ -12,9 +12,10 @@ const InvestedFunds = () => {
             const data = await getAllInvestedFundDetails({});
             if (data) {
                 setBusinessDetails(data.data);
-                const openDetails = data.data.filter((details: any) => details.status === 'open');
+                const openDetails = data.data.filter(
+                    (details: any) => details.status === "open"
+                );
                 setOpenBusinessDetails(openDetails);
-                console.log(openDetails);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -27,7 +28,7 @@ const InvestedFunds = () => {
 
     const getBusinessdetails = (e: any, id: any) => {
         e.preventDefault();
-        alert(id)
+        alert(id);
         getSingleBusinessDetails(id).then((res) => {
             router.push(`payment-detail?id=${id}`);
         });
@@ -38,57 +39,61 @@ const InvestedFunds = () => {
                 <div className="container py-5">
                     <h3 className="featurred">Purchased Funds</h3>
                     <h6 className="trending">Invested in Startup Funds</h6>
-                    <div className="bar" ></div>
-                    <div className="row">
-                        {openBusinessDetails.map((details: any, index: any) => (
-                            <div className="col-md-6 col-sm-12 col-lg-4 mb-3" key="index">
-                                <div className="product-grid container1">
+                    <div className="bar" />
+                    <div className="row g-4">
+                        {openBusinessDetails.map((details: any,index:any) => (
+                            <div className="col-md-6 col-sm-12 col-lg-4" key={index}>
+                                <div className="product-grid container1 transtion">
                                     <div className="product-image">
                                         <Link href="javascript:void(0)" className="image">
-                                            <Image
-                                                className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo}
-                                                alt="" width={9020} height={120}
-                                            />
+                                            <img className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} />
                                             {/* <img class="pic-2" src="images/img-2.jpg"> */}
                                         </Link>
                                     </div>
                                     <div className="main-padding">
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
-                                                <h3 className="title"><Link href="javascript:void(0)">{details.business_name} </Link></h3>
+                                                <h3 className="title">
+                                                    <Link href="javascript:void(0)">
+                                                        {details.business_name}{" "}
+                                                    </Link>
+                                                </h3>
                                                 <div className="price">Anchor</div>
                                             </div>
                                             <div className="product-content">
-                                                <h3 className="title"><Link href="javascript:void(0)">{details.tenure}</Link></h3>
+                                                <h3 className="title text-end">
+                                                    <Link href="javascript:void(0)">{details.tenure}</Link>
+                                                </h3>
                                                 <div className="price">Tenure</div>
                                             </div>
                                         </div>
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
-                                                <h3 className="title"><Link href="javascript:void(0)">{details.investor_no_of_units} </Link></h3>
+                                                <h3 className="title">
+                                                    <Link href="javascript:void(0)">
+                                                        {details.investor_no_of_units}{" "}
+                                                    </Link>
+                                                </h3>
                                                 <div className="price">Units Purchased</div>
                                             </div>
                                             <div className="product-content text-end">
-                                                <h3 className="title"><Link href="javascript:void(0)">₹{details.amount}</Link></h3>
+                                                <h3 className="title">
+                                                    <Link href="javascript:void(0)">₹{details.amount}</Link>
+                                                </h3>
                                                 <div className="price">Paid Amount</div>
                                             </div>
                                         </div>
-                                        <div className="text-center mt-3">
-                                            {/* <Link href="javascript:void(0)" className="card-link">💡13.6% Discount Rate</Link> */}
-                                            <Link href="javascript:void(0)" onClick={(e) => getBusinessdetails(e, details.bid)} className="card-link"><span className='fa fa-eye'>View Invoice</span></Link>
-                                        </div>
                                     </div>
-                                    {/* <div className="overlay">
-                                    <div className="columns">
-                                        <ul className="price">
-                                            <li>Subscribers <span>32</span></li>
-                                            <li>Average Amount Per Subscriber <span>₹12,000</span></li>
-                                            <li>Minimum Subscription <span>₹12,000</span></li>
-                                            <li>Closes in <span>20 days</span></li>
-                                            <li><Link href="javascript:void(0)" className="button-class">proptech</Link></li>
-                                        </ul>
+                                    <div className="text-center mt-3">
+                                        {/* <a href="javascript:void(0)" className="card-link">💡13.6% Discount Rate</a> */}
+                                        <Link
+                                            href="javascript:void(0)"
+                                            onClick={(e) => getBusinessdetails(e, details.bid)}
+                                            className="card-link"
+                                        >
+                                            <span className="view-invoice"> View Invoice </span>
+                                        </Link>
                                     </div>
-                                </div> */}
                                 </div>
                             </div>
                         ))}
@@ -98,14 +103,16 @@ const InvestedFunds = () => {
                     <div className="text-end">
                         <div className="pagination">
                             <Link href="javascript:void(0)">«</Link>
-                            <Link href="javascript:void(0)" className="active">1</Link>
+                            <Link href="javascript:void(0)" className="active">
+                                1
+                            </Link>
                             <Link href="javascript:void(0)">»</Link>
                         </div>
                     </div>
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
 
-export default InvestedFunds
+export default InvestedFunds;

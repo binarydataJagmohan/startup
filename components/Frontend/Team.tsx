@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function Team() {
     return (
         <>
-            <div className="page-title-area item-bg-1">
+            {/* <div className="page-title-area item-bg-1">
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="container">
@@ -18,7 +18,7 @@ export default function Team() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className="team-section pt-100 pb-100">
                 <div className="container">
                     <div className="section-title">

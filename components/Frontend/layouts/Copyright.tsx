@@ -10,7 +10,7 @@ const Copyright = () => {
           <div className="copyright-area-content">
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-6">
-                <p>
+              <p className="m-0">
                   Copyright @{new Date().getFullYear()}&nbsp;All Rights Reserved
                   By Startup.
                 </p>
@@ -19,10 +19,10 @@ const Copyright = () => {
               <div className="col-lg-6 col-md-6">
                 <ul>
                   <li>
-                    <Link href="/terms-condition">Terms & Conditions</Link>
+                    <Link href="/terms-condition" style={{color:'#666'}}>Terms & Conditions</Link>
                   </li>
                   <li>
-                    <Link href="/privacy-policy">Privacy Policy</Link>
+                    <Link href="/privacy-policy" style={{color:'#666'}}>Privacy Policy</Link>
                   </li>
                 </ul>
               </div>

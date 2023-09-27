@@ -120,6 +120,7 @@ export default function Customizereview(): any {
       $('.options').on('change', function () {
         $('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
         var selectedOption = $(this).val();
+       
         $('#checkbox-group-' + selectedOption).show();
       });
     });
@@ -181,10 +182,6 @@ export default function Customizereview(): any {
     const selectCategoryFirst = category === '1';
     if (selectCategoryFirst && updatedTerms.principal_residence !== '1') {
       setMissingFields(prevFields => [...prevFields, "principal_residence"]);
-      // toast.error('First One Option Is Required', {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
       return;
     }
 
@@ -194,10 +191,6 @@ export default function Customizereview(): any {
         updatedTerms.experience === '1');
     if (selectCategoryFirst && !selectedOptionCount) {
       setMissingFields(prevFields => [...prevFields, "selectedOptionCount"]);
-      // toast.error('Atleast One More Option is Required.', {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
       return;
     }
     const selectedCategoryRequiresCheckbox =
@@ -217,10 +210,6 @@ export default function Customizereview(): any {
       if (updatedTerms.no_requirements !== '1') {
         setMissingFields(prevFields => [...prevFields, "no_requirements"]);
       }
-      // toast.error('Option is required', {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
       return;
     }
 
@@ -275,7 +264,7 @@ export default function Customizereview(): any {
 
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
@@ -288,7 +277,7 @@ export default function Customizereview(): any {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -304,7 +293,7 @@ export default function Customizereview(): any {
                 </div>
                 <div
                   className="caption hidden-xs hidden-sm"
-                  style={{ color: "#82b440" }}
+                  style={{ color: "#79AC78" }}
                 >
                   <span>PERSONAL INFORMATION</span>
                 </div>
@@ -318,7 +307,7 @@ export default function Customizereview(): any {
                     <i className="flaticon-checked" aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>INVESTOR INFORMATION</span>
                 </div>
               </li>
@@ -329,7 +318,7 @@ export default function Customizereview(): any {
                 <div className="step_border">
                     <i className="flaticon-checked" aria-hidden="true"></i>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
               </li> */}
@@ -372,6 +361,7 @@ export default function Customizereview(): any {
                     <div className="container" id="option_select">
                       <div className="row">
                         <div className="col-md-12">
+                        <div className="custom-select-bar position-relative">
                           {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
                           <select className="options" {...register("category", { validate: (value) => value != "", required: true, onChange: handleChange })}
                             name="category" value={terms ? terms.category : ""}>
@@ -380,6 +370,8 @@ export default function Customizereview(): any {
                             <option value="2">Body Corporate/VC/PE/Family Office 1 /Corporate Institution</option>
                             <option value="3">Accelerators and Incubators</option>
                           </select>
+                          <i className="fa-solid fa-chevron-down"></i>
+                          </div>
                           <div id="checkbox-group-1" className="hidden">
                             <div className="same-card">
                               <div className="row">

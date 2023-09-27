@@ -171,7 +171,7 @@ export default function AdharInformation(): any {
 
   return (
     <>
-      <div className="page-title-area item-bg-5">
+      {/* <div className="page-title-area item-bg-5">
         <div className="d-table">
           <div className="d-table-cell">
             <div className="container">
@@ -181,7 +181,7 @@ export default function AdharInformation(): any {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
@@ -191,11 +191,11 @@ export default function AdharInformation(): any {
                   Step <span>1</span>
                 </div>
                 <div className="step_border">
-                  <div className="step_complete">
-                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
+                <div className="step_complete">
+                       <i className="flaticon-checked" style={{color:"#79AC78"}} aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>PERSONAL INFORMATION</span>
                 </div>
               </li>
@@ -204,11 +204,11 @@ export default function AdharInformation(): any {
                   Step <span>2</span>
                 </div>
                 <div className="step_border">
-                  <div className="step_complete">
-                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
+                <div className="step_complete">
+                       <i className="flaticon-checked" style={{color:"#79AC78"}} aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>BUSINESS INFORMATION</span>
                 </div>
               </li>
@@ -221,7 +221,7 @@ export default function AdharInformation(): any {
                     <i className="flaticon-checked" aria-hidden="true"></i>
                   </div>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>BASIC INFORMATION</span>
                 </div>
               </li>
@@ -232,7 +232,7 @@ export default function AdharInformation(): any {
                 <div className="step_border">
                 <i className="flaticon-checked"  aria-hidden="true"></i>
                 </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
+                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
                   <span>DOCUMENTS UPLOAD</span>
                 </div>
               </li> */}
