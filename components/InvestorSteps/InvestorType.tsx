@@ -236,9 +236,9 @@ export default function InvestorType(): any {
     const SubmitForm = async (e: any) => {
         e.preventDefault();
         const errors: any = {};
-        // if (!investorType) {
-        //     errors.investorType = "*Please select investor type";
-        // }
+        if (!investorType) {
+            errors.investorType = "*Please select investor type";
+        }
         if (selectedOption === '1') {
             if (!principal_residence) {
                 errors.principal_residence = "*Principal residence option is required";
