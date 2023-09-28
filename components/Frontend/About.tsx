@@ -1,6 +1,7 @@
 import React from "react";
 import FrequentlyQuestions from "./FrequentlyQuestions";
 import Link from 'next/link';
+import Image from 'next/image';
 const About = () => {
   return (
     <div>
@@ -30,7 +31,9 @@ const About = () => {
             <div className="row">
               <div className="col-lg-6 p-0">
                 <div className="about-image">
-                  <img src="assets/img/about/about-2.jpg" alt="image" />
+                  <Image src="assets/img/about/about-2.jpg" alt="image" width={1000} height={1000} 
+                  // layout="responsive"
+                  />
                 </div>
               </div>
               <div className="col-lg-6">
@@ -220,19 +223,19 @@ const About = () => {
           </div>
           <div className="default-shape">
             <div className="shape-1">
-              <img src="assets/img/shape/4.png" alt="image" />
+            <Image src="assets/img/shape/4.png" alt="image" width={15} height={15}/>
             </div>
             <div className="shape-2 rotateme">
-              <img src="assets/img/shape/5.svg" alt="image" />
+            <Image src="assets/img/shape/5.svg" alt="image" width={22} height={22}/>
             </div>
             <div className="shape-3">
-              <img src="assets/img/shape/6.svg" alt="image" />
+            <Image src="assets/img/shape/6.svg" alt="image" width={21} height={20}/>
             </div>
             <div className="shape-4">
-              <img src="assets/img/shape/7.png" alt="image" />
+            <Image src="assets/img/shape/7.png" alt="image" width={18} height={18}/>
             </div>
             <div className="shape-5">
-              <img src="assets/img/shape/8.png" alt="image" />
+            <Image src="assets/img/shape/8.png" alt="image" width={12} height={12}/>
             </div>
           </div>
         </section>

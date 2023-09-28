@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getSingleBusinessDetails, InvestorBooking } from '@/lib/investorapi';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
+import Image from 'next/image';
 import "react-toastify/dist/ReactToastify.css";
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
@@ -207,8 +208,8 @@ const Details = () => {
                                         <div className="css-1d6tso">
                                             <div className="logo-company">
                                                 <div className="img">
-                                                    {inputs.logo && (
-                                                        <img src={inputs.logo} alt="" />
+                                                    {inputs.logo && (                                                        
+                                                        <Image  src={inputs.logo} alt="" width={60} height={60}/>
                                                     )}
                                                 </div>
                                             </div>

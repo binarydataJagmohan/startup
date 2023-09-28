@@ -9,6 +9,7 @@ import { log } from "console";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from 'next/link';
+import Image from 'next/image';
 const alertStyle = {
   color: "red",
 };
@@ -215,10 +216,13 @@ export default function Findbusiness(): any {
                   Step <span>2</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img
+                  <div className="step">                  
+                    <Image
                       className="sidebar-img w-100"
                       src="/assets/img/investor/dollar.png"
+                      alt="dollar-sign"
+                      width={60}
+                      height={35}
                     />
                   </div>
                 </div>
@@ -244,10 +248,13 @@ export default function Findbusiness(): any {
                   Step <span>3</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img
+                  <div className="step">                   
+                     <Image
                       className="sidebar-img w-50"
                       src="/assets/img/investor/download2.png"
+                      alt="term-condition"
+                      width={30}
+                      height={38}
                     />
                   </div>
                 </div>

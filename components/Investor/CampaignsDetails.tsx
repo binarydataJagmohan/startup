@@ -5,6 +5,7 @@ import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
+import Image from 'next/image';
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
@@ -200,9 +201,11 @@ export default function CampaignsDetails() {
                           {/* {inputs.logo && (
                             <img src={inputs.logo} alt="" />
                           )} */}
-                          <img
+                          <Image
                             src="https://images.unsplash.com/photo-1694813646472-ddee14cef903?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                             alt=""
+                            width={60}
+                            height={60}
                           />
                         </div>
                       </div>

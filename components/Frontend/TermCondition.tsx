@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,

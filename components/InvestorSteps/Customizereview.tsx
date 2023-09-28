@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
 import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData } from "../../lib/frontendapi";
 import $ from "jquery";
+import Image from 'next/image';
 import Link from 'next/link';
 const alertStyle = {
   color: 'red',
@@ -327,9 +328,12 @@ export default function Customizereview(): any {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img
+                    <Image
                       className="sidebar-img w-50"
                       src="/assets/img/investor/download2.png"
+                      alt="term-condition"
+                      width={30}
+                      height={38}
                     />
                   </div>
                 </div>

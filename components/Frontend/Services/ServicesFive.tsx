@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function serviceFive() {
     return (
         <>
@@ -19,12 +20,12 @@ export default function serviceFive() {
                 </div>
             </div> */}
             <section className='Services-box ser-banner-5'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>Marketing and Branding Services</h3>
-                <p>Our Marketing and Branding Services are designed to help you effectively promote your investment project, build brand awareness, and increase customer engagement. Our team of experienced marketers will work with you to develop a customized marketing strategy that aligns with your business goals and objectives.</p>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>Marketing and Branding Services</h3>
+                        <p>Our Marketing and Branding Services are designed to help you effectively promote your investment project, build brand awareness, and increase customer engagement. Our team of experienced marketers will work with you to develop a customized marketing strategy that aligns with your business goals and objectives.</p>
+                    </div>
                 </div>
-             </div>
             </section>
 
             <section className="services-details-area ptb-50 banner-five">
@@ -50,7 +51,7 @@ export default function serviceFive() {
                                     <h3>Our services include:</h3>
                                     <p>Marketing a company offers several benefits to investment projects, including:</p>
                                     <ul>
-                                    <li><p>Branding</p></li>
+                                        <li><p>Branding</p></li>
                                         <li><p>Website Design</p></li>
                                         <li><p>Social Media Marketing</p></li>
                                         <li><p>Email Marketing</p></li>
@@ -63,7 +64,11 @@ export default function serviceFive() {
                             </div>
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/Marketing-and-Branding.jpg" alt="image" />
+                                    <Image
+                                        src="assets/img/services-details/Marketing-and-Branding.jpg" alt="image"
+                                        width={440}
+                                        height={370}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -72,7 +77,11 @@ export default function serviceFive() {
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/2.jpg" alt="image" />
+                                    <Image
+                                        src="assets/img/services-details/2.jpg" alt="image"
+                                        width={546}
+                                        height={546}
+                                    />
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
@@ -107,9 +116,9 @@ export default function serviceFive() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

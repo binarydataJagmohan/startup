@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import Image from 'next/image';
 
 interface User {
   id: string;
@@ -259,7 +260,7 @@ export default function Login() {
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="need-section">
                 <div className="need_content">
-                <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png" } className="pb-4" />
+                <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png" } className="pb-4" alt="logo-img" width={190} height={68} />
                   <form onSubmit={handleSubmit(submitForm)}>
                     <div className="row align-items-center">
                       <div className="col-12">

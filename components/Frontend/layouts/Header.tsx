@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { CheckUserApprovalStatus } from '../../../lib/frontendapi'
-
+import Image from 'next/image';
 type UserData = {
   id?: string;
   username?: string;
@@ -108,12 +108,14 @@ export default function HeaderFrontend() {
             <div className="fria-responsive-menu">
               <div className="logo">
                 <Link href="/">
-                  <img
+                  <Image
                     src={
                       process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"
                     }
                     className="black-logo"
                     alt="image"
+                    width={150}
+                    height={70}
                   />
                 </Link>
               </div>
@@ -121,7 +123,12 @@ export default function HeaderFrontend() {
                 <span />
                 <span />
                 <span />
-                <img src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png" alt="" />
+                <Image
+                  src="https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png"
+                  alt="menu-bar"
+                  width={33}
+                  height={33}
+                />
               </div>
             </div>
           </div>
@@ -220,10 +227,12 @@ export default function HeaderFrontend() {
         <div className="">
           <h5 className="offcanvas-title text-center" id="offcanvasRightLabel">
             <Link className="navbar-brand" href="/">
-              <img
+              <Image
                 src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                 className="black-logo pt-5"
-                alt="image"
+                alt="logo-image"
+                width={150}
+                height={70}
               />
             </Link>
           </h5>

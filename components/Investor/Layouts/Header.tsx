@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { getSingleFrontEndData, getFundRaiseCount } from '@/lib/frontendapi';
 import { getTotalCountOfNotifications, getCountOfUnreadNotifications } from '../../../lib/adminapi'
 import Link from 'next/link'
-
+import Image from 'next/image';
 interface UserData {
   id?: string;
   username?: string;
@@ -123,8 +123,12 @@ const Header = () => {
           <div className="container">
             <div className="fria-responsive-menu">
               <div className="logo">
-                <Link href="/">
-                  <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="" />
+                <Link href="/">                  
+                  <Image
+                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
+                    width={150}
+                    height={70}
+                  />
                 </Link>
               </div>
             </div>
@@ -133,8 +137,12 @@ const Header = () => {
         <div className="fria-nav" id="dashboard">
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
-              <Link className="navbar-brand" href="/">
-                <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt="image" />
+              <Link className="navbar-brand" href="/">               
+                <Image
+                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
+                    width={150}
+                    height={87}
+                  />
               </Link>
               <div
                 className="collapse navbar-collapse mean-menu"

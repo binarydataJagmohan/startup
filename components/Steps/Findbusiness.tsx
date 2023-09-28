@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import Image from 'next/image';
 import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
 import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
@@ -192,9 +193,12 @@ export default function Findbusiness(): any {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img
+                    <Image
                       className="sidebar-img w-75"
                       src="/assets/img/sidebar/user.png"
+                      alt="user-icon"
+                      width={45}
+                      height={45}
                     />
                   </div>
                 </div>
@@ -208,9 +212,12 @@ export default function Findbusiness(): any {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img
+                    <Image
                       className="sidebar-img w-75"
                       src="/assets/img/sidebar/business.png"
+                      alt="bussiness-icon"
+                      width={45}
+                      height={45}
                     />
                   </div>
                 </div>
@@ -223,10 +230,13 @@ export default function Findbusiness(): any {
                   Step <span>3</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/docs.png"
+                  <div className="step">                   
+                    <Image
+                     className="sidebar-img w-75"
+                     src="/assets/img/sidebar/docs.png"
+                      alt="doc-icon"
+                      width={45}
+                      height={45}
                     />
                   </div>
                 </div>
@@ -252,8 +262,13 @@ export default function Findbusiness(): any {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                    <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png" />
+                  <div className="step">                   
+                    <Image
+                     className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
+                      alt="bank-icon"
+                      width={45}
+                      height={45}
+                    />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">

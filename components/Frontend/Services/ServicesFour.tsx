@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-
+import Image from 'next/image';
 export default function serviceFour() {
     return (
         <>
@@ -64,8 +64,12 @@ export default function serviceFour() {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">
-                                    <img src="assets/img/services-details/App-Development.jpg" alt="image" />
+                                <div className="services-details-image">                                    
+                                    <Image
+                                       src="assets/img/services-details/App-Development.jpg" alt="image"
+                                        width={440}
+                                        height={370}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -73,8 +77,12 @@ export default function serviceFour() {
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">
-                                    <img src="assets/img/services-details/2.jpg" alt="image" />
+                                <div className="services-details-image">                                  
+                                    <Image
+                                        src="assets/img/services-details/2.jpg" alt="image"
+                                        width={546}
+                                        height={546}
+                                    />
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">

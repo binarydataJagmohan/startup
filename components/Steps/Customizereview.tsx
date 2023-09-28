@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { basicInformationSave, getBasicInformation, getSingleUserData } from "../../lib/frontendapi";
@@ -47,11 +48,11 @@ export default function Customereview(): any {
   } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = (event:any) => {
+  const handleUploadClick = (event: any) => {
     event.preventDefault();
     setMissingFields([])
     if (fileInputRef.current !== null) {
-      (fileInputRef.current as HTMLInputElement).click(); 
+      (fileInputRef.current as HTMLInputElement).click();
     }
   };
 
@@ -59,7 +60,7 @@ export default function Customereview(): any {
     setMissingFields([])
     const selectedFile = event.target.files[0];
     setProofImg(selectedFile);
-    
+
     if (selectedFile) {
       setTimeout(() => {
         setImageUploadStatus('success');
@@ -119,7 +120,7 @@ export default function Customereview(): any {
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
-      }else if(!basicDetails.proof_img){
+      } else if (!basicDetails.proof_img) {
         setMissingFields(prevFields => [...prevFields, "image"]);
       }
       formData.append("user_id", basicDetails.user_id);
@@ -209,7 +210,13 @@ export default function Customereview(): any {
                 </div>
                 <div className="step_border">
                   <div className="step">
-                    <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
+                    <Image
+                      className="sidebar-img w-75"
+                      src="/assets/img/sidebar/docs.png"
+                      alt="doc-icon"
+                      width={45}
+                      height={40}
+                    />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
@@ -234,8 +241,13 @@ export default function Customereview(): any {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">
-                  <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"/>
+                  <div className="step">                    
+                    <Image
+                      className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
+                      alt="bank-icon"
+                      width={45}
+                      height={45}
+                    />
                   </div>
                 </div>
                 <div className="caption hidden-xs hidden-sm">
@@ -390,14 +402,14 @@ export default function Customereview(): any {
                                   </p>
                                 </label>
                                 <div className="help-block with-errors" />
-                                { missingFields.includes('image') && (
-                                   <p
-                                   className="text-danger"
-                                   style={{ textAlign: "left", fontSize: "12px" }}
-                                 >
-                                   *Please upload Your Proof.
-                                 </p>
-                                ) }
+                                {missingFields.includes('image') && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please upload Your Proof.
+                                  </p>
+                                )}
                                 {/* {errors.proof_img && (
                                   <p
                                     className="text-danger"

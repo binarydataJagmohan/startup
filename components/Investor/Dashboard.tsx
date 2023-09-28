@@ -4,7 +4,7 @@ import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetail
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
-
+import Image from 'next/image';
 import { CheckUserApprovalStatus } from "../../lib/frontendapi";
 interface UserData {
   id?: string;
@@ -152,11 +152,16 @@ const Dashboard = () => {
               .map((details: any, index: any) => (
 
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                   {details.logo}
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <Link href="#" className="image">
-                        { }
-                        <img src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/img-1.jpg'} />
+                        {details.logo ? (
+                           <Image src={details.logo} alt="business-logo" width={416} height={140} />
+                          ):(
+                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                          )
+                        }
                       </Link>
                     </div>
                     <div className="main-padding">
@@ -201,16 +206,16 @@ const Dashboard = () => {
                       <div className="columns">
                         <ul className="price m-0 p-0">
                           <li>
-                            Subscribers <span>32</span>
+                            Units <span>{details.no_of_units}/{details.total_units}</span>
                           </li>
                           <li>
-                            Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                            Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
                           </li>
                           <li>
-                            Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                            Tenure <span>{details.tenure} days</span>
                           </li>
                           <li>
-                            Closes in <span>20&nbsp;days</span>
+                            Closes in <span>20&nbsp;days</span>                           
                           </li>
                           <li className="border-0">
                             <a
@@ -267,8 +272,12 @@ const Dashboard = () => {
                   <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
-                        <a href="#" className="image">
-                          <img src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/img-1.jpg'} />
+                        <a href="#" className="image">                      
+                          {!details.logo ?
+                          (<Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />)
+                          :
+                          (<Image src={details.logo} alt="business-logo" width={416} height={140} />)
+                        }
                         </a>
                       </div>
                       <div className="main-padding">
@@ -313,13 +322,13 @@ const Dashboard = () => {
                         <div className="columns">
                           <ul className="price m-0 p-0">
                             <li>
-                              Subscribers <span>32</span>
+                              Units <span>{details.no_of_units}/{details.total_units}</span>
                             </li>
                             <li>
-                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
                             </li>
                             <li>
-                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                              Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
                               Closes in <span>20&nbsp;days</span>
@@ -464,7 +473,11 @@ const Dashboard = () => {
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
                         <a href="#" className="image">
-                          <img src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/img-1.jpg'} />
+                        {!details.logo ?
+                          (<Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />)
+                          :
+                          (<Image src={details.logo} alt="business-logo" width={416} height={140} />)
+                        }
                         </a>
                       </div>
                       <div className="main-padding">
@@ -509,13 +522,13 @@ const Dashboard = () => {
                         <div className="columns">
                           <ul className="price m-0 p-0">
                             <li>
-                              Subscribers <span>32</span>
+                              Units <span>{details.no_of_units}/{details.total_units}</span>
                             </li>
                             <li>
-                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
                             </li>
                             <li>
-                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                              Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
                               Closes in <span>20&nbsp;days</span>
@@ -705,13 +718,13 @@ const Dashboard = () => {
                         <div className="columns">
                           <ul className="price m-0 p-0">
                             <li>
-                              Subscribers <span>32</span>
+                              Units <span>{details.no_of_units}/{details.total_units}</span>
                             </li>
                             <li>
-                              Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
+                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
                             </li>
                             <li>
-                              Minimum Subscription <span>₹{details.minimum_subscription}</span>
+                              Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
                               {/* Closes in <span>{details.closed_in}&nbsp;days</span> */}
@@ -773,10 +786,11 @@ const Dashboard = () => {
                   <div className="product-grid container1" onClick={(e) => getClosedBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
-                        <img
-                          className="pic-1 image"
-                          src={details.logo}
-                        />
+                      {!details.logo ?
+                          (<Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />)
+                          :
+                          (<Image src={details.logo} alt="business-logo" width={416} height={140} />)
+                        }
                       </a>
                     </div>
                     <div className="main-padding">

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { useRouter } from 'next/router';
-import { getSingleUserData,CheckUserApprovalStatus} from '@/lib/frontendapi';
+import { getSingleUserData, CheckUserApprovalStatus } from '@/lib/frontendapi';
 import Link from 'next/link';
-import { getTotalCountOfNotifications, getCountOfUnreadNotifications} from '../../../lib/adminapi';
+import Image from 'next/image';
+import { getTotalCountOfNotifications, getCountOfUnreadNotifications } from '../../../lib/adminapi';
 interface UserData {
   id?: string;
   username?: string;
@@ -16,10 +17,10 @@ const Header = () => {
   const [totalNotifications, setTotalNotifications] = useState("");
   const [unreadNotifications, setUnreadNotifications] = useState("");
   const [users, setUsers] = useState<any>(
-    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '',profile_pic:'' });
+    { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
   const router = useRouter();
   function redirectToLogin() {
-    window.location.href= "/login";
+    window.location.href = "/login";
   }
 
   function handleLogout(e: any) {
@@ -29,7 +30,7 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data:UserData = getCurrentUserData();
+    const current_user_data: UserData = getCurrentUserData();
     current_user_data.username
       ? setCurrentUserName(current_user_data.username)
       : setCurrentUserName("");
@@ -44,13 +45,13 @@ const Header = () => {
         if (res.status == true) {
           // Set the businessUnits state
           setUsers(res.data);
-        } 
+        }
       })
       .catch((err) => {
       });
 
 
-      getTotalCountOfNotifications(current_user_data.id)
+    getTotalCountOfNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
           setTotalNotifications(res.data);
@@ -72,28 +73,28 @@ const Header = () => {
       });
 
   }, []);
-  
+
   return (
     <>
-    <div id="page-topbar">
-    <div className="navbar-header">
+      <div id="page-topbar">
+        <div className="navbar-header">
           <div className="d-flex align-items-center">
             {/* LOGO */}
             <div className="navbar-brand-box">
               <Link href='/' className="logo logo-dark">
                 <span className="logo-sm class-as">
-                  <img src="/assets/img/logo2.png" alt="" height={22} />
+                  <Image src="/assets/img/logo2.png" alt="" width={150} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <img src="/assets/img/logo2.png" alt="" height={17} />
+                  <Image src="/assets/img/logo2.png" alt="" width={150} height={53} />
                 </span>
               </Link>
               <Link href='/' className="logo logo-light">
                 <span className="logo-sm">
-                  <img src="/assets/img/logo2.png" alt="" height={22} />
+                  <Image src="/assets/img/logo2.png" alt="" width={150} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <img src="/assets/img/logo2.png" alt="" height={18} />
+                  <Image src="/assets/img/logo2.png" alt="" width={150} height={53} />
                 </span>
               </Link>
             </div>
@@ -103,24 +104,24 @@ const Header = () => {
               </Link>
               <div className="offcanvas offcanvas-start show" tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
-                <div className="navbar-brand-box p-0">
-              <Link href='/' className="logo logo-dark">
-                <span className="logo-sm">
-                  <img src="/assets/img/logo.png" alt="" height={22} />
-                </span>
-                <span className="logo-lg">
-                  <img src="/assets/img/logo.png" alt="" height={17} />
-                </span>
-              </Link>
-              <Link href='/' className="logo logo-light">
-                <span className="logo-sm">
-                  <img src="/assets/img/logo.png" alt="" height={22} />
-                </span>
-                <span className="logo-lg">
-                  <img src="/assets/img/logo.png" alt="" height={18} />
-                </span>
-              </Link>
-            </div>
+                  <div className="navbar-brand-box p-0">
+                    <Link href='/' className="logo logo-dark">
+                      <span className="logo-sm">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                      <span className="logo-lg">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                    </Link>
+                    <Link href='/' className="logo logo-light">
+                      <span className="logo-sm">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                      <span className="logo-lg">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                    </Link>
+                  </div>
                   <button type="button" className="btn-close d-none" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
                 <div className="offcanvas-body">
@@ -130,7 +131,7 @@ const Header = () => {
                       <div id="sidebar-menu">
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
-                        <li className={`nav-item ${router.pathname === '/company/dashboard' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === '/company/dashboard' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="waves-effect" >
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
@@ -149,7 +150,7 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                          <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}  className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
@@ -174,24 +175,24 @@ const Header = () => {
               </Link>
               <div className="offcanvas offcanvas-start" tabIndex={-1} id="offcanvasExample1" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
-                <div className="navbar-brand-box p-0">
-              <Link href='/' className="logo logo-dark">
-                <span className="logo-sm">
-                  <img src="/assets/img/logo.png" alt="" height={22} />
-                </span>
-                <span className="logo-lg">
-                  <img src="/assets/img/logo.png" alt="" height={17} />
-                </span>
-              </Link>
-              <Link href='/' className="logo logo-light">
-                <span className="logo-sm">
-                  <img src="/assets/img/logo.png" alt="" height={22} />
-                </span>
-                <span className="logo-lg">
-                  <img src="/assets/img/logo.png" alt="" height={18} />
-                </span>
-              </Link>
-            </div>
+                  <div className="navbar-brand-box p-0">
+                    <Link href='/' className="logo logo-dark">
+                      <span className="logo-sm">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                      <span className="logo-lg">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                    </Link>
+                    <Link href='/' className="logo logo-light">
+                      <span className="logo-sm">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                      <span className="logo-lg">
+                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                      </span>
+                    </Link>
+                  </div>
                   <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
                 <div className="offcanvas-body">
@@ -233,7 +234,7 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                          <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}  className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
@@ -303,7 +304,7 @@ const Header = () => {
                         </div>
                       </div>
                       <div className="flex-grow-1">
-                      {parseInt(unreadNotifications)> 0 ? (
+                        {parseInt(unreadNotifications) > 0 ? (
                           <>
                             <h6 className="mb-1">New Notification received</h6>
                             <div className="font-size-10 text-muted">
@@ -328,7 +329,7 @@ const Header = () => {
             </div>
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+ (users.profile_pic || 'profile.webp')} alt="" />
+                <Image className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (users.profile_pic || 'profile.webp')} alt="" width={32} height={32} />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>
@@ -347,7 +348,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-</div>
+      </div>
 
     </>
   )

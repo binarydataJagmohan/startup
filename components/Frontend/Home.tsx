@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Agency from "../Frontend/ItAgency";
 import ClientSection from "../Frontend/Common/ClientSection";
+import Image from 'next/image';
 import NextNProgress from "nextjs-progressbar";
 import Link from 'next/link';
 import { getCurrentUserData, removeToken, removeStorageData } from '../../lib/session'
@@ -101,7 +102,7 @@ export default function Home() {
                 <div className="d-table-cell">
                   <div className="container">
                     <div className="main-banner-content">
-                      <h1>Opportunities  <br/> Await</h1>
+                      <h1>Opportunities  <br /> Await</h1>
                       <p>
                         At our investment firm, opportunities await for those
                         who are ready to take the next step towards financial
@@ -116,22 +117,22 @@ export default function Home() {
 
                             {users.approval_status === "approved" ? (
                               <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
-                                    My Profile
-                                  </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
-                                    Campaigns
-                                  </Link>
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  My Profile
+                                </Link>
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  Campaigns
+                                </Link>
                               </>
                             ) : (
-                             <>
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
-                                    My Profile
-                                  </Link>
-                              <a href="#" onClick={handleLogout} className="default-btn">
-                                Logout
-                              </a>
-                             </>
+                              <>
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
+                                  My Profile
+                                </Link>
+                                <a href="#" onClick={handleLogout} className="default-btn">
+                                  Logout
+                                </a>
+                              </>
                             )}
                           </div>
                         )
@@ -378,7 +379,7 @@ export default function Home() {
             <div className="col-lg-3 col-md-6">
               <div className="features-content transtion">
                 <div className="icon">
-                  <img src="assets/img/icon1.jpeg" alt="risk management" />
+                  <Image src="assets/img/icon1.jpeg" alt="risk management" width={80} height={80} />
                 </div>
                 <h3>Risk Management</h3>
                 <p>
@@ -390,7 +391,7 @@ export default function Home() {
             <div className="col-lg-3 col-md-6">
               <div className="features-content transtion">
                 <div className="icon">
-                  <img src="assets/img/icon2.png" alt="social investing" />
+                  <Image src="assets/img/icon2.png" alt="social investing" width={80} height={80} />
                 </div>
                 <h3>Social Investing</h3>
                 <p>
@@ -402,7 +403,7 @@ export default function Home() {
             <div className="col-lg-3 col-md-6">
               <div className="features-content transtion">
                 <div className="icon left-icon">
-                  <img src="assets/img/icon3.png" alt="low fees" />
+                  <Image src="assets/img/icon3.png" alt="low fees" width={80} height={80} />
                 </div>
                 <h3>Low Fees</h3>
                 <p>
@@ -414,7 +415,7 @@ export default function Home() {
             <div className="col-lg-3 col-md-6">
               <div className="features-content transtion">
                 <div className="icon">
-                  <img src="assets/img/icon4.webp" alt="" />
+                  <Image src="assets/img/icon4.webp" alt="customized portfolio" width={80} height={80} />
                 </div>
                 <h3>Customized Portfolio</h3>
                 <p>
@@ -565,8 +566,8 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/1.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/1.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -580,8 +581,8 @@ export default function Home() {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/2.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/2.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -595,8 +596,8 @@ export default function Home() {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/3.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/3.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -610,8 +611,8 @@ export default function Home() {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/4.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/4.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -625,8 +626,8 @@ export default function Home() {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/5.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/5.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -638,8 +639,8 @@ export default function Home() {
                 </div>
               </div>
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/6.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image  src="assets/img/projects/6.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -653,8 +654,8 @@ export default function Home() {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="single-projects">
-                <div className="projects-image">
-                  <img src="assets/img/projects/7.jpg" alt="image" />
+                <div className="projects-image">                  
+                  <Image src="assets/img/projects/7.jpg" alt="image" width={426} height={355}/>
                 </div>
                 <div className="projects-content">
                   <Link href="javascript:void(0);">
@@ -688,8 +689,8 @@ export default function Home() {
             <div className="col-lg-4 col-md-6">
               <div className="single-blog">
                 <div className="image">
-                  <Link href="/single-blog">
-                    <img src="assets/img/blog/1.jpg" alt="image" />
+                  <Link href="/single-blog">                    
+                    <Image src="assets/img/blog/1.jpg" alt="image" width={356} height={279}/>
                   </Link>
                 </div>
                 <div className="content">
@@ -712,8 +713,8 @@ export default function Home() {
             <div className="col-lg-4 col-md-6">
               <div className="single-blog">
                 <div className="image">
-                  <Link href="/single-blog">
-                    <img src="assets/img/blog/2.jpg" alt="image" />
+                  <Link href="/single-blog">                    
+                    <Image src="assets/img/blog/2.jpg" alt="image" width={356} height={279}/>
                   </Link>
                 </div>
                 <div className="content">
@@ -736,8 +737,8 @@ export default function Home() {
             <div className="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
               <div className="single-blog">
                 <div className="image">
-                  <Link href="/single-blog">
-                    <img src="assets/img/blog/3.jpg" alt="image" />
+                  <Link href="/single-blog">                    
+                    <Image src="assets/img/blog/3.jpg" alt="image" width={356} height={279}/>
                   </Link>
                 </div>
                 <div className="content">

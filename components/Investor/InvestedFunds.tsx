@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllInvestedFundDetails,getSingleBusinessDetails} from "@/lib/investorapi";
+import Image from 'next/image';
+import { getAllInvestedFundDetails, getSingleBusinessDetails } from "@/lib/investorapi";
 import Link from 'next/link';
 const InvestedFunds = () => {
     const router = useRouter();
@@ -45,7 +46,8 @@ const InvestedFunds = () => {
                                 <div className="product-grid container1 transtion">
                                     <div className="product-image">
                                         <Link href="javascript:void(0)" className="image">
-                                            <img className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} />
+                                            <Image className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="" width={9020} height={120}/>
+                                            {/* <img class="pic-2" src="images/img-2.jpg"> */}
                                         </Link>
                                     </div>
                                     <div className="main-padding">

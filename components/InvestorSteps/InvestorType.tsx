@@ -10,7 +10,7 @@ import {
     getCurrentUserData,
 } from "../../lib/session";
 import Link from 'next/link';
-
+import Image from "next/image";
 const alertStyle = {
     color: "red",
 };
@@ -339,6 +339,9 @@ export default function InvestorType(): any {
                                         <img
                                             className="sidebar-img w-50"
                                             src="/assets/img/investor/download2.png"
+                                            alt="term-condition"
+                                            width={30}
+                                            height={38}
                                         />
                                     </div>
                                 </div>
@@ -383,7 +386,12 @@ export default function InvestorType(): any {
                                                                                 checked={investorDetails.investorType === 'Accredited Investors'}
                                                                             />
                                                                             <label htmlFor="myCheckbox1">
-                                                                                <img src="/assets/img/investor/accredited.png" />
+                                                                                <Image
+                                                                                    src="/assets/img/investor/accredited.png"
+                                                                                    alt=""
+                                                                                    width={187}
+                                                                                    height={150}
+                                                                                />
                                                                             </label>
                                                                         </li>
                                                                         <li>
@@ -397,7 +405,12 @@ export default function InvestorType(): any {
                                                                                 checked={investorDetails.investorType === 'Angel Investor'}
                                                                             />
                                                                             <label htmlFor="myCheckbox2">
-                                                                                <img src="/assets/img/investor/angel.png" />
+                                                                                <Image
+                                                                                    src="/assets/img/investor/angel.png"
+                                                                                    alt=""
+                                                                                    width={187}
+                                                                                    height={150}
+                                                                                />
                                                                             </label>
                                                                         </li>
                                                                         <li>

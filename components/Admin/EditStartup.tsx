@@ -866,7 +866,7 @@ const EditList = () => {
                                 </div> */}
                                 <div className="profile-pic">
                                   {
-                                    <img src={bussiness.logo.replace('docs', 'public/docs')} alt="profile" width={300} height={800} />
+                                    <Image src={bussiness.logo.replace('docs', 'public/docs')} alt="profile" width={300} height={800} />
                                 }
                                 </div>
                                 <input
