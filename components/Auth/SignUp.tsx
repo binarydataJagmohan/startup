@@ -22,6 +22,7 @@ const Signup = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [notifications, setNotifications] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     register,
     handleSubmit,
@@ -47,149 +48,120 @@ const Signup = () => {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
-  });
+  }); 
 
+  const SubmitForm = () => {    
+      setIsSubmitting(true);      
+      const user = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        role: role,
+      };
+      const setLocalStorageItems = (user: any) => {
+        window.localStorage.setItem("id", user.id);
+        window.localStorage.setItem("email", user.email);
+        window.localStorage.setItem("username", user.firstname);
+        window.localStorage.setItem("user_role", user.role);
+        window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
+        window.localStorage.setItem("approval_status", user.approval_status);
+      };
+      userRegister(user)
+        .then((res) => {
+          if (res.status == true) {
+            //   console.log(res.data[0]);
+            //   console.log(res.data['user']);
+            //  return false;
+            if (res.data[0]) {
+              setLocalStorageItems(res.data['user']);
+              switch (window.localStorage.getItem("user_role")) {
+                case "admin":
+                  setTimeout(() => {
+                    window.location.href = "/admin/dashboard/";
+                  }, 1000);
+                  break;
+                case "startup":
+                  setTimeout(() => {
+                    window.location.href = "/steps/findbusiness";
+                  }, 1000);
+                  if (window.localStorage.getItem("is_profile_completed") === "1") {
+                    setTimeout(() => {
+                      window.location.href = "/company/thank-you";
+                    }, 1000);
+                  }
+                  if (window.localStorage.getItem("approval_status") === "approved") {
+                    setTimeout(() => {
+                      window.location.href = "/company/dashboard";
+                    }, 1000);
+                  }
+                  break;
+                case "investor":
+                  setTimeout(() => {
+                    window.location.href = "/investor-steps/findbusiness";
+                  }, 1000);
+                  if (window.localStorage.getItem("is_profile_completed") === "1") {
+                    setTimeout(() => {
+                      window.location.href = "/investor/thank-you";
+                    }, 1000);
+                  }
+                  if (window.localStorage.getItem("approval_status") === "approved") {
+                    setTimeout(() => {
+                      window.location.href = "/investor/campaign";
+                    }, 1000);
+                  }
+                  break;
+              }
 
+              const data = {
+                notify_from_user: window.localStorage.getItem("id"),
+                notify_to_user: "1",
+                notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
+                notification_type: "New User Registered",
+                each_read: "unread",
+                status: "active"
+              };
 
-  const SubmitForm = () => {
-    const user = {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      password: password,
-      role: role,
-    };
-    const setLocalStorageItems = (user: any) => {
-      window.localStorage.setItem("id", user.id);
-      window.localStorage.setItem("email", user.email);
-      window.localStorage.setItem("username", user.firstname);
-      window.localStorage.setItem("user_role", user.role);
-      window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
-      window.localStorage.setItem("approval_status", user.approval_status);
-    };
+              // Send Notifications to admin When new user is register
+              sendNotification(data)
+                .then((notificationRes) => {
+                  console.log('success')
+                })
+                .catch((error) => {
+                  console.log('error occured')
+                });
 
-    userRegister(user)
-      .then((res) => {
-        if (res.status == true) {
-          //   console.log(res.data[0]);
-          //   console.log(res.data['user']);
-          //  return false;
-          if (res.data[0]) {
-            setLocalStorageItems(res.data['user']);
-            switch (window.localStorage.getItem("user_role")) {
-              case "admin":
-                setTimeout(() => {
-                  window.location.href = "/admin/dashboard/";
-                }, 1000);
-                break;
-              case "startup":
-                setTimeout(() => {
-                  window.location.href = "/steps/findbusiness";
-                }, 1000);
-                if (window.localStorage.getItem("is_profile_completed") === "1") {
-                  setTimeout(() => {
-                    window.location.href = "/company/thank-you";
-                  }, 1000);
-                }
-                if (window.localStorage.getItem("approval_status") === "approved") {
-                  setTimeout(() => {
-                    window.location.href = "/company/dashboard";
-                  }, 1000);
-                }
-                break;
-              case "investor":
-                setTimeout(() => {
-                  window.location.href = "/investor-steps/findbusiness";
-                }, 1000);
-                if (window.localStorage.getItem("is_profile_completed") === "1") {
-                  setTimeout(() => {
-                    window.location.href = "/investor/thank-you";
-                  }, 1000);
-                }
-                if (window.localStorage.getItem("approval_status") === "approved") {
-                  setTimeout(() => {
-                    window.location.href = "/investor/campaign";
-                  }, 1000);
-                }
-                break;
+              toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
+              });
+            } else {
+              toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "success",
+              });
             }
 
-            const data = {
-              notify_from_user: window.localStorage.getItem("id"),
-              notify_to_user: "1",
-              notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
-              notification_type: "New User Registered",
-              each_read: "unread",
-              status: "active"
-            };
-
-            // Send Notifications to admin When new user is register
-            sendNotification(data)
-              .then((notificationRes) => {
-                console.log('success')
-              })
-              .catch((error) => {
-                console.log('error occured')
-              });
-
-            toast.success(res.message, {
+          }
+          else {
+            toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
-              toastId: "success",
-            });
-          } else {
-            toast.success(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-              toastId: "success",
+              toastId: "error",
             });
           }
 
-          // if(user.role == 'investor')
-          // {
-          //   setTimeout(() => {
-          //     router.push("/investor-steps/findbusiness"); // Redirect to login page
-          //   }, 1000);
-          // }
-          // if(user.role == 'startup')
-          // setTimeout(() => {
-          //   router.push("/login"); // Redirect to login page
-          // }, 1000);
-        }
-        else {
-          toast.error(res.message, {
+        })
+        .catch((err) => {
+          toast.error(err, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "error",
           });
-        }
-
-      })
-      .catch((err) => {
-        toast.error(err, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      });
+        })      
   };
 
   return (
     <>
       <div>
-        {/* <div className="page-title-area item-bg-5">
-          <div className="d-table">
-            <div className="d-table-cell">
-              <div className="container">
-                <div className="page-title-content">
-                  <h2>Signup</h2>
-                  <ul>
-                    <li>
-                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/"}>Home</Link>
-                    </li>
-                    <li>Signup</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <section className="contact-section">
           <div className="container">
             <div className="row align-items-center">
@@ -250,7 +222,7 @@ const Signup = () => {
               <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div className="need-section">
                   <div className="need_content">
-                  <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png" } className="pb-4" alt="logo-img" width={190} height={68} />
+                    <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="pb-4" alt="logo-img" width={190} height={68} />
                     <form id="contactpage" onSubmit={handleSubmit(SubmitForm)}>
                       <div className="row align-items-center">
                         <div className="col-12">
@@ -355,7 +327,6 @@ const Signup = () => {
                           <div className="images-investor text-center">
                             <ul className="role-classs">
                               <li>
-                                {/* <h6>Investors</h6> */}
                                 <input
                                   className="form-check-input gender-radio" id="myCheckbox1"
                                   {...register("role", {
@@ -377,7 +348,6 @@ const Signup = () => {
                                 </label>
                               </li>
                               <li>
-                                {/* <h6>Startup</h6> */}
                                 <input
                                   className="form-check-input gender-radio" id="myCheckbox2"
                                   {...register("role", {
@@ -416,9 +386,10 @@ const Signup = () => {
                       <div className="manage-button text-center mt-4">
                         <button
                           type="submit"
-                          className="submit_now text-decoration-none"
+                          className="submit_now text-decoration-none"                          
+                          disabled={isSubmitting}
                         >
-                          Register
+                          {isSubmitting ? 'Processing' : 'Register'}
                           <i className="circle fa-regular fa-angle-right" />
                         </button>
                       </div>
@@ -439,7 +410,6 @@ const Signup = () => {
           </div>
         </section>
         <ToastContainer autoClose={1000} />
-        {/* End Contact Area */}
       </div>
     </>
   );

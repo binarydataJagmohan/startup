@@ -299,9 +299,6 @@ const Profile = () => {
             const res = await InvestorPersonalInfoUpdate(formData);
 
             if (res.status === true) {
-                // setTimeout(() => {
-                //   router.push("/steps/customizereview");
-                // }, 1000);
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
@@ -483,10 +480,6 @@ const Profile = () => {
                                                                         onChange: handleChange,
                                                                         required: true,
                                                                         value: true,
-                                                                        // pattern: {
-                                                                        //     value: /^\S+@\S+$/i,
-                                                                        //     message: "Invalid email address"
-                                                                        // }
                                                                     })} onChange={handleChange} name="email" value={user.email} />
                                                                     {errors.email && (
                                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -504,7 +497,6 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-6">
                                                                 <div className="form-part mt-3">
-                                                                    {/* <input type="Number" placeholder="Phone number" name="" /> */}
                                                                     <PhoneInput
                                                                         onClick={phonClick}
                                                                         country={"us"}
@@ -559,29 +551,22 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    {user.profile_pic}
-                                                                    <Image
-                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt="preview"
-                                                                        width={120}
-                                                                        height={120}
-                                                                    />
+                                                                    {user.profile_pic ? (
+                                                                        <Image
+                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt="preview"
+                                                                            width={100}
+                                                                            height={100}
+                                                                        />
+                                                                    ) : (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" width={100} height={100} />
+                                                                    )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
                                                                 <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} />
                                                             </div>
                                                         </div>
-                                                        {/* <div className="row">
-                                                <div className="col-sm-2">
-                                                    <div className="profile-pic">
-                                                        <img src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/profile.webp"} alt="profile" className="profile-pic" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-10">
-                                                    <input type="file" className="mt-4 pt-4" />
-                                                </div>
-                                            </div> */}
-
                                                         <div className="row mt-3">
                                                             <div className="col-md-12 text-center">
                                                                 <button type="submit" className="btnclasssmae">
@@ -780,14 +765,19 @@ const Profile = () => {
                                                                     />
                                                                 </div>
                                                             </div>
-                                                           
+
                                                             <div className="col-sm-2">
                                                                 <div className="logo">
-                                                                    <Image
-                                                                        src={businessDetails.logo} alt="logo" className="logo"
-                                                                        width={120}
-                                                                        height={120}
-                                                                    />
+                                                                    {businessDetails.logo ? (
+                                                                        <Image
+                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + businessDetails.logo} className="profile-pic" alt="preview"
+                                                                            width={100}
+                                                                            height={100}
+                                                                        />
+                                                                    ) : (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" className='profile-pic' width={100} height={100} />
+                                                                    )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
@@ -923,11 +913,16 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    <Image
-                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
-                                                                        width={120}
-                                                                        height={120}
-                                                                    />
+                                                                    {basicDetails.proof_img ? (
+                                                                        <Image
+                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
+                                                                            width={120}
+                                                                            height={120}
+                                                                        />
+                                                                    ) : (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" className='profile-pic' width={100} height={100} />
+                                                                    )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
