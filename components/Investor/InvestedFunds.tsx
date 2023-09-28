@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { getAllInvestedFundDetails, getSingleBusinessDetails } from "@/lib/investorapi";
+import {getCurrentUserData } from "../../lib/session";
 import Link from 'next/link';
 const InvestedFunds = () => {
     const router = useRouter();
@@ -9,7 +10,9 @@ const InvestedFunds = () => {
     const [openBusinessDetails, setOpenBusinessDetails] = useState<any>([]);
     const fetchData = async () => {
         try {
-            const data = await getAllInvestedFundDetails({});
+            const current_user_data:any = getCurrentUserData()
+            const data = await getAllInvestedFundDetails({id: current_user_data.id});
+            console.log(data);
             if (data) {
                 setBusinessDetails(data.data);
                 const openDetails = data.data.filter(
