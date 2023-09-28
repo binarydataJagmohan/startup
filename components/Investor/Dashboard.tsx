@@ -150,9 +150,7 @@ const Dashboard = () => {
             {opendisplayedBusinessDetailsCOP
               .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
               .map((details: any, index: any) => (
-
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                   {details.logo}
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <Link href="#" className="image">
