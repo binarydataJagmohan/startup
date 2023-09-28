@@ -8750,20 +8750,23 @@ section#service-title {
   position: relative;
   display: inline-block;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #ffffff;
-  min-width: 298px;
+  min-width: 160px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 999999;
+  z-index: 1;
   padding: 12px;
   font-size: 15px;
   line-height: 23px;
   text-transform: capitalize;
   font-weight: 500;
+
+}
+.others-options1 .dropdown-content {
+  min-width: 298px;
   top: 40px;
   left: -91px;
 }
@@ -9143,11 +9146,11 @@ div#accordionExample h2 button {
 }
 
 a.dropbtn1:hover {
-  color: #368b00;
+  color: #088395;
 }
 
 a:hover {
-  color: #368b00;
+  color: #088395;
 }
 
 .others-options a {

@@ -46,7 +46,6 @@ const InvestedFunds = () => {
                                     <div className="product-image">
                                         <Link href="javascript:void(0)" className="image">
                                             <img className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} />
-                                            {/* <img class="pic-2" src="images/img-2.jpg"> */}
                                         </Link>
                                     </div>
                                     <div className="main-padding">
@@ -84,7 +83,6 @@ const InvestedFunds = () => {
                                         </div>
                                     </div>
                                     <div className="text-center mt-3">
-                                        {/* <a href="javascript:void(0)" className="card-link">💡13.6% Discount Rate</a> */}
                                         <Link
                                             href="javascript:void(0)"
                                             onClick={(e) => getBusinessdetails(e, details.bid)}

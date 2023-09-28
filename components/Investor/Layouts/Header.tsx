@@ -140,17 +140,16 @@ const Header = () => {
                 className="collapse navbar-collapse mean-menu"
                 id="navbarSupportedContent">
                 <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="nav-link active">
+                  <li className={`nav-item ${router.pathname === '/investor/campaign' ? 'active' : ''}`}>
+                    <Link href="/investor/campaign" className="nav-link">
                       Explore
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/invested-funds"} className="nav-link active">
-                     Investments
+                  <li className={`nav-item ${router.pathname === '/investor/invested-funds' ? 'active' : ''}`}>
+                    <Link href="/investor/invested-funds" className="nav-link">
+                      Investments
                     </Link>
                   </li>
-
                 </ul>
                 <div className="others-options1">
                   <div className="dropdown">
@@ -162,26 +161,23 @@ const Header = () => {
                       <div className="row align-items-center">
                         <div className="col">
                           <h5 className="m-0 font-size-15"><span className="p-1 text-white bg-danger rounded-circle font-size-10">
-                            <i className="mdi mdi-message-text-outline"></i></span> Notifications ({totalNotifications}) 
+                            <i className="mdi mdi-message-text-outline"></i></span> Notifications ({totalNotifications})
                           </h5>
                         </div>
                       </div>
-                      <hr/>
-                      {/* <a href="">{current_user_name}</a> */}
+                      <hr />
                       {parseInt(unreadNotifications) > 0 ? (
                         <>
                           <h6 className="mb-1 font-size-14"><Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>New Notification received</Link></h6>
                           <div className="font-size-10 text-muted">
                             <p className="font-size-11 mb-1">You have {unreadNotifications} unread Notifications</p>
                           </div>
-                          {/* <hr/> */}
-                        
                         </>
                       ) : (
                         <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`}>There are no new notifications.</Link>
                       )}
-                      <hr/>
-                        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</Link>
+                      <hr />
+                      <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}investor/all-notifications`} className="text-center">View all</Link>
                     </div>
                   </div>
                 </div>
@@ -191,18 +187,9 @@ const Header = () => {
                       {userName} <i className="fa-solid fa-caret-down" />
                     </button>
                     <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
-                      {/* <a href="">{current_user_name}</a> */}
                       <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
-                          Profile
-                        </Link>
-                      {/* {current_user_role == "startup" ?
-                        <a href="/steps/findbusiness" className="colortwo">
-                          Profile
-                        </a>
-                        :
-                        <a href="/investor/profile" className="colortwo">
-                          Profile
-                        </a>} */}
+                        Profile
+                      </Link>
                       <Link href="" className="colorclass" onClick={handleLogout}>
                         Logout
                       </Link>
@@ -214,7 +201,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-
     </>
   )
 }
