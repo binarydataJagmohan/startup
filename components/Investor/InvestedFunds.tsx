@@ -28,7 +28,6 @@ const InvestedFunds = () => {
 
     const getBusinessdetails = (e: any, id: any) => {
         e.preventDefault();
-        alert(id);
         getSingleBusinessDetails(id).then((res) => {
             router.push(`payment-detail?id=${id}`);
         });
@@ -41,13 +40,17 @@ const InvestedFunds = () => {
                     <h6 className="trending">Invested in Startup Funds</h6>
                     <div className="bar" />
                     <div className="row g-4">
-                        {openBusinessDetails.map((details: any,index:any) => (
+                        {openBusinessDetails.map((details: any, index: any) => (
                             <div className="col-md-6 col-sm-12 col-lg-4" key={index}>
                                 <div className="product-grid container1 transtion">
                                     <div className="product-image">
                                         <Link href="javascript:void(0)" className="image">
-                                            <Image className="pic-1 image" src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="" width={9020} height={120}/>
-                                            {/* <img class="pic-2" src="images/img-2.jpg"> */}
+                                            {details.logo ? (
+                                                <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                                            ) : (
+                                                <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                                            )
+                                            }
                                         </Link>
                                     </div>
                                     <div className="main-padding">
@@ -85,7 +88,6 @@ const InvestedFunds = () => {
                                         </div>
                                     </div>
                                     <div className="text-center mt-3">
-                                        {/* <a href="javascript:void(0)" className="card-link">💡13.6% Discount Rate</a> */}
                                         <Link
                                             href="javascript:void(0)"
                                             onClick={(e) => getBusinessdetails(e, details.bid)}
