@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCurrentUserData } from "../../lib/session";
-import { getTotalUsers, getInvestorCounts, getStartupCounts,getAllActiveFundsCount } from '@/lib/adminapi';
+import { getTotalUsers, getInvestorCounts, getStartupCounts, getAllActiveFundsCount } from '@/lib/adminapi';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
       const data = await getAllActiveFundsCount();
       if (data) {
         setActiveFundCount(data.data);
-       
+
       }
     };
     fetchStartupCount();
@@ -102,60 +102,32 @@ const Dashboard = () => {
                 {/* end page title */}
                 <div className="row">
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat  dashcard" style={{ background: '#088395', color: 'white'}} >
+                    <div className="card mini-stat  dashcard" style={{ background: '#088395', color: 'white' }} >
                       <div className="card-body">
                         <div className="mb-4">
 
                           <h5 className="font-size-16 text-uppercase text-white">Total Fund Raised</h5>
                           <h4 className="fw-medium font-size-24">{activeFundCount} <i className="fa fa-chart-line text-success ms-2 text-white" /></h4>
-                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 12%</p>  }
-                            { <div className="float-start mini-stat-img me-4">
-                            <img src="/assets/images/services-icon/01.png" />
-                            </div>  }
-                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white"  /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white" /></Link>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat  dashcard" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                      <div className="card-body">
-                        <div className="mb-4">
-                          <h5 className="font-size-16 text-uppercase text-white">Total Revenue</h5>
-                          <h4 className="fw-medium font-size-24">52,368 <i className="mdi mdi-arrow-down text-danger ms-2 text-white" /></h4>
-                          <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            <p className="mb-0 text-white">- 28%</p>
-                          </div>
-                        </div>
-                        <div className="pt-2">
-                          <div className="float-end">
-                            <Link href="#" className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }} /></Link>
-                          </div>
-                          <p className="mb-0 mt-1 text-white">Since last month</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                   <div className="col-xl-3 col-md-6">
                     <div className="card mini-stat dashcard " style={{ background: '#088395', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Users</h5>
                           <h4 className="fw-medium font-size-24">{userCount}<i className="fa fa-users text-success ms-2 text-white" /></h4>
-                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white"> 00%</p>  }
-                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{  color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ color: 'white' }} /></Link>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -163,18 +135,15 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard " style={{ background: '#088395', color: 'white'}}>
+                    <div className="card mini-stat dashcard " style={{ background: '#088395', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase ">Total Startups</h5>
                           <h4 className="fw-medium font-size-24">{startupCount}<i className="fa fa-user text-success ms-2 text-white" /></h4>
-                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white "> 00%</p>}
-                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{   color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -182,18 +151,15 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="col-xl-3 col-md-6">
-                    <div className="card mini-stat dashcard" style={{ background: '#088395', color: 'white'}}>
+                    <div className="card mini-stat dashcard" style={{ background: '#088395', color: 'white' }}>
                       <div className="card-body">
                         <div className="mb-4">
                           <h5 className="font-size-16 text-uppercase">Total Investers</h5>
                           <h4 className="fw-medium font-size-24">{investorCount} <i className="fa fa-user text-success ms-2 text-white" /></h4>
-                          {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 84%</p>  }
-                          </div> */}
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{   color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -205,11 +171,9 @@ const Dashboard = () => {
               </div>
             ) : (
               <div>
-
               </div>
             )
           }
-
         </div>
         {/* End Page-content */}
       </div>

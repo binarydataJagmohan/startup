@@ -68,7 +68,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       const data = await getAllBusiness({});
       if (data) {
-        setBusinessDetails(data.data);;
+        setBusinessDetails(data.data);
+        //console.log(data.data);
 
         // Set the initial page to 0
         setCurrentPage(0);
@@ -145,7 +146,6 @@ const Dashboard = () => {
             {opendisplayedBusinessDetailsCOP
               .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
               .map((details: any, index: any) => (
-
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
@@ -373,16 +373,13 @@ const Dashboard = () => {
               activeLinkClassName="active"
             />
           </div>
-
         </div>
-
         <div className="container py-5">
           <h3 className="featurred">CCSP</h3>
           <h6 className="trending">
             Subscribe to fast growth businesses with low minimum
           </h6>
           <div className="bar" />
-
           <div className="row">
             {opendisplayedBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open").length > 0 ? (
               opendisplayedBusinessDetails
@@ -497,14 +494,11 @@ const Dashboard = () => {
               activeLinkClassName="active"
             />
           </div>
-
         </div>
-
         <div className="container py-5">
           <h3 className="featurred">Discounting </h3>
           <h6 className="trending">Short term fixed income opportunities</h6>
           <div className="bar" />
-
           <div className="row">
             {opendisplayedBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open").length > 0 ? (
               opendisplayedBusinessDetails
@@ -615,7 +609,6 @@ const Dashboard = () => {
               previousLinkClassName="page-link"
               nextLinkClassName="page-link"
               activeLinkClassName="active"
-
             />
           </div>
         </div>
@@ -734,7 +727,6 @@ const Dashboard = () => {
             />
           </div>
         </div>
-
       </section>
     </>
   );

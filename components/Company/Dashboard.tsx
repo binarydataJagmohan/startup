@@ -63,7 +63,7 @@ const Dashboard = () => {
                 setUnits(unitsRes.data);
               }
             })
-            .catch((err) => {});
+            .catch((err) => { });
         }
       })
       .catch((err) => {
@@ -118,7 +118,7 @@ const Dashboard = () => {
             </div>
             {/* end page title */}
             <div className="row">
-              <div className="col-xl-3 col-md-6">
+              <div className="col-xl-4 col-md-6">
                 <div
                   className="card mini-stat  dashcard"
                   style={{ background: "#088395", color: "white" }}
@@ -126,25 +126,19 @@ const Dashboard = () => {
                   <div className="card-body">
                     <div className="mb-4">
                       <h5 className="font-size-16 text-uppercase text-white">
-                        Total Fund Raised
+                        Total Funds
                       </h5>
                       <h4 className="fw-medium font-size-24">
-                        {" "}
+                        {totalFundCount}
                         <i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
-                      {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 12%</p>  }
-                            { <div className="float-start mini-stat-img me-4">
-                            <img src="/assets/images/services-icon/01.png" />
-                            </div>  }
-                          </div> */}
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/admin/all-active-funds"
+                            "/company/all-fund-raise-list"
                           }
                           className=""
                         >
@@ -156,7 +150,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-md-6">
+              <div className="col-xl-4 col-md-6">
                 <div
                   className="card mini-stat  dashcard"
                   style={{ background: "#088395", color: "white" }}
@@ -164,24 +158,22 @@ const Dashboard = () => {
                   <div className="card-body">
                     <div className="mb-4">
                       <h5 className="font-size-16 text-uppercase text-white">
-                        Total Fund Raised
+                        Total Units
                       </h5>
                       <h4 className="fw-medium font-size-24">
-                        <i className="fa fa-chart-line text-success ms-2 text-white" />
+                        {totalUnitsCount && totalUnitsCount.total_units ? (
+                          <>{totalUnitsCount.total_units}</>
+                        ) : (
+                          "0"
+                        )}<i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
-                      {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 12%</p>  }
-                            { <div className="float-start mini-stat-img me-4">
-                            <img src="/assets/images/services-icon/01.png" />
-                            </div>  }
-                          </div> */}
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/admin/all-active-funds"
+                            "/company/all-fund-raise-list"
                           }
                           className=""
                         >
@@ -193,7 +185,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-md-6">
+              <div className="col-xl-4 col-md-6">
                 <div
                   className="card mini-stat  dashcard"
                   style={{ background: "#088395", color: "white" }}
@@ -201,61 +193,22 @@ const Dashboard = () => {
                   <div className="card-body">
                     <div className="mb-4">
                       <h5 className="font-size-16 text-uppercase text-white">
-                        Total Fund Raised
+                        Units Sold
                       </h5>
                       <h4 className="fw-medium font-size-24">
-                        <i className="fa fa-chart-line text-success ms-2 text-white" />
+                        {totalUnitsCount && totalUnitsCount.no_of_units ? (
+                          <>{totalUnitsCount.no_of_units}</>
+                        ) : (
+                          "0"
+                        )}<i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
-                      {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 12%</p>  }
-                            { <div className="float-start mini-stat-img me-4">
-                            <img src="/assets/images/services-icon/01.png" />
-                            </div>  }
-                          </div> */}
                     </div>
                     <div className="pt-2">
                       <div className="float-end">
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/admin/all-active-funds"
-                          }
-                          className=""
-                        >
-                          <i className="mdi mdi-arrow-right h5 text-white" />
-                        </a>
-                      </div>
-                      <p className=" mb-0 mt-1 text-white">Since last month</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6">
-                <div
-                  className="card mini-stat  dashcard"
-                  style={{ background: "#088395", color: "white" }}
-                >
-                  <div className="card-body">
-                    <div className="mb-4">
-                      <h5 className="font-size-16 text-uppercase text-white">
-                        Total Fund Raised
-                      </h5>
-                      <h4 className="fw-medium font-size-24">
-                        <i className="fa fa-chart-line text-success ms-2 text-white" />
-                      </h4>
-                      {/* <div className="mini-stat-label" style={{ backgroundImage: 'linear-gradient(2.97deg, #1A2F55 17%, #179980 76.13%)', color: 'white' }}>
-                            {  <p className="mb-0 text-white">+ 12%</p>  }
-                            { <div className="float-start mini-stat-img me-4">
-                            <img src="/assets/images/services-icon/01.png" />
-                            </div>  }
-                          </div> */}
-                    </div>
-                    <div className="pt-2">
-                      <div className="float-end">
-                        <a
-                          href={
-                            process.env.NEXT_PUBLIC_BASE_URL +
-                            "/admin/all-active-funds"
+                            "/company/all-fund-raise-list"
                           }
                           className=""
                         >
