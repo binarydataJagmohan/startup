@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { removeToken, removeStorageData, getCurrentUserData, getToken} from "../../lib/session";
+import { removeToken, removeStorageData, getCurrentUserData, getToken } from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
-import { sendNotification} from '../../lib/frontendapi'
+import { sendNotification } from '../../lib/frontendapi'
 import Link from 'next/link';
 interface UserData {
   id?: number;
@@ -73,10 +73,12 @@ const AllFundsList = () => {
   }, []);
 
   function updateStatus(id: number, status: string) {
-    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status },{ headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + getToken(), 
-    }})
+    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status }, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      }
+    })
       .then(response => {
         // Update the status in the state
         const updatedFunds = funds.map(fund => {
@@ -87,7 +89,7 @@ const AllFundsList = () => {
         });
         setFundsData(updatedFunds);
 
-        
+
         const data = {
           notify_from_user: current_user_id,
           notify_to_user: "1",
@@ -95,14 +97,14 @@ const AllFundsList = () => {
           notification_type: "Fund Raised Status",
           each_read: "unread",
           status: "active"
-      };
+        };
         sendNotification(data)
-        .then((notificationRes) => {
-          console.log('success')
-        })
-        .catch((error) => {
-          console.log('error occured')
-        });
+          .then((notificationRes) => {
+            console.log('success')
+          })
+          .catch((error) => {
+            console.log('error occured')
+          });
         toast.success(response.data.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
@@ -119,10 +121,12 @@ const AllFundsList = () => {
 
   // Delete Funding from DB..
   function deleteFund(id: number) {
-    axios.delete(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`,{ headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + getToken(), 
-    }})
+    axios.delete(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      }
+    })
       .then(response => {
         const updatedData = funds.filter(fund => fund.id !== id);
         setFundsData(updatedData);
@@ -183,66 +187,52 @@ const AllFundsList = () => {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header text-white bg-dark" id="title">
-                    <h3 className="card-title" >FUND RAISE LIST</h3>
+                    <h3 className="card-title" >ALL FUNDS</h3>
                   </div>
-                  <div className="card-body">
-                    <div className='table-responsive'>
-                      <table
-                        id="datatable" ref={tableRef}
-                        className="table dt-responsive nowrap"
-                        style={{
-                          borderCollapse: "collapse",
-                          borderSpacing: 0,
-                          width: "100%"
-                        }}
-                      >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Fund Id</th>
-                            <th>Tenure</th>
-                            <th>Min. Subscription</th>
-                            <th>Avg. Amount</th>
-                            <th>Repay Date</th>
-                            <th>Closing Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {funds && funds.length > 0 ? (
-                            funds.map((fund, index: any) => (
-                              <tr key={fund.id}>
-                                <td>{index + 1}</td>
-                                <td>{fund.fund_id}</td>
-                                <td>{fund.tenure}&nbsp;Days</td>
-                                <td>{fund.minimum_subscription}</td>
-                                <td>{fund.avg_amt_per_person}</td>
-                                <td>{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
-                                <td>{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
-                                <td>
-                                  <span style={{ cursor: "pointer" }} className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
-                                    {fund.status.toUpperCase()}
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
-                                  <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
-                                </td>
+                  <div className="card-body mt-3">
+                    <div className="table-responsive">
+                      <div className="box-card recent-reviews mb-4">
+                        {funds.length > 0 ? (
+                          <table className="table-dash" id="datatable" ref={tableRef}>
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Fund Id</th>
+                                <th>Tenure</th>
+                                <th>Min. Subscription</th>
+                                <th>Avg. Amount</th>
+                                <th>Repay Date</th>
+                                <th>Closing Date</th>
                               </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td className="text-center" colSpan={8}>No funds found.</td>
-                            </tr>
-                          )}
-
-                        </tbody>
-                      </table>
+                            </thead>
+                            <tbody>
+                              {funds && funds.length > 0 ? (
+                                funds.map((fund, index: any) => (
+                                  <tr key={index}>
+                                    <td data-label="Account">{index + 1}</td>
+                                    <td data-label="Account">{fund.fund_id}</td>
+                                    <td data-label="Due Date">{fund.tenure}&nbsp;Days</td>
+                                    <td data-label="Amount">{fund.minimum_subscription}</td>
+                                    <td data-label="Period">{fund.avg_amt_per_person}</td>
+                                    <td data-label="Amount">{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
+                                    <td data-label="Period">{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>
+                                  <td className="text-center" colSpan={8}>No funds found.</td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                        ) : (
+                          <p>No data available in table</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>{" "}
+              </div>
               {/* end col */}
             </div>{" "}
             {/* end row */}

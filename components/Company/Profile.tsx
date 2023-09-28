@@ -780,7 +780,7 @@ const Profile = () => {
                                                                     />
                                                                 </div>
                                                             </div>
-
+                                                           
                                                             <div className="col-sm-2">
                                                                 <div className="logo">
                                                                     <Image

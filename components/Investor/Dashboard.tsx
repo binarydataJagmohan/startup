@@ -22,8 +22,6 @@ const Dashboard = () => {
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopen, setCurrentPageopen] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [business, setBusinessLogo]: any = useState('');
-
 
   const itemsPerPage = 3;
 
@@ -151,6 +149,7 @@ const Dashboard = () => {
             {opendisplayedBusinessDetailsCOP
               .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
               .map((details: any, index: any) => (
+               
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                    {details.logo}
                   <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>

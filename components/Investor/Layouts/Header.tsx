@@ -42,9 +42,6 @@ const Header = () => {
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
 
-
-
-
     getTotalCountOfNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
@@ -67,14 +64,8 @@ const Header = () => {
       });
   }, []);
 
-
-
-
-
-
   useEffect(() => {
     let isMounted = true;
-
     if (current_user_id) {
       getSingleFrontEndData(current_user_id)
         .then((res) => {
@@ -105,30 +96,8 @@ const Header = () => {
         .catch((err) => {
           // Handle error
         });
-
     }
-
   }, [current_user_id]);
-
-  // useEffect(() => {
-
-  //   if (current_user_id) { // Check if current_user_id is set
-  //     getSingleFrontEndData(current_user_id)
-  //       .then((res) => {
-  //         if (res.status == true) {
-
-
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         // Handle error
-  //       });
-  //   }
-  // }, [current_user_id]);
-
-
-
-
 
   // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);

@@ -49,29 +49,31 @@ const InvestorList = () => {
     }, []);
     function updateApprovalStatus(id: number, status: string) {
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-approvalstatus/${id}`, { approval_status: status },
-       { headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + getToken(),
+                }
+            })
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
                         const data = {
-                            notify_from_user:current_user_id ,
-                            notify_to_user:  investor.id,
-                            notify_msg:`Congratulations! Your profile has been approved successfully`,
+                            notify_from_user: current_user_id,
+                            notify_to_user: investor.id,
+                            notify_msg: `Congratulations! Your profile has been approved successfully`,
                             notification_type: "Approval Notification",
                             each_read: "unread",
                             status: "active"
-                          };
-                          // Send Notifications to admin When new user is register
-                          sendNotification(data)
-                          .then((notificationRes) => {
-                            console.log('success')
-                          })
-                          .catch((error) => {
-                            console.log('error occured')
-                          });
+                        };
+                        // Send Notifications to admin When new user is register
+                        sendNotification(data)
+                            .then((notificationRes) => {
+                                console.log('success')
+                            })
+                            .catch((error) => {
+                                console.log('error occured')
+                            });
                         return {
                             ...investor,
                             approval_status: status,
@@ -97,10 +99,12 @@ const InvestorList = () => {
     //delete for investor
     function deleteInvestor(id: number) {
 
-        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`, { headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 const updatedData = investors.filter(investor => investor.id !== id);
                 setInvestors(updatedData);
@@ -119,14 +123,16 @@ const InvestorList = () => {
 
     // for user account status Active and Deactive
     function updateStatus(id: number, status: string) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { status: status },{ headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getToken(), 
-          }})
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-investor-status/${id}`, { status: status }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
+            }
+        })
             .then(response => {
                 const updatedData = investors.map(investor => {
                     if (investor.id === id) {
-                    
+
                         return {
                             ...investor,
                             status: status,
@@ -174,7 +180,7 @@ const InvestorList = () => {
                         <div className="page-title-box">
                             <div className="row align-items-center">
                                 <div className="col-md-8">
-                                    <h6 className="page-title">Startup</h6>
+                                    <h6 className="page-title">Investors</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
@@ -190,57 +196,61 @@ const InvestorList = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-white bg-dark" id="title">
-                                        <h3 className="card-title" >INVESTORS</h3>
+                                    <div className="card-header bg-088395 text-white" id="title">
+                                        <h3 className="card-title">INVESTORS</h3>
                                     </div>
                                     <div className="card-body">
-                                        <div className='table-responsive'>
-                                            <table
-                                                id="datatable" ref={tableRef}
-                                                className="table  dt-responsive nowrap"
-                                                style={{
-                                                    borderCollapse: "collapse",
-                                                    borderSpacing: 0,
-                                                    width: "100%"
-                                                }}
-                                            >
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Email Address</th>
-                                                        <th>Type</th>
-                                                        <th>Status</th>
-                                                        <th>Approval</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {investors && investors.length > 0 ? (
-                                                        investors.map((investor, index) => (
-                                                            <tr key={investor.id}>
-                                                                <td>{index + 1}</td>
-                                                                <td>{investor.name}</td>
-                                                                <td>{investor.email}</td>
-                                                                <td>{investor.investorType}</td>
-                                                                <td>
-                                                                    <span style={{ cursor: "pointer" }} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
-                                                                    <a href="#" onClick={() => { deleteInvestor(investor.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></a>
-                                                                </td>
-                                                            </tr>
-                                                        ))) : (
+                                        <div className="table-responsive1">
+                                            <div className="box-card recent-reviews mb-4">
+                                                <table className="table-dash" id="datatable" ref={tableRef}>
+                                                    <thead>
                                                         <tr>
-                                                            <td className="text-center" colSpan={8}>No funds found.</td>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Email Address</th>
+                                                            <th scope="col">Type</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Approvel</th>
+                                                            <th scope="col">Action</th>
                                                         </tr>
-                                                    )}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        {investors && investors.length > 0 ? (
+                                                            investors.map((investor, index) => (
+                                                                <tr key={investor.id}>
+                                                                    <td data-label="Account">{index + 1}</td>
+                                                                    <td data-label="Account">{investor.name}</td>
+                                                                    <td data-label="Due Date">{investor.email}</td>
+                                                                    <td data-label="Amount">{investor.investorType}</td>
+                                                                    <td data-label="Period">
+                                                                        <span style={{ cursor: "pointer" }} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
+                                                                    </td>
+                                                                    <td data-label="Period">
+                                                                        <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
+                                                                    </td>
+                                                                    <td data-label="Period">
+                                                                        <ul className="table-icons-right">
+                                                                            <li className="edit">
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`}>
+                                                                                    <i className="fa-regular fa-pen-to-square" />
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li className="trash">
+                                                                                <Link href="#" onClick={() => { deleteInvestor(investor.id); }} >
+                                                                                    <i className="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                            ))) : (
+                                                            <tr>
+                                                                <td className="text-center" colSpan={8}>No funds found.</td>
+                                                            </tr>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

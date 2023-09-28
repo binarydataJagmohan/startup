@@ -196,7 +196,6 @@ const EditList = () => {
   const updatePersonalInfo = async (e:any) => {
     e.preventDefault();
     setInvalidFields([]);
-
     const current_user_data: UserData = getCurrentUserData();
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -221,7 +220,7 @@ const EditList = () => {
     }
     if (!startup.linkedin_url) {
       setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-    } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(startup.linkedin_url)) {
+    } else if (!/^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/.test(startup.linkedin_url)) {
       setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
     }
     if (!startup.country) setMissingFields(prevFields => [...prevFields, "country"]);

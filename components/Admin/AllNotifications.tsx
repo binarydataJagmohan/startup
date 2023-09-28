@@ -6,6 +6,9 @@ import { getToken, getCurrentUserData } from "../../lib/session";
 import { getSingleUserData } from '@/lib/frontendapi';
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
 import Link from 'next/link';
+import moment from 'moment';
+
+
 interface UserData {
     username?: string;
     role?: string;
@@ -41,9 +44,6 @@ const AllNotifications = () => {
             ? setCurrentUserRole(current_user_data.role)
             : setCurrentUserRole("");
         current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-
-
-
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
@@ -61,33 +61,7 @@ const AllNotifications = () => {
             }
         };
         fetchData();
-
-
-
     }, []);
-
-    // useEffect(() => {
-    //     if (notifications.length > 0) {
-    //       const notifyFromUser = notifications[0].notify_from_user;
-    //       const notifyToUser = notifications[0].notify_to_user;
-
-    //       Promise.all([
-    //         getSingleUserData(notifyFromUser),
-    //         getSingleUserData(notifyToUser)
-    //       ])
-    //         .then(([fromUserRes, toUserRes]) => {
-    //           if (fromUserRes.status && toUserRes.status) {
-    //             setUsers({
-    //               fromUser: fromUserRes.data,
-    //               toUser: toUserRes.data
-    //             });
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           // Handle error
-    //         });
-    //     }
-    //   }, [notifications]);
 
     useEffect(() => {
         if (notifications.length > 0 && !dataTableInitialized) {
@@ -142,7 +116,7 @@ const AllNotifications = () => {
                         <div className="page-title-box">
                             <div className="row align-items-center">
                                 <div className="col-md-8">
-                                    <h6 className="page-title">Startup</h6>
+                                    <h6 className="page-title">Notifications</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
@@ -154,7 +128,7 @@ const AllNotifications = () => {
                                 </div>
 
                                 <div className="col">
-                                    <button className='btn btn-danger float-end' onClick={SubmitForm}>Clear All</button>
+                                    <button className="btn  float-end" style={{ backgroundColor: '#088395', color: '#fff' }} onClick={SubmitForm}>Clear All</button>
                                 </div>
                             </div>
                         </div>
@@ -163,61 +137,37 @@ const AllNotifications = () => {
                             <div className="col-12">
                                 <div className="card">
                                     <div className="card-header text-white bg-dark" id="title">
-                                        <h3 className="card-title" >NOTIFICATIONS</h3>
+                                        <h3 className="card-title">NOTIFICATIONS</h3>
                                     </div>
-                                    <div className="card-body">
-                                        <div className='table-responsive'>
-                                            {notifications.length > 0 ? (
-                                                <table
-                                                    id="datatable"
-                                                    className="table dt-responsive nowrap"
-                                                    style={{
-                                                        borderCollapse: 'collapse',
-                                                        borderSpacing: 0,
-                                                        width: '100%',
-                                                        overflow: 'hidden',
-                                                    }}
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Notifications Type</th>
-                                                            <th>Notifications</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {notifications.map((notification: any, index) => (
-                                                            <tr key={notification.id}>
-                                                                <td>{index + 1}</td>
-                                                                <td>{notification.notification_type}</td>
-                                                                <td>{notification.notify_msg}</td>
-                                                                {/* <td>{notification.notify_to_user}</td> */}
-                                                                {/* <td onChange={() => getSingleUserData(notification.notify_from_user)}>
-                                                            {users.fromUser?.name}
-                                                            </td>
-                                                            <td onChange={() => getSingleUserData(notification.notify_to_user)}>
-                                                            {users.toUser?.name}</td> */}
-
-                                                                {/* <td className='text-center'> 
-                                                                <span style={{ cursor: "pointer" }} className={notification.each_read === 'read' ? 'badge bg-success' : 'badge bg-danger'}
-                                                                >  {typeof notification.each_read === 'string' ? notification.each_read.toUpperCase() : notification.each_read}</span></td>
-                                                            <td>
-                                                                <span style={{ cursor: "pointer" }} className={notification.status === 'active' ? 'badge bg-success' : 'badge bg-danger'}
-                                                                >  {typeof notification.status === 'string' ? notification.status.toUpperCase() : notification.status}</span>
-                                                            </td>
-                                                            <td className='text-center'>
-                                                                <Link href="javascript:void(0);"><span className='fa fa-close text-danger'></span></Link>
-                                                            </td> */}
-                                                            </tr>
-                                                        ))}
-
-                                                    </tbody>
-                                                </table>
-                                            ) : (
-                                                <p>No data available in Notifications</p>
-                                            )}
+                                    {notifications.length > 0 ? (
+                                        <div className="card-body">
+                                            <div className="table-responsive overflow-x-hidden">
+                                                <div className="body-part">
+                                                    {notifications.map((notification: any,index:any) => (
+                                                        <div className="box-card recent-reviews mb-4" key={index}>
+                                                            <div className="card-inquiries mt-2">
+                                                                <div className="row">
+                                                                    <div className="col-lg-10 col-md-9 col-8">
+                                                                        <p className="name-client">{notification.name}</p>
+                                                                        <p className="client-info">
+                                                                            {notification.notify_msg}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="col-lg-2  col-md-3  col-4 text-right">
+                                                                        <p className="time">
+                                                                            {moment(notification.created_at, 'hh:mmA').format('h:mmA')}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    ) : (
+                                        <p>No data available in Notifications</p>
+                                    )}
                                 </div>
                             </div>
                             {/* end col */}
