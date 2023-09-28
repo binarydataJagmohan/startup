@@ -559,8 +559,9 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
+                                                                    {user.profile_pic}
                                                                     <Image
-                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt=""
+                                                                        src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt="preview"
                                                                         width={120}
                                                                         height={120}
                                                                     />

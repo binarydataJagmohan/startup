@@ -89,7 +89,7 @@ export default function FrequentlyQuestions() {
                         </div>
                         <div className="col-lg-6 order-lg-0 order-first">
                             <div className="faq-image transtion">
-                                <img src="assets/img/faq.png" alt="image" />
+                                <Image src="assets/img/faq.png" alt="image" width={546} height={423} />
                             </div>
                         </div>
                     </div>

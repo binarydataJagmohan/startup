@@ -119,7 +119,7 @@ const It = () => {
           </div>
         </div>
         <div className="services-shape">
-          <img src="assets/img/cloud.png" className="white-image" alt="image" />
+          <Image src="assets/img/cloud.png" className="white-image" alt="image" width={1351} height={233} />
           {/* <img
             src="assets/img/cloud-2.png"
             className="black-image"
