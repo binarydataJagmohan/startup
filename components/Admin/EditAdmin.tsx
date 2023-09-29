@@ -35,7 +35,7 @@ const EditAdmin = () => {
     const router = useRouter();
 
     const [id, setId] = useState('');
-  
+
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
@@ -44,17 +44,18 @@ const EditAdmin = () => {
     const [invalidFields, setInvalidFields] = useState<string[]>([]);
     const [missingFields, setMissingFields] = useState<string[]>([]);
     const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}${users.profile_pic}`;
-
+    const [startUpLogoError, setStartupLogoError] = useState('');
+    const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
 
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAdminData();
             if (data) {
-              
+
                 setUsers(data.data);
                 setId(data.data.id);
-             
+
 
             }
         };
@@ -98,7 +99,7 @@ const EditAdmin = () => {
         }
 
         try {
-           
+
 
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/update-admin`,
@@ -114,16 +115,16 @@ const EditAdmin = () => {
                 },
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data', 
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer ' + getToken(), 
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
                     }
                 }
             );
-   
+
             toast.success('Admin updated successfully');
         } catch (error) {
-         
+
             // toast.error('Please Try Again!');
         }
     };
@@ -167,13 +168,26 @@ const EditAdmin = () => {
         if (event.target.name === "profile_pic") {
             // Handle logo file input change
             const file = event.target.files && event.target.files[0];
-           
+
             if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    setPreviewImage(reader.result);
-                };
-                reader.readAsDataURL(file);
+
+                const allowedTypes = ["image/jpeg", "image/png"];
+                const maxSize = 2 * 1024 * 1024;
+
+                if (allowedTypes.includes(file.type)) {
+                    if (file.size <= maxSize) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            setPreviewImage(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+                    }
+                } else {
+                    setStartupLogoError('* Please upload a JPG or PNG file');
+                    event.target.value = null;
+                }
             }
 
             setUsers((prevdata) => ({
@@ -228,7 +242,7 @@ const EditAdmin = () => {
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"}>Admin</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
-                                          Form
+                                            Form
                                         </li>
                                     </ol>
                                 </div>
@@ -380,7 +394,7 @@ const EditAdmin = () => {
                                                                 <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
                                                             )
                                                         }
-                                                       
+
                                                         {users.gender !== 'male' && <option value="male">Male</option>}
                                                         {users.gender !== 'female' && <option value="female">Female</option>}
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
@@ -411,53 +425,41 @@ const EditAdmin = () => {
                                                         </label>
                                                         <div className="profile-pic">
                                                             {previewImage ? (
-                                                                // <img
-                                                                //     src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                //     width={300}
-                                                                //     height={200}
-                                                                //     style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                // />
                                                                 <Image src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                width={300}
-                                                                height={200}
-                                                                alt=''
-                                                                style={{ margin: '5% 0%', objectFit: 'cover' }} />
+                                                                    width={300}
+                                                                    height={200}
+                                                                    alt=''
+                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }} />
                                                             ) : (
-                                                                <img
+                                                                <Image
                                                                     src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
                                                                     alt="Document Image"
-                                                                    style={{ width: '100%', height: 'auto', margin: '5% 0%', objectFit: 'cover' }}
+                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                    width={9020}
+                                                                    height={9020}
                                                                 />
                                                             )}
                                                         </div>
-
-                                                        {/* <div className="profile-pic">
-                                                            {previewImage ? (
-                                                                <Image src={previewImage} alt="profile" width={300} height={200} style={{   margin:' 5% 0% ', objectFit: 'cover' }}/>
-                                                            ) : (
-                                                                <img src ={process.env.NEXT_PUBLIC_IMAGE_URL+ "images/profile/"+users.profile_pic} alt="Document Image"  style={{ width: '100%', height: 'auto',  margin:' 5% 0% ', objectFit: 'cover' }} />
-                                                            )}
-                                                        </div> */}
                                                         <input
                                                             className="input-file"
                                                             id="logo"
                                                             type="file" name="profile_pic" onChange={handleChange}
 
                                                         />
-
                                                         <label
                                                             htmlFor="fileupload"
                                                             className="input-file-trigger"
                                                             id="labelFU"
                                                             tabIndex={0}
                                                         >
-
+                                                            Drop your pitch deck here to{" "}                                                            
+                                                            <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                                         </label>
-                                                        {/* {missingFields.includes("Profile") && (
-                                                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                                Please choose the profile.
-                                                            </p>
-                                                        )} */}
+                                                        {startUpLogoSizeError ? (
+                                                            <p className='text-danger'>{startUpLogoSizeError}</p>
+                                                        ) : (
+                                                            startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                                        )}
 
                                                     </div>
 

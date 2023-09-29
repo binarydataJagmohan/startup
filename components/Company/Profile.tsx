@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from 'next/link';
 import Image from 'next/image';
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
+import businessinfo from '@/pages/steps/customizereview';
 type Country = {
     name: string;
     country_code: string;
@@ -770,12 +771,12 @@ const Profile = () => {
                                                                 <div className="logo">
                                                                     {businessDetails.logo ? (
                                                                         <Image
-                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + businessDetails.logo} className="profile-pic" alt="preview"
+                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + '/docs/' + businessDetails.logo} className="profile-pic" alt="preview"
                                                                             width={100}
                                                                             height={100}
                                                                         />
                                                                     ) : (
-                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" className='profile-pic' width={100} height={100} />
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
                                                                     )
                                                                     }
                                                                 </div>
@@ -920,7 +921,7 @@ const Profile = () => {
                                                                             height={120}
                                                                         />
                                                                     ) : (
-                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" className='profile-pic' width={100} height={100} />
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
                                                                     )
                                                                     }
                                                                 </div>

@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 import { getSingleFundRaiseData } from "../../lib/adminapi"
-import {sendNotification} from "../../lib/frontendapi"
-import { FundRaisedSendNotification} from '../../lib/investorapi'
+import { sendNotification } from "../../lib/frontendapi"
+import { FundRaisedSendNotification } from '../../lib/investorapi'
 import Link from 'next/link';
 
 interface UserData {
@@ -82,8 +82,11 @@ const FundRaiseForm = () => {
   };
 
   const [agreement, setAgreement] = useState(null);
+  const [agreementError, setAgreementError] = useState('');
   const [invoice, setInvoice] = useState(null);
+  const [invoiceError, setInvoiceError] = useState('');
   const [pdc, setPdc] = useState(null);
+  const [pdcError, setPdcError] = useState('');
 
   // handleInvoiceFileChange for agreement pdf
   const handleAgreementFileChange = (event: any) => {
@@ -156,8 +159,7 @@ const FundRaiseForm = () => {
     if (name === "amount" || name === "total_units") {
       setFundRaiseData({ ...fundRaiseData, [name]: value });
       const amount = name === "amount" ? Number(value) : fundRaiseData.amount;
-      const totalUnits =
-        name === "total_units" ? Number(value) : fundRaiseData.total_units;
+      const totalUnits = name === "total_units" ? Number(value) : fundRaiseData.total_units;
       // if (typeof amount === "number" && typeof totalUnits === "number") {
       if (amount && totalUnits) {
         const minimum_value = amount / totalUnits;
@@ -251,84 +253,94 @@ const FundRaiseForm = () => {
     try {
       // console.log(fundRaiseData);
       if (invalidFields.length > 0) {
-        // Show error message or handle accordingly
-        return;
-      }
-      const data = {
-        notify_from_user: current_user_id,
-        notify_to_user: "1",
-        notify_msg:
-          "The startup has successfully raised funds! Please review the details and take necessary actions.",
-        notification_type: "Fund Raised",
-        each_read: "unread",
-        status: "active",
-      };
-      const formData = new FormData();
-      if (agreement !== null) {
-        formData.append("agreement", agreement);
-      }
-      if (invoice !== null) {
-        formData.append("invoice", invoice);
-      }
-      if (pdc !== null) {
-        formData.append("pdc", pdc);
-      }
-      const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get("id");
-      if (id) {
-        formData.append("id", id);
-      }
+        // Show error message or handle accordingly   
 
-      formData.append("user_id", fundRaiseData.user_id);
-      formData.append("business_id", fundRaiseData.business_id);
-      formData.append("total_units", fundRaiseData.total_units);
-      formData.append(
-        "minimum_subscription",
-        fundRaiseData.minimum_subscription
-      );
-      formData.append("avg_amt_per_person", fundRaiseData.minimum_subscription);
-      formData.append("tenure", fundRaiseData.tenure);
-      formData.append("repay_date", fundRaiseData.repay_date);
-      formData.append("closed_in", fundRaiseData.closed_in);
-      formData.append("resource", fundRaiseData.resource);
-      formData.append("xirr", fundRaiseData.xirr);
-      formData.append("amount", fundRaiseData.amount);
-      formData.append("desc", fundRaiseData.desc);
-      const res = await fundInformationSave(formData);
-
-      if (res.status === true) {
-        sendNotification(data)
-          .then((notificationRes) => {
-            console.log("success");
-          })
-          .catch((error) => {
-            console.log("error occured");
-          });
-
-        FundRaisedSendNotification(data)
-          .then((notificationRes) => {
-            console.log("success");
-          })
-          .catch((error) => {
-            console.log("error occured");
-          });
-
-        toast.success(res.msg, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
-        toast.success(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
-        setTimeout(() => {
-          router.push("/company/all-fund-raise-list");
-        }, 1000);
       } else {
-        toast.error(res.msg, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
+
+        const data = {
+          notify_from_user: current_user_id,
+          notify_to_user: "1",
+          notify_msg:
+            "The startup has successfully raised funds! Please review the details and take necessary actions.",
+          notification_type: "Fund Raised",
+          each_read: "unread",
+          status: "active",
+        };
+        const formData = new FormData();
+        if (agreement === null) {
+          setAgreementError('* Please select your legal agreement.');
+
+        } else {
+          formData.append("agreement", agreement);
+        }
+        if (invoice === null) {
+          setInvoiceError('* Please select your legal invoice.');
+          // return;
+        } else {
+          formData.append("invoice", invoice);
+        }
+        if (pdc === null) {
+          setPdcError('* Please select your pdc.');
+          // return;
+        } else {
+          const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get("id");
+          if (id) {
+            formData.append("id", id);
+          }
+          formData.append("user_id", fundRaiseData.user_id);
+          formData.append("business_id", fundRaiseData.business_id);
+          formData.append("total_units", fundRaiseData.total_units);
+          formData.append(
+            "minimum_subscription",
+            fundRaiseData.minimum_subscription
+          );
+          formData.append("avg_amt_per_person", fundRaiseData.minimum_subscription);
+          formData.append("tenure", fundRaiseData.tenure);
+          formData.append("repay_date", fundRaiseData.repay_date);
+          formData.append("closed_in", fundRaiseData.closed_in);
+          formData.append("resource", fundRaiseData.resource);
+          formData.append("xirr", fundRaiseData.xirr);
+          formData.append("amount", fundRaiseData.amount);
+          formData.append("desc", fundRaiseData.desc);
+          const res = await fundInformationSave(formData);
+
+          if (res.status === true) {
+            sendNotification(data)
+              .then((notificationRes) => {
+                console.log("success");
+              })
+              .catch((error) => {
+                console.log("error occured");
+              });
+
+            FundRaisedSendNotification(data)
+              .then((notificationRes) => {
+                console.log("success");
+              })
+              .catch((error) => {
+                console.log("error occured");
+              });
+
+            toast.success(res.msg, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+            setTimeout(() => {
+              router.push("/company/all-fund-raise-list");
+            }, 1000);
+
+          } else {
+            toast.error(res.msg, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "error",
+            });
+          }
+        }
       }
     } catch (err: any) {
       toast.error(err.response.data.message, {
@@ -387,6 +399,18 @@ const FundRaiseForm = () => {
                             })}
                             name="amount"
                             placeholder="Total Amount"
+                            onInput={(e) => {
+                              const input = (e.target as HTMLInputElement)
+                                .value;
+                              const numericInput = input.replace(
+                                /[^0-9.]/g,
+                                ""
+                              ); // Remove non-numeric characters except dot
+                              if (numericInput !== input) {
+                                (e.target as HTMLInputElement).value =
+                                  numericInput;
+                              }
+                            }}
                             onChange={handleChange}
                             value={
                               fundRaiseData.amount ? fundRaiseData.amount : ""
@@ -418,6 +442,18 @@ const FundRaiseForm = () => {
                             })}
                             name="total_units"
                             placeholder="Total Units"
+                            onInput={(e) => {
+                              const input = (e.target as HTMLInputElement)
+                                .value;
+                              const numericInput = input.replace(
+                                /[^0-9.]/g,
+                                ""
+                              ); // Remove non-numeric characters except dot
+                              if (numericInput !== input) {
+                                (e.target as HTMLInputElement).value =
+                                  numericInput;
+                              }
+                            }}
                             onChange={handleChange}
                             value={
                               fundRaiseData.total_units
@@ -437,23 +473,6 @@ const FundRaiseForm = () => {
                       </div>
 
                       <div className="row g-3 mt-1">
-                        {/* <div className="col-md-6">
-                          <label htmlFor="exampleFormControlInput1" className="form-label">Average Amount(Per Unit){" "}
-                            <span style={{ color: "red" }}>*</span>
-                          </label>
-                          <input type="hidden" className="form-control" id="avg_amt_per_person" {...register("avg_amt_per_person", {
-                            value: !fundRaiseData.avg_amt_per_person, required: true,
-                          })} name="avg_amt_per_person" placeholder="Average Amount(Per Unit)"
-                            onChange={handleChange} value={fundRaiseData.avg_amt_per_person ? fundRaiseData.avg_amt_per_person : ""} />
-                          {errors.avg_amt_per_person && (
-                            <p
-                              className="text-danger mt-1"
-                              style={{ textAlign: "left", fontSize: "12px" }}
-                            >
-                              *Please fill average amount field.
-                            </p>
-                          )}
-                        </div> */}
                         <div className="col-md-6">
                           <label
                             htmlFor="exampleFormControlInput1"
@@ -609,28 +628,6 @@ const FundRaiseForm = () => {
                             </p>
                           )}
                         </div>
-                        {/* <div className="col-sm-6 mt-3">
-                          <label htmlFor="exampleFormControlInput1" className="form-label mb-4">
-                            Status<span style={{ color: "red" }}>*</span>
-                          </label>
-                          <select
-                            className="form-select form-select-lg css-1492t68" {...register("status", {
-                             value:true, required: true,})} name="status" onChange={handleChange}
-                            aria-label="Default select example"
-                          >
-                            <option value="">--SELECT STATUS--</option>
-                            <option value="Open">Open</option>
-                            <option value="Closed">Closed</option>
-                          </select>
-                          {errors.status  && (
-                                  <p
-                                    className="text-danger"
-                                     style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please fill status field.
-                                  </p>
-                                )}
-                        </div> */}
                       </div>
 
                       <div className="row g-3 mt-1">
@@ -752,8 +749,6 @@ const FundRaiseForm = () => {
                                 />
                               </div>
                             </div>
-                            {/* <input ref={fileInputRef} className="input-file" id="fileupload" name="agreement" type="file" onChange={handleAgreementFileChange} /> */}
-
                             <label
                               htmlFor="fileupload"
                               className="input-file-trigger"
@@ -771,15 +766,16 @@ const FundRaiseForm = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </p>
                             </label>
-                            {invalidFields.includes("pdfvalidate") && (
-                              <p
-                                className="text-danger"
-                                style={{ textAlign: "left", fontSize: "12px" }}
-                              >
-                                *Please choose a PDF file..
-                              </p>
-                            )}
                           </div>
+                          {invalidFields.includes("pdfvalidate") && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                          )}
+                          {agreementError && <p className="text-danger">{agreementError}</p>}
                         </div>
                         <div className="col-md-6  mt-5">
                           <div
@@ -823,15 +819,16 @@ const FundRaiseForm = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </p>
                             </label>
-                            {invalidFields.includes("invoicevalidate") && (
-                              <p
-                                className="text-danger"
-                                style={{ textAlign: "left", fontSize: "12px" }}
-                              >
-                                *Please choose a PDF file..
-                              </p>
-                            )}
                           </div>
+                          {invalidFields.includes("invoicevalidate") && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                          )}
+                          {invoiceError && <p className="text-danger">{invoiceError}</p>}
                         </div>
                       </div>
 
@@ -878,15 +875,16 @@ const FundRaiseForm = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </p>
                             </label>
-                            {invalidFields.includes("pdcvalidate") && (
-                              <p
-                                className="text-danger"
-                                style={{ textAlign: "left", fontSize: "12px" }}
-                              >
-                                *Please choose a PDF file..
-                              </p>
-                            )}
                           </div>
+                          {invalidFields.includes("pdcvalidate") && (
+                            <p
+                              className="text-danger"
+                              style={{ textAlign: "left", fontSize: "12px" }}
+                            >
+                              *Please choose a PDF file..
+                            </p>
+                          )}
+                          {pdcError && <p className="text-danger">{pdcError}</p>}
                         </div>
                       </div>
 

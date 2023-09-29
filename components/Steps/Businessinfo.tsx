@@ -42,10 +42,28 @@ export default function Businessinfo(): any {
       (fileInputRef.current as HTMLInputElement).click();
     }
   };
+  const [startUpLogoError, setStartupLogoError] = useState('');
+  const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const [logo, setLogo] = useState(null);
   const handleFileChange = (event: any) => {
-    setMissingFields([])
-    setLogo(event.target.files[0]);
+    setMissingFields([])    
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const maxSize = 2 * 1024 * 1024;
+
+      if (allowedTypes.includes(file.type)) {
+        if (file.size <= maxSize) {
+          setLogo(event.target.files[0]);
+        } else {
+          setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+        }
+      } else {
+        setStartupLogoError('* Please upload a JPG or PNG file');
+        event.target.value = null;
+      }
+    }
 
   };
   const [businessDetails, setBusinessDetails] = useState({
@@ -543,8 +561,14 @@ export default function Businessinfo(): any {
                                 >
                                   Drop your pitch deck here to{" "}
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
-                                  <p>You can upload any logo's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
+                                  <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
+                                {startUpLogoSizeError ? (
+                                  <p className='text-danger'>{startUpLogoSizeError}</p>
+                                ) : (
+                                  startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                )}
+
                                 {
                                   missingFields.includes("logo") && (
                                     <p
@@ -554,15 +578,7 @@ export default function Businessinfo(): any {
                                       *Please Choose Your Business Logo.
                                     </p>
                                   )
-                                }
-                                {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Choose Your Business Logo.
-                                  </p>
-                                )} */}
+                                }                             
                                 {!errors.logo && (businessDetails.logo || logo) && (
                                   <p
                                     className="text-success"

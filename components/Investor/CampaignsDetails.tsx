@@ -44,6 +44,7 @@ export default function CampaignsDetails() {
   const [no_of_units, setNo_of_units] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
+  const [checkboxError, setCheckboxError] = useState('');
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
   const [ButtonDisabled, setButtonDisabled] = useState(true);
@@ -86,52 +87,56 @@ export default function CampaignsDetails() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const data = {
-      user_id: currentUserData.id,
-      business_id: inputs.business_id,
-      subscription_value: subscriptionValue,
-      repay_date: inputs.repay_date,
-      repayment_value: repayValue,
-      no_of_units: value,
-    };
+    if (!repayment_value) {
+      setCheckboxError('* Please accept the terms and conditions');
+    } else {
+      const data = {
+        user_id: currentUserData.id,
+        business_id: inputs.business_id,
+        subscription_value: subscriptionValue,
+        repay_date: inputs.repay_date,
+        repayment_value: repayValue,
+        no_of_units: value,
+      };
 
-    const notification = {
-      notify_from_user: currentUserData.id,
-      notify_to_user: "1",
-      notify_msg: "Payment Successfully Done.",
-      notification_type: "Investment Notification",
-      each_read: "unread",
-      status: "active",
-    };
-    try {
-      InvestorBooking(data).then((res) => {
-        if (res.status == true) {
-          setButtonDisabled(true);
-          router.push(`/investor/checkout`);
+      const notification = {
+        notify_from_user: currentUserData.id,
+        notify_to_user: "1",
+        notify_msg: "Payment Successfully Done.",
+        notification_type: "Investment Notification",
+        each_read: "unread",
+        status: "active",
+      };
+      try {
+        InvestorBooking(data).then((res) => {
+          if (res.status == true) {
+            setButtonDisabled(true);
+            router.push(`/investor/checkout`);
 
-          // send notification
-          sendNotification(notification)
-            .then((notificationRes) => {
-              console.log("success");
-            })
-            .catch((error) => {
-              console.log("error occured");
+            // send notification
+            sendNotification(notification)
+              .then((notificationRes) => {
+                console.log("success");
+              })
+              .catch((error) => {
+                console.log("error occured");
+              });
+
+            // toast.success(res.message, {
+            //   position: toast.POSITION.TOP_RIGHT,
+            //   toastId: "success",
+            // });
+          } else {
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "error",
             });
-
-          // toast.success(res.message, {
-          //   position: toast.POSITION.TOP_RIGHT,
-          //   toastId: "success",
-          // });
-        } else {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "error",
-          });
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      // handle the error, such as showing an error message
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        // handle the error, such as showing an error message
+      }
     }
   };
   const toggleAccordion = (index: any) => {
@@ -149,7 +154,8 @@ export default function CampaignsDetails() {
     const data4 = inputs.tenure ? data3 * inputs.tenure : 0;
     const newRepayValue = newSubscriptionValue + data4;
     const roundedNumber = Math.floor(newRepayValue);
-    setRepayValue(roundedNumber);
+    const onlyTwoDecimals = roundedNumber.toFixed(2)
+    setRepayValue(parseFloat(onlyTwoDecimals));
   };
 
   const handleMinusClick = () => {
@@ -198,15 +204,16 @@ export default function CampaignsDetails() {
                     <div className="css-1d6tso ffff position-relative">
                       <div className="logo-company">
                         <div className="img">
-                          {/* {inputs.logo && (
-                            <img src={inputs.logo} alt="" />
-                          )} */}
-                          <Image
-                            src="https://images.unsplash.com/photo-1694813646472-ddee14cef903?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                            alt=""
-                            width={60}
-                            height={60}
-                          />
+                          {inputs.logo ? (
+                            <Image
+                              src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + inputs.logo} alt="proof-img" className="proof-img"
+                              width={120}
+                              height={120}
+                            />
+                          ) : (
+                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
+                          )
+                          }
                         </div>
                       </div>
 
@@ -227,18 +234,18 @@ export default function CampaignsDetails() {
               <div className="col-md-5">
                 <div className="d-flex justify-content-between">
                   <div>
-                    <span style={{color:'#fff'}}>Total Amount</span>
-                    <h3 className="progressbar-title" style={{color:'#fff'}}>₹{inputs.amount}</h3>
+                    <span style={{ color: '#fff' }}>Total Amount</span>
+                    <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
                   </div>
                   <div>
                     {" "}
-                    <span style={{color:'#fff'}}>Units Left</span>
+                    <span style={{ color: '#fff' }}>Units Left</span>
                     <br />
                     <span className="progressbar-value">
-                      <span className="color-rumaric" style={{color:'#fff'}}>
+                      <span className="color-rumaric" style={{ color: '#fff' }}>
                         {inputs.no_of_units}
                       </span>
-                      <strong style={{color:'#fff'}}>/{inputs.total_units}</strong>
+                      <strong style={{ color: '#fff' }}>/{inputs.total_units}</strong>
                     </span>
                   </div>
                 </div>
@@ -353,9 +360,8 @@ export default function CampaignsDetails() {
                         <ul className="accordion">
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(0)}
                             >
@@ -363,9 +369,8 @@ export default function CampaignsDetails() {
                               What is Discounting?
                             </a>
                             <div
-                              className={`accordion-content ${
-                                activeIndex === 0 ? "show" : ""
-                              }`}
+                              className={`accordion-content ${activeIndex === 0 ? "show" : ""
+                                }`}
                             >
                               <p>
                                 Discounting enables businesses to gain instant
@@ -378,9 +383,8 @@ export default function CampaignsDetails() {
                           </li>
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(1)}
                             >
@@ -388,9 +392,8 @@ export default function CampaignsDetails() {
                               What access do I have on a free trial?
                             </a>
                             <div
-                              className={`accordion-content ${
-                                activeIndex === 1 ? "show" : ""
-                              }`}
+                              className={`accordion-content ${activeIndex === 1 ? "show" : ""
+                                }`}
                             >
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -401,9 +404,8 @@ export default function CampaignsDetails() {
                           </li>
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(2)}
                             >
@@ -411,9 +413,8 @@ export default function CampaignsDetails() {
                               Does the price go up as my team gets larger?
                             </a>
                             <div
-                              className={`accordion-content ${
-                                activeIndex === 2 ? "show" : ""
-                              }`}
+                              className={`accordion-content ${activeIndex === 2 ? "show" : ""
+                                }`}
                             >
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -424,9 +425,8 @@ export default function CampaignsDetails() {
                           </li>
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(3)}
                             >
@@ -434,9 +434,8 @@ export default function CampaignsDetails() {
                               How can I cancel my subscription?
                             </a>
                             <div
-                              className={`accordion-content ${
-                                activeIndex === 3 ? "show" : ""
-                              }`}
+                              className={`accordion-content ${activeIndex === 3 ? "show" : ""
+                                }`}
                             >
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -447,9 +446,8 @@ export default function CampaignsDetails() {
                           </li>
                           <li className="accordion-item">
                             <a
-                              className={`accordion-title ${
-                                activeIndex === 0 ? "active" : ""
-                              }`}
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
                               href="#"
                               onClick={() => toggleAccordion(4)}
                             >
@@ -457,9 +455,8 @@ export default function CampaignsDetails() {
                               Can I pay via an Invoice?
                             </a>
                             <div
-                              className={`accordion-content ${
-                                activeIndex === 4 ? "show" : ""
-                              }`}
+                              className={`accordion-content ${activeIndex === 4 ? "show" : ""
+                                }`}
                             >
                               <p>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -476,7 +473,7 @@ export default function CampaignsDetails() {
               </div>
               <div className="col-md-4 px-0">
                 <div className="positionfxd">
-                  <h5 className="missed" style={{color:'#fff'}}>Your Subscription</h5>
+                  <h5 className="missed" style={{ color: '#fff' }}>Your Subscription</h5>
                   <div className="fourcolm">
                     <div className="text-center">
                       <p>No. of Units</p>
@@ -492,7 +489,7 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
-                        // onChange={(e) => setNo_of_units(e.target.value)}
+                      // onChange={(e) => setNo_of_units(e.target.value)}
                       />
                       <span className="plus" onClick={handlePlusClick}>
                         +
@@ -576,6 +573,7 @@ export default function CampaignsDetails() {
                         have read and understood the{" "}
                         <a href="#">Privacy Policy.</a>
                       </label>
+                      {checkboxError && <p className="text-danger">{checkboxError}</p>}
                     </div>
                     <div className="text-center viwe_all">
                       <a href="#" onClick={handleSubmit}>
