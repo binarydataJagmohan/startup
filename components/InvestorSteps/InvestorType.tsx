@@ -224,9 +224,9 @@ export default function InvestorType(): any {
             if (!principal_residence) {
                 errors.principal_residence = "*Principal residence option is required";
             }
-            if (!experience) {
-                errors.experience = "*One more option is required.";
-            }
+            // if (!experience) {
+            //     errors.experience = "*One more option is required.";
+            // }
         } else if (selectedOption === '2') {
             if (!net_worth) {
                 errors.net_worth = "*Net worth option is required.";
@@ -253,22 +253,33 @@ export default function InvestorType(): any {
             };
             investorTypeInfoSave(data)
                 .then(res => {
-                    if (res.status == true) {
 
+                    if (res.status == true) {
+                        const data = {
+                            notify_from_user: current_user_id,
+                            notify_to_user: "1",
+                            notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
+                            notification_type: "Profile Completed",
+                            each_read: "unread",
+                            status: "active"
+                        };
                         toast.success(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
                         });
-                        if (users.approval_status === 'pending') {
-                            setTimeout(() => {
-                                router.push("/investor/thank-you");
-                            }, 1000);
-                        }
-                        if (users.approval_status === 'approved') {
-                            setTimeout(() => {
-                                router.push("/investor/campaign");
-                            }, 1000);
-                        }
+                        setTimeout(() => {
+                            router.push("/investor-steps/documentsupload");
+                        }, 1000);
+                        // if (users.approval_status === 'pending') {
+                        //     setTimeout(() => {
+                        //         router.push("/investor/thank-you");
+                        //     }, 1000);
+                        // }
+                        // if (users.approval_status === 'approved') {
+                        //     setTimeout(() => {
+                        //         router.push("/investor/campaign");
+                        //     }, 1000);
+                        // }
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -286,71 +297,9 @@ export default function InvestorType(): any {
 
     return (
         <>
-            {/* <div className="page-title-area item-bg-5">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Complete Account Details</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className="left-bar">
                 <div className="container">
                     <div id="app">
-                        <ol className="step-indicator">
-                            <li className="">
-                                <div className="step_name">
-                                    Step <span>1</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div
-                                    className="caption hidden-xs hidden-sm"
-                                    style={{ color: "#79AC78" }}
-                                >
-                                    <span>PERSONAL INFORMATION</span>
-                                </div>
-                            </li>
-                            <li className="active">
-                                <div className="step_name">
-                                    Step <span>2</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                                    <span>INVESTOR INFORMATION</span>
-                                </div>
-                            </li>
-                            {/* <li className="">
-                                <div className="step_name">
-                                    Step <span>3</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step">
-                                        <img
-                                            className="sidebar-img w-50"
-                                            src="/assets/img/investor/download2.png"
-                                            alt="term-condition"
-                                            width={30}
-                                            height={38}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm">
-                                    <span>BASIC INFORMATION</span>
-                                </div>
-                            </li> */}
-
-                        </ol>
                         <div className="container">
                             <div className="register-form style-change-checkbox">
                                 <div className="row step_one">
@@ -512,11 +461,11 @@ export default function InvestorType(): any {
                                                                                     <label htmlFor="checkbox7">Senior management professional with at least 10 years of
                                                                                         experience.<span className="requiredclass">*</span>
                                                                                     </label>
-                                                                                    {errors.experience && (
+                                                                                    {/* {errors.experience && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
                                                                                             *One more option is required..
                                                                                         </span>
-                                                                                    )}
+                                                                                    )} */}
                                                                                 </div>
                                                                             </div>
                                                                         </div>

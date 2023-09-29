@@ -13,6 +13,9 @@ body {
   font-size: 16px;
   overflow-x: hidden;
 }
+h1, h2, h3, h4, h5, h6{ 
+  font-family: 'Source Serif 4', serif !important;
+}
 .black-logo{
   max-width: 190px;
   margin: 15px 0px;
@@ -9489,7 +9492,7 @@ div#checkbox-group-1 .same-card {
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 600;
-  height: 45px !important;
+  /* height: 45px !important; */
   margin-top: -14px;
   padding: 5px 10px !important;
 }
@@ -10432,4 +10435,7 @@ span.logo-sm img {
     max-width: 69%;
     margin: 60px auto;
     margin-left: 290px;
+}
+.page-link.active, .active > .page-link{
+  border-color:#088395 !important;
 }

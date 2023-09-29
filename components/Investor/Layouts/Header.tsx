@@ -125,8 +125,8 @@ const Header = () => {
               <div className="logo">
                 <Link href="/">                  
                   <Image
-                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
-                    width={150}
+                    src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo 1" alt=""
+                    width={190}
                     height={70}
                   />
                 </Link>
@@ -140,7 +140,7 @@ const Header = () => {
               <Link className="navbar-brand" href="/">               
                 <Image
                     src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="black-logo" alt=""
-                    width={150}
+                    width={190}
                     height={87}
                   />
               </Link>

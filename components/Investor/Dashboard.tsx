@@ -217,7 +217,7 @@ const Dashboard = () => {
                               href="#"
                               className="button-class"
                             >
-                              View Details
+                              View Details1
                             </a>
                           </li>
                         </ul>
@@ -335,7 +335,7 @@ const Dashboard = () => {
                                 href="#"
                                 className="button-class"
                               >
-                                View Details
+                                View Details1
                               </a>
                             </li>
                           </ul>
@@ -456,7 +456,7 @@ const Dashboard = () => {
                                 href="#"
                                 className="button-class"
                               >
-                                View Details
+                                View Details1
                               </a>
                             </li>
                           </ul>
@@ -573,7 +573,7 @@ const Dashboard = () => {
                                 href="#"
                                 className="button-class"
                               >
-                                View Details
+                                View Details1
                               </a>
                             </li>
                           </ul>
@@ -691,7 +691,7 @@ const Dashboard = () => {
                               href="#"
                               className="button-class"
                             >
-                              View Details
+                              View Details1
                             </a>
                           </li>
                         </ul>
