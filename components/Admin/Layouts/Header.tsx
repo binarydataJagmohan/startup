@@ -384,7 +384,7 @@ const Header = () => {
                 {users && users.profile_pic ? (
                   <Image className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + users.profile_pic} alt="" width={32} height={32}/>
                 ) : (
-                  <Image className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images.profile.webp"} alt="" width={32} height={32} />
+                  <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" width={32} height={32} />
                 )}
               </button>
               <div className="dropdown-menu dropdown-menu-end">

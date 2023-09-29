@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { getAllInvestedFundDetails, getSingleBusinessDetails } from "@/lib/investorapi";
-import {getCurrentUserData } from "../../lib/session";
+import { getCurrentUserData } from "../../lib/session";
 import Link from 'next/link';
 const InvestedFunds = () => {
     const router = useRouter();
@@ -10,8 +10,8 @@ const InvestedFunds = () => {
     const [openBusinessDetails, setOpenBusinessDetails] = useState<any>([]);
     const fetchData = async () => {
         try {
-            const current_user_data:any = getCurrentUserData()
-            const data = await getAllInvestedFundDetails({id: current_user_data.id});
+            const current_user_data: any = getCurrentUserData()
+            const data = await getAllInvestedFundDetails({ id: current_user_data.id });
             console.log(data);
             if (data) {
                 setBusinessDetails(data.data);
@@ -77,7 +77,7 @@ const InvestedFunds = () => {
                                             <div className="product-content">
                                                 <h3 className="title">
                                                     <Link href="javascript:void(0)">
-                                                        {details.investor_no_of_units}{" "}
+                                                        {details.no_of_units}{" "}
                                                     </Link>
                                                 </h3>
                                                 <div className="price">Units Purchased</div>

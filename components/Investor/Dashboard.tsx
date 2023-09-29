@@ -61,7 +61,7 @@ const Dashboard = () => {
             }
           }
         }
-      } catch (err) {        
+      } catch (err) {
       }
     };
 
@@ -87,7 +87,7 @@ const Dashboard = () => {
 
 
   const getBusinessdetails = (e: any, id: any) => {
-    e.preventDefault();    
+    e.preventDefault();
     getSingleBusinessDetails(id).then((res) => {
       router.push(`campaign/details?id=${id}`);
     });
@@ -95,7 +95,7 @@ const Dashboard = () => {
 
 
   const getClosedBusinessdetails = (e: any, id: any) => {
-    e.preventDefault();    
+    e.preventDefault();
     getSingleClosedBusinessDetails(id).then((res) => {
       router.push(`campaign/closed?id=${id}`);
     });
@@ -207,11 +207,18 @@ const Dashboard = () => {
                           </li>
                           <li>
                             Tenure <span>{details.tenure} days</span>
-                          </li>
-                          <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                          </li>                        
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}                       
                           <li className="border-0">
                             <a
                               href="#"
@@ -327,9 +334,9 @@ const Dashboard = () => {
                               Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                              Closes in <span>{details.closed_in ?
+                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                            </li>
                             <li className="border-0">
                               <a
                                 href="#"
@@ -448,9 +455,9 @@ const Dashboard = () => {
                               Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                              Closes in <span>{details.closed_in ?
+                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                            </li>
                             <li className="border-0">
                               <a
                                 href="#"
@@ -508,10 +515,12 @@ const Dashboard = () => {
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                       <div className="product-image">
                         <a href="#" className="image">
-                          <img
-                            className="pic-1 image"
-                            src={details.logo}
-                          />
+                          {details.logo ? (
+                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                          ) : (
+                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                          )
+                          }
                         </a>
                       </div>
                       <div className="main-padding">
@@ -565,9 +574,9 @@ const Dashboard = () => {
                               Tenure <span>{details.tenure} days</span>
                             </li>
                             <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                              Closes in <span>{details.closed_in ?
+                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                            </li>
                             <li className="border-0">
                               <a
                                 href="#"

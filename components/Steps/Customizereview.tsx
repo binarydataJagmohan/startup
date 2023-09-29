@@ -34,6 +34,8 @@ export default function Customereview(): any {
   const [current_user_id, setCurrentUserId] = useState("");
   const [proof_img, setProofImg] = useState(null);
   const [users, setUsers] = useState<any>({});
+  const [startUpLogoError, setStartupLogoError] = useState('');
+  const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const [basicDetails, setBasicDetails] = useState({
     user_id: current_user_id,
     pan_number: "",
@@ -60,11 +62,20 @@ export default function Customereview(): any {
     setMissingFields([])
     const selectedFile = event.target.files[0];
     setProofImg(selectedFile);
-
     if (selectedFile) {
-      setTimeout(() => {
-        setImageUploadStatus('success');
-      }, 2000);
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const maxSize = 2 * 1024 * 1024;
+
+      if (allowedTypes.includes(selectedFile.type)) {
+        if (selectedFile.size <= maxSize) {
+          setImageUploadStatus('success');
+        } else {
+          setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+        }
+      } else {
+        setStartupLogoError('* Please upload a JPG or PNG file');
+        event.target.value = null;
+      }
     }
   };
 
@@ -241,7 +252,7 @@ export default function Customereview(): any {
                   Step <span>4</span>
                 </div>
                 <div className="step_border">
-                  <div className="step">                    
+                  <div className="step">
                     <Image
                       className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
                       alt="bank-icon"
@@ -377,12 +388,9 @@ export default function Customereview(): any {
                               >
                                 <input
                                   ref={fileInputRef}
-                                  className="input-file class-unset"
+                                  className="input-file class-unset d-none"
                                   id="proof_img"
                                   type="file"
-                                  // {...register("proof_img", {
-                                  //   value: true, required: ! basicDetails.proof_img,
-                                  // })}
                                   accept="image/jpeg, image/png"
                                   name="proof_img"
                                   onChange={handleFileChange}
@@ -398,9 +406,19 @@ export default function Customereview(): any {
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>
                                     You can upload any identity card's image
-                                    jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                    jpg,png,jpeg file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                   </p>
                                 </label>
+                                {!imageUploadStatus && (
+                                  <>
+                                    {startUpLogoSizeError ? (
+                                      <p className='text-danger'>{startUpLogoSizeError}</p>
+                                    ) : (
+                                      startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                    )}
+                                  </>
+                                )}
+
                                 <div className="help-block with-errors" />
                                 {missingFields.includes('image') && (
                                   <p
@@ -410,14 +428,7 @@ export default function Customereview(): any {
                                     *Please upload Your Proof.
                                   </p>
                                 )}
-                                {/* {errors.proof_img && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please upload Your Proof.
-                                  </p>
-                                )} */}
+                                
                                 {(imageUploadStatus === 'success' || !errors.proof_img && basicDetails.proof_img) && (
                                   <p className="text-success" style={{ textAlign: "left", fontSize: "12px" }}>
                                     Image Uploaded Successfully.

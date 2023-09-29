@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getSinglestartup } from '../../lib/companyapi';
 import { getBusinessInformation, getBankInformation, getCountries, getProofInformation } from '../../lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
@@ -34,7 +34,7 @@ const EditList = () => {
     description: "",
     cofounder: "0",
     kyc_purposes: "0",
-    user_id:"",
+    user_id: "",
   });
 
   const [bank, setBankData] = useState({
@@ -63,16 +63,17 @@ const EditList = () => {
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [businessmissingFields, setBusinessMissingFields] = useState<string[]>([]);
   const [countries, setcountries] = useState<Country[]>([]);
-
+  const [startUpLogoError, setStartupLogoError] = useState('');
+  const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const { id } = router.query;
 
   useEffect(() => {
-    const fetchData = async (id:any) => {
+    const fetchData = async (id: any) => {
       const data = await getBusinessInformation(id);
- 
+
       if (data) {
         setBussinessData(data.data);
-      
+
       }
     };
 
@@ -80,7 +81,7 @@ const EditList = () => {
       fetchData(router.query.id);
     }
   }, [router.query.id]);
-  const handlePoofFileChange = (e:any) => {
+  const handlePoofFileChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -95,16 +96,16 @@ const EditList = () => {
 
   const handleUploadClick = () => {
     if (fileInputRef.current !== null) {
-      fileInputRef.current.click(); 
+      fileInputRef.current.click();
     }
   };
 
-  const handleProofChange = (e:any) => {
+  const handleProofChange = (e: any) => {
     // Ignore input changes
 
     e.preventDefault();
   };
-  const handleDownload = (event:any) => {
+  const handleDownload = (event: any) => {
     event.preventDefault();
 
     const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
@@ -139,21 +140,19 @@ const EditList = () => {
     fetchData();
 
   }, []);
-  const handleBusinessChange = (e:any) => {
+  const handleBusinessChange = (e: any) => {
     setBusinessMissingFields([]);
 
     if (e.target.type === "checkbox" && e.target.name === "cofounder") {
-      // Handle cofounder checkbox change
       const cofounderValue = e.target.checked ? "1" : "0";
-      setBussinessData((prevBusiness:any) => ({
+      setBussinessData((prevBusiness: any) => ({
         ...prevBusiness,
         cofounder: cofounderValue,
         user_id: id,
       }));
     } else if (e.target.type === "checkbox" && e.target.name === "kyc_purposes") {
-      // Handle kyc_purposes checkbox change
       const kycValue = e.target.checked ? "1" : "0";
-      setBussinessData((prevBusiness:any) => ({
+      setBussinessData((prevBusiness: any) => ({
         ...prevBusiness,
         kyc_purposes: kycValue,
         user_id: id,
@@ -163,17 +162,29 @@ const EditList = () => {
       const file = e.target.files && e.target.files[0];
 
       if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setPreviewImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxSize = 2 * 1024 * 1024;
 
-      setBussinessData((prevBusiness) => ({
-        ...prevBusiness,
-        logo: file || prevBusiness.logo, // Preserve previous logo if no new file selected
-      }));
+        if (allowedTypes.includes(file.type)) {
+          if (file.size <= maxSize) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+
+            setBussinessData((prevBusiness) => ({
+              ...prevBusiness,
+              logo: file || prevBusiness.logo, // Preserve previous logo if no new file selected
+            }));
+          } else {
+            setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+          }
+        } else {
+          setStartupLogoError('* Please upload a JPG or PNG file');
+          e.target.value = null;
+        }
+      }
     } else {
       // Handle other field changes
       setBussinessData((prevBusiness) => ({
@@ -184,7 +195,7 @@ const EditList = () => {
   };
 
 
-  const handleStartupChange = (e:any) => {
+  const handleStartupChange = (e: any) => {
     setMissingFields([]);
     setStartupData((prevStartup) => ({
       ...prevStartup,
@@ -193,25 +204,25 @@ const EditList = () => {
     }));
   }
 
-  const updatePersonalInfo = async (e:any) => {
+  const updatePersonalInfo = async (e: any) => {
     e.preventDefault();
     setInvalidFields([]);
     const current_user_data: UserData = getCurrentUserData();
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const data = {
-      notify_from_user:current_user_data.id ,
-      notify_to_user:  id,
-      notify_msg:`User has been Updated his profile Successfully by Admin.`,
+      notify_from_user: current_user_data.id,
+      notify_to_user: id,
+      notify_msg: `User has been Updated his profile Successfully by Admin.`,
       notification_type: "Upadte Notification",
       each_read: "unread",
       status: "active"
     };
     // Send Notifications to investor when admin update his profile is register
     sendNotification(data)
-    .then((notificationRes) => {
-      console.log('success')
-    })
+      .then((notificationRes) => {
+        console.log('success')
+      })
 
     if (!startup.email) {
       setMissingFields(prevFields => [...prevFields, "Email"]);
@@ -228,7 +239,7 @@ const EditList = () => {
     if (!startup.city) setMissingFields(prevFields => [...prevFields, "city"]);
     if (!startup.gender) setMissingFields(prevFields => [...prevFields, "gender"]);
     try {
-     
+
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/update-startup-personal-info/${id}`,
@@ -243,36 +254,36 @@ const EditList = () => {
 
         }
       );
-     
+
       toast.success('Information updated successfully');
       setTimeout(() => {
         router.push('/admin/all-startup-companies'); // Replace '/admin/all-investors' with the desired route
       }, 2000);
     } catch (error) {
-  
-      
+
+
     }
   };
 
-  const updateBusinessInfo = async (e:any) => {
+  const updateBusinessInfo = async (e: any) => {
     e.preventDefault();
 
     const current_user_data: UserData = getCurrentUserData();
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const data = {
-      notify_from_user:current_user_data.id ,
-      notify_to_user:  id,
-      notify_msg:`User has been Updated his Business Information Successfully by Admin.`,
+      notify_from_user: current_user_data.id,
+      notify_to_user: id,
+      notify_msg: `User has been Updated his Business Information Successfully by Admin.`,
       notification_type: "Business Upadte Notification",
       each_read: "unread",
       status: "active"
     };
     // Send Notifications to investor when admin update his profile is register
     sendNotification(data)
-    .then((notificationRes) => {
-      console.log('success')
-    })
+      .then((notificationRes) => {
+        console.log('success')
+      })
 
     if (!bussiness.business_name) setBusinessMissingFields(prevFields => [...prevFields, "business_name"]);
     if (!bussiness.cofounder) setBusinessMissingFields(prevFields => [...prevFields, "cofounder"]);
@@ -288,8 +299,8 @@ const EditList = () => {
     if (!bussiness.website_url) setBusinessMissingFields(prevFields => [...prevFields, "website_url"]);
     // 
     try {
-      
-     
+
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/business-information-update/${bussiness.user_id}`,
 
@@ -318,24 +329,24 @@ const EditList = () => {
           },
         }
       );
-     
+
       toast.success('Business Information updated successfully');
       setTimeout(() => {
-        router.push('/admin/all-startup-companies'); 
+        router.push('/admin/all-startup-companies');
       }, 2000);
     } catch (error) {
-     
-      
+
+
     }
   }
   useEffect(() => {
 
-    const fetchData = async (id:any) => {
+    const fetchData = async (id: any) => {
 
       const data = await getBankInformation(id);
       if (data) {
         setBankData(data.data);
-       
+
       }
     };
     fetchData(id);
@@ -344,12 +355,12 @@ const EditList = () => {
   }, [router.query.id]);
   useEffect(() => {
 
-    const fetchData = async (id:any) => {
+    const fetchData = async (id: any) => {
 
       const data = await getProofInformation(id);
       if (data) {
         setProofData(data.data);
-       
+
       }
     };
     fetchData(id);
@@ -380,19 +391,19 @@ const EditList = () => {
   }
   useEffect(() => {
 
-    const fetchData = async (id:any) => {
+    const fetchData = async (id: any) => {
 
       const data = await getSinglestartup(id);
       if (data) {
         setStartupData(data.data);
-     
+
       }
     };
     fetchData(id);
 
 
   }, [router.query.id]);
- 
+
   return (
     <div className="form-faq pt-5 pb-5">
       <div className="container">
@@ -407,7 +418,7 @@ const EditList = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-               Startups Personnal Information:
+                Startups Personnal Information:
               </button>
             </h2>
             <div
@@ -426,7 +437,7 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <input type="text" placeholder="Email" value={startup.email} name="email" readOnly/>
+                          <input type="text" placeholder="Email" value={startup.email} name="email" readOnly />
                           <div className="help-block with-errors" />
                           {/* {missingFields.includes("Email") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
@@ -527,7 +538,7 @@ const EditList = () => {
                         </label>
                         <div className="form-part">
                           <select name="gender" onChange={handleStartupChange} className='css-1492t68 form-select' value={startup.gender} >
-                            <option value={startup.gender?startup.gender:''}>{startup.gender?startup.gender.charAt(0).toUpperCase() + startup.gender.slice(1):'--SELECT GENDER--'}</option>
+                            <option value={startup.gender ? startup.gender : ''}>{startup.gender ? startup.gender.charAt(0).toUpperCase() + startup.gender.slice(1) : '--SELECT GENDER--'}</option>
                             {startup.gender !== 'male' && <option value="male">Male</option>}
                             {startup.gender !== 'female' && <option value="female">Female</option>}
                             {startup.gender !== 'other' && <option value="other">Other</option>}
@@ -561,7 +572,7 @@ const EditList = () => {
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Business Information:
+                Business Information:
               </button>
             </h2>
             <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -596,7 +607,7 @@ const EditList = () => {
                                 type="text"
                                 className="form-control same-input"
                                 id="business_name" name="business_name" value={bussiness.business_name} onChange={handleBusinessChange}
-                                
+
                               />
 
                               {businessmissingFields.includes("business_name") && (
@@ -620,7 +631,7 @@ const EditList = () => {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname" 
+                                id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname"
                               />
                               {businessmissingFields.includes("reg_businessname") && (
                                 <p
@@ -642,7 +653,7 @@ const EditList = () => {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url" 
+                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url"
                               />
                               {/* {errors.website_url && ( */}
                               {businessmissingFields.includes("website_url") && (
@@ -652,7 +663,7 @@ const EditList = () => {
                                 >
                                   *Please Enter Comapny's Website Url.
                                 </p>
-                              )} 
+                              )}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -663,10 +674,10 @@ const EditList = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <select
-                                className="form-select form-select-lg mb-3 css-1492t68" 
-                                aria-label="Default select example" onChange={handleBusinessChange} name="sector" 
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example" onChange={handleBusinessChange} name="sector"
                               >
-                                <option value={bussiness.sector?bussiness.sector:''}>{bussiness.sector?bussiness.sector:'--SELECT SECTOR--'}</option>
+                                <option value={bussiness.sector ? bussiness.sector : ''}>{bussiness.sector ? bussiness.sector : '--SELECT SECTOR--'}</option>
                                 {bussiness.sector !== 'E-commerce' && <option value="E-commerce">E-commerce</option>}
                                 {bussiness.sector !== 'Food & Restaurents Startups' && <option value="Food & Restaurents Startups">Food  & Restaurents Startups</option>}
                                 {bussiness.sector !== 'App Development' && <option value="App Development">App Development</option>}
@@ -702,7 +713,7 @@ const EditList = () => {
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                aria-label="Default select example" onChange={handleBusinessChange} name="stage" 
+                                aria-label="Default select example" onChange={handleBusinessChange} name="stage"
                               >
                                 <option value={bussiness.stage}>{bussiness.stage}</option>
                                 {/* {bussiness.stage !== 'Idea Stage' && <option value="Idea Stage">Idea Stage</option>}
@@ -721,14 +732,14 @@ const EditList = () => {
                               </select>
                               {/* {errors.stage &&
                                 errors.stage.type === "required" &&  ! businessDetails.stage && ( */}
-                               {businessmissingFields.includes("stage") && (
+                              {businessmissingFields.includes("stage") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Select Stage of Your Business.
                                 </p>
-                              )} 
+                              )}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -742,7 +753,7 @@ const EditList = () => {
                                 type="date"
                                 className="form-control same-input"
                                 id="startup_date" value={bussiness.startup_date} onChange={handleBusinessChange} name="startup_date"
-                                max={new Date().toISOString().split("T")[0]}  readOnly
+                                max={new Date().toISOString().split("T")[0]} readOnly
                               />
 
                               {/* {businessmissingFields.includes("startup_date") && (
@@ -763,7 +774,7 @@ const EditList = () => {
                                 type="text"
                                 className="form-control same-input" onChange={handleBusinessChange}
                                 id="tagline" value={bussiness.tagline} name="tagline"
-                               
+
                               />
 
                               {businessmissingFields.includes("tagline") && (
@@ -785,11 +796,11 @@ const EditList = () => {
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <select
-                                className="form-select form-select-lg mb-3 css-1492t68" 
-                                aria-label="Default select example" name="type" onChange={handleBusinessChange} 
+                                className="form-select form-select-lg mb-3 css-1492t68"
+                                aria-label="Default select example" name="type" onChange={handleBusinessChange}
 
                               >
-                                <option value={bussiness.type ? bussiness.type:''}>{bussiness.type ? bussiness.type:'--SELECT FUND TYPE--'}</option>
+                                <option value={bussiness.type ? bussiness.type : ''}>{bussiness.type ? bussiness.type : '--SELECT FUND TYPE--'}</option>
                                 {bussiness.type !== 'Dicounting Invoice' && <option value="Dicounting Invoice">Dicounting Invoice</option>}
                                 {bussiness.type !== 'CSOP' && <option value="CSOP">CSOP</option>}
                                 {bussiness.type !== 'CCSP' && <option value="CCSP">CCSP</option>}
@@ -822,7 +833,7 @@ const EditList = () => {
                                 maxLength={100}
                                 placeholder="Enter details here"
                                 className="form-control" value={bussiness.description} onChange={handleBusinessChange} name="description"
-                               />
+                              />
                               {businessmissingFields.includes("description") && (
                                 <p
                                   className="text-danger"
@@ -845,36 +856,21 @@ const EditList = () => {
                                   Startup Logo
                                   <span style={{ color: "red" }}>*</span>
                                 </label>
-                                {/* <div className="profile-pic">
-                                  {previewImage ? (
-                                    <Image
-                                      src={typeof previewImage === 'string' ? previewImage : ''}
-                                      alt=""
-                                      width={300}
-                                      height={300}
-                                    />
-                                  ) : (
-                                    ""
-                                    // <Image
-                                    //   src={`${process.env.NEXT_PUBLIC_BASE_URL}assets/img/profile.webp`}
-                                    //   alt=""
-                                    //   className="profile-pic"
-                                    //   width={300}
-                                    //   height={300}
-                                    // />
-                                  )}
-                                </div> */}
                                 <div className="profile-pic">
-                                  {
-                                    <Image src={bussiness.logo.replace('docs', 'public/docs')} alt="profile" width={300} height={800} />
-                                }
+                                  {bussiness.logo ? (
+                                    <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + bussiness.logo} alt="business-logo" width={416} height={140} />
+                                  ) : (
+                                    <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" width={416} height={140} />
+                                  )
+                                  }
                                 </div>
                                 <input
                                   ref={fileInputRef}
                                   className="input-file"
                                   id="logo"
                                   type="file"
-                                  accept="image/jpeg, image/png" 
+                                  name='logo'
+                                  accept="image/jpeg, image/png"
                                   onChange={handleBusinessChange}
                                   style={{ display: 'none' }}
                                 />
@@ -887,9 +883,14 @@ const EditList = () => {
                                 >
                                   Drop your pitch deck here to{" "}
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
-                                  <p>You can upload any identity card's image jpg,png,jpeg file only (max size 20 MB)<span style={{ color: "red" }}>*</span></p>
+                                  <p>You can upload any identity card's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
-                                {/* {errors.logo && errors.logo.type === "required" && !businessDetails.logo && ( */}
+                                {startUpLogoSizeError ? (
+                                  <p className='text-danger'>{startUpLogoSizeError}</p>
+                                ) : (
+                                  startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                )}
+
                                 {businessmissingFields.includes("logo") && (
                                   <p
                                     className="text-danger"
@@ -915,7 +916,7 @@ const EditList = () => {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="checkboxNoLabel"
-                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange} 
+                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange}
                               // name="cofounder"  onChange={handleChange}   
                               />
                               <p className="">
@@ -1166,24 +1167,23 @@ const EditList = () => {
                         id="divHabilitSelectors"
                         className="input-file-container"
                       >
-                          <div className="profile-pic">
-                          {previewImageProof ? (
+                        <div className="profile-pic">
+                          {/* {previewImageProof ? (
                             <img src={typeof previewImageProof === 'string' ? previewImageProof : undefined} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+                          ) : ( */}
+                          {imageUrl ? (
+                            <Image src={imageUrl} alt="Document Image" width={416} height={140} />
                           ) : (
-                            <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
+                            <Image
+                              src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'}
+                              alt="Default Image"
+                              width={416}
+                              height={140}
+                            />
                           )}
+                          {/* )} */}
                         </div>
 
-                        {/* <div className="profile-pic">
-
-                          {previewImageProof ? (
-                            <img src={previewImageProof} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
-                          ) : (
-                            <img src={imageUrl} alt="Document Image" style={{ maxWidth: '300px', maxHeight: '200px' }} />
-                          )}
-
-                        </div> */}
-                      
 
                         {imageUrl && (
                           <>
