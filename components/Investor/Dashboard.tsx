@@ -333,10 +333,17 @@ const Dashboard = () => {
                             <li>
                               Tenure <span>{details.tenure} days</span>
                             </li>
+                            {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
                             <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                              <span>Closed</span>
                             </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}      
                             <li className="border-0">
                               <a
                                 href="#"
@@ -454,10 +461,17 @@ const Dashboard = () => {
                             <li>
                               Tenure <span>{details.tenure} days</span>
                             </li>
+                            {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
                             <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                              <span>Closed</span>
                             </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}      
                             <li className="border-0">
                               <a
                                 href="#"
@@ -573,10 +587,17 @@ const Dashboard = () => {
                             <li>
                               Tenure <span>{details.tenure} days</span>
                             </li>
+                            {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
                             <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
+                              <span>Closed</span>
                             </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}      
                             <li className="border-0">
                               <a
                                 href="#"
@@ -691,10 +712,17 @@ const Dashboard = () => {
                           <li>
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
-                          <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}      
                           <li className="border-0">
                             <a
                               href="#"
