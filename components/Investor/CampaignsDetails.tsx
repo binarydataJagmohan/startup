@@ -143,19 +143,28 @@ export default function CampaignsDetails() {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+
   const handlePlusClick = () => {
-    setValue(value + 1);
-    const newSubscriptionValue =
-      (value + 1) * (inputs.minimum_subscription || 0);
-    setSubscriptionValue(newSubscriptionValue);
-    const data1 =
-      inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
-    const data3 = data1 / 366;
-    const data4 = inputs.tenure ? data3 * inputs.tenure : 0;
-    const newRepayValue = newSubscriptionValue + data4;
-    const roundedNumber = Math.floor(newRepayValue);
-    const onlyTwoDecimals = roundedNumber.toFixed(2)
-    setRepayValue(parseFloat(onlyTwoDecimals));
+    if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
+      setValue(value + 1);
+      const newSubscriptionValue =
+        (value + 1) * (inputs.minimum_subscription || 0);
+      setSubscriptionValue(newSubscriptionValue);
+      const data1 =
+        inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
+      const data3 = data1 / 366;
+      const data4 = inputs.tenure ? data3 * inputs.tenure : 0;
+      const newRepayValue = newSubscriptionValue + data4;
+      const roundedNumber = Math.floor(newRepayValue);
+      const onlyTwoDecimals = roundedNumber.toFixed(2)
+      setRepayValue(parseFloat(onlyTwoDecimals));
+    }
+    else {
+      toast.error(`Unit limit exceeded `, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: "error",
+      });
+    }
   };
 
   const handleMinusClick = () => {
@@ -191,7 +200,13 @@ export default function CampaignsDetails() {
       setRepayValue(newRepayValue);
     }
   };
-
+  const styleValue = (
+    (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)
+    - (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0))
+  );
+  const dynamicProgressBar = (
+    100 - styleValue
+  );
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -233,7 +248,7 @@ export default function CampaignsDetails() {
               </div>
               <div className="col-md-5">
                 <div className="d-flex justify-content-between">
-                  <div>
+                  <div>{styleValue}
                     <span style={{ color: '#fff' }}>Total Amount</span>
                     <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
                   </div>
@@ -259,7 +274,7 @@ export default function CampaignsDetails() {
                         ? parseInt(inputs.total_units)
                         : undefined
                     }
-                    style={{ width: `${inputs.no_of_units}%` }}
+                    style={{ width: `${dynamicProgressBar}%` }}
                   />
                 </div>
               </div>
@@ -489,11 +504,8 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
-                      // onChange={(e) => setNo_of_units(e.target.value)}
                       />
-                      <span className="plus" onClick={handlePlusClick}>
-                        +
-                      </span>
+                      <span className="plus" onClick={handlePlusClick}>+</span>
                     </div>
 
                     <div className="css-wsc10v">
@@ -587,7 +599,7 @@ export default function CampaignsDetails() {
           </div>
         </div>
         <ToastContainer />
-      </section>
+      </section >
     </>
   );
 }

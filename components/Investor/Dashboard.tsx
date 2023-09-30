@@ -18,10 +18,11 @@ const Dashboard = () => {
   const [businessDetails, setBusinessDetails] = useState<BusinessDetails[]>([]);
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
-  const [currentPageCOP, setCurrentPageCOP] = useState(0);
+  const [currentPageFeatured, setCurrentPageFeatured] = useState(0);
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
-  const [currentPageopen, setCurrentPageopen] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPageopenCSOP, setCurrentPageopenCSOP] = useState(0);
+  const [currentPageopenCCSP, setCurrentPageopenCCSP] = useState(0);
+  const [currentPageClosed, setCurrentPageClosed] = useState(0);
   const itemsPerPage = 3;
   const filteredBusinessDetails = businessDetails.filter(
     (details) => details.status === 'closed'
@@ -73,17 +74,13 @@ const Dashboard = () => {
       const data = await getAllBusiness({});
       if (data) {
         setBusinessDetails(data.data);
-        //console.log(data.data);
-
-        // Set the initial page to 0
-        setCurrentPage(0);
-        setCurrentPageCOP(0);
+        setCurrentPageClosed(0);
+        setCurrentPageFeatured(0);
         setcurrentPagediscount(0);
-        setCurrentPageopen(0);
-        //  console.log(data.data);
+        setCurrentPageopenCSOP(0);
+        setCurrentPageopenCCSP(0);
       }
     };
-
     checkUserStatus();
     fetchData();
   }, []);
@@ -104,39 +101,58 @@ const Dashboard = () => {
       router.push(`campaign/closed?id=${id}`);
     });
   };
-  const pageCount = Math.ceil(filteredBusinessDetails.length / itemsPerPage);
+
   const pageCountOpen = Math.ceil(OpenfilteredBusinessDetails.length / itemsPerPage);
 
 
-  const handlePageChange = (selectedPage: any) => {
-    setCurrentPage(selectedPage.selected);
+  const handlePageChangeClosed = (selectedPage: any) => {
+    setCurrentPageClosed(selectedPage.selected);
   };
-  const handlePageChangeCOP = (selectedPage: any) => {
-    setCurrentPageCOP(selectedPage.selected);
+  const handlePageChangeFeatured = (selectedPage: any) => {
+    setCurrentPageFeatured(selectedPage.selected);
   };
   const handlePageChangeDiscount = (selectedPage: any) => {
     setcurrentPagediscount(selectedPage.selected);
   };
-  const handlePageChangeOpen = (selectedPage: any) => {
-    setCurrentPageopen(selectedPage.selected);
+  const handlePageChangeCSOP = (selectedPage: any) => {
+    setCurrentPageopenCSOP(selectedPage.selected);
   };
-  const displayedBusinessDetails = filteredBusinessDetails.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
-  const opendisplayedBusinessDetailsCOP = OpenfilteredBusinessDetails.slice(
-    currentPageCOP * itemsPerPage,
-    (currentPageCOP + 1) * itemsPerPage
-  );
+  const handlePageChangeOpenCCSP = (selectedPage: any) => {
+    setCurrentPageopenCCSP(selectedPage.selected);
+  };
 
-  const opendisplayedBusinessDetailsDiscounting = OpenfilteredBusinessDetails.slice(
+  const opendisplayedBusinessDetailsCOP = OpenfilteredBusinessDetails.slice(
+    currentPageFeatured * itemsPerPage,
+    (currentPageFeatured + 1) * itemsPerPage
+  );
+  const filteredDetailsDiscounting = OpenfilteredBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open");
+  const opendisplayedBusinessDetailsDiscounting = filteredDetailsDiscounting.slice(
     currentPagediscount * itemsPerPage,
     (currentPagediscount + 1) * itemsPerPage
   );
-  const opendisplayedBusinessDetails = OpenfilteredBusinessDetails.slice(
-    currentPageopen * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
+  const pageCountDiscounting = Math.ceil(filteredDetailsDiscounting.length / itemsPerPage);
+
+  const filteredDetailsCCSP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open");
+  const opendisplayedBusinessDetailsCCSP = filteredDetailsCCSP.slice(
+    currentPageopenCCSP * itemsPerPage,
+    (currentPageopenCCSP + 1) * itemsPerPage
   );
+  const pageCountCCSP = Math.ceil(filteredDetailsCCSP.length / itemsPerPage);
+
+  const filteredDetailsCSOP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CSOP" && details.status === "open");
+  const opendisplayedBusinessDetailsCSOP = filteredDetailsCSOP.slice(
+    currentPageopenCSOP * itemsPerPage,
+    (currentPageopenCSOP + 1) * itemsPerPage
+  );
+  const pageCountCSOP = Math.ceil(filteredDetailsCSOP.length / itemsPerPage);
+
+  const filteredDetailsClosed = OpenfilteredBusinessDetails.filter((details: any) => details.status === "closed");
+  const displayedBusinessDetails = filteredDetailsClosed.slice(
+    currentPageClosed * itemsPerPage,
+    (currentPageClosed + 1) * itemsPerPage
+  );
+  const pageCountClose = Math.ceil(filteredDetailsClosed.length / itemsPerPage);
+
 
   return (
     <>
@@ -211,7 +227,7 @@ const Dashboard = () => {
                           </li>
                           <li>
                             Tenure <span>{details.tenure} days</span>
-                          </li>                        
+                          </li>
                           {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
                             <li>
                               <span>Closed</span>
@@ -219,16 +235,16 @@ const Dashboard = () => {
                           ) : (
                             <li> Closed in{ }
                               <span>
-                               { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                                { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
                               </span>
                             </li>
-                          )}                       
+                          )}
                           <li className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                              View Details1
+                              View Details
                             </a>
                           </li>
                         </ul>
@@ -239,7 +255,7 @@ const Dashboard = () => {
               ))}
           </div>
 
-          <div className="my-3">
+          {pageCountOpen ? (<div className="my-3">
             <ReactPaginate
               previousLabel={'«'}
               nextLabel={'»'}
@@ -248,8 +264,8 @@ const Dashboard = () => {
               pageCount={pageCountOpen}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
-              onPageChange={handlePageChangeCOP}
-              forcePage={currentPageCOP}
+              onPageChange={handlePageChangeFeatured}
+              forcePage={currentPageFeatured}
               disableInitialCallback={true}
               containerClassName={'pagination'}
               activeClassName={'active'}
@@ -261,7 +277,8 @@ const Dashboard = () => {
               nextLinkClassName="page-link"
               activeLinkClassName="active"
             />
-          </div>
+          </div>) :
+            ('')}
         </div>
         <div className="container py-5">
           <h3 className="featurred">CSOP</h3>
@@ -271,370 +288,10 @@ const Dashboard = () => {
           <div className="bar" />
 
           <div className="row">
-            {opendisplayedBusinessDetails.filter((details: any) => details.type === "CSOP" && details.status === "open").length > 0 ? (
-              opendisplayedBusinessDetails
-                .filter((details: any) => details.type === "CSOP" && details.status === "open")
-                .map((details: any, index: any) => (
-                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">
-                          {details.logo ? (
-                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
-                          ) : (
-                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
-                          )
-                          }
-                        </a>
-                      </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3 d-flex">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price m-0 p-0">
-                            <li>
-                              Units <span>{details.no_of_units}/{details.total_units}</span>
-                            </li>
-                            <li>
-                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Tenure <span>{details.tenure} days</span>
-                            </li>
-                            <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                            </li>
-                            <li className="border-0">
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details1
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-            ) : (
-              <p>No Fund Raised</p>
-            )}
-
-          </div>
-          <div className="my-3">
-            <ReactPaginate
-              previousLabel={'«'}
-              nextLabel={'»'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={pageCountOpen}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageChangeOpen}
-              containerClassName={'pagination'}
-              forcePage={currentPageopen}
-              disableInitialCallback={true}
-
-              activeClassName={'active'}
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              nextClassName="page-item"
-              previousLinkClassName="page-link"
-              nextLinkClassName="page-link"
-              activeLinkClassName="active"
-            />
-          </div>
-        </div>
-        <div className="container py-5">
-          <h3 className="featurred">CCSP</h3>
-          <h6 className="trending">
-            Subscribe to fast growth businesses with low minimum
-          </h6>
-          <div className="bar" />
-          <div className="row">
-            {opendisplayedBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open").length > 0 ? (
-              opendisplayedBusinessDetails
-                .filter((details: any) => details.type === "CCSP" && details.status === "open")
-                .map((details: any, index: any) => (
-                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">
-                          {details.logo ? (
-                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
-                          ) : (
-                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
-                          )
-                          }
-                        </a>
-                      </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3 d-flex">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price m-0 p-0">
-                            <li>
-                              Units <span>{details.no_of_units}/{details.total_units}</span>
-                            </li>
-                            <li>
-                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Tenure <span>{details.tenure} days</span>
-                            </li>
-                            <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                            </li>
-                            <li className="border-0">
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details1
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-            ) : (
-              <p>No Fund Raised</p>
-            )}
-
-          </div>
-          <div className="my-3">
-            <ReactPaginate
-              previousLabel={'«'}
-              nextLabel={'»'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={pageCountOpen}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageChangeOpen}
-              containerClassName={'pagination'}
-              forcePage={currentPageopen}
-              disableInitialCallback={true}
-
-              activeClassName={'active'}
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              nextClassName="page-item"
-              previousLinkClassName="page-link"
-              nextLinkClassName="page-link"
-              activeLinkClassName="active"
-            />
-          </div>
-        </div>
-        <div className="container py-5">
-          <h3 className="featurred">Discounting </h3>
-          <h6 className="trending">Short term fixed income opportunities</h6>
-          <div className="bar" />
-          <div className="row">
-            {opendisplayedBusinessDetails.filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open").length > 0 ? (
-              opendisplayedBusinessDetails
-                .filter((details: any) => details.type === "Dicounting Invoice" && details.status === "open")
-                .map((details: any, index: any) => (
-                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">
-                          {details.logo ? (
-                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
-                          ) : (
-                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
-                          )
-                          }
-                        </a>
-                      </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3 d-flex">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price m-0 p-0">
-                            <li>
-                              Units <span>{details.no_of_units}/{details.total_units}</span>
-                            </li>
-                            <li>
-                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Tenure <span>{details.tenure} days</span>
-                            </li>
-                            <li>
-                              Closes in <span>{details.closed_in ?
-                                `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                            </li>
-                            <li className="border-0">
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details1
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-            ) : (
-              <p>No Fund Raised</p>
-            )}
-          </div>
-
-          <div className="my-3">
-            <ReactPaginate
-              previousLabel={'«'}
-              nextLabel={'»'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={pageCountOpen}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageChangeDiscount}
-              forcePage={currentPagediscount}
-              disableInitialCallback={true}
-
-              containerClassName={'pagination'}
-              activeClassName={'active'}
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              nextClassName="page-item"
-              previousLinkClassName="page-link"
-              nextLinkClassName="page-link"
-              activeLinkClassName="active"
-            />
-          </div>
-        </div>
-        <div className="container py-5">
-          <h3 className="featurred">Closed campaigns </h3>
-          <h6 className="trending">Wall of successful startups</h6>
-          <div className="bar" />
-          <div className="row">
-            {displayedBusinessDetails
-              .filter((details: any) => details.status === "closed")
-              .map((details: any, index: any) => (
+            {filteredDetailsCSOP.length > 0 ? (
+              opendisplayedBusinessDetailsCSOP.map((details: any, index: any) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                  <div className="product-grid container1" onClick={(e) => getClosedBusinessdetails(e, details.business_id)}>
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
                     <div className="product-image">
                       <a href="#" className="image">
                         {details.logo ? (
@@ -649,9 +306,389 @@ const Dashboard = () => {
                       <div className="d-flex justify-content-between">
                         <div className="product-content">
                           <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3 d-flex">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price m-0 p-0">
+                          <li>
+                            Units <span>{details.no_of_units}/{details.total_units}</span>
+                          </li>
+                          <li>
+                            Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Tenure <span>{details.tenure} days</span>
+                          </li>
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                                { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}
+                          <li className="border-0">
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              View Details
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+
+          </div>
+          {pageCountCSOP ? (
+            <div className="my-3">
+              <ReactPaginate
+                previousLabel={'«'}
+                nextLabel={'»'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={pageCountCSOP}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChangeCSOP}
+                containerClassName={'pagination'}
+                forcePage={currentPageopenCSOP}
+                disableInitialCallback={true}
+                activeClassName={'active'}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                activeLinkClassName="active"
+              />
+            </div>)
+            : ('')}
+        </div>
+        <div className="container py-5">
+          <h3 className="featurred">CCSP</h3>
+          <h6 className="trending">
+            Subscribe to fast growth businesses with low minimum
+          </h6>
+          <div className="bar" />
+          <div className="row">
+            {filteredDetailsCCSP.length > 0 ? (
+              opendisplayedBusinessDetailsCCSP.map((details: any, index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        {details.logo ? (
+                          <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                        ) : (
+                          <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                        )
+                        }
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3 d-flex">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price m-0 p-0">
+                          <li>
+                            Units <span>{details.no_of_units}/{details.total_units}</span>
+                          </li>
+                          <li>
+                            Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Tenure <span>{details.tenure} days</span>
+                          </li>
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                                { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}
+                          <li className="border-0">
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              View Details
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+
+          </div>
+
+          {pageCountCCSP ?
+            (<div className="my-3">
+              <ReactPaginate
+                previousLabel={'«'}
+                nextLabel={'»'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={pageCountCCSP}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChangeOpenCCSP}
+                containerClassName={'pagination'}
+                forcePage={currentPageopenCCSP}
+                disableInitialCallback={true}
+
+                activeClassName={'active'}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                activeLinkClassName="active"
+              />
+            </div>)
+            : ('')}
+        </div>
+        <div className="container py-5">
+          <h3 className="featurred">Discounting </h3>
+          <h6 className="trending">Short term fixed income opportunities</h6>
+          <div className="bar" />
+          <div className="row">
+            {filteredDetailsDiscounting.length > 0 ? (
+              opendisplayedBusinessDetailsDiscounting.map((details: any, index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        {details.logo ? (
+                          <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                        ) : (
+                          <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                        )
+                        }
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.business_name} </a>
+                          </h3>
+                          <div className="price">Anchor</div>
+                        </div>
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.tenure} days </a>
+                          </h3>
+                          <div className="price">Tenure</div>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
+                            <a href="#">{details.no_of_units}/{details.total_units} </a>
+                          </h3>
+                          <div className="price">Units Left</div>
+                        </div>
+                        <div className="product-content text-end">
+                          <h3 className="title">
+                            <a href="#">₹{details.minimum_subscription} </a>
+                          </h3>
+                          <div className="price">Min. Subscription</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-3 d-flex">
+                        <a href="#" className="card-link">
+                          💡13.6% Discount Rate
+                        </a>
+                        <a href="#" className="card-link">
+                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="overlay">
+                      <div className="columns">
+                        <ul className="price m-0 p-0">
+                          <li>
+                            Units <span>{details.no_of_units}/{details.total_units}</span>
+                          </li>
+                          <li>
+                            Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
+                          </li>
+                          <li>
+                            Tenure <span>{details.tenure} days</span>
+                          </li>
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{ }
+                              <span>
+                                { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}
+                          <li className="border-0">
+                            <a
+                              href="#"
+                              className="button-class"
+                            >
+                              View Details
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+          </div>
+
+          {pageCountDiscounting ?
+            (<div className="my-3">
+              <ReactPaginate
+                previousLabel={'«'}
+                nextLabel={'»'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={pageCountDiscounting}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChangeDiscount}
+                forcePage={currentPagediscount}
+                disableInitialCallback={true}
+
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                activeLinkClassName="active"
+              />
+            </div>) : ('')}
+
+        </div>
+        <div className="container py-5">
+          <h3 className="featurred">Closed campaigns </h3>
+          <h6 className="trending">Wall of successful startups</h6>
+          <div className="bar" />
+          <div className="row">
+
+            {filteredDetailsClosed.length > 0 ? (
+              displayedBusinessDetails.map((details: any, index: any) => (
+                <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                  <div className="product-grid container1" onClick={(e) => getClosedBusinessdetails(e, details.business_id)}>
+                    <div className="product-image">
+                      <a href="#" className="image">
+                        {details.logo ? (
+                          <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                        ) : (
+                          <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                        )}
+                      </a>
+                    </div>
+                    <div className="main-padding">
+                      <div className="d-flex justify-content-between">
+                        <div className="product-content">
+                          <h3 className="title">
                             <a href="#">{details.business_name}</a>
                           </h3>
-                          <div className="price"></div>
+                          {/* <div className="price"></div> */}
                         </div>
                         <div className="product-content">
                           <h3 className="title">
@@ -695,16 +732,23 @@ const Dashboard = () => {
                           <li>
                             Minimum Subscription <span>₹{details.minimum_subscription}</span>
                           </li>
-                          <li>
-                            Closes in <span>{details.closed_in ?
-                              `${Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000)} days` : ''}</span>
-                          </li>
+                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                            <li>
+                              <span>Closed</span>
+                            </li>
+                          ) : (
+                            <li> Closed in{' '}
+                              <span>
+                                {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                              </span>
+                            </li>
+                          )}
                           <li className="border-0">
                             <a
                               href="#"
                               className="button-class"
                             >
-                              View Details1
+                              View Details
                             </a>
                           </li>
                         </ul>
@@ -712,33 +756,41 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <p>No Fund Raised</p>
+            )}
+
           </div>
 
-          <div className="my-3">
-            <ReactPaginate
-              previousLabel={'«'}
-              nextLabel={'»'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
-              onPageChange={handlePageChange}
-              forcePage={currentPage}
-              disableInitialCallback={true}
+          {pageCountClose ?
+            (<div className="my-3">
+              <ReactPaginate
+                previousLabel={'«'}
+                nextLabel={'»'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={pageCountClose}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChangeClosed}
+                forcePage={currentPageClosed}
+                disableInitialCallback={true}
 
-              containerClassName={'pagination'}
-              activeClassName={'active'}
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              nextClassName="page-item"
-              previousLinkClassName="page-link"
-              nextLinkClassName="page-link"
-              activeLinkClassName="active"
-            />
-          </div>
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                activeLinkClassName="active"
+              />
+            </div>)
+            :
+            ('')}
+
         </div>
       </section>
     </>
