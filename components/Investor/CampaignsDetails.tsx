@@ -142,10 +142,10 @@ export default function CampaignsDetails() {
   const toggleAccordion = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
- 
+
 
   const handlePlusClick = () => {
-    if (inputs.no_of_units !== undefined && Number(inputs.no_of_units)-1 >= value) {
+    if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
       setValue(value + 1);
       const newSubscriptionValue =
         (value + 1) * (inputs.minimum_subscription || 0);
@@ -200,7 +200,13 @@ export default function CampaignsDetails() {
       setRepayValue(newRepayValue);
     }
   };
-
+  const styleValue = (
+    (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)
+    - (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0))
+  );
+  const dynamicProgressBar = (
+    100 - styleValue
+  );
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -242,7 +248,7 @@ export default function CampaignsDetails() {
               </div>
               <div className="col-md-5">
                 <div className="d-flex justify-content-between">
-                  <div>
+                  <div>{styleValue}
                     <span style={{ color: '#fff' }}>Total Amount</span>
                     <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
                   </div>
@@ -268,7 +274,7 @@ export default function CampaignsDetails() {
                         ? parseInt(inputs.total_units)
                         : undefined
                     }
-                    style={{ width: `${inputs.no_of_units}%` }}
+                    style={{ width: `${dynamicProgressBar}%` }}
                   />
                 </div>
               </div>
@@ -498,7 +504,7 @@ export default function CampaignsDetails() {
                         value={value}
                         name="no_of_units"
                         onChange={handleInputChange}
-                      />                    
+                      />
                       <span className="plus" onClick={handlePlusClick}>+</span>
                     </div>
 
