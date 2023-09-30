@@ -146,7 +146,7 @@ const Dashboard = () => {
   );
   const pageCountCSOP = Math.ceil(filteredDetailsCSOP.length / itemsPerPage);
 
-  const filteredDetailsClosed = OpenfilteredBusinessDetails.filter((details: any) => details.status === "closed");
+  const filteredDetailsClosed = filteredBusinessDetails.filter((details: any) => details.status === "closed");
   const displayedBusinessDetails = filteredDetailsClosed.slice(
     currentPageClosed * itemsPerPage,
     (currentPageClosed + 1) * itemsPerPage
