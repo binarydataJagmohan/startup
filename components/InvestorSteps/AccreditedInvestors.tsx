@@ -296,86 +296,9 @@ export default function AccreditedInvestors() {
 
     return (
         <>
-            {/* <div className="page-title-area item-bg-5">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Complete Account Details</h2>
-                                <ul>
-                                    <li><Link href="/">Home</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className="left-bar">
                 <div className="container">
                     <div id="app">
-                        <ol className="step-indicator">
-                            <li className="">
-                                <div className="step_name">
-                                    Step <span>1</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div
-                                    className="caption hidden-xs hidden-sm"
-                                    style={{ color: "#79AC78" }}
-                                >
-                                    <span>PERSONAL INFORMATION</span>
-                                </div>
-                            </li>
-                            <li className="">
-                                <div className="step_name">
-                                    Step <span>2</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                                    <span>INVESTOR INFORMATION</span>
-                                </div>
-                            </li>
-                            {/* <li className="">
-                                <div className="step_name">
-                                    Step <span>3</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step">
-                                        <img className="sidebar-img w-75" src="/assets/img/sidebar/docs.png" />
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm">
-                                    <span>DOCUMENTS UPLOAD</span>
-                                </div>
-                            </li> */}
-                            {/* <li className="active">
-                                <div className="step_name">
-                                    Step <span>3</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step">                                     
-                                         <Image
-                                            className="sidebar-img w-50"
-                                            src="/assets/img/investor/download2.png"
-                                            alt="term-condition"
-                                            width={30}
-                                            height={38}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm">
-                                    <span>Terms & Conditions</span>
-                                </div>
-                            </li> */}
-                        </ol>
                         <div className="container">
                             <div className="register-form">
                                 <div className="row step_one">

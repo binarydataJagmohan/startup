@@ -1,3 +1,9 @@
+body {
+  font-family: 'Source Sans 3', sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6{ 
+  font-family: 'Source Serif 4', serif !important;
+}
 #invest .send-btn .default-btn {
   display: block;
   width: 100%;
@@ -175,8 +181,8 @@ span.circleimge {
 .register-form {
   box-shadow: 0 1.5px 4px rgb(0 0 0 / 24%), 0 1.5px 6px rgb(0 0 0 / 12%);
   padding: 40px;
-  margin-bottom: 50px;
-  margin-top: 20px;
+  margin-bottom: 70px;
+  margin-top: 60px;
 }
 
 .react-tel-input .form-control {

@@ -114,7 +114,7 @@ export default function HeaderFrontend() {
                     }
                     className="black-logo"
                     alt="image"
-                    width={150}
+                    width={190}
                     height={70}
                   />
                 </Link>

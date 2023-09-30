@@ -113,41 +113,32 @@ export default function AdharInformation(): any {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "success",
       });
-      if (users.approval_status === 'pending') {
-        setTimeout(() => {
-          router.push("/company/thank-you");
-        }, 1000);
-      }
-      if (users.approval_status === 'approved') {
-        setTimeout(() => {
-          router.push("/company/dashboard");
-        }, 1000);
-      }
+      setTimeout(() => {
+        router.push("/steps/documentsupload");
+      }, 1000);
 
-      const data = {
-        notify_from_user: current_user_id,
-        notify_to_user: "1",
-        notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
-        notification_type: "Profile Completed",
-        each_read: "unread",
-        status: "active"
-      };
-      if (res.status == true) {
-        sendNotification(data)
-          .then((notificationRes) => {
-            console.log('success')
-          })
-          .catch((error) => {
-            console.log('error occured')
-          });
-
-
-      } else {
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      }
+      // const data = {
+      //   notify_from_user: current_user_id,
+      //   notify_to_user: "1",
+      //   notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
+      //   notification_type: "Profile Completed",
+      //   each_read: "unread",
+      //   status: "active"
+      // };
+      // if (res.status == true) {
+      //   sendNotification(data)
+      //     .then((notificationRes) => {
+      //       console.log('success')
+      //     })
+      //     .catch((error) => {
+      //       console.log('error occured')
+      //     });
+      // } else {
+      //   toast.error(res.message, {
+      //     position: toast.POSITION.TOP_RIGHT,
+      //     toastId: "error",
+      //   });
+      // }
     } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
@@ -171,90 +162,9 @@ export default function AdharInformation(): any {
 
   return (
     <>
-      {/* <div className="page-title-area item-bg-5">
-        <div className="d-table">
-          <div className="d-table-cell">
-            <div className="container">
-              <div className="page-title-content">
-                <h2>Complete Account Details</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
-            <ol className="step-indicator">
-              <li className="">
-                <div className="step_name">
-                  Step <span>1</span>
-                </div>
-                <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#79AC78"}} aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                  <span>PERSONAL INFORMATION</span>
-                </div>
-              </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>2</span>
-                </div>
-                <div className="step_border">
-                <div className="step_complete">
-                       <i className="flaticon-checked" style={{color:"#79AC78"}} aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                  <span>BUSINESS INFORMATION</span>
-                </div>
-              </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>3</span>
-                </div>
-                <div className="step_border">
-                  <div className="step_complete">
-                    <i className="flaticon-checked" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                  <span>BASIC INFORMATION</span>
-                </div>
-              </li>
-              {/* <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                <i className="flaticon-checked"  aria-hidden="true"></i>
-                </div>
-                <div className="caption hidden-xs hidden-sm" style={{ color: "#79AC78" }}>
-                  <span>DOCUMENTS UPLOAD</span>
-                </div>
-              </li> */}
-              <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">                    
-                    <Image
-                      className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
-                      alt="bank-icon"
-                      width={30}
-                      height={38}
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BANK INFORMATION</span>
-                </div>
-              </li>
-            </ol>
             <div className="container">
               <div className="register-form">
                 <div className="row step_one">

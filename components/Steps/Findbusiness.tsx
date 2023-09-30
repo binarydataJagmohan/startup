@@ -171,111 +171,9 @@ export default function Findbusiness(): any {
 
   return (
     <>
-      {/* <div className="page-title-area item-bg-5">
-        <div className="d-table">
-          <div className="d-table-cell">
-            <div className="container">
-              <div className="page-title-content">
-                <h2>Complete Account Details</h2>
-          
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div className="left-bar">
         <div className="container">
           <div id="app">
-            <ol className="step-indicator">
-              <li className="active">
-                <div className="step_name">
-                  Step <span>1</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">
-                    <Image
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/user.png"
-                      alt="user-icon"
-                      width={45}
-                      height={45}
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>PERSONAL INFORMATION</span>
-                </div>
-              </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>2</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">
-                    <Image
-                      className="sidebar-img w-75"
-                      src="/assets/img/sidebar/business.png"
-                      alt="bussiness-icon"
-                      width={45}
-                      height={45}
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BUSINESS INFORMATION</span>
-                </div>
-              </li>
-              <li className="">
-                <div className="step_name">
-                  Step <span>3</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">                   
-                    <Image
-                     className="sidebar-img w-75"
-                     src="/assets/img/sidebar/docs.png"
-                      alt="doc-icon"
-                      width={45}
-                      height={45}
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BASIC INFORMATION</span>
-                </div>
-              </li>
-              {/* <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">
-                    <img className="sidebar-img w-75" src="/assets/img/sidebar/bank.png" />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>DOCUMENTS UPLOAD</span>
-                </div>
-              </li> */}
-              <li className="">
-                <div className="step_name">
-                  Step <span>4</span>
-                </div>
-                <div className="step_border">
-                  <div className="step">                   
-                    <Image
-                     className="sidebar-img w-75" src="/assets/img/sidebar/bank.png"
-                      alt="bank-icon"
-                      width={45}
-                      height={45}
-                    />
-                  </div>
-                </div>
-                <div className="caption hidden-xs hidden-sm">
-                  <span>BANK INFORMATION</span>
-                </div>
-              </li>
-            </ol>
             <div className="container">
               <div className="register-form">
                 <div className="row step_one">
@@ -333,10 +231,10 @@ export default function Findbusiness(): any {
                                 className="form-control same-input pl-5"
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
-                                  pattern: {
-                                    value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
-                                    message: "Please enter a valid LinkedIn URL"
-                                  }  
+                                  // pattern: {
+                                  //   value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
+                                  //   message: "Please enter a valid LinkedIn URL"
+                                  // }  
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
