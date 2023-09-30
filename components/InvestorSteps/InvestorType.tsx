@@ -24,16 +24,25 @@ interface CurrentUserData {
 export default function InvestorType(): any {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState("");
-    const [investorType, setInvestorType] = useState(''); // Initialize with appropriate values
+    const [investorType, setInvestorType] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    const [principal_residence, setPrincipalResidence] = useState(false); // Initialize with appropriate values
-    const [experience, setExperience] = useState(false); // Initialize with appropriate values
-    const [net_worth, setNetWorth] = useState(false); // Initialize with appropriate values
-    const [prev_investment_exp, setPrevInvestmentExp] = useState(false); // Initialize with appropriate values
-    const [no_requirements, setNoRequirements] = useState(false); // Initialize with appropriate values
-    const [cofounder, setCofounder] = useState(false); // Initialize with appropriate values
+    const [principal_residence, setPrincipalResidence] = useState(false);
+    const [experience, setExperience] = useState(false);
+    const [net_worth, setNetWorth] = useState(false);
+    const [prev_investment_exp, setPrevInvestmentExp] = useState(false);
+    const [no_requirements, setNoRequirements] = useState(false);
+    const [cofounder, setCofounder] = useState(false);
+
+    const [annual_income, setAnnualIncome] = useState(false);
+    const [financial_net_worth, setFinancialNetWorth] = useState(false);
+    const [financial_annual_net_worth, setFinancialAnnualNetWorth] = useState(false);
+    const [foreign_annual_income, setForeignAnnualIncome] = useState(false);
+    const [foreign_net_worth, setForeignNetWorth] = useState(false);
+    const [foreign_annual_net_worth, setForeignAnnualNetWorth] = useState(false);
+    const [corporate_net_worth, setCorporateNetWorth] = useState(false);
 
     const [termscondition, setTermsCondition] = useState(false);
+    const [accreditedcondition, setAccreditedcondition] = useState(false);
     const trueTermsCondition = () => {
         setSelectedOption('');
         setPrincipalResidence(false);
@@ -43,6 +52,9 @@ export default function InvestorType(): any {
         setNoRequirements(false);
         setCofounder(false);
         setTermsCondition(true);
+    }
+    const trueaccreditedcondition = () => {
+        setAccreditedcondition(true);
     }
     const [investorDetails, seInvestorDetails] = useState({
         investorType: ""
@@ -63,13 +75,17 @@ export default function InvestorType(): any {
         const { name, value, type, checked } = event.target;
         const selectedValue = event.target.value;
         setInvestorType(selectedValue);
-        if (selectedValue === 'Angel Investor' || selectedValue === 'Accredited Investors') {
+        if (selectedValue === 'Angel Investor') {
             trueTermsCondition();
+            setAccreditedcondition(false);
+        } else if (selectedValue === 'Accredited Investors') {
+            setTermsCondition(false);
+            trueaccreditedcondition();
         } else {
             setTermsCondition(false);
+            setAccreditedcondition(false);
         }
         if (type === 'radio' && name === 'investorType') {
-            // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
             const typeValue = checked ? 'Accredited Investors' : 'Angel Investor';
             seInvestorDetails((prevState) => {
                 return {
@@ -86,80 +102,6 @@ export default function InvestorType(): any {
                 user_id: current_user_id,
             };
         });
-    };
-
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = event.target;
-        if (type === 'checkbox' && name === 'principal_residence') {
-            // Set the value of principal_residence to '1' if the checkbox is checked, '0' otherwise
-            const principal_residenceValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    principal_residence: principal_residenceValue,
-                    user_id: current_user_id,
-                };
-            });
-        } else if (type === 'checkbox' && name === 'cofounder') {
-            // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
-            const cofounderValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    cofounder: cofounderValue,
-                    user_id: current_user_id,
-                };
-            });
-        } else if (type === 'checkbox' && name === 'prev_investment_exp') {
-            // Set the value of prev_investment_exp to '1' if the checkbox is checked, '0' otherwise
-            const prev_investment_expValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    prev_investment_exp: prev_investment_expValue,
-                    user_id: current_user_id,
-                };
-            });
-        } else if (type === 'checkbox' && name === 'experience') {
-            // Set the value of experience to '1' if the checkbox is checked, '0' otherwise
-            const experienceValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    experience: experienceValue,
-                    user_id: current_user_id,
-                };
-            });
-        } else if (type === 'checkbox' && name === 'net_worth') {
-            // Set the value of net_worth to '1' if the checkbox is checked, '0' otherwise
-            const net_worthValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    net_worth: net_worthValue,
-                    user_id: current_user_id,
-                };
-            });
-        } else if (type === 'checkbox' && name === 'no_requirements') {
-            // Set the value of no_requirements to '1' if the checkbox is checked, '0' otherwise
-            const no_requirementsValue = checked ? '1' : '0';
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    no_requirements: no_requirementsValue,
-                    user_id: current_user_id,
-                };
-            });
-        }
-        else {
-            setTerms((prevState) => {
-                return {
-                    ...prevState,
-                    [name]: value,
-                    user_id: current_user_id,
-                };
-            });
-        }
     };
 
     useEffect(() => {
@@ -218,11 +160,11 @@ export default function InvestorType(): any {
         e.preventDefault();
         const errors: any = {};
         if (!investorType) {
-            errors.investorType = "*Please select investor type";
+            errors.investorType = "*Please select investor type.";
         }
         if (selectedOption === '1') {
             if (!principal_residence) {
-                errors.principal_residence = "*Principal residence option is required";
+                errors.principal_residence = "*Principal residence option is required.";
             }
             // if (!experience) {
             //     errors.experience = "*One more option is required.";
@@ -235,8 +177,19 @@ export default function InvestorType(): any {
             if (!no_requirements) {
                 errors.no_requirements = "*No requirements option is required.";
             }
+        } else if (selectedOption === '4') {
+            if (!annual_income) {
+                errors.annual_income = "*Annual income option is required.";
+            }
+        } else if (selectedOption === '5') {
+            if (!foreign_annual_income) {
+                errors.foreign_annual_income = "*Annual income option is required.";
+            }
+        } else if (selectedOption === '6') {
+            if (!corporate_net_worth) {
+                errors.corporate_net_worth = " *Net worth option is required.";
+            }
         }
-
         setErrors(errors);
         if (Object.keys(errors).length === 0) {
             const data = {
@@ -250,6 +203,13 @@ export default function InvestorType(): any {
                 no_requirements: no_requirements,
                 cofounder: cofounder,
                 category: selectedOption,
+                annual_income: annual_income,
+                financial_net_worth: financial_net_worth,
+                financial_annual_net_worth: financial_annual_net_worth,
+                foreign_annual_income: foreign_annual_income,
+                foreign_net_worth: foreign_net_worth,
+                foreign_annual_net_worth: foreign_annual_net_worth,
+                corporate_net_worth: corporate_net_worth,
             };
             investorTypeInfoSave(data)
                 .then(res => {
@@ -419,7 +379,7 @@ export default function InvestorType(): any {
                                                                                     </label>
                                                                                     {errors.principal_residence && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
-                                                                                            *Principal residence option is required.
+                                                                                            {errors.principal_residence}
                                                                                         </span>
                                                                                     )}
                                                                                 </div>
@@ -481,7 +441,7 @@ export default function InvestorType(): any {
                                                                                     <label htmlFor="checkbox8">Net worth of at least INR 10 Crore.<span className="requiredclass">*</span></label><br></br>
                                                                                     {errors.net_worth && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
-                                                                                            *No Requirement option is required.
+                                                                                            {errors.net_worth}
                                                                                         </span>
                                                                                     )}
                                                                                 </div>
@@ -500,7 +460,7 @@ export default function InvestorType(): any {
                                                                                     <label htmlFor="checkbox9">No Requirement.<span className="requiredclass">*</span></label><br></br>
                                                                                     {errors.no_requirements && (
                                                                                         <span className="small error text-danger mb-2 d-inline-block error_login">
-                                                                                            *No Requirement option is required.
+                                                                                            {errors.no_requirements}
                                                                                         </span>
                                                                                     )}
                                                                                 </div>
@@ -511,6 +471,132 @@ export default function InvestorType(): any {
                                                             </div>
                                                         </div>
                                                     }
+
+                                                    {accreditedcondition &&
+                                                        <div className="container" id="option_select">
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <select className="options"
+                                                                        name="category" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
+                                                                        <option value="">--SELECT CATEGORY--</option>
+                                                                        <option value="4">Indian Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
+                                                                        <option value="5">Foreign Individuals/Family Trusts/Sole Proprietorships</option>
+                                                                        <option value="6">Body Corporates</option>
+                                                                    </select>
+                                                                    <div id="checkbox-group-4" className={selectedOption === '4' ? 'visible' : 'hidden'}>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox10" value="4"
+                                                                                        name="annual_income"
+                                                                                        checked={annual_income}
+                                                                                        onChange={() => setAnnualIncome(!annual_income)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox10">
+                                                                                        Have an annual income of at least ₹2 crore in the preceding financial year.
+                                                                                    </label><br></br>
+                                                                                    {errors.annual_income && (
+                                                                                        <span className="small error text-danger mb-2 d-inline-block error_login">
+                                                                                            {errors.annual_income}
+                                                                                        </span>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox11" value="5"
+                                                                                        name="financial_net_worth" checked={financial_net_worth}
+                                                                                        onChange={() => setFinancialNetWorth(!financial_net_worth)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox11">Have a net worth of at least ₹7.5 crore with more than ₹3.75 crore of financial assets.</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox12" value="6"
+                                                                                        name="financial_annual_net_worth" checked={financial_annual_net_worth}
+                                                                                        onChange={() => setFinancialAnnualNetWorth(!financial_annual_net_worth)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox12">Have an annual income of at least ₹1 crore and a net worth of at least ₹ 5 crore with more
+                                                                                        than ₹ 2.5 crore of financial assets.</label>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="checkbox-group-5" className={selectedOption === '5' ? 'visible' : 'hidden'}>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox13" value="7"
+                                                                                        name="foreign_annual_income" checked={foreign_annual_income}
+                                                                                        onChange={() => setForeignAnnualIncome(!foreign_annual_income)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox13">Have an annual income of at least $300,000.</label><br></br>
+                                                                                    {errors.foreign_annual_income && (
+                                                                                        <span className="small error text-danger mb-2 d-inline-block error_login">
+                                                                                            {errors.foreign_annual_income}
+                                                                                        </span>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox14" value="8" name="foreign_net_worth" checked={foreign_net_worth}
+                                                                                        onChange={() => setForeignNetWorth(!foreign_net_worth)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox14">Have a net worth of at least $1 million with more than $500,000 of financial assets.</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox15" value="9"
+                                                                                        name="foreign_annual_net_worth" checked={foreign_annual_net_worth}
+                                                                                        onChange={() => setForeignAnnualNetWorth(!foreign_annual_net_worth)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox15">Have an annual income of at least $150,000 and a net worth of at least $750,000 with more
+                                                                                        than $350,000 of financial assets.</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="checkbox-group-6" className={selectedOption === '6' ? 'visible' : 'hidden'}>
+                                                                        <div className="same-card">
+                                                                            <div className="row">
+                                                                                <div className="col-auto">
+                                                                                    <input type="checkbox" id="checkbox16" value="10" checked={corporate_net_worth}
+                                                                                        onChange={() => setCorporateNetWorth(!corporate_net_worth)} />
+                                                                                </div>
+                                                                                <div className="col">
+                                                                                    <label htmlFor="checkbox16">Net worth greater than or equal to INR 50 crore or, $7.5 million.</label><br></br>
+                                                                                    {errors.corporate_net_worth && (
+                                                                                        <span className="small error text-danger mb-2 d-inline-block error_login">
+                                                                                            {errors.corporate_net_worth}
+                                                                                        </span>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
                                                     <div className="row mt-3">
                                                         <div
                                                             className="col-md-6 col-6"

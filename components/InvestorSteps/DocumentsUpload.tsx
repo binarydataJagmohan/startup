@@ -106,6 +106,7 @@ export default function DocumentsUpload(): any {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
                         });
+                        if(users.investorType !== 'Regular Investor'){
                         if (users.approval_status === 'pending') {
                             setTimeout(() => {
                                 router.push("/investor/thank-you");
@@ -116,6 +117,11 @@ export default function DocumentsUpload(): any {
                                 router.push("/investor/campaign");
                             }, 1000);
                         }
+                    }else{
+                        setTimeout(() => {
+                            router.push("/investor/campaign");
+                        }, 1000);
+                    }
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,

@@ -22,9 +22,13 @@ const Thankyou = () => {
           if (res.status === true) {
             setInvestorStatus(res.data.approval_status);
             setRole(res.data.role);
-            // console.log(res.data.approval_status);           
+            console.log(res.data);           
             if (res.data.role === "investor") {
-              if (res.data.approval_status === "approved" &&(res.data.approval_status !=="pending" && res.data.approval_status !=="reject")) {
+              if (res.data.investorType === "Regular Investor") {
+                if (window.location.pathname !== "/investor/campaign") {
+                  window.location.href = "/investor/campaign";
+                }
+              } else if (res.data.approval_status === "approved" && res.data.approval_status !== "pending" && res.data.approval_status !== "reject") {
                 if (window.location.pathname !== "/investor/campaign") {
                   window.location.href = "/investor/campaign";
                 }
@@ -32,17 +36,13 @@ const Thankyou = () => {
                 if (window.location.pathname !== "/investor/thank-you") {
                   setTimeout(() => {
                     window.location.reload();
-                    // window.location.href = "/investor/thank-you";
                   }, 10000);
                 }
               } else {
-                
-                  setTimeout(() => {
-                    window.location.href = "/investor/thank-you";
-                  }, 10000);
-               
+                window.location.href = "/investor/thank-you";
               }
-            } 
+            }
+             
              if (res.data.role === "startup") {
               if (res.data.approval_status === "approved" &&(res.data.approval_status !=="pending" && res.data.approval_status !=="reject")) {
                 if (window.location.pathname !== "/company/dashboard") {
