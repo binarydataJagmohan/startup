@@ -47,20 +47,24 @@ const Dashboard = () => {
         const res = await CheckUserApprovalStatus(current_user_data.id);
 
         if (res.status === true) {
-
           if (res.data.role === "investor") {
-            if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
+            if (res.data.investorType === "Regular Investor") {
+              if (window.location.pathname !== '/investor/campaign') {
+                window.location.href = "/investor/campaign";
+              }
+            } else if (res.data.approval_status === "pending" || res.data.approval_status === "reject") {
               window.location.href = "/investor/thank-you";
             } else if (res.data.approval_status === "approved") {
               if (window.location.pathname !== '/investor/campaign') {
                 window.location.href = "/investor/campaign";
               }
             } else {
+              // Handle other cases
               if (window.location.pathname !== '/investor/thank-you') {
                 window.location.href = "/investor/thank-you";
               }
             }
-          }
+          }          
         }
       } catch (err) {
       }

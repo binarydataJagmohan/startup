@@ -191,7 +191,7 @@ export default function HeaderFrontend() {
                         ) : (
                           ""
                         )}
-                        {users.role === 'investor' && users.approval_status === 'approved' ? (
+                        {users.role === 'investor' && users.approval_status === 'approved' || users.investorType === 'Regular Investor' ? (
                           <a href="/investor/campaign" className="colortwo">
                             Dashboard
                           </a>
