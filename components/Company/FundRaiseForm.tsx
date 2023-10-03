@@ -87,12 +87,13 @@ const FundRaiseForm = () => {
   const [invoiceError, setInvoiceError] = useState('');
   const [pdc, setPdc] = useState(null);
   const [pdcError, setPdcError] = useState('');
-
+  const [agreementName, setAgreementName] = useState('');
+  const [invoiceName, setInvoiceName] = useState('');
+  const [pdcName, setPdcName] = useState('');
   // handleInvoiceFileChange for agreement pdf
   const handleAgreementFileChange = (event: any) => {
     const file = event.target.files[0];
     const allowedExtensions = ["pdf"];
-
     if (file) {
       const fileNameParts = file.name.split(".");
       const fileExtension =
@@ -103,10 +104,9 @@ const FundRaiseForm = () => {
           prevFields.filter((field) => field !== "pdfvalidate")
         );
         setAgreement(file);
-        // File is a PDF, do further processing
+        setAgreementName(file.name);
       } else {
         setInvalidFields((prevFields) => [...prevFields, "pdfvalidate"]);
-        // File is not a PDF, show error message or handle accordingly
       }
     }
   };
@@ -125,10 +125,9 @@ const FundRaiseForm = () => {
           prevFields.filter((field) => field !== "invoicevalidate")
         );
         setInvoice(file);
-        // File is a PDF, do further processing
+        setInvoiceName(file.name);
       } else {
         setInvalidFields((prevFields) => [...prevFields, "invoicevalidate"]);
-        // File is not a PDF, show error message or handle accordingly
       }
     }
   };
@@ -147,10 +146,9 @@ const FundRaiseForm = () => {
           prevFields.filter((field) => field !== "pdcvalidate")
         );
         setPdc(file);
-        // File is a PDF, do further processing
+        setPdcName(file.name);
       } else {
-        setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);
-        // File is not a PDF, show error message or handle accordingly
+        setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);       
       }
     }
   };
@@ -687,9 +685,7 @@ const FundRaiseForm = () => {
                             }
                             readOnly
                             onChange={handleChange}
-                          />
-                          {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
-                             })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
+                          />                          
                           {errors.closed_in && (
                             <p
                               className="text-danger"
@@ -745,8 +741,10 @@ const FundRaiseForm = () => {
                                   type="file"
                                   name="chooseFile"
                                   id="chooseFile"
+                                  accept=".pdf"
                                   onChange={handleAgreementFileChange}
                                 />
+
                               </div>
                             </div>
                             <label
@@ -767,6 +765,7 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
+                          {agreementName && <p className="text-dark">Selected file : {agreementName}</p>}
                           {invalidFields.includes("pdfvalidate") && (
                             <p
                               className="text-danger"
@@ -774,8 +773,7 @@ const FundRaiseForm = () => {
                             >
                               *Please choose a PDF file..
                             </p>
-                          )}
-                          {agreementError && <p className="text-danger">{agreementError}</p>}
+                          )}                         
                         </div>
                         <div className="col-md-6  mt-5">
                           <div
@@ -798,6 +796,7 @@ const FundRaiseForm = () => {
                                   type="file"
                                   name="chooseFile"
                                   id="chooseFile"
+                                  accept=".pdf"
                                   onChange={handleInvoiceFileChange}
                                 />
                               </div>
@@ -820,6 +819,7 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
+                          {invoiceName && <p className="text-dark">Selected file : {invoiceName}</p>}
                           {invalidFields.includes("invoicevalidate") && (
                             <p
                               className="text-danger"
@@ -854,6 +854,7 @@ const FundRaiseForm = () => {
                                   type="file"
                                   name="chooseFile"
                                   id="chooseFile"
+                                  accept=".pdf"
                                   onChange={handlePDCFileChange}
                                 />
                               </div>
@@ -876,6 +877,7 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
+                          {pdcName && <p className="text-dark">Selected file : {pdcName}</p>}
                           {invalidFields.includes("pdcvalidate") && (
                             <p
                               className="text-danger"
