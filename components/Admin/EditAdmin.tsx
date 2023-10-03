@@ -78,9 +78,15 @@ const EditAdmin = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(users.linkedin_url)) {
+        } else if (
+            /^(https?:\/\/)?(www\.)?linkedin\.com\/(in|pub|company)\/[\w-]+\/?$/i
+                .test(
+                    users.linkedin_url
+                )
+        ) {
             setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
+
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
         if (!users.gender) setMissingFields(prevFields => [...prevFields, "Gender"]);
@@ -309,11 +315,6 @@ const EditAdmin = () => {
                                                         value={users.phone}
                                                         onChange={(value) => setUsers((prevState) => ({ ...prevState, phone: value }))}
                                                     />
-                                                    {/* {missingFields.includes("Phone") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Phone field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -322,11 +323,6 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" className="form-control" id="linkedin_url" onChange={handleChange} value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
-                                                    {/* {missingFields.includes("linkedin_url") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the linkedin_url field.
-                                                        </p>
-                                                    )} */}
                                                     {invalidFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please enter a valid linkedin_url address.
@@ -342,11 +338,6 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
-                                                    {/* {missingFields.includes("City") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the City field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -364,17 +355,11 @@ const EditAdmin = () => {
                                                             <option
                                                                 key={index}
                                                                 value={country.name}
-                                                            // selected={users.country === country.name}
                                                             >
                                                                 {country.name}
                                                             </option>
                                                         ))}
                                                     </select>
-                                                    {/* {missingFields.includes("Country") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Country field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
                                             </div>
 
@@ -400,11 +385,6 @@ const EditAdmin = () => {
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
 
                                                     </select>
-                                                    {/* {missingFields.includes("Gender") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Gender field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
 
@@ -452,7 +432,7 @@ const EditAdmin = () => {
                                                             id="labelFU"
                                                             tabIndex={0}
                                                         >
-                                                            Drop your pitch deck here to{" "}                                                            
+                                                            Drop your pitch deck here to{" "}
                                                             <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                                         </label>
                                                         {startUpLogoSizeError ? (

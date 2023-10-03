@@ -283,7 +283,9 @@ const Profile = () => {
         });
 
     };
-    const submitPersonalInfoForm = async () => {
+
+    const submitPersonalInfoForm = async (e: any) => {
+        e.preventDefault();
         try {
             const formData = new FormData();
             if (profile_pic !== null) {
@@ -310,7 +312,8 @@ const Profile = () => {
                     toastId: "error",
                 });
             }
-        } catch (err) {
+        }
+        catch (err) {
             toast.error("Please fill correct information", {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
@@ -319,7 +322,8 @@ const Profile = () => {
     };
 
     // Update Business Information...
-    const submitBusinessInfoForm = async () => {
+    const submitBusinessInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const formData = new FormData();
             if (logo !== null) {
@@ -358,7 +362,8 @@ const Profile = () => {
         }
     };
 
-    const submitBasicInfoForm = async () => {
+    const submitBasicInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const formData = new FormData();
             if (proof_img !== null) {
@@ -373,10 +378,7 @@ const Profile = () => {
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
-                });
-                // setTimeout(() => {
-                //   router.push("/steps/adharinformation");
-                // }, 1000);
+                });               
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -392,7 +394,8 @@ const Profile = () => {
     };
 
     //Update for Adhar Information 
-    const submitBankInfoForm = async () => {
+    const submitBankInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const res = await bankInformationSave(bankDetails);
             if (res.status == true) {
@@ -459,7 +462,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Personal Information</h3>
-                                                    <form onSubmit={handleSubmit(submitPersonalInfoForm)}>
+                                                    <form onSubmit={submitPersonalInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
@@ -591,11 +594,11 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Business Information</h3>
-                                                    <form onSubmit={handleSubmit(submitBusinessInfoForm)}>
+                                                    <form onSubmit={submitBusinessInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
-                                                                    <input type="text" className="form-control form-css" placeholder="Business Name" {...register("business_name", { onChange: handleChangeBusinessInfo, value: true, required: true, })} onChange={handleChangeBusinessInfo} name="business_name" value={businessDetails.business_name} />
+                                                                    <input type="text" className="form-control form-css" placeholder="Business Name" {...register("business_name", { value: true, required: true, })} onChange={handleChangeBusinessInfo} name="business_name" value={businessDetails.business_name} />
                                                                     {errors.business_name &&
                                                                         errors.business_name.type === "required" && (
                                                                             <p
@@ -868,7 +871,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Proof Documents</h3>
-                                                    <form onSubmit={handleSubmit(submitBasicInfoForm)}>
+                                                    <form onSubmit={submitBasicInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
@@ -953,7 +956,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Bank Information</h3>
-                                                    <form onSubmit={handleSubmit(submitBankInfoForm)}>
+                                                    <form onSubmit={submitBankInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">

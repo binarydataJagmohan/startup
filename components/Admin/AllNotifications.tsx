@@ -148,7 +148,7 @@ const AllNotifications = () => {
                                                             <div className="card-inquiries mt-2">
                                                                 <div className="row">
                                                                     <div className="col-lg-10 col-md-9 col-8">
-                                                                        <p className="name-client">{notification.name}</p>
+                                                                        <p className="name-client text-capitalize">{notification.name}</p>
                                                                         <p className="client-info">
                                                                             {notification.notify_msg}
                                                                         </p>

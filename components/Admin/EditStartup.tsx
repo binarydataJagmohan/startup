@@ -213,7 +213,7 @@ const EditList = () => {
     const data = {
       notify_from_user: current_user_data.id,
       notify_to_user: id,
-      notify_msg: `User has been Updated his profile Successfully by Admin.`,
+      notify_msg: `Your profile has been successfully updated.`,
       notification_type: "Upadte Notification",
       each_read: "unread",
       status: "active"

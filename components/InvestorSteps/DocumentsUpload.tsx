@@ -255,7 +255,7 @@ export default function DocumentsUpload(): any {
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label"
                                                             >
-                                                                Pan Card font view{" "}
+                                                                Pan Card front view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
                                                             <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
