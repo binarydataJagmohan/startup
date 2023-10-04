@@ -133,7 +133,6 @@ const FundRaiseForm = () => {
   };
   // handlePDCFileChange for invoice pdf
   const handlePDCFileChange = (event: any) => {
-    // setPdc(event.target.files[0]);
     const file = event.target.files[0];
     const allowedExtensions = ["pdf"];
     if (file) {
@@ -148,7 +147,7 @@ const FundRaiseForm = () => {
         setPdc(file);
         setPdcName(file.name);
       } else {
-        setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);       
+        setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);
       }
     }
   };
@@ -207,7 +206,6 @@ const FundRaiseForm = () => {
 
       getSingleBusinessInformation(current_user_data.id)
         .then((res) => {
-          console.log(res);
           if (res.status == true) {
             setBusinessInfo(res.data.id);
           } else {
@@ -231,9 +229,7 @@ const FundRaiseForm = () => {
     getSingleFundRaiseData(id)
       .then((res) => {
         if (res.status == true) {
-          // console.log(res.data);
           setFundRaiseData(res.data);
-          // console.log(setUser);
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
@@ -247,9 +243,9 @@ const FundRaiseForm = () => {
       });
   }, []);
 
-  const SubmitForm = async () => {
+  const SubmitForm = async (event: any) => {
+    event.preventDefault();
     try {
-      // console.log(fundRaiseData);
       if (invalidFields.length > 0) {
         // Show error message or handle accordingly   
 
@@ -273,26 +269,20 @@ const FundRaiseForm = () => {
         }
         if (invoice === null) {
           setInvoiceError('* Please select your legal invoice.');
-          // return;
         } else {
           formData.append("invoice", invoice);
         }
         if (pdc === null) {
           setPdcError('* Please select your pdc.');
-          // return;
         } else {
+          formData.append("pdc", pdc);
           const urlParams = new URLSearchParams(window.location.search);
           const id = urlParams.get("id");
-          if (id) {
-            formData.append("id", id);
-          }
+          if (id) { formData.append("id", id); }
           formData.append("user_id", fundRaiseData.user_id);
           formData.append("business_id", fundRaiseData.business_id);
           formData.append("total_units", fundRaiseData.total_units);
-          formData.append(
-            "minimum_subscription",
-            fundRaiseData.minimum_subscription
-          );
+          formData.append("minimum_subscription", fundRaiseData.minimum_subscription);
           formData.append("avg_amt_per_person", fundRaiseData.minimum_subscription);
           formData.append("tenure", fundRaiseData.tenure);
           formData.append("repay_date", fundRaiseData.repay_date);
@@ -306,18 +296,14 @@ const FundRaiseForm = () => {
           if (res.status === true) {
             sendNotification(data)
               .then((notificationRes) => {
-                console.log("success");
               })
               .catch((error) => {
-                console.log("error occured");
               });
 
             FundRaisedSendNotification(data)
               .then((notificationRes) => {
-                console.log("success");
               })
               .catch((error) => {
-                console.log("error occured");
               });
 
             toast.success(res.msg, {
@@ -378,7 +364,7 @@ const FundRaiseForm = () => {
                   <div className="card-body">
                     <form
                       className="needs-validation mb-4"
-                      onSubmit={handleSubmit(SubmitForm)}
+                      onSubmit={SubmitForm}
                     >
                       <div className="row g-3 mt-1">
                         <div className="col-md-6">
@@ -685,7 +671,7 @@ const FundRaiseForm = () => {
                             }
                             readOnly
                             onChange={handleChange}
-                          />                          
+                          />
                           {errors.closed_in && (
                             <p
                               className="text-danger"
@@ -734,7 +720,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  No File Chosen ...
+                                  {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef}
@@ -765,7 +751,6 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
-                          {agreementName && <p className="text-dark">Selected file : {agreementName}</p>}
                           {invalidFields.includes("pdfvalidate") && (
                             <p
                               className="text-danger"
@@ -773,7 +758,7 @@ const FundRaiseForm = () => {
                             >
                               *Please choose a PDF file..
                             </p>
-                          )}                         
+                          )}
                         </div>
                         <div className="col-md-6  mt-5">
                           <div
@@ -789,7 +774,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  No File Chosen ...
+                                  {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef1}
@@ -819,7 +804,6 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
-                          {invoiceName && <p className="text-dark">Selected file : {invoiceName}</p>}
                           {invalidFields.includes("invoicevalidate") && (
                             <p
                               className="text-danger"
@@ -847,7 +831,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  No File Chosen ...
+                                  {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef2}
@@ -877,7 +861,6 @@ const FundRaiseForm = () => {
                               </p>
                             </label>
                           </div>
-                          {pdcName && <p className="text-dark">Selected file : {pdcName}</p>}
                           {invalidFields.includes("pdcvalidate") && (
                             <p
                               className="text-danger"

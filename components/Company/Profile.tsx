@@ -378,7 +378,7 @@ const Profile = () => {
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
-                });               
+                });
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -568,7 +568,7 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} />
+                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} accept='.jpg, .jpeg, .png' />
                                                             </div>
                                                         </div>
                                                         <div className="row mt-3">
@@ -785,7 +785,7 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" {...register("logo", { value: true, required: !businessDetails.logo, onChange: handleFileChangeLogo })} name="logo" onChange={handleFileChangeLogo} />
+                                                                <input type="file" className="mt-4 pt-4" {...register("logo", { value: true, required: !businessDetails.logo, onChange: handleFileChangeLogo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png' />
                                                                 {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
                                                                     <p
                                                                         className="text-danger"

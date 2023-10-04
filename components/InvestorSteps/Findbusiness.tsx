@@ -240,10 +240,10 @@ export default function Findbusiness(): any {
                                 className="form-control same-input"
                                 {...register("linkedin_url", {
                                   required: !user.linkedin_url, onChange: handleChange,
-                                  // pattern: {
-                                  //   value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
-                                  //   message: "Please enter a valid LinkedIn URL"
-                                  // }                                              
+                                  pattern: {
+                                    value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
+                                    message: "Please enter a valid LinkedIn URL"
+                                  }                                              
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
