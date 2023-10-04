@@ -79,10 +79,8 @@ const EditAdmin = () => {
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
         } else if (
-            /^(https?:\/\/)?(www\.)?linkedin\.com\/(in|pub|company)\/[\w-]+\/?$/i
-                .test(
-                    users.linkedin_url
-                )
+            /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[\w-]+|pub\/[\w-]+|company\/[\w-]+|groups\/[\w-]+)\/?$/i
+                .test(users.linkedin_url)
         ) {
             setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
@@ -129,6 +127,7 @@ const EditAdmin = () => {
             );
 
             toast.success('Admin updated successfully');
+            window.location.reload();
         } catch (error) {
 
             // toast.error('Please Try Again!');
@@ -392,55 +391,65 @@ const EditAdmin = () => {
 
 
                                                 <div className="col-md-6">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container"
-                                                    >
-                                                        <label
-                                                            htmlFor="logo"
-                                                            className="form-label"
-                                                        >
-                                                            Profile Image
-                                                            <span style={{ color: "red" }}>*</span>
-                                                        </label>
-                                                        <div className="profile-pic">
-                                                            {previewImage ? (
-                                                                <Image src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                    width={300}
-                                                                    height={200}
-                                                                    alt=''
-                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }} />
-                                                            ) : (
-                                                                <Image
-                                                                    src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
-                                                                    alt="Document Image"
-                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                    width={9020}
-                                                                    height={9020}
+                                                    <div id="divHabilitSelectors" className="input-file-container">
+                                                        <div className="row">
+                                                            <div className="col-md-4">
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container"
+                                                                >
+                                                                    <label
+                                                                        htmlFor="logo"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Profile Image
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <div className="profile-pic">
+                                                                        {previewImage ? (
+                                                                            <Image src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                                width={300}
+                                                                                height={200}
+                                                                                alt=''
+                                                                                className='profile-pic'
+                                                                                style={{ margin: '5% 0%', objectFit: 'cover' }} />
+                                                                        ) : (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
+                                                                                alt="Document Image"
+                                                                                className='profile-pic'
+                                                                                style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                                width={9020}
+                                                                                height={9020}
+                                                                            />
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-8 mt-4">
+                                                                <input
+                                                                    className="input-file"
+                                                                    id="logo"
+                                                                    accept='.jpg, .jpeg, .png'
+                                                                    type="file" name="profile_pic" onChange={handleChange}
+
                                                                 />
-                                                            )}
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger"
+                                                                    id="labelFU"
+                                                                    tabIndex={0}
+                                                                >
+                                                                    Drop your pitch deck here to{" "}
+                                                                    <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
+                                                                </label>
+                                                                {startUpLogoSizeError ? (
+                                                                    <p className='text-danger'>{startUpLogoSizeError}</p>
+                                                                ) : (
+                                                                    startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                        <input
-                                                            className="input-file"
-                                                            id="logo"
-                                                            type="file" name="profile_pic" onChange={handleChange}
-
-                                                        />
-                                                        <label
-                                                            htmlFor="fileupload"
-                                                            className="input-file-trigger"
-                                                            id="labelFU"
-                                                            tabIndex={0}
-                                                        >
-                                                            Drop your pitch deck here to{" "}
-                                                            <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
-                                                        </label>
-                                                        {startUpLogoSizeError ? (
-                                                            <p className='text-danger'>{startUpLogoSizeError}</p>
-                                                        ) : (
-                                                            startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
-                                                        )}
-
                                                     </div>
 
 

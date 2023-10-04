@@ -19,6 +19,7 @@ interface UserData {
     const [bookingdata, setBookingData] = useState<any>({});
     const [businessdata, setBusinessData] = useState<any>({});
     const [showModal, setShowModal] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [paymentdata, setPaymentData] = useState<any>({
         user_id:current_user_id,
         repayment:bookingdata.repayment_value,
@@ -78,9 +79,10 @@ interface UserData {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements|| isSubmitting) {
       return false;
     }
+    setIsSubmitting(true);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement)!,
@@ -88,11 +90,13 @@ interface UserData {
 
     if (error) {
       console.log('[error]', error);
+      setIsSubmitting(false);
     } else {
       console.log('[PaymentMethod]', paymentMethod);
       try {
         savepayment([paymentMethod,bookingdata,businessdata])
           .then((res) => {
+            setIsSubmitting(false);
             if (res.status == true) {
                 Swal.fire({
                   icon: 'success',
@@ -125,6 +129,7 @@ interface UserData {
           })
       } catch (error) {
         console.error(error);
+        setIsSubmitting(false);
       }
     }
   };

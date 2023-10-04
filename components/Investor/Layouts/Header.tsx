@@ -195,7 +195,7 @@ const Header = () => {
                       {userName} <i className="fa-solid fa-caret-down" />
                     </button>
                     <div id="myDropdown" className={`dropdown-content ${showDropdown ? "show" : ""}`}>
-                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="colortwo">
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor-steps/findbusiness"} className="colortwo">
                         Profile
                       </Link>
                       <Link href="" className="colorclass" onClick={handleLogout}>
