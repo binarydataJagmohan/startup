@@ -146,7 +146,7 @@ const Dashboard = () => {
   );
   const pageCountCSOP = Math.ceil(filteredDetailsCSOP.length / itemsPerPage);
 
-  const filteredDetailsClosed = OpenfilteredBusinessDetails.filter((details: any) => details.status === "closed");
+  const filteredDetailsClosed = filteredBusinessDetails.filter((details: any) => details.status === "closed");
   const displayedBusinessDetails = filteredDetailsClosed.slice(
     currentPageClosed * itemsPerPage,
     (currentPageClosed + 1) * itemsPerPage
@@ -212,7 +212,7 @@ const Dashboard = () => {
                           💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
-                          🌟Repayment/Unit- ₹{details.minimum_subscription}
+                          Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
                       </div>
                     </div>
@@ -514,7 +514,7 @@ const Dashboard = () => {
             (<div className="my-3">
               <ReactPaginate
                 previousLabel={'«'}
-                nextLabel={'»'}
+                nextLabel={''}
                 breakLabel={'...'}
                 breakClassName={'break-me'}
                 pageCount={pageCountCCSP}
@@ -767,7 +767,7 @@ const Dashboard = () => {
             (<div className="my-3">
               <ReactPaginate
                 previousLabel={'«'}
-                nextLabel={'»'}
+                nextLabel={''}
                 breakLabel={'...'}
                 breakClassName={'break-me'}
                 pageCount={pageCountClose}
