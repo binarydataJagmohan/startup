@@ -40,14 +40,14 @@ body {
   height: 88vh !important;
 }
 
-.form-control.same-input {
+/* .form-control.same-input {
   position: relative;
   height: 46px;
   border-radius: 8px;
   padding: 8px;
   border: solid 1px #e5e7eb;
   margin: 10px 0px 0px;
-}
+} */
 
 .form-control.text {
   position: relative;
@@ -58,9 +58,9 @@ body {
   margin: 10px 0px 0px;
 }
 
-.form-control.same-input:focus {
+/* .form-control.same-input:focus {
   box-shadow: none;
-}
+} */
 
 #register label {
   font-size: 14px;
@@ -211,14 +211,31 @@ span.circleimge {
   width: 80px;
 }
 
-.form-control.same-input {
+/* .form-control.same-input {
   position: relative;
   height: 35px;
   border-radius: 8px;
   padding: 8px;
   border: solid 1px #e5e7eb;
   margin: 0px 0px;
-}
+} */
+
+/* .form-control.same-input {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  box-shadow: 1px 1px 57px rgba(95 208 243 / 7%);
+  background-color: var(--e-global-color-white);
+  color: var(--e-global-color-text);
+  border: 1px solid #dae7fb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 17px;
+  width: 100%;
+  overflow: visible;
+  outline: none;
+} */
 
 
 /*radio button / investor class / */

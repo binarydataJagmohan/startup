@@ -254,8 +254,8 @@ const StartupList = () => {
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
-                                            All Startup Companies
-                                        </li>
+                                            All Startup Companies  
+                                        </li> 
                                     </ol>
                                 </div>
                             </div>
@@ -308,6 +308,11 @@ const StartupList = () => {
                                                                             <li className="trash">
                                                                                 <Link href="#" onClick={() => { deleteStartup(startup.id); }} >
                                                                                     <i className="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li className="edit">
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/fund-raise/?id=${startup.id}`}>
+                                                                                    <i className="fa-solid fa-hand-holding-dollar"></i>
                                                                                 </Link>
                                                                             </li>
                                                                         </ul>
