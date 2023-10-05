@@ -58,7 +58,7 @@ const TotalActiveFunds = () => {
         if (funds.length > 0 && !dataTableInitialized) {
             $(document).ready(() => {
                 $('#datatable').DataTable({
-                    lengthMenu: [5, 25, 50, 75, 100],
+                    lengthMenu: [20, 50, 100 ,150],
                     columnDefs: [
                         //  columns  sortable
                         { targets: [0, 1, 2], orderable: true },

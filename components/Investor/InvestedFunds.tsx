@@ -93,7 +93,7 @@ const InvestedFunds = () => {
                                     <div className="text-center mt-3">
                                         <Link
                                             href="javascript:void(0)"
-                                            onClick={(e) => getBusinessdetails(e, details.bid)}
+                                            // onClick={(e) => getBusinessdetails(e, details.bid)}
                                             className="card-link"
                                         >
                                             <span className="view-invoice"> View Invoice </span>
