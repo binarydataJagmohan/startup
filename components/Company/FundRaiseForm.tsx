@@ -208,6 +208,7 @@ const FundRaiseForm = () => {
         .then((res) => {
           if (res.status == true) {
             setBusinessInfo(res.data.id);
+            
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -247,8 +248,6 @@ const FundRaiseForm = () => {
     event.preventDefault();
     try {
       if (invalidFields.length > 0) {
-        // Show error message or handle accordingly   
-
       } else {
 
         const data = {
@@ -280,6 +279,7 @@ const FundRaiseForm = () => {
           const id = urlParams.get("id");
           if (id) { formData.append("id", id); }
           formData.append("user_id", fundRaiseData.user_id);
+          
           formData.append("business_id", fundRaiseData.business_id);
           formData.append("total_units", fundRaiseData.total_units);
           formData.append("minimum_subscription", fundRaiseData.minimum_subscription);

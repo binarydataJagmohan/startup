@@ -81,6 +81,7 @@ const EditList = () => {
       fetchData(router.query.id);
     }
   }, [router.query.id]);
+  
   const handlePoofFileChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
     if (file) {

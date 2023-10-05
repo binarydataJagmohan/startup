@@ -9452,18 +9452,18 @@ div#checkbox-group-1 .same-card {
   background-color: #EEEEEE;
 }
 .register-form input {
-  border: solid 1px #EEEEEE !important;
-  border-radius: 100px !important;
-  padding: 8px 8px !important;
-  background-color: #EEEEEE;
+  border: solid 1px #dae7fb !important;
+  border-radius: 10px !important;
+  padding: 12px 8px !important;
+  /* background-color: #EEEEEE; */
 }
 
 .register-form select {
-  border: solid 1px #EEEEEE !important;
-  border-radius: 100px !important;
-  padding: 20px 20px !important;
-  background-color: #EEEEEE;
+  border: solid 1px #dae7fb !important;
+  border-radius: 10px !important;
+  padding: 13px 20px !important;
   -webkit-appearance: none;
+  height: auto !important;
 }
 .custom-select-bar i {
   position: absolute;
@@ -9476,25 +9476,48 @@ div#checkbox-group-1 .same-card {
 }
 
 
-.input-group .react-tel-input input.form-control {
+/* .input-group .react-tel-input input.form-control {
   padding-left: 50px !important;
-}
+} */
 
 .input-group .react-tel-input .flag-dropdown {
   margin: 0 2px;
   border-color: #efefef;
   border-radius: 25px 0 0 25px;
-  border-right: 0;
+  border: 1px solid #dae7fb;
 }
 
-.form-select.form-select-lg.css-1492t68 {
+/* .form-select.form-select-lg.css-1492t68 {
   color: rgb(128, 128, 128);
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 600;
-  /* height: 45px !important; */
+  height: 45px !important;
+  margin-top: -14px;
+  padding: 5px 10px !important;
+} */
+.form-select.form-select-lg.css-1492t68 {
   margin-top: -17px;
   padding: 5px 10px !important;
+}
+
+.same-section .form-select,
+.same-section .form-control 
+{
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  box-shadow: 1px 1px 57px rgba(95 208 243 / 7%);
+  /* background-color: var(--e-global-color-white); */
+  color: var(--e-global-color-text);
+  border: 1px solid #dae7fb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 17px;
+  width: 100%;
+  overflow: visible;
+  outline: none;
 }
 
 .register-form h3 {
@@ -10438,4 +10461,15 @@ span.logo-sm img {
 }
 .page-link.active, .active > .page-link{
   border-color:#088395 !important;
+}
+.react-tel-input .form-control{
+  height: auto !important;
+}
+.react-tel-input input{
+  padding-left: 45px !important;
+}
+
+.input-group .react-tel-input .flag-dropdown {
+  margin: 0px;
+  border-radius:0px;
 }
