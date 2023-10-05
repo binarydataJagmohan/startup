@@ -3,9 +3,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { uploadDocuments, fetchSingleUserDocuments,getSingleUserData} from "../../lib/frontendapi";
+import { uploadDocuments, fetchSingleUserDocuments, getSingleUserData } from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
-
+import Image from 'next/image';
 interface UserData {
     id?: string;
 }
@@ -106,22 +106,22 @@ export default function DocumentsUpload(): any {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
                         });
-                        if(users.investorType !== 'Regular Investor'){
-                        if (users.approval_status === 'pending') {
-                            setTimeout(() => {
-                                router.push("/investor/thank-you");
-                            }, 1000);
-                        }
-                        if (users.approval_status === 'approved') {
+                        if (users.investorType !== 'Regular Investor') {
+                            if (users.approval_status === 'pending') {
+                                setTimeout(() => {
+                                    router.push("/investor/thank-you");
+                                }, 1000);
+                            }
+                            if (users.approval_status === 'approved') {
+                                setTimeout(() => {
+                                    router.push("/investor/campaign");
+                                }, 1000);
+                            }
+                        } else {
                             setTimeout(() => {
                                 router.push("/investor/campaign");
                             }, 1000);
                         }
-                    }else{
-                        setTimeout(() => {
-                            router.push("/investor/campaign");
-                        }, 1000);
-                    }
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -158,75 +158,9 @@ export default function DocumentsUpload(): any {
 
     return (
         <>
-            {/* <div className="page-title-area item-bg-5">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Complete Account Details</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className="left-bar">
                 <div className="container">
                     <div id="app">
-                        {/* <ol className="step-indicator">
-                            <li className="">
-                                <div className="step_name">
-                                    Step <span>1</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
-                                    <span>PERSONAL INFORMATION</span>
-                                </div>
-                            </li>
-                            <li className="">
-                                <div className="step_name">
-                                    Step <span>2</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step_complete">
-                                        <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm" style={{ color: "#82b440" }}>
-                                    <span>INVESTOR INFORMATION</span>
-                                </div>
-                            </li>
-                            <li className="active">
-                                <div className="step_name">
-                                    Step <span>3</span>
-                                </div>
-                                <div className="step_border">
-                                    <i className="flaticon-checked" style={{ color: "#82b440" }} aria-hidden="true"></i>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm">
-                                    <span>DOCUMENTS UPLOAD</span>
-                                </div>
-                            </li>
-                            <li className="active">
-                                <div className="step_name">
-                                    Step <span>4</span>
-                                </div>
-                                <div className="step_border">
-                                    <div className="step">
-                                        <img
-                                            className="sidebar-img w-50"
-                                            src="/assets/img/investor/download2.png"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="caption hidden-xs hidden-sm">
-                                    <span>Terms & Conditions</span>
-                                </div>
-                            </li>
-                        </ol> */}
                         <div className="container">
                             <div className="register-form">
                                 <div className="row step_one">
@@ -248,99 +182,119 @@ export default function DocumentsUpload(): any {
                                                 ></i>
                                             </h4>
                                             <div className="row justify-content-center">
-                                                <div className="col-md-8" id="register">
+                                                <div className="col-md-11" id="register">
                                                     <div className="row">
                                                         <div className="col-md-6 mt-5">
-                                                            <label
-                                                                htmlFor="exampleFormControlInput1"
-                                                                className="form-label"
-                                                            >
-                                                                Pan Card front view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </label>
-                                                            <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
-                                                            <p>
-                                                                You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                            {errors.pan_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_front}</span>}
 
-                                                            {basicDetails.pan_card_front ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                            ) : (
-                                                                null
-                                                            )
-                                                            }
-
+                                                            <div className="row">
+                                                                <div className="col-md-8">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Pan Card front view{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
+                                                                    <p>
+                                                                        You can upload any identity card's image
+                                                                        jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                    </p>
+                                                                    {errors.pan_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_front}</span>}
+                                                                </div>
+                                                                <div className="col-md-4 text-center">
+                                                                    {basicDetails.pan_card_front ? (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ margin: ' 5% 0% ', objectFit: 'cover', imageRendering: 'auto' }} width='150' height='150' />
+                                                                    ) : (
+                                                                        null
+                                                                    )
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div className="col-md-6 mt-5">
-                                                            <label
-                                                                htmlFor="exampleFormControlInput1"
-                                                                className="form-label"
-                                                            >
-                                                                Pan Card back view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </label>
-                                                            <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept="image/jpeg, image/png"></input>
-                                                            <p>
-                                                                You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                            {errors.pan_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_back}</span>}
-
-                                                            {basicDetails.pan_card_back ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                            ) : (
-                                                                null
-                                                            )
-                                                            }
-
+                                                            <div className="row">
+                                                                <div className="col-md-8">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Pan Card back view{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept="image/jpeg, image/png"></input>
+                                                                    <p>
+                                                                        You can upload any identity card's image
+                                                                        jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                    </p>
+                                                                    {errors.pan_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_back}</span>}
+                                                                </div>
+                                                                <div className="col-md-4 text-center">
+                                                                    {basicDetails.pan_card_back ? (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ margin: ' 5% 0% ', objectFit: 'cover', imageRendering: 'auto' }} width='150' height='150' />
+                                                                    ) : (
+                                                                        null
+                                                                    )
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div className="col-md-6 mt-5">
-                                                            <label
-                                                                htmlFor="exampleFormControlInput1"
-                                                                className="form-label"
-                                                            >
-                                                                Adhar Card front view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </label>
-                                                            <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept="image/jpeg, image/png"></input>
-                                                            <p>
-                                                                You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                            {errors.adhar_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_front}</span>}
 
-                                                            {basicDetails.adhar_card_front ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }}/>
-                                                            ) : (
-                                                                null
-                                                            )
-                                                            }
+                                                            <div className="row">
+                                                                <div className="col-md-8">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Adhar Card front view{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept="image/jpeg, image/png"></input>
+                                                                    <p>
+                                                                        You can upload any identity card's image
+                                                                        jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                    </p>
+                                                                    {errors.adhar_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_front}</span>}
 
+                                                                </div>
+                                                                <div className="col-md-4 text-center">
+                                                                    {basicDetails.adhar_card_front ? (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ margin: ' 5% 0% ', objectFit: 'cover', imageRendering: 'auto' }} width='150' height='150' />
+                                                                    ) : (
+                                                                        null
+                                                                    )
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div className="col-md-6 mt-5 mb-5">
-                                                            <label
-                                                                htmlFor="exampleFormControlInput1"
-                                                                className="form-label"
-                                                            >
-                                                                Adhar Card back view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </label>
-                                                            <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
-                                                            <p>
-                                                                You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                            {errors.adhar_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_back}</span>}
 
-                                                            {basicDetails.adhar_card_back ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                            ) : (
-                                                                null
-                                                            )
-                                                            }
-
+                                                            <div className="row">
+                                                                <div className="col-md-8">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Adhar Card back view{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
+                                                                    <p>
+                                                                        You can upload any identity card's image
+                                                                        jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                    </p>
+                                                                    {errors.adhar_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_back}</span>}
+                                                                </div>
+                                                                <div className="col-md-4 text-center">
+                                                                    {basicDetails.adhar_card_back ? (
+                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ margin: ' 5% 0% ', objectFit: 'cover', imageRendering: 'auto' }} width='150' height='150' />
+                                                                    ) : (
+                                                                        null
+                                                                    )
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="row mt-3">

@@ -59,21 +59,22 @@ export default function Customereview(): any {
   };
 
   const handleFileChange = (event: any) => {
-    setMissingFields([])
+    setMissingFields([]);
     const selectedFile = event.target.files[0];
     setProofImg(selectedFile);
+
     if (selectedFile) {
-      const allowedTypes = ["image/jpeg", "image/png"];
-      const maxSize = 2 * 1024 * 1024;
+      const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+      const maxSize = 20 * 1024 * 1024;
 
       if (allowedTypes.includes(selectedFile.type)) {
         if (selectedFile.size <= maxSize) {
           setImageUploadStatus('success');
         } else {
-          setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+          setStartupLogoSizeError('* Please upload a file that is no larger than 20 MB.');
         }
       } else {
-        setStartupLogoError('* Please upload a JPG or PNG file');
+        setStartupLogoError('* Please upload a PDF, PPT, or DOC file');
         event.target.value = null;
       }
     }
@@ -302,7 +303,7 @@ export default function Customereview(): any {
                                   className="input-file class-unset d-none"
                                   id="proof_img"
                                   type="file"
-                                  accept="image/jpeg, image/png"
+                                  accept=".pdf, .ppt, .pptx, .doc, .docx"
                                   name="proof_img"
                                   onChange={handleFileChange}
                                 />
@@ -317,7 +318,7 @@ export default function Customereview(): any {
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>
                                     You can upload any identity card's image
-                                    jpg,png,jpeg file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
+                                    ppt,pdf,docs file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
                                   </p>
                                 </label>
                                 {!imageUploadStatus && (
@@ -339,12 +340,12 @@ export default function Customereview(): any {
                                     *Please upload Your Proof.
                                   </p>
                                 )}
-                                
-                                {(imageUploadStatus === 'success' || !errors.proof_img && basicDetails.proof_img) && (
+
+                                {/* {(imageUploadStatus === 'success' || !errors.proof_img && basicDetails.proof_img) && (
                                   <p className="text-success" style={{ textAlign: "left", fontSize: "12px" }}>
                                     Image Uploaded Successfully.
                                   </p>
-                                )}
+                                )} */}
                               </div>
                             </div>
                           </div>
