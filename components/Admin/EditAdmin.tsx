@@ -78,9 +78,13 @@ const EditAdmin = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        } else if (!/^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/[\w-]+$/i.test(users.linkedin_url)) {
+        } else if (
+            /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[\w-]+|pub\/[\w-]+|company\/[\w-]+|groups\/[\w-]+)\/?$/i
+                .test(users.linkedin_url)
+        ) {
             setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
+
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
         if (!users.gender) setMissingFields(prevFields => [...prevFields, "Gender"]);
@@ -123,6 +127,7 @@ const EditAdmin = () => {
             );
 
             toast.success('Admin updated successfully');
+            window.location.reload();
         } catch (error) {
 
             // toast.error('Please Try Again!');
@@ -309,11 +314,6 @@ const EditAdmin = () => {
                                                         value={users.phone}
                                                         onChange={(value) => setUsers((prevState) => ({ ...prevState, phone: value }))}
                                                     />
-                                                    {/* {missingFields.includes("Phone") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Phone field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -322,11 +322,6 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" className="form-control" id="linkedin_url" onChange={handleChange} value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
-                                                    {/* {missingFields.includes("linkedin_url") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the linkedin_url field.
-                                                        </p>
-                                                    )} */}
                                                     {invalidFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please enter a valid linkedin_url address.
@@ -342,11 +337,6 @@ const EditAdmin = () => {
                                                     </label>
 
                                                     <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
-                                                    {/* {missingFields.includes("City") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the City field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
                                                 <div className="col-md-6">
@@ -364,17 +354,11 @@ const EditAdmin = () => {
                                                             <option
                                                                 key={index}
                                                                 value={country.name}
-                                                            // selected={users.country === country.name}
                                                             >
                                                                 {country.name}
                                                             </option>
                                                         ))}
                                                     </select>
-                                                    {/* {missingFields.includes("Country") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Country field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
                                             </div>
 
@@ -400,11 +384,6 @@ const EditAdmin = () => {
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
 
                                                     </select>
-                                                    {/* {missingFields.includes("Gender") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Gender field.
-                                                        </p>
-                                                    )} */}
                                                 </div>
 
 
@@ -412,55 +391,65 @@ const EditAdmin = () => {
 
 
                                                 <div className="col-md-6">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container"
-                                                    >
-                                                        <label
-                                                            htmlFor="logo"
-                                                            className="form-label"
-                                                        >
-                                                            Profile Image
-                                                            <span style={{ color: "red" }}>*</span>
-                                                        </label>
-                                                        <div className="profile-pic">
-                                                            {previewImage ? (
-                                                                <Image src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                    width={300}
-                                                                    height={200}
-                                                                    alt=''
-                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }} />
-                                                            ) : (
-                                                                <Image
-                                                                    src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
-                                                                    alt="Document Image"
-                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                    width={9020}
-                                                                    height={9020}
+                                                    <div id="divHabilitSelectors" className="input-file-container">
+                                                        <div className="row">
+                                                            <div className="col-md-4">
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container"
+                                                                >
+                                                                    <label
+                                                                        htmlFor="logo"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Profile Image
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
+                                                                    <div className="profile-pic">
+                                                                        {previewImage ? (
+                                                                            <Image src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                                width={300}
+                                                                                height={200}
+                                                                                alt=''
+                                                                                className='profile-pic'
+                                                                                style={{ margin: '5% 0%', objectFit: 'cover' }} />
+                                                                        ) : (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + users.profile_pic}
+                                                                                alt="Document Image"
+                                                                                className='profile-pic'
+                                                                                style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                                width={9020}
+                                                                                height={9020}
+                                                                            />
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-8 mt-4">
+                                                                <input
+                                                                    className="input-file"
+                                                                    id="logo"
+                                                                    accept='.jpg, .jpeg, .png'
+                                                                    type="file" name="profile_pic" onChange={handleChange}
+
                                                                 />
-                                                            )}
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger"
+                                                                    id="labelFU"
+                                                                    tabIndex={0}
+                                                                >
+                                                                    Drop your pitch deck here to{" "}
+                                                                    <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
+                                                                </label>
+                                                                {startUpLogoSizeError ? (
+                                                                    <p className='text-danger'>{startUpLogoSizeError}</p>
+                                                                ) : (
+                                                                    startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                        <input
-                                                            className="input-file"
-                                                            id="logo"
-                                                            type="file" name="profile_pic" onChange={handleChange}
-
-                                                        />
-                                                        <label
-                                                            htmlFor="fileupload"
-                                                            className="input-file-trigger"
-                                                            id="labelFU"
-                                                            tabIndex={0}
-                                                        >
-                                                            Drop your pitch deck here to{" "}                                                            
-                                                            <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
-                                                        </label>
-                                                        {startUpLogoSizeError ? (
-                                                            <p className='text-danger'>{startUpLogoSizeError}</p>
-                                                        ) : (
-                                                            startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
-                                                        )}
-
                                                     </div>
 
 

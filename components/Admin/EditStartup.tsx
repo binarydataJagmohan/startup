@@ -214,7 +214,7 @@ const EditList = () => {
     const data = {
       notify_from_user: current_user_data.id,
       notify_to_user: id,
-      notify_msg: `User has been Updated his profile Successfully by Admin.`,
+      notify_msg: `Your profile has been successfully updated.`,
       notification_type: "Upadte Notification",
       each_read: "unread",
       status: "active"
@@ -501,12 +501,14 @@ const EditList = () => {
                           <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          <PhoneInput
-                            onClick={phonClick}
-                            country={"us"}
-                            value={startup.phone}
-                            onChange={(value) => setStartupData((prevState) => ({ ...prevState, phone: value }))}
-                          />
+                          <div className="mt-3">
+                            <PhoneInput
+                              onClick={phonClick}
+                              country={"us"}
+                              value={startup.phone}
+                              onChange={(value) => setStartupData((prevState) => ({ ...prevState, phone: value }))}
+                            />
+                          </div>
                           {missingFields.includes("Phone") && (
                             <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                               Please fill in the Phone field.

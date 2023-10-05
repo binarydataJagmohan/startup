@@ -142,8 +142,13 @@ export default function CampaignsDetails() {
   const toggleAccordion = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-
-
+  useEffect(() => {    
+    if (inputs.minimum_subscription !== undefined) {
+      setSubscriptionValue(inputs.minimum_subscription);
+      setRepayValue(inputs.minimum_subscription);
+    } 
+  }, [inputs.minimum_subscription]);
+  
   const handlePlusClick = () => {
     if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
       setValue(value + 1);
@@ -200,13 +205,10 @@ export default function CampaignsDetails() {
       setRepayValue(newRepayValue);
     }
   };
-  const styleValue = (
-    (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)
-    - (100 / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0))
-  );
-  const dynamicProgressBar = (
-    100 - styleValue
-  );
+
+  const progressPercentage = ((inputs.no_of_units !== undefined ? Number(inputs.no_of_units) : 0) / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * 100;
+
+ 
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -248,7 +250,7 @@ export default function CampaignsDetails() {
               </div>
               <div className="col-md-5">
                 <div className="d-flex justify-content-between">
-                  <div>{styleValue}
+                  <div>
                     <span style={{ color: '#fff' }}>Total Amount</span>
                     <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
                   </div>
@@ -274,7 +276,7 @@ export default function CampaignsDetails() {
                         ? parseInt(inputs.total_units)
                         : undefined
                     }
-                    style={{ width: `${dynamicProgressBar}%` }}
+                    style={{ width: `${progressPercentage}%` }}
                   />
                 </div>
               </div>
@@ -523,10 +525,7 @@ export default function CampaignsDetails() {
                     <div className="css-wsc10v">
                       <span>Subscription Value</span>
                       <p
-                        className="css-37nqt7"
-                        onChange={(e: any) =>
-                          setSubscriptionValue(e.target.value)
-                        }
+                        className="css-37nqt7 subscription_value"                        
                       >
                         ₹{subscriptionValue}
                       </p>

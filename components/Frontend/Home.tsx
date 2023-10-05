@@ -117,10 +117,10 @@ export default function Home() {
 
                             {users.approval_status === "approved" ? (
                               <>
-                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor-steps/findbusiness"} className="default-btn">
                                   My Profile
                                 </Link>
-                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor/campaign"} className="default-btn">
                                   Campaigns
                                 </Link>
                               </>
@@ -214,10 +214,10 @@ export default function Home() {
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor/campaign"} className="default-btn">
                                     Campaigns
                                   </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor-steps/findbusiness"} className="default-btn">
                                     My Profile
                                   </Link>
                                 </>
@@ -298,10 +298,10 @@ export default function Home() {
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/campaign"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor/campaign"} className="default-btn">
                                     Campaigns
                                   </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor-steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor-steps/findbusiness"} className="default-btn">
                                     My Profile
                                   </Link>
                                 </>

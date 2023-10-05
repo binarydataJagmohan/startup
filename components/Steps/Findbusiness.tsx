@@ -288,15 +288,7 @@ export default function Findbusiness(): any {
                                     *Please Select Country.
                                   </p>
                                 )
-                              }
-                              {/* {errors.country &&
-                                errors.country.type === "required" &&
-                                !user.country && (
-                                  <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                    *Please Select Country.
-                                  </p>
-                                )} */}
-
+                              }                              
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -310,9 +302,9 @@ export default function Findbusiness(): any {
                               <div className="input-group spac">
                                 <PhoneInput
                                   onClick={phonClick}
-                                  country={"us"}
+                                  // country={user.country ? user.country : "in"}
                                   {...register("phone", { required: !user.phone })}
-                                  value={user.phone}
+                                  value={user.phone ? user.phone : '91'}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
                                 />
                               </div>

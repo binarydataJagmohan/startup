@@ -16,6 +16,10 @@ export default function DocumentsUpload(): any {
     const [adhar_card_front, setAdharCardFront] = useState(null);
     const [adhar_card_back, setAdharCardBack] = useState(null);
     const [signup_success, setSignupSuccess] = useState(false);
+    const [panCardFrontError, setPanCardFrontError] = useState('');
+    const [panCardBackError, setPanCardBackError] = useState('');
+    const [adharCardFrontError, setAdharCardFrontError] = useState('');
+    const [adharCardBackError, setAdharCardBackError] = useState('');    
     const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
         pan_card_front: "",
@@ -154,23 +158,75 @@ export default function DocumentsUpload(): any {
 
     const handlePanCardFrontChange = (event: any) => {
         const file = event.target.files[0];
-        setPanCardFront(file);
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setPanCardFront(file);                   
+                } else {
+                    setPanCardFrontError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setPanCardFrontError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
     };
 
 
     const handlePanCardBackChange = (event: any) => {
         const file = event.target.files[0];
-        setPanCardBack(file);
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setPanCardBack(file);                    
+                } else {
+                    setPanCardBackError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setPanCardBackError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
     };
 
     const handleAdharCardFrontChange = (event: any) => {
         const file = event.target.files[0];
-        setAdharCardFront(file);
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setAdharCardFront(file);
+                } else {
+                    setAdharCardFrontError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setAdharCardFrontError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
     };
 
     const handleAdharCardBackChange = (event: any) => {
         const file = event.target.files[0];
-        setAdharCardBack(file);
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setAdharCardBack(file);
+                } else {
+                    setAdharCardBackError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setAdharCardBackError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
     };
 
     if (signup_success) return router.push("/steps/adharinformation");
@@ -284,16 +340,20 @@ export default function DocumentsUpload(): any {
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label"
                                                             >
-                                                                Pan Card font view{" "}
+                                                                Pan Card front view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
+                                                            <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept=".jpg, .png, .jpeg, .pdf  " />
                                                             <p>
                                                                 You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-                                                            {errors.pan_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_front}</span>}
 
+                                                            {panCardFrontError ? (
+                                                                <p className='text-danger'>{panCardFrontError}</p>
+                                                            ) : (
+                                                                errors.pan_card_front && <p className='text-danger'>{errors.pan_card_front}</p>
+                                                            )}                                                           
                                                             {basicDetails.pan_card_front ? (
                                                                 <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
                                                             ) : (
@@ -310,13 +370,17 @@ export default function DocumentsUpload(): any {
                                                                 Pan Card back view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept="image/jpeg, image/png"></input>
+                                                            <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept=".jpg, .png, .jpeg, .pdf  "></input>
                                                             <p>
                                                                 You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-                                                            {errors.pan_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.pan_card_back}</span>}
 
+                                                            {panCardBackError ? (
+                                                                <p className='text-danger'>{panCardBackError}</p>
+                                                            ) : (
+                                                                errors.pan_card_back && <p className='text-danger'>{errors.pan_card_back}</p>
+                                                            )}
                                                             {basicDetails.pan_card_back ? (
                                                                 <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
                                                             ) : (
@@ -333,13 +397,16 @@ export default function DocumentsUpload(): any {
                                                                 Adhar Card front view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept="image/jpeg, image/png"></input>
+                                                            <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept=".jpg, .png, .jpeg, .pdf  "></input>
                                                             <p>
                                                                 You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-                                                            {errors.adhar_card_front && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_front}</span>}
-
+                                                            {adharCardFrontError ? (
+                                                                <p className='text-danger'>{adharCardFrontError}</p>
+                                                            ) : (
+                                                                errors.adhar_card_front && <p className='text-danger'>{errors.adhar_card_front}</p>
+                                                            )}
                                                             {basicDetails.adhar_card_front ? (
                                                                 <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
                                                             ) : (
@@ -356,13 +423,16 @@ export default function DocumentsUpload(): any {
                                                                 Adhar Card back view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
+                                                            <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept=".jpg, .png, .jpeg, .pdf  "></input>
                                                             <p>
                                                                 You can upload any identity card's image
-                                                                jpg,png,jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                                                jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-                                                            {errors.adhar_card_back && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.adhar_card_back}</span>}
-
+                                                            {adharCardBackError ? (
+                                                                <p className='text-danger'>{adharCardBackError}</p>
+                                                            ) : (
+                                                                errors.adhar_card_back && <p className='text-danger'>{errors.adhar_card_back}</p>
+                                                            )}
                                                             {basicDetails.adhar_card_back ? (
                                                                 <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
                                                             ) : (

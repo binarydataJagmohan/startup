@@ -24,7 +24,15 @@ const Profile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [current_user_id, setCurrentUserId] = useState("");
     const [profile_pic, setProfilePic] = useState(null);
-
+    const [profilePicError, setProfilePicError] = useState('');
+    const [profilePicSizeError, setProfilePicSizeError] = useState('');
+    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
+    const [logoError, setLogoError] = useState('');
+    const [logoSizeError, setLogoSizeError] = useState('');
+    const [previewLogoImage, setPreviewLogoImage] = useState<string | ArrayBuffer | null>(null);
+    const [proofImgError, setProofImgError] = useState('');
+    const [proofImgSizeError, setProofImgSizeError] = useState('');
+    const [priviewProofImage, setPriviewProofImage] = useState<string | ArrayBuffer | null>(null);
     const [user, setUser] = useState({
         id: current_user_id,
         name: "",
@@ -113,15 +121,76 @@ const Profile = () => {
     };
 
     const handleFileChange = (event: any) => {
-        setProfilePic(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+
+            const allowedTypes = ["image/jpeg", "image/png"];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        setPreviewImage(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setProfilePic(event.target.files[0]);
+                } else {
+                    setProfilePicSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setProfilePicError('* Please upload a JPG or PNG file');
+                event.target.value = null;
+            }
+        }
     };
 
     const handleFileChangeLogo = (event: any) => {
-        setLogo(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png"];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        setPreviewLogoImage(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setLogo(event.target.files[0]);
+                } else {
+                    setLogoSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setLogoError('* Please upload a JPG or PNG file');
+                event.target.value = null;
+            }
+        }
     };
 
     const handleFileChangeProof = (event: any) => {
-        setProofImg(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png"];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        setPriviewProofImage(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setProofImg(event.target.files[0]);
+                } else {
+                    setProofImgSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setProofImgError('* Please upload a JPG or PNG file');
+                event.target.value = null;
+            }
+        }
     };
 
     // HandleChange for Basic Details....
@@ -283,7 +352,9 @@ const Profile = () => {
         });
 
     };
-    const submitPersonalInfoForm = async () => {
+
+    const submitPersonalInfoForm = async (e: any) => {
+        e.preventDefault();
         try {
             const formData = new FormData();
             if (profile_pic !== null) {
@@ -310,7 +381,8 @@ const Profile = () => {
                     toastId: "error",
                 });
             }
-        } catch (err) {
+        }
+        catch (err) {
             toast.error("Please fill correct information", {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "error",
@@ -319,7 +391,8 @@ const Profile = () => {
     };
 
     // Update Business Information...
-    const submitBusinessInfoForm = async () => {
+    const submitBusinessInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const formData = new FormData();
             if (logo !== null) {
@@ -358,7 +431,8 @@ const Profile = () => {
         }
     };
 
-    const submitBasicInfoForm = async () => {
+    const submitBasicInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const formData = new FormData();
             if (proof_img !== null) {
@@ -374,9 +448,6 @@ const Profile = () => {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
-                // setTimeout(() => {
-                //   router.push("/steps/adharinformation");
-                // }, 1000);
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -392,7 +463,8 @@ const Profile = () => {
     };
 
     //Update for Adhar Information 
-    const submitBankInfoForm = async () => {
+    const submitBankInfoForm = async (event: any) => {
+        event.preventDefault();
         try {
             const res = await bankInformationSave(bankDetails);
             if (res.status == true) {
@@ -459,7 +531,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Personal Information</h3>
-                                                    <form onSubmit={handleSubmit(submitPersonalInfoForm)}>
+                                                    <form onSubmit={submitPersonalInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
@@ -552,20 +624,43 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    {user.profile_pic ? (
+                                                                    {previewImage ? (
                                                                         <Image
-                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic} className="profile-pic" alt="preview"
-                                                                            width={100}
-                                                                            height={100}
+                                                                            src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                            width={300}
+                                                                            height={200}
+                                                                            alt=''
+                                                                            className='profile-pic'
+                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         />
                                                                     ) : (
-                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'} alt="business-logo" width={100} height={100} />
-                                                                    )
-                                                                    }
+                                                                        user.profile_pic ? (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic}
+                                                                                className="profile-pic"
+                                                                                alt="preview"
+                                                                                width={100}
+                                                                                height={100}
+                                                                            />
+                                                                        ) : (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
+                                                                                alt="business-logo"
+                                                                                width={100}
+                                                                                height={100}
+                                                                            />
+                                                                        )
+                                                                    )}
+
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} />
+                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} accept='.jpg, .jpeg, .png' />
+                                                                {profilePicSizeError ? (
+                                                                    <p className='text-danger'>{profilePicSizeError}</p>
+                                                                ) : (
+                                                                    profilePicError && <p className='text-danger'>{profilePicError}</p>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="row mt-3">
@@ -591,11 +686,11 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Business Information</h3>
-                                                    <form onSubmit={handleSubmit(submitBusinessInfoForm)}>
+                                                    <form onSubmit={submitBusinessInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
-                                                                    <input type="text" className="form-control form-css" placeholder="Business Name" {...register("business_name", { onChange: handleChangeBusinessInfo, value: true, required: true, })} onChange={handleChangeBusinessInfo} name="business_name" value={businessDetails.business_name} />
+                                                                    <input type="text" className="form-control form-css" placeholder="Business Name" {...register("business_name", { value: true, required: true, })} onChange={handleChangeBusinessInfo} name="business_name" value={businessDetails.business_name} />
                                                                     {errors.business_name &&
                                                                         errors.business_name.type === "required" && (
                                                                             <p
@@ -769,37 +864,40 @@ const Profile = () => {
 
                                                             <div className="col-sm-2">
                                                                 <div className="logo">
-                                                                    {businessDetails.logo ? (
+                                                                    {previewLogoImage ? (
                                                                         <Image
-                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + '/docs/' + businessDetails.logo} className="profile-pic" alt="preview"
-                                                                            width={100}
-                                                                            height={100}
+                                                                            src={typeof previewLogoImage === 'string' ? previewLogoImage : ''}
+                                                                            width={300}
+                                                                            height={200}
+                                                                            alt=''
+                                                                            className='profile-pic'
+                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         />
                                                                     ) : (
-                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
-                                                                    )
-                                                                    }
+                                                                        businessDetails.logo ? (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + '/docs/' + businessDetails.logo} className="profile-pic" alt="preview"
+                                                                                width={100}
+                                                                                height={100}
+                                                                            />
+                                                                        ) : (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
+                                                                                alt="business-logo"
+                                                                                width={100}
+                                                                                height={100}
+                                                                            />
+                                                                        )
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" {...register("logo", { value: true, required: !businessDetails.logo, onChange: handleFileChangeLogo })} name="logo" onChange={handleFileChangeLogo} />
-                                                                {errors.logo && errors.logo.type === "required" && !businessDetails.logo && (
-                                                                    <p
-                                                                        className="text-danger"
-                                                                        style={{ textAlign: "left", fontSize: "12px" }}
-                                                                    >
-                                                                        *Please Choose Your Business Logo.
-                                                                    </p>
+                                                                <input type="file" className="mt-4 pt-4" {...register("logo", { value: true, required: !businessDetails.logo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png' />
+                                                                {logoSizeError ? (
+                                                                    <p className='text-danger'>{logoSizeError}</p>
+                                                                ) : (
+                                                                    logoError && <p className='text-danger'>{logoError}</p>
                                                                 )}
-                                                                {!errors.logo && businessDetails.logo && (
-                                                                    <p
-                                                                        className="text-success"
-                                                                        style={{ textAlign: "left", fontSize: "12px" }}
-                                                                    >
-                                                                        Logo Uploaded Successfully.
-                                                                    </p>
-                                                                )}
-
                                                             </div>
 
                                                         </div>
@@ -868,7 +966,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Proof Documents</h3>
-                                                    <form onSubmit={handleSubmit(submitBasicInfoForm)}>
+                                                    <form onSubmit={submitBasicInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
@@ -914,20 +1012,40 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    {basicDetails.proof_img ? (
+                                                                    {priviewProofImage ? (
                                                                         <Image
-                                                                            src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
-                                                                            width={120}
-                                                                            height={120}
+                                                                            src={typeof priviewProofImage === 'string' ? priviewProofImage : ''}
+                                                                            width={300}
+                                                                            height={200}
+                                                                            alt=''
+                                                                            className='profile-pic'
+                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         />
                                                                     ) : (
-                                                                        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
-                                                                    )
-                                                                    }
+                                                                        basicDetails.proof_img ? (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
+                                                                                width={120}
+                                                                                height={120}
+                                                                            />
+                                                                        ) : (
+                                                                            <Image
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
+                                                                                alt="business-logo"
+                                                                                width={100}
+                                                                                height={100}
+                                                                            />
+                                                                        )
+                                                                    )}                                                                   
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" name="proof-img" onChange={handleFileChangeProof} />
+                                                                <input type="file" className="mt-4 pt-4" name="proof-img" accept='.png, .jpg, .jpeg' onChange={handleFileChangeProof} />
+                                                                {proofImgSizeError ? (
+                                                                    <p className='text-danger'>{proofImgSizeError}</p>
+                                                                ) : (
+                                                                    proofImgError && <p className='text-danger'>{proofImgError}</p>
+                                                                )}
                                                             </div>
                                                         </div>
 
@@ -953,7 +1071,7 @@ const Profile = () => {
                                             <div className="accordion-body">
                                                 <div className="form-part">
                                                     <h3>Bank Information</h3>
-                                                    <form onSubmit={handleSubmit(submitBankInfoForm)}>
+                                                    <form onSubmit={submitBankInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
