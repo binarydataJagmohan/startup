@@ -3,6 +3,7 @@ import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import swal from "sweetalert";
 import Link from 'next/link';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import Pagination from "../../components/Frontend/Common/Pagination";
@@ -57,7 +58,7 @@ const StartupList = () => {
     useEffect(() => {
         if (startups.length > 0 && !dataTableInitialized) {
             const table = $('#datatable').DataTable({
-                lengthMenu: [20, 50, 100 ,150],
+                lengthMenu: [20, 50, 100, 150],
                 columnDefs: [
                     // columns sortable
                     { targets: [0, 1, 2], orderable: true },
@@ -193,31 +194,47 @@ const StartupList = () => {
     const handleChange = (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
         updateStartupStage(id, e.target.value);
     };
+    const fetchData = async () => {
+        const data = await getAllStartupBusiness({});
+        if (data) {
+            setStartupData(data.data);
+        }
+        setLoading(false);
+    };
 
     // delete the startup 
-    const deleteStartup = async (id: number) => {
-        // console.log("this is id again"+id);
-        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`, {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + getToken(),
-            },
-        })
-            .then(response => {
-
-                const updatedData = startups.filter(startup => startup.id !== id);
-                setStartupData(updatedData);
-                toast.success(response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "success",
-                });
-            })
-            .catch(error => {
-                toast.error(error, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
-                });
-            });
+    function deleteStartup(id: number) {
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete the industry",
+            icon: "warning",
+            dangerMode: true,
+            buttons: ["Cancel", "Yes, I am sure!"],
+        }).then((willDelete) => {
+            if (willDelete) {
+                axios.delete(process.env.NEXT_PUBLIC_API_URL + `/startups/${id}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                    },
+                })
+                    .then(response => {
+                        fetchData();
+                        const updatedData = startups.filter(startup => startup.id !== id);
+                        setStartupData(updatedData);
+                        toast.success(response.data.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "success",
+                        });
+                    })
+                    .catch(error => {
+                        toast.error(error, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    });
+            }
+        });
     };
     const onPageChange = (page: any, currentPage: any) => {
         const current_user_data: any = getCurrentUserData();
@@ -306,9 +323,9 @@ const StartupList = () => {
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">
-                                                                                <Link href="#" onClick={() => { deleteStartup(startup.id); }} >
+                                                                                <a href="#" onClick={() => { deleteStartup(startup.id); }} >
                                                                                     <i className="fa-solid fa-trash" />
-                                                                                </Link>
+                                                                                </a>
                                                                             </li>
                                                                         </ul>
                                                                     </td>
