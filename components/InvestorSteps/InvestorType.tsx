@@ -421,11 +421,6 @@ export default function InvestorType(): any {
                                                                                     <label htmlFor="checkbox7">Senior management professional with at least 10 years of
                                                                                         experience.<span className="requiredclass">*</span>
                                                                                     </label>
-                                                                                    {/* {errors.experience && (
-                                                                                        <span className="small error text-danger mb-2 d-inline-block error_login">
-                                                                                            *One more option is required..
-                                                                                        </span>
-                                                                                    )} */}
                                                                                 </div>
                                                                             </div>
                                                                         </div>

@@ -137,12 +137,12 @@ const Header = () => {
                               <span>Dashboard</span>
                             </Link>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/company/fund-raise' ? 'active p1' : ''}`}>
+                          {/* <li className={`nav-item ${router.pathname === '/company/fund-raise' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/fund-raise"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Fund Raise</span>
                             </Link>
-                          </li>
+                          </li> */}
                           <li className={`nav-item ${router.pathname === '/company/all-fund-raise-list' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-fund-raise-list"} className="waves-effect">
                               <i className="fa fa-building"></i>

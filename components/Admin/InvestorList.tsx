@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { sendNotification } from '../../lib/frontendapi';
 import dynamic from 'next/dynamic';
+import swal from "sweetalert";
 import Link from 'next/link';
 const DynamicDataTable = dynamic((): any => import('datatables.net'), {
     ssr: false,
@@ -95,30 +96,46 @@ const InvestorList = () => {
             });
     }
 
-
+    const fetchData = async () => {
+        const data = await getAllInvestors({});
+        if (data) {
+            setInvestors(data.data);
+        }
+    };
     //delete for investor
     function deleteInvestor(id: number) {
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete the industry",
+            icon: "warning",
+            dangerMode: true,
+            buttons: ["Cancel", "Yes, I am sure!"],
 
-        axios.delete(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`, {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + getToken(),
+        }).then((willDelete) => {
+            if (willDelete) {
+                axios.delete(process.env.NEXT_PUBLIC_API_URL + `/investor-delete/${id}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                    }
+                })
+                    .then(response => {
+                        fetchData();
+                        const updatedData = investors.filter(investor => investor.id !== id);
+                        setInvestors(updatedData);
+                        toast.success(response.data.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "success",
+                        });
+                    })
+                    .catch(error => {
+                        toast.error(error, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    });
             }
-        })
-            .then(response => {
-                const updatedData = investors.filter(investor => investor.id !== id);
-                setInvestors(updatedData);
-                toast.success(response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "success",
-                });
-            })
-            .catch(error => {
-                toast.error(error, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
-                });
-            });
+        });
     }
 
     // for user account status Active and Deactive
@@ -236,9 +253,9 @@ const InvestorList = () => {
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">
-                                                                                <Link href="#" onClick={() => { deleteInvestor(investor.id); }} >
+                                                                                <a href="#" onClick={() => { deleteInvestor(investor.id); }} >
                                                                                     <i className="fa-solid fa-trash" />
-                                                                                </Link>
+                                                                                </a>
                                                                             </li>
                                                                         </ul>
                                                                     </td>

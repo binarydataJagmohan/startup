@@ -37,7 +37,7 @@ export default function Businessinfo(): any {
 
   const handleUploadClick = (event: any) => {
     event.preventDefault();
-    setMissingFields([])
+    // setMissingFields([])
     if (fileInputRef.current !== null) {
       (fileInputRef.current as HTMLInputElement).click();
     }
@@ -46,7 +46,7 @@ export default function Businessinfo(): any {
   const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const [logo, setLogo] = useState(null);
   const handleFileChange = (event: any) => {
-    setMissingFields([])    
+    // setMissingFields([])
     const file = event.target.files[0];
 
     if (file) {
@@ -153,9 +153,9 @@ export default function Businessinfo(): any {
       if (!businessDetails.type) {
         setMissingFields(prevFields => [...prevFields, "type"])
       }
-      if (!logo && !businessDetails.logo) {
-        setMissingFields(prevFields => [...prevFields, "logo"])
-      }
+      // if (!logo && !businessDetails.logo) {
+      //   setMissingFields(prevFields => [...prevFields, "logo"])
+      // }      
       const formData = new FormData();
       if (logo !== null) {
         formData.append('logo', logo);
@@ -192,13 +192,13 @@ export default function Businessinfo(): any {
     }
   };
 
-  register('website_url', {
-    required: 'Company website url is required',
-    pattern: {
-      value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
-      message: 'Enter a valid website',
-    },
-  });
+  // register('website_url', {
+  //   required: 'Company website url is required',
+  //   pattern: {
+  //     value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
+  //     message: 'Enter a valid website',
+  //   },
+  // });
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
@@ -291,20 +291,25 @@ export default function Businessinfo(): any {
                               <input
                                 type="text"
                                 className="form-control same-input"
-                                id="website_url"  {...register("website_url", {
-                                  onChange: handleChange, value: true,
-                                  required: true
+                                id="website_url"
+                                {...register("website_url", {
+                                  onChange: handleChange,
+                                  required: true,
+                                  pattern: {
+                                    value: /^(https?:\/\/)?[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                                    message: "Please enter a valid website URL"
+                                  }
                                 })}
                                 name="website_url" value={businessDetails.website_url}
                               />
                               {errors.website_url && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Enter Comapny's Website Url.
+                                <p className="text-danger">
+                                  {errors.website_url.type === "required"
+                                    ? "*Please enter the company's website URL."
+                                    : "*Please enter a valid company's website URL."}
                                 </p>
                               )}
+                              
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -340,8 +345,7 @@ export default function Businessinfo(): any {
                                 <option value="CleanTech (Clean Technology)">CleanTech (Clean Technology)</option>
                                 <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>
                                 <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>
-
-
+                                <option value="Other">Other</option>
                               </select>
                               {
                                 missingFields.includes("sector") && (
@@ -353,15 +357,6 @@ export default function Businessinfo(): any {
                                   </p>
                                 )
                               }
-                              {/* {errors.sector &&
-                                errors.sector.type === "required" &&  ! businessDetails.sector &&  (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Select Sector of Your Business.
-                                  </p>
-                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -388,9 +383,6 @@ export default function Businessinfo(): any {
                                 <option value="Growth Stage">Growth Stage</option>
                                 <option value="Expansion Stage">Expansion Stage</option>
                                 <option value="Maturity Stage">Maturity Stage</option>
-                                {/* <option value="Final Stage">Final Stage</option> */}
-                                {/* <option value="Intermediate Stage">Intermediate Stage</option>
-                                <option value="Final Stage">Final Stage</option> */}
                               </select>
                               {
                                 missingFields.includes("stage") && (
@@ -402,15 +394,6 @@ export default function Businessinfo(): any {
                                   </p>
                                 )
                               }
-                              {/* {errors.stage &&
-                                errors.stage.type === "required" &&  ! businessDetails.stage && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Select Stage of Your Business.
-                                  </p>
-                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -452,11 +435,11 @@ export default function Businessinfo(): any {
                                 id="tagline"
                                 {...register("tagline", {
                                   value: true,
-                                  required: true,
+                                  // required: true,
                                 })}
                                 name="tagline" onChange={handleChange} value={businessDetails.tagline}
                               />
-                              {errors.tagline &&
+                              {/* {errors.tagline &&
                                 errors.tagline.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -464,10 +447,10 @@ export default function Businessinfo(): any {
                                   >
                                     *Please Enter Your Business Tagline.
                                   </p>
-                                )}
+                                )} */}
                             </div>
 
-                            <div className="col-md-6 mt-3">
+                            {/* <div className="col-md-6 mt-3">
                               <label
                                 htmlFor="stage"
                                 className="form-label mb-4"
@@ -478,8 +461,7 @@ export default function Businessinfo(): any {
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 aria-label="Default select example"
-                                {...register("type", {
-                                  //  validate: (value) => value != "", required: true,
+                                {...register("type", {                                  
                                   onChange: handleChange
                                 })}
                                 name="type" value={businessDetails ? businessDetails.type : ""}
@@ -498,37 +480,8 @@ export default function Businessinfo(): any {
                                     *Please Select type of Your Business.
                                   </p>
                                 )
-                              }
-                              {/* {errors.type &&
-                                errors.type.type === "required" &&  ! businessDetails.type && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Select type of Your Business.
-                                  </p>
-                                )} */}
-                            </div>
-
-
-
-                            <div className="col-sm-6 ">
-                              <label
-                                htmlFor="description"
-                                className="form-label"
-                              >
-                                1000 characters to tell us about your business
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <textarea
-                                rows={4}
-                                maxLength={1000}
-                                placeholder="Enter details here"
-                                className="form-control"
-                                {...register("description", { value: true, required: true, onChange: handleChange })}
-                                name="description" value={businessDetails.description}
-                              />
-                            </div>
+                              }                            
+                            </div> */}
 
                             <div className="col-md-6">
                               <div
@@ -559,7 +512,7 @@ export default function Businessinfo(): any {
                                   id="labelFU"
                                   tabIndex={0}
                                 >
-                                  Drop your pitch deck here to{" "}
+                                  Drop your logo image here to{" "}
                                   <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
@@ -578,7 +531,7 @@ export default function Businessinfo(): any {
                                       *Please Choose Your Business Logo.
                                     </p>
                                   )
-                                }                             
+                                }
                                 {!errors.logo && (businessDetails.logo || logo) && (
                                   <p
                                     className="text-success"
@@ -591,8 +544,39 @@ export default function Businessinfo(): any {
                               </div>
                             </div>
 
+                            <div className="col-sm-6 ">
+                              <label
+                                htmlFor="description"
+                                className="form-label"
+                              >
+                                1000 characters to tell us about your business
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <textarea
+                                rows={4}
+                                maxLength={1000}
+                                placeholder="Enter details here"
+                                className="form-control"
+                                {...register("description", { value: true, required: true, onChange: handleChange })}
+                                name="description" value={businessDetails.description}
+                              />
+                            </div>
 
-                            <div className=" mt-5 d-flex align-content-center">
+                            <div className="col-md-6">
+                              <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                              >
+                                <label>
+                                  Startup pitch deck
+                                  <span style={{ color: "red" }}>*</span>
+                                </label>
+                                <p>Add new field here</p>
+                              </div>
+                            </div>
+
+
+                            {/* <div className=" mt-5 d-flex align-content-center">
                               <input
                                 className="form-check-input"
                                 type="checkbox"
@@ -606,7 +590,7 @@ export default function Businessinfo(): any {
                                 been a founder/co-founder of a business venture
                                 family
                               </p>
-                            </div>
+                            </div> */}
                             <div className=" mt-2 d-flex align-items-left">
                               <input
                                 className="form-check-input"
