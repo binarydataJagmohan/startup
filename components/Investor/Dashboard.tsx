@@ -218,34 +218,9 @@ const Dashboard = () => {
                           </a>
                         </div>
                       </div>
-<<<<<<< HEAD
-                      <div className="text-center mt-3 d-flex">
-                        <a href="#" className="card-link">
-                          💡13.6% Discount Rate
-                        </a>
-                        <a href="#" className="card-link">
-                          Repayment/Unit- ₹{details.minimum_subscription}
-                        </a>
-                      </div>
-                    </div>
-                    <div className="overlay">
-                      <div className="columns">
-                        <ul className="price m-0 p-0">
-                          <li>
-                            Units <span>{details.no_of_units}/{details.total_units}</span>
-                          </li>
-                          <li>
-                            Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
-                          </li>
-                          <li>
-                            Tenure <span>{details.tenure} days</span>
-                          </li>
-                          {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
-=======
                       <div className="overlay">
                         <div className="columns">
                           <ul className="price m-0 p-0">
->>>>>>> f0f826de0020720b256383fa5afa167ff0050214
                             <li>
                               Units <span>{details.no_of_units}/{details.total_units}</span>
                             </li>
@@ -564,39 +539,8 @@ const Dashboard = () => {
               </div>)
               : ('')}
           </div>
-<<<<<<< HEAD
-
-          {pageCountCCSP ?
-            (<div className="my-3">
-              <ReactPaginate
-                previousLabel={'«'}
-                nextLabel={''}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={pageCountCCSP}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageChangeOpenCCSP}
-                containerClassName={'pagination'}
-                forcePage={currentPageopenCCSP}
-                disableInitialCallback={true}
-
-                activeClassName={'active'}
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                nextClassName="page-item"
-                previousLinkClassName="page-link"
-                nextLinkClassName="page-link"
-                activeLinkClassName="active"
-              />
-            </div>)
-            : ('')}
-        </div>
-=======
         </>
         ) : ('')}
->>>>>>> f0f826de0020720b256383fa5afa167ff0050214
         <div className="container py-5">
           <h3 className="featurred">Discounting </h3>
           <h6 className="trending">Short term fixed income opportunities</h6>
@@ -853,42 +797,8 @@ const Dashboard = () => {
               ('')}
 
           </div>
-<<<<<<< HEAD
-
-          {pageCountClose ?
-            (<div className="my-3">
-              <ReactPaginate
-                previousLabel={'«'}
-                nextLabel={''}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={pageCountClose}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageChangeClosed}
-                forcePage={currentPageClosed}
-                disableInitialCallback={true}
-
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                nextClassName="page-item"
-                previousLinkClassName="page-link"
-                nextLinkClassName="page-link"
-                activeLinkClassName="active"
-              />
-            </div>)
-            :
-            ('')}
-
-        </div>
-      </section>
-=======
         ) : ('')}
       </section >
->>>>>>> f0f826de0020720b256383fa5afa167ff0050214
     </>
   );
 }
