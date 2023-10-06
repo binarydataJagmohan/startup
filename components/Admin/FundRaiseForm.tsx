@@ -57,7 +57,6 @@ const FundRaiseForm = () => {
         desc: "",
     });
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { id } = router.query;
 
     useEffect(() => {
         const fetchData = async (id: any) => {
