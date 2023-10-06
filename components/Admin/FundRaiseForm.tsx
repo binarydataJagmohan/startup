@@ -104,7 +104,9 @@ const FundRaiseForm = () => {
     const [invoiceError, setInvoiceError] = useState('');
     const [pdc, setPdc] = useState(null);
     const [pdcError, setPdcError] = useState('');
-
+    const [agreementName, setAgreementName] = useState('');
+    const [invoiceName, setInvoiceName] = useState('');
+    const [pdcName, setPdcName] = useState('');
     // handleInvoiceFileChange for agreement pdf
     const handleAgreementFileChange = (event: any) => {
         const file = event.target.files[0];
@@ -120,7 +122,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "pdfvalidate")
                 );
                 setAgreement(file);
-                // File is a PDF, do further processing
+                setAgreementName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "pdfvalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -142,7 +144,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "invoicevalidate")
                 );
                 setInvoice(file);
-                // File is a PDF, do further processing
+                setInvoiceName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "invoicevalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -164,7 +166,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "pdcvalidate")
                 );
                 setPdc(file);
-                // File is a PDF, do further processing
+                setPdcName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -224,12 +226,11 @@ const FundRaiseForm = () => {
                 ? setCurrentUserId(current_user_data.id)
                 : setCurrentUserId("");
 
-                getBusinessInformation(current_user_data.id)
+            getBusinessInformation(current_user_data.id)
                 .then((res) => {
-                    console.log(res);
                     if (res.status == true) {
                         setBusinessInfo(res.data.id);
-                        
+
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -303,11 +304,9 @@ const FundRaiseForm = () => {
                     const urlParams = new URLSearchParams(window.location.search);
                     const id = urlParams.get("id");
                     if (id) {
-                        formData.append("id", id);
+                        formData.append("user_id", id);
                     }
-                    formData.append("id", fundRaiseData.id);
                     formData.append("business_id", fundRaiseData.business_id);
-
                     formData.append("total_units", fundRaiseData.total_units);
                     formData.append(
                         "minimum_subscription",
@@ -318,6 +317,8 @@ const FundRaiseForm = () => {
                     formData.append("repay_date", fundRaiseData.repay_date);
                     formData.append("closed_in", fundRaiseData.closed_in);
                     formData.append("resource", fundRaiseData.resource);
+                    formData.append("type", fundRaiseData.type);
+
                     formData.append("xirr", fundRaiseData.xirr);
                     formData.append("amount", fundRaiseData.amount);
                     formData.append("desc", fundRaiseData.desc);
@@ -332,7 +333,7 @@ const FundRaiseForm = () => {
                                 console.log("error occured");
                             });
 
-                           
+
                         FundRaisedSendNotification(data)
                             .then((notificationRes) => {
                                 console.log("success");
@@ -650,7 +651,7 @@ const FundRaiseForm = () => {
                                             </div>
 
                                             <div className="row g-3 mt-1">
-                                                <div className="col-md-6">
+                                                <div className="col-md-3">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label"
@@ -683,7 +684,7 @@ const FundRaiseForm = () => {
                                                         </p>
                                                     )}
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-3">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label"
@@ -707,8 +708,6 @@ const FundRaiseForm = () => {
                                                         readOnly
                                                         onChange={handleChange}
                                                     />
-                                                    {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
-                             })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
                                                     {errors.closed_in && (
                                                         <p
                                                             className="text-danger"
@@ -717,6 +716,34 @@ const FundRaiseForm = () => {
                                                             *Please fill closing date field.
                                                         </p>
                                                     )}
+                                                </div>
+                                                <div className="col-sm-6 mt-3">
+                                                    <label
+                                                        htmlFor="exampleFormControlInput1"
+                                                        className="form-label mb-4"
+                                                    >
+                                                        Fund Type<span style={{ color: "red" }}>*</span>
+                                                    </label>
+                                                    <select
+                                                        className="form-select form-select-lg mb-3 css-1492t68"
+                                                        aria-label="Default select example"
+                                                        {...register("type", {
+                                                            value: !fundRaiseData.type,
+                                                            required: true,
+                                                            onChange: handleChange,
+                                                        })}
+                                                        name="type"
+                                                        value={
+                                                            fundRaiseData.type
+                                                                ? fundRaiseData.type
+                                                                : ""
+                                                        }
+                                                    >
+                                                        <option value="">SELECT TYPE</option>
+                                                        <option value="Dicounting Invoice">Dicounting Invoice</option>
+                                                        <option value="CSOP">CSOP</option>
+                                                        <option value="CCSP">CCSP</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -742,12 +769,14 @@ const FundRaiseForm = () => {
                                                 </div>
                                             </div>
 
+
+
                                             <div className="row g-3 mt-1">
                                                 <div className="col-md-6 mt-5">
                                                     <div
                                                         id="divHabilitSelectors"
                                                         className="input-file-container d-flex"
-                                                    >
+                                                     >
                                                         <div className="file-upload">
                                                             <div className="file-select">
                                                                 <div
@@ -757,12 +786,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handleAgreementFileChange}
                                                                 />
@@ -810,12 +840,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef1}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handleInvoiceFileChange}
                                                                 />
@@ -866,12 +897,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef2}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handlePDCFileChange}
                                                                 />

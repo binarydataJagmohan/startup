@@ -19,7 +19,7 @@ export default function DocumentsUpload(): any {
     const [panCardFrontError, setPanCardFrontError] = useState('');
     const [panCardBackError, setPanCardBackError] = useState('');
     const [adharCardFrontError, setAdharCardFrontError] = useState('');
-    const [adharCardBackError, setAdharCardBackError] = useState('');    
+    const [adharCardBackError, setAdharCardBackError] = useState('');
     const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
         pan_card_front: "",
@@ -163,7 +163,7 @@ export default function DocumentsUpload(): any {
             const maxSize = 2 * 1024 * 1024;
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
-                    setPanCardFront(file);                   
+                    setPanCardFront(file);
                 } else {
                     setPanCardFrontError('* Please upload a file that is no larger than 2 MB.');
                 }
@@ -182,7 +182,7 @@ export default function DocumentsUpload(): any {
             const maxSize = 2 * 1024 * 1024;
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
-                    setPanCardBack(file);                    
+                    setPanCardBack(file);
                 } else {
                     setPanCardBackError('* Please upload a file that is no larger than 2 MB.');
                 }
@@ -208,6 +208,15 @@ export default function DocumentsUpload(): any {
                 setAdharCardFrontError('* Please upload a JPG, PNG, JPEG or PDF file');
                 event.target.value = null;
             }
+        }
+    };
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const handleUploadClick = (event: any) => {
+        event.preventDefault();
+        // setMissingFields([])
+        if (fileInputRef.current !== null) {
+            (fileInputRef.current as HTMLInputElement).click();
         }
     };
 
@@ -343,17 +352,26 @@ export default function DocumentsUpload(): any {
                                                                 Pan Card front view{" "}
                                                                 <span style={{ color: "red" }}>*</span>
                                                             </label>
-                                                            <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept=".jpg, .png, .jpeg, .pdf  " />
+                                                            <input ref={fileInputRef} type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept=".jpg, .png, .jpeg, .pdf  " />
                                                             <p>
                                                                 You can upload any identity card's image
                                                                 jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
                                                             </p>
-
+                                                            <label
+                                                                htmlFor="fileupload"
+                                                                className="input-file-trigger"
+                                                                id="labelFU"
+                                                                tabIndex={0}
+                                                            >
+                                                                Drop your logo image here to{" "}
+                                                                <a href="#" onClick={handleUploadClick}>Upload</a> <br />
+                                                                <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)</p>
+                                                            </label>
                                                             {panCardFrontError ? (
                                                                 <p className='text-danger'>{panCardFrontError}</p>
                                                             ) : (
                                                                 errors.pan_card_front && <p className='text-danger'>{errors.pan_card_front}</p>
-                                                            )}                                                           
+                                                            )}
                                                             {basicDetails.pan_card_front ? (
                                                                 <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
                                                             ) : (

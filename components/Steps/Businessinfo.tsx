@@ -35,18 +35,31 @@ export default function Businessinfo(): any {
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = (event: any) => {
+  const handleUploadLogo = (event: any) => {
     event.preventDefault();
     // setMissingFields([])
     if (fileInputRef.current !== null) {
       (fileInputRef.current as HTMLInputElement).click();
     }
   };
+  const fileInputPitchDeck = useRef<HTMLInputElement>(null);
+  const handleUploadPitchDeck = (event: any) => {
+    event.preventDefault();
+    // setMissingFields([])
+    if (fileInputPitchDeck.current !== null) {
+      (fileInputPitchDeck.current as HTMLInputElement).click();
+    }
+  };
+  const [pichDeckError, setPichDeckError] = useState('');
+  const [pichDeckSizeError, setPichDeckSizeError] = useState('');
   const [startUpLogoError, setStartupLogoError] = useState('');
   const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
-  const [logo, setLogo] = useState(null);
-  const handleFileChange = (event: any) => {
-    // setMissingFields([])
+  const [pitch_deck, setPichDeck] = useState(null);
+  const [logo, setLogo] = useState('');
+  const [logoName, setLogoName] = useState('');
+  const [pitchDeckName, setPitchDeckName] = useState('');
+  const handleLogoChange = (event: any) => {
+    setMissingFields([])
     const file = event.target.files[0];
 
     if (file) {
@@ -56,11 +69,34 @@ export default function Businessinfo(): any {
       if (allowedTypes.includes(file.type)) {
         if (file.size <= maxSize) {
           setLogo(event.target.files[0]);
+          setLogoName(file.name);
         } else {
           setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
         }
       } else {
         setStartupLogoError('* Please upload a JPG or PNG file');
+        event.target.value = null;
+      }
+    }
+
+  };
+  const handlePitchDeckChange = (event: any) => {
+    setMissingFields([]);
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+      const maxSize = 20 * 1024 * 1024;
+
+      if (allowedTypes.includes(file.type)) {
+        if (file.size <= maxSize) {
+          setPichDeck(event.target.files[0]);
+          setPitchDeckName(file.name);
+        } else {
+          setPichDeckSizeError('* Please upload a file that is no larger than 2MB.');
+        }
+      } else {
+        setPichDeckError('* Please upload a PDF, PPT, or DOC file');
         event.target.value = null;
       }
     }
@@ -76,6 +112,7 @@ export default function Businessinfo(): any {
     startup_date: "",
     tagline: "",
     logo: "",
+    pitch_deck: "",
     type: "",
     description: "",
     cofounder: "0",
@@ -153,12 +190,15 @@ export default function Businessinfo(): any {
       if (!businessDetails.type) {
         setMissingFields(prevFields => [...prevFields, "type"])
       }
-      // if (!logo && !businessDetails.logo) {
-      //   setMissingFields(prevFields => [...prevFields, "logo"])
-      // }      
+      if (!pitch_deck && !businessDetails.pitch_deck) {
+        setMissingFields(prevFields => [...prevFields, "pitch_deck"])
+      }    
       const formData = new FormData();
       if (logo !== null) {
         formData.append('logo', logo);
+      }
+      if (pitch_deck !== null) {
+        formData.append('pitch_deck', pitch_deck);
       }
       formData.append("user_id", businessDetails.user_id);
       formData.append("business_name", businessDetails.business_name);
@@ -171,7 +211,6 @@ export default function Businessinfo(): any {
       formData.append("description", businessDetails.description);
       formData.append("cofounder", businessDetails.cofounder);
       formData.append("kyc_purposes", businessDetails.kyc_purposes);
-      formData.append("type", businessDetails.type);
       const res = await businessInfoSave(formData);
 
       if (res.status === true) {
@@ -192,13 +231,6 @@ export default function Businessinfo(): any {
     }
   };
 
-  // register('website_url', {
-  //   required: 'Company website url is required',
-  //   pattern: {
-  //     value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
-  //     message: 'Enter a valid website',
-  //   },
-  // });
   if (signup_success) return router.push("/steps/customizereview");
   return (
     <>
@@ -309,7 +341,7 @@ export default function Businessinfo(): any {
                                     : "*Please enter a valid company's website URL."}
                                 </p>
                               )}
-                              
+
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -427,7 +459,6 @@ export default function Businessinfo(): any {
                             <div className="col-md-6 mt-3">
                               <label htmlFor="tagline" className="form-label">
                                 Tagline
-                                <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
                                 type="text"
@@ -438,110 +469,53 @@ export default function Businessinfo(): any {
                                   // required: true,
                                 })}
                                 name="tagline" onChange={handleChange} value={businessDetails.tagline}
-                              />
-                              {/* {errors.tagline &&
-                                errors.tagline.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your Business Tagline.
-                                  </p>
-                                )} */}
+                              />                             
                             </div>
 
-                            {/* <div className="col-md-6 mt-3">
-                              <label
-                                htmlFor="stage"
-                                className="form-label mb-4"
-                              >
-                                Fund Type
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <select
-                                className="form-select form-select-lg mb-3 css-1492t68"
-                                aria-label="Default select example"
-                                {...register("type", {                                  
-                                  onChange: handleChange
-                                })}
-                                name="type" value={businessDetails ? businessDetails.type : ""}
-                              >
-                                <option value="">--SELECT FUND TYPE--</option>
-                                <option value="Dicounting Invoice">Dicounting Invoice</option>
-                                <option value="CSOP">CSOP</option>
-                                <option value="CCSP">CCSP</option>
-                              </select>
-                              {
-                                missingFields.includes("type") && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Select type of Your Business.
-                                  </p>
-                                )
-                              }                            
-                            </div> */}
-
-                            <div className="col-md-6">
+                            <div className="col-md-6 mt-3">
                               <div
                                 id="divHabilitSelectors"
-                                className="input-file-container"
+                                className="input-file-container "
                               >
                                 <label
                                   htmlFor="logo"
                                   className="form-label"
                                 >
                                   Startup Logo
-                                  <span style={{ color: "red" }}>*</span>
                                 </label>
-                                <input
-                                  ref={fileInputRef}
-                                  className="input-file"
-                                  id="logo"
-                                  type="file"
-                                  name="logo"
-                                  accept="image/jpeg, image/png" // Restrict to JPEG and PNG files
-                                  onChange={handleFileChange}
-                                  style={{ display: 'none' }} // Hide the input element
-                                />
-
+                                <div className="file-upload">
+                                  <div className="file-select">
+                                    <div
+                                      className="file-select-button"
+                                      id="fileName"
+                                    >
+                                      Choose File
+                                    </div>
+                                    <div className="file-select-name" id="noFile">
+                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                    </div>
+                                    <input
+                                      ref={fileInputRef}
+                                      type="file"
+                                      name="logo"
+                                      accept="image/jpeg, image/png"
+                                      id="logo"
+                                      onChange={handleLogoChange}
+                                    />
+                                  </div>
+                                </div>
                                 <label
                                   htmlFor="fileupload"
-                                  className="input-file-trigger"
+                                  className="input-file-trigger mt-1"
                                   id="labelFU"
+                                  style={{ fontSize: "12px", marginLeft: "12px" }}
                                   tabIndex={0}
-                                >
-                                  Drop your logo image here to{" "}
-                                  <a href="#" onClick={handleUploadClick}>Upload</a> <br />
-                                  <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
-                                </label>
-                                {startUpLogoSizeError ? (
-                                  <p className='text-danger'>{startUpLogoSizeError}</p>
-                                ) : (
-                                  startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
-                                )}
-
-                                {
-                                  missingFields.includes("logo") && (
-                                    <p
-                                      className="text-danger"
-                                      style={{ textAlign: "left", fontSize: "12px" }}
-                                    >
-                                      *Please Choose Your Business Logo.
-                                    </p>
-                                  )
-                                }
-                                {!errors.logo && (businessDetails.logo || logo) && (
-                                  <p
-                                    className="text-success"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    Logo Uploaded Successfully.
+                                >                                 
+                                  <p style={{ fontSize: "13px" }}>
+                                    You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)                                   
                                   </p>
-                                )}
-
-                              </div>
+                                </label>
+                              </div>                             
                             </div>
 
                             <div className="col-sm-6 ">
@@ -565,32 +539,63 @@ export default function Businessinfo(): any {
                             <div className="col-md-6">
                               <div
                                 id="divHabilitSelectors"
-                                className="input-file-container"
+                                className="input-file-container "
                               >
                                 <label>
                                   Startup pitch deck
                                   <span style={{ color: "red" }}>*</span>
                                 </label>
-                                <p>Add new field here</p>
-                              </div>
+                                <div className="file-upload">
+                                  <div className="file-select">
+                                    <div
+                                      className="file-select-button"
+                                      id="fileName"
+                                    >
+                                      Choose File
+                                    </div>
+                                    <div className="file-select-name" id="noFile">
+                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck : "No File Chosen ...")}
+                                    </div>
+                                    <input
+                                      ref={fileInputPitchDeck}
+                                      type="file"
+                                      id="pitch_deck"
+                                      name="pitch_deck"
+                                      accept=".pdf, .ppt, .pptx, .doc, .docx"
+                                      onChange={handlePitchDeckChange}
+                                    />
+                                  </div>
+                                </div>
+                                <label
+                                  htmlFor="fileupload"
+                                  className="input-file-trigger mt-1"
+                                  id="labelFU"
+                                  style={{ fontSize: "12px", marginLeft: "12px" }}
+                                  tabIndex={0}
+                                >                                 
+                                  <p style={{ fontSize: "13px" }}>
+                                    You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
+                                    <span style={{ color: "red" }}>*</span>
+                                  </p>
+                                </label>
+                                {pichDeckSizeError ? (
+                                  <p className='text-danger'>{pichDeckSizeError}</p>
+                                ) : (
+                                  pichDeckError && <p className='text-danger'>{pichDeckError}</p>
+                                )}
+
+                                {
+                                  missingFields.includes("pitch_deck") && (
+                                    <p
+                                      className="text-danger"
+                                      style={{ textAlign: "left", fontSize: "12px" }}
+                                    >
+                                      *Please choose your business pitch deck.
+                                    </p>
+                                  )
+                                }
+                              </div>                            
                             </div>
-
-
-                            {/* <div className=" mt-5 d-flex align-content-center">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="checkboxNoLabel"
-                                value="1"
-                                {...register("cofounder", { value: true, })}
-                                name="cofounder" onChange={handleChange} checked={businessDetails.cofounder === '1' ? true : false}
-                              />
-                              <p className="">
-                                You come from an entrepreneurial family or have
-                                been a founder/co-founder of a business venture
-                                family
-                              </p>
-                            </div> */}
                             <div className=" mt-2 d-flex align-items-left">
                               <input
                                 className="form-check-input"
