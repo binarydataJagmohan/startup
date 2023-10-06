@@ -6,6 +6,9 @@ import { getAllActiveFunds } from '@/lib/adminapi';
 import { getToken } from '@/lib/session';
 import Link from 'next/link';
 import axios from 'axios';
+import { sendNotification } from '../../lib/frontendapi';
+import swal from "sweetalert";
+
 interface UserData {
     id?: number;
 }
@@ -58,7 +61,7 @@ const TotalActiveFunds = () => {
         if (funds.length > 0 && !dataTableInitialized) {
             $(document).ready(() => {
                 $('#datatable').DataTable({
-                    lengthMenu: [20, 50, 100 ,150],
+                    lengthMenu: [20, 50, 100, 150],
                     columnDefs: [
                         //  columns  sortable
                         { targets: [0, 1, 2], orderable: true },
@@ -71,29 +74,92 @@ const TotalActiveFunds = () => {
         }
     }, [funds, dataTableInitialized]);
 
-    // Delete Funding from DB..
-    function deleteFund(id: number) {
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`, {
+
+    // updating Funding from DB..
+    function updateStatus(id: number, status: string) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status }, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + getToken(),
             }
         })
             .then(response => {
-                const updatedData = funds.filter(fund => fund.id !== id);
-                setFundsData(updatedData);
+                // Update the status in the state
+                const updatedFunds = funds.map(fund => {
+                    if (fund.id === id) {
+                        return { ...fund, status: status };
+                    }
+                    return fund;
+                });
+                setFundsData(updatedFunds);
+                const data = {
+                    notify_from_user: current_user_id,
+                    notify_to_user: "1",
+                    notify_msg: "Fund Raised Status is Updated.",
+                    notification_type: "Fund Raised Status",
+                    each_read: "unread",
+                    status: "active"
+                };
+                sendNotification(data)
+                    .then((notificationRes) => {
+                        console.log('success')
+                    })
+                    .catch((error) => {
+                        console.log('error occured')
+                    });
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
             })
             .catch(error => {
+                // console.log(error);
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
                 });
             });
     }
+    
+    // Delete Funding from DB..
+    function deleteFund(id: number) {
+        // Display a confirmation dialog using SweetAlert
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete the industry",
+            icon: "warning",
+            dangerMode: true,
+            buttons: ["Cancel", "Yes, I am sure!"],
+        }).then((willDelete) => {
+            if (willDelete) {
+                // If the user confirms deletion, make an Axios DELETE request
+                axios.delete(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                    }
+                })
+                .then(response => {
+                    // If the delete request is successful, update the state to remove the deleted fund
+                    const updatedData = funds.filter(fund => fund.id !== id);
+                    setFundsData(updatedData);
+                    // Display a success message using the toast library
+                    toast.success(response.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        toastId: "success",
+                    });
+                })
+                .catch(error => {
+                    // Handle errors and display an error message using the toast library
+                    toast.error(error.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        toastId: "error",
+                    });
+                });
+            }
+        });
+    }
+    
     return (
         <>
             <div className="main-content">
@@ -126,7 +192,7 @@ const TotalActiveFunds = () => {
                                         <div className="table-responsive">
                                             <div className="box-card recent-reviews mb-4">
                                                 {funds.length > 0 ? (
-                                                    <table className="table-dash"  id="datatable" ref={tableRef}> 
+                                                    <table className="table-dash" id="datatable" ref={tableRef}>
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -136,6 +202,8 @@ const TotalActiveFunds = () => {
                                                                 <th>Avg. Amount</th>
                                                                 <th>Repay Date</th>
                                                                 <th>Closing Date</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -149,6 +217,17 @@ const TotalActiveFunds = () => {
                                                                         <td data-label="Period">{fund.avg_amt_per_person}</td>
                                                                         <td data-label="Amount">{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
                                                                         <td data-label="Period">{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
+
+                                                                        <td>
+                                                                            <span style={{ cursor: "pointer" }} className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
+                                                                                {fund.status.toUpperCase()}
+                                                                            </span>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
+                                                                            <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
+                                                                        </td>
                                                                     </tr>
                                                                 ))
                                                             ) : (

@@ -507,7 +507,8 @@ const FundRaiseForm = () => {
                                                         {...register("xirr", {
                                                             value: !fundRaiseData.xirr,
                                                             required: true,
-                                                            pattern: /^[0-9]*$/,
+                                                            // pattern: /^[0-9]*$/,
+                                                            pattern: /^\d+(\.\d{1,2})?$/,
                                                         })}
                                                         name="xirr"
                                                         onInput={(e) => {
@@ -517,7 +518,7 @@ const FundRaiseForm = () => {
                                                                 /[^0-9.]/g,
                                                                 ""
                                                             ); // Remove non-numeric characters except dot
-                                                            if (numericInput !== input) {
+                                                            if (numericInput == input) {
                                                                 (e.target as HTMLInputElement).value =
                                                                     numericInput;
                                                             }
@@ -718,33 +719,41 @@ const FundRaiseForm = () => {
                                                     )}
                                                 </div>
                                                 <div className="col-sm-6 mt-3">
-                                                    <label
-                                                        htmlFor="exampleFormControlInput1"
-                                                        className="form-label mb-4"
+                                                <label
+                                                    htmlFor="exampleFormControlInput1"
+                                                    className="form-label mb-4"
+                                                >
+                                                    Fund Type<span style={{ color: "red" }}>*</span>
+                                                </label>
+                                                <select
+                                                    className="form-select form-select-lg mb-3 css-1492t68"
+                                                    aria-label="Default select example"
+                                                    {...register("type", {
+                                                        value: !fundRaiseData.type,
+                                                        required: true,
+                                                        onChange: handleChange,
+                                                    })}
+                                                    name="type"
+                                                    value={
+                                                        fundRaiseData.type
+                                                            ? fundRaiseData.type
+                                                            : ""
+                                                    }
                                                     >
-                                                        Fund Type<span style={{ color: "red" }}>*</span>
-                                                    </label>
-                                                    <select
-                                                        className="form-select form-select-lg mb-3 css-1492t68"
-                                                        aria-label="Default select example"
-                                                        {...register("type", {
-                                                            value: !fundRaiseData.type,
-                                                            required: true,
-                                                            onChange: handleChange,
-                                                        })}
-                                                        name="type"
-                                                        value={
-                                                            fundRaiseData.type
-                                                                ? fundRaiseData.type
-                                                                : ""
-                                                        }
-                                                    >
-                                                        <option value="">SELECT TYPE</option>
-                                                        <option value="Dicounting Invoice">Dicounting Invoice</option>
-                                                        <option value="CSOP">CSOP</option>
-                                                        <option value="CCSP">CCSP</option>
-                                                    </select>
-                                                </div>
+                                                    <option value="">SELECT TYPE</option>
+                                                    <option value="Dicounting Invoice">Dicounting Invoice</option>
+                                                    <option value="CSOP">CSOP</option>
+                                                    <option value="CCSP">CCSP</option>
+                                                </select>
+                                                {errors.type && (
+                                                        <p
+                                                            className="text-danger"
+                                                            style={{ textAlign: "left", fontSize: "12px" }}
+                                                        >
+                                                            *Please Select Fund Type.
+                                                        </p>
+                                                    )}
+                                            </div>
                                             </div>
 
                                             <div className="row g-3 mt-1">
@@ -769,7 +778,7 @@ const FundRaiseForm = () => {
                                                 </div>
                                             </div>
 
-
+                                           
 
                                             <div className="row g-3 mt-1">
                                                 <div className="col-md-6 mt-5">
