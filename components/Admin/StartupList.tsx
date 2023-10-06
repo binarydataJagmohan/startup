@@ -271,8 +271,8 @@ const StartupList = () => {
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
-                                            All Startup Companies  
-                                        </li> 
+                                            All Startup Companies
+                                        </li>
                                     </ol>
                                 </div>
                             </div>
@@ -319,17 +319,23 @@ const StartupList = () => {
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-startup/?id=${startup.id}`}>
-                                                                                    <i className="fa-regular fa-pen-to-square" />
+                                                                                    <i className="fa-regular fa-pen-to-square" data-toggle="tooltip"
+                                                                                        data-placement="top"
+                                                                                        title="Edit Fund" />
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">
                                                                                 <a href="#" onClick={() => { deleteStartup(startup.id); }} >
-                                                                                    <i className="fa-solid fa-trash" />
+                                                                                    <i className="fa-solid fa-trash" data-toggle="tooltip"
+                                                                                        data-placement="top"
+                                                                                        title="Delete Fund" />
                                                                                 </a>
                                                                             </li>
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/fund-raise/?id=${startup.id}`}>
-                                                                                    <i className="fa-solid fa-hand-holding-dollar"></i>
+                                                                                    <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
+                                                                                        data-placement="top"
+                                                                                        title="Raise Fund" ></i>
                                                                                 </Link>
                                                                             </li>
                                                                         </ul>

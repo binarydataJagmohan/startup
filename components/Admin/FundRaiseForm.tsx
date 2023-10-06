@@ -224,12 +224,11 @@ const FundRaiseForm = () => {
                 ? setCurrentUserId(current_user_data.id)
                 : setCurrentUserId("");
 
-                getBusinessInformation(current_user_data.id)
+            getBusinessInformation(current_user_data.id)
                 .then((res) => {
-                    console.log(res);
                     if (res.status == true) {
                         setBusinessInfo(res.data.id);
-                        
+
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -303,11 +302,9 @@ const FundRaiseForm = () => {
                     const urlParams = new URLSearchParams(window.location.search);
                     const id = urlParams.get("id");
                     if (id) {
-                        formData.append("id", id);
+                        formData.append("user_id", id);
                     }
-                    formData.append("id", fundRaiseData.id);
                     formData.append("business_id", fundRaiseData.business_id);
-
                     formData.append("total_units", fundRaiseData.total_units);
                     formData.append(
                         "minimum_subscription",
@@ -318,6 +315,8 @@ const FundRaiseForm = () => {
                     formData.append("repay_date", fundRaiseData.repay_date);
                     formData.append("closed_in", fundRaiseData.closed_in);
                     formData.append("resource", fundRaiseData.resource);
+                    formData.append("type", fundRaiseData.type);
+
                     formData.append("xirr", fundRaiseData.xirr);
                     formData.append("amount", fundRaiseData.amount);
                     formData.append("desc", fundRaiseData.desc);
@@ -332,7 +331,7 @@ const FundRaiseForm = () => {
                                 console.log("error occured");
                             });
 
-                           
+
                         FundRaisedSendNotification(data)
                             .then((notificationRes) => {
                                 console.log("success");
@@ -506,7 +505,8 @@ const FundRaiseForm = () => {
                                                         {...register("xirr", {
                                                             value: !fundRaiseData.xirr,
                                                             required: true,
-                                                            pattern: /^[0-9]*$/,
+                                                            // pattern: /^[0-9]*$/,
+                                                            pattern: /^\d+(\.\d{1,2})?$/,
                                                         })}
                                                         name="xirr"
                                                         onInput={(e) => {
@@ -516,7 +516,7 @@ const FundRaiseForm = () => {
                                                                 /[^0-9.]/g,
                                                                 ""
                                                             ); // Remove non-numeric characters except dot
-                                                            if (numericInput !== input) {
+                                                            if (numericInput == input) {
                                                                 (e.target as HTMLInputElement).value =
                                                                     numericInput;
                                                             }
@@ -650,7 +650,7 @@ const FundRaiseForm = () => {
                                             </div>
 
                                             <div className="row g-3 mt-1">
-                                                <div className="col-md-6">
+                                                <div className="col-md-3">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label"
@@ -683,7 +683,7 @@ const FundRaiseForm = () => {
                                                         </p>
                                                     )}
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-3">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label"
@@ -707,8 +707,6 @@ const FundRaiseForm = () => {
                                                         readOnly
                                                         onChange={handleChange}
                                                     />
-                                                    {/* <input type="date" className="form-control" id="closed_in" {...register("closed_in", {value:!fundRaiseData.closed_in,
-                             })} name="closed_in" value={fundRaiseData.closed_in ? fundRaiseData.closed_in:""} onChange={handleChange} /> */}
                                                     {errors.closed_in && (
                                                         <p
                                                             className="text-danger"
@@ -718,6 +716,42 @@ const FundRaiseForm = () => {
                                                         </p>
                                                     )}
                                                 </div>
+                                                <div className="col-sm-6 mt-3">
+                                                <label
+                                                    htmlFor="exampleFormControlInput1"
+                                                    className="form-label mb-4"
+                                                >
+                                                    Fund Type<span style={{ color: "red" }}>*</span>
+                                                </label>
+                                                <select
+                                                    className="form-select form-select-lg mb-3 css-1492t68"
+                                                    aria-label="Default select example"
+                                                    {...register("type", {
+                                                        value: !fundRaiseData.type,
+                                                        required: true,
+                                                        onChange: handleChange,
+                                                    })}
+                                                    name="type"
+                                                    value={
+                                                        fundRaiseData.type
+                                                            ? fundRaiseData.type
+                                                            : ""
+                                                    }
+                                                    >
+                                                    <option value="">SELECT TYPE</option>
+                                                    <option value="Dicounting Invoice">Dicounting Invoice</option>
+                                                    <option value="CSOP">CSOP</option>
+                                                    <option value="CCSP">CCSP</option>
+                                                </select>
+                                                {errors.type && (
+                                                        <p
+                                                            className="text-danger"
+                                                            style={{ textAlign: "left", fontSize: "12px" }}
+                                                        >
+                                                            *Please Select Fund Type.
+                                                        </p>
+                                                    )}
+                                            </div>
                                             </div>
 
                                             <div className="row g-3 mt-1">
@@ -741,6 +775,8 @@ const FundRaiseForm = () => {
                                                     />
                                                 </div>
                                             </div>
+
+                                           
 
                                             <div className="row g-3 mt-1">
                                                 <div className="col-md-6 mt-5">
