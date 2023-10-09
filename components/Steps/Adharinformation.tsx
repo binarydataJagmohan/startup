@@ -74,6 +74,8 @@ export default function AdharInformation(): any {
         .then((res) => {
           if (res.status == true) {
             setUsers(res.data);
+            console.log(res);
+
           }
         })
         .catch((err) => {
@@ -107,16 +109,28 @@ export default function AdharInformation(): any {
 
   const SubmitForm = async () => {
     try {
-      const res = await bankInformationSave(bankDetails);
 
+      const res = await bankInformationSave(bankDetails);
       toast.success("Profile has been Updated Successfully.", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "success",
       });
-      setTimeout(() => {
-        router.push("/steps/documentsupload");
-      }, 1000);
+      const current_user_data: UserData = getCurrentUserData();
+      getSingleUserData(current_user_data.id)
+        .then((res) => {
+          if (res.status == true) {
+            if (users.approval_status === 'approved') {
+              setTimeout(() => {
+                router.push("/company/dashboard");
+              }, 1000);
+            } else {
+              setTimeout(() => {
+                router.push("/steps/documentsupload");
+              }, 1000);
 
+            }
+          }
+        })
       // const data = {
       //   notify_from_user: current_user_id,
       //   notify_to_user: "1",

@@ -173,7 +173,7 @@ const AllFundsList = () => {
                   <h6 className="page-title">Startup</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
-                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/company"}>Dashboard</Link>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"}>Dashboard</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       All Funds Raise List

@@ -10476,7 +10476,7 @@ span.logo-sm img {
 .form-faq .container .accordion {
     max-width: 69%;
     margin: 60px auto;
-    margin-left: 290px;
+    /* margin-left: 290px; */
 }
 .page-link.active, .active > .page-link{
   border-color:#088395 !important;
