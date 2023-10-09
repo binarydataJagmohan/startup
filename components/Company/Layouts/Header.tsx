@@ -144,13 +144,13 @@ const Header = () => {
                             </Link>
                           </li> */}
                           <li className={`nav-item ${router.pathname === '/company/all-fund-raise-list' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-fund-raise-list"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-fund-raise-list"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Fund Raise</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
@@ -203,19 +203,19 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="waves-effect">
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
                             </Link>
@@ -234,7 +234,7 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
@@ -294,7 +294,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"} className="text-reset notification-item">
+                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -320,7 +320,7 @@ const Header = () => {
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <Link className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/company/all-notifications"}>
+                    <Link className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"}>
                       View all
                     </Link>
                   </div>

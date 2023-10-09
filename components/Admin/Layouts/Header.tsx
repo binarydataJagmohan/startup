@@ -164,57 +164,57 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li className={`nav-item ${router.pathname === '/admin/dashboard' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect" >
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="waves-effect" >
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-investors' || router.pathname.startsWith('/admin/edit-investor') ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-startup-companies' || router.pathname.startsWith('/admin/edit-startup') ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>Startups</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-active-funds' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-active-funds"} className="waves-effect">
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">{totalActiveFunds}</span>
                               <span>Fund Raised</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-users' || router.pathname.startsWith('/admin/edit-user') ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"} className="waves-effect">
                               <i className="fa fa-users"></i>
                               <span>Users</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/all-notifications' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span className="badge rounded-pill bg-danger float-end">{unreadNotifications}</span>
                               <span>Notifications</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/terms-and-conditions' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/terms-and-conditions"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/terms-and-conditions"} className="waves-effect">
                               <i className="fas fa-clipboard-list term-icon"></i>
                               <span>Term & Condition </span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/privacy-policy' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/privacy-policy"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/privacy-policy"} className="waves-effect">
                               <i className="fas fa-user-secret privacy-icon"></i>
                               <span>Privacy Policy</span>
                             </Link>
                           </li>
                           <li className={`nav-item ${router.pathname === '/admin/notification-settings' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/notification-settings"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/notification-settings"} className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
                             </Link>
@@ -261,19 +261,19 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="waves-effect">
                               <i className="fa fa-home"></i>
                               <span>Dashboard</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-investors"} className="waves-effect">
                               <i className="fa fa-dollar"></i>
                               <span>Investors</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-startup-companies"} className="waves-effect">
                               <i className="fa fa-building"></i>
                               <span>All Startups</span>
                             </Link>
@@ -346,7 +346,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div data-simplebar style={{ maxHeight: '230px' }}>
-                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"} className="text-reset notification-item">
+                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-notifications"} className="text-reset notification-item">
                     <div className="d-flex">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-xs">
@@ -372,7 +372,7 @@ const Header = () => {
                 </div>
                 <div className="p-2 border-top">
                   <div className="d-grid">
-                    <Link className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-notifications"}>
+                    <Link className="btn btn-sm btn-link font-size-14 text-center" href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-notifications"}>
                       View all
                     </Link>
                   </div>
