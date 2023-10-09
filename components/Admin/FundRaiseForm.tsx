@@ -381,7 +381,7 @@ const FundRaiseForm = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>Dashboard</Link>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             Fund Raise

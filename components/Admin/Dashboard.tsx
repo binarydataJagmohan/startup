@@ -111,7 +111,7 @@ const Dashboard = () => {
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white" /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-active-funds"} className=""><i className="mdi mdi-arrow-right h5 text-white" /></Link>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -127,7 +127,7 @@ const Dashboard = () => {
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"} className=""><i className="mdi mdi-arrow-right h5 text-white" style={{ color: 'white' }} /></Link>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -143,7 +143,7 @@ const Dashboard = () => {
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-startup-companies"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
                           </div>
                           <p className=" mb-0 mt-1 text-white">Since last month</p>
                         </div>
@@ -159,7 +159,7 @@ const Dashboard = () => {
                         </div>
                         <div className="pt-2">
                           <div className="float-end">
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-investors"} className=""><i className="mdi mdi-arrow-right h5 " style={{ color: 'white' }} /></Link>
                           </div>
                           <p className="mb-0 mt-1 text-white">Since last month</p>
                         </div>

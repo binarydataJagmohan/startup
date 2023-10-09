@@ -126,7 +126,7 @@ export default function Home() {
                               </>
                             ) : (
                               <>
-                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/investor/thank-you"} className="default-btn">
+                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + "investor/thank-you"} className="default-btn">
                                   My Profile
                                 </Link>
                                 <a href="#" onClick={handleLogout} className="default-btn">
@@ -138,10 +138,10 @@ export default function Home() {
                         )
                           : current_user_role === "admin" ? (
                             <div className="banner-btn">
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/admin-update"} className="default-btn">
                                 My Profile
                               </Link>
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="default-btn">
                                 Dashboard
                               </Link>
                             </div>
@@ -150,16 +150,16 @@ export default function Home() {
 
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "steps/findbusiness"} className="default-btn">
                                     My Profile
                                   </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"} className="default-btn">
                                     Dashboard
                                   </Link>
                                 </>
                               ) : (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/thank-you"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/thank-you"} className="default-btn">
                                     My Profile
                                   </Link>
                                   <a href="#" onClick={handleLogout} className="default-btn">
@@ -231,10 +231,10 @@ export default function Home() {
                           
                           {current_user_role === "admin" && (
                             <div className="banner-btn">
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/admin-update"} className="default-btn">
                                 My Profile
                               </Link>
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="default-btn">
                                 Dashboard
                               </Link>
                             </div>
@@ -243,10 +243,10 @@ export default function Home() {
                             <div className="banner-btn">
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "steps/findbusiness"} className="default-btn">
                                     My Profile
                                   </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"} className="default-btn">
                                     Dashboard
                                   </Link>
                                 </>
@@ -312,10 +312,10 @@ export default function Home() {
                           )}
                           {current_user_role === "admin" && (
                             <div className="banner-btn">
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/admin-update"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/admin-update"} className="default-btn">
                                 My Profile
                               </Link>
-                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"} className="default-btn">
+                              <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"} className="default-btn">
                                 Dashboard
                               </Link>
                             </div>
@@ -324,10 +324,10 @@ export default function Home() {
                             <div className="banner-btn">
                               {users.approval_status === "approved" ? (
                                 <>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/steps/findbusiness"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "steps/findbusiness"} className="default-btn">
                                     My Profile
                                   </Link>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"} className="default-btn">
+                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"} className="default-btn">
                                     Dashboard
                                   </Link>
                                 </>
