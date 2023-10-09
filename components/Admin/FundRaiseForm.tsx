@@ -104,7 +104,9 @@ const FundRaiseForm = () => {
     const [invoiceError, setInvoiceError] = useState('');
     const [pdc, setPdc] = useState(null);
     const [pdcError, setPdcError] = useState('');
-
+    const [agreementName, setAgreementName] = useState('');
+    const [invoiceName, setInvoiceName] = useState('');
+    const [pdcName, setPdcName] = useState('');
     // handleInvoiceFileChange for agreement pdf
     const handleAgreementFileChange = (event: any) => {
         const file = event.target.files[0];
@@ -120,7 +122,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "pdfvalidate")
                 );
                 setAgreement(file);
-                // File is a PDF, do further processing
+                setAgreementName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "pdfvalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -142,7 +144,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "invoicevalidate")
                 );
                 setInvoice(file);
-                // File is a PDF, do further processing
+                setInvoiceName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "invoicevalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -164,7 +166,7 @@ const FundRaiseForm = () => {
                     prevFields.filter((field) => field !== "pdcvalidate")
                 );
                 setPdc(file);
-                // File is a PDF, do further processing
+                setPdcName(file.name);
             } else {
                 setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);
                 // File is not a PDF, show error message or handle accordingly
@@ -783,7 +785,7 @@ const FundRaiseForm = () => {
                                                     <div
                                                         id="divHabilitSelectors"
                                                         className="input-file-container d-flex"
-                                                    >
+                                                     >
                                                         <div className="file-upload">
                                                             <div className="file-select">
                                                                 <div
@@ -793,12 +795,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handleAgreementFileChange}
                                                                 />
@@ -846,12 +849,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef1}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handleInvoiceFileChange}
                                                                 />
@@ -902,12 +906,13 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    No File Chosen ...
+                                                                    {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef2}
                                                                     type="file"
                                                                     name="chooseFile"
+                                                                    accept=".pdf"
                                                                     id="chooseFile"
                                                                     onChange={handlePDCFileChange}
                                                                 />

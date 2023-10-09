@@ -2,9 +2,16 @@ body {
   /* font-family: 'Source Sans 3', sans-serif !important; */
   font-family: "Source Sans Pro", sans-serif !important;
 }
-h1, h2, h3, h4, h5, h6{ 
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Source Serif 4', serif !important;
 }
+
 #invest .send-btn .default-btn {
   display: block;
   width: 100%;
@@ -82,13 +89,16 @@ body {
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 600;
-  height: 35px;
+  height: 52px !important;
   margin-top: -17px;
 }
 
 #register input#checkboxNoLabel {
   margin-right: 15px;
   align-items: center;
+  border-radius: 0% !important;
+  height: 0px !important;
+  width: 24px;
 }
 
 #register .form-check-input[type=checkbox] {
@@ -328,6 +338,7 @@ input[type="radio"][id^="myCheckbox"] {
   object-fit: cover;
   transition: all 0.9s;
 }
+
 .investor-classs :checked+label:before {
   content: "✓";
   background-color: #79AC78;
