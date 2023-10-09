@@ -70,6 +70,8 @@ export default function Businessinfo(): any {
         if (file.size <= maxSize) {
           setLogo(event.target.files[0]);
           setLogoName(file.name);
+          setStartupLogoSizeError('');
+          setStartupLogoError('');
         } else {
           setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
         }
@@ -92,6 +94,8 @@ export default function Businessinfo(): any {
         if (file.size <= maxSize) {
           setPichDeck(event.target.files[0]);
           setPitchDeckName(file.name);
+          setPichDeckError('');
+          setPichDeckSizeError('');
         } else {
           setPichDeckSizeError('* Please upload a file that is no larger than 2MB.');
         }
@@ -192,7 +196,7 @@ export default function Businessinfo(): any {
       }
       if (!pitch_deck && !businessDetails.pitch_deck) {
         setMissingFields(prevFields => [...prevFields, "pitch_deck"])
-      }    
+      }
       const formData = new FormData();
       if (logo !== null) {
         formData.append('logo', logo);
@@ -328,11 +332,12 @@ export default function Businessinfo(): any {
                                   onChange: handleChange,
                                   required: true,
                                   pattern: {
-                                    value: /^(https?:\/\/)?[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                                    value: /^(https?:\/\/)?[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?$/,
                                     message: "Please enter a valid website URL"
                                   }
                                 })}
-                                name="website_url" value={businessDetails.website_url}
+                                name="website_url"
+                                value={businessDetails.website_url}
                               />
                               {errors.website_url && (
                                 <p className="text-danger">
@@ -341,6 +346,7 @@ export default function Businessinfo(): any {
                                     : "*Please enter a valid company's website URL."}
                                 </p>
                               )}
+
 
                             </div>
                             <div className="col-md-6 mt-3">
@@ -469,7 +475,7 @@ export default function Businessinfo(): any {
                                   // required: true,
                                 })}
                                 name="tagline" onChange={handleChange} value={businessDetails.tagline}
-                              />                             
+                              />
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -510,12 +516,18 @@ export default function Businessinfo(): any {
                                   id="labelFU"
                                   style={{ fontSize: "12px", marginLeft: "12px" }}
                                   tabIndex={0}
-                                >                                 
+                                >
                                   <p style={{ fontSize: "13px" }}>
-                                    You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)                                   
+                                    You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)
                                   </p>
+                                  {startUpLogoSizeError ? (
+                                    <p className='text-danger'>{startUpLogoSizeError}</p>
+                                  ) : (
+                                    startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                  )}
+
                                 </label>
-                              </div>                             
+                              </div>
                             </div>
 
                             <div className="col-sm-6 ">
@@ -572,7 +584,7 @@ export default function Businessinfo(): any {
                                   id="labelFU"
                                   style={{ fontSize: "12px", marginLeft: "12px" }}
                                   tabIndex={0}
-                                >                                 
+                                >
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
                                     <span style={{ color: "red" }}>*</span>
@@ -594,7 +606,7 @@ export default function Businessinfo(): any {
                                     </p>
                                   )
                                 }
-                              </div>                            
+                              </div>
                             </div>
                             <div className=" mt-2 d-flex align-items-left">
                               <input
