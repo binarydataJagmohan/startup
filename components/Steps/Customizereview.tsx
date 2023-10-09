@@ -35,6 +35,7 @@ export default function Customereview(): any {
   const [proof_img, setProofImg] = useState(null);
   const [users, setUsers] = useState<any>({});
   const [startUpLogoError, setStartupLogoError] = useState('');
+  const [startUpLogoName, setStartupLogoName] = useState('');
   const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const [basicDetails, setBasicDetails] = useState({
     user_id: current_user_id,
@@ -70,6 +71,10 @@ export default function Customereview(): any {
       if (allowedTypes.includes(selectedFile.type)) {
         if (selectedFile.size <= maxSize) {
           setImageUploadStatus('success');
+          setProofImg(selectedFile);
+          setStartupLogoName(selectedFile.name);
+          setStartupLogoSizeError('');
+          setStartupLogoError('');
         } else {
           setStartupLogoSizeError('* Please upload a file that is no larger than 20 MB.');
         }
@@ -133,13 +138,12 @@ export default function Customereview(): any {
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
       } else if (!basicDetails.proof_img) {
-        setMissingFields(prevFields => [...prevFields, "image"]);
+        setMissingFields(prevFields => [...prevFields, "pitch_deck"]);
       }
       formData.append("user_id", basicDetails.user_id);
       formData.append("pan_number", basicDetails.pan_number);
       formData.append("uid", basicDetails.uid);
-      formData.append("dob", basicDetails.dob);
-      console.log(formData);
+      formData.append("dob", basicDetails.dob);      
       const res = await basicInformationSave(formData);
       if (res.status == true) {
         // toast.success(res.message, {
@@ -293,60 +297,66 @@ export default function Customereview(): any {
                                 </p>
                               )}
                             </div>
-                            <div className="col-md-6 mt-5">
+                            <div className="col-md-6 mt-3">
                               <div
                                 id="divHabilitSelectors"
-                                className="input-file-container"
+                                className="input-file-container "
                               >
-                                <input
-                                  ref={fileInputRef}
-                                  className="input-file class-unset d-none"
-                                  id="proof_img"
-                                  type="file"
-                                  accept=".pdf, .ppt, .pptx, .doc, .docx"
-                                  name="proof_img"
-                                  onChange={handleFileChange}
-                                />
-
+                                <label>
+                                  Identity card
+                                  <span style={{ color: "red" }}>*</span>
+                                </label>
+                                <div className="file-upload">
+                                  <div className="file-select">
+                                    <div
+                                      className="file-select-button"
+                                      id="fileName"
+                                    >
+                                      Choose File
+                                    </div>
+                                    <div className="file-select-name" id="noFile">
+                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
+                                    </div>
+                                    <input
+                                      ref={fileInputRef}
+                                      id="proof_img"
+                                      type="file"
+                                      accept=".pdf, .ppt, .pptx, .doc, .docx"
+                                      name="proof_img"
+                                      onChange={handleFileChange}
+                                    />
+                                  </div>
+                                </div>
                                 <label
                                   htmlFor="fileupload"
-                                  className="input-file-trigger"
+                                  className="input-file-trigger mt-1"
                                   id="labelFU"
+                                  style={{ fontSize: "12px", marginLeft: "12px" }}
                                   tabIndex={0}
                                 >
-                                  Drop your pitch deck here to{" "}
-                                  <a href="#" onClick={handleUploadClick}>Upload</a> <br />
-                                  <p>
-                                    You can upload any identity card's image
-                                    ppt,pdf,docs file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
+                                  <p style={{ fontSize: "13px" }}>
+                                    You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
+                                    <span style={{ color: "red" }}>*</span>
                                   </p>
                                 </label>
-                                {!imageUploadStatus && (
-                                  <>
-                                    {startUpLogoSizeError ? (
-                                      <p className='text-danger'>{startUpLogoSizeError}</p>
-                                    ) : (
-                                      startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
-                                    )}
-                                  </>
+                                {startUpLogoSizeError ? (
+                                  <p className='text-danger'>{startUpLogoSizeError}</p>
+                                ) : (
+                                  startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
                                 )}
 
-                                <div className="help-block with-errors" />
-                                {missingFields.includes('image') && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please upload Your Proof.
-                                  </p>
-                                )}
-
-                                {/* {(imageUploadStatus === 'success' || !errors.proof_img && basicDetails.proof_img) && (
-                                  <p className="text-success" style={{ textAlign: "left", fontSize: "12px" }}>
-                                    Image Uploaded Successfully.
-                                  </p>
-                                )} */}
+                                {
+                                  missingFields.includes("pitch_deck") && (
+                                    <p
+                                      className="text-danger"
+                                      style={{ textAlign: "left", fontSize: "12px" }}
+                                    >
+                                      *Please choose your business pitch deck.
+                                    </p>
+                                  )
+                                }
                               </div>
+
                             </div>
                           </div>
                           <div className="row mt-3">

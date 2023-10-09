@@ -25,12 +25,15 @@ const Profile = () => {
     const [current_user_id, setCurrentUserId] = useState("");
     const [profile_pic, setProfilePic] = useState(null);
     const [profilePicError, setProfilePicError] = useState('');
+    const [profilePicName, setProfilePicName] = useState('');
     const [profilePicSizeError, setProfilePicSizeError] = useState('');
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const [logoError, setLogoError] = useState('');
+    const [logoName, setLogoName] = useState('');
     const [logoSizeError, setLogoSizeError] = useState('');
     const [previewLogoImage, setPreviewLogoImage] = useState<string | ArrayBuffer | null>(null);
     const [proofImgError, setProofImgError] = useState('');
+    const [proofImgName, setProofImgName] = useState('');
     const [proofImgSizeError, setProofImgSizeError] = useState('');
     const [priviewProofImage, setPriviewProofImage] = useState<string | ArrayBuffer | null>(null);
     const [user, setUser] = useState({
@@ -135,6 +138,7 @@ const Profile = () => {
                     };
                     reader.readAsDataURL(file);
                     setProfilePic(event.target.files[0]);
+                    setProfilePicName(file.name);
                 } else {
                     setProfilePicSizeError('* Please upload a file that is no larger than 2MB.');
                 }
@@ -159,6 +163,7 @@ const Profile = () => {
                     };
                     reader.readAsDataURL(file);
                     setLogo(event.target.files[0]);
+                    setLogoName(file.name);
                 } else {
                     setLogoSizeError('* Please upload a file that is no larger than 2MB.');
                 }
@@ -172,8 +177,8 @@ const Profile = () => {
     const handleFileChangeProof = (event: any) => {
         const file = event.target.files[0];
         if (file) {
-            const allowedTypes = ["image/jpeg", "image/png"];
-            const maxSize = 2 * 1024 * 1024;
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 20 * 1024 * 1024;
 
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
@@ -183,11 +188,12 @@ const Profile = () => {
                     };
                     reader.readAsDataURL(file);
                     setProofImg(event.target.files[0]);
+                    setProofImgName(file.name);
                 } else {
                     setProofImgSizeError('* Please upload a file that is no larger than 2MB.');
                 }
             } else {
-                setProofImgError('* Please upload a JPG or PNG file');
+                setProofImgError('* Please upload a PDF, PPT, or DOC file');
                 event.target.value = null;
             }
         }
@@ -276,6 +282,7 @@ const Profile = () => {
             .then((res) => {
                 if (res.status == true) {
                     setBasicDetails(res.data);
+                    setProofImgName(res.data.proof_img);
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -375,6 +382,9 @@ const Profile = () => {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000)
             } else {
                 toast.error(res.msg, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -417,6 +427,9 @@ const Profile = () => {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000)
             } else {
                 toast.error(res.msg, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -448,6 +461,9 @@ const Profile = () => {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000)
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -535,6 +551,13 @@ const Profile = () => {
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Name{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
                                                                     <input type="text" className="form-control form-css" placeholder="Name"  {...register("name", { value: true, required: true, })} onChange={handleChange} name="name" value={user.name} />
                                                                     {errors.name &&
                                                                         errors.name.type === "required" && (
@@ -549,11 +572,18 @@ const Profile = () => {
                                                             </div>
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Email ID{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
                                                                     <input type="email" className="form-control form-css" placeholder="Email" {...register("email", {
-                                                                        onChange: handleChange,
+                                                                        // onChange: handleChange,
                                                                         required: true,
                                                                         value: true,
-                                                                    })} onChange={handleChange} name="email" value={user.email} />
+                                                                    })} onChange={handleChange} name="email" value={user.email} readOnly />
                                                                     {errors.email && (
                                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                                             <span>*Email Required</span>
@@ -565,10 +595,24 @@ const Profile = () => {
                                                         <div className="row">
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Linkedin URL{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
                                                                     <input type="text" className="form-control form-css" placeholder="www.linkedin.com" onChange={handleChange} name="linkedin_url" value={user.linkedin_url} />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Phone Number{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part mt-3">
                                                                     <PhoneInput
                                                                         onClick={phonClick}
@@ -581,6 +625,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Country of Citizenship{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <select
                                                                         name="country" className="form-select form-css"
@@ -602,6 +653,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Which city do you live in?{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="City" onChange={handleChange} name="city" value={user.city} />
                                                                 </div>
@@ -609,6 +667,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row mb-5">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Gender{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <select
                                                                         className="form-select form-css" onChange={handleChange}
@@ -622,7 +687,14 @@ const Profile = () => {
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div className="col-sm-2">
+                                                            {/* <div className="col-sm-2 ">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Profile{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="profile-pic">
                                                                     {previewImage ? (
                                                                         <Image
@@ -653,9 +725,41 @@ const Profile = () => {
                                                                     )}
 
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" name="profile_pic" onChange={handleFileChange} accept='.jpg, .jpeg, .png' />
+                                                            </div> */}
+                                                            <div className="col-sm-6 ">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Profile{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container "
+                                                                >
+                                                                    <div className="file-upload mt-4">
+                                                                        <div className="file-select">
+                                                                            <div
+                                                                                className="file-select-button"
+                                                                                id="fileName"
+                                                                            >
+                                                                                Choose File
+                                                                            </div>
+                                                                            <div className="file-select-name" id="noFile">
+                                                                                {profilePicName ? profilePicName : (user.profile_pic ? user.profile_pic : "No File Chosen ...")}
+                                                                            </div>
+                                                                            <input
+                                                                                // ref={fileInputRef}
+                                                                                id="proof_img"
+                                                                                type="file"
+                                                                                accept='.jpg, .jpeg, .png'
+                                                                                name="profile_pic"
+                                                                                onChange={handleFileChange}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 {profilePicSizeError ? (
                                                                     <p className='text-danger'>{profilePicSizeError}</p>
                                                                 ) : (
@@ -689,6 +793,13 @@ const Profile = () => {
                                                     <form onSubmit={submitBusinessInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Name of Startup {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Business Name" {...register("business_name", { value: true, required: true, })} onChange={handleChangeBusinessInfo} name="business_name" value={businessDetails.business_name} />
                                                                     {errors.business_name &&
@@ -703,6 +814,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Registered name of Startup {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Registered Business Name"  {...register("reg_businessname", { onChange: handleChangeBusinessInfo, value: true, required: true, })} name="reg_businessname" value={businessDetails.reg_businessname} />
                                                                     {errors.reg_businessname &&
@@ -719,6 +837,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Website URL {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Website URL"  {...register("website_url", { onChange: handleChangeBusinessInfo })} name="website_url" value={businessDetails.website_url} />
                                                                     {errors.website_url && (
@@ -732,6 +857,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Sector of Startup{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <select
                                                                         className="form-select form-css"  {...register("sector", { validate: (value) => value != "", required: true, onChange: handleChangeBusinessInfo })} name="sector" value={businessDetails.sector}
@@ -768,6 +900,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Stage of Startup{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <select
                                                                         className="form-select form-css"  {...register("stage", { validate: (value) => value != "", required: true, onChange: handleChangeBusinessInfo })} name="stage" value={businessDetails.stage}
@@ -794,6 +933,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Month & year of inception{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="date" className="form-control form-css" placeholder="DD/MM/YY" {...register("startup_date", { value: true, required: true, onChange: handleChangeBusinessInfo })} name="startup_date" value={businessDetails.startup_date} max={new Date().toISOString().split("T")[0]} />
                                                                     {errors.startup_date &&
@@ -810,6 +956,12 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Tagline
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Tagline" {...register("tagline", { value: true, required: true, onChange: handleChangeBusinessInfo })} name="tagline" value={businessDetails.tagline} />
                                                                     {errors.tagline &&
@@ -826,6 +978,13 @@ const Profile = () => {
 
                                                             <div className="col-sm-6">
                                                                 <div className="form-part">
+                                                                    <label
+                                                                        htmlFor="exampleFormControlInput1"
+                                                                        className="form-label"
+                                                                    >
+                                                                        Select Fund Type{" "}
+                                                                        <span style={{ color: "red" }}>*</span>
+                                                                    </label>
                                                                     <select
                                                                         className="form-select form-css" {...register("type", { validate: (value) => value != "", required: true, onChange: handleChangeBusinessInfo })} name="type" value={businessDetails.type}
                                                                         aria-label="Default select example"
@@ -850,6 +1009,13 @@ const Profile = () => {
 
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    1000 characters to tell us about your business{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part mt-2">
                                                                     <textarea
                                                                         rows={4}
@@ -862,7 +1028,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
 
-                                                            <div className="col-sm-2">
+                                                            {/* <div className="col-sm-2">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Startup Logo
+                                                                </label>
                                                                 <div className="logo">
                                                                     {previewLogoImage ? (
                                                                         <Image
@@ -890,9 +1062,39 @@ const Profile = () => {
                                                                         )
                                                                     )}
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" {...register("logo", { value: true, required: !businessDetails.logo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png' />
+                                                            </div> */}
+                                                            <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Startup Logo{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container "
+                                                                >
+                                                                    <div className="file-upload mt-4">
+                                                                        <div className="file-select">
+                                                                            <div
+                                                                                className="file-select-button"
+                                                                                id="fileName"
+                                                                            >
+                                                                                Choose File
+                                                                            </div>
+                                                                            <div className="file-select-name" id="noFile">
+                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                                                            </div>
+                                                                            <input
+                                                                                // ref={fileInputRef}
+                                                                                id="proof_img"
+                                                                                type="file"
+                                                                                {...register("logo", { value: true, required: !businessDetails.logo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png'
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 {logoSizeError ? (
                                                                     <p className='text-danger'>{logoSizeError}</p>
                                                                 ) : (
@@ -902,31 +1104,31 @@ const Profile = () => {
 
                                                         </div>
 
-                                                        <div className=" mt-5 d-flex align-content-center">
+                                                        {/* <div className=" mt-5 d-flex align-content-center">
                                                             <input
-                                                                className=" w-auto"
+                                                                className="w-auto"
                                                                 type="checkbox"
-                                                                id="checkboxNoLabel" style={{ marginLeft: "17px" }}
+                                                                id="checkboxNoLabel" style={{ marginLeft: "1px", marginBottom: "auto" }}
                                                                 value="1"
                                                                 {...register("cofounder", { value: true, })}
                                                                 name="cofounder" checked={businessDetails.cofounder === '1' ? true : false}
                                                             />
-                                                            <p className="mt-2">
+                                                            <p className="mt-2 mx-3">
                                                                 You come from an entrepreneurial family or have
                                                                 been a founder/co-founder of a business venture
                                                                 family
                                                             </p>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="mt-2 d-flex align-items-left">
                                                             <input
-                                                                className=" w-auto"
+                                                                className="w-auto"
                                                                 type="checkbox"
                                                                 id="checkboxNoLabel"
-                                                                value="1" style={{ marginLeft: "17px" }}
+                                                                value="1" style={{ marginLeft: "1px", marginBottom: "auto" }}
                                                                 {...register("kyc_purposes", { value: true, required: true, onChange: handleChangeBusinessInfo })}
                                                                 name="kyc_purposes" checked={businessDetails.kyc_purposes === '1'}
                                                             />
-                                                            <p className="mt-4">
+                                                            <p className="mt-2 mx-3">
                                                                 I certify that all the information provided by
                                                                 me is accurate and I am willing to provide
                                                                 evidence for the same for KYC purposes when
@@ -969,6 +1171,13 @@ const Profile = () => {
                                                     <form onSubmit={submitBasicInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Pan Card Number{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Pan Card Number"  {...register("pan_number", { value: true, required: true, })} onChange={handleChangeBasic} name="pan_number" value={basicDetails.pan_number} maxLength={10} />
                                                                     {errors.pan_number &&
@@ -983,6 +1192,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Adhaar Card Number{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Adhaar Card Number" {...register("uid", { value: true, required: true })} onChange={handleChangeBasic} name="uid" value={basicDetails.uid} />
                                                                     {errors.uid && (
@@ -998,6 +1214,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    DOB {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="date" className="form-control form-css" placeholder="DOB" {...register("dob", { value: true, required: true, })} onChange={handleChangeBasic} name="dob" value={basicDetails.dob} min={`${new Date().getMonth() - 18}-01-01`} max={`${new Date().getFullYear() - 18}-12-31`} />
                                                                     {errors.dob && errors.dob.type === "required" && (
@@ -1010,21 +1233,21 @@ const Profile = () => {
                                                                     )}
                                                                 </div>
                                                             </div>
-                                                            <div className="col-sm-2">
+                                                            {/* <div className="col-sm-2">
                                                                 <div className="profile-pic">
-                                                                    {priviewProofImage ? (
-                                                                        <Image
-                                                                            src={typeof priviewProofImage === 'string' ? priviewProofImage : ''}
-                                                                            width={300}
-                                                                            height={200}
-                                                                            alt=''
-                                                                            className='profile-pic'
-                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                    {priviewProofImage && typeof priviewProofImage === 'string' && priviewProofImage.endsWith('.pdf') ? (
+                                                                        <embed
+                                                                            src={priviewProofImage}
+                                                                            width="100%"
+                                                                            height="600px"
+                                                                            type="application/pdf"
                                                                         />
                                                                     ) : (
                                                                         basicDetails.proof_img ? (
                                                                             <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + basicDetails.proof_img} alt="proof-img" className="proof-img"
+                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
+                                                                                alt="proof-img"
+                                                                                className="proof-img"
                                                                                 width={120}
                                                                                 height={120}
                                                                             />
@@ -1036,11 +1259,44 @@ const Profile = () => {
                                                                                 height={100}
                                                                             />
                                                                         )
-                                                                    )}                                                                   
+                                                                    )}
+
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-sm-4">
-                                                                <input type="file" className="mt-4 pt-4" name="proof-img" accept='.png, .jpg, .jpeg' onChange={handleFileChangeProof} />
+                                                            </div> */}
+                                                            <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Identity card{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container "
+                                                                >
+                                                                    <div className="file-upload mt-3">
+                                                                        <div className="file-select">
+                                                                            <div
+                                                                                className="file-select-button"
+                                                                                id="fileName"
+                                                                            >
+                                                                                Choose File
+                                                                            </div>
+
+
+                                                                            <div className="file-select-name" id="noFile">
+                                                                                {proofImgName ? proofImgName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
+                                                                            </div>
+
+                                                                            <input
+                                                                                id="proof_img"
+                                                                                type="file"
+                                                                                name="proof-img" accept='.pdf, .docx, .ppt' onChange={handleFileChangeProof}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 {proofImgSizeError ? (
                                                                     <p className='text-danger'>{proofImgSizeError}</p>
                                                                 ) : (
@@ -1074,6 +1330,13 @@ const Profile = () => {
                                                     <form onSubmit={submitBankInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Bank Name {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Bank Name" {...register("bank_name", { value: true, required: true, })} onChange={handleChangeBank} name="bank_name" value={bankDetails.bank_name} />
                                                                     {errors.bank_name &&
@@ -1088,6 +1351,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Account Holder's Name {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Account Holder" {...register("account_holder", { value: true, required: true, })} onChange={handleChangeBank} name="account_holder" value={bankDetails.account_holder} />
                                                                     {errors.account_holder &&
@@ -1104,6 +1374,13 @@ const Profile = () => {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Account Number  {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Account Number" {...register("account_no", { value: true, required: true, })} onChange={handleChangeBank} name="account_no" value={bankDetails.account_no} />
                                                                     {errors.account_no &&
@@ -1118,6 +1395,13 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    IFSC Code {" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
                                                                 <div className="form-part">
                                                                     <input type="text" className="form-control form-css" placeholder="Ifsc Code" {...register("ifsc_code", { value: true, required: true, max: 11 })} onChange={handleChangeBank} name="ifsc_code" value={bankDetails.ifsc_code} />
                                                                     {errors.ifsc_code && (
