@@ -9055,7 +9055,8 @@ input#checkbox1,
 #checkbox3,
 #checkbox4,
 #checkbox5,
-#checkbox6 {
+#checkbox6,
+#checkbox7 {
   height: 15px;
   width: 15px;
   border: none;

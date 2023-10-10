@@ -71,6 +71,21 @@ const Thankyou = () => {
       checkUserStatus();
     }, []);
     useEffect(() => {
+      window.localStorage.removeItem("go_back_selected_options_document_upload");
+      window.localStorage.removeItem('session_category');
+      window.localStorage.removeItem('session_principal_residence');
+      window.localStorage.removeItem('session_experience ');
+      window.localStorage.removeItem('session_net_worth');
+      window.localStorage.removeItem('session_prev_investment_exp');
+      window.localStorage.removeItem('session_no_requirements');
+      window.localStorage.removeItem('session_cofounder');
+      window.localStorage.removeItem('session_annual_income');
+      window.localStorage.removeItem('session_financial_net_worth');
+      window.localStorage.removeItem('session_financial_annual_net_worth');
+      window.localStorage.removeItem('session_foreign_annual_income');
+      window.localStorage.removeItem('session_foreign_net_worth');
+      window.localStorage.removeItem('session_foreign_annual_net_worth');
+      window.localStorage.removeItem('session_corporate_net_worth');
       if (investorStatus === 'approved' && window.location.pathname !=="/investor/campaign" && role !=='startup' ) {
         
         
