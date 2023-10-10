@@ -392,11 +392,23 @@ const Profile = () => {
                 });
             }
         }
-        catch (err) {
-            toast.error("Please fill correct information", {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+        catch (err: any) {
+            const errorFields = ["name", "linkedin_url", "phone", "country", "city", "gender"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    }
+                });
+            } else {
+                toast.error("An error occurred. Please try again.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
         }
     };
 
@@ -418,8 +430,7 @@ const Profile = () => {
             formData.append("tagline", businessDetails.tagline);
             formData.append("description", businessDetails.description);
             formData.append("cofounder", businessDetails.cofounder);
-            formData.append("kyc_purposes", businessDetails.kyc_purposes);
-            formData.append("type", businessDetails.type);
+            formData.append("kyc_purposes", businessDetails.kyc_purposes);            
             const res = await businessInfoSave(formData);
 
             if (res.status === true) {
@@ -436,11 +447,23 @@ const Profile = () => {
                     toastId: "error",
                 });
             }
-        } catch (err) {
-            toast.error("Please fill correct information", {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+        } catch (err: any) {
+            const errorFields = ["business_name", "reg_businessname", "website_url", "sector", "stage", "startup_date","description"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    }
+                });
+            } else {
+                toast.error("An error occurred. Please try again.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
         }
     };
 
@@ -470,11 +493,23 @@ const Profile = () => {
                     toastId: "error",
                 });
             }
-        } catch (err) {
-            toast.error("Basic Information has not been stored.", {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+        } catch (err: any) {
+            const errorFields = ["pan_number", "uid", "dob"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    }
+                });
+            } else {
+                toast.error("An error occurred. Please try again.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
         }
     };
 
@@ -484,24 +519,33 @@ const Profile = () => {
         try {
             const res = await bankInformationSave(bankDetails);
             if (res.status == true) {
-                toast.success("Profile has been Updated Successfully.", {
+                toast.success("Profile has been updated successfully.", {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
-                });
-                //    setTimeout(() => {
-                //      router.push("/company/thank-you");
-                //    }, 1000);
+                });              
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
                 });
             }
-        } catch (err) {
-            toast.error("Details has not been saved successfully", {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
+        } catch (err: any) {
+            const errorFields = ["bank_name", "account_holder", "account_no","ifsc_code"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    }
+                });
+            } else {
+                toast.error("An error occurred. Please try again.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
         }
     };
 
@@ -525,7 +569,7 @@ const Profile = () => {
                                     <h6 className="page-title">Startup</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"}>Dashboard</Link>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">
                                             Profile
@@ -738,7 +782,7 @@ const Profile = () => {
                                                                     id="divHabilitSelectors"
                                                                     className="input-file-container "
                                                                 >
-                                                                    <div className="file-upload mt-4">
+                                                                    <div className="file-upload mt-3">
                                                                         <div className="file-select">
                                                                             <div
                                                                                 className="file-select-button"
@@ -963,52 +1007,51 @@ const Profile = () => {
                                                                     Tagline
                                                                 </label>
                                                                 <div className="form-part">
-                                                                    <input type="text" className="form-control form-css" placeholder="Tagline" {...register("tagline", { value: true, required: true, onChange: handleChangeBusinessInfo })} name="tagline" value={businessDetails.tagline} />
-                                                                    {errors.tagline &&
-                                                                        errors.tagline.type === "required" && (
-                                                                            <p
-                                                                                className="text-danger"
-                                                                                style={{ textAlign: "left", fontSize: "12px" }}
-                                                                            >
-                                                                                *Please Enter Your Business Tagline.
-                                                                            </p>
-                                                                        )}
+                                                                    <input type="text" className="form-control form-css" placeholder="Tagline" {...register("tagline", { value: true, onChange: handleChangeBusinessInfo })} name="tagline" value={businessDetails.tagline ? businessDetails.tagline : ''} />
                                                                 </div>
                                                             </div>
-
                                                             <div className="col-sm-6">
-                                                                <div className="form-part">
-                                                                    <label
-                                                                        htmlFor="exampleFormControlInput1"
-                                                                        className="form-label"
-                                                                    >
-                                                                        Select Fund Type{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
-                                                                    </label>
-                                                                    <select
-                                                                        className="form-select form-css" {...register("type", { validate: (value) => value != "", required: true, onChange: handleChangeBusinessInfo })} name="type" value={businessDetails.type}
-                                                                        aria-label="Default select example"
-                                                                    >
-                                                                        <option value="">--SELECT FUND TYPE--</option>
-                                                                        <option value="Dicounting Invoice">Dicounting Invoice</option>
-                                                                        <option value="CSOP">CSOP</option>
-                                                                        <option value="CCSP">CCSP</option>
-                                                                    </select>
-                                                                    {errors.type &&
-                                                                        errors.type.type === "required" && !businessDetails.type && (
-                                                                            <p
-                                                                                className="text-danger"
-                                                                                style={{ textAlign: "left", fontSize: "12px" }}
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Startup Logo{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container "
+                                                                >
+                                                                    <div className="file-upload mt-3">
+                                                                        <div className="file-select">
+                                                                            <div
+                                                                                className="file-select-button"
+                                                                                id="fileName"
                                                                             >
-                                                                                *Please Select type of Your Business.
-                                                                            </p>
-                                                                        )}
+                                                                                Choose File
+                                                                            </div>
+                                                                            <div className="file-select-name" id="noFile">
+                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                                                            </div>
+                                                                            <input
+                                                                                // ref={fileInputRef}
+                                                                                id="proof_img"
+                                                                                type="file"
+                                                                                {...register("logo", { value: true, required: !businessDetails.logo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png'
+                                                                            />
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+                                                                {logoSizeError ? (
+                                                                    <p className='text-danger'>{logoSizeError}</p>
+                                                                ) : (
+                                                                    logoError && <p className='text-danger'>{logoError}</p>
+                                                                )}
                                                             </div>
                                                         </div>
 
                                                         <div className="row">
-                                                            <div className="col-sm-6">
+                                                            <div className="col-sm-12">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
@@ -1019,10 +1062,10 @@ const Profile = () => {
                                                                 <div className="form-part mt-2">
                                                                     <textarea
                                                                         rows={4}
-                                                                        maxLength={100}
+                                                                        maxLength={1000}
                                                                         placeholder="Enter details here"
                                                                         className="form-control"
-                                                                        {...register("description", { value: true, required: true, onChange: handleChange })}
+                                                                        {...register("description", { value: true, required: true, onChange: handleChangeBusinessInfo })}
                                                                         name="description" value={businessDetails.description}
                                                                     />
                                                                 </div>
@@ -1063,69 +1106,16 @@ const Profile = () => {
                                                                     )}
                                                                 </div>
                                                             </div> */}
-                                                            <div className="col-sm-6">
-                                                                <label
-                                                                    htmlFor="exampleFormControlInput1"
-                                                                    className="form-label"
-                                                                >
-                                                                    Startup Logo{" "}
-                                                                    <span style={{ color: "red" }}>*</span>
-                                                                </label>
-                                                                <div
-                                                                    id="divHabilitSelectors"
-                                                                    className="input-file-container "
-                                                                >
-                                                                    <div className="file-upload mt-4">
-                                                                        <div className="file-select">
-                                                                            <div
-                                                                                className="file-select-button"
-                                                                                id="fileName"
-                                                                            >
-                                                                                Choose File
-                                                                            </div>
-                                                                            <div className="file-select-name" id="noFile">
-                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
-                                                                            </div>
-                                                                            <input
-                                                                                // ref={fileInputRef}
-                                                                                id="proof_img"
-                                                                                type="file"
-                                                                                {...register("logo", { value: true, required: !businessDetails.logo })} name="logo" onChange={handleFileChangeLogo} accept='.jpg, .jpeg, .png'
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                {logoSizeError ? (
-                                                                    <p className='text-danger'>{logoSizeError}</p>
-                                                                ) : (
-                                                                    logoError && <p className='text-danger'>{logoError}</p>
-                                                                )}
-                                                            </div>
 
                                                         </div>
-
-                                                        {/* <div className=" mt-5 d-flex align-content-center">
-                                                            <input
-                                                                className="w-auto"
-                                                                type="checkbox"
-                                                                id="checkboxNoLabel" style={{ marginLeft: "1px", marginBottom: "auto" }}
-                                                                value="1"
-                                                                {...register("cofounder", { value: true, })}
-                                                                name="cofounder" checked={businessDetails.cofounder === '1' ? true : false}
-                                                            />
-                                                            <p className="mt-2 mx-3">
-                                                                You come from an entrepreneurial family or have
-                                                                been a founder/co-founder of a business venture
-                                                                family
-                                                            </p>
-                                                        </div> */}
+                                                      
                                                         <div className="mt-2 d-flex align-items-left">
                                                             <input
                                                                 className="w-auto"
                                                                 type="checkbox"
-                                                                id="checkboxNoLabel"
+                                                                id="checkboxNoLabel"                                                                
                                                                 value="1" style={{ marginLeft: "1px", marginBottom: "auto" }}
-                                                                {...register("kyc_purposes", { value: true, required: true, onChange: handleChangeBusinessInfo })}
+                                                                {...register("kyc_purposes", { value: true, required: true })}
                                                                 name="kyc_purposes" checked={businessDetails.kyc_purposes === '1'}
                                                             />
                                                             <p className="mt-2 mx-3">

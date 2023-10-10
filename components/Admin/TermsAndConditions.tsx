@@ -167,7 +167,7 @@ try{
                 
               </div>
               <div className=""style={{ marginTop: '50px' }} >
-                  <button className="btn btn-primary">
+                  <button className="btn btn-colors">
                     Save
                   </button>
                   <button type="button" className="btn btn-secondary mx-2" onClick={handleClear}>

@@ -101,6 +101,18 @@ body {
   width: 24px;
 }
 
+.checkboxForAdmin{
+  margin-right: 15px;
+  align-items: center;
+  border-radius: 0% !important;
+  height: 15px !important;
+  width: 24px !important;  
+}
+
+.btn-colors{
+  background-color: #088395 !important;
+  color: #fff !important;
+}
 #register .form-check-input[type=checkbox] {
   border-radius: 0em;
 }

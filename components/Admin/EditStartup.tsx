@@ -758,20 +758,10 @@ const EditList = () => {
                                 id="startup_date" value={bussiness.startup_date} onChange={handleBusinessChange} name="startup_date"
                                 max={new Date().toISOString().split("T")[0]} readOnly
                               />
-
-                              {/* {businessmissingFields.includes("startup_date") && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Enter Your Business of Inception.
-                                </p>
-                              )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label htmlFor="tagline" className="form-label">
-                                Tagline
-                                <span style={{ color: "red" }}>*</span>
+                                Tagline                                
                               </label>
                               <input
                                 type="text"
@@ -779,72 +769,6 @@ const EditList = () => {
                                 id="tagline" value={bussiness.tagline} name="tagline"
 
                               />
-
-                              {businessmissingFields.includes("tagline") && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Enter Your Business Tagline.
-                                </p>
-                              )}
-                            </div>
-
-                            <div className="col-md-6 mt-3">
-                              <label
-                                htmlFor="stage"
-                                className="form-label mb-4"
-                              >
-                                Fund Type
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <select
-                                className="form-select form-select-lg mb-3 css-1492t68"
-                                aria-label="Default select example" name="type" onChange={handleBusinessChange}
-
-                              >
-                                <option value={bussiness.type ? bussiness.type : ''}>{bussiness.type ? bussiness.type : '--SELECT FUND TYPE--'}</option>
-                                {bussiness.type !== 'Dicounting Invoice' && <option value="Dicounting Invoice">Dicounting Invoice</option>}
-                                {bussiness.type !== 'CSOP' && <option value="CSOP">CSOP</option>}
-                                {bussiness.type !== 'CCSP' && <option value="CCSP">CCSP</option>}
-
-
-                              </select>
-
-                              {businessmissingFields.includes("type") && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Select type of Your Business.
-                                </p>
-                              )}
-                            </div>
-
-
-
-                            <div className="col-sm-6 ">
-                              <label
-                                htmlFor="description"
-                                className="form-label"
-                              >
-                                100 characters to tell us about your business
-                                <span style={{ color: "red" }}>*</span>
-                              </label>
-                              <textarea
-                                rows={4}
-                                maxLength={100}
-                                placeholder="Enter details here"
-                                className="form-control" value={bussiness.description} onChange={handleBusinessChange} name="description"
-                              />
-                              {businessmissingFields.includes("description") && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Fill Description of Your Business.
-                                </p>
-                              )}
                             </div>
 
                             <div className="col-md-6">
@@ -913,26 +837,34 @@ const EditList = () => {
                               </div>
                             </div>
 
-
-                            <div className=" mt-5 d-flex align-content-center">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="checkboxNoLabel"
-                                value="1" checked={bussiness.cofounder === '1' ? true : false} name="cofounder" onChange={handleBusinessChange}
-                              // name="cofounder"  onChange={handleChange}   
+                            <div className="col-sm-12">
+                              <label
+                                htmlFor="description"
+                                className="form-label"
+                              >
+                                100 characters to tell us about your business
+                                <span style={{ color: "red" }}>*</span>
+                              </label>
+                              <textarea
+                                rows={4}
+                                maxLength={100}
+                                placeholder="Enter details here"
+                                className="form-control" value={bussiness.description} onChange={handleBusinessChange} name="description"
                               />
-                              <p className="">
-                                You come from an entrepreneurial family or have
-                                been a founder/co-founder of a business venture
-                                family
-                              </p>
+                              {businessmissingFields.includes("description") && (
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please Fill Description of Your Business.
+                                </p>
+                              )}
                             </div>
-                            <div className=" mt-2 d-flex align-items-left">
+                            <div className=" mt-2 d-flex align-content-center">
                               <input
-                                className="form-check-input"
+                                className="form-check-input checkboxForAdmin"
                                 type="checkbox"
-                                id="checkboxNoLabel"
+                                // id="checkboxNoLabel"
                                 value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange}
                               />
                               <p className="">
