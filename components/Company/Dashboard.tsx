@@ -15,6 +15,7 @@ interface UserData {
 const Dashboard = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [totalFundCount, setFundCount] = useState("");
+  const [totalUnits, setTotalUnits] = useState('');
   const [totalUnitsCount, setUnits] = useState<any>({});
   const [bussiness, setBussinessData] = useState({
     id: "",
@@ -61,6 +62,8 @@ const Dashboard = () => {
             .then((unitsRes) => {
               if (unitsRes.status === true) {
                 setUnits(unitsRes.data);
+                setTotalUnits(unitsRes.data);
+
               }
             })
             .catch((err) => { });
@@ -94,7 +97,14 @@ const Dashboard = () => {
         console.error(err);
       }
     };
-
+    const totalUnits = async () => {
+      const data = await getBusinessInformation(current_user_data.id);
+      if (data) {
+        // setTotalUnits(data.data);        
+        console.log(current_user_data.id)
+      }
+    };
+    totalUnits();
     checkUserStatus();
   }, []);
 
@@ -138,7 +148,7 @@ const Dashboard = () => {
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/company/all-fund-raise-list"
+                            "company/all-fund-raise-list"
                           }
                           className=""
                         >
@@ -160,12 +170,13 @@ const Dashboard = () => {
                       <h5 className="font-size-16 text-uppercase text-white">
                         Total Units
                       </h5>
-                      <h4 className="fw-medium font-size-24">
-                        {totalUnitsCount && totalUnitsCount.total_units ? (
-                          <>{totalUnitsCount.total_units}</>
+                      <h4 className="fw-medium font-size-24">                       
+                        {Array.isArray(totalUnits) && totalUnits.length > 0 ? (
+                          totalUnits.reduce((sum, item) => sum + parseInt(item.total_units, 10), 0)
                         ) : (
-                          "0"
-                        )}<i className="fa fa-chart-line text-success ms-2 text-white" />
+                          '0'
+                        )}
+                        <i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
                     </div>
                     <div className="pt-2">
@@ -173,7 +184,7 @@ const Dashboard = () => {
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/company/all-fund-raise-list"
+                            "company/all-fund-raise-list"
                           }
                           className=""
                         >
@@ -196,11 +207,12 @@ const Dashboard = () => {
                         Units Sold
                       </h5>
                       <h4 className="fw-medium font-size-24">
-                        {totalUnitsCount && totalUnitsCount.no_of_units ? (
-                          <>{totalUnitsCount.no_of_units}</>
+                      {Array.isArray(totalUnits) && totalUnits.length > 0 ? (
+                          (totalUnits.reduce((sum, item) => sum + parseInt(item.total_units, 10), 0))-(totalUnits.reduce((sub, item) => sub + parseInt(item.no_of_units, 10), 0))
                         ) : (
-                          "0"
-                        )}<i className="fa fa-chart-line text-success ms-2 text-white" />
+                          '0'
+                        )}
+                       <i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
                     </div>
                     <div className="pt-2">
@@ -208,7 +220,7 @@ const Dashboard = () => {
                         <a
                           href={
                             process.env.NEXT_PUBLIC_BASE_URL +
-                            "/company/all-fund-raise-list"
+                            "company/all-fund-raise-list"
                           }
                           className=""
                         >
