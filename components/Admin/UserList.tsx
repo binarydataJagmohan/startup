@@ -256,7 +256,7 @@ const UserList = () => {
                                                                     <td data-label="Period">
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
-                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-user/?id=${user.id}`} >
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-user/?id=${user.id}`} >
                                                                                     <i className="fa-regular fa-pen-to-square" />
                                                                                 </Link>
                                                                             </li>

@@ -194,7 +194,7 @@ const Header = () => {
                               <span>Users</span>
                             </Link>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/all-notifications' ? 'active p1' : ''}`}>
+                          <li className={`nav-item ${router.pathname === 'admin/all-notifications' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-notifications"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span className="badge rounded-pill bg-danger float-end">{unreadNotifications}</span>

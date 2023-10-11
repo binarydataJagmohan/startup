@@ -225,7 +225,7 @@ const EditUser = () => {
                                     <h6 className="page-title">Edit Users</h6>
                                     <ol className="breadcrumb m-0">
                                         <li className="breadcrumb-item">
-                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>Dashboard</Link>
+                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>Dashboard</Link>
                                         </li>
                                         <li className="breadcrumb-item">
                                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-users"}>All Users</Link>
@@ -253,7 +253,7 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Name{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <input type="text" className="form-control" id="name" name="name" onChange={handleChange} value={users.name} placeholder="Enter Your Name" />
+                                                    <input type="text" className="form-control h-75" id="name" name="name" onChange={handleChange} value={users.name} placeholder="Enter Your Name" />
                                                     {missingFields.includes("Name") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the Name field.
@@ -330,7 +330,7 @@ const EditUser = () => {
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
+                                                    <input type="text" onChange={handleChange} className="form-control h-50" id="city" name="city" value={users.city} placeholder="Enter Your City" />
                                                     {missingFields.includes("City") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the City field.

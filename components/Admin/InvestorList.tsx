@@ -248,7 +248,7 @@ const InvestorList = () => {
                                                                     <td data-label="Period">
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
-                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-investor/?id=${investor.id}`}>
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-investor/?id=${investor.id}`}>
                                                                                     <i className="fa-regular fa-pen-to-square" />
                                                                                 </Link>
                                                                             </li>

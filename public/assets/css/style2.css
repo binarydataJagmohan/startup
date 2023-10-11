@@ -1,6 +1,6 @@
 body {
   /* font-family: 'Source Sans 3', sans-serif !important; */
-  font-family: "Source Sans Pro", sans-serif !important;
+  font-family: "Source Sans 3", sans-serif !important;
 }
 
 h1,
@@ -106,7 +106,7 @@ body {
   align-items: center;
   border-radius: 0% !important;
   height: 15px !important;
-  width: 24px !important;  
+  width: auto;  
 }
 
 .btn-colors{

@@ -10,7 +10,7 @@ body {
   padding: 0;
   margin: 0;
   /* font-family: 'Source Sans 3', sans-serif; */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   font-size: 16px;
   overflow-x: hidden;
 }
@@ -46,7 +46,7 @@ p {
   color: #232323;
   font-weight: 400;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   font-size: 16px;
 }
 
@@ -1006,7 +1006,7 @@ Navbar Area CSS
   font-size: 24px;
   font-weight: 700;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   
 }
 
@@ -1024,7 +1024,7 @@ Navbar Area CSS
   font-size: 24px;
   font-weight: 700;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .sidebar-modal .sidebar-contact-area .contact-info {
@@ -1036,7 +1036,7 @@ Navbar Area CSS
   text-transform: lowercase;
   font-size: 20px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .sidebar-modal .sidebar-contact-area .contact-info .contact-info-content h2 a {
@@ -1437,7 +1437,7 @@ Creative Area CSS
 .skill-bar {
   margin-top: 30px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .skill-bar .progress-title-holder {
@@ -4100,7 +4100,7 @@ Skill Area CSS
 .skills-area .skill-bar {
   margin-top: 30px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .skills-area .skill-bar .progress-title-holder {
@@ -5829,7 +5829,7 @@ Contact Area CSS
 .contact-form #msgSubmit.text-danger {
   margin-top: 20px !important;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 /*================================================
@@ -6132,7 +6132,7 @@ Page Title Area CSS
   margin-bottom: 0;
   color: #ffffff;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   font-size: 50px;
   font-weight: 700;
 }
@@ -6241,7 +6241,7 @@ Login In CSS
 .login-form .login-title h3 {
   font-size: 30px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   margin-bottom: 8px;
 }
 
@@ -6369,7 +6369,7 @@ Sign Up CSS
 .signup-form h3 {
   font-size: 30px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -6475,7 +6475,7 @@ Sign Up CSS
 .error-content h3 {
   font-size: 50px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   margin-top: 45px;
   margin-bottom: 15px;
 }
@@ -7006,7 +7006,7 @@ Sidebar Widget Area CSS
   position: relative;
   font-size: 25px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .widget-area .widget .widget-title::before {
@@ -7138,7 +7138,7 @@ Sidebar Widget Area CSS
   line-height: 1.4;
   font-size: 18px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
 }
 
@@ -7480,7 +7480,7 @@ Blog Details Area CSS
   margin-top: 25px;
   font-size: 30px;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .blog-details-desc .article-content .wp-block-gallery.columns-3 {
@@ -7743,7 +7743,7 @@ blockquote::after,
   font-size: 25px;
   font-weight: 600;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .comments-area ol,
@@ -7840,7 +7840,7 @@ blockquote::after,
   font-size: 25px;
   font-weight: 600;
   /* font-family: "Open Sans", sans-serif; */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .comments-area .comment-respond .comment-reply-title #cancel-comment-reply-link {
