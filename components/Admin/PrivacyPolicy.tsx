@@ -134,7 +134,7 @@ try{
                   <h6 className="page-title"> Privacy Policy</h6>
                   <ol className="breadcrumb m-0">
                     <li className="breadcrumb-item">
-                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/admin/dashboard"}>
+                      <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"}>
                         Dashboard
                       </Link>
                     </li>

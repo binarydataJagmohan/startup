@@ -318,7 +318,7 @@ const StartupList = () => {
                                                                     <td data-label="Period">
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
-                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/edit-startup/?id=${startup.id}`}>
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-startup/?id=${startup.id}`}>
                                                                                     <i className="fa-regular fa-pen-to-square" data-toggle="tooltip"
                                                                                         data-placement="top"
                                                                                         title="Edit Fund" />
@@ -332,7 +332,7 @@ const StartupList = () => {
                                                                                 </a>
                                                                             </li>
                                                                             <li className="edit">
-                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/fund-raise/?id=${startup.id}`}>
+                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup.id}`}>
                                                                                     <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
                                                                                         data-placement="top"
                                                                                         title="Raise Fund" ></i>

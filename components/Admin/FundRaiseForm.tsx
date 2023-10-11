@@ -100,32 +100,36 @@ const FundRaiseForm = () => {
 
     const [agreement, setAgreement] = useState(null);
     const [agreementError, setAgreementError] = useState('');
+    const [agreementSizeError, setAgreementSizeError] = useState('');
     const [invoice, setInvoice] = useState(null);
     const [invoiceError, setInvoiceError] = useState('');
+    const [invoiceSizeError, setInvoiceSizeError] = useState('');
     const [pdc, setPdc] = useState(null);
     const [pdcError, setPdcError] = useState('');
     const [agreementName, setAgreementName] = useState('');
     const [invoiceName, setInvoiceName] = useState('');
     const [pdcName, setPdcName] = useState('');
+    const [pdcSizeError, setPdcSizeError] = useState('');
+
     // handleInvoiceFileChange for agreement pdf
     const handleAgreementFileChange = (event: any) => {
         const file = event.target.files[0];
-        const allowedExtensions = ["pdf"];
-
         if (file) {
-            const fileNameParts = file.name.split(".");
-            const fileExtension =
-                fileNameParts[fileNameParts.length - 1].toLowerCase();
+            const allowedTypes = ["application/pdf"];
+            const maxSize = 20 * 1024 * 1024;
 
-            if (allowedExtensions.includes(fileExtension)) {
-                setInvalidFields((prevFields) =>
-                    prevFields.filter((field) => field !== "pdfvalidate")
-                );
-                setAgreement(file);
-                setAgreementName(file.name);
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setAgreement(file);
+                    setAgreementName(file.name);
+                    setAgreementSizeError('');
+                    setAgreementError('');
+                } else {
+                    setAgreementSizeError('* Please upload a file that is no larger than 2MB.');
+                }
             } else {
-                setInvalidFields((prevFields) => [...prevFields, "pdfvalidate"]);
-                // File is not a PDF, show error message or handle accordingly
+                setAgreementError('* Please upload a PDF, PPT, or DOC file');
+                event.target.value = null;
             }
         }
     };
@@ -133,21 +137,22 @@ const FundRaiseForm = () => {
     // handleInvoiceFileChange for invoice pdf
     const handleInvoiceFileChange = (event: any) => {
         const file = event.target.files[0];
-        const allowedExtensions = ["pdf"];
         if (file) {
-            const fileNameParts = file.name.split(".");
-            const fileExtension =
-                fileNameParts[fileNameParts.length - 1].toLowerCase();
+            const allowedTypes = ["application/pdf"];
+            const maxSize = 20 * 1024 * 1024;
 
-            if (allowedExtensions.includes(fileExtension)) {
-                setInvalidFields((prevFields) =>
-                    prevFields.filter((field) => field !== "invoicevalidate")
-                );
-                setInvoice(file);
-                setInvoiceName(file.name);
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setInvoice(file);
+                    setInvoiceName(file.name);
+                    setInvoiceError('');
+                    setInvoiceSizeError('');
+                } else {
+                    setInvoiceSizeError('* Please upload a file that is no larger than 2MB.');
+                }
             } else {
-                setInvalidFields((prevFields) => [...prevFields, "invoicevalidate"]);
-                // File is not a PDF, show error message or handle accordingly
+                setInvoiceError('* Please upload a PDF, PPT, or DOC file');
+                event.target.value = null;
             }
         }
     };
@@ -155,21 +160,21 @@ const FundRaiseForm = () => {
     const handlePDCFileChange = (event: any) => {
         // setPdc(event.target.files[0]);
         const file = event.target.files[0];
-        const allowedExtensions = ["pdf"];
         if (file) {
-            const fileNameParts = file.name.split(".");
-            const fileExtension =
-                fileNameParts[fileNameParts.length - 1].toLowerCase();
+            const allowedTypes = ["application/pdf"];
+            const maxSize = 20 * 1024 * 1024;
 
-            if (allowedExtensions.includes(fileExtension)) {
-                setInvalidFields((prevFields) =>
-                    prevFields.filter((field) => field !== "pdcvalidate")
-                );
-                setPdc(file);
-                setPdcName(file.name);
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setPdc(file);
+                    setPdcName(file.name);
+                    setPdcError('');
+                } else {
+                    setPdcSizeError('* Please upload a file that is no larger than 2MB.');
+                }
             } else {
-                setInvalidFields((prevFields) => [...prevFields, "pdcvalidate"]);
-                // File is not a PDF, show error message or handle accordingly
+                setPdcError('* Please upload a PDF, PPT, or DOC file');
+                event.target.value = null;
             }
         }
     };
@@ -253,7 +258,9 @@ const FundRaiseForm = () => {
             .then((res) => {
                 if (res.status == true) {
                     setFundRaiseData(res.data);
-
+                    setAgreement(res.data.agreement);
+                    setInvoice(res.data.invoice);
+                    setPdc(res.data.pdc);
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -268,13 +275,11 @@ const FundRaiseForm = () => {
     }, []);
 
     const SubmitForm = async () => {
+        // event.preventDefault();
         try {
-            console.log(fundRaiseData);
             if (invalidFields.length > 0) {
-                // Show error message or handle accordingly   
 
             } else {
-
                 const data = {
                     notify_from_user: current_user_id,
                     notify_to_user: "1",
@@ -285,88 +290,96 @@ const FundRaiseForm = () => {
                     status: "active",
                 };
                 const formData = new FormData();
-                if (agreement === null) {
-                    setAgreementError('* Please select your legal agreement.');
-
-                } else {
+                if (agreement !== null) {
                     formData.append("agreement", agreement);
-                }
-                if (invoice === null) {
-                    setInvoiceError('* Please select your legal invoice.');
-                    // return;
-                } else {
-                    formData.append("invoice", invoice);
-                }
-                if (pdc === null) {
-                    setPdcError('* Please select your pdc.');
-                    // return;
-                } else {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const id = urlParams.get("id");
-                    if (id) {
-                        formData.append("user_id", id);
-                    }
-                    formData.append("business_id", fundRaiseData.business_id);
-                    formData.append("total_units", fundRaiseData.total_units);
-                    formData.append(
-                        "minimum_subscription",
-                        fundRaiseData.minimum_subscription
-                    );
-                    formData.append("avg_amt_per_person", fundRaiseData.minimum_subscription);
-                    formData.append("tenure", fundRaiseData.tenure);
-                    formData.append("repay_date", fundRaiseData.repay_date);
-                    formData.append("closed_in", fundRaiseData.closed_in);
-                    formData.append("resource", fundRaiseData.resource);
-                    formData.append("type", fundRaiseData.type);
+                    if (invoice) {
+                        formData.append("invoice", invoice);
+                        if (pdc) {
+                            formData.append("pdc", pdc);
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const id = urlParams.get("id");
+                            if (id) {
+                                formData.append("user_id", id);
+                            }
+                            formData.append("business_id", fundRaiseData.business_id);
+                            formData.append("total_units", fundRaiseData.total_units);
+                            formData.append(
+                                "minimum_subscription",
+                                fundRaiseData.minimum_subscription
+                            );
+                            formData.append("avg_amt_per_person", fundRaiseData.minimum_subscription);
+                            formData.append("tenure", fundRaiseData.tenure);
+                            formData.append("repay_date", fundRaiseData.repay_date);
+                            formData.append("closed_in", fundRaiseData.closed_in);
+                            formData.append("resource", fundRaiseData.resource);
+                            formData.append("type", fundRaiseData.type);
 
-                    formData.append("xirr", fundRaiseData.xirr);
-                    formData.append("amount", fundRaiseData.amount);
-                    formData.append("desc", fundRaiseData.desc);
-                    const res = await fundInformationSave(formData);
+                            formData.append("xirr", fundRaiseData.xirr);
+                            formData.append("amount", fundRaiseData.amount);
+                            formData.append("desc", fundRaiseData.desc);
+                            const res = await fundInformationSave(formData);
 
-                    if (res.status === true) {
-                        sendNotification(data)
-                            .then((notificationRes) => {
-                                console.log("success");
-                            })
-                            .catch((error) => {
-                                console.log("error occured");
-                            });
+                            if (res.status === true) {
+                                sendNotification(data)
+                                    .then((notificationRes) => {
+                                    })
+                                    .catch((error) => {
+                                        console.log("error occured");
+                                    });
 
 
-                        FundRaisedSendNotification(data)
-                            .then((notificationRes) => {
-                                console.log("success");
-                            })
-                            .catch((error) => {
-                                console.log("error occured");
-                            });
+                                FundRaisedSendNotification(data)
+                                    .then((notificationRes) => {
+                                    })
+                                    .catch((error) => {
+                                        console.log("error occured");
+                                    });
 
-                        toast.success(res.msg, {
-                            position: toast.POSITION.TOP_RIGHT,
-                            toastId: "success",
-                        });
-                        toast.success(res.message, {
-                            position: toast.POSITION.TOP_RIGHT,
-                            toastId: "success",
-                        });
-                        setTimeout(() => {
-                            router.push("/admin/all-startup-companies");
-                        }, 1000);
+                                toast.success(res.msg, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                    toastId: "success",
+                                });
+                                toast.success(res.message, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                    toastId: "success",
+                                });
+                                setTimeout(() => {
+                                    router.push("/admin/all-startup-companies");
+                                }, 1000);
 
+                            } else {
+                                toast.error(res.msg, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                    toastId: "error",
+                                });
+                            }
+                        } else {
+                            setPdcError('* Please select your pdc.');
+                        }
                     } else {
-                        toast.error(res.msg, {
+                        setInvoiceError('* Please select your legal invoice.');
+                    }
+                } else {
+                    setAgreementError('* Please select your legal agreement.');
+                }
+            }
+        } catch (err: any) {
+            const errorFields = ["amount", "total_units", "no_of_units", "xirr", "type", "minimum_subscription", "tenure", "repay_date", "closed_in", "resource", "desc"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "error",
                         });
                     }
-                }
+                });
+            } else {
+                toast.error(err.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
             }
-        } catch (err: any) {
-            toast.error(err.response.data.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "error",
-            });
         }
     };
     return (
@@ -416,6 +429,7 @@ const FundRaiseForm = () => {
                                                         id="amount"
                                                         {...register("amount", {
                                                             required: true,
+                                                            value: !fundRaiseData.amount,
                                                         })}
                                                         name="amount"
                                                         placeholder="Total Amount"
@@ -719,33 +733,33 @@ const FundRaiseForm = () => {
                                                     )}
                                                 </div>
                                                 <div className="col-sm-6 mt-3">
-                                                <label
-                                                    htmlFor="exampleFormControlInput1"
-                                                    className="form-label mb-4"
-                                                >
-                                                    Fund Type<span style={{ color: "red" }}>*</span>
-                                                </label>
-                                                <select
-                                                    className="form-select form-select-lg mb-3 css-1492t68"
-                                                    aria-label="Default select example"
-                                                    {...register("type", {
-                                                        value: !fundRaiseData.type,
-                                                        required: true,
-                                                        onChange: handleChange,
-                                                    })}
-                                                    name="type"
-                                                    value={
-                                                        fundRaiseData.type
-                                                            ? fundRaiseData.type
-                                                            : ""
-                                                    }
+                                                    <label
+                                                        htmlFor="exampleFormControlInput1"
+                                                        className="form-label mb-4"
                                                     >
-                                                    <option value="">SELECT TYPE</option>
-                                                    <option value="Dicounting Invoice">Dicounting Invoice</option>
-                                                    <option value="CSOP">CSOP</option>
-                                                    <option value="CCSP">CCSP</option>
-                                                </select>
-                                                {errors.type && (
+                                                        Fund Type<span style={{ color: "red" }}>*</span>
+                                                    </label>
+                                                    <select
+                                                        className="form-select form-select-lg mb-3 css-1492t68"
+                                                        aria-label="Default select example"
+                                                        {...register("type", {
+                                                            value: !fundRaiseData.type,
+                                                            required: true,
+                                                            onChange: handleChange,
+                                                        })}
+                                                        name="type"
+                                                        value={
+                                                            fundRaiseData.type
+                                                                ? fundRaiseData.type
+                                                                : ""
+                                                        }
+                                                    >
+                                                        <option value="">SELECT TYPE</option>
+                                                        <option value="Dicounting Invoice">Dicounting Invoice</option>
+                                                        <option value="CSOP">CSOP</option>
+                                                        <option value="CCSP">CCSP</option>
+                                                    </select>
+                                                    {errors.type && (
                                                         <p
                                                             className="text-danger"
                                                             style={{ textAlign: "left", fontSize: "12px" }}
@@ -753,7 +767,7 @@ const FundRaiseForm = () => {
                                                             *Please Select Fund Type.
                                                         </p>
                                                     )}
-                                            </div>
+                                                </div>
                                             </div>
 
                                             <div className="row g-3 mt-1">
@@ -770,22 +784,37 @@ const FundRaiseForm = () => {
                                                         className="form-control"
                                                         {...register("desc", {
                                                             value: !fundRaiseData.desc,
+                                                            required: true
                                                         })}
                                                         name="desc"
                                                         onChange={handleChange}
                                                         value={fundRaiseData.desc ? fundRaiseData.desc : ""}
                                                     />
+                                                    {errors.desc && (
+                                                        <p
+                                                            className="text-danger"
+                                                            style={{ textAlign: "left", fontSize: "12px" }}
+                                                        >
+                                                            *Please fill description field.
+                                                        </p>
+                                                    )}
                                                 </div>
                                             </div>
 
-                                           
+
 
                                             <div className="row g-3 mt-1">
                                                 <div className="col-md-6 mt-5">
+                                                    <label
+                                                        htmlFor="logo"
+                                                        className="form-label"
+                                                    >
+                                                        Leegal agreement <span style={{ color: "red" }}>*</span>
+                                                    </label>
                                                     <div
                                                         id="divHabilitSelectors"
-                                                        className="input-file-container d-flex"
-                                                     >
+                                                        className="input-file-container w-75"
+                                                    >
                                                         <div className="file-upload">
                                                             <div className="file-select">
                                                                 <div
@@ -800,31 +829,18 @@ const FundRaiseForm = () => {
                                                                 <input
                                                                     ref={fileInputRef}
                                                                     type="file"
-                                                                    name="chooseFile"
+                                                                    name="agreement"
                                                                     accept=".pdf"
-                                                                    id="chooseFile"
+                                                                    id="agreement"
                                                                     onChange={handleAgreementFileChange}
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <label
-                                                            htmlFor="fileupload"
-                                                            className="input-file-trigger"
-                                                            id="labelFU"
-                                                            style={{ fontSize: "12px", marginLeft: "12px" }}
-                                                            tabIndex={0}
-                                                        >
-                                                            Drop your Legal Agreement here to{" "}
-                                                            <a href="#" onClick={handleUploadClick}>
-                                                                Upload
-                                                            </a>{" "}
-                                                            <br />
-                                                            <p style={{ fontSize: "13px" }}>
-                                                                You can upload a pdf file only (max size 20 MB)
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                        </label>
                                                     </div>
+                                                    <p style={{ fontSize: "13px", marginTop: '10px' }}>
+                                                        You can upload a pdf file only (max size 20 MB)
+                                                        <span style={{ color: "red" }}>*</span>
+                                                    </p>
                                                     {invalidFields.includes("pdfvalidate") && (
                                                         <p
                                                             className="text-danger"
@@ -833,12 +849,22 @@ const FundRaiseForm = () => {
                                                             *Please choose a PDF file..
                                                         </p>
                                                     )}
-                                                    {agreementError && <p className="text-danger">{agreementError}</p>}
+                                                    {agreementSizeError ? (
+                                                        <p className='text-danger'>{agreementSizeError}</p>
+                                                    ) : (
+                                                        agreementError && <p className='text-danger'>{agreementError}</p>
+                                                    )}
                                                 </div>
                                                 <div className="col-md-6  mt-5">
+                                                    <label
+                                                        htmlFor="logo"
+                                                        className="form-label"
+                                                    >
+                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                    </label>
                                                     <div
                                                         id="divHabilitSelectors"
-                                                        className="input-file-container d-flex"
+                                                        className="input-file-container w-75"
                                                     >
                                                         <div className="file-upload">
                                                             <div className="file-select">
@@ -854,31 +880,18 @@ const FundRaiseForm = () => {
                                                                 <input
                                                                     ref={fileInputRef1}
                                                                     type="file"
-                                                                    name="chooseFile"
+                                                                    name="invoice"
                                                                     accept=".pdf"
-                                                                    id="chooseFile"
+                                                                    id="invoice"
                                                                     onChange={handleInvoiceFileChange}
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <label
-                                                            htmlFor="fileupload"
-                                                            className="input-file-trigger"
-                                                            id="labelFU"
-                                                            style={{ fontSize: "12px", marginLeft: "12px" }}
-                                                            tabIndex={0}
-                                                        >
-                                                            Drop your Legal Invoice here to{" "}
-                                                            <a href="#" onClick={handleUploadClick1}>
-                                                                Upload
-                                                            </a>{" "}
-                                                            <br />
-                                                            <p style={{ fontSize: "13px" }}>
-                                                                You can upload a pdf file only (max size 20 MB)
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                        </label>
                                                     </div>
+                                                    <p style={{ fontSize: "13px", marginTop: '10px' }}>
+                                                        You can upload a pdf file only (max size 20 MB)
+                                                        <span style={{ color: "red" }}>*</span>
+                                                    </p>
                                                     {invalidFields.includes("invoicevalidate") && (
                                                         <p
                                                             className="text-danger"
@@ -887,15 +900,25 @@ const FundRaiseForm = () => {
                                                             *Please choose a PDF file..
                                                         </p>
                                                     )}
-                                                    {invoiceError && <p className="text-danger">{invoiceError}</p>}
+                                                    {invoiceSizeError ? (
+                                                        <p className='text-danger'>{invoiceSizeError}</p>
+                                                    ) : (
+                                                        invoiceError && <p className='text-danger'>{invoiceError}</p>
+                                                    )}
                                                 </div>
                                             </div>
 
                                             <div className="row g-3 mt-1">
-                                                <div className="col-md-6 mt-3">
+                                                <div className="col-md-6">
+                                                    <label
+                                                        htmlFor="logo"
+                                                        className="form-label"
+                                                    >
+                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                    </label>
                                                     <div
                                                         id="divHabilitSelectors"
-                                                        className="input-file-container d-flex"
+                                                        className="input-file-container w-75"
                                                     >
                                                         <div className="file-upload">
                                                             <div className="file-select">
@@ -911,31 +934,18 @@ const FundRaiseForm = () => {
                                                                 <input
                                                                     ref={fileInputRef2}
                                                                     type="file"
-                                                                    name="chooseFile"
+                                                                    name="pdc"
                                                                     accept=".pdf"
-                                                                    id="chooseFile"
+                                                                    id="pdc"
                                                                     onChange={handlePDCFileChange}
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <label
-                                                            htmlFor="fileupload"
-                                                            className="input-file-trigger"
-                                                            id="labelFU"
-                                                            style={{ fontSize: "12px", marginLeft: "12px" }}
-                                                            tabIndex={0}
-                                                        >
-                                                            Drop your PDC here to{" "}
-                                                            <a href="#" onClick={handleUploadClick2}>
-                                                                Upload
-                                                            </a>{" "}
-                                                            <br />
-                                                            <p style={{ fontSize: "13px" }}>
-                                                                You can upload a pdf file only (max size 20 MB)
-                                                                <span style={{ color: "red" }}>*</span>
-                                                            </p>
-                                                        </label>
                                                     </div>
+                                                    <p style={{ fontSize: "13px", marginTop: '10px' }}>
+                                                        You can upload a pdf file only (max size 20 MB)
+                                                        <span style={{ color: "red" }}>*</span>
+                                                    </p>
                                                     {invalidFields.includes("pdcvalidate") && (
                                                         <p
                                                             className="text-danger"
@@ -944,7 +954,11 @@ const FundRaiseForm = () => {
                                                             *Please choose a PDF file..
                                                         </p>
                                                     )}
-                                                    {pdcError && <p className="text-danger">{pdcError}</p>}
+                                                    {pdcSizeError ? (
+                                                        <p className='text-danger'>{pdcSizeError}</p>
+                                                    ) : (
+                                                        pdcError && <p className='text-danger'>{pdcError}</p>
+                                                    )}
                                                 </div>
                                             </div>
 

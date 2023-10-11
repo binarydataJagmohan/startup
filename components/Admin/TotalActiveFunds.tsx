@@ -225,7 +225,7 @@ const TotalActiveFunds = () => {
                                                                         </td>
 
                                                                         <td>
-                                                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/admin/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
+                                                                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
                                                                             <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
                                                                         </td>
                                                                     </tr>

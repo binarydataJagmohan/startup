@@ -35,6 +35,7 @@ const EditList = () => {
     cofounder: "0",
     kyc_purposes: "0",
     user_id: "",
+    pitch_deck: "",
   });
 
   const [bank, setBankData] = useState({
@@ -56,7 +57,7 @@ const EditList = () => {
   const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
   const [selectedImage, setSelectedImage] = useState('');
   const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
-
+  const [logoName, setLogoName] = useState('');
   const [previewImageProof, setPreviewImageProof] = useState<string | ArrayBuffer | null>(null);
   const router = useRouter();
   const [missingFields, setMissingFields] = useState<string[]>([]);
@@ -81,7 +82,7 @@ const EditList = () => {
       fetchData(router.query.id);
     }
   }, [router.query.id]);
-  
+
   const handlePoofFileChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
@@ -178,6 +179,7 @@ const EditList = () => {
               ...prevBusiness,
               logo: file || prevBusiness.logo, // Preserve previous logo if no new file selected
             }));
+            setLogoName(file.name);
           } else {
             setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
           }
@@ -295,8 +297,9 @@ const EditList = () => {
     if (!bussiness.sector) setBusinessMissingFields(prevFields => [...prevFields, "sector"]);
     if (!bussiness.stage) setBusinessMissingFields(prevFields => [...prevFields, "stage"]);
     if (!bussiness.startup_date) setBusinessMissingFields(prevFields => [...prevFields, "startup_date"]);
-    if (!bussiness.tagline) setBusinessMissingFields(prevFields => [...prevFields, "tagline"]);
-    if (!bussiness.type) setBusinessMissingFields(prevFields => [...prevFields, "type"]);
+    if (!pitch_deck && !bussiness.pitch_deck) {
+      setBusinessMissingFields(prevFields => [...prevFields, "pitch_deck"])
+    }
     if (!bussiness.website_url) setBusinessMissingFields(prevFields => [...prevFields, "website_url"]);
     // 
     try {
@@ -317,9 +320,8 @@ const EditList = () => {
           ['stage']: bussiness.stage,
           ['startup_date']: bussiness.startup_date,
           ['tagline']: bussiness.tagline,
-          ['type']: bussiness.type,
           ['website_url']: bussiness.website_url,
-
+          ['pitch_deck']: bussiness.pitch_deck,
         }
         ,
         {
@@ -368,7 +370,35 @@ const EditList = () => {
 
 
   }, [router.query.id]);
+  const [pichDeckError, setPichDeckError] = useState('');
+  const [pichDeckSizeError, setPichDeckSizeError] = useState('');
+  const [pitchDeckName, setPitchDeckName] = useState('');
+  const [pitch_deck, setPichDeck] = useState(null);
 
+  const handlePitchDeckChange = (event: any) => {
+    setBusinessMissingFields([]);
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+      const maxSize = 20 * 1024 * 1024;
+
+      if (allowedTypes.includes(file.type)) {
+        if (file.size <= maxSize) {
+          setPichDeck(event.target.files[0]);
+          setPitchDeckName(file.name);
+          setPichDeckError('');
+          setPichDeckSizeError('');
+        } else {
+          setPichDeckSizeError('* Please upload a file that is no larger than 2MB.');
+        }
+      } else {
+        setPichDeckError('* Please upload a PDF, PPT, or DOC file');
+        event.target.value = null;
+      }
+    }
+
+  };
   const phonClick = (event: any) => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -596,7 +626,7 @@ const EditList = () => {
                         ></i>
                       </h4>
                       <div className="row justify-content-center">
-                        <div className="col-md-8" id="register">
+                        <div className="col-md-12" id="register">
                           <div className="row">
                             <div className="col-md-6 mt-3">
                               <label
@@ -761,7 +791,7 @@ const EditList = () => {
                             </div>
                             <div className="col-md-6 mt-3">
                               <label htmlFor="tagline" className="form-label">
-                                Tagline                                
+                                Tagline
                               </label>
                               <input
                                 type="text"
@@ -781,35 +811,35 @@ const EditList = () => {
                                   className="form-label"
                                 >
                                   Startup Logo
-                                  <span style={{ color: "red" }}>*</span>
                                 </label>
-                                <div className="profile-pic">
-                                  {bussiness.logo ? (
-                                    <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + bussiness.logo} alt="business-logo" width={416} height={140} />
-                                  ) : (
-                                    <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" width={416} height={140} />
-                                  )
-                                  }
+                                <div className="file-upload mt-3">
+                                  <div className="file-select">
+                                    <div
+                                      className="file-select-button"
+                                      id="fileName"
+                                    >
+                                      Choose File
+                                    </div>
+                                    <div className="file-select-name" id="noFile">
+                                      {logoName ? logoName : (bussiness.logo ? bussiness.logo : "No File Chosen ...")}
+                                    </div>
+                                    <input
+                                      ref={fileInputRef}
+                                      className="input-file"
+                                      id="logo"
+                                      type="file"
+                                      name='logo'
+                                      accept="image/jpeg, image/png"
+                                      onChange={handleBusinessChange}
+                                    />
+                                  </div>
                                 </div>
-                                <input
-                                  ref={fileInputRef}
-                                  className="input-file"
-                                  id="logo"
-                                  type="file"
-                                  name='logo'
-                                  accept="image/jpeg, image/png"
-                                  onChange={handleBusinessChange}
-                                  style={{ display: 'none' }}
-                                />
-
                                 <label
                                   htmlFor="fileupload"
-                                  className="input-file-trigger"
+                                  className="input-file-trigger mt-2"
                                   id="labelFU"
                                   tabIndex={0}
                                 >
-                                  Drop your pitch deck here to{" "}
-                                  <a href="#" onClick={handleUploadClick}>Upload</a> <br />
                                   <p>You can upload any identity card's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
                                 </label>
                                 {startUpLogoSizeError ? (
@@ -826,18 +856,10 @@ const EditList = () => {
                                     *Please Choose Your Business Logo.
                                   </p>
                                 )}
-                                {businessmissingFields.includes("type") && bussiness.logo && (<p
-                                  className="text-success"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  Logo Uploaded Successfully.
-                                </p>
-                                )}
-
                               </div>
                             </div>
 
-                            <div className="col-sm-12">
+                            <div className="col-sm-6">
                               <label
                                 htmlFor="description"
                                 className="form-label"
@@ -860,19 +882,83 @@ const EditList = () => {
                                 </p>
                               )}
                             </div>
-                            <div className=" mt-2 d-flex align-content-center">
-                              <input
-                                className="form-check-input checkboxForAdmin"
-                                type="checkbox"
-                                // id="checkboxNoLabel"
-                                value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange}
-                              />
-                              <p className="">
-                                I certify that all the information provided by
-                                me is accurate and I am willing to provide
-                                evidence for the same for KYC purposes when
-                                requested.
-                              </p>
+                            <div className="col-md-6">
+                              <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                              >
+                                <label
+                                  htmlFor="logo"
+                                  className="form-label"
+                                >
+                                  Startup pitch deck <span style={{ color: "red" }}>*</span>
+                                </label>
+                                <div className="file-upload mt-3">
+                                  <div className="file-select">
+                                    <div
+                                      className="file-select-button"
+                                      id="fileName"
+                                    >
+                                      Choose File
+                                    </div>
+                                    <div className="file-select-name" id="noFile">
+                                      {pitchDeckName ? pitchDeckName : (bussiness.pitch_deck ? bussiness.pitch_deck : "No File Chosen ...")}
+                                    </div>
+                                    <input
+                                      // ref={fileInputPitchDeck}
+                                      type="file"
+                                      id="pitch_deck"
+                                      name="pitch_deck"
+                                      accept=".pdf, .ppt, .pptx, .doc, .docx"
+                                      onChange={handlePitchDeckChange}
+                                    />
+                                  </div>
+                                </div>
+                                <label
+                                  htmlFor="fileupload"
+                                  className="input-file-trigger mt-1"
+                                  id="labelFU"
+                                  style={{ fontSize: "12px", marginLeft: "12px" }}
+                                  tabIndex={0}
+                                >
+                                  <p style={{ fontSize: "13px" }}>
+                                    You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
+                                    <span style={{ color: "red" }}>*</span>
+                                  </p>
+                                </label>
+                                {pichDeckSizeError ? (
+                                  <p className='text-danger'>{pichDeckSizeError}</p>
+                                ) : (
+                                  pichDeckError && <p className='text-danger'>{pichDeckError}</p>
+                                )}
+
+                                {businessmissingFields.includes("logo") && (
+                                  <p
+                                    className="text-danger"
+                                    style={{ textAlign: "left", fontSize: "12px" }}
+                                  >
+                                    *Please Choose Your Business Logo.
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            <div className="row mt-3">
+                              <div className="col-md-1 flex-row">
+                                <input
+                                  className="form-check-input checkboxForAdmin"
+                                  type="checkbox"
+                                  // id="checkboxNoLabel"
+                                  value="1" checked={bussiness.kyc_purposes === '1'} name="kyc_purposes" onChange={handleBusinessChange}
+                                />
+                              </div>
+                              <div className="col-md-11">
+                                <p className="">
+                                  I certify that all the information provided by
+                                  me is accurate and I am willing to provide
+                                  evidence for the same for KYC purposes when
+                                  requested.
+                                </p>
+                              </div>
                             </div>
                             {businessmissingFields.includes("kyc_purposes") && (
                               <p
@@ -918,7 +1004,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         Pan Card Number{" "}
-                        <span className="text-mandatory">*</span>
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
                         <input type="text" id="pan_number" placeholder="Pan Number" value={proof.pan_number} name=""
@@ -937,7 +1023,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         Adhaar Card Number{" "}
-                        <span className="text-mandatory">*</span>
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
 
@@ -958,7 +1044,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        DOB  <span className="text-mandatory">*</span>
+                        DOB  <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
                         <input
@@ -990,7 +1076,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         Bank Name{" "}
-                        <span className="text-mandatory" >*</span>
+                        <span className="text-danger" >*</span>
                       </label>
                       <div className="form-part">
                         <input
@@ -1020,7 +1106,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         Account Holder's Name{" "}
-                        <span className="text-mandatory">*</span>
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
                         <input
@@ -1048,7 +1134,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         Account Number{" "}
-                        <span className="text-mandatory">*</span>
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
                         <input
@@ -1077,7 +1163,7 @@ const EditList = () => {
                         className="form-label"
                       >
                         IFSC Code{" "}
-                        <span className="text-mandatory">*</span>
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
                         <input
@@ -1098,43 +1184,19 @@ const EditList = () => {
                     </div>
 
                     <div className="col-sm-6 proof">
+                      <label
+                        htmlFor="exampleFormControlInput1"
+                        className="form-label"
+                      >
+                        Identity card{" "}
+                        <span className="text-danger">*</span>
+                      </label>
                       <div
                         id="divHabilitSelectors"
                         className="input-file-container"
-                      >
-                        <div className="profile-pic">
-                          {/* {previewImageProof ? (
-                            <img src={typeof previewImageProof === 'string' ? previewImageProof : undefined} alt="Preview" style={{ maxWidth: '300px', maxHeight: '200px' }} />
-                          ) : ( */}
-                          {imageUrl ? (
-                            <Image src={imageUrl} alt="Document Image" width={416} height={140} />
-                          ) : (
-                            <Image
-                              src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'}
-                              alt="Default Image"
-                              width={416}
-                              height={140}
-                            />
-                          )}
-                          {/* )} */}
-                        </div>
-
-
-                        {imageUrl && (
-                          <>
-                            {imageUrl.endsWith('.pdf') ? (
-                              <a href={imageUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', marginTop: '10px', }}>
-                                View PDF
-                              </a>
-                            ) : (
-                              <button onClick={handleDownload} style={{ marginTop: '10px', marginLeft: '3px' }}>
-                                View Image
-                              </button>
-                            )}
-                          </>
-                        )}
-
-
+                      ><a href={imageUrl} target="_blank" rel="noopener noreferrer" className='btn btn-colors mt-3 btn-sm' >
+                          View  
+                        </a>
                       </div>
                     </div>
                     <div className="row mt-3">
