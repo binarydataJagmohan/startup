@@ -12,6 +12,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { getToken, getCurrentUserData } from "@/lib/session";
+import { set } from 'nprogress';
 
 type Country = {
     name: string;
@@ -46,7 +47,7 @@ const EditAdmin = () => {
     const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}${users.profile_pic}`;
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
-
+    const [startupLogoName, setStartupLogoName] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,12 +79,13 @@ const EditAdmin = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        } else if (
-            /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[\w-]+|pub\/[\w-]+|company\/[\w-]+|groups\/[\w-]+)\/?$/i
-                .test(users.linkedin_url)
-        ) {
-            setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
         }
+        //  else if (
+        //     /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/i
+        //         .test(users.linkedin_url)
+        // ) {
+        //     setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
+        // }
 
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
@@ -96,7 +98,7 @@ const EditAdmin = () => {
         if (!users.city) setMissingFields(prevFields => [...prevFields, "City"]);
         if (!users.profile_pic) setMissingFields(prevFields => [...prevFields, "Profile"]);
 
-        if (missingFields.length > 0) {
+        if (missingFields.length > 0 || invalidFields.length > 0) {
             const errorMessage = `Please fill in the following fields: ${missingFields.join(", ")}`;
             setErrorMessage(errorMessage);
             return;
@@ -186,6 +188,7 @@ const EditAdmin = () => {
                             setPreviewImage(reader.result);
                         };
                         reader.readAsDataURL(file);
+                        setStartupLogoName(file.name);
                     } else {
                         setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
                     }
@@ -321,7 +324,7 @@ const EditAdmin = () => {
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <input type="text" className="form-control" id="linkedin_url" onChange={handleChange} value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
+                                                    <input type="text" className="form-control" id="linkedin_url"  value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
                                                     {invalidFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please enter a valid linkedin_url address.
@@ -340,10 +343,10 @@ const EditAdmin = () => {
                                                 </div>
 
                                                 <div className="col-md-6">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Country
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label ">Country
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <select className="form-select form-select-lg mb-3 css-1492t68"
+                                                    <select className="form-select"
                                                         onChange={handleChange}
                                                         name="country" value={users.country}
                                                         aria-label="Default select example"
@@ -364,11 +367,11 @@ const EditAdmin = () => {
 
                                             <div className="row g-3">
                                                 <div className="col-md-6">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Gender{" "}
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label mt-4">Gender{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <select
-                                                        className="form-select form-select-lg css-1492t68"
+                                                        className="form-select"
                                                         onChange={handleChange}
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
@@ -393,7 +396,7 @@ const EditAdmin = () => {
                                                 <div className="col-md-6">
                                                     <div id="divHabilitSelectors" className="input-file-container">
                                                         <div className="row">
-                                                            <div className="col-md-4">
+                                                            <div className="col-md-4 mt-4">
                                                                 <div
                                                                     id="divHabilitSelectors"
                                                                     className="input-file-container"
@@ -427,22 +430,46 @@ const EditAdmin = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-md-8 mt-4">
-                                                                <input
-                                                                    className="input-file"
-                                                                    id="logo"
-                                                                    accept='.jpg, .jpeg, .png'
-                                                                    type="file" name="profile_pic" onChange={handleChange}
-
-                                                                />
-                                                                <label
-                                                                    htmlFor="fileupload"
-                                                                    className="input-file-trigger"
-                                                                    id="labelFU"
-                                                                    tabIndex={0}
+                                                                <div
+                                                                    id="divHabilitSelectors"
+                                                                    className="input-file-container"
                                                                 >
-                                                                    Drop your pitch deck here to{" "}
-                                                                    <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
-                                                                </label>
+                                                                    <div className="file-upload mt-5">
+                                                                        <div className="file-select">
+                                                                            <div
+                                                                                className="file-select-button"
+                                                                                id="fileName"
+                                                                            >
+                                                                                Choose File
+                                                                            </div>
+                                                                            <div className="file-select-name" id="noFile">
+                                                                                {startupLogoName ? startupLogoName : (users.profile_pic ? users.profile_pic : "No File Chosen ...")}
+                                                                            </div>
+                                                                            <input
+                                                                                className="input-file"
+                                                                                id="logo"
+                                                                                accept='.jpg, .jpeg, .png'
+                                                                                type="file" name="profile_pic"
+                                                                                onChange={handleChange}
+
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <label
+                                                                        htmlFor="fileupload"
+                                                                        className="input-file-trigger mt-1"
+                                                                        id="labelFU"
+                                                                        style={{ fontSize: "12px", marginLeft: "12px" }}
+                                                                        tabIndex={0}
+                                                                    >
+                                                                        <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
+                                                                    </label>
+                                                                    {startUpLogoSizeError ? (
+                                                                        <p className='text-danger'>{startUpLogoSizeError}</p>
+                                                                    ) : (
+                                                                        startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
+                                                                    )}
+                                                                </div>
                                                                 {startUpLogoSizeError ? (
                                                                     <p className='text-danger'>{startUpLogoSizeError}</p>
                                                                 ) : (

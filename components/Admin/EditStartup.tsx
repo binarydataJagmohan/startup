@@ -570,7 +570,7 @@ const EditList = () => {
                           <span style={{ color: "red" }}>*</span>
                         </label>
                         <div className="form-part">
-                          <select name="gender" onChange={handleStartupChange} className='css-1492t68 form-select' value={startup.gender} >
+                          <select name="gender" onChange={handleStartupChange} value={startup.gender} >
                             <option value={startup.gender ? startup.gender : ''}>{startup.gender ? startup.gender.charAt(0).toUpperCase() + startup.gender.slice(1) : '--SELECT GENDER--'}</option>
                             {startup.gender !== 'male' && <option value="male">Male</option>}
                             {startup.gender !== 'female' && <option value="female">Female</option>}
@@ -638,7 +638,7 @@ const EditList = () => {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input"
+                                className="form-control same-input h-75"
                                 id="business_name" name="business_name" value={bussiness.business_name} onChange={handleBusinessChange}
 
                               />
@@ -663,7 +663,7 @@ const EditList = () => {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input"
+                                className="form-control same-input h-75"
                                 id="reg_businessname" value={bussiness.reg_businessname} onChange={handleBusinessChange} name="reg_businessname"
                               />
                               {businessmissingFields.includes("reg_businessname") && (
@@ -686,7 +686,7 @@ const EditList = () => {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url"
+                                className="form-control same-input h-50" value={bussiness.website_url} onChange={handleBusinessChange} name="website_url"
                               />
                               {/* {errors.website_url && ( */}
                               {businessmissingFields.includes("website_url") && (
@@ -784,7 +784,7 @@ const EditList = () => {
                               </label>
                               <input
                                 type="date"
-                                className="form-control same-input"
+                                className="form-control same-input h-50"
                                 id="startup_date" value={bussiness.startup_date} onChange={handleBusinessChange} name="startup_date"
                                 max={new Date().toISOString().split("T")[0]} readOnly
                               />
@@ -886,7 +886,7 @@ const EditList = () => {
                               <div
                                 id="divHabilitSelectors"
                                 className="input-file-container"
-                              >
+                               >
                                 <label
                                   htmlFor="logo"
                                   className="form-label"
@@ -1049,7 +1049,6 @@ const EditList = () => {
                       <div className="form-part">
                         <input
                           type="date"
-                          className="form-control same-input"
                           id="dob" value={proof.dob} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
@@ -1081,7 +1080,6 @@ const EditList = () => {
                       <div className="form-part">
                         <input
                           type="text"
-                          className="form-control same-input"
                           id="bank_name" value={bank.bank_name} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
@@ -1111,7 +1109,6 @@ const EditList = () => {
                       <div className="form-part">
                         <input
                           type="text"
-                          className="form-control same-input"
                           id="account_holder" value={bank.account_holder} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
@@ -1139,16 +1136,13 @@ const EditList = () => {
                       <div className="form-part">
                         <input
                           type="text"
-                          className="form-control same-input" maxLength={17} onChange={handleProofChange}
+                          maxLength={17} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
                           onCut={handleProofChange}
                           onCopy={handleProofChange}
                           readOnly
                           id="account_no" value={bank.account_no}
-                        // {...register("account_no", {
-                        //  value:true, required: true,
-                        // })}   value={bankDetails.account_no}  name="account_no" onChange={handleChange}  
                         />
                       </div>
 
@@ -1167,17 +1161,13 @@ const EditList = () => {
                       </label>
                       <div className="form-part">
                         <input
-                          type="text" maxLength={11}
-                          className="form-control same-input"
+                          type="text" maxLength={11}                         
                           id="ifsc_code" value={bank.ifsc_code} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
                           onCut={handleProofChange}
                           onCopy={handleProofChange}
                           readOnly
-                        // {...register("ifsc_code", {
-                        //  value:true, required: true,max:11
-                        // })}   value={bankDetails.ifsc_code}  name="ifsc_code" onChange={handleChange}
                         />
                       </div>
 
@@ -1195,7 +1185,7 @@ const EditList = () => {
                         id="divHabilitSelectors"
                         className="input-file-container"
                       ><a href={imageUrl} target="_blank" rel="noopener noreferrer" className='btn btn-colors mt-3 btn-sm' >
-                          View  
+                          View
                         </a>
                       </div>
                     </div>

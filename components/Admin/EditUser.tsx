@@ -253,7 +253,7 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Name{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <input type="text" className="form-control h-75" id="name" name="name" onChange={handleChange} value={users.name} placeholder="Enter Your Name" />
+                                                    <input type="text" className="form-control " id="name" name="name" onChange={handleChange} value={users.name} placeholder="Enter Your Name" />
                                                     {missingFields.includes("Name") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the Name field.
@@ -325,12 +325,12 @@ const EditUser = () => {
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-6 mt-4">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <input type="text" onChange={handleChange} className="form-control h-50" id="city" name="city" value={users.city} placeholder="Enter Your City" />
+                                                    <input type="text" onChange={handleChange} className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
                                                     {missingFields.includes("City") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please fill in the City field.
@@ -338,11 +338,11 @@ const EditUser = () => {
                                                     )}
                                                 </div>
 
-                                                <div className="col-md-6">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Country
+                                                <div className="col-md-6 mt-4">
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label ">Country
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <select className="form-select form-select-lg mb-3 css-1492t68"
+                                                    <select className="form-select "
                                                         onChange={handleChange}
                                                         name="country" value={users.country}
                                                         aria-label="Default select example"
@@ -368,12 +368,12 @@ const EditUser = () => {
                                             </div>
 
                                             <div className="row g-3">
-                                                <div className="col-md-6">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Gender{" "}
+                                                <div className="col-md-6 mt-5">
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <select
-                                                        className="form-select form-select-lg css-1492t68"
+                                                        className="form-select "
                                                         onChange={handleChange}
                                                         name="gender" value={users.gender}
                                                         aria-label="Default select example"
@@ -393,12 +393,12 @@ const EditUser = () => {
                                                     )}
                                                 </div>
 
-                                                <div className="col-md-6">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Role{" "}
+                                                <div className="col-md-6 mt-5">
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label">Role{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <select className="form-select w-lg form-select-lg css-1492t68" onChange={handleChange} name="role" value={users.role} >
+                                                    <select className="form-select w-lg " onChange={handleChange} name="role" value={users.role} >
                                                         {/* <option value={users.role}>{users.role}</option>
                                                         {users.role !== 'admin' && <option value="admin">Admin</option>}
                                                         {users.role !== 'startup' && <option value="startup">startup</option>}
@@ -419,12 +419,12 @@ const EditUser = () => {
                                             </div>
 
                                             <div className="row g-3 mt-1">
-                                                <div className="col-md-12">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label mb-4">Status{" "}
+                                                <div className="col-md-12 mt-4">
+                                                    <label htmlFor="exampleFormControlInput1" className="form-label">Status{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <select className="form-select form-select-lg css-1492t68 " onChange={handleChange} value={users.status}
+                                                    <select className="form-select" onChange={handleChange} value={users.status}
                                                         name="status"
                                                         aria-label="Default select example">
                                                         {/* <option value={users.status}>{users.status}</option>

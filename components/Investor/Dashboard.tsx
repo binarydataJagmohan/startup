@@ -91,9 +91,10 @@ const Dashboard = () => {
   const getBusinessdetails = (e: any, id: any) => {
     e.preventDefault();
     getSingleBusinessDetails(id).then((res) => {
-      router.push(`campaign/details?id=${id}`);
+      window.location.href = `campaign/details?id=${id}`;
     });
   };
+  
 
 
   const getClosedBusinessdetails = (e: any, id: any) => {
