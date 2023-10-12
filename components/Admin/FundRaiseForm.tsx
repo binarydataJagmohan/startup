@@ -425,7 +425,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="amount"
                                                         {...register("amount", {
                                                             required: true,
@@ -468,7 +468,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="total_units"
                                                         {...register("total_units", {
                                                             value: !fundRaiseData.total_units,
@@ -516,7 +516,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="xirr"
                                                         {...register("xirr", {
                                                             value: !fundRaiseData.xirr,
@@ -562,7 +562,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="minimum_subscription"
                                                         {...register("minimum_subscription", {
                                                             value: !fundRaiseData.minimum_subscription,
@@ -676,7 +676,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="date"
-                                                        className="form-control"
+                                                        className="form-control h-50"
                                                         id="repay_date"
                                                         {...register("repay_date", {
                                                             value: fundRaiseData.repay_date || "",
@@ -709,7 +709,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="date"
-                                                        className="form-control"
+                                                        className="form-control h-50"
                                                         id="closed_in"
                                                         {...register("closed_in", {
                                                             value: fundRaiseData.closed_in || "",

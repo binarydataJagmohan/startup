@@ -26,23 +26,23 @@ export default function InvestorType(): any {
     const [current_user_id, setCurrentUserId] = useState("");
     const [investorType, setInvestorType] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    const [principal_residence, setPrincipalResidence]:any = useState(false);
-    const [experience, setExperience]:any = useState(false);
-    const [net_worth, setNetWorth]:any = useState(false);
-    const [prev_investment_exp, setPrevInvestmentExp]:any = useState(false);
-    const [no_requirements, setNoRequirements]:any = useState(false);
-    const [cofounder, setCofounder]:any = useState(false);
+    const [principal_residence, setPrincipalResidence]: any = useState(false);
+    const [experience, setExperience]: any = useState(false);
+    const [net_worth, setNetWorth]: any = useState(false);
+    const [prev_investment_exp, setPrevInvestmentExp]: any = useState(false);
+    const [no_requirements, setNoRequirements]: any = useState(false);
+    const [cofounder, setCofounder]: any = useState(false);
 
-    const [annual_income, setAnnualIncome]:any = useState(false);
-    const [financial_net_worth, setFinancialNetWorth]:any = useState(false);
-    const [financial_annual_net_worth, setFinancialAnnualNetWorth]:any = useState(false);
-    const [foreign_annual_income, setForeignAnnualIncome]:any = useState(false);
-    const [foreign_net_worth, setForeignNetWorth]:any = useState(false);
-    const [foreign_annual_net_worth, setForeignAnnualNetWorth]:any = useState(false);
-    const [corporate_net_worth, setCorporateNetWorth]:any = useState(false);
+    const [annual_income, setAnnualIncome]: any = useState(false);
+    const [financial_net_worth, setFinancialNetWorth]: any = useState(false);
+    const [financial_annual_net_worth, setFinancialAnnualNetWorth]: any = useState(false);
+    const [foreign_annual_income, setForeignAnnualIncome]: any = useState(false);
+    const [foreign_net_worth, setForeignNetWorth]: any = useState(false);
+    const [foreign_annual_net_worth, setForeignAnnualNetWorth]: any = useState(false);
+    const [corporate_net_worth, setCorporateNetWorth]: any = useState(false);
 
-    const [termscondition, setTermsCondition]:any = useState(false);
-    const [accreditedcondition, setAccreditedcondition]:any = useState(false);
+    const [termscondition, setTermsCondition]: any = useState(false);
+    const [accreditedcondition, setAccreditedcondition]: any = useState(false);
     const trueTermsCondition = () => {
         setSelectedOption('');
         setPrincipalResidence(false);
@@ -59,7 +59,7 @@ export default function InvestorType(): any {
     const [investorDetails, seInvestorDetails] = useState({
         investorType: ""
     });
-    const [terms, setTerms]:any = useState({
+    const [terms, setTerms]: any = useState({
         category: "",
         principal_residence: "0",
         cofounder: "0",
@@ -132,17 +132,17 @@ export default function InvestorType(): any {
                 .then((res) => {
                     if (res.status === true) {
                         seInvestorDetails(res.data);
-                        if(res.data.investorType == 'Accredited Investors'){
+                        if (res.data.investorType == 'Accredited Investors') {
                             setAccreditedcondition(true);
                         }
-                        if(res.data.investorType == 'Angel Investor'){
+                        if (res.data.investorType == 'Angel Investor') {
                             setTermsCondition(true);
                         }
-                        if(go_back_btn_val == 'go_back_invisitor_type'){
-                            if(res.data.investorType == 'Accredited Investors'){
+                        if (go_back_btn_val == 'go_back_invisitor_type') {
+                            if (res.data.investorType == 'Accredited Investors') {
                                 setAccreditedcondition(true);
                             }
-                            if(res.data.investorType == 'Angel Investor'){
+                            if (res.data.investorType == 'Angel Investor') {
                                 setTermsCondition(true);
                             }
                         }
@@ -161,7 +161,21 @@ export default function InvestorType(): any {
             getAngelInvestorTerms(current_user_data.id)
                 .then((res) => {
                     if (res.status === true) {
-                        setTerms(res.data);
+                        console.log(res.data);
+                        setForeignAnnualIncome(res.data.foreign_annual_income)
+                        setSelectedOption(res.data.category);
+                        setFinancialNetWorth(res.data.financial_net_worth);
+                        setAnnualIncome(res.data.annual_income);
+                        setFinancialAnnualNetWorth(res.data.financial_annual_net_worth);
+                        setForeignNetWorth(res.data.foreign_net_worth);
+                        setForeignAnnualNetWorth(res.data.foreign_annual_net_worth);
+                        setCorporateNetWorth(res.data.corporate_net_worth);
+                        setNoRequirements(res.data.no_requirements);
+                        setNetWorth(res.data.net_worth);
+                        setExperience(res.data.experience);
+                        setCofounder(res.data.cofounder);
+                        setPrincipalResidence(res.data.principal_residence);
+                        setPrevInvestmentExp(res.data.prev_investment_exp);
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -182,7 +196,7 @@ export default function InvestorType(): any {
     const SubmitForm = async (e: any) => {
         e.preventDefault();
         const errors: any = {};
-        if(!investorDetails.investorType){
+        if (!investorDetails.investorType) {
             if (!investorType) {
                 errors.investorType = "*Please select investor type.";
             }
@@ -191,7 +205,7 @@ export default function InvestorType(): any {
             if (!principal_residence) {
                 errors.principal_residence = "*Principal residence option is required.";
             }
-            if(principal_residence){
+            if (principal_residence) {
                 if (!experience && !prev_investment_exp && !cofounder) {
                     errors.experience = "*One more option is required.";
                 }
@@ -208,14 +222,14 @@ export default function InvestorType(): any {
                 errors.no_requirements = "*No requirements option is required.";
             }
         } else if (selectedOption === '4') {
-            if(!annual_income && !financial_net_worth && !financial_annual_net_worth) {
+            if (!annual_income && !financial_net_worth && !financial_annual_net_worth) {
                 errors.annual_income = "*Please select atleast one option.";
             }
             // if (!annual_income) {
             //     errors.annual_income = "*Annual income option is required.";
             // }
         } else if (selectedOption === '5') {
-            if(!foreign_annual_income && !foreign_net_worth && !foreign_annual_net_worth) {
+            if (!foreign_annual_income && !foreign_net_worth && !foreign_annual_net_worth) {
                 errors.annual_income = "*Please select atleast one option.";
             }
             // if (!foreign_annual_income) {
@@ -407,7 +421,7 @@ export default function InvestorType(): any {
                                                             <div className="row">
                                                                 <div className="col-md-12">
                                                                     <div className="custom-select-bar position-relative">
-                                                                        <select className="options" onChange={(e) => setSelectedOption(e.target.value)} value={terms.category}>
+                                                                        <select className="options" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
                                                                             <option value="">--SELECT CATEGORY--</option>
                                                                             <option value="1">Individual</option>
                                                                             <option value="2">Body Corporate/VC/PE/Family Office/Corporate Institution</option>
@@ -420,8 +434,8 @@ export default function InvestorType(): any {
                                                                             <div className="row">
                                                                                 <div className="col-auto">
                                                                                     <input type="checkbox" id="checkbox4"
-                                                                                        name="principal_residence" value={terms.category == '1' ? 0 : 1}
-                                                                                        checked={terms.principal_residence == '1'}
+                                                                                        name="principal_residence" value={principal_residence == 0 ? 0 : 1}
+                                                                                        checked={principal_residence == 0 ? false : true}
                                                                                         onChange={() => setPrincipalResidence(!principal_residence)}
                                                                                     />
                                                                                 </div>
@@ -443,7 +457,7 @@ export default function InvestorType(): any {
                                                                                 <div className="col-auto">
                                                                                     <input type="checkbox" id="checkbox5"
                                                                                         name="prev_investment_exp"
-                                                                                        value={terms.category == '1' ? 0 : 1} onChange={() => setPrevInvestmentExp(!prev_investment_exp)} checked={terms.prev_investment_exp == '1'} />
+                                                                                        value={prev_investment_exp == 0 ? 0 : 1} onChange={() => setPrevInvestmentExp(!prev_investment_exp)} checked={prev_investment_exp == 0 ? false : true} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox5">Has invested in startups before</label>
@@ -454,8 +468,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox6" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="cofounder" onChange={() => setCofounder(!cofounder)} checked={terms.cofounder} />
+                                                                                    <input type="checkbox" id="checkbox6" value={cofounder == 0 ? 0 : 1}
+                                                                                        name="cofounder" onChange={() => setCofounder(!cofounder)} checked={cofounder == 0 ? false : true} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox6">come from an entrepreneurial family or have been a
@@ -467,8 +481,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox7" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="experience" onChange={() => setExperience(!experience)} checked={terms.experience == '1'} />
+                                                                                    <input type="checkbox" id="checkbox7" value={experience == 0 ? 0 : 1}
+                                                                                        name="experience" onChange={() => setExperience(!experience)} checked={experience == 0 ? false : true} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox7">Senior management professional with at least 10 years of
@@ -491,8 +505,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox8" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="net_worth" onChange={() => setNetWorth(!net_worth)} checked={terms.net_worth == '1'} />
+                                                                                    <input type="checkbox" id="checkbox8" value={net_worth == 0 ? 0 : 2}
+                                                                                        name="net_worth" onChange={() => setNetWorth(!net_worth)} checked={net_worth == 0 ? false : true} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox8">Net worth of at least INR 10 Crore.<span className="requiredclass">*</span></label><br></br>
@@ -506,12 +520,12 @@ export default function InvestorType(): any {
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div id="checkbox-group-3" className={selectedOption === '3' ?  'visible' : 'hidden'}>
+                                                                    <div id="checkbox-group-3" className={selectedOption === '3' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox9" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={terms.no_requirements == '1'} />
+                                                                                    <input type="checkbox" id="checkbox9" value={no_requirements == 0 ? 0 : 3}
+                                                                                        name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={no_requirements == 0 ? false : true} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox9">No Requirement.<span className="requiredclass">*</span></label><br></br>
@@ -534,7 +548,7 @@ export default function InvestorType(): any {
                                                             <div className="row">
                                                                 <div className="col-md-12">
                                                                     <select className="options"
-                                                                        name="category" onChange={(e) => setSelectedOption(e.target.value)} value={terms.category}>
+                                                                        name="category" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
                                                                         <option value="">--SELECT CATEGORY--</option>
                                                                         <option value="4">Indian Individuals/HUFs/Family Trusts/Sole Proprietorships</option>
                                                                         <option value="5">Foreign Individuals/Family Trusts/Sole Proprietorships</option>
@@ -544,29 +558,29 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox10" value={terms.annual_income == '1' ? 0 : 1}
+                                                                                    <input type="checkbox" id="checkbox10" value={annual_income == 0 ? 0 : 4}
                                                                                         name="annual_income"
-                                                                                        checked={terms.annual_income == '1'}
-                                                                                        onChange={(e:any) => setAnnualIncome(e.target.value)} />
+                                                                                        checked={annual_income == 0 ? false : true}
+                                                                                        onChange={(e: any) => setAnnualIncome(!annual_income)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox10">
                                                                                         Have an annual income of at least ₹2 crore in the preceding financial year.
                                                                                     </label><br></br>
-                                                                                    {/* {errors.annual_income && (
-                                                                                        <span className="small error text-danger mb-2 d-inline-block error_login">
-                                                                                            {errors.annual_income}
-                                                                                        </span>
-                                                                                    )} */}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox11" value={terms.financial_net_worth == '1' ? 0 : 1}
-                                                                                        name="financial_net_worth" checked={terms.financial_net_worth == '1'}
-                                                                                        onChange={(e:any) => setFinancialNetWorth(e.target.value)} />
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        id="checkbox11"
+                                                                                        value={financial_net_worth == 0 ? 0 : 5}
+                                                                                        name="financial_net_worth"
+                                                                                        checked={financial_net_worth == 0 ? false : true} // Use a boolean expression
+                                                                                        onChange={(e: any) => setFinancialNetWorth(!financial_net_worth)}
+                                                                                    />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox11">Have a net worth of at least ₹7.5 crore with more than ₹3.75 crore of financial assets.</label>
@@ -576,9 +590,9 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox12" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="financial_annual_net_worth" checked={terms.financial_annual_net_worth == '1'}
-                                                                                        onChange={() => setFinancialAnnualNetWorth(!financial_annual_net_worth)} />
+                                                                                    <input type="checkbox" id="checkbox12" value={financial_annual_net_worth == 0 ? 0 : 6}
+                                                                                        name="financial_annual_net_worth" checked={financial_annual_net_worth == 0 ? false : true}
+                                                                                        onChange={(e: any) => setFinancialAnnualNetWorth(!financial_annual_net_worth)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox12">Have an annual income of at least ₹1 crore and a net worth of at least ₹ 5 crore with more
@@ -592,9 +606,9 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox13" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="foreign_annual_income" checked={terms.foreign_annual_income == '1'}
-                                                                                        onChange={() => setForeignAnnualIncome(!foreign_annual_income)} />
+                                                                                    <input type="checkbox" id="checkbox13" value={foreign_annual_income == 0 ? 0 : 7}
+                                                                                        name="foreign_annual_income" checked={foreign_annual_income == 0 ? false : true}
+                                                                                        onChange={(e: any) => setForeignAnnualIncome(!foreign_annual_income)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox13">Have an annual income of at least $300,000.</label><br></br>
@@ -609,8 +623,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox14" value={terms.category == '1' ? 0 : 1} name="foreign_net_worth" checked={terms.foreign_net_worth == '1'}
-                                                                                        onChange={() => setForeignNetWorth(!foreign_net_worth)} />
+                                                                                    <input type="checkbox" id="checkbox14" value={foreign_net_worth == 0 ? 0 : 8} name="foreign_net_worth" checked={foreign_net_worth == 0 ? false : true}
+                                                                                        onChange={(e: any) => setForeignNetWorth(!foreign_net_worth)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox14">Have a net worth of at least $1 million with more than $500,000 of financial assets.</label>
@@ -620,9 +634,9 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox15" value={terms.category == '1' ? 0 : 1}
-                                                                                        name="foreign_annual_net_worth" checked={terms.foreign_annual_net_worth == '1'}
-                                                                                        onChange={() => setForeignAnnualNetWorth(!foreign_annual_net_worth)} />
+                                                                                    <input type="checkbox" id="checkbox15" value={foreign_annual_net_worth == 0 ? 0 : 9}
+                                                                                        name="foreign_annual_net_worth" checked={foreign_annual_net_worth == 0 ? false : true}
+                                                                                        onChange={(e: any) => setForeignAnnualNetWorth(!foreign_annual_net_worth)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox15">Have an annual income of at least $150,000 and a net worth of at least $750,000 with more
@@ -635,8 +649,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card">
                                                                             <div className="row">
                                                                                 <div className="col-auto">
-                                                                                    <input type="checkbox" id="checkbox16" value={terms.category == '1' ? 0 : 1} checked={terms.corporate_net_worth == '1'}
-                                                                                        onChange={() => setCorporateNetWorth(!corporate_net_worth)} />
+                                                                                    <input type="checkbox" id="checkbox16" value={corporate_net_worth == 0 ? 0 : 10} checked={corporate_net_worth == 0 ? false : true}
+                                                                                        onChange={(e: any) => setCorporateNetWorth(!corporate_net_worth)} />
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     <label htmlFor="checkbox16">Net worth greater than or equal to INR 50 crore or, $7.5 million.</label><br></br>
