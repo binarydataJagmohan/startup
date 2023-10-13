@@ -178,7 +178,7 @@ export default function Login() {
       </div> */}
       <section className="contact-section">
         <div className="container">
-          <div className="row align-items-center">
+          <div className="row align-items-center login_form_and_information">
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="contact_content" data-aos="fade-right">
                 <h1 className="pb-4 text-lg-start text-center" style={{ fontWeight: '700' }}>Welcome Back!</h1>
@@ -327,12 +327,12 @@ export default function Login() {
                             </div>
                             <div className="forgetpassword">
                               <p className="forgot-password p-0">
-                                <a
+                                <Link
                                   href="/reset-password"
                                   style={{ color: "#666666" }}
                                 >
                                   Forgot Password?
-                                </a>
+                                </Link>
                               </p>
                             </div>
 
@@ -364,7 +364,7 @@ export default function Login() {
                           <i className="circle fa-regular fa-angle-right" />
                         </button>
                       </div>
-                      <p className="mt-3">Don't have account? <strong><a href="/signup" style={{ color: '#088395' }}> Sign up!</a></strong> </p>
+                      <p className="mt-3">Don't have account? <strong><Link href="/signup" style={{ color: '#088395' }}> Sign up!</Link></strong> </p>
                     </div>
                   </form>
                 </div>

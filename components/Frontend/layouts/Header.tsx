@@ -265,7 +265,7 @@ export default function HeaderFrontend() {
                 Contact
               </Link>
             </li>
-            <div className="others-options">
+            <div className="others-options mt-2">
               {users.name ? (
                 <div className="dropdown">
                   <Link  href="#" onClick={myFunction} className="dropbtn text-white">
