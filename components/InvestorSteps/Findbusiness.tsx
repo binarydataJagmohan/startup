@@ -319,7 +319,7 @@ export default function Findbusiness(): any {
 
                                 <PhoneInput onClick={phonClick} country={"us"} {...register("phone", { required: !user.phone })}
                                   onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                  value={user.phone} />
+                                  value={user.phone ? user.phone : '91'} />
                               </div>
                               <div className="help-block with-errors" />
                               {errors.phone && errors.phone.type === "required" && (

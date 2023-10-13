@@ -432,7 +432,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-1" className={selectedOption === '1' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox4"
                                                                                         name="principal_residence" value={principal_residence == 0 ? 0 : 1}
                                                                                         checked={principal_residence == 0 ? false : true}
@@ -454,7 +454,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox5"
                                                                                         name="prev_investment_exp"
                                                                                         value={prev_investment_exp == 0 ? 0 : 1} onChange={() => setPrevInvestmentExp(!prev_investment_exp)} checked={prev_investment_exp == 0 ? false : true} />
@@ -467,7 +467,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox6" value={cofounder == 0 ? 0 : 1}
                                                                                         name="cofounder" onChange={() => setCofounder(!cofounder)} checked={cofounder == 0 ? false : true} />
                                                                                 </div>
@@ -480,7 +480,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox7" value={experience == 0 ? 0 : 1}
                                                                                         name="experience" onChange={() => setExperience(!experience)} checked={experience == 0 ? false : true} />
                                                                                 </div>
@@ -504,7 +504,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-2" className={selectedOption === '2' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox8" value={net_worth == 0 ? 0 : 2}
                                                                                         name="net_worth" onChange={() => setNetWorth(!net_worth)} checked={net_worth == 0 ? false : true} />
                                                                                 </div>
@@ -523,7 +523,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-3" className={selectedOption === '3' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox9" value={no_requirements == 0 ? 0 : 3}
                                                                                         name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={no_requirements == 0 ? false : true} />
                                                                                 </div>
@@ -557,7 +557,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-4" className={selectedOption === '4' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox10" value={annual_income == 0 ? 0 : 4}
                                                                                         name="annual_income"
                                                                                         checked={annual_income == 0 ? false : true}
@@ -572,7 +572,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input
                                                                                         type="checkbox"
                                                                                         id="checkbox11"
@@ -589,7 +589,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox12" value={financial_annual_net_worth == 0 ? 0 : 6}
                                                                                         name="financial_annual_net_worth" checked={financial_annual_net_worth == 0 ? false : true}
                                                                                         onChange={(e: any) => setFinancialAnnualNetWorth(!financial_annual_net_worth)} />
@@ -605,7 +605,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-5" className={selectedOption === '5' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox13" value={foreign_annual_income == 0 ? 0 : 7}
                                                                                         name="foreign_annual_income" checked={foreign_annual_income == 0 ? false : true}
                                                                                         onChange={(e: any) => setForeignAnnualIncome(!foreign_annual_income)} />
@@ -622,7 +622,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox14" value={foreign_net_worth == 0 ? 0 : 8} name="foreign_net_worth" checked={foreign_net_worth == 0 ? false : true}
                                                                                         onChange={(e: any) => setForeignNetWorth(!foreign_net_worth)} />
                                                                                 </div>
@@ -633,7 +633,7 @@ export default function InvestorType(): any {
                                                                         </div>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox15" value={foreign_annual_net_worth == 0 ? 0 : 9}
                                                                                         name="foreign_annual_net_worth" checked={foreign_annual_net_worth == 0 ? false : true}
                                                                                         onChange={(e: any) => setForeignAnnualNetWorth(!foreign_annual_net_worth)} />
@@ -648,7 +648,7 @@ export default function InvestorType(): any {
                                                                     <div id="checkbox-group-6" className={selectedOption === '6' ? 'visible' : 'hidden'}>
                                                                         <div className="same-card">
                                                                             <div className="row">
-                                                                                <div className="col-auto">
+                                                                                <div className="col-auto pt-1">
                                                                                     <input type="checkbox" id="checkbox16" value={corporate_net_worth == 0 ? 0 : 10} checked={corporate_net_worth == 0 ? false : true}
                                                                                         onChange={(e: any) => setCorporateNetWorth(!corporate_net_worth)} />
                                                                                 </div>

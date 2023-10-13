@@ -10,7 +10,7 @@ export default function Errors() {
             <div className="container">
               <div className="error-content">
                 <Image
-                  src="assets/img/404.png" alt="error"
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/404.png"} alt="error"
                   width={500}
                   height={266}
                 />
