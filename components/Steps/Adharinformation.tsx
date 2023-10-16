@@ -111,7 +111,7 @@ export default function AdharInformation(): any {
     try {
 
       const res = await bankInformationSave(bankDetails);
-      toast.success("Profile has been Updated Successfully.", {
+      toast.success("Basic details stored successfully.", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: "success",
       });
