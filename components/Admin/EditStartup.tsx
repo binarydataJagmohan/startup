@@ -886,12 +886,12 @@ const EditList = () => {
                               <div
                                 id="divHabilitSelectors"
                                 className="input-file-container"
-                               >
+                              >
                                 <label
                                   htmlFor="logo"
                                   className="form-label"
                                 >
-                                  Startup pitch deck <span style={{ color: "red" }}>*</span>
+                                  Startup pitch deck
                                 </label>
                                 <div className="file-upload mt-3">
                                   <div className="file-select">
@@ -1161,7 +1161,7 @@ const EditList = () => {
                       </label>
                       <div className="form-part">
                         <input
-                          type="text" maxLength={11}                         
+                          type="text" maxLength={11}
                           id="ifsc_code" value={bank.ifsc_code} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
