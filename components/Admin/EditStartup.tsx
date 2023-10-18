@@ -726,6 +726,7 @@ const EditList = () => {
                                 {bussiness.sector !== 'CleanTech (Clean Technology)' && <option value="CleanTech (Clean Technology)">CleanTech (Clean Technology)</option>}
                                 {bussiness.sector !== 'SaaS (Software as a Service)' && <option value="SaaS (Software as a Service)">SaaS (Software as a Service)</option>}
                                 {bussiness.sector !== 'Travel & Transportation and Mobility' && <option value="Travel & Transportation and Mobility">Travel & Transportation and Mobility</option>}
+                                {bussiness.sector !== 'Other' && <option value="Other">Other</option>}
                               </select>
                               {businessmissingFields.includes("sector") && (
                                 <p
@@ -1022,7 +1023,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Adhaar Card Number{" "}
+                        Aadhaar Card Number{" "}
                         <span className="text-danger">*</span>
                       </label>
                       <div className="form-part">
@@ -1136,7 +1137,7 @@ const EditList = () => {
                       <div className="form-part">
                         <input
                           type="text"
-                          maxLength={17} onChange={handleProofChange}
+                          maxLength={16} onChange={handleProofChange}
                           onKeyDown={handleProofChange}
                           onPaste={handleProofChange}
                           onCut={handleProofChange}

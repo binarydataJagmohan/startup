@@ -139,14 +139,13 @@ export default function Findbusiness(): any {
 
     try {
 
-      if (!user.country) {
-        setMissingFields(prevFields => [...prevFields, "country"]);
+      // if (!user.country) {
+      //   setMissingFields(prevFields => [...prevFields, "country"]);
 
-      }
-      if (!user.gender) {
-        setMissingFields(prevFields => [...prevFields, "gender"]);
-
-      }
+      // }
+      // if (!user.gender) {
+      //   setMissingFields(prevFields => [...prevFields, "gender"]);
+      // }
       const res = await personalInformationSave(user);
       if (res.status == true) {
         setTimeout(() => {
@@ -211,15 +210,15 @@ export default function Findbusiness(): any {
                                 className="form-label"
                               >
                                 Email ID{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
                                 type="email"
                                 className="form-control same-input"
-                                {...register("email", {
-                                  value: true,
-                                  required: true,
-                                })}
+                                // {...register("email", {
+                                //   value: true,
+                                //   required: true,
+                                // })}
                                 id="email"
                                 name="email"
                                 onChange={handleChange}
@@ -263,15 +262,15 @@ export default function Findbusiness(): any {
                                 className="form-label mb-4"
                               >
                                 Country of Citizenship{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                {...register("country", {
-                                  // validate: (value) => value != "",
-                                  // required: true,
-                                  onChange: handleChange
-                                })}
+                                // {...register("country", {
+                                //   // validate: (value) => value != "",
+                                //   // required: true,
+                                //   onChange: handleChange
+                                // })}
                                 name="country"
                                 value={user.country ? user.country : ""}
                                 aria-label="Default select example"
@@ -290,13 +289,13 @@ export default function Findbusiness(): any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                              {
+                              {/* {
                                 missingFields.includes("country") && (
                                   <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                     *Please Select Country.
                                   </p>
                                 )
-                              }
+                              } */}
                               {/* {errors.country &&
                                 errors.country.type === "required" &&
                                 !user.country && (
@@ -375,16 +374,17 @@ export default function Findbusiness(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label mb-4"
                               >
-                                Gender  <span style={{ color: "red" }}>*</span>
+                                Gender  
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
 
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                {...register("gender", {
-                                  // validate: (value) => value != "",
-                                  // required: true,
-                                  onChange: handleChange
-                                })}
+                                // {...register("gender", {
+                                //   // validate: (value) => value != "",
+                                //   // required: true,
+                                //   onChange: handleChange
+                                // })}
                                 name="gender"
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}
@@ -395,7 +395,7 @@ export default function Findbusiness(): any {
                                 <option value="other">Other</option>
                               </select>
                               <div className="help-block with-errors" />
-                              {
+                              {/* {
                                 missingFields.includes("gender") && (
                                   <p
                                     className="text-danger"
@@ -404,7 +404,7 @@ export default function Findbusiness(): any {
                                     *Please Select Gender.
                                   </p>
                                 )
-                              }
+                              } */}
                               {/* {errors.gender && errors.gender.type === "required" &&
                                 !user.gender && (
                                   <p

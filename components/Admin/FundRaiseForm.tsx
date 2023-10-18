@@ -610,7 +610,7 @@ const FundRaiseForm = () => {
                                                         }
                                                         aria-label="Default select example"
                                                     >
-                                                        <option value="">--SELECT RESOURCE--</option>
+                                                        <option value="">--SELECT RECOURSE--</option>
                                                         <option value="Buyer">Buyer</option>
                                                         <option value="Seller">Seller</option>
                                                     </select>
@@ -619,7 +619,7 @@ const FundRaiseForm = () => {
                                                             className="text-danger"
                                                             style={{ textAlign: "left", fontSize: "12px" }}
                                                         >
-                                                            *Please fill resource type field.
+                                                            *Please fill recourse type field.
                                                         </p>
                                                     )}
                                                 </div>
@@ -809,7 +809,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal agreement <span style={{ color: "red" }}>*</span>
+                                                        Legal agreement <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"

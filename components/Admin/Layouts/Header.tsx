@@ -213,12 +213,12 @@ const Header = () => {
                               <span>Privacy Policy</span>
                             </Link>
                           </li>
-                          <li className={`nav-item ${router.pathname === '/admin/notification-settings' ? 'active p1' : ''}`}>
+                          {/* <li className={`nav-item ${router.pathname === '/admin/notification-settings' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/notification-settings"} className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
                             </Link>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* Sidebar */}
@@ -291,12 +291,12 @@ const Header = () => {
                               <span>All Users</span>
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <Link href="#" className="waves-effect">
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
                             </Link>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* Sidebar */}
