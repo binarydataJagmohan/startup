@@ -948,7 +948,7 @@ const handleIncorporationCertificateChange = (event: any) => {
                             documentUpload.map((document:any, index:any) => {
                               let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
                               return(
-                                <div className="col-md-6 mt-5">
+                                <div className="col-md-6 mt-5" key={index}>
                                   <label htmlFor="exampleFormControlInput1" className="form-label">Proof Of Network</label>    
                                   {extension == 'pdf' || extension == 'docs' || extension == 'xls'
                                     ?
