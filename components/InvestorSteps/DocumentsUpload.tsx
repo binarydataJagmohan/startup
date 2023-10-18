@@ -80,18 +80,18 @@ export default function DocumentsUpload(): any {
     const handlMenuSubmit = (event: any) => {
         event.preventDefault();
         const errors: any = {};
-        if (!pan_card_front) {
-            errors.pan_card_front = "Image is required";
-        }
-        if (!pan_card_back) {
-            errors.pan_card_back = "Image is required";
-        }
-        if (!adhar_card_front) {
-            errors.adhar_card_front = "Image is required";
-        }
-        if (!adhar_card_back) {
-            errors.adhar_card_back = "Image is required";
-        }
+        // if (!pan_card_front) {
+        //     errors.pan_card_front = "Image is required";
+        // }
+        // if (!pan_card_back) {
+        //     errors.pan_card_back = "Image is required";
+        // }
+        // if (!adhar_card_front) {
+        //     errors.adhar_card_front = "Image is required";
+        // }
+        // if (!adhar_card_back) {
+        //     errors.adhar_card_back = "Image is required";
+        // }
         setErrors(errors);
         if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();
@@ -193,7 +193,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Pan Card front view{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
+                                                                        
                                                                     </label>
                                                                     <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
                                                                     <p>
@@ -220,7 +220,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Pan Card back view{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
+                                                                       
                                                                     </label>
                                                                     <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept="image/jpeg, image/png"></input>
                                                                     <p>
@@ -248,7 +248,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Adhar Card front view{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
+                                                                      
                                                                     </label>
                                                                     <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept="image/jpeg, image/png"></input>
                                                                     <p>
@@ -277,7 +277,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Adhar Card back view{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
+                                                                      
                                                                     </label>
                                                                     <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
                                                                     <p>

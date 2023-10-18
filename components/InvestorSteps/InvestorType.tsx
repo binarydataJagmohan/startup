@@ -277,7 +277,7 @@ export default function InvestorType(): any {
             // localStorage.setItem('session_corporate_net_worth', corporate_net_worth);
             investorTypeInfoSave(data)
                 .then(res => {
-
+                    const investor_Type = data.investorType;                    
                     if (res.status == true) {
                         const data = {
                             notify_from_user: current_user_id,
@@ -292,7 +292,12 @@ export default function InvestorType(): any {
                             toastId: "success",
                         });
                         setTimeout(() => {
-                            router.push("/investor-steps/selectedoptionsdocumentupload");
+                            if(investor_Type==='Regular Investor')
+                            {
+                                router.push("/investor/campaign");
+                            } else {                            
+                                router.push("/investor-steps/selectedoptionsdocumentupload");
+                            }
                         }, 1000);
                         // setTimeout(() => {
                         //     router.push("/investor-steps/documentsupload");

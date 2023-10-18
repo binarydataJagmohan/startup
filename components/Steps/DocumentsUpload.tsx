@@ -23,7 +23,7 @@ export default function DocumentsUpload(): any {
     const [panCardFrontError, setPanCardFrontError] = useState('');
     const [panCardFrontSizeError, setPanCardFrontSizeError] = useState('');
     const [panCardBackError, setPanCardBackError] = useState('');
-    const [panCardBackSizeError,setPanCardBackSizeError]= useState('');
+    const [panCardBackSizeError, setPanCardBackSizeError] = useState('');
     const [adharCardFrontError, setAdharCardFrontError] = useState('');
     const [adharCardBackError, setAdharCardBackError] = useState('');
     const [document_id, setDocumentId] = useState("");
@@ -90,20 +90,20 @@ export default function DocumentsUpload(): any {
     const handlMenuSubmit = (event: any) => {
         event.preventDefault();
         const errors: any = {};
-        if (!pan_card_front) {
-            errors.pan_card_front = "Image is required";
-        }
-        if (!pan_card_back) {
-            errors.pan_card_back = "Image is required";
-        }
-        if (!adhar_card_front) {
-            errors.adhar_card_front = "Image is required";
-        }
-        if (!adhar_card_back) {
-            errors.adhar_card_back = "Image is required";
-        }
+        // if (!pan_card_front) {
+        //     errors.pan_card_front = "Image is required";
+        // }
+        // if (!pan_card_back) {
+        //     errors.pan_card_back = "Image is required";
+        // }
+        // if (!adhar_card_front) {
+        //     errors.adhar_card_front = "Image is required";
+        // }
+        // if (!adhar_card_back) {
+        //     errors.adhar_card_back = "Image is required";
+        // }
 
-        setErrors(errors);
+        // setErrors(errors);
         if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();
             const data = {
@@ -364,7 +364,7 @@ export default function DocumentsUpload(): any {
                                                                 className="form-label"
                                                             >
                                                                 Pan Card front view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
+
                                                             </label>
                                                             <div
                                                                 id="divHabilitSelectors"
@@ -421,7 +421,7 @@ export default function DocumentsUpload(): any {
                                                                 className="form-label"
                                                             >
                                                                 Pan Card back view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
+
                                                             </label>
                                                             <div
                                                                 id="divHabilitSelectors"
@@ -456,7 +456,7 @@ export default function DocumentsUpload(): any {
                                                                     </p>
                                                                 </label>
                                                             </div>
-                                                             {panCardBackSizeError ? (
+                                                            {panCardBackSizeError ? (
                                                                 <p className='text-danger'>{panCardBackSizeError}</p>
                                                             ) : panCardBackError ? (
                                                                 <p className='text-danger'>{panCardBackError}</p>
@@ -477,7 +477,7 @@ export default function DocumentsUpload(): any {
                                                                 className="form-label"
                                                             >
                                                                 Adhar Card front view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
+
                                                             </label>
                                                             <div
                                                                 id="divHabilitSelectors"
@@ -532,7 +532,6 @@ export default function DocumentsUpload(): any {
                                                                 className="form-label"
                                                             >
                                                                 Adhar Card back view{" "}
-                                                                <span style={{ color: "red" }}>*</span>
                                                             </label>
                                                             <div
                                                                 id="divHabilitSelectors"

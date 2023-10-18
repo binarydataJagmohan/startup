@@ -194,9 +194,9 @@ export default function Businessinfo(): any {
       if (!businessDetails.type) {
         setMissingFields(prevFields => [...prevFields, "type"])
       }
-      if (!pitch_deck && !businessDetails.pitch_deck) {
-        setMissingFields(prevFields => [...prevFields, "pitch_deck"])
-      }
+      // if (!pitch_deck && !businessDetails.pitch_deck) {
+      //   setMissingFields(prevFields => [...prevFields, "pitch_deck"])
+      // }
       const formData = new FormData();
       if (logo !== null) {
         formData.append('logo', logo);
@@ -555,7 +555,6 @@ export default function Businessinfo(): any {
                               >
                                 <label>
                                   Startup pitch deck
-                                  <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <div className="file-upload">
                                   <div className="file-select">

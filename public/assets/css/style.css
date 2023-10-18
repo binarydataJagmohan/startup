@@ -10572,3 +10572,13 @@ span.logo-sm img {
   margin: 0px;
   border-radius: 0px;
 }
+
+.btn_error_logs{
+  color:#088395 !important;
+  border-color:#088395 !important;
+}
+
+.btn_error_logs:hover{
+  background: #088395 !important;
+  color: #ffffff !important;
+}

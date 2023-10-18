@@ -227,7 +227,7 @@ const InvestorList = () => {
                                                             <th scope="col">Email Address</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
-                                                            <th scope="col">Approvel</th>
+                                                            <th scope="col">Approval</th>
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
