@@ -107,7 +107,7 @@ const EditUser = () => {
             const data = {
                 notify_from_user:"1",
                 notify_to_user:id,
-                notify_msg: "Your Profile has been Updated by Admin.",
+                notify_msg: "Your Profile has been updated by Admin.",
                 notification_type: "Profile Updated",
                 each_read: "unread",
                 status: "active"
