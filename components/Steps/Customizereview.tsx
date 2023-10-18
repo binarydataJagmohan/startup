@@ -242,7 +242,7 @@ export default function Customereview(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label"
                               >
-                                Adhaar Card Number{" "}
+                                Aadhaar Card Number{" "}
                                 <span style={{ color: "red" }}>*</span>
                               </label>
                               <input
@@ -263,7 +263,7 @@ export default function Customereview(): any {
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
-                                  *Please Enter Adhaar Card Number.
+                                  *Please Enter Aadhaar Card Number.
                                 </p>
                               )}
                             </div>
@@ -335,7 +335,7 @@ export default function Customereview(): any {
                                   tabIndex={0}
                                 >
                                   <p style={{ fontSize: "13px" }}>
-                                    You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
+                                    You can upload any ppt,pdf,docs format only (max size 20 MB)
                                     {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>

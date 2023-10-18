@@ -270,7 +270,7 @@ export default function AdharInformation(): any {
                               </label>
                               <input
                                 type="text"
-                                className="form-control same-input" maxLength={17}
+                                className="form-control same-input" maxLength={16}
                                 id="account_no" value={bankDetails.account_no} name="account_no" onChange={handleChange}
                               />
                               {/* <input
