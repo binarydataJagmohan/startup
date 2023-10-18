@@ -285,7 +285,7 @@ export default function Customereview(): any {
                                 name="dob"
                                 onChange={handleChange}
                                 placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
-                                max={`${new Date().getFullYear() - 18}-12-31`}
+                                //max={`${new Date().getFullYear() - 18}-12-31`}
                               />
                               <div className="help-block with-errors" />
                               {errors.dob && errors.dob.type === "required" && (
@@ -304,7 +304,7 @@ export default function Customereview(): any {
                               >
                                 <label>
                                   Identity card
-                                  <span style={{ color: "red" }}>*</span>
+                                  {/* <span style={{ color: "red" }}>*</span> */}
                                 </label>
                                 <div className="file-upload">
                                   <div className="file-select">
@@ -336,7 +336,7 @@ export default function Customereview(): any {
                                 >
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any pitch deck in ppt,pdf,docs format only (max size 20 MB)
-                                    <span style={{ color: "red" }}>*</span>
+                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                                 {startUpLogoSizeError ? (
@@ -345,7 +345,7 @@ export default function Customereview(): any {
                                   startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
                                 )}
 
-                                {
+                                {/* {
                                   missingFields.includes("pitch_deck") && (
                                     <p
                                       className="text-danger"
@@ -354,7 +354,7 @@ export default function Customereview(): any {
                                       *Please choose your business pitch deck.
                                     </p>
                                   )
-                                }
+                                } */}
                               </div>
 
                             </div>

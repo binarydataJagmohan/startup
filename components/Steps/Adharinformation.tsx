@@ -38,11 +38,11 @@ export default function AdharInformation(): any {
     account_no: "",
     ifsc_code: ""
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
@@ -107,7 +107,8 @@ export default function AdharInformation(): any {
 
   }, []);
 
-  const SubmitForm = async () => {
+  const SubmitForm = async (event:any) => {
+    event.preventDefault();
     try {
 
       const res = await bankInformationSave(bankDetails);
@@ -183,7 +184,8 @@ export default function AdharInformation(): any {
               <div className="register-form">
                 <div className="row step_one">
                   <div className="col-md-12">
-                    <form className="needs-validation mb-4" onSubmit={handleSubmit(SubmitForm)}>
+                    {/* <form className="needs-validation mb-4" onSubmit={handleSubmit(SubmitForm)}> */}
+                    <form className="needs-validation mb-4" onSubmit={SubmitForm}>
                       <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
                         Bank Details{" "}
                         <i
@@ -204,16 +206,21 @@ export default function AdharInformation(): any {
                                 className="form-label"
                               >
                                 Bank Name{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
+                                type="text"
+                                className="form-control same-input"
+                                id="bank_name" name="bank_name" onChange={handleChange} value={bankDetails.bank_name}
+                              />
+                              {/* <input
                                 type="text"
                                 className="form-control same-input"
                                 id="bank_name" {...register("bank_name", {
                                   value: true, required: true,
                                 })} name="bank_name" onChange={handleChange} value={bankDetails.bank_name}
-                              />
-                              {errors.bank_name &&
+                              /> */}
+                              {/* {errors.bank_name &&
                                 errors.bank_name.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -221,7 +228,7 @@ export default function AdharInformation(): any {
                                   >
                                     *Please Enter Your Bank Name.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -229,16 +236,21 @@ export default function AdharInformation(): any {
                                 className="form-label"
                               >
                                 Account Holder's Name{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
+                                type="text"
+                                className="form-control same-input"
+                                id="account_holder" value={bankDetails.account_holder} name="account_holder" onChange={handleChange}
+                              />
+                              {/* <input
                                 type="text"
                                 className="form-control same-input"
                                 id="account_holder" {...register("account_holder", {
                                   value: true, required: true,
                                 })} value={bankDetails.account_holder} name="account_holder" onChange={handleChange}
-                              />
-                              {errors.account_holder &&
+                              /> */}
+                              {/* {errors.account_holder &&
                                 errors.account_holder.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -246,7 +258,7 @@ export default function AdharInformation(): any {
                                   >
                                     *Please Enter Your Account Holder Name.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -254,16 +266,21 @@ export default function AdharInformation(): any {
                                 className="form-label"
                               >
                                 Account Number{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
+                                type="text"
+                                className="form-control same-input" maxLength={17}
+                                id="account_no" value={bankDetails.account_no} name="account_no" onChange={handleChange}
+                              />
+                              {/* <input
                                 type="text"
                                 className="form-control same-input" maxLength={17}
                                 id="account_no" {...register("account_no", {
                                   value: true, required: true,
                                 })} value={bankDetails.account_no} name="account_no" onChange={handleChange}
-                              />
-                              {errors.account_no &&
+                              /> */}
+                              {/* {errors.account_no &&
                                 errors.account_no.type === "required" && (
                                   <p
                                     className="text-danger"
@@ -271,7 +288,7 @@ export default function AdharInformation(): any {
                                   >
                                     *Please Enter Your Account Number.
                                   </p>
-                                )}
+                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -279,23 +296,28 @@ export default function AdharInformation(): any {
                                 className="form-label"
                               >
                                 IFSC Code{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
+                                type="text" maxLength={11}
+                                className="form-control same-input"
+                                id="ifsc_code" value={bankDetails.ifsc_code} name="ifsc_code" onChange={handleChange}
+                              />
+                              {/* <input
                                 type="text" maxLength={11}
                                 className="form-control same-input"
                                 id="ifsc_code" {...register("ifsc_code", {
                                   value: true, required: true, max: 11
                                 })} value={bankDetails.ifsc_code} name="ifsc_code" onChange={handleChange}
-                              />
-                              {errors.ifsc_code && (
+                              /> */}
+                              {/* {errors.ifsc_code && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Enter Your valid IFSC Code.
                                 </p>
-                              )}
+                              )} */}
                             </div>
                           </div>
                           <div className="row mt-3">

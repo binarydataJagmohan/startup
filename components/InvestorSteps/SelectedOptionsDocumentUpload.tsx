@@ -3,9 +3,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { uploadDocuments, fetchSingleUserDocuments,getSingleUserData, SelectedOptionsuploadDocuments, getAngelInvestorTerms} from "../../lib/frontendapi";
+import { uploadDocuments, fetchSingleUserDocuments,getSingleUserData, SelectedOptionsuploadDocuments, getAngelInvestorTerms, getDocumentsUpload} from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
 import { event } from "jquery";
+import Image from "next/image";
 
 interface UserData {
     id?: string;
@@ -18,6 +19,7 @@ export default function SelectedOptionsDocumentUpload(): any {
     const [net_worth_atleast_10_crore, setNetWorthAtleast10Crore] = useState(null);
     const [bank_statement_3_years, setBankStatement3Years] = useState(null);
     const [incorporation_certificate, setIncorporationCertificate] = useState(null);
+    const [documentUpload, setDocumentUpload] = useState([]);
     
     const [signup_success, setSignupSuccess] = useState(false);
     const [document_id, setDocumentId] = useState("");
@@ -107,6 +109,25 @@ export default function SelectedOptionsDocumentUpload(): any {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
             });
+            const data = {
+                user_id: current_user_data.id
+            }
+            getDocumentsUpload(data)
+            .then((res) => {
+                if (res.status === true) {
+                    setDocumentUpload(res.data);
+                } else {
+                    setDocumentUpload([]);
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            })
+            .catch((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
         } else {
             window.location.href = "/login";
         }
@@ -163,7 +184,6 @@ export default function SelectedOptionsDocumentUpload(): any {
             }
         }
         setErrors(errors);
-        console.log(Object.keys(errors).length);
         if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();
             const data = {
@@ -278,7 +298,6 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                     <div className="row">
                                                         {users.investorType === 'Accredited Investors' 
                                                             ?
-                                                                
                                                                 terms.category == '2' || terms.category == '3'
                                                                 ?
                                                                     <>
@@ -302,7 +321,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
-
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_network'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -325,7 +365,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
-
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.typetype == 'proof_income'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -348,7 +409,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
-
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'certificate_incorporation'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                     </>
                                                                 :
@@ -373,7 +455,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
-
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_network'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -396,7 +499,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
-
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_income'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                     </>
                                                             :
@@ -428,6 +552,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'net_worth_10_crore'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -450,6 +596,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'bank_statement_3_years'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -471,6 +639,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                             ) : (
                                                                                 null
                                                                             )
+                                                                            }
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'incorporation_certificate'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
                                                                         </div>
                                                                     </>
@@ -499,6 +689,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 null
                                                                             )
                                                                             }
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'bank_statement_3_years'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
+                                                                            }
                                                                             </div>
                                                                             <div className="col-md-6 mt-5">
                                                                                 <label
@@ -520,6 +732,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 ) : (
                                                                                     null
                                                                                 )
+                                                                                }
+                                                                                {documentUpload.length > 0 
+                                                                                    ?
+                                                                                        documentUpload.map((document:any, index:any) => {
+                                                                                        let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                        return(
+                                                                                            <>
+                                                                                                {document.type == 'incorporation_certificate'
+                                                                                                    ?
+                                                                                                        extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                        ?
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                        :
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                    :
+                                                                                                        ''
+                                                                                                } 
+                                                                                            </>  
+                                                                                        )
+                                                                                        })
+                                                                                    :
+                                                                                        ''
                                                                                 }
                                                                             </div>
                                                                         </>
@@ -548,7 +782,28 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                         null
                                                                                     )
                                                                                     }
-
+                                                                                    {documentUpload.length > 0 
+                                                                                        ?
+                                                                                            documentUpload.map((document:any, index:any) => {
+                                                                                            let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                            return(
+                                                                                                <>
+                                                                                                    {document.type == 'ca_signed_angeable_2_crore'
+                                                                                                        ?
+                                                                                                            extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                            ?
+                                                                                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                            :
+                                                                                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                        :
+                                                                                                            ''
+                                                                                                    } 
+                                                                                                </>  
+                                                                                            )
+                                                                                            })
+                                                                                        :
+                                                                                            ''
+                                                                                    }
                                                                                 </div>
                                                                             </>
                                                                         :
