@@ -19,6 +19,18 @@ export default function DocumentsUpload(): any {
     const [adharCardFrontName, setAdharCardFrontName] = useState('');
     const [adhar_card_back, setAdharCardBack] = useState(null);
     const [adharCardBackName, setAdharCardBackName] = useState('');
+    const [certificateIncorporation, setcertificateIncorporation] = useState(null);
+    const [certificateIncorporationName, setcertificateIncorporationName] = useState('');
+
+    const [bankStatementThreeYears, setBankStatementThreeYears] = useState(null);
+    const [bankStatementThreeYearsName, setBankStatementThreeYearsName] = useState('');
+
+    const [MOA, setMOA] = useState(null);
+    const [MOAName, setMOAName] = useState('');
+
+    const [AOA, setAOA] = useState(null);
+    const [AOAName, setAOAName] = useState('');
+
     const [signup_success, setSignupSuccess] = useState(false);
     const [panCardFrontError, setPanCardFrontError] = useState('');
     const [panCardFrontSizeError, setPanCardFrontSizeError] = useState('');
@@ -26,18 +38,30 @@ export default function DocumentsUpload(): any {
     const [panCardBackSizeError, setPanCardBackSizeError] = useState('');
     const [adharCardFrontError, setAdharCardFrontError] = useState('');
     const [adharCardBackError, setAdharCardBackError] = useState('');
+    const [certificateIncorporationError, setCertificateIncorporationError] = useState('');
+    const [bankStatementThreeYearsError, setBankStatementThreeYearsError] = useState('');
+    const [MOAError, setMOAError] = useState('');
+    const [AOAError, setAOAError] = useState('');
     const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
         pan_card_front: "",
         pan_card_back: "",
         adhar_card_front: "",
         adhar_card_back: "",
+        certificate_incorporation:"",
+        bank_statement_three_years:"",
+        moa:"",
+        aoa:"",
     });
     const [basicDetails, setBasicDetails] = useState({
         pan_card_front: "",
         pan_card_back: "",
         adhar_card_front: "",
         adhar_card_back: "",
+        certificate_incorporation:"",
+        bank_statement_three_years:"",
+        moa:"",
+        aoa:"",
         documnet_id: '',
     });
     const [current_user_id, setCurrentUserId] = useState("");
@@ -104,62 +128,62 @@ export default function DocumentsUpload(): any {
         // }
 
         // setErrors(errors);
-        if (Object.keys(errors).length === 0) {
+        //if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();
             const data = {
                 user_id: currentUserData.id,
             };
-            uploadDocuments(data, pan_card_front, pan_card_back, adhar_card_front, adhar_card_back)
-                .then((res) => {
+            uploadDocuments(data, pan_card_front, pan_card_back, adhar_card_front, adhar_card_back, certificateIncorporation, bankStatementThreeYears, MOA, AOA)
+            .then((res) => {
+                if (res.status == true) {
+                    // console.log(data);
+                    toast.success(res.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        toastId: "success",
+                    });
+                    if (users.approval_status === 'pending') {
+                        setTimeout(() => {
+                            router.push("/company/thank-you");
+                        }, 1000);
+                    }
+                    if (users.approval_status === 'approved') {
+                        setTimeout(() => {
+                            router.push("/company/dashboard");
+                        }, 1000);
+                    }
+                    const data = {
+                        notify_from_user: current_user_id,
+                        notify_to_user: "1",
+                        notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
+                        notification_type: "Profile Completed",
+                        each_read: "unread",
+                        status: "active"
+                    };
                     if (res.status == true) {
-                        // console.log(data);
-                        toast.success(res.message, {
-                            position: toast.POSITION.TOP_RIGHT,
-                            toastId: "success",
-                        });
-                        if (users.approval_status === 'pending') {
-                            setTimeout(() => {
-                                router.push("/company/thank-you");
-                            }, 1000);
-                        }
-                        if (users.approval_status === 'approved') {
-                            setTimeout(() => {
-                                router.push("/company/dashboard");
-                            }, 1000);
-                        }
-                        const data = {
-                            notify_from_user: current_user_id,
-                            notify_to_user: "1",
-                            notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
-                            notification_type: "Profile Completed",
-                            each_read: "unread",
-                            status: "active"
-                        };
-                        if (res.status == true) {
-                            sendNotification(data)
-                                .then((notificationRes) => {
-                                    console.log('success')
-                                })
-                                .catch((error) => {
-                                    console.log('error occured')
-                                });
-                        } else {
-                            toast.error(res.message, {
-                                position: toast.POSITION.TOP_RIGHT,
-                                toastId: "error",
+                        sendNotification(data)
+                            .then((notificationRes) => {
+                                console.log('success')
+                            })
+                            .catch((error) => {
+                                console.log('error occured')
                             });
-                        }
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "error",
                         });
                     }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
+                } else {
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        toastId: "error",
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        //}
     };
 
     const handlePanCardFrontChange = (event: any) => {
@@ -247,6 +271,82 @@ export default function DocumentsUpload(): any {
                 }
             } else {
                 setAdharCardBackError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
+    };
+
+    const handleCertificateOfIncorporationChange = (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setcertificateIncorporation(file);
+                    setcertificateIncorporationName(file.name);
+                } else {
+                    setCertificateIncorporationError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setCertificateIncorporationError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
+    };
+
+    const handleBankStatement3YearsChange = (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setBankStatementThreeYears(file);
+                    setBankStatementThreeYearsName(file.name);
+                } else {
+                    setBankStatementThreeYearsError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setBankStatementThreeYearsError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
+    };
+
+    const handleMOAChange = (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setMOA(file);
+                    setMOAName(file.name);
+                } else {
+                    setMOAError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setMOAError('* Please upload a JPG, PNG, JPEG or PDF file');
+                event.target.value = null;
+            }
+        }
+    };
+
+    const handleAOAChange = (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+            const maxSize = 2 * 1024 * 1024;
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setAOA(file);
+                    setAOAName(file.name);
+                } else {
+                    setAOAError('* Please upload a file that is no larger than 2 MB.');
+                }
+            } else {
+                setAOAError('* Please upload a JPG, PNG, JPEG or PDF file');
                 event.target.value = null;
             }
         }
@@ -395,7 +495,8 @@ export default function DocumentsUpload(): any {
                                                                 >
                                                                     <p style={{ fontSize: "13px" }}>
                                                                         You can upload any identity card's image
-                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
                                                                     </p>
                                                                 </label>
                                                             </div>
@@ -452,7 +553,8 @@ export default function DocumentsUpload(): any {
                                                                 >
                                                                     <p style={{ fontSize: "13px" }}>
                                                                         You can upload any identity card's image
-                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
                                                                     </p>
                                                                 </label>
                                                             </div>
@@ -476,7 +578,7 @@ export default function DocumentsUpload(): any {
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label"
                                                             >
-                                                                Adhar Card front view{" "}
+                                                                Aadhaar Card front view{" "}
 
                                                             </label>
                                                             <div
@@ -508,7 +610,8 @@ export default function DocumentsUpload(): any {
                                                                 >
                                                                     <p style={{ fontSize: "13px" }}>
                                                                         You can upload any identity card's image
-                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
                                                                     </p>
                                                                 </label>
                                                             </div>
@@ -531,7 +634,7 @@ export default function DocumentsUpload(): any {
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label"
                                                             >
-                                                                Adhar Card back view{" "}
+                                                                Aadhaar Card back view{" "}
                                                             </label>
                                                             <div
                                                                 id="divHabilitSelectors"
@@ -562,7 +665,8 @@ export default function DocumentsUpload(): any {
                                                                 >
                                                                     <p style={{ fontSize: "13px" }}>
                                                                         You can upload any identity card's image
-                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) <span style={{ color: "red" }}>*</span>
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
                                                                     </p>
                                                                 </label>
                                                             </div>
@@ -579,6 +683,222 @@ export default function DocumentsUpload(): any {
                                                             }
 
 
+                                                        </div>
+                                                        <div className="col-md-6 mt-5 mb-5">
+                                                            <label
+                                                                htmlFor="exampleFormControlInput1"
+                                                                className="form-label"
+                                                            >
+                                                                Certificate Of Incorporation{" "}
+                                                                {/* <span style={{ color: "red" }}>*</span> */}
+                                                            </label>
+                                                            <div
+                                                                id="divHabilitSelectors"
+                                                                className="input-file-container "
+                                                            >
+                                                                <div className="file-upload mt-1">
+                                                                    <div className="file-select">
+                                                                        <div
+                                                                            className="file-select-button"
+                                                                            id="fileName"
+                                                                        >
+                                                                            Choose File
+                                                                        </div>
+                                                                        <div className="file-select-name" id="noFile">
+                                                                            {certificateIncorporationName ? certificateIncorporationName : (basicDetails.certificate_incorporation ? basicDetails.certificate_incorporation : "No File Chosen ...")}
+                                                                        </div>
+                                                                        <input
+                                                                            type="file" name="certificate_of_incorporation" onChange={handleCertificateOfIncorporationChange} accept=".jpg, .png, .jpeg, .pdf  "
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger mt-1"
+                                                                    id="labelFU"
+                                                                    style={{ fontSize: "12px", marginLeft: "1px" }}
+                                                                    tabIndex={0}
+                                                                >
+                                                                    <p style={{ fontSize: "13px" }}>
+                                                                        You can upload any identity card's image
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
+                                                                    </p>
+                                                                </label>
+                                                            </div>
+                                                            {certificateIncorporationError ? (
+                                                                <p className='text-danger'>{certificateIncorporationError}</p>
+                                                            ) : (
+                                                                errors.certificate_incorporation && <p className='text-danger'>{errors.certificate_incorporation}</p>
+                                                            )}
+                                                            {basicDetails.certificate_incorporation ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+                                                        </div>
+                                                        <div className="col-md-6 mt-5 mb-5">
+                                                            <label
+                                                                htmlFor="exampleFormControlInput1"
+                                                                className="form-label"
+                                                            >
+                                                                3 Years Bank Statement{" "}
+                                                                {/* <span style={{ color: "red" }}>*</span> */}
+                                                            </label>
+                                                            <div
+                                                                id="divHabilitSelectors"
+                                                                className="input-file-container "
+                                                            >
+                                                                <div className="file-upload mt-1">
+                                                                    <div className="file-select">
+                                                                        <div
+                                                                            className="file-select-button"
+                                                                            id="fileName"
+                                                                        >
+                                                                            Choose File
+                                                                        </div>
+                                                                        <div className="file-select-name" id="noFile">
+                                                                            {bankStatementThreeYearsName ? bankStatementThreeYearsName : (basicDetails.bank_statement_three_years ? basicDetails.bank_statement_three_years : "No File Chosen ...")}
+                                                                        </div>
+                                                                        <input
+                                                                            type="file" name="bank_statement_3_years" onChange={handleBankStatement3YearsChange} accept=".jpg, .png, .jpeg, .pdf  "
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger mt-1"
+                                                                    id="labelFU"
+                                                                    style={{ fontSize: "12px", marginLeft: "1px" }}
+                                                                    tabIndex={0}
+                                                                >
+                                                                    <p style={{ fontSize: "13px" }}>
+                                                                        You can upload any identity card's image
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
+                                                                    </p>
+                                                                </label>
+                                                            </div>
+                                                            {bankStatementThreeYearsError ? (
+                                                                <p className='text-danger'>{bankStatementThreeYearsError}</p>
+                                                            ) : (
+                                                                errors.bank_statement_three_years && <p className='text-danger'>{errors.bank_statement_three_years}</p>
+                                                            )}
+                                                            {basicDetails.bank_statement_three_years ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+                                                        </div>
+                                                        <div className="col-md-6 mt-5 mb-5">
+                                                            <label
+                                                                htmlFor="exampleFormControlInput1"
+                                                                className="form-label"
+                                                            >
+                                                                MOA{" "}
+                                                                {/* <span style={{ color: "red" }}>*</span> */}
+                                                            </label>
+                                                            <div
+                                                                id="divHabilitSelectors"
+                                                                className="input-file-container "
+                                                            >
+                                                                <div className="file-upload mt-1">
+                                                                    <div className="file-select">
+                                                                        <div
+                                                                            className="file-select-button"
+                                                                            id="fileName"
+                                                                        >
+                                                                            Choose File
+                                                                        </div>
+                                                                        <div className="file-select-name" id="noFile">
+                                                                            {MOAName ? MOAName : (basicDetails.moa ? basicDetails.moa : "No File Chosen ...")}
+                                                                        </div>
+                                                                        <input
+                                                                            type="file" name="moa" onChange={handleMOAChange} accept=".jpg, .png, .jpeg, .pdf  "
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger mt-1"
+                                                                    id="labelFU"
+                                                                    style={{ fontSize: "12px", marginLeft: "1px" }}
+                                                                    tabIndex={0}
+                                                                >
+                                                                    <p style={{ fontSize: "13px" }}>
+                                                                        You can upload any identity card's image
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
+                                                                    </p>
+                                                                </label>
+                                                            </div>
+                                                            {MOAError ? (
+                                                                <p className='text-danger'>{MOAError}</p>
+                                                            ) : (
+                                                                errors.moa && <p className='text-danger'>{errors.moa}</p>
+                                                            )}
+                                                            {basicDetails.moa ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
+                                                        </div>
+                                                        <div className="col-md-6 mt-5 mb-5">
+                                                            <label
+                                                                htmlFor="exampleFormControlInput1"
+                                                                className="form-label"
+                                                            >
+                                                                AOA{" "}
+                                                                {/* <span style={{ color: "red" }}>*</span> */}
+                                                            </label>
+                                                            <div
+                                                                id="divHabilitSelectors"
+                                                                className="input-file-container "
+                                                            >
+                                                                <div className="file-upload mt-1">
+                                                                    <div className="file-select">
+                                                                        <div
+                                                                            className="file-select-button"
+                                                                            id="fileName"
+                                                                        >
+                                                                            Choose File
+                                                                        </div>
+                                                                        <div className="file-select-name" id="noFile">
+                                                                            {AOAName ? AOAName : (basicDetails.aoa ? basicDetails.aoa : "No File Chosen ...")}
+                                                                        </div>
+                                                                        <input
+                                                                            type="file" name="aoa" onChange={handleAOAChange} accept=".jpg, .png, .jpeg, .pdf  "
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <label
+                                                                    htmlFor="fileupload"
+                                                                    className="input-file-trigger mt-1"
+                                                                    id="labelFU"
+                                                                    style={{ fontSize: "12px", marginLeft: "1px" }}
+                                                                    tabIndex={0}
+                                                                >
+                                                                    <p style={{ fontSize: "13px" }}>
+                                                                        You can upload any identity card's image
+                                                                        jpg ,png ,jpeg and pdf file only (max size 2 MB) 
+                                                                        {/* <span style={{ color: "red" }}>*</span> */}
+                                                                    </p>
+                                                                </label>
+                                                            </div>
+                                                            {AOAError ? (
+                                                                <p className='text-danger'>{AOAError}</p>
+                                                            ) : (
+                                                                errors.aoa && <p className='text-danger'>{errors.aoa}</p>
+                                                            )}
+                                                            {basicDetails.aoa ? (
+                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                            ) : (
+                                                                null
+                                                            )
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div className="row mt-3">
