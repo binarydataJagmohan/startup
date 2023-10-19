@@ -93,7 +93,10 @@ export default function DocumentsUpload(): any {
                         setPanCardBack(res.data.pan_card_back);
                         setAdharCardFront(res.data.adhar_card_front);
                         setAdharCardBack(res.data.adhar_card_back);
-                        console.log(res.data);
+                        setcertificateIncorporation(res.data.certificate_incorporation);
+                        setBankStatementThreeYears(res.data.bank_statement_3_years);
+                        setMOA(res.data.moa);
+                        setAOA(res.data.aoa);
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,

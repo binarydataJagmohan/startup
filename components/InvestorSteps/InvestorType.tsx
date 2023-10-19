@@ -300,6 +300,8 @@ export default function InvestorType(): any {
                             if(investor_Type==='Regular Investor')
                             {
                                 router.push("/investor/campaign");
+                            } else if(no_requirements == 0){
+                                router.push("/investor/thank-you");
                             } else {                            
                                 router.push("/investor-steps/selectedoptionsdocumentupload");
                             }
