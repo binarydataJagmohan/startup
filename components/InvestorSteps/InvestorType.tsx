@@ -201,6 +201,9 @@ export default function InvestorType(): any {
                 errors.investorType = "*Please select investor type.";
             }
         }
+        if (!selectedOption) {
+            errors.selectedOption = "*Please select category.";
+        }
         if (selectedOption === '1') {
             if (!principal_residence) {
                 errors.principal_residence = "*Principal residence option is required.";
@@ -427,14 +430,19 @@ export default function InvestorType(): any {
                                                         <div className="container" id="option_select">
                                                             <div className="row">
                                                                 <div className="col-md-12">
-                                                                    <div className="custom-select-bar position-relative">
-                                                                        <select className="options" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
-                                                                            <option value="">--SELECT CATEGORY--</option>
-                                                                            <option value="1">Individual</option>
-                                                                            <option value="2">Body Corporate/VC/PE/Family Office/Corporate Institution</option>
-                                                                            <option value="3">Accelerators and Incubators</option>
-                                                                        </select>
-                                                                        <i className="fa-solid fa-chevron-down"></i>
+                                                                    <select className="options" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
+                                                                        <option value="">--SELECT CATEGORY--</option>
+                                                                        <option value="1">Individual</option>
+                                                                        <option value="2">Body Corporate/VC/PE/Family Office/Corporate Institution</option>
+                                                                        <option value="3">Accelerators and Incubators</option>
+                                                                    </select>
+                                                                    {/* <i className="fa-solid fa-chevron-down"></i> */}
+                                                                    <div className="error text-center mt-3">
+                                                                        {errors.selectedOption && (
+                                                                            <span className="small error text-danger mb-2 d-inline-block error_login">
+                                                                                {errors.selectedOption}
+                                                                            </span>
+                                                                        )}
                                                                     </div>
                                                                     <div id="checkbox-group-1" className={selectedOption === '1' ? 'visible mt-3' : 'hidden mt-3'}>
                                                                         <div className="same-card checkbox-options">
@@ -567,6 +575,13 @@ export default function InvestorType(): any {
                                                                         <option value="5">Foreign Individuals/Family Trusts/Sole Proprietorships</option>
                                                                         <option value="6">Body Corporates</option>
                                                                     </select>
+                                                                    <div className="error text-center mt-3">
+                                                                        {errors.selectedOption && (
+                                                                            <span className="small error text-danger mb-2 d-inline-block error_login">
+                                                                                {errors.selectedOption}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
                                                                     <div id="checkbox-group-4" className={selectedOption === '4' ? 'visible mt-3' : 'hidden mt-3'}>
                                                                         <div className="same-card checkbox-options">
                                                                             <div className="row">

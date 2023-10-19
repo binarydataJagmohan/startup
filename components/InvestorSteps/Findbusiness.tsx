@@ -269,10 +269,10 @@ export default function Findbusiness(): any {
                                 // {...register("country", {
                                 //   // validate: (value) => value != "",
                                 //   // required: true,
-                                //   onChange: handleChange
+                                //onChange: handleChange
                                 // })}
                                 name="country"
-                                value={user.country ? user.country : ""}
+                                //value={user.country ? user.country : ""}
                                 aria-label="Default select example"
                               >
                                 <option value="">
