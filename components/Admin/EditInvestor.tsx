@@ -966,12 +966,103 @@ const handleIncorporationCertificateChange = (event: any) => {
                               let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
                               return(
                                 <div className="col-md-6 mt-5" key={index}>
-                                  <label htmlFor="exampleFormControlInput1" className="form-label">Proof Of Network</label>    
-                                  {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                  {document.type == 'proof_network'
                                     ?
-                                      <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Proof Of Net Worth</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
                                     :
-                                      <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                      ''
+                                  }
+                                  {document.type == 'proof_income'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Proof Of Income</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
+                                  }
+                                  {document.type == 'certificate_incorporation'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Certificate of Incorporation</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
+                                  }
+                                  {document.type == 'ca_signed_angeable_2_crore'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">CA Signed of Net Tangible of 2 Crore</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
+                                  }
+                                  {document.type == 'net_worth_10_crore'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Net Worth of at least INR 10 Crore</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
+                                  }
+                                  {document.type == 'bank_statement_3_years'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">3 Years Bank Statement</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
+                                  }
+                                  {document.type == 'incorporation_certificate'
+                                    ?
+                                      <>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Incorporation Certificate</label>    
+                                        {extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                          ?
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                          :
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                        }
+                                      </>
+                                    :
+                                      ''
                                   }
                                 </div>
                               )

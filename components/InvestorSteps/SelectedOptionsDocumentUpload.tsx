@@ -12,7 +12,7 @@ interface UserData {
     id?: string;
 }
 export default function SelectedOptionsDocumentUpload(): any {
-    const [proof_of_networth, setProofOfNetWorth] = useState(null);
+    const [proof_of_network, setProofOfNetWorth] = useState(null);
     const [proof_of_income, setProofOfIncome] = useState(null);
     const [certificate_of_incorporation, setCertificateOfIncorporation] = useState(null);
     const [ca_signed_net_angeable_2_crore, setCASignedNetAngeable2Crore] = useState(null);
@@ -23,7 +23,7 @@ export default function SelectedOptionsDocumentUpload(): any {
     const [signup_success, setSignupSuccess] = useState(false);
     const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
-        proof_of_networth: "",
+        proof_of_network: "",
         proof_of_income: "",
         certificate_of_incorporation: "",
         ca_signed_net_angeable_2_crore: "",
@@ -32,7 +32,7 @@ export default function SelectedOptionsDocumentUpload(): any {
         incorporation_certificate: ""
     });
     const [basicDetails, setBasicDetails] = useState({
-        proof_of_networth: "",
+        proof_of_network: "",
         proof_of_income: "",
         certificate_of_incorporation: "",
         ca_signed_net_angeable_2_crore: "",
@@ -114,8 +114,8 @@ export default function SelectedOptionsDocumentUpload(): any {
         const errors: any = {};
         if (users.investorType === 'Accredited Investors') {
             if (terms.category == '2' || terms.category == '3') {
-                // if (!proof_of_networth) {
-                //     errors.proof_of_networth = "File is required";
+                // if (!proof_of_network) {
+                //     errors.proof_of_network = "File is required";
                 // }
                 // if (!proof_of_income) {
                 //     errors.proof_of_income = "File is required";
@@ -124,8 +124,8 @@ export default function SelectedOptionsDocumentUpload(): any {
                 //     errors.certificate_of_incorporation = "File is required";
                 // }
             } else {
-                // if (!proof_of_networth) {
-                //     errors.proof_of_networth = "File is required";
+                // if (!proof_of_network) {
+                //     errors.proof_of_network = "File is required";
                 // }
                 // if (!proof_of_income) {
                 //     errors.proof_of_income = "File is required";
@@ -164,7 +164,7 @@ export default function SelectedOptionsDocumentUpload(): any {
             const data = {
                 user_id: currentUserData.id,
             };
-            SelectedOptionsuploadDocuments(data, proof_of_networth, proof_of_income, certificate_of_incorporation, ca_signed_net_angeable_2_crore, net_worth_atleast_10_crore, bank_statement_3_years, incorporation_certificate)
+            SelectedOptionsuploadDocuments(data, proof_of_network, proof_of_income, certificate_of_incorporation, ca_signed_net_angeable_2_crore, net_worth_atleast_10_crore, bank_statement_3_years, incorporation_certificate)
                 .then((res) => {
                     if (res.status == true) {
                         console.log(data);
@@ -284,14 +284,14 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 Proof Of Net Worth{" "}
                                                                                 {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="proof_of_networth" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
+                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
                                                                             {documentUpload.length > 0 
                                                                                 ?
                                                                                     documentUpload.map((document:any, index:any) => {
                                                                                     let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
                                                                                     return(
                                                                                         <>
-                                                                                            {document.type == 'proof_networth'
+                                                                                            {document.type == 'proof_network'
                                                                                                 ?
                                                                                                     extension == 'pdf' || extension == 'docs' || extension == 'xls'
                                                                                                     ?

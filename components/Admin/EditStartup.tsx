@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { getSinglestartup } from '../../lib/companyapi';
-import { getBusinessInformation, getBankInformation, getCountries, getProofInformation } from '../../lib/frontendapi';
+import { getBusinessInformation, getBankInformation, getCountries, getProofInformation, fetchSingleUserDocuments } from '../../lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
@@ -54,6 +54,18 @@ const EditList = () => {
 
 
   });
+
+  const [basicDetails, setBasicDetails] = useState({
+    pan_card_front: "",
+    pan_card_back: "",
+    adhar_card_front: "",
+    adhar_card_back: "",
+    certificate_incorporation:"",
+    bank_statement_three_years:"",
+    moa:"",
+    aoa:"",
+    documnet_id: '',
+  });
   const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
   const [selectedImage, setSelectedImage] = useState('');
   const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
@@ -68,6 +80,15 @@ const EditList = () => {
   const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
   const { id } = router.query;
 
+  const [pan_card_front, setPanCardFront] = useState(null);
+  const [pan_card_back, setPanCardBack] = useState(null);
+  const [adhar_card_front, setAdharCardFront] = useState(null);
+  const [adhar_card_back, setAdharCardBack] = useState(null);
+  const [certificateIncorporation, setcertificateIncorporation] = useState(null);
+  const [bankStatementThreeYears, setBankStatementThreeYears] = useState(null);
+  const [MOA, setMOA] = useState(null);
+  const [AOA, setAOA] = useState(null);
+
   useEffect(() => {
     const fetchData = async (id: any) => {
       const data = await getBusinessInformation(id);
@@ -80,6 +101,31 @@ const EditList = () => {
 
     if (router.query.id) {
       fetchData(router.query.id);
+    }
+    if (router.query.id) {
+      fetchSingleUserDocuments(router.query.id)
+      .then((res) => {
+          if (res.status == true) {
+              setBasicDetails(res.data);
+              setPanCardFront(res.data.pan_card_front);
+              setPanCardBack(res.data.pan_card_back);
+              setAdharCardFront(res.data.adhar_card_front);
+              setAdharCardBack(res.data.adhar_card_back);
+              setcertificateIncorporation(res.data.certificate_incorporation);
+              setBankStatementThreeYears(res.data.bank_statement_3_years);
+              setMOA(res.data.moa);
+              setAOA(res.data.aoa);
+          } else {
+              toast.error(res.message, {
+                  position: toast.POSITION.TOP_RIGHT,
+              });
+          }
+      })
+      .catch((err) => {
+          toast.error(err.message, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+          });
+      });
     }
   }, [router.query.id]);
 
@@ -990,13 +1036,13 @@ const EditList = () => {
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Documents Information:
+                Basic Information:
               </button>
             </h2>
             <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 
               <div className="form-part form-part-padding">
-                <h3>Personal Information</h3>
+                <h3>Basic Information</h3>
                 <form>
                   <div className="row">
                     <div className="col-sm-6 proof">
@@ -1199,6 +1245,181 @@ const EditList = () => {
                     </div>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingFour">
+              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Documents Information:
+              </button>
+            </h2>
+            <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+              <div className="form-part form-part-padding">
+                <div className="register-form">
+                  <div className="row step_one">
+                    <div className="col-md-12">
+                      <h4 className="black_bk_col fontweight500 font_20 mb-4 text-center">
+                          Documents Upload{" "}
+                          <i
+                              style={{ cursor: "pointer" }}
+                              className="fa fa-info-circle"
+                              aria-hidden="true"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Please type in your full basics required details into the field below. This would be your registered company name."
+                          ></i>
+                      </h4>
+                      <div className="row justify-content-center">
+                          <div className="col-md-8" id="register">
+                              <div className="row">
+                                  <div className="col-md-6 mt-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          Pan Card front view{" "}
+
+                                      </label>
+                                      {basicDetails.pan_card_front ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+
+                                  </div>
+                                  <div className="col-md-6 mt-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          Pan Card back view{" "}
+
+                                      </label>
+                                      {basicDetails.pan_card_back ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+
+                                  </div>
+                                  <div className="col-md-6 mt-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          Aadhaar Card front view{" "}
+
+                                      </label>
+                                      {basicDetails.adhar_card_front ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+
+                                  </div>
+                                  <div className="col-md-6 mt-5 mb-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          Aadhaar Card back view{" "}
+                                      </label>
+                                      {basicDetails.adhar_card_back ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+                                  </div>
+                                  <div className="col-md-6 mt-5 mb-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          Certificate Of Incorporation{" "}
+                                          {/* <span style={{ color: "red" }}>*</span> */}
+                                      </label>
+                                      {basicDetails.certificate_incorporation ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+                                  </div>
+                                  <div className="col-md-6 mt-5 mb-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          3 Years Bank Statement{" "}
+                                          {/* <span style={{ color: "red" }}>*</span> */}
+                                      </label>
+                                      {basicDetails.bank_statement_three_years ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+                                  </div>
+                                  <div className="col-md-6 mt-5 mb-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          MOA{" "}
+                                          {/* <span style={{ color: "red" }}>*</span> */}
+                                      </label>
+                                      {basicDetails.moa ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+                                  </div>
+                                  <div className="col-md-6 mt-5 mb-5">
+                                      <label
+                                          htmlFor="exampleFormControlInput1"
+                                          className="form-label"
+                                      >
+                                          AOA{" "}
+                                          {/* <span style={{ color: "red" }}>*</span> */}
+                                      </label>
+                                      {basicDetails.aoa ? (
+                                          <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                      ) : (
+                                          null
+                                      )
+                                      }
+                                  </div>
+                              </div>
+                              <div className="row mt-3">
+                                  <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
+                                      <a
+                                          href={`/steps/adharinformation`}
+                                          className="btnclasssmae" id="back"
+                                      >
+                                          Go back
+                                      </a>
+                                  </div>
+
+                                  <div
+                                      className="col-md-6"
+                                      style={{ textAlign: "right" }}
+                                  >
+                                      <button type="submit" className="btnclasssmae">
+                                          NEXT
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
