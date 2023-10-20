@@ -512,7 +512,14 @@ export default function DocumentsUpload(): any {
                                                             ) : null}
 
                                                             {basicDetails.pan_card_front ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.pan_card_front.substring(basicDetails.pan_card_front.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_front} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_front} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
@@ -569,12 +576,18 @@ export default function DocumentsUpload(): any {
                                                                 <p className='text-danger'>{errors.pan_card_back}</p>
                                                             ) : null}
                                                             {basicDetails.pan_card_back ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.pan_card_back.substring(basicDetails.pan_card_back.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_back} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_back} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
                                                             }
-
                                                         </div>
                                                         <div className="col-md-6 mt-5">
                                                             <label
@@ -625,7 +638,14 @@ export default function DocumentsUpload(): any {
                                                                 errors.adhar_card_front && <p className='text-danger'>{errors.adhar_card_front}</p>
                                                             )}
                                                             {basicDetails.adhar_card_front ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.pan_card_back.substring(basicDetails.adhar_card_front.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_front} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_front} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
@@ -679,13 +699,18 @@ export default function DocumentsUpload(): any {
                                                                 errors.adhar_card_back && <p className='text-danger'>{errors.adhar_card_back}</p>
                                                             )}
                                                             {basicDetails.adhar_card_back ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.adhar_card_back.substring(basicDetails.adhar_card_back.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_back} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_back} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
                                                             }
-
-
                                                         </div>
                                                         <div className="col-md-6 mt-5 mb-5">
                                                             <label
@@ -735,7 +760,14 @@ export default function DocumentsUpload(): any {
                                                                 errors.certificate_incorporation && <p className='text-danger'>{errors.certificate_incorporation}</p>
                                                             )}
                                                             {basicDetails.certificate_incorporation ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.certificate_incorporation.substring(basicDetails.certificate_incorporation.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.certificate_incorporation} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.certificate_incorporation} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
@@ -789,7 +821,14 @@ export default function DocumentsUpload(): any {
                                                                 errors.bank_statement_three_years && <p className='text-danger'>{errors.bank_statement_three_years}</p>
                                                             )}
                                                             {basicDetails.bank_statement_three_years ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.bank_statement_three_years.substring(basicDetails.bank_statement_three_years.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.bank_statement_three_years} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.bank_statement_three_years} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
@@ -843,7 +882,14 @@ export default function DocumentsUpload(): any {
                                                                 errors.moa && <p className='text-danger'>{errors.moa}</p>
                                                             )}
                                                             {basicDetails.moa ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.moa.substring(basicDetails.moa.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.moa} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.moa} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )
@@ -897,7 +943,14 @@ export default function DocumentsUpload(): any {
                                                                 errors.aoa && <p className='text-danger'>{errors.aoa}</p>
                                                             )}
                                                             {basicDetails.aoa ? (
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
+                                                                <>
+                                                                    {basicDetails.aoa.substring(basicDetails.aoa.lastIndexOf('.') + 1) == 'pdf'
+                                                                    ?
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.aoa} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                    :
+                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.aoa} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                                    }
+                                                                </>
                                                             ) : (
                                                                 null
                                                             )

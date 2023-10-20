@@ -255,7 +255,8 @@ export default function InvestorType(): any {
                 experience: experience,
                 net_worth: net_worth,
                 prev_investment_exp: prev_investment_exp,
-                no_requirements: no_requirements,
+                //no_requirements: no_requirements,
+                no_requirements: '1',
                 cofounder: cofounder,
                 category: selectedOption,
                 annual_income: annual_income,
@@ -266,20 +267,6 @@ export default function InvestorType(): any {
                 foreign_annual_net_worth: foreign_annual_net_worth,
                 corporate_net_worth: corporate_net_worth,
             };
-            // localStorage.setItem('session_category', selectedOption);
-            // localStorage.setItem('session_principal_residence', principal_residence);
-            // localStorage.setItem('session_experience ', experience);
-            // localStorage.setItem('session_net_worth', net_worth);
-            // localStorage.setItem('session_prev_investment_exp', prev_investment_exp);
-            // localStorage.setItem('session_no_requirements', no_requirements);
-            // localStorage.setItem('session_cofounder', cofounder);
-            // localStorage.setItem('session_annual_income', annual_income);
-            // localStorage.setItem('session_financial_net_worth', financial_net_worth);
-            // localStorage.setItem('session_financial_annual_net_worth', financial_annual_net_worth);
-            // localStorage.setItem('session_foreign_annual_income', foreign_annual_income);
-            // localStorage.setItem('session_foreign_net_worth', foreign_net_worth);
-            // localStorage.setItem('session_foreign_annual_net_worth', foreign_annual_net_worth);
-            // localStorage.setItem('session_corporate_net_worth', corporate_net_worth);
             investorTypeInfoSave(data)
                 .then(res => {
                     const investor_Type = data.investorType;                    
@@ -300,7 +287,7 @@ export default function InvestorType(): any {
                             if(investor_Type==='Regular Investor')
                             {
                                 router.push("/investor/campaign");
-                            } else if(no_requirements == 0){
+                            } else if(selectedOption === '3' && no_requirements == 1){
                                 router.push("/investor/thank-you");
                             } else {                            
                                 router.push("/investor-steps/selectedoptionsdocumentupload");
@@ -546,8 +533,8 @@ export default function InvestorType(): any {
                                                                         <div className="same-card checkbox-options">
                                                                             <div className="row">
                                                                                 <div className="col-auto pt-1">
-                                                                                    <input type="checkbox" id="checkbox9" value={1}
-                                                                                        name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={true} readOnly/>
+                                                                                    <input type="checkbox" id="checkbox9"
+                                                                                        name="no_requirements" onChange={() => setNoRequirements(!no_requirements)} checked={true} disabled/>
                                                                                 </div>
                                                                                 <div className="col">
                                                                                     {/* <label htmlFor="checkbox9">No Requirement.<span className="requiredclass">*</span></label><br></br> */}
