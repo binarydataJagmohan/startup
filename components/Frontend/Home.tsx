@@ -102,13 +102,8 @@ export default function Home() {
                 <div className="d-table-cell">
                   <div className="container">
                     <div className="main-banner-content">
-                      <h1>Opportunities  <br /> Await</h1>
-                      <p>
-                        At our investment firm, opportunities await for those
-                        who are ready to take the next step towards financial
-                        success. Discover a diverse range of investment options
-                        and seize the chance to achieve your financial goals.
-                      </p>
+                      <h1>Invest in Startups & <br/>Grow Your Wealth</h1>
+                      <p>A leading online platform that connects investors and founders to help startups raise funds.</p>
 
                       {/* previous code...[4July,2023] */}
                       {current_user_id ? (
@@ -363,7 +358,7 @@ export default function Home() {
       {/* End Banner Area */}
 
       {/* Start Features Area */}
-      <section className="features-section pt-100 pb-70">
+      {/* <section className="features-section pt-100 pb-70">
         <div className="container">
           <div className="section-title">
             <h1>Creative Features</h1>
@@ -426,9 +421,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-      <Agency />
-      <section className="development-area ptb-100">
+      </section> */}
+      {/* <Agency /> */}
+      {/* <section className="development-area ptb-100">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
@@ -480,6 +475,105 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section> */}
+      <section className="development-area ptb-100">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="development-image transtion">
+                <img src="assets/img/development.png" alt="image" />
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="development-text">
+                <h3>For Startups</h3>
+                <div className="bar" />
+                <p>We provide comprehensive range of services to support you at every stage of your entrepreneurial journey:</p>
+              </div>
+              <div className="development-content">
+                <div className="icon">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Investment Research</h3> */}
+                <p>Raise funds from investors in the form of preferred shares or debentures</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-05dbcf">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Investment Management</h3> */}
+                <p>Working capital funding through invoice discounting</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-fec66f">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Online Investment</h3> */}
+                <p>CFO services including financial planning and analysis, financials, and tax compliance</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-fec66f">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Online Investment</h3> */}
+                <p>Legal assistance with a variety of matters, such as drafting and negotiating contracts, shareholder agreement, reviewing term sheets, and complying with regulatory requirements</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-fec66f">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Online Investment</h3> */}
+                <p>Registered valuer and merchant banker valuation reports</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="development-area ptb-100">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="development-text">
+                <h3>For Investors</h3>
+                <div className="bar" />
+                {/* <p>We provide comprehensive range of services to support you at every stage of your entrepreneurial journey:</p> */}
+              </div>
+              <div className="development-content">
+                <div className="icon">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Investment Research</h3> */}
+                <p>Engage with a spectrum of innovative startups seeking investment opportunities</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-05dbcf">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Investment Management</h3> */}
+                <p>Transact through our proprietary digital platform</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-fec66f">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Online Investment</h3> */}
+                <p>Manage portfolio of startup investments</p>
+              </div>
+              <div className="development-content">
+                <div className="icon bg-fec66f">
+                  <i className="flaticon-tick" style={{"width":"30px", "height":"30px", "lineHeight":"30px", "fontSize":"16px", "fontWeight":"bold", "backgroundColor":"#088395"}}/>
+                </div>
+                {/* <h3>Online Investment</h3> */}
+                <p>Get regular updates on the performance of the startups</p>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="development-image transtion">
+                <img src="assets/img/development.png" alt="image" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <div className="video-section">
         <div className="container">
@@ -498,14 +592,14 @@ export default function Home() {
         <div className="container">
           <div className="section-title">
             <h1>Why Choose Us</h1>
-            <p>
+            {/* <p>
               Choose us because we are dedicated to helping investors find the
               best startup opportunities. Our platform offers unparalleled
               access to high-potential startups and expert guidance to help make
               informed investment decisions. With a commitment to transparency
               and community, we provide a unique and rewarding investment
               experience.
-            </p>
+            </p> */}
             <div className="bar" />
           </div>
           <div className="row align-items-center">
@@ -514,33 +608,36 @@ export default function Home() {
                 <div className="icon">
                   <i className="flaticon-shared-folder" />
                 </div>
-                <h3>Community</h3>
-                <p>
-                  We foster a sense of community among our investors and
-                  portfolio companies, providing opportunities for networking,
-                  collaboration, and knowledge sharing.
-                </p>
+                <h3>Startup Focus</h3>
+                <p>We specialize in serving startups and understand the challenges you face.</p>
               </div>
               <div className="choose-content">
                 <div className="icon">
                   <i className="flaticon-blog" />
                 </div>
-                <h3>Support</h3>
-                <p>
-                  We provide our investors with a high level of support and
-                  guidance, from expert advice on investment decisions to tools
-                  to help track and manage investments.
-                </p>
+                <h3>End-to-End Solutions</h3>
+                <p>From drafting agreements to valuation and issuance of share certificates, we cover every aspect of fundraising.</p>
               </div>
               <div className="choose-content">
                 <div className="icon">
                   <i className="flaticon-quality" />
                 </div>
-                <h3>Risk management</h3>
-                <p>
-                  We take a rigorous approach to risk management, conducting all
-                  potential investments our portfolio to mitigate risk.
-                </p>
+                <h3>Experienced Team</h3>
+                <p>Our team includes legal experts, financial analysts, and registered valuers, providing you with a comprehensive service.</p>
+              </div>
+              <div className="choose-content">
+                <div className="icon">
+                  <i className="flaticon-quality" />
+                </div>
+                <h3>Compliance Assurance</h3>
+                <p>We keep you in compliance with all legal and regulatory requirements, mitigating risks.</p>
+              </div>
+              <div className="choose-content">
+                <div className="icon">
+                  <i className="flaticon-quality" />
+                </div>
+                <h3>Tailored Solutions</h3>
+                <p>Every startup is unique, and our services are customized to meet your specific needs.</p>
               </div>
             </div>
             <div className="col-lg-6">
@@ -551,7 +648,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="projects-section pb-70">
+      {/* <section className="projects-section pb-70">
         <div className="container-fluid">
           <div className="section-title">
             <h1>Projects</h1>
@@ -669,9 +766,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-      <ClientSection />
-      <section className="blog-section pt-100 pb-70">
+      </section> */}
+      {/* <ClientSection /> */}
+      {/* <section className="blog-section pt-100 pb-70">
         <div className="container">
           <div className="section-title">
             <h1>
@@ -760,7 +857,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* End Blog Area */}
     </>
   );

@@ -540,7 +540,7 @@ const FundRaiseForm = () => {
                                                         placeholder="Xirr( calculate in%)"
                                                         inputMode="numeric"
                                                         onChange={handleChange}
-                                                        value={fundRaiseData.xirr ? fundRaiseData.xirr : ""}
+                                                        value={fundRaiseData.xirr ? fundRaiseData.xirr.toFixed(2) : ""}
                                                     />
                                                     {errors.xirr && (
                                                         <p
