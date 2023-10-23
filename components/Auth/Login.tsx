@@ -23,6 +23,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
 
@@ -71,6 +72,7 @@ export default function Login() {
 
 
   const submitForm = () => {
+    setIsSubmitting(true);
     const logindata = {
       email,
       password,
@@ -94,7 +96,6 @@ export default function Login() {
               Cookies.remove("rememberMe");
               window.sessionStorage.setItem("token", res.authorisation.token);
             }
-            console.log(res)
             switch (window.localStorage.getItem("user_role")) {
               case "admin":
                 setTimeout(() => {
@@ -143,6 +144,7 @@ export default function Login() {
             });
           }
         } else {
+          setIsSubmitting(false);
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "error",
@@ -359,8 +361,9 @@ export default function Login() {
                         <button
                           type="submit"
                           className="submit_now text-decoration-none"
+                          disabled={isSubmitting ? true : false}
                         >
-                          Login Now
+                          {isSubmitting ? 'Processing' : 'Login Now'}
                           <i className="circle fa-regular fa-angle-right" />
                         </button>
                       </div>
