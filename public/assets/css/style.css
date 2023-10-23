@@ -1703,7 +1703,6 @@ Services Area CSS
   border-radius: 30px 5px 30px 5px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  box-shadow: 0 0 12px 5px #232323;
   border: solid 1px;
 }
 
@@ -2362,7 +2361,7 @@ Development Area CSS
 
 .development-content {
   position: relative;
-  padding-left: 85px;
+  padding-left: 50px;
   margin-top: 15px;
 }
 
@@ -2505,22 +2504,26 @@ Choose Area CSS
 
 .choose-content {
   position: relative;
-  margin-top: 40px;
-  padding: 20px 40px 20px 120px;
+  padding: 20px;
   background-color: #EEEEEE;
-  border-radius: 50px;
+  border-radius: 20px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   z-index: 1;
+  height: 250px;
+  box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11);
+}
+section.choose-section.ptb-100.bg-color-choose {
+  background: #eeeeee;
 }
 
-.choose-content .icon {
+/* .choose-content .icon {
   position: absolute;
   left: 30px;
   top: 26px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-}
+} */
 
 .choose-content .icon i {
   display: inline-block;
@@ -2557,13 +2560,13 @@ Choose Area CSS
   border-radius: 0;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
-.choose-content:hover {
+/* .choose-content:hover {
   -webkit-box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11);
   box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11);
-}
+} */
 
 .choose-content:hover::before {
   width: 100%;
@@ -2628,6 +2631,9 @@ Choose Area CSS
 
 .image {
   text-align: center;
+}
+.image img {
+  width: 100%;
 }
 
 /*================================================
@@ -3978,7 +3984,7 @@ Team Area CSS
   transform: translateY(-50%);
   margin-left: auto;
   margin-right: auto;
-  color: #232323;
+  color: #fff;
 }
 
 .team-item .image .social li a:hover {
@@ -4742,8 +4748,20 @@ About Area CSS
 
 .about-tab {
   max-width: 620px;
-  padding: 100px 0;
   margin-left: 50px;
+}
+.facilitating-startup {
+  background: #232323;
+  margin-bottom: 80px;
+}
+.tab_content img:hover {
+  transform: translateY(-3px);
+}
+.tab_content img {
+  transition: all 0.5s;
+}
+.tab_content p{
+  color: #fff;
 }
 
 .about-tab h2 {
@@ -4853,6 +4871,10 @@ About Area CSS
 /* .about-image img {
     display: none;
 } */
+.about-image img{
+  height: 500px;
+  object-fit: cover;
+}
 
 /*================================================
 Review Area CSS
@@ -10585,4 +10607,21 @@ span.logo-sm img {
 }
 .checkbox-options {
   padding: 0px !important;
+}
+
+.term-conditions h3{
+  font-weight: 900;
+}
+.all-type-of-text h4{
+  font-weight: 700;
+}
+.all-type-of-text li {
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+.term-conditions p{
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: justify;
 }
