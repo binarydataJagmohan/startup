@@ -383,14 +383,14 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 Proof Of Net Worth{" "}
                                                                                 {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="proof_of_networth" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
+                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
                                                                             {documentUpload.length > 0 
                                                                                 ?
                                                                                     documentUpload.map((document:any, index:any) => {
                                                                                     let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
                                                                                     return(
                                                                                         <>
-                                                                                            {document.type == 'proof_networth'
+                                                                                            {document.type == 'proof_network'
                                                                                                 ?
                                                                                                     extension == 'pdf' || extension == 'docs' || extension == 'xls'
                                                                                                     ?

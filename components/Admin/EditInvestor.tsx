@@ -919,7 +919,7 @@ const handleIncorporationCertificateChange = (event: any) => {
                           }
 
                           <div className="row mt-3">
-                              <div
+                              {/* <div
                                   className="col-md-6 col-6"
                                   style={{ textAlign: "left" }}
                               >
@@ -930,13 +930,13 @@ const handleIncorporationCertificateChange = (event: any) => {
                                   >
                                       Go back
                                   </Link>
-                              </div>
+                              </div> */}
 
                               <div
                                   className="col-md-6 col-6"
                                   style={{ textAlign: "right" }}
                               >
-                                  <button className="btnclasssmae">
+                                  <button className="btnclasssmae" disabled>
                                       Submit
                                   </button>
                               </div>

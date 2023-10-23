@@ -1454,14 +1454,14 @@ const EditList = () => {
                                   </div>
                               </div>
                               <div className="row mt-3">
-                                  <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
+                                  {/* <div className="col-md-6" style={{ textAlign: "left", fontSize: "12px" }}>
                                       <a
                                           href={`/steps/adharinformation`}
                                           className="btnclasssmae" id="back"
                                       >
                                           Go back
                                       </a>
-                                  </div>
+                                  </div> */}
 
                                   <div
                                       className="col-md-6"

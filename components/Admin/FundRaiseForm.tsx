@@ -318,7 +318,6 @@ const FundRaiseForm = () => {
                             formData.append("amount", fundRaiseData.amount);
                             formData.append("desc", fundRaiseData.desc);
                             const res = await fundInformationSave(formData);
-
                             if (res.status === true) {
                                 sendNotification(data)
                                     .then((notificationRes) => {
@@ -335,10 +334,10 @@ const FundRaiseForm = () => {
                                         console.log("error occured");
                                     });
 
-                                toast.success(res.msg, {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                    toastId: "success",
-                                });
+                                // toast.success(res.msg, {
+                                //     position: toast.POSITION.TOP_RIGHT,
+                                //     toastId: "success",
+                                // });
                                 toast.success(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "success",
@@ -348,7 +347,7 @@ const FundRaiseForm = () => {
                                 }, 1000);
 
                             } else {
-                                toast.error(res.msg, {
+                                toast.error(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "error",
                                 });
@@ -540,7 +539,7 @@ const FundRaiseForm = () => {
                                                         placeholder="Xirr( calculate in%)"
                                                         inputMode="numeric"
                                                         onChange={handleChange}
-                                                        value={fundRaiseData.xirr ? fundRaiseData.xirr.toFixed(2) : ""}
+                                                        value={fundRaiseData.xirr ? fundRaiseData.xirr : ""}
                                                     />
                                                     {errors.xirr && (
                                                         <p
@@ -860,7 +859,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                        Legal invoice <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"
@@ -914,7 +913,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                        Legal invoice <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"

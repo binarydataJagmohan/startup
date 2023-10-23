@@ -324,7 +324,7 @@ const EditUser = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="row">
+                                            <div className="row g-3">
                                                 <div className="col-md-6 mt-4">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
                                                         <span style={{ color: "red" }}>*</span>
@@ -394,31 +394,54 @@ const EditUser = () => {
                                                 </div>
 
                                                 <div className="col-md-6 mt-5">
-                                                    <label htmlFor="exampleFormControlInput1" className="form-label">Role{" "}
-                                                        <span style={{ color: "red" }}>*</span>
-                                                    </label>
+                                                    <div className='row'>
+                                                        <div className='col-sm-6'>
+                                                            <label htmlFor="exampleFormControlInput1" className="form-label">Role{" "}
+                                                                <span style={{ color: "red" }}>*</span>
+                                                            </label>
+                                                            <select className="form-select w-lg " onChange={handleChange} name="role" value={users.role} >
+                                                                {/* <option value={users.role}>{users.role}</option>
+                                                                {users.role !== 'admin' && <option value="admin">Admin</option>}
+                                                                {users.role !== 'startup' && <option value="startup">startup</option>}
+                                                                {users.role !== 'investor' && <option value="investor">investor</option>} */}
 
-                                                    <select className="form-select w-lg " onChange={handleChange} name="role" value={users.role} >
-                                                        {/* <option value={users.role}>{users.role}</option>
-                                                        {users.role !== 'admin' && <option value="admin">Admin</option>}
-                                                        {users.role !== 'startup' && <option value="startup">startup</option>}
-                                                        {users.role !== 'investor' && <option value="investor">investor</option>} */}
+                                                                <option value="">--SELECT ROLE--</option>
+                                                                <option value="admin">Admin</option>
+                                                                <option value="startup">Startup</option>
+                                                                <option value="investor">Investor</option>
 
-                                                        <option value="">--SELECT ROLE--</option>
-                                                        <option value="admin">Admin</option>
-                                                        <option value="startup">Startup</option>
-                                                        <option value="investor">Investor</option>
-
-                                                    </select>
-                                                    {missingFields.includes("Role") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Role field.
-                                                        </p>
-                                                    )}
+                                                            </select>
+                                                            {missingFields.includes("Role") && (
+                                                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                    Please fill in the Role field.
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                        <div className='col-sm-6'>
+                                                            <label htmlFor="exampleFormControlInput1" className="form-label">Status{" "}
+                                                                <span style={{ color: "red" }}>*</span>
+                                                            </label>
+                                                            <select className="form-select" onChange={handleChange} value={users.status}
+                                                                name="status"
+                                                                aria-label="Default select example">
+                                                                {/* <option value={users.status}>{users.status}</option>
+                                                                {users.status !== 'active' && <option value="active">active</option>}
+                                                                {users.status !== 'deactive' && <option value="deactive">deactive</option>} */}
+                                                                <option value="">--SELECT STATUS--</option>
+                                                                <option value="active">Active</option>
+                                                                <option value="deactive">Deactive</option>
+                                                            </select>
+                                                            {missingFields.includes("Status") && (
+                                                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
+                                                                    Please fill in the Status field.
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div className="row g-3 mt-1">
+                                            {/* <div className="row g-3 mt-1">
                                                 <div className="col-md-12 mt-4">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Status{" "}
                                                         <span style={{ color: "red" }}>*</span>
@@ -427,9 +450,9 @@ const EditUser = () => {
                                                     <select className="form-select" onChange={handleChange} value={users.status}
                                                         name="status"
                                                         aria-label="Default select example">
-                                                        {/* <option value={users.status}>{users.status}</option>
+                                                        <option value={users.status}>{users.status}</option>
                                                         {users.status !== 'active' && <option value="active">active</option>}
-                                                        {users.status !== 'deactive' && <option value="deactive">deactive</option>} */}
+                                                        {users.status !== 'deactive' && <option value="deactive">deactive</option>}
                                                         <option value="">--SELECT STATUS--</option>
                                                         <option value="active">Active</option>
                                                         <option value="deactive">Deactive</option>
@@ -440,7 +463,7 @@ const EditUser = () => {
                                                         </p>
                                                     )}
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div className="row mt-5">
                                                 <div
