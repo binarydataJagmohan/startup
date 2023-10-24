@@ -913,7 +913,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Legal invoice <span style={{ color: "red" }}>*</span>
+                                                        Legal PDC <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"

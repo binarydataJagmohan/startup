@@ -321,7 +321,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.agreement}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.agreement}`}
                             download
                             target="_blank"
                           >
@@ -334,7 +334,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.pdc}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.pdc}`}
                             download
                             target="_blank"
                           >
@@ -347,7 +347,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_PDF_URL}${inputs.invoice}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.invoice}`}
                             download
                             target="_blank"
                           >
