@@ -124,13 +124,13 @@ const Footer = () => {
 
                 <div className="footer-info-contact">
                   <i className="flaticon-phone-call text-white"></i>
-                  <div className="d-md-flex align-items-center">
+                  <div className="d-md-flex">
                     <h3 className="text-white"><strong>Phone :</strong></h3>
                     <span>
                       <Link
                         href="tel:+882-569-756"
                         style={{ color: "black" }}
-                        className="text-white mx-md-2"
+                        className="text-white"
                       >
                         +123(456)123
                       </Link>
@@ -141,13 +141,13 @@ const Footer = () => {
                 <div className="footer-info-contact">
                   <i className="flaticon-envelope text-white"></i>
 
-                  <div className="d-md-flex align-items-center">
+                  <div className="d-md-flex">
                     <h3 className="text-white"><strong>Email :</strong></h3>
                     <span>
                       <Link
                         href="mailto:support@risingcapitalist.com"
                         style={{ color: "black" }}
-                        className="text-white mx-md-2"
+                        className="text-white"
                       >
                         <span>support@risingcapitalist.com</span>
                       </Link>
@@ -157,16 +157,16 @@ const Footer = () => {
 
                 <div className="footer-info-contact">
                   <i className="flaticon-pin text-white" ></i>
-                  <div className="d-md-flex align-items-center">
-                    <h3 className="text-white"><strong>Address :</strong></h3>
+                  <div className="d-md-flex">
+                  <h3 className="text-white"><strong>Address :</strong></h3>
                     <span>
                       <Link
                         href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9"
                         style={{ color: "#232323" }}
-                        className="text-white mx-md-2"
+                        className="text-white"
                         target="_blank"
                       >
-                        32 st Kilda Road, Melbourne VIC, 3004 Australia
+                        Shop 13 Trishul Terraces, Sector 20, Koparkhairne, Thane, Maharashtra – 400709
                       </Link>
                     </span>
                   </div>

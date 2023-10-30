@@ -104,7 +104,7 @@ export default function Home() {
       {/* Start Banner Area */}
       <div className="main-banner-area">
         <div className="home-sliders">
-          <Slider {...settings}>
+          <Slider {...settings} dots={true}>
             <div className="home-item item-bg2">
               <div className="d-table">
                 <div className="d-table-cell">
@@ -242,10 +242,6 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-3.png" class="banner-img" alt="image"> */}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -354,10 +350,6 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-2.png" class="banner-img" alt="image"> */}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -465,10 +457,6 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-1.png" class="banner-img" alt="image"> */}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -479,135 +467,9 @@ export default function Home() {
       {/* End Banner Area */}
 
       {/* Start Features Area */}
-      {/* <section className="features-section pt-100 pb-70">
-        <div className="container">
-          <div className="section-title">
-            <h1>Creative Features</h1>
-            <p>
-              Our investment site offers a range of creative features to help
-              you make informed investment decisions. Explore our intuitive
-              investment platform, personalized investment recommendations, and
-              expert financial advice.
-            </p>
-            <div className="bar" />
-          </div>
-          <div className="row">
-            <div className="col-lg-3 col-md-6">
-              <div className="features-content transtion">
-                <div className="icon mb-3">
-                  <Image src="assets/img/icon1.jpeg" alt="risk management" width={80} height={80} />
-                </div>
-                <h3>Risk Management</h3>
-                <p>
-                  Offer tools and services to help users manage their investment
-                  risks and protect their assets.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="features-content transtion">
-                <div className="icon mb-3">
-                  <Image src="assets/img/icon2.png" alt="social investing" width={80} height={80} />
-                </div>
-                <h3>Social Investing</h3>
-                <p>
-                  Enable users to connect and collaborate with other investors
-                  to share insights and ideas.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="features-content transtion">
-                <div className="icon left-icon">
-                  <Image src="assets/img/icon3.png" alt="low fees" width={80} height={80} />
-                </div>
-                <h3>Low Fees</h3>
-                <p>
-                  Offer competitive fees and charges to enable users to maximize
-                  their investment returns.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="features-content transtion">
-                <div className="icon mb-3">
-                  <Image src="assets/img/icon4.webp" alt="customized portfolio" width={80} height={80} />
-                </div>
-                <h3>Customized Portfolio</h3>
-                <p>
-                  Create personalized investment portfolio based on user's
-                  preferences and risk tolerance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* <Agency /> */}
-      {/* <section className="development-area ptb-100">
+      <section className="development-area pt-100 pb-100 mb-3 mt-5">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6">
-              <div className="development-image transtion">
-                <img src="assets/img/development.png" alt="image" />
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="development-text">
-                <h3>Other Services</h3>
-                <div className="bar" />
-                <p>
-                  Our platform offers socially responsible investment options,
-                  allowing you to invest in companies that align with your
-                  values.
-                </p>
-              </div>
-              <div className="development-content">
-                <div className="icon mb-3">
-                  <i className="flaticon-blog" />
-                </div>
-                <h3>Investment Research</h3>
-                <p>
-                  We provide investment research and analysis on various
-                  investment options.
-                </p>
-              </div>
-              <div className="development-content">
-                <div className="icon bg-05dbcf">
-                  <i className="flaticon-setting" />
-                </div>
-                <h3>Investment Management</h3>
-                <p>
-                  It offers tailored investment strategies that align with their
-                  clients' financial goals and risk profiles,provide customized
-                  investment solutions.
-                </p>
-              </div>
-              <div className="development-content">
-                <div className="icon bg-fec66f">
-                  <i className="flaticon-cellphone" />
-                </div>
-                <h3>Online Investment</h3>
-                <p>
-                  It allows investors to easily buy and sell securities, track
-                  their investments, and monitor it.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      <section className="development-area pt-100">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <div className="development-image transtion">
-              <img
-                  src="assets/img/img_13.0789bfdd.jpg"
-                  alt="image"
-                />
-              </div>
-            </div>
             <div className="col-lg-6">
               <div className="development-text">
                 <h3>For Startups</h3>
@@ -713,12 +575,27 @@ export default function Home() {
                 <p>Registered valuer and merchant banker valuation reports</p>
               </div>
             </div>
+            <div className="col-lg-6">
+            <div className="about-group-image">
+                <img className="image shake-y" src="assets/images/about/about-22.jpg" alt="Image" />
+                <img className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" />
+                <img className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <section className="development-area ptb-100">
+    {/*========== About Section Start ==============*/}
+    <section className="tj-about-section pt-100 pb-100 mb-3">
         <div className="container">
           <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="about-group-image">
+                <img className="image shake-y" src="assets/images/about/about-1.jpg" alt="Image" />
+                <img className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" />
+                <img className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" />
+              </div>
+            </div>
             <div className="col-lg-6">
               <div className="development-text">
                 <h3>For Investors</h3>
@@ -797,42 +674,32 @@ export default function Home() {
                 <p>Get regular updates on the performance of the startups</p>
               </div>
             </div>
-            <div className="col-lg-6">
-              <div className="development-image transtion">
-                <img
-                  src="assets/img/img_21.webp"
-                  alt="image"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </section>
+      {/*========== About Section End ==============*/}
+
+
+
+      <a href="https://www.youtube.com/embed/8zHWKaiLo8U" target="_blank">
       <div className="video-section">
-        <div className="container">
-          <div className="video-content">
-            <a
-              href="https://www.youtube.com/embed/8zHWKaiLo8U"
-              target="_blank"
-              className="video-btn popup-youtube"
-            >
-              <i className="flaticon-play" />
-            </a>
+          <div className="container">
+            <div className="video-content">
+              <a
+                href="https://www.youtube.com/embed/8zHWKaiLo8U"
+                target="_blank"
+                className="video-btn popup-youtube"
+              >
+                <i className="flaticon-play" />
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
+       </div>
+      </a>
       <section className="choose-section ptb-100 bg-color-choose">
         <div className="container">
           <div className="section-title">
             <h1>Why Choose Us</h1>
-            {/* <p>
-              Choose us because we are dedicated to helping investors find the
-              best startup opportunities. Our platform offers unparalleled
-              access to high-potential startups and expert guidance to help make
-              informed investment decisions. With a commitment to transparency
-              and community, we provide a unique and rewarding investment
-              experience.
-            </p> */}
             <div className="bar" />
           </div>
           <div className="row align-items-center g-4">
@@ -851,12 +718,11 @@ export default function Home() {
             <div className="col-lg-4">
               <div className="choose-content">
                 <div className="icon mb-3">
-                  <i className="flaticon-blog" />
+                  <i className="flaticon-technical-support" />
                 </div>
-                <h3>End-to-End Solutions</h3>
+                <h3> Empowering Entrepreneurs</h3>
                 <p>
-                  From drafting agreements to valuation and issuance of share
-                  certificates, we cover every aspect of fundraising.
+                We believe in the potential of startups to drive change
                 </p>
               </div>
             </div>
@@ -875,7 +741,7 @@ export default function Home() {
             <div className="col-lg-4">
               <div className="choose-content">
                 <div className="icon mb-3">
-                  <i className="flaticon-quality" />
+                  <i className="flaticon-report" />
                 </div>
                 <h3>Experienced Team</h3>
                 <p>
@@ -900,7 +766,7 @@ export default function Home() {
             <div className="col-lg-4">
               <div className="choose-content">
                 <div className="icon mb-3">
-                  <i className="flaticon-quality" />
+                  <i className="flaticon-optimize" />
                 </div>
                 <h3>Tailored Solutions</h3>
                 <p>
@@ -910,223 +776,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* <div className="col-lg-6">
-              <div className="choose-image transtion">
-                <img src="assets/img/choose.png" alt="image" />
-              </div>
-            </div> */}
         </div>
       </section>
-      {/* <section className="projects-section pb-70">
-        <div className="container-fluid">
-          <div className="section-title">
-            <h1>Projects</h1>
-            <p>
-              At Startup or Invesment, we're committed to investing in
-              innovative startups and bringing cutting-edge solutions to the
-              market. Here are some of the exciting projects we're currently
-              working on.
-            </p>
-            <div className="bar" />
-          </div>
-          <div className="row">
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/1.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>App Update &amp; Rebrand</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/2.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>IT Consultancy</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/3.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>Funding Trends</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/4.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>App Development</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/5.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>IT Solutions</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image  src="assets/img/projects/6.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>Data Management</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-projects">
-                <div className="projects-image">                  
-                  <Image src="assets/img/projects/7.jpg" alt="image" width={426} height={355}/>
-                </div>
-                <div className="projects-content">
-                  <Link href="javascript:void(0);">
-                    <h3>E-commerce Development</h3>
-                  </Link>
-                  <Link href="javascript:void(0);">
-                    <span>Research and startup</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* <ClientSection /> */}
-      {/* <section className="blog-section pt-100 pb-70">
-        <div className="container">
-          <div className="section-title">
-            <h1>
-              Our <span>Latest</span> Blogs
-            </h1>
-            <p>
-              Discover the newest and most exciting startup companies on our
-              platform. Our team of experts scours the market for the latest
-              innovations and high-potential startups, providing you with access
-              to the most promising investment opportunities.
-            </p>
-            <div className="bar" />
-          </div>
-          <div className="row">
-            <div className="col-lg-4 col-md-6">
-              <div className="single-blog">
-                <div className="image">
-                  <Link href="/single-blog">                    
-                    <Image src="assets/img/blog/1.jpg" alt="image" width={356} height={279}/>
-                  </Link>
-                </div>
-                <div className="content">
-                  <span>20 March 2022</span>
-                  <h3>
-                    <Link href="/single-blog">
-                      Great Tips To Earn More Money From Digital Industry
-                    </Link>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
-                    do eiusmod tempor
-                  </p>
-                  <Link href="/single-blog" className="read-more">
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-blog">
-                <div className="image">
-                  <Link href="/single-blog">                    
-                    <Image src="assets/img/blog/2.jpg" alt="image" width={356} height={279}/>
-                  </Link>
-                </div>
-                <div className="content">
-                  <span>25 April 2022</span>
-                  <h3>
-                    <Link href="/single-blog">
-                      The Billionaire Guide On Design That will Get You Rich
-                    </Link>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
-                    do eiusmod tempor
-                  </p>
-                  <Link href="/single-blog" className="read-more">
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
-              <div className="single-blog">
-                <div className="image">
-                  <Link href="/single-blog">                    
-                    <Image src="assets/img/blog/3.jpg" alt="image" width={356} height={279}/>
-                  </Link>
-                </div>
-                <div className="content">
-                  <span>30 July 2022</span>
-                  <h3>
-                    <Link href="/single-blog">
-                      Making Peace With The Feast Or Famine Of Freelancing
-                    </Link>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
-                    do eiusmod tempor
-                  </p>
-                  <Link href="/single-blog" className="read-more">
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       {/* End Blog Area */}
     </>
   );

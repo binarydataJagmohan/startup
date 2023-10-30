@@ -3,21 +3,6 @@ import Link from 'next/link';
 export default function ServiceDetail() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Services</h2>
-                                <ul>
-                                    <li><Link href="index.html">Home</Link></li>
-                                    <li>Services Detail</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <section className="services-details-area ptb-100">
                 <div className="container">
                     <div className="services-details-video">
