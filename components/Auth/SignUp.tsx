@@ -48,115 +48,119 @@ const Signup = () => {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
-  }); 
+  });
 
-  const SubmitForm = () => {    
-      setIsSubmitting(true);      
-      const user = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-        role: role,
-      };
-      const setLocalStorageItems = (user: any) => {
-        window.localStorage.setItem("id", user.id);
-        window.localStorage.setItem("email", user.email);
-        window.localStorage.setItem("username", user.firstname);
-        window.localStorage.setItem("user_role", user.role);
-        window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
-        window.localStorage.setItem("approval_status", user.approval_status);
-      };
-      userRegister(user)
-        .then((res) => {
-          if (res.status == true) {
-            //   console.log(res.data[0]);
-            //   console.log(res.data['user']);
-            //  return false;
-            if (res.data[0]) {
-              setLocalStorageItems(res.data['user']);
-              switch (window.localStorage.getItem("user_role")) {
-                case "admin":
+  const SubmitForm = () => {
+    setIsSubmitting(true);
+    const user = {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: password,
+      role: role,
+    };
+    const setLocalStorageItems = (user: any) => {
+      window.localStorage.setItem("id", user.id);
+      window.localStorage.setItem("email", user.email);
+      window.localStorage.setItem("username", user.firstname);
+      window.localStorage.setItem("user_role", user.role);
+      window.localStorage.setItem("is_profile_completed", user.is_profile_completed);
+      window.localStorage.setItem("approval_status", user.approval_status);
+    };
+    userRegister(user)
+      .then((res) => {
+        if (res.status == true) {
+          //   console.log(res.data[0]);
+          //   console.log(res.data['user']);
+          //  return false;
+          if (res.data[0]) {
+            setLocalStorageItems(res.data['user']);
+            switch (window.localStorage.getItem("user_role")) {
+              case "admin":
+                setTimeout(() => {
+                  window.location.href = "/admin/dashboard/";
+                }, 1000);
+                break;
+              case "startup":
+                setTimeout(() => {
+                  window.location.href = "/steps/findbusiness";
+                }, 1000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
                   setTimeout(() => {
-                    window.location.href = "/admin/dashboard/";
+                    window.location.href = "/company/thank-you";
                   }, 1000);
-                  break;
-                case "startup":
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
                   setTimeout(() => {
-                    window.location.href = "/steps/findbusiness";
+                    window.location.href = "/company/dashboard";
                   }, 1000);
-                  if (window.localStorage.getItem("is_profile_completed") === "1") {
-                    setTimeout(() => {
-                      window.location.href = "/company/thank-you";
-                    }, 1000);
-                  }
-                  if (window.localStorage.getItem("approval_status") === "approved") {
-                    setTimeout(() => {
-                      window.location.href = "/company/dashboard";
-                    }, 1000);
-                  }
-                  break;
-                case "investor":
+                }
+                break;
+              case "investor":
+                setTimeout(() => {
+                  window.location.href = "/investor-steps/findbusiness";
+                }, 1000);
+                if (window.localStorage.getItem("is_profile_completed") === "1") {
                   setTimeout(() => {
-                    window.location.href = "/investor-steps/findbusiness";
+                    window.location.href = "/investor/thank-you";
                   }, 1000);
-                  if (window.localStorage.getItem("is_profile_completed") === "1") {
-                    setTimeout(() => {
-                      window.location.href = "/investor/thank-you";
-                    }, 1000);
-                  }
-                  if (window.localStorage.getItem("approval_status") === "approved") {
-                    setTimeout(() => {
-                      window.location.href = "/investor/campaign";
-                    }, 1000);
-                  }
-                  break;
-              }
-
-              const data = {
-                notify_from_user: window.localStorage.getItem("id"),
-                notify_to_user: "1",
-                notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
-                notification_type: "New User Registered",
-                each_read: "unread",
-                status: "active"
-              };
-
-              // Send Notifications to admin When new user is register
-              sendNotification(data)
-                .then((notificationRes) => {
-                  console.log('success')
-                })
-                .catch((error) => {
-                  console.log('error occured')
-                });
-
-              toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "success",
-              });
-            } else {
-              toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-                toastId: "success",
-              });
+                }
+                if (window.localStorage.getItem("approval_status") === "approved") {
+                  setTimeout(() => {
+                    window.location.href = "/investor/campaign";
+                  }, 1000);
+                }
+                break;
             }
 
+            const data = {
+              notify_from_user: window.localStorage.getItem("id"),
+              notify_to_user: "1",
+              notify_msg: `${user.firstname} has been registered successfully as a ${user.role}.`,
+              notification_type: "New User Registered",
+              each_read: "unread",
+              status: "active"
+            };
+
+            // Send Notifications to admin When new user is register
+            sendNotification(data)
+              .then((notificationRes) => {
+                console.log('success')
+              })
+              .catch((error) => {
+                console.log('error occured')
+              });
+
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
+          } else {
+            setIsSubmitting(false);
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "success",
+            });
           }
-          else {
-            toast.error(res.message, {
+
+        }
+        else {
+          setIsSubmitting(false);
+          if (res.message == "Validation error") {
+            toast.error('The email has already been taken.', {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "error",
             });
           }
+        }
 
-        })
-        .catch((err) => {
-          toast.error(err, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "error",
-          });
-        })      
+      })
+      .catch((err) => {
+        toast.error(err, {
+          position: toast.POSITION.TOP_RIGHT,
+          toastId: "error",
+        });
+      })
   };
 
   return (
@@ -164,7 +168,7 @@ const Signup = () => {
       <div>
         <section className="contact-section">
           <div className="container">
-            <div className="row align-items-center">
+            <div className="row align-items-center signup_form_and_details">
               <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div className="contact_content" data-aos="fade-right">
                   <h1 className="pb-4 text-lg-start text-center" style={{ fontWeight: '700' }}>Lets Get Started!</h1>
@@ -176,9 +180,9 @@ const Signup = () => {
                     </div>
                     <div className="box-content">
                       <h4>Location:</h4>
-                      <a href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9" target="_blank" style={{ color: '#232323' }}><p className="text-size-18">
+                      <Link href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9" target="_blank" style={{ color: '#232323' }}><p className="text-size-18">
                         32 st Kilda Road, Melbourne VIC, 3004 Australia
-                      </p></a>
+                      </p></Link>
                     </div>
                   </div>
                   <div className="contact-box box-mb">
@@ -190,12 +194,12 @@ const Signup = () => {
                     <div className="box-content">
                       <h4 className="heading">Phone:</h4>
                       <p>
-                        <a
+                        <Link
                           href="tel:+123(456)123"
                           className="text-decoration-none  text-size-18"
                         >
                           +123(456)123
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </div>
@@ -208,12 +212,12 @@ const Signup = () => {
                     <div className="box-content">
                       <h4 className="heading">Email:</h4>
                       <p className="mt-2">
-                        <a
+                        <Link
                           href="mailto:support@risingcapitalist.com"
                           className="text-decoration-none text-size-18"
                         >
                           support@risingcapitalist.com
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </div>
@@ -386,8 +390,8 @@ const Signup = () => {
                       <div className="manage-button text-center mt-4">
                         <button
                           type="submit"
-                          className="submit_now text-decoration-none"                          
-                          disabled={isSubmitting}
+                          className="submit_now text-decoration-none"
+                          disabled={isSubmitting ? true : false}
                         >
                           {isSubmitting ? 'Processing' : 'Register'}
                           <i className="circle fa-regular fa-angle-right" />
@@ -396,10 +400,10 @@ const Signup = () => {
                       <p className="mt-3">
                         Already have account?{" "}
                         <strong>
-                          <a href="/login" style={{ color: "#088395" }}>
+                          <Link href="/login" style={{ color: "#088395" }}>
                             {" "}
                             Login!
-                          </a>
+                          </Link>
                         </strong>{" "}
                       </p>
                     </form>

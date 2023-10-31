@@ -202,15 +202,15 @@ export default function Findbusiness(): any {
                                 className="form-label"
                               >
                                 Email ID{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
                                 type="email"
                                 className="form-control same-input pl-5"
-                                {...register("email", {
-                                  value: true,
-                                  required: true,
-                                })}
+                                // {...register("email", {
+                                //   value: true,
+                                //   required: true,
+                                // })}
                                 id="email"
                                 name="email"
                                 onChange={handleChange}
@@ -255,15 +255,15 @@ export default function Findbusiness(): any {
                                 className="form-label mb-4"
                               >
                                 Country of Citizenship{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                {...register("country", {
-                                  // validate: (value) => value != "",
-                                  onChange: handleChange,
-                                  // required: true,
-                                })}
+                                // {...register("country", {
+                                //   // validate: (value) => value != "",
+                                //   onChange: handleChange,
+                                //   // required: true,
+                                // })}
                                 name="country"
 
                                 aria-label="Default select example"
@@ -282,13 +282,13 @@ export default function Findbusiness(): any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                              {
+                              {/* {
                                 missingFields.includes("country") && (
                                   <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                     *Please Select Country.
                                   </p>
                                 )
-                              }                              
+                              }                               */}
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -362,16 +362,17 @@ export default function Findbusiness(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label mb-4"
                               >
-                                Gender  <span style={{ color: "red" }}>*</span>
+                                Gender 
+                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
 
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                {...register("gender", {
-                                  // validate: (value) => value != "",
-                                  onChange: handleChange,
-                                  // required: true,
-                                })}
+                                // {...register("gender", {
+                                //   // validate: (value) => value != "",
+                                //   onChange: handleChange,
+                                //   // required: true,
+                                // })}
                                 name="gender"
 
                                 aria-label="Default select example"
@@ -384,14 +385,14 @@ export default function Findbusiness(): any {
                               </select>
                               <div className="help-block with-errors" />
 
-                              {missingFields.includes("gender") && (
+                              {/* {missingFields.includes("gender") && (
                                 <p
                                   className="text-danger"
                                   style={{ textAlign: "left", fontSize: "12px" }}
                                 >
                                   *Please Select Gender.
                                 </p>
-                              )}
+                              )} */}
                               {/* {errors.gender && errors.gender.type === "required" &&
                                 !user.gender && (
                                   <p

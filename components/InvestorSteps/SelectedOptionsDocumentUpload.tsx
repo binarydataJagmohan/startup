@@ -3,22 +3,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
-import { uploadDocuments, fetchSingleUserDocuments,getSingleUserData, SelectedOptionsuploadDocuments, getAngelInvestorTerms} from "../../lib/frontendapi";
+import { uploadDocuments, fetchSingleUserDocuments,getSingleUserData, SelectedOptionsuploadDocuments, getAngelInvestorTerms, getDocumentsUpload} from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
 import { event } from "jquery";
+import Image from "next/image";
 
 interface UserData {
     id?: string;
 }
 export default function SelectedOptionsDocumentUpload(): any {
-    const [proof_of_network, setProofOfNetwork] = useState(null);
+    const [proof_of_network, setProofOfNetWorth] = useState(null);
     const [proof_of_income, setProofOfIncome] = useState(null);
     const [certificate_of_incorporation, setCertificateOfIncorporation] = useState(null);
     const [ca_signed_net_angeable_2_crore, setCASignedNetAngeable2Crore] = useState(null);
     const [net_worth_atleast_10_crore, setNetWorthAtleast10Crore] = useState(null);
     const [bank_statement_3_years, setBankStatement3Years] = useState(null);
     const [incorporation_certificate, setIncorporationCertificate] = useState(null);
-    
+    const [documentUpload, setDocumentUpload] = useState([]);
     const [signup_success, setSignupSuccess] = useState(false);
     const [document_id, setDocumentId] = useState("");
     const [errors, setErrors] = useState({
@@ -26,9 +27,9 @@ export default function SelectedOptionsDocumentUpload(): any {
         proof_of_income: "",
         certificate_of_incorporation: "",
         ca_signed_net_angeable_2_crore: "",
-        net_worth_atleast_10_crore:"",
-        bank_statement_3_years:"",
-        incorporation_certificate:""
+        net_worth_atleast_10_crore: "",
+        bank_statement_3_years: "",
+        incorporation_certificate: ""
     });
     const [basicDetails, setBasicDetails] = useState({
         proof_of_network: "",
@@ -36,8 +37,8 @@ export default function SelectedOptionsDocumentUpload(): any {
         certificate_of_incorporation: "",
         ca_signed_net_angeable_2_crore: "",
         net_worth_atleast_10_crore: "",
-        bank_statement_3_years:"",
-        incorporation_certificate:"",
+        bank_statement_3_years: "",
+        incorporation_certificate: "",
         documnet_id: '',
     });
     const [current_user_id, setCurrentUserId] = useState("");
@@ -68,35 +69,30 @@ export default function SelectedOptionsDocumentUpload(): any {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)
                 : setCurrentUserId("");
-
-            // fetchSingleUserDocuments(current_user_data.id)
-            //     .then((res) => {
-            //         if (res.status == true) {
-            //             setBasicDetails(res.data);
-            //             //console.log(res.data);
-            //             setProofOfNetwork(res.data.pan_card_front);
-            //             setProofOfIncome(res.data.pan_card_back);
-            //             setCertificateOfIncorporation(res.data.adhar_card_front);
-            //             setCASignedNetAngeable2Crore(res.data.adhar_card_back);
-            //             setNetWorthAtleast10Crore(res.data.adhar_card_back);
-            //             setBankStatement3Years(res.data.adhar_card_back);
-            //             setIncorporationCertificate(res.data.adhar_card_back);
-            //         } else {
-            //             toast.error(res.message, {
-            //                 position: toast.POSITION.TOP_RIGHT,
-            //             });
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         toast.error(err.message, {
-            //             position: toast.POSITION.BOTTOM_RIGHT,
-            //         });
-            //     });
             getAngelInvestorTerms(current_user_data.id)
+                .then((res) => {
+                    if (res.status === true) {
+                        setTerms(res.data);
+                    } else {
+                        toast.error(res.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(err.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                });
+            const data = {
+                user_id: current_user_data.id
+            }
+            getDocumentsUpload(data)
             .then((res) => {
                 if (res.status === true) {
-                    setTerms(res.data);
+                    setDocumentUpload(res.data);
                 } else {
+                    setDocumentUpload([]);
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                     });
@@ -116,54 +112,53 @@ export default function SelectedOptionsDocumentUpload(): any {
     const handlMenuSubmit = (event: any) => {
         event.preventDefault();
         const errors: any = {};
-        if(users.investorType === 'Accredited Investors'){
-            if(terms.category == '2' || terms.category == '3'){
-                if (!proof_of_network) {
-                    errors.proof_of_network = "File is required";
-                }
-                if (!proof_of_income) {
-                    errors.proof_of_income = "File is required";
-                }
-                if (!certificate_of_incorporation) {
-                    errors.certificate_of_incorporation = "File is required";
-                }
+        if (users.investorType === 'Accredited Investors') {
+            if (terms.category == '2' || terms.category == '3') {
+                // if (!proof_of_network) {
+                //     errors.proof_of_network = "File is required";
+                // }
+                // if (!proof_of_income) {
+                //     errors.proof_of_income = "File is required";
+                // }
+                // if (!certificate_of_incorporation) {
+                //     errors.certificate_of_incorporation = "File is required";
+                // }
             } else {
-                if (!proof_of_network) {
-                    errors.proof_of_network = "File is required";
-                }
-                if (!proof_of_income) {
-                    errors.proof_of_income = "File is required";
-                }
+                // if (!proof_of_network) {
+                //     errors.proof_of_network = "File is required";
+                // }
+                // if (!proof_of_income) {
+                //     errors.proof_of_income = "File is required";
+                // }
             }
         }
-        if(users.investorType === 'Angel Investor'){
-            if(terms.category == '2'){
-                if (!net_worth_atleast_10_crore) {
-                    errors.net_worth_atleast_10_crore = "File is required";
-                }
-                if (!bank_statement_3_years) {
-                    errors.bank_statement_3_years = "File is required";
-                }
-                if (!incorporation_certificate) {
-                    errors.incorporation_certificate = "File is required";
-                }
+        if (users.investorType === 'Angel Investor') {
+            if (terms.category == '2') {
+                // if (!net_worth_atleast_10_crore) {
+                //     errors.net_worth_atleast_10_crore = "File is required";
+                // }
+                // if (!bank_statement_3_years) {
+                //     errors.bank_statement_3_years = "File is required";
+                // }
+                // if (!incorporation_certificate) {
+                //     errors.incorporation_certificate = "File is required";
+                // }
             }
-            if(terms.category == '3'){
-                if (!bank_statement_3_years) {
-                    errors.bank_statement_3_years = "File is required";
-                }
-                if (!incorporation_certificate) {
-                    errors.incorporation_certificate = "File is required";
-                }
+            if (terms.category == '3') {
+                // if (!bank_statement_3_years) {
+                //     errors.bank_statement_3_years = "File is required";
+                // }
+                // if (!incorporation_certificate) {
+                //     errors.incorporation_certificate = "File is required";
+                // }
             }
-            if(terms.category == '1'){
-                if (!ca_signed_net_angeable_2_crore) {
-                    errors.ca_signed_net_angeable_2_crore = "File is required";
-                }
+            if (terms.category == '1') {
+                // if (!ca_signed_net_angeable_2_crore) {
+                //     errors.ca_signed_net_angeable_2_crore = "File is required";
+                // }
             }
         }
         setErrors(errors);
-        console.log(Object.keys(errors).length);
         if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();
             const data = {
@@ -177,7 +172,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
                         });
-                        if(users.investorType !== 'Regular Investor'){
+                        if (users.investorType !== 'Regular Investor') {
                             if (users.approval_status === 'pending') {
                                 setTimeout(() => {
                                     router.push("/investor/thank-you");
@@ -206,9 +201,9 @@ export default function SelectedOptionsDocumentUpload(): any {
         }
     };
 
-    const handleProofOfNetworkChange = (event: any) => {
+    const handleProofOfNetWorthChange = (event: any) => {
         const file = event.target.files[0];
-        setProofOfNetwork(file);
+        setProofOfNetWorth(file);
     };
 
 
@@ -276,9 +271,8 @@ export default function SelectedOptionsDocumentUpload(): any {
                                             <div className="row justify-content-center">
                                                 <div className="col-md-8" id="register">
                                                     <div className="row">
-                                                        {users.investorType === 'Accredited Investors' 
+                                                        {users.investorType === 'Accredited Investors'
                                                             ?
-                                                                
                                                                 terms.category == '2' || terms.category == '3'
                                                                 ?
                                                                     <>
@@ -287,22 +281,32 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 htmlFor="exampleFormControlInput1"
                                                                                 className="form-label"
                                                                             >
-                                                                                Proof Of Network{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
+                                                                                Proof Of Net Worth{" "}
+                                                                                {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetworkChange} accept="image/jpeg, image/png" />
-                                                                            <p>
-                                                                                You can upload proof of network 
-                                                                                pdf, docs, xls, jpg, jpeg, png file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.proof_of_network && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.proof_of_network}</span>}
-                                                                            {basicDetails.proof_of_network ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.proof_of_network} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
+                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_network'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
-
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -310,22 +314,31 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 className="form-label"
                                                                             >
                                                                                 Proof Of Income{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
+                                                                                {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
                                                                             <input type="file" name="proof_of_income" onChange={handleProofOfIncomeChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload proof of income
-                                                                                pdf, docs, xls, jpg, jpeg, png file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.proof_of_income && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.proof_of_income}</span>}
-
-                                                                            {basicDetails.proof_of_income ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.proof_of_income} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.typetype == 'proof_income'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
-
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -333,22 +346,31 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 className="form-label"
                                                                             >
                                                                                 Certificate Of Incorporation{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
+                                                                                {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="certificate_of_incorporation" onChange={handleCertificateOfIncorporationChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload certificate of incorporation
-                                                                                pdf, docs, xls, jpg, jpeg, png file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.certificate_of_incorporation && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.certificate_of_incorporation}</span>}
-
-                                                                            {basicDetails.certificate_of_incorporation ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_of_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }}/>
-                                                                            ) : (
-                                                                                null
-                                                                            )
+                                                                            <input type="file" name="certificate_of_incorporation" onChange={handleCertificateOfIncorporationChange} accept="image/jpeg, image/png"></input>                                                                          
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'certificate_incorporation'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
-
                                                                         </div>
                                                                     </>
                                                                 :
@@ -358,22 +380,32 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 htmlFor="exampleFormControlInput1"
                                                                                 className="form-label"
                                                                             >
-                                                                                Proof Of Network{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
+                                                                                Proof Of Net Worth{" "}
+                                                                                {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetworkChange} accept="image/jpeg, image/png" />
-                                                                            <p>
-                                                                                You can upload proof of network 
-                                                                                pdf, docs, xls, jpg, jpeg, png file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.proof_of_network && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.proof_of_network}</span>}
-                                                                            {basicDetails.proof_of_network ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.proof_of_network} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
+                                                                            <input type="file" name="proof_of_network" onChange={handleProofOfNetWorthChange} accept="image/jpeg, image/png" />
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_network'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
-
                                                                         </div>
                                                                         <div className="col-md-6 mt-5">
                                                                             <label
@@ -381,124 +413,103 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                 className="form-label"
                                                                             >
                                                                                 Proof Of Income{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
+                                                                                {/* <span style={{ color: "red" }}>*</span> */}
                                                                             </label>
-                                                                            <input type="file" name="proof_of_income" onChange={handleProofOfIncomeChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload proof of income
-                                                                                pdf, docs, xls, jpg, jpeg, png file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.proof_of_income && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.proof_of_income}</span>}
-
-                                                                            {basicDetails.proof_of_income ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.proof_of_income} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
+                                                                            <input type="file" name="proof_of_income" onChange={handleProofOfIncomeChange} accept="image/jpeg, image/png"></input>                                                               
+                                                                            {documentUpload.length > 0 
+                                                                                ?
+                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                    return(
+                                                                                        <>
+                                                                                            {document.type == 'proof_income'
+                                                                                                ?
+                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                    ?
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                    :
+                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                :
+                                                                                                    ''
+                                                                                            } 
+                                                                                        </>  
+                                                                                    )
+                                                                                    })
+                                                                                :
+                                                                                    ''
                                                                             }
-
                                                                         </div>
                                                                     </>
                                                             :
-                                                                ''
+                                                            ''
                                                         }
-                                                        {users.investorType === 'Angel Investor' 
+                                                        {users.investorType === 'Angel Investor'
                                                             ?
                                                                 terms.category == '2'
-                                                                ?
-                                                                    <>
-                                                                        <div className="col-md-6 mt-5">
-                                                                            <label
-                                                                                htmlFor="exampleFormControlInput1"
-                                                                                className="form-label"
-                                                                            >
-                                                                                Net Worth of at least INR 10 Crore{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
-                                                                            </label>
-                                                                            <input type="file" name="ca_signed_net_angeable_2_crore" onChange={handleNetWorthAtleast10CroreChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload Net worth of at least INR 10 Crore
-                                                                                docs, pdf file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.net_worth_atleast_10_crore && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.net_worth_atleast_10_crore}</span>}
-
-                                                                            {basicDetails.net_worth_atleast_10_crore ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.net_worth_atleast_10_crore} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
-                                                                            }
-                                                                        </div>
-                                                                        <div className="col-md-6 mt-5">
-                                                                            <label
-                                                                                htmlFor="exampleFormControlInput1"
-                                                                                className="form-label"
-                                                                            >
-                                                                                3 Years Bank Statement{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
-                                                                            </label>
-                                                                            <input type="file" name="3_years_bank_statement" onChange={handleBankStatement3YearsChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload 3 Years Bank Statement
-                                                                                docs, pdf file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.bank_statement_3_years && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.bank_statement_3_years}</span>}
-
-                                                                            {basicDetails.bank_statement_3_years ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_3_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
-                                                                            }
-                                                                        </div>
-                                                                        <div className="col-md-6 mt-5">
-                                                                            <label
-                                                                                htmlFor="exampleFormControlInput1"
-                                                                                className="form-label"
-                                                                            >
-                                                                                Incorporation Certificate{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
-                                                                            </label>
-                                                                            <input type="file" name="incorporation_certificate" onChange={handleIncorporationCertificateChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload incorporation certificate
-                                                                                docs, pdf, jpg, png, jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.incorporation_certificate && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.incorporation_certificate}</span>}
-
-                                                                            {basicDetails.incorporation_certificate ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.incorporation_certificate} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
-                                                                            }
-                                                                        </div>
-                                                                    </>
-                                                                :
-                                                                    terms.category == '3'
                                                                     ?
                                                                         <>
                                                                             <div className="col-md-6 mt-5">
-                                                                            <label
-                                                                                htmlFor="exampleFormControlInput1"
-                                                                                className="form-label"
-                                                                            >
-                                                                                3 Years Bank Statement{" "}
-                                                                                <span style={{ color: "red" }}>*</span>
-                                                                            </label>
-                                                                            <input type="file" name="3_years_bank_statement" onChange={handleBankStatement3YearsChange} accept="image/jpeg, image/png"></input>
-                                                                            <p>
-                                                                                You can upload 3 Years Bank Statement
-                                                                                docs, pdf file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                            </p>
-                                                                            {errors.bank_statement_3_years && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.bank_statement_3_years}</span>}
+                                                                                <label
+                                                                                    htmlFor="exampleFormControlInput1"
+                                                                                    className="form-label"
+                                                                                >
+                                                                                    Net Worth of at least INR 10 Crore{" "}
+                                                                                </label>
+                                                                                <input type="file" name="net_worth_atleast_10_crore" onChange={handleNetWorthAtleast10CroreChange} accept="image/jpeg, image/png"></input>
+                                                                                {documentUpload.length > 0 
+                                                                                    ?
+                                                                                        documentUpload.map((document:any, index:any) => {
+                                                                                        let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                        return(
+                                                                                            <>
+                                                                                                {document.type == 'net_worth_10_crore'
+                                                                                                    ?
+                                                                                                        extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                        ?
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                        :
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                    :
+                                                                                                        ''
+                                                                                                } 
+                                                                                            </>  
+                                                                                        )
+                                                                                        })
+                                                                                    :
+                                                                                        ''
+                                                                                }
+                                                                            </div>
+                                                                            <div className="col-md-6 mt-5">
+                                                                                <label
+                                                                                    htmlFor="exampleFormControlInput1"
+                                                                                    className="form-label"
+                                                                                >
+                                                                                    3 Years Bank Statement{" "}
 
-                                                                            {basicDetails.bank_statement_3_years ? (
-                                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_3_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                            ) : (
-                                                                                null
-                                                                            )
-                                                                            }
+                                                                                </label>
+                                                                                <input type="file" name="3_years_bank_statement" onChange={handleBankStatement3YearsChange} accept="image/jpeg, image/png"></input>
+                                                                                {documentUpload.length > 0 
+                                                                                    ?
+                                                                                        documentUpload.map((document:any, index:any) => {
+                                                                                        let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                        return(
+                                                                                            <>
+                                                                                                {document.type == 'bank_statement_3_years'
+                                                                                                    ?
+                                                                                                        extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                        ?
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                        :
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                    :
+                                                                                                        ''
+                                                                                                } 
+                                                                                            </>  
+                                                                                        )
+                                                                                        })
+                                                                                    :
+                                                                                        ''
+                                                                                }
                                                                             </div>
                                                                             <div className="col-md-6 mt-5">
                                                                                 <label
@@ -506,53 +517,142 @@ export default function SelectedOptionsDocumentUpload(): any {
                                                                                     className="form-label"
                                                                                 >
                                                                                     Incorporation Certificate{" "}
-                                                                                    <span style={{ color: "red" }}>*</span>
+
                                                                                 </label>
                                                                                 <input type="file" name="incorporation_certificate" onChange={handleIncorporationCertificateChange} accept="image/jpeg, image/png"></input>
-                                                                                <p>
-                                                                                    You can upload incorporation certificate
-                                                                                    docs, pdf, jpg, png, jpeg file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                                </p>
-                                                                                {errors.incorporation_certificate && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.incorporation_certificate}</span>}
-
-                                                                                {basicDetails.incorporation_certificate ? (
-                                                                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.incorporation_certificate} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                                ) : (
-                                                                                    null
-                                                                                )
+                                                                                {documentUpload.length > 0 
+                                                                                    ?
+                                                                                        documentUpload.map((document:any, index:any) => {
+                                                                                        let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                        return(
+                                                                                            <>
+                                                                                                {document.type == 'incorporation_certificate'
+                                                                                                    ?
+                                                                                                        extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                        ?
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                        :
+                                                                                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                    :
+                                                                                                        ''
+                                                                                                } 
+                                                                                            </>  
+                                                                                        )
+                                                                                        })
+                                                                                    :
+                                                                                        ''
                                                                                 }
                                                                             </div>
                                                                         </>
                                                                     :
-                                                                        terms.category == '1'
-                                                                        ?
-                                                                            <>
-                                                                                <div className="col-md-6 mt-5">
-                                                                                    <label
-                                                                                        htmlFor="exampleFormControlInput1"
-                                                                                        className="form-label"
-                                                                                    >
-                                                                                        CA Signed of Net Angeable of 2 Crore{" "}
-                                                                                        <span style={{ color: "red" }}>*</span>
-                                                                                    </label>
-                                                                                    <input type="file" name="ca_signed_net_angeable_2_crore" onChange={handleCASignedNetAngeable2CroreChange} accept="image/jpeg, image/png"></input>
-                                                                                    <p>
-                                                                                        You can upload CA signed of net angeable of 2 crore
-                                                                                        docs, pdf file only (max size 20 MB) <span style={{ color: "red" }}>*</span>
-                                                                                    </p>
-                                                                                    {errors.ca_signed_net_angeable_2_crore && <span className="small error text-danger mb-2 d-inline-block error_login">{errors.ca_signed_net_angeable_2_crore}</span>}
+                                                                        terms.category == '3'
+                                                                            ?
+                                                                                <>
+                                                                                    <div className="col-md-6 mt-5">
+                                                                                        <label
+                                                                                            htmlFor="exampleFormControlInput1"
+                                                                                            className="form-label"
+                                                                                        >
+                                                                                            3 Years Bank Statement{" "}
 
-                                                                                    {basicDetails.ca_signed_net_angeable_2_crore ? (
-                                                                                        <img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.ca_signed_net_angeable_2_crore} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} />
-                                                                                    ) : (
-                                                                                        null
-                                                                                    )
-                                                                                    }
+                                                                                        </label>
+                                                                                        <input type="file" name="3_years_bank_statement" onChange={handleBankStatement3YearsChange} accept="image/jpeg, image/png"></input>                                                                                  
+                                                                                        {documentUpload.length > 0 
+                                                                                            ?
+                                                                                                documentUpload.map((document:any, index:any) => {
+                                                                                                let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                                return(
+                                                                                                    <>
+                                                                                                        {document.type == 'bank_statement_3_years'
+                                                                                                            ?
+                                                                                                                extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                                ?
+                                                                                                                    <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                                :
+                                                                                                                    <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                            :
+                                                                                                                ''
+                                                                                                        } 
+                                                                                                    </>  
+                                                                                                )
+                                                                                                })
+                                                                                            :
+                                                                                                ''
+                                                                                        }
+                                                                                    </div>
+                                                                                    <div className="col-md-6 mt-5">
+                                                                                        <label
+                                                                                            htmlFor="exampleFormControlInput1"
+                                                                                            className="form-label"
+                                                                                        >
+                                                                                            Incorporation Certificate{" "}
 
-                                                                                </div>
-                                                                            </>
-                                                                        :
-                                                                            ''
+                                                                                        </label>
+                                                                                        <input type="file" name="incorporation_certificate" onChange={handleIncorporationCertificateChange} accept="image/jpeg, image/png"></input>                                                                          
+                                                                                        {documentUpload.length > 0 
+                                                                                            ?
+                                                                                                documentUpload.map((document:any, index:any) => {
+                                                                                                let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                                return(
+                                                                                                    <>
+                                                                                                        {document.type == 'incorporation_certificate'
+                                                                                                            ?
+                                                                                                                extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                                ?
+                                                                                                                    <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                                :
+                                                                                                                    <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                            :
+                                                                                                                ''
+                                                                                                        } 
+                                                                                                    </>  
+                                                                                                )
+                                                                                                })
+                                                                                            :
+                                                                                                ''
+                                                                                        }
+                                                                                    </div>
+                                                                                </>
+                                                                            :
+                                                                                terms.category == '1'
+                                                                                ?
+                                                                                    <>
+                                                                                        <div className="col-md-6 mt-5">
+                                                                                            <label
+                                                                                                htmlFor="exampleFormControlInput1"
+                                                                                                className="form-label"
+                                                                                            >
+                                                                                                CA Signed of Net Tangible of 2 Crore{" "}
+                                                                                                {/* <span style={{ color: "red" }}>*</span> */}
+                                                                                            </label>
+                                                                                            <input type="file" name="ca_signed_net_angeable_2_crore" onChange={handleCASignedNetAngeable2CroreChange} accept="image/jpeg, image/png"></input>                                                                                           
+                                                                                            {documentUpload.length > 0 
+                                                                                                ?
+                                                                                                    documentUpload.map((document:any, index:any) => {
+                                                                                                    let extension = document.filename.substring(document.filename.lastIndexOf('.') + 1);
+                                                                                                    return(
+                                                                                                        <>
+                                                                                                            {document.type == 'ca_signed_angeable_2_crore'
+                                                                                                                ?
+                                                                                                                    extension == 'pdf' || extension == 'docs' || extension == 'xls'
+                                                                                                                    ?
+                                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
+                                                                                                                    :
+                                                                                                                        <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+document.filename} alt={document.filename} width={100} height={80}/></a></div>
+                                                                                                                :
+                                                                                                                    ''
+                                                                                                            } 
+                                                                                                        </>  
+                                                                                                    )
+                                                                                                    })
+                                                                                                :
+                                                                                                    ''
+                                                                                            }
+                                                                                        </div>
+                                                                                    </>
+
+                                                                                :
+                                                                                    ''
                                                             :
                                                                 ''
                                                         }

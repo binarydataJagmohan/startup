@@ -110,9 +110,9 @@
     height: 60px;
     line-height: 70px;
   }
-  .choose-content {
+  /* .choose-content {
     padding: 20px 40px 20px 100px;
-  }
+  } */
   .choose-content h3 {
     font-size: 17px;
   }
@@ -940,10 +940,10 @@
     height: 60px;
     line-height: 70px;
   }
-  .choose-content {
+  /* .choose-content {
     padding: 20px 40px 20px 100px;
     margin-top: 15px;
-  }
+  } */
   .choose-content .icon i {
     height: 60px;
     width: 60px;

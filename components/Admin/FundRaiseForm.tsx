@@ -318,7 +318,6 @@ const FundRaiseForm = () => {
                             formData.append("amount", fundRaiseData.amount);
                             formData.append("desc", fundRaiseData.desc);
                             const res = await fundInformationSave(formData);
-
                             if (res.status === true) {
                                 sendNotification(data)
                                     .then((notificationRes) => {
@@ -335,10 +334,10 @@ const FundRaiseForm = () => {
                                         console.log("error occured");
                                     });
 
-                                toast.success(res.msg, {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                    toastId: "success",
-                                });
+                                // toast.success(res.msg, {
+                                //     position: toast.POSITION.TOP_RIGHT,
+                                //     toastId: "success",
+                                // });
                                 toast.success(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "success",
@@ -348,7 +347,7 @@ const FundRaiseForm = () => {
                                 }, 1000);
 
                             } else {
-                                toast.error(res.msg, {
+                                toast.error(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "error",
                                 });
@@ -425,7 +424,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="amount"
                                                         {...register("amount", {
                                                             required: true,
@@ -468,7 +467,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="total_units"
                                                         {...register("total_units", {
                                                             value: !fundRaiseData.total_units,
@@ -516,7 +515,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="xirr"
                                                         {...register("xirr", {
                                                             value: !fundRaiseData.xirr,
@@ -562,7 +561,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="form-control h-75"
                                                         id="minimum_subscription"
                                                         {...register("minimum_subscription", {
                                                             value: !fundRaiseData.minimum_subscription,
@@ -610,7 +609,7 @@ const FundRaiseForm = () => {
                                                         }
                                                         aria-label="Default select example"
                                                     >
-                                                        <option value="">--SELECT RESOURCE--</option>
+                                                        <option value="">--SELECT RECOURSE--</option>
                                                         <option value="Buyer">Buyer</option>
                                                         <option value="Seller">Seller</option>
                                                     </select>
@@ -619,7 +618,7 @@ const FundRaiseForm = () => {
                                                             className="text-danger"
                                                             style={{ textAlign: "left", fontSize: "12px" }}
                                                         >
-                                                            *Please fill resource type field.
+                                                            *Please fill recourse type field.
                                                         </p>
                                                     )}
                                                 </div>
@@ -676,7 +675,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="date"
-                                                        className="form-control"
+                                                        className="form-control h-50"
                                                         id="repay_date"
                                                         {...register("repay_date", {
                                                             value: fundRaiseData.repay_date || "",
@@ -709,7 +708,7 @@ const FundRaiseForm = () => {
                                                     </label>
                                                     <input
                                                         type="date"
-                                                        className="form-control"
+                                                        className="form-control h-50"
                                                         id="closed_in"
                                                         {...register("closed_in", {
                                                             value: fundRaiseData.closed_in || "",
@@ -809,7 +808,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal agreement <span style={{ color: "red" }}>*</span>
+                                                        Legal agreement <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"
@@ -860,7 +859,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                        Legal invoice <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"
@@ -914,7 +913,7 @@ const FundRaiseForm = () => {
                                                         htmlFor="logo"
                                                         className="form-label"
                                                     >
-                                                        Leegal invoice <span style={{ color: "red" }}>*</span>
+                                                        Legal PDC <span style={{ color: "red" }}>*</span>
                                                     </label>
                                                     <div
                                                         id="divHabilitSelectors"

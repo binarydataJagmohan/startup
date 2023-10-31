@@ -1015,8 +1015,7 @@ const Profile = () => {
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
                                                                 >
-                                                                    Startup Logo{" "}
-                                                                    <span style={{ color: "red" }}>*</span>
+                                                                    Startup Logo{" "}                                                                    
                                                                 </label>
                                                                 <div
                                                                     id="divHabilitSelectors"
