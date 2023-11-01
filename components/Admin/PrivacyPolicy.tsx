@@ -17,52 +17,9 @@ type Country = {
 interface UserData {
     id?: string;
 }
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+const TextEditor = dynamic(() => import("./TextEditor"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
 });
-
-const modules = {
-  toolbar: [
-    [{ header: '1' }, { header: '2' }, { font: [] }],
-    [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [
-      { list: 'ordered' },
-      { list: 'bullet' },
-      { indent: '-1' },
-      { indent: '+1' },
-    ],
-     ['link', 'image', 'video'],
-    [{ align: [] }],
-    [{ color: [] }, { background: [] }],
-   
-    ['clean'],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-const formats = [
-  'header',
-  'font',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'align',
-  'color',
-  'background',
-];
 
 
 const PrivacyPolicy = () => {
@@ -82,9 +39,7 @@ const PrivacyPolicy = () => {
     try {
       const response = await fetchPrivacyPoliciesdata();
       const data = response.data;
-  
-   
-      // Set the fetched data as initial content in the editor
+      console.log("datfdgdfgdfa")
       setEditorContent(data);
       setEditedContent(data);
     } catch (error) {
@@ -154,11 +109,10 @@ try{
             <form onSubmit={submitPrivacyPolicies} className="needs-validation mb-4">
               <div className="col-12">
              
-                <QuillNoSSRWrapper
+              <TextEditor
                   value={editorContent}
                   onChange={handleEditorChange}
-                  modules={modules}
-                  formats={formats}
+                  height={300}
                   theme="snow"
                   // style={{ height: '200px' }} 
                 />
