@@ -18,7 +18,7 @@ export default function TermCondition() {
         try {
             const response = await fetchTermsAndConditionsdata();
             const data = response.data;
-            // Set the fetched data as initial content in the editor
+          console.log(data)
             setTermData(data);
         } catch (error) {
             // Handle error
@@ -26,24 +26,16 @@ export default function TermCondition() {
     };
     return (
         <>
-            {/* <div className="page-title-area item-bg-1">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Terms &amp; Conditions</h2>
-                                <ul>
-                                    <li><Link href="index.html">Home</Link></li>
-                                    <li>Terms &amp; Conditions</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+
             <section className="term-conditions py-5">
                 <div className="container">
-                    <h3>Terms of Use</h3>
+                <div dangerouslySetInnerHTML={{ __html: termdata }}></div>
+                </div>
+            </section>
+        </>
+    )
+}
+{/* <h3>Terms of Use</h3>
                     <p>These Terms of Use including the Privacy Policy, and Risks (“Terms of Use”) govern the use of the website of Rising Capitalist Private Limited (“RCPL”) dba RisingCapitalist [https://www.risingcapitalist.com/] (“Website”) and the services (“Services”) provided on the Website. By using the Website including but not limited to accessing or visiting or browsing the Website, you (“Visitor/User/Member”) indicate your acceptance to these Terms of Use and that you agree to abide by them. The Terms of Use constitute a legal agreement between you, as the user of the Website, and us, the owner of the Website. If you do not agree to these Terms of Use, please refrain from using this Website. The Terms of Use shall be considered as part of any agreement, the reference to which shall be made in that agreement and shall be read along with the terms and conditions of that agreement. In the event of a conflict between the terms of such agreements and the Terms of Use, the terms of such agreements will prevail and govern so long as they relate to matters specifically referenced herein and this Terms of Use will apply with respect to all other matters.</p>
                     <div className="all-type-of-text">
                         <h4>1. Information about us and the Website</h4>
@@ -148,9 +140,4 @@ export default function TermCondition() {
                             <li>Time of Essence Time shall be of the essence of all the matters arising out of or in connection with the Terms of Use.</li>
                             <li>Execution The Terms of Use shall be deemed duly executed and shall become effective and binding upon you and us when you access the Website.</li>
                         </ol>
-                    </div>
-                </div>
-            </section>
-        </>
-    )
-}
+                    </div> */}

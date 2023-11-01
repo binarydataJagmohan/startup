@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.0.1",
     "@next-tools/dynamic": "^0.0.11",
     "@stripe/react-stripe-js": "^2.1.1",
@@ -37,6 +38,7 @@
     "react-bootstrap-switch": "^15.5.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-icons": "^4.11.0",
     "react-native-pg-react-native-sdk": "^2.1.10",
     "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
