@@ -105,3 +105,10 @@ a {
     color-scheme: dark;
   }
 }
+.icon-width{
+  width: 15%;
+}
+
+.page-width{
+  width: 80%;
+}
