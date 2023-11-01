@@ -48,24 +48,16 @@ const EditUser = () => {
 
 
     useEffect(() => {
-
         const fetchData = async (id: any) => {
             //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
-
                 setUsers(data.data);
-
-
             }
         };
         if (router.query.id) {
             fetchData(router.query.id);
         }
-        // if (userId) {
-        //     fetchData();
-        // }
-
     }, [router.query.id]);
 
 
@@ -169,7 +161,6 @@ const EditUser = () => {
                 setcountries(data.data);
             }
         };
-
         fetchData();
 
     }, []);
@@ -179,8 +170,6 @@ const EditUser = () => {
         const id = urlParams.get('id');
         setMissingFields([]);
         setInvalidFields([]);
-
-
         let selectedCountry = countries.find((country) => country.name === value);
         let countryCode = selectedCountry ? selectedCountry.country_code : '';
 
