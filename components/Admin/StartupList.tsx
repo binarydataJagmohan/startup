@@ -350,6 +350,10 @@ const StartupList = () => {
                                                                             </li>
                                                                             <li className="edit">
                                                                                 <a href="javascript:void(0);" onClick={() => handleClickBusinessFundRaiseButton(startup.id)}>
+                                                                                    <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
+                                                                                        data-placement="top"
+                                                                                        title="Raise Fund" ></i>
+                                                                                </a>
                                                                                 {/* <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup.id}`}>
                                                                                     <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
                                                                                         data-placement="top"
