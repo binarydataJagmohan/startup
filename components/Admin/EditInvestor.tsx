@@ -129,7 +129,6 @@ const EditInvestor = () => {
       each_read: "unread",
       status: "active"
     };
-    // Send Notifications to investor when admin update his profile is register
     sendNotification(data)
       .then((notificationRes) => {
         console.log('success')

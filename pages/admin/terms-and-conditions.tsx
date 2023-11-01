@@ -1,11 +1,12 @@
 import React from 'react'
-import TermsAndCondtions from '@/components/Admin/TermsAndConditions'
-const termsandconditions = () => {
+import TermsAndCondition from '../../components/Admin/TermsAndCondition'
+
+const TermsAndConditions = () => {
   return (
     <>
-    <TermsAndCondtions />
+     <TermsAndCondition />
     </>
   )
 }
 
-export default termsandconditions
+export default TermsAndConditions

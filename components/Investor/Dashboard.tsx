@@ -5,10 +5,11 @@ import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckUserApprovalStatus } from "../../lib/frontendapi";
+import { CheckUserApprovalStatus, sendNotification } from "../../lib/frontendapi";
 interface UserData {
   id?: string;
   approval_status?: string;
+  username?: string;
 }
 interface BusinessDetails {
   status: string;
@@ -88,8 +89,49 @@ const Dashboard = () => {
 
 
 
-  const getBusinessdetails = (e: any, id: any) => {
+  // const getBusinessdetails = (e: any, id: any) => {
+  //   e.preventDefault();
+  //   getSingleBusinessDetails(id).then((res) => {
+  //     window.location.href = `campaign/details?id=${id}`;
+  //   });
+  // };
+  
+
+  const getBusinessdetails = async (e: any, id: any) => {
     e.preventDefault();
+    const current_user_data: UserData = getCurrentUserData();
+    const startupDetails = await getSingleBusinessDetails(id);
+    const startupName = startupDetails.data.business_name;
+  
+    // Check if the user has already viewed this startup's profile
+    const viewedStartupKey = `viewedStartup_${id}`;
+    const hasViewed = localStorage.getItem(viewedStartupKey);
+  
+    if (!hasViewed) {
+      // If the user hasn't viewed the startup before, send the notification
+      const notificationData = {
+        notify_from_user: current_user_data.id,
+        notify_to_user: 1, 
+        notify_msg: `Investor with ${current_user_data.username} viewed the details of startup "${startupName}".`,
+        notification_type: "Startup Viewed Notification",
+        each_read: "unread",
+        status: "active"
+      };
+      
+      // Send the notification to the admin
+      sendNotification(notificationData)
+        .then((notificationRes) => {
+          console.log('Notification sent successfully');
+        })
+        .catch((error) => {
+          console.error('Error sending notification:', error);
+        });
+  
+      // Mark the startup as viewed in local storage
+      localStorage.setItem(viewedStartupKey, 'true');
+    }
+  
+    // After sending the notification, you can proceed to get the details of the business.
     getSingleBusinessDetails(id).then((res) => {
       window.location.href = `campaign/details?id=${id}`;
     });
@@ -161,7 +203,7 @@ const Dashboard = () => {
       <section className="invertor-campaign">
         {investorRole != 'Regular Investor' ? (<>
           <div className="container py-5">
-            <h3 className="featurred">Featured campaigns</h3>
+            <h3 className="featurred">Featured campaignfs</h3>
             <h6 className="trending">Explore what is trending</h6>
             <div className="bar" />
 
@@ -181,6 +223,7 @@ const Dashboard = () => {
                           }
                         </Link>
                       </div>
+                      
                       <div className="main-padding">
                         <div className="d-flex justify-content-between">
                           <div className="product-content">
