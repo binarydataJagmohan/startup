@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi'
+import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi';
+import { getSingleBusinessInformation, getSingleBusinessUnitInfo } from '../../lib/adminapi';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
@@ -255,7 +256,23 @@ const StartupList = () => {
             });
     };
 
-
+    const handleClickBusinessFundRaiseButton = (startup_id:any) => {
+        getSingleBusinessUnitInfo(startup_id)
+        .then((res) => {
+            if (res.status == true) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            } else {
+                let url = process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup_id}`;
+                window.location.href = url;
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
     return (
         <>
             <div className="main-content">
@@ -332,11 +349,12 @@ const StartupList = () => {
                                                                                 </a>
                                                                             </li>
                                                                             <li className="edit">
-                                                                                <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup.id}`}>
+                                                                                <a href="javascript:void(0);" onClick={() => handleClickBusinessFundRaiseButton(startup.id)}>
+                                                                                {/* <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup.id}`}>
                                                                                     <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
                                                                                         data-placement="top"
                                                                                         title="Raise Fund" ></i>
-                                                                                </Link>
+                                                                                </Link> */}
                                                                             </li>
                                                                         </ul>
                                                                     </td>

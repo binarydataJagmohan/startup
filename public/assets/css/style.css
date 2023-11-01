@@ -9913,6 +9913,19 @@ span.bg-success {
   position: relative;
 }
 
+.contact-section .verify_email_need_content {
+  box-shadow: 1px 1px 57px rgb(95 208 243 / 15%);
+  border-radius: 25px 25px 35px 35px;
+  margin-top: 50px;
+  padding: 50px 30px 30px;
+  background-color: #fff;
+  border: 1px solid white;
+  border-bottom: 2px solid #088395;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  position: relative;
+}
+
 .contact-section .need_content:hover {
   filter: drop-shadow(5px 5px 10px #666);
 }

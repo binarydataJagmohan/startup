@@ -175,7 +175,11 @@ export default function SelectedOptionsDocumentUpload(): any {
                         if (users.investorType !== 'Regular Investor') {
                             if (users.approval_status === 'pending') {
                                 setTimeout(() => {
-                                    router.push("/investor/thank-you");
+                                    if(users.is_email_verification_complete == '1'){
+                                        router.push("/investor/thank-you");
+                                    } else {
+                                        router.push("/verify-email");
+                                    }
                                 }, 1000);
                             }
                             if (users.approval_status === 'approved') {
