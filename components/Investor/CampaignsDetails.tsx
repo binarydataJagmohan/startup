@@ -29,6 +29,7 @@ interface InputData {
   website_url?: string;
   terms?: string;
   amount?: string;
+  type?: string;
 }
 
 export default function CampaignsDetails() {
@@ -249,6 +250,12 @@ export default function CampaignsDetails() {
                 </div>
               </div>
               <div className="col-md-5">
+                {inputs.type == 'CCSP'
+                  ?
+                    <p style={{"textAlign":"right"}}><a href="#" style={{"color":"#ffffff"}}>Chat</a></p>
+                  :
+                    ''
+                }
                 <div className="d-flex justify-content-between">
                   <div>
                     <span style={{ color: '#fff' }}>Total Amount</span>

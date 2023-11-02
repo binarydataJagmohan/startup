@@ -201,8 +201,10 @@ export default function InvestorType(): any {
                 errors.investorType = "*Please select investor type.";
             }
         }
-        if (!selectedOption) {
-            errors.selectedOption = "*Please select category.";
+        if(investorDetails.investorType != 'Regular Investor'){
+            if (!selectedOption) {
+                errors.selectedOption = "*Please select category.";
+            }
         }
         if (selectedOption === '1') {
             if (!principal_residence) {
