@@ -104,7 +104,7 @@ export default function Home() {
       {/* Start Banner Area */}
       <div className="main-banner-area">
         <div className="home-sliders">
-          <Slider {...settings}>
+          <Slider {...settings} dots={true}>
             <div className="home-item item-bg2">
               <div className="d-table">
                 <div className="d-table-cell">
@@ -242,10 +242,6 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-3.png" class="banner-img" alt="image"> */}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -354,10 +350,6 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-2.png" class="banner-img" alt="image"> */}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -464,10 +456,6 @@ export default function Home() {
                           </Link>
                         </div>
                       )}
-                    </div>
-                    <div className="banner-image">
-                      {/* <img src="assets/img/home-one/shape.png" alt="image"> */}
-                      {/* <img src="assets/img/home-one/image-1.png" class="banner-img" alt="image"> */}
                     </div>
                   </div>
                 </div>
