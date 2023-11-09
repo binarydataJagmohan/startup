@@ -1,16 +1,11 @@
 /*================================================
 Default CSS
 =================================================*/
-
-/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap');
 
 body {
   padding: 0;
   margin: 0;
-  /* font-family: 'Source Sans 3', sans-serif; */
-  /*font-family: 'Source Sans 3', sans-serif;*/
   font-family: 'Source Sans 3', sans-serif;
   font-size: 16px;
   overflow-x: hidden;
@@ -1214,23 +1209,23 @@ Banner Area CSS
 } */
 
 .home-sliders .home-item.item-bg1 {
-  background-image: url(../../assets/img/home-one/4.jpg);
+  background-image: url(/assets/img/medium-shot-colleagues-working-together.jpg);
   height: 590px;
 }
 
 .home-sliders .home-item.item-bg2 {
-  background-image: url(../../assets/img/home-one/2.jpg);
+  background-image: url(/assets/img/colleagues.jpg);
   height: 590px;
 }
 
 .home-sliders .home-item.item-bg3 {
-  background-image: url(../../assets/img/home-one/5.jpg);
+  background-image: url(/assets/img/graphic.jpg);
   height: 590px;
 }
 
 .home-sliders .home-item .main-banner-content {
   position: relative;
-  max-width: 630px;
+  max-width: 600px;
 }
 
 .home-sliders .home-item .main-banner-content h1 {
@@ -1244,7 +1239,7 @@ Banner Area CSS
   color: #fff;
   margin-bottom: 0;
   text-align: left;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 .home-sliders .home-item .main-banner-content .banner-btn {
@@ -1693,14 +1688,14 @@ Services Area CSS
 
 .single-services .icon i {
   display: inline-block;
-  height: 70px;
+  height: 90px;
   width: 90px;
-  line-height: 70px;
+  line-height: 90px;
   background-color: #f0f7fd;
   text-align: center;
   font-size: 30px;
   color: #088395;
-  border-radius: 30px 5px 30px 5px;
+  border-radius: 50%;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   border: solid 1px;
@@ -2410,13 +2405,25 @@ Video Section CSS
 =================================================*/
 
 .video-section {
-  background-image: url(../../assets/img/video-bg.jpg);
+  background-image: url(../../assets/img/bg-3.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 150px;
+  padding-top: 270px;
   padding-bottom: 100px;
-  height: 400px;
+  height: 600px;
+  position: relative;
+  background-attachment: fixed;
+}
+.video-section::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(19, 0, 49, 0.7)), to(rgba(19, 0, 49, 0.01)));
+  background: linear-gradient(0deg, rgba(19, 0, 49, 0.7) 0%, rgba(19, 0, 49, 0.01) 100%);
 }
 
 .video-content {
@@ -2513,6 +2520,7 @@ Choose Area CSS
   height: 250px;
   box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11);
 }
+
 section.choose-section.ptb-100.bg-color-choose {
   background: #eeeeee;
 }
@@ -2632,6 +2640,7 @@ section.choose-section.ptb-100.bg-color-choose {
 .image {
   text-align: center;
 }
+
 .image img {
   width: 100%;
 }
@@ -4750,18 +4759,25 @@ About Area CSS
   max-width: 620px;
   margin-left: 50px;
 }
+
 .facilitating-startup {
   background: #232323;
   margin-bottom: 80px;
 }
+
 .tab_content img:hover {
   transform: translateY(-3px);
 }
+
 .tab_content img {
   transition: all 0.5s;
 }
-.tab_content p{
-  color: #fff;
+.tab_content {
+  padding: 0px 40px 0px 0px;
+}
+
+.tab_content p {
+  color: #232323;
 }
 
 .about-tab h2 {
@@ -4871,7 +4887,7 @@ About Area CSS
 /* .about-image img {
     display: none;
 } */
-.about-image img{
+.about-image img {
   height: 500px;
   object-fit: cover;
 }
@@ -8180,6 +8196,10 @@ Fooetr Area CSS
 .single-footer-widget .footer-info-contact span {
   font-size: 15px;
 }
+.footer-info-contact strong{
+  width: 80px !important;
+  display: block;
+}
 
 /*================================================
 Copy Right Area CSS
@@ -9739,6 +9759,9 @@ span.bg-success {
   .clients-section .slick-next {
     right: 0 !important;
   }
+  .slick-next{
+    right: 12px !important;
+  }
 
   .Services-box h3 {
     font-size: 25px;
@@ -10609,32 +10632,115 @@ span.logo-sm img {
   border-radius: 0px;
 }
 
-.btn_error_logs{
-  color:#088395 !important;
-  border-color:#088395 !important;
+.btn_error_logs {
+  color: #088395 !important;
+  border-color: #088395 !important;
 }
 
-.btn_error_logs:hover{
+.btn_error_logs:hover {
   background: #088395 !important;
   color: #ffffff !important;
 }
+
 .checkbox-options {
   padding: 0px !important;
 }
 
-.term-conditions h3{
+.term-conditions h3 {
   font-weight: 900;
 }
-.all-type-of-text h4{
+
+.all-type-of-text h4 {
   font-weight: 700;
 }
+
 .all-type-of-text li {
   font-size: 18px;
   margin-bottom: 20px;
   text-align: justify;
 }
-.term-conditions p{
+
+.term-conditions p {
   font-size: 16px;
   margin-bottom: 20px;
   text-align: justify;
 }
+.about-group-image {
+  position: relative;
+}
+.about-group-image .image {
+  position: relative;
+  z-index: 3;
+}
+.about-group-image .shape-one {
+  position: absolute;
+  right: 2%;
+  top: -10%;
+  z-index: 3;
+}
+.about-group-image .shape-two {
+  position: absolute;
+  left: -2%;
+  top: -13%;
+}
+.tj-about-section .about-shape {
+  position: absolute;
+  left: 0;
+  top: 65%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.pulse {
+  -webkit-animation: pulse 3s ease-in-out infinite;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/**----------------------------------------
+START: Button CSS
+----------------------------------------*/
+.tj-primary-btn {
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 15px 30px;
+  border-radius: 58px;
+  overflow: hidden;
+  background: #088395;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+  position: relative;
+  z-index: 9;
+  display: inline-block;
+  outline: none;
+  -webkit-box-shadow: 15px 9px 30px 0px rgba(117, 77, 233, 0.2);
+          box-shadow: 15px 9px 30px 0px rgba(117, 77, 233, 0.2);
+}
+.tj-primary-btn::after {
+  position: absolute;
+  content: " ";
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, right top, from #088395, color-stop(100%, #088395), to(#088395));
+  background: linear-gradient(90deg, var(--tj-color-gradient-1) 0%, #088395 100%, #088395 100%);
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+.tj-primary-btn:hover {
+  background: transparent;
+  color: #232323;
+}
+.tj-primary-btn:hover::after {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+  color: #232323;
+}
+
+
+
+
+

@@ -1658,10 +1658,10 @@
 
 @media only screen and (min-width: 1800px) {
   .home-sliders .home-item .main-banner-content {
-    max-width: 750px;
+    max-width: 600px;
   }
   .home-sliders .home-item .main-banner-content h1 {
-    font-size: 80px;
+    font-size: 68px;
   }
   .home-sliders .banner-image {
     top: 115px;
@@ -1760,3 +1760,11 @@
   }
 }
 /*# sourceMappingURL=responsive.css.map */
+
+
+.home-sliders .home-item .main-banner-content {
+  max-width: 830px;
+  padding: 25px;
+  background: rgb(0 0 0 / 40%);
+  border-radius: 16px;
+}

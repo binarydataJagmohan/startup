@@ -181,7 +181,7 @@ const Signup = () => {
                     <div className="box-content">
                       <h4>Location:</h4>
                       <Link href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9" target="_blank" style={{ color: '#232323' }}><p className="text-size-18">
-                        32 st Kilda Road, Melbourne VIC, 3004 Australia
+                        Shop 13 Trishul Terraces, Sector 20, Koparkhairne, Thane, Maharashtra – 400709
                       </p></Link>
                     </div>
                   </div>
