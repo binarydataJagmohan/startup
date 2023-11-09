@@ -146,7 +146,8 @@ export default function DocumentsUpload(): any {
                     });
                     if (users.approval_status === 'pending') {
                         setTimeout(() => {
-                            router.push("/company/thank-you");
+                            //router.push("/company/thank-you");
+                            router.push("/verify-email");
                         }, 1000);
                     }
                     if (users.approval_status === 'approved') {

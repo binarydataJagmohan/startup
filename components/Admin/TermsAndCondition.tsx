@@ -18,52 +18,9 @@ type Country = {
 interface UserData {
     id?: string;
 }
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
-
-const modules = {
-  toolbar: [
-    [{ header: '1' }, { header: '2' }, { font: [] }],
-    [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [
-      { list: 'ordered' },
-      { list: 'bullet' },
-      { indent: '-1' },
-      { indent: '+1' },
-    ],
-     ['link', 'image', 'video'],
-    [{ align: [] }],
-    [{ color: [] }, { background: [] }],
-   
-    ['clean'],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-const formats = [
-  'header',
-  'font',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'align',
-  'color',
-  'background',
-];
+const TextEditor = dynamic(() => import("./TextEditor"), {
+    ssr: false,
+  });
 
 
 const TermsAndConditions = () => {
@@ -84,7 +41,7 @@ const TermsAndConditions = () => {
       const response = await fetchTermsAndConditionsdata();
       const data = response.data;
   
-   
+     
       // Set the fetched data as initial content in the editor
       setEditorContent(data);
       setEditedContent(data);
@@ -155,14 +112,11 @@ try{
             <form onSubmit={submitTermsAndCondtions} className="needs-validation mb-4">
               <div className="col-12">
              
-                <QuillNoSSRWrapper
+              <TextEditor
                   value={editorContent}
-                
+                  height={300}
                   onChange={handleEditorChange}
-                  modules={modules}
-                  formats={formats}
                   theme="snow"
-                  // style={{ height: '200px' }} 
                 />
                 
               </div>
