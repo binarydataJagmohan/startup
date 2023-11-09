@@ -680,7 +680,7 @@ export default function Home() {
       {/*========== About Section End ==============*/}
 
 
-
+{/* 
       <a href="https://www.youtube.com/embed/8zHWKaiLo8U" target="_blank">
       <div className="video-section">
           <div className="container">
@@ -695,7 +695,7 @@ export default function Home() {
             </div>
           </div>
        </div>
-      </a>
+      </a> */}
       <section className="choose-section ptb-100 bg-color-choose">
         <div className="container">
           <div className="section-title">
