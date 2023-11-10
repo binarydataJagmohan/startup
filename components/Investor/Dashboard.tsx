@@ -203,7 +203,7 @@ const Dashboard = () => {
       <section className="invertor-campaign">
         {investorRole != 'Regular Investor' ? (<>
           <div className="container py-5">
-            <h3 className="featurred">Featured campaignfs</h3>
+            <h3 className="featurred">Featured campaigns</h3>
             <h6 className="trending">Explore what is trending</h6>
             <div className="bar" />
 

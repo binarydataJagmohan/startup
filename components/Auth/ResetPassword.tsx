@@ -55,7 +55,7 @@ const ResetPassword = () => {
         <>
             <section className="contact-section pb-70">
                 <div className="container">
-                    <div className="row justify-content-center" id="resetpassword">
+                    <div className="row justify-content-center w-75 m-auto" id="resetpassword">
                         <div className="need_content col-md-6">
                             <form id="contactForm" onClick={handleSubmit(SubmitForm)}>
                             <div className="contact-text text-center">
@@ -91,7 +91,7 @@ const ResetPassword = () => {
                                         <div className="help-block with-errors" />
 
                                         <div className="row">
-                                            <div className="col-md-12 text-start">
+                                            <div className="col-md-12 text-center">
                                                 <button type="submit" className="btnclasssmae reset-btn">
                                                 Reset Password
                                                 </button>
