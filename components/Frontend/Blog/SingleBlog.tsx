@@ -4,21 +4,6 @@ import Image from 'next/image';
 export default function SingleBlog() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-5">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Blog</h2>
-                                <ul>
-                                    <li><Link href="#">Home</Link></li>
-                                    <li>Single Blog</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <section className="blog-section pt-100 pb-100">
                 <div className="container">
                     <div className="row">

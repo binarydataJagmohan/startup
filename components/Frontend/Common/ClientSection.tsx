@@ -49,11 +49,6 @@ const client = () => {
         <div className="container">
           <div className="section-title">
             <h2>What Our Clients Says</h2>
-            <p>
-              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incidiunt labore et dolore magna aliqua. Quis ipsum
-              suspendisse ultrices gravida. */}
-            </p>
             <div className="bar" />
           </div>
           <div className="clients-slider ">

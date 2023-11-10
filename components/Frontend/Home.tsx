@@ -102,7 +102,7 @@ export default function Home() {
   return (
     <>
       {/* Start Banner Area */}
-      <div className="main-banner-area">
+      <div className="">
         <div className="home-sliders">
           <Slider {...settings} dots={true}>
             <div className="home-item item-bg2">
@@ -236,7 +236,7 @@ export default function Home() {
                           <Link href="/signup" className="default-btn">
                             Register
                           </Link>
-                          <Link href="/login" className="default-btn">
+                          <Link href="/login" className="default-btn ml-2">
                             Log in
                           </Link>
                         </div>
@@ -344,7 +344,7 @@ export default function Home() {
                           <Link href="/signup" className="default-btn">
                             Register
                           </Link>
-                          <Link href="/login" className="default-btn">
+                          <Link href="/login" className="default-btn ml-2">
                             Log in
                           </Link>
                         </div>
@@ -451,7 +451,7 @@ export default function Home() {
                           <Link href="/signup" className="default-btn">
                             Register
                           </Link>
-                          <Link href="/login" className="default-btn">
+                          <Link href="/login" className="default-btn ml-2">
                             Log in
                           </Link>
                         </div>
@@ -471,7 +471,8 @@ export default function Home() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <div className="development-text">
+            <div className="development-main-section">
+            <div className="development-text">
                 <h3>For Startups</h3>
                 <div className="bar" />
                 <p>
@@ -575,6 +576,7 @@ export default function Home() {
                 <p>Registered valuer and merchant banker valuation reports</p>
               </div>
             </div>
+            </div>
             <div className="col-lg-6">
             <div className="about-group-image">
                 <img className="image shake-y" src="assets/images/about/about-22.jpg" alt="Image" />
@@ -589,18 +591,17 @@ export default function Home() {
     <section className="tj-about-section pt-100 pb-100 mb-3">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6">
+            <div className="col-lg-6 order-lg-0 order-last">
               <div className="about-group-image">
                 <img className="image shake-y" src="assets/images/about/about-1.jpg" alt="Image" />
                 <img className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" />
                 <img className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" />
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6 order-lg-0 order-first">
               <div className="development-text">
                 <h3>For Investors</h3>
                 <div className="bar" />
-                {/* <p>We provide comprehensive range of services to support you at every stage of your entrepreneurial journey:</p> */}
               </div>
               <div className="development-content">
                 <div className="icon mb-3">
@@ -616,7 +617,7 @@ export default function Home() {
                     }}
                   />
                 </div>
-                {/* <h3>Investment Research</h3> */}
+            
                 <p>
                   Engage with a spectrum of innovative startups seeking
                   investment opportunities
@@ -636,7 +637,7 @@ export default function Home() {
                     }}
                   />
                 </div>
-                {/* <h3>Investment Management</h3> */}
+             
                 <p>Transact through our proprietary digital platform</p>
               </div>
               <div className="development-content">
@@ -653,7 +654,7 @@ export default function Home() {
                     }}
                   />
                 </div>
-                {/* <h3>Online Investment</h3> */}
+                
                 <p>Manage portfolio of startup investments</p>
               </div>
               <div className="development-content">
@@ -670,7 +671,7 @@ export default function Home() {
                     }}
                   />
                 </div>
-                {/* <h3>Online Investment</h3> */}
+               
                 <p>Get regular updates on the performance of the startups</p>
               </div>
             </div>
@@ -678,24 +679,6 @@ export default function Home() {
         </div>
       </section>
       {/*========== About Section End ==============*/}
-
-
-{/* 
-      <a href="https://www.youtube.com/embed/8zHWKaiLo8U" target="_blank">
-      <div className="video-section">
-          <div className="container">
-            <div className="video-content">
-              <a
-                href="https://www.youtube.com/embed/8zHWKaiLo8U"
-                target="_blank"
-                className="video-btn popup-youtube"
-              >
-                <i className="flaticon-play" />
-              </a>
-            </div>
-          </div>
-       </div>
-      </a> */}
       <section className="choose-section ptb-100 bg-color-choose">
         <div className="container">
           <div className="section-title">
