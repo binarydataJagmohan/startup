@@ -6,7 +6,7 @@ const Footer = () => {
     <div>
       <section className="footer-section pt-100 pb-70" id="footer-sec">
         <div className="container">
-          <div className="row">
+          {<div className="row">
             <div className="col-lg-3 col-md-6 col-sm-6">
               <div className="single-footer-widget">
                 <div className="footer-heading">
