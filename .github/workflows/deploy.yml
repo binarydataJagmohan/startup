@@ -18,7 +18,7 @@ jobs:
         with:
           host: 191.96.53.33
           username: root
-          password: Welcome901#@!
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www
             bash deploy.sh
