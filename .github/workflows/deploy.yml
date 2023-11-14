@@ -1,0 +1,24 @@
+name: Deploy to the server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH to VPS and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 191.96.53.33
+          username: root
+          password: Welcome901#@!
+          script: |
+            cd /var/www
+            bash deploy.sh
