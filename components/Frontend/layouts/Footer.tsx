@@ -59,7 +59,7 @@ const Footer = () => {
             <div className="col-lg-2 col-md-6 col-sm-6">
               <div className="single-footer-widget">
                 <div className="footer-heading">
-                  <h3 className="text-white mb-4 pb-3">Important Links</h3>
+                  <h3 className="text-white mb-4 pb-3">Importants Links</h3>
                 </div>
                 <ul className="footer-quick-links text-white">
                   <li>
