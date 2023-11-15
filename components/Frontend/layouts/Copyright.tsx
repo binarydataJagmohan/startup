@@ -55,6 +55,7 @@ const Copyright = () => {
                   RisingCapitalist is not liable for financial, or any other
                   form of loss incurred by the user, or any affiliated party
                   based on information provided herein. 
+                   <br/>
                    <strong> Address:</strong> Shop 13 Trishul Terraces, Sector 20,
                   Koparkhairne, Thane, Maharashtra – 400709
                 </p>

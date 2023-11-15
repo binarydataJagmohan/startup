@@ -4,21 +4,6 @@ import Image from 'next/image';
 export default function serviceTwo() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell service-title">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Business Planning</h2>
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li>Business Planning</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
         <section className='Services-box ser-banner-5'>
             <div className='bg-overlay'>
@@ -28,24 +13,8 @@ export default function serviceTwo() {
                 </div>
              </div>
             </section>
-
-
             <section className="services-details-area ptb-100">
                 <div className="container">
-                    {/* <div className="services-details-video">
-                        <div className="details-image">
-                            <img src="assets/img/services-details/business-planning.png" alt="image" />
-                        </div>
-                        {  <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
-                                <i className="bx bx-play" />
-                            </a>
-                        </div>  }
-                        <div className="text">
-                            <h3>Business Planning Services for Investment Projects</h3>
-                            <p>We offer comprehensive business planning services that are tailored to meet the unique needs of each of our clients. Our team of experienced professionals will work with you to create a detailed business plan that outlines your goals, strategies, and financial projections. Whether you're starting a new business or looking to expand an existing one, we can help you achieve your goals.</p>
-                        </div>
-                    </div> */}
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">

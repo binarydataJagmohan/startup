@@ -1,5 +1,4 @@
 import React from "react";
-import FrequentlyQuestions from "./FrequentlyQuestions";
 import Link from "next/link";
 import Image from "next/image";
 const About = () => {

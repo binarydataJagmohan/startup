@@ -344,17 +344,6 @@ export default function Customereview(): any {
                                 ) : (
                                   startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
                                 )}
-
-                                {/* {
-                                  missingFields.includes("pitch_deck") && (
-                                    <p
-                                      className="text-danger"
-                                      style={{ textAlign: "left", fontSize: "12px" }}
-                                    >
-                                      *Please choose your business pitch deck.
-                                    </p>
-                                  )
-                                } */}
                               </div>
 
                             </div>

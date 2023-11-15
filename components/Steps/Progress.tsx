@@ -32,10 +32,6 @@ export default function Progress() {
                 <div>3</div>
                 <div>Step 3</div>
             </div>
-            {/* <div className={`${router.pathname === '/steps/forthstep' ? 'step active' : 'step'}`}>
-                <div>4</div>
-                <div>Step 4</div>
-            </div> */}
             </div>
         ) : (
             <div></div>
