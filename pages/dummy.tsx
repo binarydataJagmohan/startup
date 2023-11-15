@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-export default function dummy() {
-  const [activeLink, setActiveLink] = useState("active");
+import React, { useEffect, useState,  } from "react";
+export default function Dummy() {
+  const [activeLink, setactiveLink] = useState("active");
 
   const handleClick = (link: any) => {
-    setActiveLink(link);
+    setactiveLink(link);
   };
   const [isSticky, setIsSticky] = useState(false);
 
