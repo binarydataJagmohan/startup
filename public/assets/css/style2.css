@@ -2081,3 +2081,6 @@ a[role="button"]:hover {
   display: inline-block;
   padding: 0 10px;
 }
+ul#dropdownMenu-0.add-class-drop {
+  left: -90px;
+}
