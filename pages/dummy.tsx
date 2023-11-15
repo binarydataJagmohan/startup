@@ -240,7 +240,9 @@ export default function dummy() {
                   Overview
                 </a>
               </li>
-              <li className={`items ${activeLink === "industry" ? "active" : ""}`}>
+              <li
+                className={`items ${activeLink === "industry" ? "active" : ""}`}
+              >
                 <a
                   href="#industry"
                   className="link"
@@ -253,9 +255,22 @@ export default function dummy() {
                 <a
                   href="#team"
                   className="link"
-                  onClick={() => handleClick("contact")}
+                  onClick={() => handleClick("team")}
                 >
                   Team
+                </a>
+              </li>
+              <li
+                className={`items ${
+                  activeLink === "competitors" ? "active" : ""
+                }`}
+              >
+                <a
+                  href="#competitors"
+                  className="link"
+                  onClick={() => handleClick("competitors")}
+                >
+                  Competitors
                 </a>
               </li>
             </ul>
@@ -287,7 +302,7 @@ export default function dummy() {
 
       <section id="documents" className="py-lg-5">
         <div className="container">
-          <h1 className="text-center pb-4">Documents</h1>
+          <h1 className="text-center pb-4 bold">Documents</h1>
           <div className="row justify-content-center">
             <div className="col-lg-9">
               <div className="row py-3 g-3">
@@ -331,7 +346,7 @@ export default function dummy() {
 
       <section id="terms">
         <div className="container">
-          <h1 className="text-center pb-4 text-white">Terms</h1>
+          <h1 className="text-center pb-4 text-white bold">Terms</h1>
           <div className="termsContent">
             <div className="row">
               <h1> Investment Terms</h1>
@@ -364,7 +379,7 @@ export default function dummy() {
       </section>
       <section id="overview" className="tabsSection">
         <div className="container">
-          <h1 className="text-center">Overview</h1>
+          <h1 className="text-center bold">Overview</h1>
           <div className="overviewContent">
             <div className="row">
               <h2 className="text-black">Opportunity</h2>
@@ -398,7 +413,7 @@ export default function dummy() {
 
       <section id="industry" className="tabsSection">
         <div className="container">
-          <h1 className="text-left py-3">Industry</h1>
+          <h1 className="text-left py-3 bold">Industry</h1>
           <div className="row">
             <div className="col-lg-6">
               <div className="industryContent">
@@ -437,6 +452,77 @@ export default function dummy() {
                 alt=""
                 className="hover-img"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="competitors" className="tabsSection">
+        <div className="container">
+          <h1 className="text-center mb-5 bold">Competitors</h1>
+          <div className="competitorsContent">
+            <div className="row align-items-center g-3">
+              <div className="col-lg-6">
+                <div className="competitorsContentTitle">
+                    <h4><strong>Invisible Company</strong></h4>
+                  <p>
+                    Simplifying Fundraising: We aim to simplify the fundraising
+                    process, making it more accessible and less intimidating.
+                    Our platform provides a user-friendly experience that allows
+                    startups to focus on their innovation, and investors to
+                    discover promising opportunities effortlessly.s
+                  </p>
+                  <p>
+                    Empowering Entrepreneurs: We believe in the potential of
+                    startups to drive change. Our CFO services empower startups
+                    with financial expertise, while our legal services secure
+                    their fundraising endeavours. The addition of "Invoice
+                    Discounting" further strengthens our financial support by
+                    offering cash flow solutions that help startups maintain
+                    stability.
+                  </p>
+                </div>
+              </div>
+              <div className="col-lg-6 order-lg-0 order-first">
+                <div className="competitorsContentTitle">
+                  <img
+                    src="https://static.microventures.com/img/offerings/2cccf7cbe2a4ccfb477d5e853d2ab1c4.webp"
+                    alt=""
+                    className="hover-img"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row align-items-center g-3 py-lg-5 pt-5">
+              <div className="col-lg-6">
+                <div className="competitorsContent">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPp0nZM4ajF83I68Udw5IdeUAA4kxjogHXpqzZGkmCusMmrRQC3L-syvRK2Wes7mW3r2A&usqp=CAU"
+                    alt=""
+                    className="hover-img"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="competitorsContentTitle">
+                <h4><strong>MonoSol</strong></h4>
+                  <p>
+                    Simplifying Fundraising: We aim to simplify the fundraising
+                    process, making it more accessible and less intimidating.
+                    Our platform provides a user-friendly experience that allows
+                    startups to focus on their innovation, and investors to
+                    discover promising opportunities effortlessly.s
+                  </p>
+                  <p>
+                    Empowering Entrepreneurs: We believe in the potential of
+                    startups to drive change. Our CFO services empower startups
+                    with financial expertise, while our legal services secure
+                    their fundraising endeavours. The addition of "Invoice
+                    Discounting" further strengthens our financial support by
+                    offering cash flow solutions that help startups maintain
+                    stability.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -2105,6 +2105,15 @@ ul.menuUrl {
   transform: translateY(10px);
 }
 
+.bold{
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.order-first .competitorsContentTitle {
+  max-width: 430px;
+  float: right;
+}
 @media(min-width:1366px) {
   .acceptingInvestments .investmentss {
     height: 170px;
