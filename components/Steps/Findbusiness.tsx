@@ -282,13 +282,6 @@ export default function Findbusiness(): any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                              {/* {
-                                missingFields.includes("country") && (
-                                  <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                    *Please Select Country.
-                                  </p>
-                                )
-                              }                               */}
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -317,13 +310,6 @@ export default function Findbusiness(): any {
                                   *Please Enter Your Phone Number.
                                 </p>
                               )}
-                              {/* {errors.phone && errors.phone.type === "minLength" && (
-                                <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                  *{errors.phone.message}
-                                </p>
-                              )} */}
-
-
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -384,24 +370,6 @@ export default function Findbusiness(): any {
                                 <option value="other">Other</option>
                               </select>
                               <div className="help-block with-errors" />
-
-                              {/* {missingFields.includes("gender") && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Select Gender.
-                                </p>
-                              )} */}
-                              {/* {errors.gender && errors.gender.type === "required" &&
-                                !user.gender && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Select Gender.
-                                  </p>
-                                )} */}
                             </div>
                           </div>
                           <div className="row mt-3">

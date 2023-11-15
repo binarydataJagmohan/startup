@@ -228,10 +228,6 @@ export default function Businessinfo(): any {
         });
       }
     } catch (err) {
-      // toast.error("Please fill correct information", {
-      //   position: toast.POSITION.TOP_RIGHT,
-      //   toastId: "error",
-      // });
     }
   };
 

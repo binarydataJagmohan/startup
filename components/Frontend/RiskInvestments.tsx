@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { fetchPrivacyPoliciesdata } from "@/lib/frontendapi";
-import dynamic from "next/dynamic";
+import React from "react";
 
 export default function RiskInvestments() {
   return (

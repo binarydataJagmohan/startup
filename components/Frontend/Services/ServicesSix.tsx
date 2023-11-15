@@ -4,22 +4,6 @@ import Image from 'next/image'
 export default function serviceSix() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell service-title">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>CFO Services</h2>
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li>CFO Services</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
          <section className='Services-box ser-banner-5'>
             <div className='bg-overlay'>
                 <div className="container">
@@ -31,20 +15,6 @@ export default function serviceSix() {
 
             <section className="services-details-area ptb-50">
                 <div className="container">
-                    {/* <div className="services-details-video">
-                        <div className="details-image">
-                            <img src="assets/img/services-details/CFO-Services.png" alt="image" />
-                        </div>
-                        {  <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
-                                <i className="bx bx-play" />
-                            </a>
-                        </div>  }
-                        <div className="text">
-                            <h3>CFO Services for Investment Projects</h3>
-                            <p>At times, investment projects require specialized financial expertise to ensure smooth operations and successful outcomes. Our Chief Financial Officer (CFO) Services provide expert financial guidance to ensure that your investment project is profitable and sustainable.</p>
-                        </div>
-                    </div> */}
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">

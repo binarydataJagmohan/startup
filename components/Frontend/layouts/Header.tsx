@@ -173,6 +173,11 @@ export default function HeaderFrontend() {
                       Contact
                     </Link>
                   </li>
+                  <li className={`nav-item ${router.pathname === '/dummy' ? 'active' : ''}`}>
+                    <Link href="/dummy" className="nav-link">
+                      Dummy
+                    </Link>
+                  </li>
                 </ul>
                 <div className="others-options">
                   {users.name ? (

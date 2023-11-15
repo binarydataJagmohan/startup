@@ -4,22 +4,6 @@ import Image from 'next/image';
 export default function serviceOne() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell service-title">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Company Incorporation</h2>
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li>Company Incorporation</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
         <section className='Services-box ser-banner-4'>
             <div className='bg-overlay'>
                 <div className="container">
@@ -31,20 +15,6 @@ export default function serviceOne() {
 
             <section className="services-details-area ptb-50">
                 <div className="container">
-                    {/* <div className="services-details-video">
-                        <div className="details-image">
-                            <img src="assets/img/services-details/Company-Incorporation.jpg" alt="image" />
-                        </div>
-                        {  <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
-                                <i className="bx bx-play" />
-                            </a>
-                        </div>  }
-                        <div className="text">
-                            <h3>Our Company Incorporation Services</h3>
-                            <p>When starting a new investment project, it's crucial to establish a legal entity to protect your personal assets and limit your liabilities. That's where Company Incorporation services come in. These services provide assistance with registering and setting up a new legal entity, including selecting the appropriate business structure, registering with the relevant authorities, and drafting the necessary legal documents.</p>
-                        </div>
-                    </div> */}
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">

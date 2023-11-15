@@ -176,11 +176,6 @@ const It = () => {
             height={233}
             layout="responsive"
           />
-          {/* <img
-            src="assets/img/cloud-2.png"
-            className="black-image"
-            alt="image"
-          /> */}
         </div>
       </section>
       {/* End Services Area */}

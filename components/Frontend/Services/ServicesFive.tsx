@@ -4,21 +4,6 @@ import Image from 'next/image';
 export default function serviceFive() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell service-title">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Marketing & Branding</h2>
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li>Marketing & Branding</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <section className='Services-box ser-banner-5'>
                 <div className='bg-overlay'>
                     <div className="container">
@@ -30,20 +15,6 @@ export default function serviceFive() {
 
             <section className="services-details-area ptb-50 banner-five">
                 <div className="container">
-                    {/* <div className="services-details-video">
-                        <div className="details-image">
-                            <img src="assets/img/services-details/servicefour.jpg" alt="image" />
-                        </div>
-                        {  <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
-                                <i className="bx bx-play" />
-                            </a>
-                        </div>  }
-                        <div className="text">
-                            <h3>Marketing and Branding Services</h3>
-                            <p>Our Marketing and Branding Services are designed to help you effectively promote your investment project, build brand awareness, and increase customer engagement. Our team of experienced marketers will work with you to develop a customized marketing strategy that aligns with your business goals and objectives.</p>
-                        </div>
-                    </div> */}
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">

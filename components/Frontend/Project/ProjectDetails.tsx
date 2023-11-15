@@ -3,21 +3,6 @@ import Link from 'next/link';
 export default function ProjectDetails() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-5">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Projects</h2>
-                                <ul>
-                                    <li><Link href="index.html">Home</Link></li>
-                                    <li>Single Projects</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <section className="project-details-area ptb-100">
                 <div className="container">
                     <div className="row">
