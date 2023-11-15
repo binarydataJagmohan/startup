@@ -80,18 +80,6 @@ export default function DocumentsUpload(): any {
     const handlMenuSubmit = (event: any) => {
         event.preventDefault();
         const errors: any = {};
-        // if (!pan_card_front) {
-        //     errors.pan_card_front = "Image is required";
-        // }
-        // if (!pan_card_back) {
-        //     errors.pan_card_back = "Image is required";
-        // }
-        // if (!adhar_card_front) {
-        //     errors.adhar_card_front = "Image is required";
-        // }
-        // if (!adhar_card_back) {
-        //     errors.adhar_card_back = "Image is required";
-        // }
         setErrors(errors);
         if (Object.keys(errors).length === 0) {
             const currentUserData: any = getCurrentUserData();

@@ -132,28 +132,6 @@ export default function AdharInformation(): any {
             }
           }
         })
-      // const data = {
-      //   notify_from_user: current_user_id,
-      //   notify_to_user: "1",
-      //   notify_msg: `The user ${users.name} has successfully completed their profile. Please review the profile details and ensure it meets the required standards.`,
-      //   notification_type: "Profile Completed",
-      //   each_read: "unread",
-      //   status: "active"
-      // };
-      // if (res.status == true) {
-      //   sendNotification(data)
-      //     .then((notificationRes) => {
-      //       console.log('success')
-      //     })
-      //     .catch((error) => {
-      //       console.log('error occured')
-      //     });
-      // } else {
-      //   toast.error(res.message, {
-      //     position: toast.POSITION.TOP_RIGHT,
-      //     toastId: "error",
-      //   });
-      // }
     } catch (err: any) {
       toast.error(err, {
         position: toast.POSITION.TOP_RIGHT,
@@ -213,22 +191,7 @@ export default function AdharInformation(): any {
                                 className="form-control same-input"
                                 id="bank_name" name="bank_name" onChange={handleChange} value={bankDetails.bank_name}
                               />
-                              {/* <input
-                                type="text"
-                                className="form-control same-input"
-                                id="bank_name" {...register("bank_name", {
-                                  value: true, required: true,
-                                })} name="bank_name" onChange={handleChange} value={bankDetails.bank_name}
-                              /> */}
-                              {/* {errors.bank_name &&
-                                errors.bank_name.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your Bank Name.
-                                  </p>
-                                )} */}
+      
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -243,22 +206,6 @@ export default function AdharInformation(): any {
                                 className="form-control same-input"
                                 id="account_holder" value={bankDetails.account_holder} name="account_holder" onChange={handleChange}
                               />
-                              {/* <input
-                                type="text"
-                                className="form-control same-input"
-                                id="account_holder" {...register("account_holder", {
-                                  value: true, required: true,
-                                })} value={bankDetails.account_holder} name="account_holder" onChange={handleChange}
-                              /> */}
-                              {/* {errors.account_holder &&
-                                errors.account_holder.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your Account Holder Name.
-                                  </p>
-                                )} */}
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -273,22 +220,7 @@ export default function AdharInformation(): any {
                                 className="form-control same-input" maxLength={16}
                                 id="account_no" value={bankDetails.account_no} name="account_no" onChange={handleChange}
                               />
-                              {/* <input
-                                type="text"
-                                className="form-control same-input" maxLength={17}
-                                id="account_no" {...register("account_no", {
-                                  value: true, required: true,
-                                })} value={bankDetails.account_no} name="account_no" onChange={handleChange}
-                              /> */}
-                              {/* {errors.account_no &&
-                                errors.account_no.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please Enter Your Account Number.
-                                  </p>
-                                )} */}
+    
                             </div>
                             <div className="col-md-6 mt-3">
                               <label
@@ -303,21 +235,6 @@ export default function AdharInformation(): any {
                                 className="form-control same-input"
                                 id="ifsc_code" value={bankDetails.ifsc_code} name="ifsc_code" onChange={handleChange}
                               />
-                              {/* <input
-                                type="text" maxLength={11}
-                                className="form-control same-input"
-                                id="ifsc_code" {...register("ifsc_code", {
-                                  value: true, required: true, max: 11
-                                })} value={bankDetails.ifsc_code} name="ifsc_code" onChange={handleChange}
-                              /> */}
-                              {/* {errors.ifsc_code && (
-                                <p
-                                  className="text-danger"
-                                  style={{ textAlign: "left", fontSize: "12px" }}
-                                >
-                                  *Please Enter Your valid IFSC Code.
-                                </p>
-                              )} */}
                             </div>
                           </div>
                           <div className="row mt-3">

@@ -4,22 +4,6 @@ import Image from 'next/image';
 export default function serviceFour() {
     return (
         <>
-            {/* <div className="page-title-area item-bg-4">
-                <div className="d-table">
-                    <div className="d-table-cell service-title">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>App Development</h2>
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li>App Development</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             <section className='Services-box ser-banner-4'>
             <div className='bg-overlay'>
                 <div className="container">
@@ -31,20 +15,6 @@ export default function serviceFour() {
 
             <section className="services-details-area ptb-50">
                 <div className="container">
-                    {/* <div className="services-details-video">
-                        <div className="details-image">
-                            <img src="assets/img/services-details/APP-DEVELOPMENT.png" alt="image" />
-                        </div>
-                        {  <div className="details-video">
-                            <a href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
-                                <i className="bx bx-play" />
-                            </a>
-                        </div>  }
-                        <div className="text">
-                            <h3>App Development Services for Investment Projects</h3>
-                            <p>Mobile apps have become an essential tool for businesses to engage with their customers and provide a seamless user experience. At our company, we offer App Development services that can help take your investment project to the next level.</p>
-                        </div>
-                    </div> */}
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">

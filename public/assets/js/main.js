@@ -290,9 +290,6 @@ jQuery(function ($) {
         $('.preloader').fadeOut()
     })
 
-	// Buy Now Btn
-    // $('body').append("<a href='/pricing' class='buy-now-btn' target='_blank'>Join Us</a>");
-
 }(jQuery));
 
 // function to set a given theme/color-scheme
