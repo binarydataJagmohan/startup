@@ -161,6 +161,12 @@ const Header = () => {
                               <span>Settings</span>
                             </Link>
                           </li>
+                          <li>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ifinworth"} className="waves-effect">
+                              <i className="fa fa-bell"></i>
+                              <span>iFinWorth</span>
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                       {/* Sidebar */}
