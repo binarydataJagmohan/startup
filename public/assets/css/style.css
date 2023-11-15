@@ -6920,7 +6920,13 @@ START: Button CSS
 }
 
 
+.dropdown.set-drop.m-1 {
+  z-index: unset;
+}
 
+.set-close {
+  float: right;
+}
 /*================================================
 Copy Right Area CSS
 =================================================*/
@@ -6989,4 +6995,6 @@ Copy Right Area CSS
 }
 
 
-
+.set-but-company {
+  margin-top: 80px;
+}
