@@ -454,7 +454,7 @@ p {
 }
 
 ul {
-  padding: 0;
+  padding: 0px;
 }
 
 .product-grid {
@@ -1761,7 +1761,6 @@ label {
   height: 42px;
 }
 
-
 /*--thank you pop ends here--*/
 /* CSS file */
 .swal2-icon .swal2-success .icon2 .swal2-icon-show.swal2-success-circular-line-left .swal2-success-line-tip .swal2-success-line-long {
@@ -1890,4 +1889,267 @@ label {
   line-height: 40px;
   display: inline-block;
   padding: 0 10px;
+}
+
+/* dummy page css start */
+.mainPageSection {
+  background-image: url(https://img.freepik.com/free-photo/coins-glass-jar-with-copy-space_23-2148783058.jpg?w=1480&t=st=1700025225~exp=1700025825~hmac=70043f1fef1cb4bcafedbb48fa032835b5ca19af21ae6af3322411135ee5458a);
+  padding: 200px 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.ContentSection h1 {
+  font-size: 60px;
+  color: #088395;
+  font-weight: 700;
+  line-height: 70px;
+}
+
+.ContentSection p {
+  font-size: 22px;
+  color: #088395;
+  font-weight: 600;
+  line-height: 35px;
+}
+
+.ContentSection a {
+  width: 270px;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .mainPageSection {
+    padding: 50px 0px;
+  }
+
+  .ContentSection h1 {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+/* section two */
+section.acceptingInvestments.single-footer-widget {
+  background: #eeeeee;
+  padding: 20px;
+}
+
+.acceptingInvestments .investmentss {
+  padding: 15px;
+  background-color: #79ac78;
+  text-align: center;
+}
+
+.acceptingInvestments .investmentss span {
+  font-size: 20px;
+  color: #fff;
+}
+
+.acceptingInvestments .investmentss h2 {
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .investments.text-center h2 {
+    padding: 30px 0px;
+  }
+}
+
+/* section thereee */
+
+section.investMentAll {
+  background: #088395;
+}
+
+.menuItems ul li {
+  display: inline-block;
+}
+
+ul {
+  margin: 0px;
+  padding: 0;
+}
+
+ul.menuUrl {
+  text-align: center;
+  margin: 0px;
+}
+
+.menuUrl li {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #fff;
+  margin-left: 10px;
+  transition: all 0.9s;
+  cursor: pointer;
+}
+
+.menuUrl li:hover {
+  background-color: #088395;
+}
+
+.menuUrl li:hover a {
+  color: #fff;
+}
+
+.menuUrl li a {
+  color: #fff;
+  padding: 10px;
+}
+
+/* section tabs */
+.tabsSection {
+  padding: 40px 0px;
+}
+
+.tabsSection h2 {
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 45px;
+  color: #fff;
+}
+
+.tabsSection p {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+/* section documents */
+.circleSvg {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  background-color: #088395;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px auto;
+}
+
+.documentsTitle {
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.9s;
+  cursor: pointer;
+}
+
+.documentsTitle:hover {
+  background-color: #eeeeee;
+}
+
+.documentsTitle p {
+  font-size: 20px;
+  color: #088395;
+  font-weight: 500;
+  line-height: 35px;
+}
+
+/* YourComponent.css */
+
+.investMentAll.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #088395;
+}
+
+#terms {
+  background: #088395;
+  padding: 30px;
+}
+
+.termsContent h1 {
+  color: #fff;
+}
+
+.termsContent p {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#overview h1 {
+  font-weight: 700;
+}
+
+/* Add this to your CSS file or style tag */
+.menuUrl .items.active {
+  background-color: #79ac78;
+}
+
+/*Industry */
+#industry {
+  background: #79ac78;
+  color: #fff;
+}
+
+#industry h1 {
+  font-weight: 800;
+}
+
+.hover-img {
+  transition: all 0.9s;
+}
+
+.hover-img:hover {
+  transform: translateY(10px);
+}
+
+@media(min-width:1366px) {
+  .acceptingInvestments .investmentss {
+    height: 170px;
+  }
+
+}
+@media(max-width:1024px){
+  .single-footer-widget .footer-social li {
+   margin-right: 5px;
+}
+.investments.text-center h2 {
+  padding: 30px 0px;
+}
+}
+
+@media (max-width: 767px) {
+  .investMentAll.sticky {
+    position: unset;
+  }
+
+  .menuUrl li {
+    display: block !important;
+    margin-bottom: 15px;
+    margin-left: 0px;
+  }
+
+  ul.menuUrl {
+    padding: 0px;
+    margin: 0px !important;
+  }
+
+  .tabsSection h2 {
+    font-size: 25px;
+  }
+
+  #overview h1 {
+    font-weight: 700;
+    font-size: 35px;
+  }
+
+  #terms {
+    padding: 30px 0px;
+  }
+
+  section.acceptingInvestments.single-footer-widget {
+    padding: 20px 0px;
+  }
 }

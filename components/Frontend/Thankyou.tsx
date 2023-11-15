@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  removeToken,
-  removeStorageData,
   getCurrentUserData,
 } from "../../lib/session";
 import { CheckUserApprovalStatus } from "../../lib/frontendapi";
@@ -12,7 +10,6 @@ interface UserData {
   role?: string;
 }
 const Thankyou = () => {
-  const [current_user_id, setCurrentUserId] = useState(false);
   const [investorStatus, setInvestorStatus] = useState("");
   const [role, setRole] = useState("");
   useEffect(() => {
