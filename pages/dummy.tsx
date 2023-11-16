@@ -251,15 +251,6 @@ export default function dummy() {
                   Industry
                 </a>
               </li>
-              <li className={`items ${activeLink === "team" ? "active" : ""}`}>
-                <a
-                  href="#team"
-                  className="link"
-                  onClick={() => handleClick("team")}
-                >
-                  Team
-                </a>
-              </li>
               <li
                 className={`items ${
                   activeLink === "competitors" ? "active" : ""
@@ -271,6 +262,15 @@ export default function dummy() {
                   onClick={() => handleClick("competitors")}
                 >
                   Competitors
+                </a>
+              </li>
+              <li className={`items ${activeLink === "team" ? "active" : ""}`}>
+                <a
+                  href="#team"
+                  className="link"
+                  onClick={() => handleClick("team")}
+                >
+                  Team
                 </a>
               </li>
             </ul>
