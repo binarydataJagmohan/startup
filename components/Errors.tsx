@@ -7,12 +7,13 @@ export default function Errors() {
       <section className="error-area">
         <div className="d-table">
           <div className="d-table-cell">
-            <div className="container">
+            <div className="container mt-5">
               <div className="error-content">
                 <Image
                   src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/404.png"} alt="error"
-                  width={500}
+                  width={400}
                   height={266}
+                  style={{ marginTop: '15%' }}
                 />
                 <h3>Page Not Found</h3>
                 <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>

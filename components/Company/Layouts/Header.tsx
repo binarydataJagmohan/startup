@@ -162,9 +162,9 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ifinworth"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className="waves-effect">
                               <i className="fa fa-bell"></i>
-                              <span>iFinWorth</span>
+                              <span>CCSP Campaign</span>
                             </Link>
                           </li>
                         </ul>
