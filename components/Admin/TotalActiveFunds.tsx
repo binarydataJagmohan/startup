@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "@/lib/session";
-import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddCometitorCompany, AdminAddTeamMember } from "@/lib/adminapi";
+import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddRoundDetail, AdminAddTeamMember } from "@/lib/adminapi";
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
@@ -42,16 +42,13 @@ const TotalActiveFunds = () => {
 
     const [productDescription, setProductDesc] = useState("");
     const [CompanyName, setCompanyName] = useState("");
-    const [CompanyDesc, setCompanyDesc] = useState("");
-    const [CompanyLogo, setCompanyLogo] = useState("");
-    // const [fundid, setFundId] = useState("");
-    const [fundid, setFundId] = useState<string | null>(null);
-    const [fundteamid, setTeamFundId] = useState<string | null>(null);
 
-    const [teamMemberName, setTeamMemberName] = useState("");
-    const [teammemberDesignation, setteammemberDesignation] = useState("");
-    const [teamMemberPic, setTeamMemberPic] = useState("");
-    const [teamMemberDesc, setTeamMemberDesc] = useState("");
+    const [dilutionpercentage, setDilutionPercentage] = useState("");
+    const [minCommitment, setMinCommitment] = useState("");
+    const [maxCommitment, setMaxCommitment] = useState("");
+    const [valuationCap, setValuationCap] = useState("");
+    const [amountRaised, setAmountRaised] = useState("");
+    const [roundName, setRoundName] = useState("");
 
 
 
@@ -60,7 +57,7 @@ const TotalActiveFunds = () => {
     const [pastfinancingDesc, setPastFinancing] = useState("");
 
     const [selectedFundId, setSelectedFundId] = useState<number | null>(null);
-    
+
 
     const handleDropdownToggle = (index: any, fundId: number) => {
         const dropdownMenu = document.getElementById(`dropdownMenu-${index}`);
@@ -69,6 +66,7 @@ const TotalActiveFunds = () => {
         }
         setSelectedFundId(fundId);
     };
+
 
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
@@ -211,7 +209,6 @@ const TotalActiveFunds = () => {
     const [modalConfirm2, setModalConfirm2] = useState(false);
     const [modalConfirm3, setModalConfirm3] = useState(false);
     const [modalConfirm4, setModalConfirm4] = useState(false);
-    const [modalConfirm5, setModalConfirm5] = useState(false);
 
 
     const modalConfirmClose = () => {
@@ -228,9 +225,6 @@ const TotalActiveFunds = () => {
     };
     const modalConfirmClose4 = () => {
         setModalConfirm4(false);
-    };
-    const modalConfirmClose5 = () => {
-        setModalConfirm5(false);
     };
 
     const handleSubmit = async (e: any) => {
@@ -276,25 +270,70 @@ const TotalActiveFunds = () => {
     };
 
 
-    const handleLogoChange = (e: any) => {
-        const file = e.target.files[0];
-        setCompanyLogo(file);
-    };
+    useEffect(() => {
+        getAllActiveFunds();
+
+    }, []);
+
+
+    useEffect(() => {
+        const fetchDataForSelectedFund = async () => {
+            try {
+                const response = await getAllActiveFunds(selectedFundId);
+                // Check if response status is true and data exists
+                if (response && response.status && response.data && response.data.length > 0) {
+                    const selectedFund = response.data.find((fund: { id: number | null; }) => fund.id === selectedFundId);
+                    console.log(selectedFund);
+
+                    if (selectedFund) {
+                        setRoundName(selectedFund.round_name);
+                        setDilutionPercentage(selectedFund.dilution_percentage);
+                        setMinCommitment(selectedFund.min_commitment);
+                        setMaxCommitment(selectedFund.max_commitment);
+                        setValuationCap(selectedFund.valuation_cap);
+                        setAmountRaised(selectedFund.amount_raised);
+                        setCompanyOverview(selectedFund.company_overview);
+                        setProductDesc(selectedFund.product_description);
+                        setHistoricalFinancial(selectedFund.historical_financials_desc);
+                        setPastFinancing(selectedFund.past_financing_desc);
+                    } else {
+                        console.error("Selected fund not found in the response data");
+                    }
+                } else {
+                    console.error("No data or invalid response received from the API");
+                }
+            } catch (error) {
+                console.error("Error fetching data for selectedFundId:", error);
+            }
+        };
+        ;
+        // if (modalConfirm4 && selectedFundId) {
+        //     // Call fetchDataForSelectedFund only when modalConfirm4 is true and selectedFundId exists
+        //     fetchDataForSelectedFund();
+        // }
+        fetchDataForSelectedFund();
+    }, [modalConfirm4, selectedFundId]);
 
 
 
-    // fund_id
-    const handleCompetitorSubmit = async (e: any) => {
+
+
+    const handleRoundSubmit = async (e: any) => {
         e.preventDefault();
         const data = {
-            fund_id: fundid,
-            company_name: CompanyName,
-            company_desc: CompanyDesc,
-            competitor_logo: CompanyLogo
+            id: selectedFundId,
+            dilution_percentage: dilutionpercentage,
+            min_commitment: minCommitment,
+            max_commitment: maxCommitment,
+            valuation_cap: valuationCap,
+            amount_raised: amountRaised,
+            round_name: roundName,
         };
         try {
-            const response = await AdminAddCometitorCompany(data);
+            const response = await AdminAddRoundDetail(data);
+
             setModalConfirm4(false);
+
             toast.success(response.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -303,44 +342,6 @@ const TotalActiveFunds = () => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
         }
-
-    };
-
-    const handleCompanyDescChange = (companyDesc: string) => {
-        setCompanyDesc(companyDesc);
-    };
-
-
-
-    const handleteamSubmit = async (e: any) => {
-        e.preventDefault();
-        const data = {
-            fund_id: fundteamid,
-            member_name: teamMemberName,
-            member_designation: teammemberDesignation,
-            description: teamMemberDesc,
-            member_pic: teamMemberPic
-        };
-        try {
-            const response = await AdminAddTeamMember(data);
-            setModalConfirm5(false);
-            toast.success(response.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            });
-        } catch (error) {
-            toast.error("Error occurred", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
-        }
-    };
-
-    const handleTeamDescChange = (teamDesc: string) => {
-        setTeamMemberDesc(teamDesc);
-    };
-
-    const handlePicChange = (e: any) => {
-        const file = e.target.files[0];
-        setTeamMemberPic(file);
     };
 
 
@@ -458,7 +459,7 @@ const TotalActiveFunds = () => {
                                                                                             )
                                                                                         }
                                                                                         className="fa-solid fa-ellipsis"
-                                                                                        style={{cursor:'pointer'}}
+                                                                                        style={{ cursor: 'pointer' }}
                                                                                     ></span>
                                                                                     <ul
                                                                                         id={`dropdownMenu-${index}`}
@@ -507,7 +508,18 @@ const TotalActiveFunds = () => {
 
                                                                                         <li>
                                                                                             <a
-                                                                                                 href={
+                                                                                                href="#"
+                                                                                                onClick={(e) => {
+                                                                                                    setModalConfirm4(true);
+                                                                                                }}
+                                                                                            >
+                                                                                                Add Round Details
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a
+                                                                                                href={
                                                                                                     process.env.NEXT_PUBLIC_BASE_URL +
                                                                                                     `admin/add-company/?id=${fund.fund_id}`
                                                                                                 }
@@ -524,6 +536,17 @@ const TotalActiveFunds = () => {
                                                                                                 }
                                                                                             >
                                                                                                 Add team
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a
+                                                                                                href={
+                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
+                                                                                                    `admin/add-products/?id=${fund.fund_id}`
+                                                                                                }
+                                                                                            >
+                                                                                                Add Products
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>
@@ -760,176 +783,95 @@ const TotalActiveFunds = () => {
                         </div>
                     </div>
                 </div>
-                <form onSubmit={handleCompetitorSubmit}>
-                    <input
-                        type="hidden"
-                        name="fund_id"
-                    />
+                <form onSubmit={handleRoundSubmit}>
                     <div className="form-contact-set">
 
                         <label className="form-label">
-                            <span>Add Competitor Company</span>
+                            <span>Add Round Details</span>
                         </label>
                         <div>
 
                             <label htmlFor="exampleFormControlInput1" className="form-label">
-                                <span>Company Name</span>
+                                <span>Round Name</span>
                             </label>
                             <input
                                 type="text"
-                                placeholder="Company Name"
+                                placeholder="Round Name"
                                 className="form-control"
-                                name="company_name"
-                                value={CompanyName}
-                                onChange={(e) => setCompanyName(e.target.value)}
+                                name="round_name"
+                                value={roundName}
+                                onChange={(e) => setRoundName(e.target.value)}
+                            />
+
+                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                <span>Dilutaion Percentage</span>
+                            </label>
+                            <input
+                                type="number"
+                                placeholder="Dilutaion Percentage"
+                                className="form-control"
+                                name="dilution_percentage"
+                                value={dilutionpercentage}
+                                onChange={(e) => setDilutionPercentage(e.target.value)}
 
                             />
-                            <div>
-                                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
-                                    <span>Company Description</span>
-                                </label>
-                                <TextEditor
-                                    height={100}
-                                    value={CompanyDesc}
-                                    onChange={handleCompanyDescChange}
-                                    theme="snow"
-                                /></div>
-                            <br />
-                            <br />
-                            <div
-                                id="divHabilitSelectors"
-                                className="input-file-container"
-                            >
-                                <label
-                                    htmlFor="logo"
-                                    className="form-label mt-4"
-                                >
-                                    Company Logo
-                                    <span style={{ color: "red" }}></span>
-                                </label>
-                                <div className="file-upload">
-                                    <div className="file-select">
-                                        <div
-                                            className="file-select-button"
-                                            id="fileName"
-                                        >
-                                            Choose File
-                                        </div>
-                                        <div className="file-select-name" id="noFile">
-                                        </div>
-                                        <input
-                                            type="file"
-                                            name="competitor_logo"
-                                            onChange={(e) => handleLogoChange(e)}
-                                        />
-                                    </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label htmlFor="minCommitment" className="form-label mt-3">
+                                        <span>Min Commitment</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Min Commitment"
+                                        className="form-control"
+                                        name="min_commitment"
+                                        value={minCommitment}
+                                        onChange={(e) => setMinCommitment(e.target.value)}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <label htmlFor="maxCommitment" className="form-label mt-3">
+                                        <span>Max Commitment</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Max Commitment"
+                                        className="form-control"
+                                        name="max_commitment"
+                                        value={maxCommitment}
+                                        onChange={(e) => setMaxCommitment(e.target.value)}
+                                    />
                                 </div>
                             </div>
 
-
-                            <button type="submit" className="btnclasssmae set-but-company mt-3">
-                                Submit
-                            </button>
-
-
-                        </div>
-                    </div>
-                </form>
-            </PopupModal>
-
-            <PopupModal
-                show={modalConfirm5}
-                handleClose={modalConfirmClose5}
-                staticClass="var-login"
-            >
-                <div className="pop-b-round text-center">
-                    <div className="row">
-                        <div className="col-12 text-right">
-                            <button
-                                type="button"
-                                className="btn-close m-min-top set-close"
-                                onClick={() => {
-                                    setModalConfirm5(false);
-                                }}
-                            ></button>
-                        </div>
-                    </div>
-                </div>
-                <form onSubmit={handleteamSubmit}>
-                    <div className="form-contact-set">
-
-                        <label className="form-label">
-                            <h3>Add Team Members</h3>
-                        </label>
-                        <div>
-
-                            <label htmlFor="exampleFormControlInput1" className="form-label">
-                                <span>Member Name</span>
+                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                <span>Valuation Cap</span>
                             </label>
                             <input
-                                type="text"
-                                placeholder="Member Name"
+                                type="number"
+                                placeholder="Valuation Cap"
                                 className="form-control"
-                                name="member_name"
-                                value={teamMemberName}
-                                onChange={(e) => setTeamMemberName(e.target.value)}
+                                name="valuation_cap"
+                                value={valuationCap}
+                                onChange={(e) => setValuationCap(e.target.value)}
 
                             />
 
                             <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
-                                <span>Member Designation</span>
+                                <span>Amount Raised</span>
                             </label>
                             <input
-                                type="text"
-                                placeholder="Member Designation"
+                                type="number"
+                                placeholder="Amount Raised"
                                 className="form-control"
-                                name="member_designation"
-                                value={teammemberDesignation}
-                                onChange={(e) => setteammemberDesignation(e.target.value)}
+                                name="amount_raised"
+                                value={amountRaised}
+                                onChange={(e) => setAmountRaised(e.target.value)}
 
                             />
-                            <div>
-                                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
-                                    <span>Description</span>
-                                </label>
-                                <TextEditor
-                                    height={100}
-                                    value={teamMemberDesc}
-                                    onChange={handleTeamDescChange}
-                                    theme="snow"
-                                /></div>
-                            <br />
-                            <br />
-                            <div
-                                id="divHabilitSelectors"
-                                className="input-file-container"
-                            >
-                                <label
-                                    htmlFor="logo"
-                                    className="form-label mt-4"
-                                >
-                                    Team Member Pic
-                                    <span style={{ color: "red" }}></span>
-                                </label>
-                                <div className="file-upload">
-                                    <div className="file-select">
-                                        <div
-                                            className="file-select-button"
-                                            id="fileName"
-                                        >
-                                            Choose File
-                                        </div>
-                                        <div className="file-select-name" id="noFile">
-                                        </div>
-                                        <input
-                                            type="file"
-                                            name="member_pic"
-                                            onChange={(e) => handlePicChange(e)}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
 
+                            <br />
 
                             <button type="submit" className="btnclasssmae set-but-company mt-3">
                                 Submit
@@ -940,6 +882,7 @@ const TotalActiveFunds = () => {
                     </div>
                 </form>
             </PopupModal>
+
         </>
     );
 };

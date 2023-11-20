@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from 'next/link';
-import { getAllActiveFunds, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
-import { useRouter } from 'next/router';
-
+import Link from "next/link";
+import {
+    getAllActiveFunds,
+    AdminAddProducts,
+    AdminUpdateProduct,
+    getAdminProductdata,
+} from "@/lib/adminapi";
+import { useRouter } from "next/router";
 
 interface Fund {
     id: number;
@@ -20,63 +24,58 @@ interface Fund {
     company_overview: string;
 }
 
-export default function AddCompetitorCompany() {
-
-    const [teamMemberName, setTeamMemberName] = useState("");
-    const [teammemberDesignation, setteammemberDesignation] = useState("");
-    const [teamMemberPic, setTeamMemberPic]: any = useState("");
-    const [teamMemberPic1, setTeamMemberPic1]: any = useState("");
-    const [teamMemberDesc, setTeamMemberDesc] = useState("");
+export default function AddProducts() {
+    const [productdescription, setProductDescription] = useState("");
+    const [productimage, setProductImage] = useState("");
+    const [productimage1, setProductImage1] = useState("");
+    const [productoverview, setProductOverview] = useState("");
     const [fundid, setFundId]: any = useState<string | null>(null);
-    const [teamdata, setAllTeamdata] = useState([]);
-    const [teamId, setTeamId]: any = useState<number | null>(null);
-    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
+    const [productdata, setAllProductdata] = useState([]);
+    const [productId, setProductId]: any = useState<number | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
+        null
+    );
     const router = useRouter();
     const { id } = router.query;
 
-
     useEffect(() => {
-        getAllActiveFunds()
-            .then((res) => {
-                if (res.status === true && res.data.length > 0) {
-                    setFundId(res.data[0].fund_id);
-                } else {
-                    toast.error("No active funds available", {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                }
-                fetchAllTeamdata();
-            })
+        getAllActiveFunds().then((res) => {
+            if (res.status === true && res.data.length > 0) {
+                setFundId(res.data[0].fund_id);
+            } else {
+                toast.error("No active funds available", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+            fetchAllproductdata();
+        });
     }, []);
 
-    const fetchAllTeamdata = async () => {
-        const res = await getAdminTeamdata();
-        // if (res.status) {
-        //     setAllTeamdata(res.data);
-        // }
+    const fetchAllproductdata = async () => {
+        const res = await getAdminProductdata();
         if (res.status) {
-            const filteredData = res.data.filter((team: { fund_id: string }) => team.fund_id == id);
-            setAllTeamdata(filteredData);
+            const filteredData = res.data.filter(
+                (member: { fund_id: string }) => member.fund_id == id
+            );
+            setAllProductdata(filteredData);
         }
     };
 
-    const handleTeamSubmit = async (e: any) => {
+    const handleProductSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append('fund_id', fundid)
         formData.append("fund_id", id as string);
-        formData.append('member_name', teamMemberName)
-        formData.append('member_designation', teammemberDesignation)
-        formData.append('member_pic', teamMemberPic)
-        formData.append('description', teamMemberDesc)
+        formData.append("product_description", productdescription);
+        formData.append("product_image", productimage);
+        formData.append("product_overview", productoverview);
         try {
-            const response = await AdminAddTeamMember(formData);
-            clearteamInputData();
+            const response = await AdminAddProducts(formData);
+            clearmemberInputData();
             setIsAddFormVisible(!isAddFormVisible);
             toast.success(response.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
-            fetchAllTeamdata();
+            fetchAllproductdata();
         } catch (error) {
             toast.error("Error occurred", {
                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -89,20 +88,19 @@ export default function AddCompetitorCompany() {
         const formData = new FormData();
         // formData.append("fund_id", fundid);
         formData.append("fund_id", id as string);
-        formData.append('member_name', teamMemberName)
-        formData.append('member_designation', teammemberDesignation)
-        formData.append('member_pic', teamMemberPic1)
-        formData.append('description', teamMemberDesc)
-        formData.append('team_id', teamId);
+        formData.append("product_description", productdescription);
+        formData.append("product_image", productimage1);
+        formData.append("product_id", productId);
+        formData.append("product_overview", productoverview);
         console.log(formData);
 
         try {
-            const response = await AdminUpdateTeamMember(formData);
+            const response = await AdminUpdateProduct(formData);
             toast.success(response.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
             setExpandedCard(null);
-            fetchAllTeamdata();
+            fetchAllproductdata();
         } catch (error) {
             toast.error("Error occurred", {
                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -110,21 +108,41 @@ export default function AddCompetitorCompany() {
         }
     };
 
-    const clearteamInputData = () => {
-        setTeamMemberName('');
-        setteammemberDesignation('');
-        setTeamMemberPic('');
-        setTeamMemberDesc('');
+    const clearmemberInputData = () => {
+        setProductDescription("");
+        setProductImage("");
     };
 
     const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
-        setTeamMemberPic(file);
+        setProductImage(file);
+
+        // Preview the image
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewImage(null);
+        }
     };
 
     const handleUpdateLogoChange = (e: any) => {
         const file = e.target.files[0];
-        setTeamMemberPic1(file);
+        setProductImage1(file);
+
+        // Preview the image
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewImage(null);
+        }
     };
 
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
@@ -138,21 +156,21 @@ export default function AddCompetitorCompany() {
     const handleCardToggle = async (index: number) => {
         if (expandedCard === index) {
             setExpandedCard(null);
-            setTeamId(null);
+            setProductId(null);
         } else {
             setExpandedCard(index);
-            setTeamId(index);
+            setProductId(index);
         }
-        const res = await getAdminTeamdata();
-        const conversation = res.data.find((team: { id: number }) => team.id === index);
+        const res = await getAdminProductdata();
+        const conversation = res.data.find(
+            (product: { id: number }) => product.id === index
+        );
         if (conversation) {
-            setTeamMemberName(conversation.member_name)
-            setteammemberDesignation(conversation.member_designation)
-            setTeamMemberPic(conversation.member_pic)
-            setTeamMemberDesc(conversation.description)
+            setProductDescription(conversation.product_description);
+            setProductImage(conversation.product_image);
+            setProductOverview(conversation.product_overview);
         }
     };
-
 
     return (
         <>
@@ -170,19 +188,28 @@ export default function AddCompetitorCompany() {
                                                 <li className="breadcrumb-item">
                                                     <Link
                                                         href={
-                                                            process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"
+                                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                                            "admin/dashboard"
                                                         }
                                                     >
                                                         Dashboard
                                                     </Link>
                                                 </li>
-                                                <li className="breadcrumb-item active" aria-current="page">
-                                                    Team
+                                                <li
+                                                    className="breadcrumb-item active"
+                                                    aria-current="page"
+                                                >
+                                                    Product
                                                 </li>
                                             </ol>
                                         </div>
                                         <div className="col-lg-6 text-end">
-                                            <button onClick={handleAddButtonClick} className="btnclasssmae">Add Team</button>
+                                            <button
+                                                onClick={handleAddButtonClick}
+                                                className="btnclasssmae"
+                                            >
+                                                Add Products
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -194,93 +221,71 @@ export default function AddCompetitorCompany() {
                                 <div className="col-12">
                                     <div className="card">
                                         <div className="card-header text-white bg-dark" id="title">
-                                            <h3 className="card-title">Add New Team Member</h3>
+                                            <h3 className="card-title">Add New Product</h3>
                                         </div>
                                         <div className="card-body">
-
-                                            <form onSubmit={handleTeamSubmit}>
+                                            <form onSubmit={handleProductSubmit}>
                                                 <div className="row g-3 mt-1">
                                                     <div className="col-md-6">
-                                                        <label
-                                                            htmlFor="exampleFormControlInput1"
-                                                            className="form-label"
-                                                        >
-                                                            Company Name
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control h-75"
-                                                            name="member_name"
-                                                            placeholder="Member Name"
-                                                            value={teamMemberName}
-                                                            onChange={(e) => setTeamMemberName(e.target.value)}
-                                                        />
-
-                                                    </div>
-
-                                                    <div className="col-md-6">
-                                                        <label
-                                                            htmlFor="exampleFormControlInput1"
-                                                            className="form-label"
-                                                        >
-                                                            Member Designation
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control h-75"
-                                                            name="member_designation"
-                                                            placeholder="Member Designation"
-                                                            value={teammemberDesignation}
-                                                            onChange={(e) => setteammemberDesignation(e.target.value)}
-                                                        />
-
-                                                    </div>
-                                                </div>
-                                                <div className="row g-3 mt-1">
-                                                    <div className="col-md-12">
                                                         <label
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label mt-3"
                                                         >
-                                                            Company Description
+                                                            Product Description
+                                                        </label>
+                                                        <textarea
+                                                            rows={4}
+                                                            placeholder="Enter details here"
+                                                            className="form-control"
+                                                            name="product_description"
+                                                            value={productdescription}
+                                                            onChange={(e) =>
+                                                                setProductDescription(e.target.value)
+                                                            }
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-md-6">
+                                                        <label
+                                                            htmlFor="exampleFormControlInput1"
+                                                            className="form-label mt-3"
+                                                        >
+                                                            Product Overview
                                                         </label>
                                                         <textarea
                                                             rows={4}
                                                             placeholder="Enter details here"
                                                             className="form-control"
                                                             name="description"
-                                                            value={teamMemberDesc}
-                                                            onChange={(e) => setTeamMemberDesc(e.target.value)}
+                                                            value={productoverview}
+                                                            onChange={(e) => setProductOverview(e.target.value)}
                                                         />
                                                     </div>
-
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label mt-3"
                                                     >
-                                                        Company Logo image
+                                                        Product Image
                                                     </label>
 
                                                     <div className="file-upload">
                                                         <div className="file-select">
-                                                            <div
-                                                                className="file-select-button"
-                                                                id="fileName"
-                                                            >
+                                                            <div className="file-select-button" id="fileName">
                                                                 Choose File
                                                             </div>
-                                                            <div className="file-select-name" id="noFile">
-                                                            </div>
+                                                            <div
+                                                                className="file-select-name"
+                                                                id="noFile"
+                                                            ></div>
                                                             <input
                                                                 type="file"
-                                                                name="member_pic"
+                                                                name="product_image"
                                                                 onChange={(e) => handleLogoChange(e)}
                                                             />
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div className="row mt-3">
                                                     <div
@@ -302,155 +307,148 @@ export default function AddCompetitorCompany() {
                         {/* get data */}
 
                         <div className="row">
-                            {teamdata.length > 0 ? (
-                                teamdata.map((team: any, index: number) => (
+                            {productdata.length > 0 ? (
+                                productdata.map((product: any, index: number) => (
                                     <div className="col-12" key={index}>
                                         <div className="card border-0">
-                                            <div className="card-header text-white" id={`title-${index}`}>
-                                                {/* <h3 className="card-title">Add New Team Member</h3> */}
-                                                <table
-                                                    className="table-dash border-0 "
-                                                    id="datatable"
-                                                >
+                                            <div
+                                                className="card-header text-white"
+                                                id={`title-${index}`}
+                                            >
+                                                <table className="table-dash border-0 " id="datatable">
                                                     <thead>
                                                         <tr className="border-0">
                                                             <th>#</th>
-                                                            <th>Member Pic</th>
-                                                            <th>Member Name</th>
-                                                            <th>Member Designation</th>
-                                                            <th>Description</th>
+                                                            <th>Product Image</th>
+                                                            <th>Product Description</th>
+                                                            <th>Product Overview</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr className="border-0">
                                                             <td className="text-black">{index + 1}</td>
                                                             <td className="text-black">
-                                                                {team.member_pic ? (
+                                                                {product.product_image ? (
                                                                     <img
                                                                         src={
-                                                                            teamMemberPic && typeof teamMemberPic !== 'string'
-                                                                                ? URL.createObjectURL(teamMemberPic)
+                                                                            productimage &&
+                                                                                typeof productimage !== "string"
+                                                                                ? URL.createObjectURL(productimage)
                                                                                 : process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                                                'images/memberPic/' +
-                                                                                team.member_pic
+                                                                                "images/products/" +
+                                                                                product.product_image
                                                                         }
                                                                         alt="Company Logo"
-                                                                        className='profile-pic set-img'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        className="profile-pic set-img"
+                                                                        style={{
+                                                                            margin: "5% 0%",
+                                                                            objectFit: "cover",
+                                                                        }}
                                                                     />
                                                                 ) : (
                                                                     <img
-                                                                        src={process.env.NEXT_PUBLIC_BASE_URL +
-                                                                            'assets/images/company.png'}
+                                                                        src={
+                                                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                                                            "assets/images/company.png"
+                                                                        }
                                                                         alt="Company Logo"
-                                                                        className='profile-pic set-img'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        className="profile-pic set-img"
+                                                                        style={{
+                                                                            margin: "5% 0%",
+                                                                            objectFit: "cover",
+                                                                        }}
                                                                     />
                                                                 )}
-
-
                                                             </td>
-                                                            <td className="text-black">{team.member_name}</td>
-                                                            <td className="text-black">{team.member_designation}</td>
-                                                            <td className="text-black">{team.description}</td>
+                                                            <td className="text-black">
+                                                                {product.product_description}
+                                                            </td>
+                                                            <td className="text-black">
+                                                                {product.product_overview}
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
 
                                                 <div className="col-span-1 text-right">
-                                                    <p style={{ cursor: "pointer" }} onClick={() => handleCardToggle(team.id)}>
+                                                    <p
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => handleCardToggle(product.id)}
+                                                    >
                                                         <i
                                                             className={
-                                                                expandedCard === team.id
-                                                                    ? 'fa-solid fa-chevron-up'
-                                                                    : 'fa-solid fa-chevron-down'
+                                                                expandedCard === product.id
+                                                                    ? "fa-solid fa-chevron-up"
+                                                                    : "fa-solid fa-chevron-down"
                                                             }
                                                         ></i>
                                                     </p>
                                                 </div>
                                             </div>
-                                            {expandedCard === team.id && (
+                                            {expandedCard === product.id && (
                                                 <div className="card-body">
-
                                                     <form onSubmit={handleUpdateCompetitorSubmit}>
                                                         <div className="row g-3 mt-1">
                                                             <div className="col-md-6">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
-                                                                    className="form-label"
-                                                                >
-                                                                    Member Name
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control h-75"
-                                                                    name="member_name"
-                                                                    placeholder="Member Name"
-                                                                    value={teamMemberName}
-                                                                    onChange={(e) => setTeamMemberName(e.target.value)}
-                                                                />
-
-                                                            </div>
-
-                                                            <div className="col-md-6">
-                                                                <label
-                                                                    htmlFor="exampleFormControlInput1"
-                                                                    className="form-label"
-                                                                >
-                                                                    Member Designation
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control h-75"
-                                                                    name="member_designation"
-                                                                    placeholder="Member Designation"
-                                                                    value={teammemberDesignation}
-                                                                    onChange={(e) => setteammemberDesignation(e.target.value)}
-                                                                />
-
-                                                            </div>
-                                                        </div>
-                                                        <div className="row g-3 mt-1">
-                                                            <div className="col-md-12">
-                                                                <label
-                                                                    htmlFor="exampleFormControlInput1"
                                                                     className="form-label mt-3"
                                                                 >
-                                                                    Description
+                                                                    Product Description
                                                                 </label>
                                                                 <textarea
                                                                     rows={4}
                                                                     placeholder="Enter details here"
                                                                     className="form-control"
-                                                                    name="description"
-                                                                    value={teamMemberDesc}
-                                                                    onChange={(e) => setTeamMemberDesc(e.target.value)}
+                                                                    name="product_description"
+                                                                    value={productdescription}
+                                                                    onChange={(e) =>
+                                                                        setProductDescription(e.target.value)
+                                                                    }
                                                                 />
                                                             </div>
 
+                                                            <div className="col-md-6">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label mt-3"
+                                                                >
+                                                                    Product Overview
+                                                                </label>
+                                                                <textarea
+                                                                    rows={4}
+                                                                    placeholder="Enter details here"
+                                                                    className="form-control"
+                                                                    name="product_overview"
+                                                                    value={productoverview}
+                                                                    onChange={(e) => setProductOverview(e.target.value)}
+                                                                />
+                                                            </div>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <label
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label mt-3"
                                                             >
-                                                                Profile Pic
+                                                                Product Image
                                                             </label>
-
                                                             <div className="file-upload mt-5">
                                                                 <div className="file-select">
-                                                                    <div className="file-select-button" id="fileName">
+                                                                    <div
+                                                                        className="file-select-button"
+                                                                        id="fileName"
+                                                                    >
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {teamMemberPic.member_pic ? teamMemberPic.member_pic : 'No file chosen...'}
+                                                                        {product.product_image ? product.product_image : 'No file chosen...'}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"
                                                                         id="logo"
                                                                         accept=".jpg, .jpeg, .png"
                                                                         type="file"
-                                                                        name="member_pic"
+                                                                        name="product_image"
                                                                         onChange={(e) => handleUpdateLogoChange(e)}
                                                                     />
                                                                 </div>
@@ -459,31 +457,56 @@ export default function AddCompetitorCompany() {
                                                             <div className="profile-pic">
                                                                 {previewImage ? (
                                                                     <img
-                                                                        src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                        src={
+                                                                            typeof previewImage === "string"
+                                                                                ? previewImage
+                                                                                : ""
+                                                                        }
                                                                         width={300}
                                                                         height={200}
-                                                                        alt=''
-                                                                        className='profile-pic'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        alt=""
+                                                                        className="profile-pic"
+                                                                        style={{
+                                                                            margin: "5% 0%",
+                                                                            objectFit: "cover",
+                                                                        }}
+                                                                    />
+                                                                ) : product.product_image ? (
+                                                                    <img
+                                                                        src={
+                                                                            productimage1 &&
+                                                                                typeof productimage1 !== "string"
+                                                                                ? URL.createObjectURL(productimage1)
+                                                                                : process.env.NEXT_PUBLIC_IMAGE_URL +
+                                                                                "images/products/" +
+                                                                                product.product_image
+                                                                        }
+                                                                        alt="Product Image"
+                                                                        className="profile-pic"
+                                                                        style={{
+                                                                            margin: "5% 0%",
+                                                                            objectFit: "cover",
+                                                                        }}
+                                                                        width={300}
+                                                                        height={200}
                                                                     />
                                                                 ) : (
                                                                     <img
                                                                         src={
-                                                                            teamMemberPic1 && typeof teamMemberPic1 !== 'string'
-                                                                                ? URL.createObjectURL(teamMemberPic1)
-                                                                                : process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                                                'images/memberPic/' +
-                                                                                team.member_pic
+                                                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                                                            "assets/images/company.png"
                                                                         }
-                                                                        alt="Profile Pic"
-                                                                        className='profile-pic'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        alt="Company Logo"
+                                                                        className="profile-pic"
+                                                                        style={{
+                                                                            margin: "5% 0%",
+                                                                            objectFit: "cover",
+                                                                        }}
                                                                         width={300}
                                                                         height={200}
                                                                     />
                                                                 )}
                                                             </div>
-
                                                         </div>
                                                         <div className="row mt-3">
                                                             <div
@@ -503,7 +526,7 @@ export default function AddCompetitorCompany() {
                                 ))
                             ) : (
                                 <div className="col-12">
-                                    <p className="text-center">No team created yet.</p>
+                                    <p className="text-center">No Products created yet.</p>
                                 </div>
                             )}
                         </div>
@@ -512,7 +535,5 @@ export default function AddCompetitorCompany() {
                 <ToastContainer autoClose={2000} />
             </div>
         </>
-    )
+    );
 }
-
-

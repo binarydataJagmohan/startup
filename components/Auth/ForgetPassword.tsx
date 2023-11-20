@@ -188,7 +188,7 @@ const ForgetPassword = () => {
             <div className="need_content col-md-6">
               <form id="contactForm" onSubmit={handleResetSubmit}>
                 <div className="contact-text text-center pt-4">
-                  <h3>Change New Password</h3>
+                  <h3 className="f-30">Change New Password</h3>
                 </div>
                 <div className="row justify-content-center">
                   <div className="form-group text-start">

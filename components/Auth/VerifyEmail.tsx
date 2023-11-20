@@ -169,7 +169,7 @@ const VerifyEmail = () => {
             <div className="verify_email_need_content col-md-6">
               <form id="contactForm" onSubmit={handleOtpSubmit}>
                 <div className="contact-text text-center pt-4">
-                  <h3>Email Verification Code Verify</h3>
+                  <h3>Otp Verification</h3>
                 </div>
                 <div className="row justify-content-center">
                   <div className="form-group text-start">
