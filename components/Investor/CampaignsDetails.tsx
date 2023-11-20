@@ -58,6 +58,7 @@ export default function CampaignsDetails() {
   const [pagedata, setPagedata]: any = useState([]);
   const [teamdata, setTeamdata]: any = useState([]);
   const [companydata, setCompanydata]: any = useState([]);
+  const [productdata, setProductdata]: any = useState([]);
   const [user, setPUser] = useState({
     business_name: "",
     business_id: "",
@@ -97,9 +98,9 @@ export default function CampaignsDetails() {
   useEffect(() => {
     const fetchActiveFundsAndData = async () => {
       try {
-        const activeFunds = await getAllActiveFunds(); 
+        const activeFunds = await getAllActiveFunds();
         if (activeFunds.status === true && activeFunds.data.length > 0) {
-          const fundId = activeFunds.data[0].fund_id; 
+          const fundId = activeFunds.data[0].fund_id;
           await fetchAllTeamAndCompany(fundId);
         }
       } catch (error) {
@@ -115,7 +116,7 @@ export default function CampaignsDetails() {
   //     try {  
   //       // Fetching active funds based on business_id
   //       const activeFunds = await getAllActiveFunds();
-  
+
   //       if (activeFunds.status === true && activeFunds.data.length > 0) {
   //         // Finding fund_id matching the id from router query
   //         const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));  
@@ -130,7 +131,7 @@ export default function CampaignsDetails() {
   //       console.error("Error fetching active funds: ", error);
   //     }
   //   };
-  
+
   //   fetchActiveFundsAndData();
   // }, [id]);
 
@@ -139,7 +140,7 @@ export default function CampaignsDetails() {
       try {
         if (typeof id === 'string') { // Check if id is a string and not undefined
           const activeFunds = await getAllActiveFunds();
-  
+
           if (activeFunds.status === true && activeFunds.data.length > 0) {
             const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));
             if (matchingFund) {
@@ -156,28 +157,29 @@ export default function CampaignsDetails() {
         console.error("Error fetching active funds: ", error);
       }
     };
-  
+
     fetchActiveFundsAndData();
   }, [id]);
-  
-  
-  
 
-  
+
+
+
+
 
   const fetchAllTeamAndCompany = async (fundIds: string) => {
-    try {  
-      const res = await getAllTeamAndCompanyData(fundIds); 
+    try {
+      const res = await getAllTeamAndCompanyData(fundIds);
       if (res.status) {
         setTeamdata(res.teams);
         setCompanydata(res.competitors);
+        setProductdata(res.products);
       }
     } catch (error) {
       console.error("Error fetching page data: ", error);
     }
   };
-  
-  
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -614,12 +616,17 @@ export default function CampaignsDetails() {
       </section>
 
       <section className="tabsSection">
-        {pagedata.length > 0 && (
+        {pagedata.length > 0 ? (
           <div className="container">
             <h2 className="text-black">Product</h2>
             <p>
               <div dangerouslySetInnerHTML={{ __html: pagedata[0].product_description }}></div>
             </p>
+          </div>
+        ) : (
+          <div className="container">
+            <h2 className="text-black"></h2>
+            <p></p>
           </div>
         )}
       </section>
@@ -669,36 +676,43 @@ export default function CampaignsDetails() {
         </div>
       </section>
 
+      {/* {companydata.length > 0 ? (
+              companydata.map((data: any, index: number) => ( */}
+
       <section id="terms">
         <div className="container">
-          <h1 className="text-center pb-4 text-white bold">Terms</h1>
+          <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
           <div className="termsContent">
-            <div className="row">
-              <h1> Investment Terms</h1>
-              <p>
-                <strong>Security Type:</strong> Crowd Notes
-              </p>
+            {pagedata.length > 0 ? (
+              pagedata.map((data: any, index: number) => (
+                <div className="row" key={index}>
+                  <h1>Round Details</h1>
+                  <p>
+                    <strong>Dilution Percentage:</strong> {data.dilution_percentage}
+                  </p>
 
-              <p>
-                <strong>Round Size:</strong>Min: $25,000 Max: $1,235,000
-              </p>
+                  <p>
+                    <strong>Minimum commitment:</strong>Min: ${data.min_commitment} Max: ${data.max_commitment}
+                  </p>
 
-              <p>
-                <strong>Valuation Cap:</strong> $50 million
-              </p>
+                  <p>
+                    <strong>Valuation Cap:</strong> ${data.valuation_cap}
+                  </p>
 
-              <p>
-                <strong>Conversion Provisions:</strong> In connection with
-                equity financing of at least $1 million, the Company has the
-                option to convert the Crowd Note into non-voting preferred stock
-                (Conversion Shares) at a price based on the lower of (A) the
-                price per share for Preferred Stock by investors in the
-                Qualified Equity Financing or (B) the price per share paid on a
-                $50 million valuation cap. Please refer to the Crowd Note for a
-                complete description of the terms of the Crowd Note, including
-                the conversion provisions.
-              </p>
-            </div>
+                  <p>
+                    <strong>Amount Raised:</strong> ${data.amount_raised}
+                  </p>
+
+                  <p>
+                    <strong>Round name:</strong> {data.round_name}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="text-center">
+                <p>No Round Details and Deal Progress Data</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -746,80 +760,53 @@ export default function CampaignsDetails() {
           </div>
         </div>
       </section>
-      <section id="competitors" className="tabsSection">
+      <section id="competitors">
         <div className="container">
           <h1 className="text-center mb-5 bold">Competitors</h1>
           <div className="competitorsContent">
-            {companydata.map((data: any, index: number) => (
-              <div className="row align-items-center g-3" key={index}>
-                <div className="col-lg-6">
-                  <div className="competitorsContentTitle">
-                    {/* <h4><strong>Invisible Company</strong></h4> */}
-                    <h4><strong>{data.company_name}</strong></h4>
-                    <p>
-                      {data.company_desc}
-                    </p>
+            {companydata.length > 0 ? (
+              companydata.map((data: any, index: number) => (
+                <div className="row align-items-center g-3" key={index}>
+                  <div className="col-lg-6">
+                    <div className="competitorsContentTitle">
+                      <h4><strong>{data.company_name}</strong></h4>
+                      <p>
+                        {/* {data.company_desc} */}
+                        <div dangerouslySetInnerHTML={{ __html: data.company_desc }}></div>
 
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 order-lg-0 order-first">
+                    <div className="competitorsContentTitle">
+                      {data.competitor_logo ? (
+                        <img
+                          src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/competitorlogo/" + data.competitor_logo}
+                          alt=""
+                          className="hover-img"
+                          height={94}
+                          width={430}
+                        />
+                      ) : (
+                        <img
+                          src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
+                          alt=""
+                          className="hover-img"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="col-lg-6 order-lg-0 order-first">
-                  <div className="competitorsContentTitle">
-                    {data.competitor_logo ? (
-                      <img
-                        src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/competitorlogo/" + data.competitor_logo}
-                        alt=""
-                        className="hover-img"
-                        height={94}
-                        width={430}
-                      />
-                    ) : (
-                      <img
-                        src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
-                        alt=""
-                        className="hover-img"
-
-                      />
-                    )}
-                  </div>
-                </div>
+              ))
+            ) : (
+              <div className="text-center">
+                <p>No competitors available at the moment.</p>
               </div>
-            ))}
-
-            {/* <div className="row align-items-center g-3 py-lg-5 pt-5">
-              <div className="col-lg-6">
-                <div className="competitorsContent">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPp0nZM4ajF83I68Udw5IdeUAA4kxjogHXpqzZGkmCusMmrRQC3L-syvRK2Wes7mW3r2A&usqp=CAU"
-                    alt=""
-                    className="hover-img"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="competitorsContentTitle">
-                  <h4><strong>MonoSol</strong></h4>
-                  <p>
-                    Simplifying Fundraising: We aim to simplify the fundraising
-                    process, making it more accessible and less intimidating.
-                    Our platform provides a user-friendly experience that allows
-                    startups to focus on their innovation, and investors to
-                    discover promising opportunities effortlessly.s
-                  </p>
-                  <p>
-                    Empowering Entrepreneurs: We believe in the potential of
-                    startups to drive change. Our CFO services empower startups
-                    with financial expertise, while our legal services secure
-                    their fundraising endeavours. The addition of "Invoice
-                    Discounting" further strengthens our financial support by
-                    offering cash flow solutions that help startups maintain
-                    stability.
-                  </p>
-                </div>
-              </div>
-            </div> */}
+            )}
           </div>
         </div>
       </section>
+
 
       <section id="team" className="pt-100 pb-100">
         <div className="container">
@@ -829,68 +816,71 @@ export default function CampaignsDetails() {
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10">
-
               <div className="row">
-                {teamdata.map((team: any, index: number) => (
-                  <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
-                    <div className="team-item">
-                      <div className="image">
-                        {team.member_pic ? (
-                          <img
-                            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/memberPic/" + team.member_pic}
-                            alt="image"
-                          />
-                        ) : (
-                          <img
-                            src={
-                              process.env.NEXT_PUBLIC_BASE_URL +
-                              "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
-                            }
-                            alt="image"
-                          />
-                        )
-                        }
-                        <ul className="social">
-                          <li>
-                            <Link href="#" target="_blank">
-                              <i className="bx bxl-facebook" />
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="#" target="_blank">
-                              <i className="bx bxl-twitter" />
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="#" target="_blank">
-                              <i className="bx bxl-linkedin" />
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="#" target="_blank">
-                              <i className="bx bxl-instagram" />
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="content d-flex justify-content-between">
-                        <h3>{team.member_name}</h3>
-                        <span>{team.member_designation}</span>
-                      </div>
-                      <div className="content pt-0" style={{ textAlign: "left" }}>
-                        <p>
-                          {team.description}
-                        </p>
+                {teamdata.length > 0 ? (
+                  teamdata.map((team: any, index: number) => (
+                    <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
+                      <div className="team-item">
+                        <div className="image">
+                          {team.member_pic ? (
+                            <img
+                              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/memberPic/" + team.member_pic}
+                              alt="image"
+                            />
+                          ) : (
+                            <img
+                              src={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
+                              }
+                              alt="image"
+                            />
+                          )}
+                          <ul className="social">
+                            <li>
+                              <Link href="#" target="_blank">
+                                <i className="bx bxl-facebook" />
+                              </Link>
+                            </li>
+                            <li>
+                              <Link href="#" target="_blank">
+                                <i className="bx bxl-twitter" />
+                              </Link>
+                            </li>
+                            <li>
+                              <Link href="#" target="_blank">
+                                <i className="bx bxl-linkedin" />
+                              </Link>
+                            </li>
+                            <li>
+                              <Link href="#" target="_blank">
+                                <i className="bx bxl-instagram" />
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="content d-flex justify-content-between">
+                          <h3>{team.member_name}</h3>
+                          <span>{team.member_designation}</span>
+                        </div>
+                        <div className="content pt-0" style={{ textAlign: "left" }}>
+                          <p>{team.description}</p>
+                        </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="col-lg-12 text-center">
+                    <p>No team members available at the moment.</p>
                   </div>
-                ))}
-              </div>
 
+                )}
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </>
   );
 }

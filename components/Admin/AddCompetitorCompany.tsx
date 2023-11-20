@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 
 import {
@@ -13,12 +14,17 @@ import {
     getAdminCompanydata
 } from "@/lib/adminapi";
 
+const TextEditor = dynamic(() => import("./TextEditor"), {
+    ssr: false,
+});
+
 
 
 export default function AddCompetitorCompany() {
     const [CompanyName, setCompanyName] = useState("");
     const [CompanyDesc, setCompanyDesc] = useState("");
     const [CompanyLogo, setCompanyLogo]: any = useState("");
+    const [CompanyLogo1, setCompanyLogo1]: any = useState("");
     const [companydata, setAllCompanydata] = useState([]);
     const [competitorId, setCompetitorId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
@@ -45,13 +51,6 @@ export default function AddCompetitorCompany() {
         });
     }, []);
 
-
-    // const fetchAllComoanydata = async () => {
-    //     const res = await getAdminCompanydata();
-    //     if (res.status) {
-    //         setAllCompanydata(res.data);
-    //     }
-    // };
 
 
     const fetchAllComoanydata = async () => {
@@ -95,7 +94,7 @@ export default function AddCompetitorCompany() {
         // formData.append("fund_id", fundid);
         formData.append("fund_id", id as string);
         formData.append("company_desc", CompanyDesc);
-        formData.append("competitor_logo", CompanyLogo);
+        formData.append("competitor_logo", CompanyLogo1);
         formData.append("company_name", CompanyName);
         formData.append('competitor_id', competitorId);
         console.log(formData);
@@ -112,6 +111,10 @@ export default function AddCompetitorCompany() {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
         }
+    };
+
+    const handleCompanydesc = (companydesc: string) => {
+        setCompanyDesc(companydesc);
     };
 
     const handleLogoChange = (e: any) => {
@@ -139,6 +142,32 @@ export default function AddCompetitorCompany() {
         setCompanyLogo(file);
     };
 
+
+    const handleUpdateLogoChange = (e: any) => {
+        const file = e.target.files[0];
+        if (file) {
+
+            const allowedTypes = ["image/jpeg", "image/png"];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        setPreviewImage(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setCompanyLogo1(file.competitor_logo);
+                } else {
+                    setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setStartupLogoError('* Please upload a JPG or PNG file');
+            }
+        }
+        setCompanyLogo1(file);
+    };
+
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
 
     const handleAddButtonClick = () => {
@@ -147,23 +176,6 @@ export default function AddCompetitorCompany() {
 
     const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
-    // const handleCardToggle = async (index: number) => {
-    //     if (expandedCard === index) {
-    //         setExpandedCard(null);
-    //         setCompetitorId(null);
-    //     } else {
-    //         setExpandedCard(index);
-    //         setCompetitorId(index);
-    //     }
-    //     const res = await getAdminCompanydata();
-    //     const conversation = res.data.find((company: { id: number }) => company.id === index);
-    //     if (conversation) {
-    //         setAllCompanydata(res.data);
-    //         setCompanyName(conversation.company_name);
-    //         setCompanyDesc(conversation.company_desc);
-    //         setCompanyLogo(conversation.competitor_logo);
-    //     }
-    // };
 
     const handleCardToggle = async (index: number) => {
         if (expandedCard === index) {
@@ -232,7 +244,7 @@ export default function AddCompetitorCompany() {
                                 <div className="col-12">
                                     <div className="card">
                                         <div className="card-header text-white bg-dark" id="title">
-                                            <h3 className="card-title m-0">Add New Competitor Company test</h3>
+                                            <h3 className="card-title m-0">Add New Competitor Company</h3>
                                             <div className="col-span-1 text-right">
                                                 <p style={{ cursor: "pointer" }}>
                                                     <i className="fa-solid fa-chevron-down"></i>
@@ -293,13 +305,19 @@ export default function AddCompetitorCompany() {
                                                         >
                                                             Company Description
                                                         </label>
-                                                        <textarea
+                                                        {/* <textarea
                                                             rows={4}
                                                             placeholder="Enter details here"
                                                             className="form-control"
                                                             name="company_desc"
                                                             value={CompanyDesc}
                                                             onChange={(e) => setCompanyDesc(e.target.value)}
+                                                        /> */}
+                                                        <TextEditor
+                                                            height={100}
+                                                            value={CompanyDesc}
+                                                            onChange={handleCompanydesc}
+                                                            theme="snow"
                                                         />
                                                     </div>
                                                 </div>
@@ -308,7 +326,7 @@ export default function AddCompetitorCompany() {
                                                         className="col-md-6"
                                                         style={{ textAlign: "right" }}
                                                     >
-                                                        <button type="submit" className="btnclasssmae">
+                                                        <button type="submit" className="btnclasssmae mt-5">
                                                             SUBMIT
                                                         </button>
                                                     </div>
@@ -371,7 +389,9 @@ export default function AddCompetitorCompany() {
 
                                                             </td>
                                                             <td className="text-black">{company.company_name}</td>
-                                                            <td className="text-black">{company.company_desc}</td>
+                                                            <td className="text-black">
+                                                                <div dangerouslySetInnerHTML={{ __html: company.company_desc }} />
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -427,7 +447,7 @@ export default function AddCompetitorCompany() {
                                                                             accept=".jpg, .jpeg, .png"
                                                                             type="file"
                                                                             name="competitor_logo"
-                                                                            onChange={(e) => handleLogoChange(e)}
+                                                                            onChange={(e) => handleUpdateLogoChange(e)}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -445,8 +465,8 @@ export default function AddCompetitorCompany() {
                                                                     ) : (
                                                                         <img
                                                                             src={
-                                                                                CompanyLogo && typeof CompanyLogo !== 'string'
-                                                                                    ? URL.createObjectURL(CompanyLogo)
+                                                                                CompanyLogo1 && typeof CompanyLogo1 !== 'string'
+                                                                                    ? URL.createObjectURL(CompanyLogo1)
                                                                                     : process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                     'images/competitorlogo/' +
                                                                                     company.competitor_logo
@@ -469,19 +489,25 @@ export default function AddCompetitorCompany() {
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
                                                                     Company Description
                                                                 </label>
-                                                                <textarea
+                                                                {/* <textarea
                                                                     rows={4}
                                                                     placeholder="Enter details here"
                                                                     className="form-control"
                                                                     name="company_desc"
                                                                     value={CompanyDesc}
                                                                     onChange={(e) => setCompanyDesc(e.target.value)}
+                                                                /> */}
+                                                                <TextEditor
+                                                                    height={100}
+                                                                    value={CompanyDesc}
+                                                                    onChange={handleCompanydesc}
+                                                                    theme="snow"
                                                                 />
                                                             </div>
                                                         </div>
                                                         <div className="row mt-3">
                                                             <div className="col-md-6" style={{ textAlign: "right" }}>
-                                                                <button type="submit" className="btnclasssmae">
+                                                                <button type="submit" className="btnclasssmae mt-5">
                                                                     SUBMIT
                                                                 </button>
                                                             </div>
