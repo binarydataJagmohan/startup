@@ -5347,11 +5347,11 @@ div#accordionExample h2 button {
   font-size: 22px;
 }
 
-.profile-pic {
+/* .profile-pic {
   width: 100px;
   height: 100px;
   border-radius: 150px;
-}
+} */
 
 .form-part input {
   width: 100%;
@@ -6997,4 +6997,15 @@ Copy Right Area CSS
 
 .set-but-company {
   margin-top: 80px;
+}
+
+ul#dropdownMenu-0 {
+  position: absolute;
+  left: -80px;
+}
+
+img.profile-pic.set-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 150px;
 }
