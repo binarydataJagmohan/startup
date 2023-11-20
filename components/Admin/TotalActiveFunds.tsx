@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "@/lib/session";
-import { getAllActiveFunds, AdminAddCampaignDetail } from "@/lib/adminapi";
+import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddCometitorCompany, AdminAddTeamMember } from "@/lib/adminapi";
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
@@ -10,6 +10,7 @@ import { sendNotification } from "../../lib/frontendapi";
 import swal from "sweetalert";
 import PopupModal from "../../components/commoncomponents/PopupModal";
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 interface UserData {
     id?: number;
@@ -37,11 +38,29 @@ const TotalActiveFunds = () => {
     const [current_user_id, setCurrentUserId] = useState("");
     const [funds, setFundsData] = useState<Fund[]>([]);
     const [companyOverview, setCompanyOverview] = useState("");
+    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
 
     const [productDescription, setProductDesc] = useState("");
+    const [CompanyName, setCompanyName] = useState("");
+    const [CompanyDesc, setCompanyDesc] = useState("");
+    const [CompanyLogo, setCompanyLogo] = useState("");
+    // const [fundid, setFundId] = useState("");
+    const [fundid, setFundId] = useState<string | null>(null);
+    const [fundteamid, setTeamFundId] = useState<string | null>(null);
+
+    const [teamMemberName, setTeamMemberName] = useState("");
+    const [teammemberDesignation, setteammemberDesignation] = useState("");
+    const [teamMemberPic, setTeamMemberPic] = useState("");
+    const [teamMemberDesc, setTeamMemberDesc] = useState("");
+
+
+
+
     const [historicalFinancials_desc, setHistoricalFinancial] = useState("");
     const [pastfinancingDesc, setPastFinancing] = useState("");
+
     const [selectedFundId, setSelectedFundId] = useState<number | null>(null);
+    
 
     const handleDropdownToggle = (index: any, fundId: number) => {
         const dropdownMenu = document.getElementById(`dropdownMenu-${index}`);
@@ -191,6 +210,9 @@ const TotalActiveFunds = () => {
     const [modalConfirm1, setModalConfirm1] = useState(false);
     const [modalConfirm2, setModalConfirm2] = useState(false);
     const [modalConfirm3, setModalConfirm3] = useState(false);
+    const [modalConfirm4, setModalConfirm4] = useState(false);
+    const [modalConfirm5, setModalConfirm5] = useState(false);
+
 
     const modalConfirmClose = () => {
         setModalConfirm(false);
@@ -203,6 +225,12 @@ const TotalActiveFunds = () => {
     };
     const modalConfirmClose3 = () => {
         setModalConfirm3(false);
+    };
+    const modalConfirmClose4 = () => {
+        setModalConfirm4(false);
+    };
+    const modalConfirmClose5 = () => {
+        setModalConfirm5(false);
     };
 
     const handleSubmit = async (e: any) => {
@@ -232,6 +260,8 @@ const TotalActiveFunds = () => {
         }
     };
 
+
+
     const handleCompanyOverviewChange = (updatedOverview: string) => {
         setCompanyOverview(updatedOverview);
     };
@@ -244,6 +274,76 @@ const TotalActiveFunds = () => {
     const handlePastFinanceChange = (pastfinancialDesc: string) => {
         setPastFinancing(pastfinancialDesc);
     };
+
+
+    const handleLogoChange = (e: any) => {
+        const file = e.target.files[0];
+        setCompanyLogo(file);
+    };
+
+
+
+    // fund_id
+    const handleCompetitorSubmit = async (e: any) => {
+        e.preventDefault();
+        const data = {
+            fund_id: fundid,
+            company_name: CompanyName,
+            company_desc: CompanyDesc,
+            competitor_logo: CompanyLogo
+        };
+        try {
+            const response = await AdminAddCometitorCompany(data);
+            setModalConfirm4(false);
+            toast.success(response.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } catch (error) {
+            toast.error("Error occurred", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        }
+
+    };
+
+    const handleCompanyDescChange = (companyDesc: string) => {
+        setCompanyDesc(companyDesc);
+    };
+
+
+
+    const handleteamSubmit = async (e: any) => {
+        e.preventDefault();
+        const data = {
+            fund_id: fundteamid,
+            member_name: teamMemberName,
+            member_designation: teammemberDesignation,
+            description: teamMemberDesc,
+            member_pic: teamMemberPic
+        };
+        try {
+            const response = await AdminAddTeamMember(data);
+            setModalConfirm5(false);
+            toast.success(response.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } catch (error) {
+            toast.error("Error occurred", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        }
+    };
+
+    const handleTeamDescChange = (teamDesc: string) => {
+        setTeamMemberDesc(teamDesc);
+    };
+
+    const handlePicChange = (e: any) => {
+        const file = e.target.files[0];
+        setTeamMemberPic(file);
+    };
+
+
     return (
         <>
             <div className="main-content">
@@ -358,6 +458,7 @@ const TotalActiveFunds = () => {
                                                                                             )
                                                                                         }
                                                                                         className="fa-solid fa-ellipsis"
+                                                                                        style={{cursor:'pointer'}}
                                                                                     ></span>
                                                                                     <ul
                                                                                         id={`dropdownMenu-${index}`}
@@ -401,6 +502,28 @@ const TotalActiveFunds = () => {
                                                                                                 }}
                                                                                             >
                                                                                                 Past Financing Desc
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a
+                                                                                                 href={
+                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
+                                                                                                    `admin/add-company/?id=${fund.fund_id}`
+                                                                                                }
+                                                                                            >
+                                                                                                Add Competitor
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a
+                                                                                                href={
+                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
+                                                                                                    `admin/add-team/?id=${fund.fund_id}`
+                                                                                                }
+                                                                                            >
+                                                                                                Add team
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>
@@ -520,7 +643,7 @@ const TotalActiveFunds = () => {
                             onChange={(e) => setProductDesc(e.target.value)}
                             name="product_description"
                         /> */}
-                         <TextEditor
+                        <TextEditor
                             height={100}
                             value={productDescription}
                             onChange={handleProductDescChange}
@@ -563,7 +686,7 @@ const TotalActiveFunds = () => {
                             onChange={(e) => setHistoricalFinancial(e.target.value)}
                             name="historical_financials_desc"
                         /> */}
-                           <TextEditor
+                        <TextEditor
                             height={100}
                             value={historicalFinancials_desc}
                             onChange={handlehistoricalfFinancialChange}
@@ -606,7 +729,7 @@ const TotalActiveFunds = () => {
                             onChange={(e) => setPastFinancing(e.target.value)}
                             name="past_financing_desc"
                         /> */}
-                             <TextEditor
+                        <TextEditor
                             height={100}
                             value={pastfinancingDesc}
                             onChange={handlePastFinanceChange}
@@ -618,8 +741,208 @@ const TotalActiveFunds = () => {
                     </div>
                 </form>
             </PopupModal>
+
+            <PopupModal
+                show={modalConfirm4}
+                handleClose={modalConfirmClose4}
+                staticClass="var-login"
+            >
+                <div className="pop-b-round text-center">
+                    <div className="row">
+                        <div className="col-12 text-right">
+                            <button
+                                type="button"
+                                className="btn-close m-min-top set-close"
+                                onClick={() => {
+                                    setModalConfirm4(false);
+                                }}
+                            ></button>
+                        </div>
+                    </div>
+                </div>
+                <form onSubmit={handleCompetitorSubmit}>
+                    <input
+                        type="hidden"
+                        name="fund_id"
+                    />
+                    <div className="form-contact-set">
+
+                        <label className="form-label">
+                            <span>Add Competitor Company</span>
+                        </label>
+                        <div>
+
+                            <label htmlFor="exampleFormControlInput1" className="form-label">
+                                <span>Company Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Company Name"
+                                className="form-control"
+                                name="company_name"
+                                value={CompanyName}
+                                onChange={(e) => setCompanyName(e.target.value)}
+
+                            />
+                            <div>
+                                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                    <span>Company Description</span>
+                                </label>
+                                <TextEditor
+                                    height={100}
+                                    value={CompanyDesc}
+                                    onChange={handleCompanyDescChange}
+                                    theme="snow"
+                                /></div>
+                            <br />
+                            <br />
+                            <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                            >
+                                <label
+                                    htmlFor="logo"
+                                    className="form-label mt-4"
+                                >
+                                    Company Logo
+                                    <span style={{ color: "red" }}></span>
+                                </label>
+                                <div className="file-upload">
+                                    <div className="file-select">
+                                        <div
+                                            className="file-select-button"
+                                            id="fileName"
+                                        >
+                                            Choose File
+                                        </div>
+                                        <div className="file-select-name" id="noFile">
+                                        </div>
+                                        <input
+                                            type="file"
+                                            name="competitor_logo"
+                                            onChange={(e) => handleLogoChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <button type="submit" className="btnclasssmae set-but-company mt-3">
+                                Submit
+                            </button>
+
+
+                        </div>
+                    </div>
+                </form>
+            </PopupModal>
+
+            <PopupModal
+                show={modalConfirm5}
+                handleClose={modalConfirmClose5}
+                staticClass="var-login"
+            >
+                <div className="pop-b-round text-center">
+                    <div className="row">
+                        <div className="col-12 text-right">
+                            <button
+                                type="button"
+                                className="btn-close m-min-top set-close"
+                                onClick={() => {
+                                    setModalConfirm5(false);
+                                }}
+                            ></button>
+                        </div>
+                    </div>
+                </div>
+                <form onSubmit={handleteamSubmit}>
+                    <div className="form-contact-set">
+
+                        <label className="form-label">
+                            <h3>Add Team Members</h3>
+                        </label>
+                        <div>
+
+                            <label htmlFor="exampleFormControlInput1" className="form-label">
+                                <span>Member Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Member Name"
+                                className="form-control"
+                                name="member_name"
+                                value={teamMemberName}
+                                onChange={(e) => setTeamMemberName(e.target.value)}
+
+                            />
+
+                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                <span>Member Designation</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Member Designation"
+                                className="form-control"
+                                name="member_designation"
+                                value={teammemberDesignation}
+                                onChange={(e) => setteammemberDesignation(e.target.value)}
+
+                            />
+                            <div>
+                                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                    <span>Description</span>
+                                </label>
+                                <TextEditor
+                                    height={100}
+                                    value={teamMemberDesc}
+                                    onChange={handleTeamDescChange}
+                                    theme="snow"
+                                /></div>
+                            <br />
+                            <br />
+                            <div
+                                id="divHabilitSelectors"
+                                className="input-file-container"
+                            >
+                                <label
+                                    htmlFor="logo"
+                                    className="form-label mt-4"
+                                >
+                                    Team Member Pic
+                                    <span style={{ color: "red" }}></span>
+                                </label>
+                                <div className="file-upload">
+                                    <div className="file-select">
+                                        <div
+                                            className="file-select-button"
+                                            id="fileName"
+                                        >
+                                            Choose File
+                                        </div>
+                                        <div className="file-select-name" id="noFile">
+                                        </div>
+                                        <input
+                                            type="file"
+                                            name="member_pic"
+                                            onChange={(e) => handlePicChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <button type="submit" className="btnclasssmae set-but-company mt-3">
+                                Submit
+                            </button>
+
+
+                        </div>
+                    </div>
+                </form>
+            </PopupModal>
         </>
     );
 };
 
 export default TotalActiveFunds;
+

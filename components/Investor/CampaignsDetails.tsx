@@ -6,7 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { sendNotification } from '../../lib/frontendapi'
+import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData } from '../../lib/frontendapi'
+
 interface UserData {
   id?: string;
   // role?:string;
@@ -32,6 +33,8 @@ interface InputData {
   type?: string;
 }
 
+
+
 export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState<UserData>({});
   const [value, setValue] = useState(1);
@@ -45,10 +48,23 @@ export default function CampaignsDetails() {
   const [no_of_units, setNo_of_units] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
-  const [checkboxError, setCheckboxError] = useState('');
   const { id } = router.query;
+
+  const [checkboxError, setCheckboxError] = useState('');
   const [current_user_id, setCurrentUserId] = useState("");
   const [ButtonDisabled, setButtonDisabled] = useState(true);
+  const [activeLink, setActiveLink] = useState("active");
+  const [isSticky, setIsSticky] = useState(false);
+  const [pagedata, setPagedata]: any = useState([]);
+  const [teamdata, setTeamdata]: any = useState([]);
+  const [companydata, setCompanydata]: any = useState([]);
+  const [user, setPUser] = useState({
+    business_name: "",
+    business_id: "",
+  });
+  const [fundid, setFundId]: any = useState<string | null>(null);
+  const [fundids, setFundIds]: any = useState<string | null>(null);
+
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
@@ -70,6 +86,143 @@ export default function CampaignsDetails() {
     };
     fetchData();
   }, [id]);
+
+
+  // useEffect(() => {
+  //   const fundId = 'STARTUP-977667'; // Replace with the actual fund ID
+  //   fetchAllTeamAndCompany(fundId);
+  // }, []);
+
+
+  useEffect(() => {
+    const fetchActiveFundsAndData = async () => {
+      try {
+        const activeFunds = await getAllActiveFunds(); 
+        if (activeFunds.status === true && activeFunds.data.length > 0) {
+          const fundId = activeFunds.data[0].fund_id; 
+          await fetchAllTeamAndCompany(fundId);
+        }
+      } catch (error) {
+        console.error("Error fetching active funds: ", error);
+      }
+    };
+    fetchActiveFundsAndData();
+  }, []);
+
+
+  // useEffect(() => {
+  //   const fetchActiveFundsAndData = async () => {
+  //     try {  
+  //       // Fetching active funds based on business_id
+  //       const activeFunds = await getAllActiveFunds();
+  
+  //       if (activeFunds.status === true && activeFunds.data.length > 0) {
+  //         // Finding fund_id matching the id from router query
+  //         const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));  
+  //         if (matchingFund) {
+  //           const fundId = matchingFund.fund_id;
+  //           await fetchAllTeamAndCompany(fundId); 
+  //         } else {
+  //           console.error("No matching fund found for the provided business_id.");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching active funds: ", error);
+  //     }
+  //   };
+  
+  //   fetchActiveFundsAndData();
+  // }, [id]);
+
+  useEffect(() => {
+    const fetchActiveFundsAndData = async () => {
+      try {
+        if (typeof id === 'string') { // Check if id is a string and not undefined
+          const activeFunds = await getAllActiveFunds();
+  
+          if (activeFunds.status === true && activeFunds.data.length > 0) {
+            const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));
+            if (matchingFund) {
+              const fundId = matchingFund.fund_id;
+              await fetchAllTeamAndCompany(fundId);
+            } else {
+              console.error("No matching fund found for the provided business_id.");
+            }
+          }
+        } else {
+          console.error("ID is undefined or not a string.");
+        }
+      } catch (error) {
+        console.error("Error fetching active funds: ", error);
+      }
+    };
+  
+    fetchActiveFundsAndData();
+  }, [id]);
+  
+  
+  
+
+  
+
+  const fetchAllTeamAndCompany = async (fundIds: string) => {
+    try {  
+      const res = await getAllTeamAndCompanyData(fundIds); 
+      if (res.status) {
+        setTeamdata(res.teams);
+        setCompanydata(res.competitors);
+      }
+    } catch (error) {
+      console.error("Error fetching page data: ", error);
+    }
+  };
+  
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const activeFundsResponse = await getAllActiveFunds();
+        if (activeFundsResponse.status === true && activeFundsResponse.data.length > 0) {
+          await fetchAllPagedata(id);
+        }
+      } catch (error) {
+        console.error("Error fetching active funds: ", error);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
+  const fetchAllPagedata = async (buisnesssid: any) => {
+    try {
+      const pageDataResponse = await getInvestorPagedata(buisnesssid);
+      if (pageDataResponse.status) {
+        setPagedata(pageDataResponse.data);
+      }
+    } catch (error) {
+      console.error("Error fetching page data: ", error);
+    }
+  };
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const threshold = 1000;
+      setIsSticky(scrollTop > threshold);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleClick = (link: any) => {
+    setActiveLink(link);
+  };
 
   const handleChangeTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
@@ -143,13 +296,13 @@ export default function CampaignsDetails() {
   const toggleAccordion = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-  useEffect(() => {    
+  useEffect(() => {
     if (inputs.minimum_subscription !== undefined) {
       setSubscriptionValue(inputs.minimum_subscription);
       setRepayValue(inputs.minimum_subscription);
-    } 
-  }, [inputs.minimum_subscription]);
-  
+    }
+  }, [inputs?.minimum_subscription]);
+
   const handlePlusClick = () => {
     if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
       setValue(value + 1);
@@ -209,403 +362,535 @@ export default function CampaignsDetails() {
 
   const progressPercentage = ((inputs.no_of_units !== undefined ? Number(inputs.no_of_units) : 0) / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * 100;
 
- 
+
   return (
     <>
-      <section className="invertor-campaign_detail">
-        <div className="container py-5">
-          <div className="detail_text">
-            <div className="row mb-3 pdcover align-items-center g-3">
-              <div className="col-md-6">
-                <div className="row g-3">
-                  <div className="col-md-7 text-center">
-                    <div className="css-1d6tso ffff position-relative">
-                      <div className="logo-company">
-                        <div className="img">
-                          {inputs.logo ? (
-                            <Image
-                              src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + inputs.logo} alt="proof-img" className="proof-img"
-                              width={120}
-                              height={120}
-                            />
-                          ) : (
-                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/default.png'} alt="business-logo" className='profile-pic' width={100} height={100} />
-                          )
-                          }
-                        </div>
-                      </div>
-
-                      <h5>
-                        <a
-                          href={inputs.website_url}
-                          target="_blank"
-                          style={{ color: "black" }}
-                        >
-                          {inputs.business_name}
-                        </a>
-                      </h5>
-                      <p>STARTUP</p>
+      <section className="mainPageSection">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              {
+                pagedata.length > 0 && (
+                  <div className="ContentSection">
+                    <h1>{pagedata[0].business_name}</h1>
+                    <p>
+                      {pagedata[0].description}
+                    </p>
+                    <div className="ContentSection d-lg-flex align-items-lg-center">
+                      <Link
+                        href="#"
+                        className="default-btn"
+                      >
+                        Invest
+                      </Link>
+                      <p className="mx-lg-2 m-0">
+                        Minimum Investment:
+                        <strong>${pagedata[0].amount}</strong>
+                      </p>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-md-5">
-                {inputs.type == 'CCSP'
-                  ?
-                    <p style={{"textAlign":"right"}}><a href="#" style={{"color":"#ffffff"}}>Chat</a></p>
-                  :
-                    ''
-                }
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <span style={{ color: '#fff' }}>Total Amount</span>
-                    <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
-                  </div>
-                  <div>
-                    {" "}
-                    <span style={{ color: '#fff' }}>Units Left</span>
-                    <br />
-                    <span className="progressbar-value">
-                      <span className="color-rumaric" style={{ color: '#fff' }}>
-                        {inputs.no_of_units}
-                      </span>
-                      <strong style={{ color: '#fff' }}>/{inputs.total_units}</strong>
-                    </span>
-                  </div>
-                </div>
-                <div className="progress mt-2">
-                  <div
-                    className="progress-bar progress-bar-success"
-                    role="progressbar"
-                    aria-valuemin={0}
-                    aria-valuemax={
-                      inputs.total_units !== undefined
-                        ? parseInt(inputs.total_units)
-                        : undefined
-                    }
-                    style={{ width: `${progressPercentage}%` }}
-                  />
-                </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="acceptingInvestments single-footer-widget m-0">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-3">
+              <div className="investmentss">
+                <span>Security Offered</span>
+                <h2>Convertible Note</h2>
+                <ul className="footer-social">
+                  <li>
+                    <Link href="https://www.facebook.com/">
+                      <i className="flaticon-facebook"></i>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link href="https://twitter.com/">
+                      <i className="flaticon-twitter"></i>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link href="https://in.pinterest.com/">
+                      <i className="flaticon-pinterest"></i>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link href="https://www.instagram.com/">
+                      <i className="flaticon-instagram"></i>
+                    </Link>
+                  </li>
+                </ul>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-8 pl-0">
-                <div className="main-fixed p-0">
-                  <h4>Discounting</h4>
-                  <div className="about_section">
-                    <div className="row g-3">
-                      <div className="col-md-6">
-                        <div className="text-center class-smae">
-                          <p>XIRR</p>
-                          <h6 className="font-60">{inputs.xirr}%</h6>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="text-center class-smae">
-                          <p>Minimum</p>
-                          <h6 className="css-19wesjx">
-                            ₹{inputs.minimum_subscription}
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="text-center class-smae mb-3">
-                          <p>Tenure</p>
-                          <h6 className="css-19wesjx">{inputs.tenure} Days</h6>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="text-center class-smae mb-3">
-                          <p>Recourse on</p>
-                          <h6 className="css-19wesjx">{inputs.resource}</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="countersection pt-4">
-                    <h4 className="">About</h4>
-                    <div className="d-flex justify-content-between all-btn py-3">
-                      <div className="">
-                        <div className="text-center button-pdf">
-                          <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.agreement}`}
-                            download
-                            target="_blank"
-                          >
-                            <span>
-                              Agreement <i className="fa-solid fa-download" />
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="">
-                        <div className="text-center button-pdf">
-                          <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.pdc}`}
-                            download
-                            target="_blank"
-                          >
-                            <span>
-                              PDC <i className="fa-solid fa-download" />
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="">
-                        <div className="text-center button-pdf">
-                          <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.invoice}`}
-                            download
-                            target="_blank"
-                          >
-                            <span>
-                              Invoice <i className="fa-solid fa-download" />
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="oppotsummery pt-4">
-                      <h4>Opportunity Summary</h4>
-                      <div className="seller">
-                        <h6>About the Startup</h6>
-                        <p>{inputs.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="section-title pt-4">
-                    <h4>Frequently Asked Questions</h4>
-                    <div className="bar" />
-                  </div>
+            <div className="col-lg-5">
+              <div className="investments text-center">
+                <h2>Accepting Investments</h2>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="investmentss text-center">
+                <h2>$137,487</h2>
+                <span>Raised from 180 investors</span>
+              </div>
+            </div>
+          </div>
+          <div className="py-5 developmentInvest">
+            <div className="development-content">
+              <div className="icon mb-3">
+                <i
+                  className="flaticon-tick"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    lineHeight: "30px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    backgroundColor: "#088395",
+                  }}
+                />
+              </div>
+              <p>
+                Raise funds from investors in the form of preferred shares or
+                debentures
+              </p>
+            </div>
+            <div className="development-content">
+              <div className="icon bg-05dbcf">
+                <i
+                  className="flaticon-tick"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    lineHeight: "30px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    backgroundColor: "#088395",
+                  }}
+                />
+              </div>
+              <p>Working capital funding through invoice discounting</p>
+            </div>
+            <div className="development-content">
+              <div className="icon bg-fec66f">
+                <i
+                  className="flaticon-tick"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    lineHeight: "30px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    backgroundColor: "#088395",
+                  }}
+                />
+              </div>
+              <p>
+                CFO services including financial planning and analysis,
+                financials, and tax compliance
+              </p>
+            </div>
+            <div className="development-content">
+              <div className="icon bg-fec66f">
+                <i
+                  className="flaticon-tick"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    lineHeight: "30px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    backgroundColor: "#088395",
+                  }}
+                />
+              </div>
+              <p>
+                Legal assistance with a variety of matters, such as drafting and
+                negotiating contracts, shareholder agreement, reviewing term
+                sheets, and complying with regulatory requirements
+              </p>
+            </div>
+            <div className="development-content">
+              <div className="icon bg-fec66f">
+                <i
+                  className="flaticon-tick"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    lineHeight: "30px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    backgroundColor: "#088395",
+                  }}
+                />
+              </div>
+              <p>Registered valuer and merchant banker valuation reports</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  <div className="row align-items-center">
-                    <div className="col-lg-12">
-                      <div className="faq-accordion">
-                        <ul className="accordion">
-                          <li className="accordion-item">
-                            <a
-                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
-                                }`}
-                              href="#"
-                              onClick={() => toggleAccordion(0)}
-                            >
-                              <i className="bx bx-chevron-down" />
-                              What is Discounting?
-                            </a>
-                            <div
-                              className={`accordion-content ${activeIndex === 0 ? "show" : ""
-                                }`}
-                            >
-                              <p>
-                                Discounting enables businesses to gain instant
-                                access to cash tied up in unpaid invoices or
-                                purchase orders. The subscriber provides the
-                                cash against the unpaid invoice or purchase
-                                order for a higher repayment in return.
-                              </p>
-                            </div>
-                          </li>
-                          <li className="accordion-item">
-                            <a
-                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
-                                }`}
-                              href="#"
-                              onClick={() => toggleAccordion(1)}
-                            >
-                              <i className="bx bx-chevron-down" />
-                              What access do I have on a free trial?
-                            </a>
-                            <div
-                              className={`accordion-content ${activeIndex === 1 ? "show" : ""
-                                }`}
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
-                              </p>
-                            </div>
-                          </li>
-                          <li className="accordion-item">
-                            <a
-                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
-                                }`}
-                              href="#"
-                              onClick={() => toggleAccordion(2)}
-                            >
-                              <i className="bx bx-chevron-down" />
-                              Does the price go up as my team gets larger?
-                            </a>
-                            <div
-                              className={`accordion-content ${activeIndex === 2 ? "show" : ""
-                                }`}
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
-                              </p>
-                            </div>
-                          </li>
-                          <li className="accordion-item">
-                            <a
-                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
-                                }`}
-                              href="#"
-                              onClick={() => toggleAccordion(3)}
-                            >
-                              <i className="bx bx-chevron-down" />
-                              How can I cancel my subscription?
-                            </a>
-                            <div
-                              className={`accordion-content ${activeIndex === 3 ? "show" : ""
-                                }`}
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
-                              </p>
-                            </div>
-                          </li>
-                          <li className="accordion-item">
-                            <a
-                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
-                                }`}
-                              href="#"
-                              onClick={() => toggleAccordion(4)}
-                            >
-                              <i className="bx bx-chevron-down" />
-                              Can I pay via an Invoice?
-                            </a>
-                            <div
-                              className={`accordion-content ${activeIndex === 4 ? "show" : ""
-                                }`}
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
-                              </p>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
+      <section
+        className={`investMentAll p-3 ${isSticky ? "sticky" : ""}`}
+        style={{ zIndex: 100 }}
+      >
+        <div className="container">
+          <div className="menuItems">
+            <ul className="menuUrl">
+              <li
+                className={`items ${activeLink === "documents" ? "active" : ""
+                  }`}
+              >
+                <a
+                  href="#documents"
+                  className="link"
+                  onClick={() => handleClick("documents")}
+                >
+                  Documents
+                </a>
+              </li>
+              <li className={`items ${activeLink === "terms" ? "active" : ""}`}>
+                <a
+                  href="#terms"
+                  className="link"
+                  onClick={() => handleClick("terms")}
+                >
+                  Terms
+                </a>
+              </li>
+              <li
+                className={`items ${activeLink === "overview" ? "active" : ""}`}
+              >
+                <a
+                  href="#overview"
+                  className="link"
+                  onClick={() => handleClick("overview")}
+                >
+                  Overview
+                </a>
+              </li>
+              <li
+                className={`items ${activeLink === "industry" ? "active" : ""}`}
+              >
+                <a
+                  href="#industry"
+                  className="link"
+                  onClick={() => handleClick("industry")}
+                >
+                  Industry
+                </a>
+              </li>
+              <li className={`items ${activeLink === "team" ? "active" : ""}`}>
+                <a
+                  href="#team"
+                  className="link"
+                  onClick={() => handleClick("team")}
+                >
+                  Team
+                </a>
+              </li>
+              <li
+                className={`items ${activeLink === "competitors" ? "active" : ""
+                  }`}
+              >
+                <a
+                  href="#competitors"
+                  className="link"
+                  onClick={() => handleClick("competitors")}
+                >
+                  Competitors
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="tabsSection">
+        {pagedata.length > 0 && (
+          <div className="container">
+            <h2 className="text-black">Product</h2>
+            <p>
+              <div dangerouslySetInnerHTML={{ __html: pagedata[0].product_description }}></div>
+            </p>
+          </div>
+        )}
+      </section>
+
+
+      <section id="documents" className="py-lg-5">
+        <div className="container">
+          <h1 className="text-center pb-4 bold">Documents</h1>
+          <div className="row justify-content-center">
+            <div className="col-lg-9">
+              <div className="row py-3 g-3">
+                <div className="col-lg-3">
+                  <div className="documentsTitle">
+                    <div className="circleSvg">
+                      <img src="/assets/img/Vector.svg" alt="" />
                     </div>
+                    <p>Company Summary</p>
                   </div>
                 </div>
-              </div>
-              <div className="col-md-4 px-0">
-                <div className="positionfxd">
-                  <h5 className="missed" style={{ color: '#fff' }}>Your Subscription</h5>
-                  <div className="fourcolm">
-                    <div className="text-center">
-                      <p>No. of Units</p>
+                <div className="col-lg-3">
+                  <div className="documentsTitle">
+                    <div className="circleSvg">
+                      <img src="/assets/img/Vector.svg" alt="" />
                     </div>
-
-                    <div className="number">
-                      <span className="minus" onClick={handleMinusClick}>
-                        -
-                      </span>
-                      <input
-                        type="text"
-                        min={1}
-                        value={value}
-                        name="no_of_units"
-                        onChange={handleInputChange}
-                      />
-                      <span className="plus" onClick={handlePlusClick}>+</span>
+                    <p>Crowd Note</p>
+                  </div>
+                </div>
+                <div className="col-lg-3">
+                  <div className="documentsTitle">
+                    <div className="circleSvg">
+                      <img src="/assets/img/Vector.svg" alt="" />
                     </div>
-
-                    <div className="css-wsc10v">
-                      <span>Unit Value</span>
-                      <p
-                        className="css-37nqt7"
-                        onChange={(e: any) =>
-                          setSubscription_value(e.target.value)
-                        }
-                      >
-                        ₹{inputs.minimum_subscription}
-                      </p>
+                    <p>Offering Statement</p>
+                  </div>
+                </div>
+                <div className="col-lg-3">
+                  <div className="documentsTitle">
+                    <div className="circleSvg">
+                      <img src="/assets/img/Vector.svg" alt="" />
                     </div>
-
-                    <div className="css-wsc10v">
-                      <span>Subscription Value</span>
-                      <p
-                        className="css-37nqt7 subscription_value"                        
-                      >
-                        ₹{subscriptionValue}
-                      </p>
-                    </div>
-
-                    <div className="css-wsc10v">
-                      <div className="d-block">
-                        <span>Transaction Fees </span>
-                        <span className="css-1q6czfn">Waived Off</span>
-                      </div>
-                      <p className="css-37nqt7">₹10000</p>
-                    </div>
-                    <div className="border-div">
-                      <div className="css-wsc10v">
-                        <span>Repayment Date</span>
-                        <p
-                          className="css-37nqt7"
-                          onChange={(e: any) => setRepay_date(e.target.value)}
-                        >
-                          {inputs.repay_date}
-                        </p>
-                      </div>
-
-                      <div className="css-wsc10v">
-                        <span>
-                          <strong>Repayment Value</strong>
-                        </span>
-                        <p
-                          className="css-37nqt7"
-                          onChange={(e: any) =>
-                            setRepayment_value(e.target.value)
-                          }
-                        >
-                          ₹{repayValue}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="form-check form-check-inline py-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="inlineCheckbox1"
-                        defaultValue="option1"
-                        name="terms"
-                        onChange={(e: any) =>
-                          setRepayment_value(e.target.checked)
-                        }
-                        value="1"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineCheckbox1"
-                      >
-                        I agree to the{" "}
-                        <a href="#">Terms And Conditions,Terms Of Use</a> and
-                        have read and understood the{" "}
-                        <a href="#">Privacy Policy.</a>
-                      </label>
-                      {checkboxError && <p className="text-danger">{checkboxError}</p>}
-                    </div>
-                    <div className="text-center viwe_all">
-                      <a href="#" onClick={handleSubmit}>
-                        Continue to Pay
-                      </a>
-                    </div>
+                    <p>Solubag Form C</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <ToastContainer />
-      </section >
+      </section>
+
+      <section id="terms">
+        <div className="container">
+          <h1 className="text-center pb-4 text-white bold">Terms</h1>
+          <div className="termsContent">
+            <div className="row">
+              <h1> Investment Terms</h1>
+              <p>
+                <strong>Security Type:</strong> Crowd Notes
+              </p>
+
+              <p>
+                <strong>Round Size:</strong>Min: $25,000 Max: $1,235,000
+              </p>
+
+              <p>
+                <strong>Valuation Cap:</strong> $50 million
+              </p>
+
+              <p>
+                <strong>Conversion Provisions:</strong> In connection with
+                equity financing of at least $1 million, the Company has the
+                option to convert the Crowd Note into non-voting preferred stock
+                (Conversion Shares) at a price based on the lower of (A) the
+                price per share for Preferred Stock by investors in the
+                Qualified Equity Financing or (B) the price per share paid on a
+                $50 million valuation cap. Please refer to the Crowd Note for a
+                complete description of the terms of the Crowd Note, including
+                the conversion provisions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="overview" className="tabsSection">
+        <div className="container">
+          <h1 className="text-center bold">Overview </h1>
+          <div className="overviewContent">
+            {pagedata.length > 0 && (
+              <div className="row">
+                {/* <h2 className="text-black">Opportunity</h2> */}
+                <p>
+                  <div dangerouslySetInnerHTML={{ __html: pagedata[0].company_overview }}></div>
+                </p>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      <section id="industry" className="tabsSection">
+        <div className="container">
+          <h1 className="text-left py-3 bold">Past Financing</h1>
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="industryContent">
+                {pagedata.length > 0 && (
+                  <div className="row">
+                    <h3 className="text-white">Facilitating Connections</h3>
+                    <p className="text-white">
+                      <div dangerouslySetInnerHTML={{ __html: pagedata[0].past_financing_desc }}></div>
+                    </p>
+                  </div>
+                )}
+              </div>
+
+            </div>
+            <div className="col-lg-6 order-lg-0 order-first">
+              <img
+                src="assets/img/removetext.png"
+                alt=""
+                className="hover-img"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="competitors" className="tabsSection">
+        <div className="container">
+          <h1 className="text-center mb-5 bold">Competitors</h1>
+          <div className="competitorsContent">
+            {companydata.map((data: any, index: number) => (
+              <div className="row align-items-center g-3" key={index}>
+                <div className="col-lg-6">
+                  <div className="competitorsContentTitle">
+                    {/* <h4><strong>Invisible Company</strong></h4> */}
+                    <h4><strong>{data.company_name}</strong></h4>
+                    <p>
+                      {data.company_desc}
+                    </p>
+
+                  </div>
+                </div>
+                <div className="col-lg-6 order-lg-0 order-first">
+                  <div className="competitorsContentTitle">
+                    {data.competitor_logo ? (
+                      <img
+                        src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/competitorlogo/" + data.competitor_logo}
+                        alt=""
+                        className="hover-img"
+                        height={94}
+                        width={430}
+                      />
+                    ) : (
+                      <img
+                        src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
+                        alt=""
+                        className="hover-img"
+
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* <div className="row align-items-center g-3 py-lg-5 pt-5">
+              <div className="col-lg-6">
+                <div className="competitorsContent">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPp0nZM4ajF83I68Udw5IdeUAA4kxjogHXpqzZGkmCusMmrRQC3L-syvRK2Wes7mW3r2A&usqp=CAU"
+                    alt=""
+                    className="hover-img"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="competitorsContentTitle">
+                  <h4><strong>MonoSol</strong></h4>
+                  <p>
+                    Simplifying Fundraising: We aim to simplify the fundraising
+                    process, making it more accessible and less intimidating.
+                    Our platform provides a user-friendly experience that allows
+                    startups to focus on their innovation, and investors to
+                    discover promising opportunities effortlessly.s
+                  </p>
+                  <p>
+                    Empowering Entrepreneurs: We believe in the potential of
+                    startups to drive change. Our CFO services empower startups
+                    with financial expertise, while our legal services secure
+                    their fundraising endeavours. The addition of "Invoice
+                    Discounting" further strengthens our financial support by
+                    offering cash flow solutions that help startups maintain
+                    stability.
+                  </p>
+                </div>
+              </div>
+            </div> */}
+          </div>
+        </div>
+      </section>
+
+      <section id="team" className="pt-100 pb-100">
+        <div className="container">
+          <div className="section-title">
+            <h2>Team</h2>
+            <div className="bar" />
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+
+              <div className="row">
+                {teamdata.map((team: any, index: number) => (
+                  <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
+                    <div className="team-item">
+                      <div className="image">
+                        {team.member_pic ? (
+                          <img
+                            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/memberPic/" + team.member_pic}
+                            alt="image"
+                          />
+                        ) : (
+                          <img
+                            src={
+                              process.env.NEXT_PUBLIC_BASE_URL +
+                              "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
+                            }
+                            alt="image"
+                          />
+                        )
+                        }
+                        <ul className="social">
+                          <li>
+                            <Link href="#" target="_blank">
+                              <i className="bx bxl-facebook" />
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="#" target="_blank">
+                              <i className="bx bxl-twitter" />
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="#" target="_blank">
+                              <i className="bx bxl-linkedin" />
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="#" target="_blank">
+                              <i className="bx bxl-instagram" />
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="content d-flex justify-content-between">
+                        <h3>{team.member_name}</h3>
+                        <span>{team.member_designation}</span>
+                      </div>
+                      <div className="content pt-0" style={{ textAlign: "left" }}>
+                        <p>
+                          {team.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
