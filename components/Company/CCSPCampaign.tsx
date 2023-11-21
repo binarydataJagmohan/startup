@@ -5,13 +5,43 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { getStartupIfinworthDetail, insertIfinWorthDetails } from "@/lib/investorapi";
 import { useRouter } from "next/router";
+import { getAllInvestors } from "@/lib/frontendapi";
 interface UserData {
     id?: any;
 }
-const CCSPCampaign = () => {
+type Investor = {
+    id: number;
+    name: string;
+    email: string;
+    investorType: string;
+    status: string;
+    approval_status: string;
+};
 
+const CCSPCampaign = () => {
+    const [otherDocumentsName, setOtherDocumentsName] = useState('');
+    const [otherDocumentsSizeError, setOtherDocumentsSizeError] = useState('');
+    const [otherDocumentsError, setOtherDocumentsError] = useState('');
+    const [latestCapTableName, setLatestCapTableName] = useState('');
+    const [latestCapTableSizeError, setLatestCapTableSizeError] = useState('');
+    const [latestCapTableError, setLatestCapTableError] = useState('');
+    const [onePagerName, setOnePagerName] = useState('');
+    const [onePagerSizeError, setOnePagerSizeError] = useState('');
+    const [onePagerError, setOnePagerError] = useState('');
+    const [previousFinancialName, setPreviousFinancialName] = useState('');
+    const [previousFinancialSizeError, setPreviousFinancialSizeError] = useState('');
+    const [previousFinancialError, setPreviousFinancialError] = useState('');
+    const [pitchDeckName, setPitchDeckName] = useState('');
+    const [pitchDeckSizeError, setPitchDeckSizeError] = useState('');
+    const [pitchDeckError, setPitchDeckError] = useState('');
     const [current_user_id, setCurrentUserId] = useState("");
     const router = useRouter();
+    const [investors, setInvestors] = useState<Investor[]>([]);
+    const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
+    const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
+    const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
+    const [preCommitedInvestor, setPreCommitedInvestor] = useState('');
+
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
@@ -22,7 +52,7 @@ const CCSPCampaign = () => {
             .then((res) => {
                 if (res.status == true) {
                     setUser(res.data);
-
+                    setPreCommitedInvestor(res.data.pre_committed_investor);
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -34,7 +64,14 @@ const CCSPCampaign = () => {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
             });
+        const fetchData = async () => {
+            const data = await getAllInvestors({});
+            if (data) {
+                setInvestors(data.data);
+            }
+        };
 
+        fetchData();
     }, []);
 
     const [user, setUser] = useState({
@@ -45,9 +82,9 @@ const CCSPCampaign = () => {
         pre_committed_ifinworth_currency: "",
         pre_committed_ifinworth_amount: "",
         pre_committed_investor: "",
-        accredited_investors: false as any,
-        angel_investors: false as any,
-        regular_investors: false as any,
+        accredited_investors: 'false',
+        angel_investors: 'false',
+        regular_investors: 'false',
         other_funding_detail: "",
         pitch_deck: "",
         one_pager: "",
@@ -58,23 +95,108 @@ const CCSPCampaign = () => {
 
     const handlePitchDecker = (e: any) => {
         const file = e.target.files[0];
-        setUser({ ...user, pitch_deck: file })
+        if (file) {
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 10 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setUser({ ...user, pitch_deck: file })
+                    setPitchDeckName(file.name);
+                    setPitchDeckSizeError('');
+                    setPitchDeckError('');
+                } else {
+                    setPitchDeckSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setPitchDeckError('* Please upload a PPT, DOC or PDF file');
+                e.target.value = null;
+            }
+        }
     };
     const handleOnePager = (e: any) => {
         const file = e.target.files[0];
-        setUser({ ...user, one_pager: file })
+        if (file) {
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 10 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setUser({ ...user, one_pager: file })
+                    setOnePagerName(file.name);
+                    setOnePagerSizeError('');
+                    setOnePagerError('');
+                } else {
+                    setOnePagerSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setOnePagerError('* Please upload a PPT, DOC or PDF file');
+                e.target.value = null;
+            }
+        }
     };
     const handlePreviousFinancial = (e: any) => {
         const file = e.target.files[0];
-        setUser({ ...user, previous_financials: file })
+        if (file) {
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 10 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setUser({ ...user, previous_financials: file })
+                    setPreviousFinancialName(file.name);
+                    setPreviousFinancialSizeError('');
+                    setPreviousFinancialError('');
+                } else {
+                    setPreviousFinancialSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setPreviousFinancialError('* Please upload a PPT, DOC or PDF file');
+                e.target.value = null;
+            }
+        }
     };
     const handleLatestCapTable = (e: any) => {
         const file = e.target.files[0];
-        setUser({ ...user, latest_cap_table: file })
+        if (file) {
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 10 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setUser({ ...user, latest_cap_table: file })
+                    setLatestCapTableName(file.name);
+                    setLatestCapTableSizeError('');
+                    setLatestCapTableError('');
+                } else {
+                    setLatestCapTableSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setLatestCapTableError('* Please upload a PPT, DOC or PDF file');
+                e.target.value = null;
+            }
+        }
     };
     const handleOtherDocuments = (e: any) => {
         const file = e.target.files[0];
-        setUser({ ...user, other_documents: file })
+        if (file) {
+            const allowedTypes = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+            const maxSize = 10 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    setUser({ ...user, other_documents: file })
+                    setOtherDocumentsName(file.name);
+                    setOtherDocumentsSizeError('');
+                    setOtherDocumentsError('');
+                } else {
+                    setOtherDocumentsSizeError('* Please upload a file that is no larger than 2MB.');
+                }
+            } else {
+                setOtherDocumentsError('* Please upload a PPT, DOC or PDF file');
+                e.target.value = null;
+            }
+        }
     };
     useEffect(() => {
         setUser((prevUser) => ({
@@ -87,6 +209,38 @@ const CCSPCampaign = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
+            if (user.pitch_deck == '') {
+                setPitchDeckError('* Please upload a PPT, DOC or PDF file');
+                return;
+            } else {
+                formData.append("pitch_deck", user.pitch_deck);
+            }
+            if (user.one_pager == '') {
+                setOnePagerError('* Please upload a PPT, DOC or PDF file');
+                return;
+            } else {
+                formData.append("one_pager", user.one_pager);
+            }
+            if (user.previous_financials == '') {
+                setPreviousFinancialError('* Please upload a PPT, DOC or PDF file');
+                return;
+            } else {
+                formData.append("previous_financials", user.previous_financials);
+            }
+            if (user.latest_cap_table == '') {
+                setLatestCapTableError('* Please upload a PPT, DOC or PDF file');
+                return;
+            } else {
+                formData.append("latest_cap_table", user.latest_cap_table);
+            }
+            if (user.other_documents == '') {
+                setOtherDocumentsError('* Please upload a PPT, DOC or PDF file');
+                return;
+            } else {
+                formData.append("other_documents", user.other_documents);
+            }
+
+
             formData.append("startup_id", user.startup_id);
             formData.append("round_of_ifinworth", user.round_of_ifinworth);
             formData.append("ifinworth_currency", user.ifinworth_currency);
@@ -94,15 +248,12 @@ const CCSPCampaign = () => {
             formData.append("pre_committed_ifinworth_currency", user.pre_committed_ifinworth_currency);
             formData.append("pre_committed_ifinworth_amount", user.pre_committed_ifinworth_amount);
             formData.append("pre_committed_investor", user.pre_committed_investor);
-            formData.append("accredited_investors", user.accredited_investors ? "true" : "false");
-            formData.append("angel_investors", user.angel_investors ? "true" : "false");
-            formData.append("regular_investors", user.regular_investors ? "true" : "false");
+            formData.append("accredited_investors", user.accredited_investors.toString());
+            formData.append("angel_investors", user.angel_investors.toString());
+            formData.append("regular_investors", user.regular_investors.toString());
+
             formData.append("other_funding_detail", user.other_funding_detail);
-            formData.append("pitch_deck", user.pitch_deck);
-            formData.append("one_pager", user.one_pager);
-            formData.append("previous_financials", user.previous_financials);
-            formData.append("latest_cap_table", user.latest_cap_table);
-            formData.append("other_documents", user.other_documents);
+
             if (formData) {
                 const res = await insertIfinWorthDetails(formData);
                 if (res.status === true) {
@@ -125,19 +276,45 @@ const CCSPCampaign = () => {
             }
         }
         catch (err: any) {
-            console.error(err);
+            const errorFields = ["round_of_ifinworth", "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "accredited_investors", "other_documents"];
+            if (err.response.data.errors) {
+                errorFields.forEach((field) => {
+                    if (err.response.data.errors[field]) {
+                        toast.error(err.response.data.errors[field][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            toastId: "error",
+                        });
+                    }
+                });
+            } else {
+                toast.error("An error occurred. Please try again.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            }
         }
     };
 
-    const handleInputChange = (e: any) => {
-        const { name, type, value, checked } = e.target;
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, type, value, checked }: any = e.target;
 
         setUser((prevUser) => ({
             ...prevUser,
-            [name]: type === 'checkbox' ? checked : value,
+            [name]: type === 'checkbox' ? checked.toString() : value,
         }));
     };
 
+    const handleInvestorSelect = (investorName: string) => {
+        setUser((prevUser) => ({ ...prevUser, pre_committed_investor: investorName }));
+    };
+
+    const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredList = investors.filter((investor) =>
+            investor.name.toLowerCase().includes(searchTerm)
+        );
+        setFilteredInvestors(filteredList);
+    };
 
     return (
         <>
@@ -180,7 +357,7 @@ const CCSPCampaign = () => {
                             </div>
 
                             <div className="col-sm-12">
-                                <p className="label-text mt-4">How much amount is "IFinWorth" looking to raise? <span>Optional <i className="fa-solid fa-circle-exclamation"></i></span></p>
+                                <p className="label-text mt-4">How much amount is "IFinWorth" looking to raise? </p>
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <select className="fild-des" name="ifinworth_currency" value={
@@ -199,7 +376,7 @@ const CCSPCampaign = () => {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <input type="text" name="ifinworth_amount" className="form-control fild-des" placeholder="Enter Amount" value={
+                                        <input type="number" name="ifinworth_amount" className="form-control fild-des" placeholder="Enter Amount" value={
                                             user.ifinworth_amount
                                                 ? user.ifinworth_amount
                                                 : ""
@@ -209,7 +386,7 @@ const CCSPCampaign = () => {
                             </div>
 
                             <div className="col-sm-12">
-                                <p className="label-text mt-4">How much funding is pre-committed to"IFinWorth" <span>Optional <i className="fa-solid fa-circle-exclamation"></i></span></p>
+                                <p className="label-text mt-4">How much funding is pre-committed to"IFinWorth" </p>
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <select className="fild-des" name="pre_committed_ifinworth_currency" value={
@@ -228,7 +405,7 @@ const CCSPCampaign = () => {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <input type="text" className="form-control" name="pre_committed_ifinworth_amount" placeholder="Enter Amount" value={
+                                        <input type="number" className="form-control" name="pre_committed_ifinworth_amount" placeholder="Enter Amount" value={
                                             user.pre_committed_ifinworth_amount
                                                 ? user.pre_committed_ifinworth_amount
                                                 : ""
@@ -238,54 +415,79 @@ const CCSPCampaign = () => {
                             </div>
 
                             <div className="col-sm-12">
-                                <p className="label-text">Which investor has pre-committed the funding amount? <span>(You can add multiple investors here) Optional ✪</span></p>
+                                <p className="label-text">
+                                    Which investor has pre-committed the funding amount?{" "}
+                                    <span>(You can add multiple investors here)</span>
+                                </p>
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="form-icon">
-                                            <input type="text" placeholder="Search & Add Investors" className="fild-des sp-left" name="pre_committed_investor" value={
-                                                user.pre_committed_investor
-                                                    ? user.pre_committed_investor
-                                                    : ""
-                                            } onChange={handleInputChange} />
-                                            <div className="left-icon-eye"><i className="fa-solid fa-magnifying-glass"></i></div>
+                                            <input
+                                                type="text"
+                                                placeholder="Search & Add Investors"
+                                                className="fild-des sp-left"
+                                                name="pre_committed_investor"
+                                                autoComplete="off"
+                                                // value={preCommitedInvestor ? preCommitedInvestor : ''}
+                                                onChange={handleSearchInputChange}
+                                            />
+                                            <div className="left-icon-eye">
+                                                <i className="fa-solid fa-magnifying-glass"></i>
+                                            </div>
                                         </div>
+                                        {/* Display filtered investor list */}
+                                        {filteredInvestors && filteredInvestors.length > 0 ? (
+                                            <div className="investor-dropdown">
+                                                {filteredInvestors.map((investor, index) => (
+                                                    <p style={{ cursor: "pointer" }} key={index} onClick={() => handleInvestorSelect(investor.name)}>
+                                                        {investor.name}
+                                                    </p>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p>No matching investors found.</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
 
                             <div className="col-sm-12">
-                                <p className="label-text">Is "IFinWorth" looking for any specific kind of investors? <span>(You can select multiple) Optional <i className="fa-solid fa-circle-exclamation"></i></span></p>
+                                <p className="label-text">Is "IFinWorth" looking for any specific kind of investors? <span>(You can select multiple) </span></p>
                                 <ul className="checkbox-lead">
                                     <li>
                                         <label>
                                             <input
                                                 type="checkbox"
+                                                name="accredited_investors"
                                                 checked={user.accredited_investors === 'true'}
-                                                onChange={(e) => setUser({ ...user, accredited_investors: e.target.checked })}
+                                                onChange={handleInputChange}
                                             />
                                             Accredited Investors
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                        <input
+                                            <input
                                                 type="checkbox"
+                                                name="angel_investors"
                                                 checked={user.angel_investors === 'true'}
-                                                onChange={(e) => setUser({ ...user, angel_investors: e.target.checked })}
+                                                onChange={handleInputChange}
                                             />
                                             Angel Investors
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                        <input
+                                            <input
                                                 type="checkbox"
+                                                name="regular_investors"
                                                 checked={user.regular_investors === 'true'}
-                                                onChange={(e) => setUser({ ...user, regular_investors: e.target.checked })}
+                                                onChange={handleInputChange}
                                             />
                                             Regular Investors
                                         </label>
                                     </li>
+
                                 </ul>
                             </div>
 
@@ -306,7 +508,7 @@ const CCSPCampaign = () => {
                                 <div className="container">
                                     <div className="form-part">
                                         <div className="upload-file">
-                                            <p className="c-blue"><i className="fa-solid fa-upload"></i> Upload Documents <span className="span-text">(Optional)</span></p>
+                                            <p className="c-blue"><i className="fa-solid fa-upload"></i> Upload Documents <span className="span-text"></span></p>
                                         </div>
 
                                         <div className="alt-message">
@@ -317,11 +519,51 @@ const CCSPCampaign = () => {
                                         <p className="note"><i>Note: These documents will be visible to the user.</i></p>
 
                                         <ul className="upload-list">
-                                            <li><p>Pitchdeck </p>  <input type="file" className="upload-fild" name="pitch_deck" onChange={handlePitchDecker} />Upload File</li>
-                                            <li><p>One Pager </p>  <input type="file" className="upload-fild" name="one_pager" onChange={handleOnePager} />Upload File</li>
-                                            <li><p>Previous Financials </p>  <input type="file" className="upload-fild" name="previous_financials" onChange={handlePreviousFinancial} />Upload File</li>
-                                            <li><p>Latest Cap Table </p>  <input type="file" className="upload-fild" name="latest_cap_table" onChange={handleLatestCapTable} />Upload File</li>
-                                            <li><p>Other Documents </p>   <input type="file" className="upload-fild" name="other_documents" onChange={handleOtherDocuments} />Upload File</li>
+                                            <li><p>Pitchdeck </p>  <input type="file" className="upload-fild" name="pitch_deck"
+                                                accept='.pdf, .docx, .ppt'
+                                                onChange={handlePitchDecker} />Upload File
+                                                {pitchDeckName ? pitchDeckName : (user.pitch_deck ? user.pitch_deck : "No File Chosen ...")}
+                                            </li>
+                                            {pitchDeckSizeError ? (
+                                                <p className='text-danger'>{pitchDeckSizeError}</p>
+                                            ) : (
+                                                pitchDeckError && <p className='text-danger'>{pitchDeckError}</p>
+                                            )}
+                                            <li><p>One Pager </p>  <input type="file" className="upload-fild" name="one_pager"
+                                                accept='.pdf, .docx, .ppt'
+                                                onChange={handleOnePager} />Upload File{onePagerName ? onePagerName : (user.one_pager ? user.one_pager : "No File Chosen ...")}</li>
+
+                                            {onePagerSizeError ? (
+                                                <p className='text-danger'>{onePagerSizeError}</p>
+                                            ) : (
+                                                onePagerError && <p className='text-danger'>{onePagerError}</p>
+                                            )}
+                                            <li><p>Previous Financials </p>  <input type="file" className="upload-fild" name="previous_financials"
+                                                accept='.pdf, .docx, .ppt'
+                                                onChange={handlePreviousFinancial} />Upload File {previousFinancialName ? previousFinancialName : (user.previous_financials ? user.previous_financials : "No File Chosen ...")}</li>
+
+                                            {previousFinancialError ? (
+                                                <p className='text-danger'>{previousFinancialError}</p>
+                                            ) : (
+                                                previousFinancialError && <p className='text-danger'>{previousFinancialError}</p>
+                                            )}
+                                            <li><p>Latest Cap Table </p>  <input type="file" className="upload-fild" name="latest_cap_table" accept='.pdf, .docx, .ppt'
+                                                onChange={handleLatestCapTable} />Upload File {latestCapTableName ? latestCapTableName : (user.latest_cap_table ? user.latest_cap_table : "No File Chosen ...")}</li>
+
+                                            {latestCapTableError ? (
+                                                <p className='text-danger'>{latestCapTableError}</p>
+                                            ) : (
+                                                latestCapTableError && <p className='text-danger'>{latestCapTableError}</p>
+                                            )}
+                                            <li><p>Other Documents </p>   <input type="file" className="upload-fild" name="other_documents"
+                                                accept='.pdf, .docx, .ppt'
+                                                onChange={handleOtherDocuments} />Upload File {otherDocumentsName ? otherDocumentsName : (user.other_documents ? user.other_documents : "No File Chosen ...")}</li>
+
+                                            {otherDocumentsError ? (
+                                                <p className='text-danger'>{otherDocumentsError}</p>
+                                            ) : (
+                                                otherDocumentsError && <p className='text-danger'>{otherDocumentsError}</p>
+                                            )}
                                         </ul>
 
                                     </div>

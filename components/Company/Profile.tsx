@@ -1263,7 +1263,7 @@ const Profile = () => {
                                                                 <div
                                                                     id="divHabilitSelectors"
                                                                     className="input-file-container "
-                                                                >
+                                                                 >
                                                                     <div className="file-upload mt-3">
                                                                         <div className="file-select">
                                                                             <div
