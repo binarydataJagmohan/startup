@@ -11,7 +11,8 @@ import {
     getAllActiveFunds,
     AdminAddCometitorCompany,
     AdminUpdateCometitorCompany,
-    getAdminCompanydata
+    getAdminCompanydata,
+    deleteCompany
 } from "@/lib/adminapi";
 
 const TextEditor = dynamic(() => import("./TextEditor"), {
@@ -199,6 +200,26 @@ export default function AddCompetitorCompany() {
                 // Handle errors here
                 console.error("Error fetching company data:", error);
             }
+        }
+    };
+
+    const handleDelete = async (id: any) => {
+        try {
+            const response = await deleteCompany(id);
+            if (response.status === true) {
+                toast.success(response.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                fetchAllComoanydata();
+            } else {
+                toast.error("Deletion failed", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } catch (error) {
+            toast.error("Error occurred while deleting", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
         }
     };
 
@@ -406,6 +427,10 @@ export default function AddCompetitorCompany() {
                                                             }
                                                         ></i>
                                                     </p>
+
+                                                    <Link href="#" onClick={() => handleDelete(company.id)}>
+                                                        <i className="fa-solid fa-trash" />
+                                                    </Link>
                                                 </div>
                                             </div>
 

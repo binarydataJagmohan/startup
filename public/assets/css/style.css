@@ -7725,3 +7725,29 @@ a.card-link {
   font-size: 30px !important;
 }
 */
+
+/* new section */
+.productSection{
+  padding: 80px 0px;
+}
+.shadowTitle {
+  box-shadow: 6px 0 4px -6px rgba(0,0,0,0.1), -6px 0 4px -4px rgba(0,0,0,0.05); 
+  height: 440px;
+  position: relative;
+  transition: all 0.4s;
+}
+.shadowTitle:hover{
+  transform: translateY(3px);
+}
+.titleText {
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  background: #fff;
+}
+.titleText p{
+font-size: 18px !important;
+color: #232323!important;
+line-height: 30px !important;
+font-weight: 500 !important;
+}

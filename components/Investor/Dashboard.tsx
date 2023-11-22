@@ -95,29 +95,29 @@ const Dashboard = () => {
   //     window.location.href = `campaign/details?id=${id}`;
   //   });
   // };
-  
+
 
   const getBusinessdetails = async (e: any, id: any) => {
     e.preventDefault();
     const current_user_data: UserData = getCurrentUserData();
     const startupDetails = await getSingleBusinessDetails(id);
     const startupName = startupDetails.data.business_name;
-  
+
     // Check if the user has already viewed this startup's profile
     const viewedStartupKey = `viewedStartup_${id}`;
     const hasViewed = localStorage.getItem(viewedStartupKey);
-  
+
     if (!hasViewed) {
       // If the user hasn't viewed the startup before, send the notification
       const notificationData = {
         notify_from_user: current_user_data.id,
-        notify_to_user: 1, 
+        notify_to_user: 1,
         notify_msg: `Investor with ${current_user_data.username} viewed the details of startup "${startupName}".`,
         notification_type: "Startup Viewed Notification",
         each_read: "unread",
         status: "active"
       };
-      
+
       // Send the notification to the admin
       sendNotification(notificationData)
         .then((notificationRes) => {
@@ -126,17 +126,22 @@ const Dashboard = () => {
         .catch((error) => {
           console.error('Error sending notification:', error);
         });
-  
+
       // Mark the startup as viewed in local storage
       localStorage.setItem(viewedStartupKey, 'true');
     }
-  
+
     // After sending the notification, you can proceed to get the details of the business.
     getSingleBusinessDetails(id).then((res) => {
-      window.location.href = `campaign/details?id=${id}`;
+      if (res.data.type == 'CCSP') {
+        window.location.href = `campaign/ccspdetail?id=${id}`;
+      }
+      else {
+        window.location.href = `campaign/details?id=${id}`;
+      }
     });
   };
-  
+
 
 
   const getClosedBusinessdetails = (e: any, id: any) => {
@@ -223,7 +228,7 @@ const Dashboard = () => {
                           }
                         </Link>
                       </div>
-                      
+
                       <div className="main-padding">
                         <div className="d-flex justify-content-between">
                           <div className="product-content">

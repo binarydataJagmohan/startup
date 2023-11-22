@@ -6,6 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { getBusinessInformation, getSingleUserData } from "@/lib/frontendapi";
 import Image from "next/image";
 import Link from "next/link";
+import swal from "sweetalert";
+import { useRouter } from "next/router";
+
 interface UserData {
     id?: any;
 }
@@ -44,7 +47,7 @@ const CCSPCampaign = () => {
         kyc_purposes: "0",
     });
 
-
+    const router = useRouter();
     const [user, setUser] = useState({
         name: "",
         country: "",
@@ -112,6 +115,22 @@ const CCSPCampaign = () => {
         const truncatedDescription = wordArray.slice(0, words).join(' ');
         return truncatedDescription;
     };
+
+    function successAlert() {
+        swal({
+            title: "Your deal request has been submitted successfully.",
+            text: "Kindly wait for administration approval !",
+            icon: "success",
+            dangerMode: false,
+            buttons: ["Ok", "Dashboard"],
+
+        }).then((redirect) => {
+            if(redirect) {
+                router.push("/company/dashboard");
+            }
+        });
+    }
+
     return (
         <>
             <section className="step-form pt-5 pb-5">
@@ -128,7 +147,7 @@ const CCSPCampaign = () => {
                                 <div className="fund">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <Image className="logo-portfolio" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={55} height={53} />
+                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{height:'150px !important'}} />
                                         </div>
                                         <div className="col-sm-9">
                                             <p className="f-20 c-blue mb-2"><b>{user.name}</b></p>
@@ -243,9 +262,9 @@ const CCSPCampaign = () => {
                         </div>
                     </div>
                     <div className="text-center mt-5">
-                        <button className="back-step">Previous </button>&nbsp;
+                        <Link href="/company/ccsp-campaign  "><button className="back-step">Previous </button>&nbsp;</Link>
                         <button className="continue">Save As Draft </button>&nbsp;
-                        <button className="back-step">Publish</button>&nbsp;
+                        <button className="back-step" onClick={successAlert}>Publish</button>&nbsp;
                     </div>
 
                 </div>
