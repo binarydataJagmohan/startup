@@ -277,6 +277,26 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${
+                              router.pathname === "/admin/all-active-campaign"
+                                ? "active p1"
+                                : ""
+                            }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-active-campaign"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-business-time"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                              </span>
+                              <span>Campaign CCSP</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${
                               router.pathname === "/admin/all-users" ||
                               router.pathname.startsWith("/admin/edit-user")
                                 ? "active p1"
