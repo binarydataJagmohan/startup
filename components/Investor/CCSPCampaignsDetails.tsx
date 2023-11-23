@@ -1,15 +1,16 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getSingleBusinessDetails, InvestorBooking } from "@/lib/investorapi";
+import { getSingleBusinessDetails, InvestorBooking, CreateGroupChatByInvestor, getSingleGroupData } from "@/lib/investorapi";
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData } from '../../lib/frontendapi'
+import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi'
 
 interface UserData {
   id?: string;
+  investorType?: string;
   // role?:string;
 }
 interface InputData {
@@ -31,12 +32,14 @@ interface InputData {
   terms?: string;
   amount?: string;
   type?: string;
+  user_id?: string;
 }
 
 
 
-export default function CCSPCampaignsDetails() {
+export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState<UserData>({});
+  const [singleUserData, setSingleUserData] = useState<UserData>({});
   const [value, setValue] = useState(1);
   const [inputs, setInputs] = useState<InputData>({});
   const [subscriptionValue, setSubscriptionValue] = useState(0);
@@ -65,6 +68,7 @@ export default function CCSPCampaignsDetails() {
   });
   const [fundid, setFundId]: any = useState<string | null>(null);
   const [fundids, setFundIds]: any = useState<string | null>(null);
+  const [isBusinessGroup, setIsBusinessGroup] = useState(false);
 
 
   useEffect(() => {
@@ -86,6 +90,31 @@ export default function CCSPCampaignsDetails() {
       setCurrentUserData(userData);
     };
     fetchData();
+    const data = {
+      group_business_id: id,
+    }
+    getSingleGroupData(data)
+    .then((res) => {
+      if(res.status == true){
+        setIsBusinessGroup(true);
+      } else {
+        setIsBusinessGroup(false);
+      }
+    })
+    .catch((error) => {
+      console.log("error occured");
+    });
+    getSingleUserData(current_user_data.id)
+    .then((res) => {
+      if(res.status == true){
+        setSingleUserData(res.data);
+      } else {
+        setSingleUserData({});
+      }
+    })
+    .catch((error) => {
+      console.log("error occured");
+    });
   }, [id]);
 
 
@@ -160,11 +189,6 @@ export default function CCSPCampaignsDetails() {
 
     fetchActiveFundsAndData();
   }, [id]);
-
-
-
-
-
 
   const fetchAllTeamAndCompany = async (fundIds: string) => {
     try {
@@ -364,7 +388,33 @@ export default function CCSPCampaignsDetails() {
 
   const progressPercentage = ((inputs.no_of_units !== undefined ? Number(inputs.no_of_units) : 0) / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * 100;
 
-
+  const handleClickChat = (startup_id:any, business_name:any, business_id:any) =>{
+    if(isBusinessGroup == true){
+      window.location.href = '/investor/chats';
+    } else {
+      const data = {
+        group_name: business_name +' group',
+        group_admin_id: currentUserData.id,
+        group_business_id: router.query.id,
+        member_id: startup_id+','+currentUserData.id+','+'1',
+        chat_type: 'group',
+        message: 'Hello'
+      };
+      CreateGroupChatByInvestor(data)
+      .then(res => {
+        if (res.status == true) {
+          window.location.href = '/investor/chats';
+        } else {
+          toast.error(res.message, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }
   return (
     <>
       <section className="mainPageSection">
@@ -432,109 +482,153 @@ export default function CCSPCampaignsDetails() {
                 </ul>
               </div>
             </div>
-            <div className="col-lg-5">
-              <div className="investments text-center">
-                <h2>Accepting Investments</h2>
+            <div className="col-md-5">
+              <div className="d-flex justify-content-between">
+                <div>
+                  <span style={{ color: '#fff' }}>Total Amount</span>
+                  <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
+                </div>
+                <div>
+                  {" "}
+                  <span style={{ color: '#fff' }}>Units Left</span>
+                  <br />
+                  <span className="progressbar-value">
+                    <span className="color-rumaric" style={{ color: '#fff' }}>
+                      {inputs.no_of_units}
+                    </span>
+                    <strong style={{ color: '#fff' }}>/{inputs.total_units}</strong>
+                  </span>
+                </div>
+              </div>
+              <div className="progress mt-2">
+                <div
+                  className="progress-bar progress-bar-success"
+                  role="progressbar"
+                  aria-valuemin={0}
+                  aria-valuemax={
+                    inputs.total_units !== undefined
+                      ? parseInt(inputs.total_units)
+                      : undefined
+                  }
+                  style={{ width: `${progressPercentage}%` }}
+                />
               </div>
             </div>
-            <div className="col-lg-4">
-              <div className="investmentss text-center">
-                <h2>$137,487</h2>
-                <span>Raised from 180 investors</span>
-              </div>
+            <div className="col-sm-1">
+              {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
+                ?
+                  inputs.type == 'CCSP'
+                  ?
+                    <p style={{"textAlign":"right", "position": "relative", "bottom": "60px", "right": "10px"}}><a href="#" style={{"color":"#ffffff"}} onClick={(e) => handleClickChat(inputs.user_id, inputs.business_name, inputs.business_id)}><i className="fa fa-message"></i></a></p>
+                  :
+                    ''
+                :
+                  ''
+              }
             </div>
           </div>
-          <div className="py-5 developmentInvest">
-            <div className="development-content">
-              <div className="icon mb-3">
-                <i
-                  className="flaticon-tick"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    lineHeight: "30px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#088395",
-                  }}
-                />
-              </div>
-              <p>
-                Raise funds from investors in the form of preferred shares or
-                debentures
-              </p>
+          <div className="col-lg-5">
+            <div className="investments text-center">
+              <h2>Accepting Investments</h2>
             </div>
-            <div className="development-content">
-              <div className="icon bg-05dbcf">
-                <i
-                  className="flaticon-tick"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    lineHeight: "30px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#088395",
-                  }}
-                />
-              </div>
-              <p>Working capital funding through invoice discounting</p>
+          </div>
+          <div className="col-lg-4">
+            <div className="investmentss text-center">
+              <h2>$137,487</h2>
+              <span>Raised from 180 investors</span>
             </div>
-            <div className="development-content">
-              <div className="icon bg-fec66f">
-                <i
-                  className="flaticon-tick"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    lineHeight: "30px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#088395",
-                  }}
-                />
-              </div>
-              <p>
-                CFO services including financial planning and analysis,
-                financials, and tax compliance
-              </p>
+          </div>
+        </div>
+        <div className="py-5 developmentInvest">
+          <div className="development-content">
+            <div className="icon mb-3">
+              <i
+                className="flaticon-tick"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  lineHeight: "30px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  backgroundColor: "#088395",
+                }}
+              />
             </div>
-            <div className="development-content">
-              <div className="icon bg-fec66f">
-                <i
-                  className="flaticon-tick"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    lineHeight: "30px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#088395",
-                  }}
-                />
-              </div>
-              <p>
-                Legal assistance with a variety of matters, such as drafting and
-                negotiating contracts, shareholder agreement, reviewing term
-                sheets, and complying with regulatory requirements
-              </p>
+            <p>
+              Raise funds from investors in the form of preferred shares or
+              debentures
+            </p>
+          </div>
+          <div className="development-content">
+            <div className="icon bg-05dbcf">
+              <i
+                className="flaticon-tick"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  lineHeight: "30px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  backgroundColor: "#088395",
+                }}
+              />
             </div>
-            <div className="development-content">
-              <div className="icon bg-fec66f">
-                <i
-                  className="flaticon-tick"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    lineHeight: "30px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#088395",
-                  }}
-                />
-              </div>
-              <p>Registered valuer and merchant banker valuation reports</p>
+            <p>Working capital funding through invoice discounting</p>
+          </div>
+          <div className="development-content">
+            <div className="icon bg-fec66f">
+              <i
+                className="flaticon-tick"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  lineHeight: "30px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  backgroundColor: "#088395",
+                }}
+              />
             </div>
+            <p>
+              CFO services including financial planning and analysis,
+              financials, and tax compliance
+            </p>
+          </div>
+          <div className="development-content">
+            <div className="icon bg-fec66f">
+              <i
+                className="flaticon-tick"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  lineHeight: "30px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  backgroundColor: "#088395",
+                }}
+              />
+            </div>
+            <p>
+              Legal assistance with a variety of matters, such as drafting and
+              negotiating contracts, shareholder agreement, reviewing term
+              sheets, and complying with regulatory requirements
+            </p>
+          </div>
+          <div className="development-content">
+            <div className="icon bg-fec66f">
+              <i
+                className="flaticon-tick"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  lineHeight: "30px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  backgroundColor: "#088395",
+                }}
+              />
+            </div>
+            <p>Registered valuer and merchant banker valuation reports</p>
           </div>
         </div>
       </section>
@@ -632,53 +726,6 @@ export default function CCSPCampaignsDetails() {
       </section>
 
 
-      <section className="productSection">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-11">
-              <div className="row">
-                {productdata.length > 0 ? (
-                  productdata.map((data: any, index: number) => (
-                    <div className="col-lg-4 col-md-4">
-                      <div className="shadowTitle">
-                        <div className="text-center">
-                          {data.product_image ? (
-                            <img
-                              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/products/" + data.product_image}
-                              alt=""
-                              className="hover-img"
-                              height={94}
-                              width={430}
-                            />
-                          ) : (
-                            <img
-                              src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
-                              alt=""
-                              className="hover-img"
-                            />
-                          )}
-                        </div>
-                        <div className="titleText">
-                          <p>
-                            {data.product_description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                  ))
-                ) : (
-                  <div className="text-center">
-                    <p>No Product available at the moment.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
       <section id="documents" className="py-lg-5">
         <div className="container">
           <h1 className="text-center pb-4 bold">Documents</h1>
@@ -723,6 +770,8 @@ export default function CCSPCampaignsDetails() {
         </div>
       </section>
 
+      {/* {companydata.length > 0 ? (
+              companydata.map((data: any, index: number) => ( */}
 
       <section id="terms">
         <div className="container">
