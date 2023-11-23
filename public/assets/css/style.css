@@ -7086,3 +7086,10 @@ a.card-link {
   font-size: 30px !important;
 }
 */
+
+.scrollable-menu {
+  max-height: 150px; /* Adjust the max height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc; /* Add border for better aesthetics */
+}
+

@@ -261,10 +261,8 @@ const CCSPCampaign = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-5">
-                        <Link href="/company/ccsp-campaign  "><button className="back-step">Previous </button>&nbsp;</Link>
-                        <button className="continue">Save As Draft </button>&nbsp;
-                        <button className="back-step" onClick={successAlert}>Publish</button>&nbsp;
+                    <div className="text-center mt-5">                        
+                        <button className="continue" onClick={successAlert}>Publish</button>&nbsp;
                     </div>
 
                 </div>
