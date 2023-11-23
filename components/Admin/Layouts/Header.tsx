@@ -277,6 +277,26 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${
+                              router.pathname === "/admin/all-active-campaign"
+                                ? "active p1"
+                                : ""
+                            }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-active-campaign"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-business-time"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                              </span>
+                              <span>Campaign CCSP</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${
                               router.pathname === "/admin/all-users" ||
                               router.pathname.startsWith("/admin/edit-user")
                                 ? "active p1"
@@ -292,6 +312,24 @@ const Header = () => {
                             >
                               <i className="fa fa-users"></i>
                               <span>Users</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${
+                              router.pathname === "/admin/chats"
+                                ? "active p1"
+                                : ""
+                            }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/chats"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-message"></i>
+                              <span>Chat</span>
                             </Link>
                           </li>
                           <li
