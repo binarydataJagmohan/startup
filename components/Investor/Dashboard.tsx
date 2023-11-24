@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, getAllCCSPfunddata, getSingleFundDetails } from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, getAllCCSPfunddata, getAllCCSPCampaign } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
@@ -24,7 +24,7 @@ const Dashboard = () => {
   const [currentPageopenCSOP, setCurrentPageopenCSOP] = useState(0);
   const [currentPageopenCCSP, setCurrentPageopenCCSP] = useState(0);
   const [currentPageClosed, setCurrentPageClosed] = useState(0);
-  const [ccspfunddata, setCCSPfundData]:any = useState([]);
+  const [ccspfunddata, setCCSPfundData]: any = useState([]);
   const itemsPerPage = 3;
   const [investorRole, setInvestorRole] = useState('');
   const filteredBusinessDetails = businessDetails.filter(
@@ -94,7 +94,7 @@ const Dashboard = () => {
   }, [])
 
   const fetchAllCCSPfundDetails = async () => {
-    const res = await getAllCCSPfunddata();
+    const res = await getAllCCSPCampaign();
     if (res.status) {
       setCCSPfundData(res.data);
       console.log(res.data);

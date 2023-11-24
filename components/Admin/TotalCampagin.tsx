@@ -59,8 +59,12 @@ const Campagin = () => {
     null
   );
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleDropdownToggle = async (index: any, fundId: number) => {
+
+
+  const handleDropdownToggle = async (index: any, fundId: number, e:any) => {
+    e.preventDefault()
     const dropdownMenu = document.getElementById(`dropdownMenu-${index}`);
     if (dropdownMenu) {
       dropdownMenu.classList.toggle("show");
@@ -101,6 +105,39 @@ const Campagin = () => {
       console.error("Error fetching campaign details:", error);
     }
   };
+
+
+  useEffect(() => {
+    const closeDropdown = (event: MouseEvent) => {
+      const dropdownMenus = document.querySelectorAll(".dropdown-content") as NodeListOf<HTMLUListElement>;
+      let clickedInsideDropdown = false;
+
+      dropdownMenus.forEach((menu) => {
+        if (menu.contains(event.target as Node)) {
+          // Click occurred inside the dropdown, so do not close
+          clickedInsideDropdown = true;
+        } else {
+          // Click occurred outside the dropdown, so close it
+          menu.classList.remove("show");
+        }
+      });
+
+      // If clicked outside the dropdown, close all dropdowns
+      if (!clickedInsideDropdown) {
+        dropdownMenus.forEach((menu) => {
+          menu.classList.remove("show");
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", closeDropdown);
+
+    return () => {
+      document.removeEventListener("mousedown", closeDropdown);
+    };
+  }, []);
+
+
 
 
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
@@ -433,8 +470,8 @@ const Campagin = () => {
                   <div className="card-header text-white bg-dark" id="title">
                     <h3 className="card-title">ALL Campaign</h3>
                   </div>
-                  <div className="card-body mt-3">
-                    <div className="table-responsive">
+                  <div className="card-body mt-3 set-pading">
+                    <div className="">
                       <div className="box-card recent-reviews mb-4">
                         {funds.length > 0 ? (
                           <table
@@ -474,12 +511,12 @@ const Campagin = () => {
                                     </td>
 
                                     <td data-label="Period">
-                                      {/* <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span> */}
-                                      <span
+                                      <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
+                                      {/* <span
                                         style={{ cursor: "pointer" }}
                                         className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'}
                                         onClick={() => {
-                                          if (!fundname || !funddesc || !fundimage) { // Check karein ki kuch fields khali hain ya nahi
+                                          if (!fundname || !funddesc ) { // Check karein ki kuch fields khali hain ya nahi
                                             toast.error("Please fill all fields first", {
                                               position: toast.POSITION.BOTTOM_RIGHT,
                                             });
@@ -489,18 +526,15 @@ const Campagin = () => {
                                         }}
                                       >
                                         {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}
-                                      </span>
-
+                                      </span> */}
                                     </td>
-
                                     <td>
-
-                                      <div className="dropdown set-drop m-1">
+                                      <div className="dropdown set-drop m-1" ref={dropdownRef}>
                                         <span
-                                          onClick={() =>
+                                          onClick={(e) =>
                                             handleDropdownToggle(
                                               index,
-                                              fund.ccsp_fund_id
+                                              fund.ccsp_fund_id,e
                                             )
                                           }
                                           className="fa-solid fa-ellipsis"
@@ -508,7 +542,7 @@ const Campagin = () => {
                                         ></span>
                                         <ul
                                           id={`dropdownMenu-${index}`}
-                                          className="dropdown-content add-class-drop"
+                                          className="dropdown-content add-class-drop set-height"
                                         >
                                           <li>
                                             <a
@@ -606,8 +640,6 @@ const Campagin = () => {
                                           </li>
                                         </ul>
                                       </div>
-
-
                                       <Link
                                         href={
                                           process.env.NEXT_PUBLIC_BASE_URL +

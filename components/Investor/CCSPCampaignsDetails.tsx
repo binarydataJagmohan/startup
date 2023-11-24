@@ -188,7 +188,7 @@ export default function CampaignsDetails() {
         setTeamdata(res.teams);
         setCompanydata(res.competitors);
         setProductdata(res.products);
-        
+
       }
     } catch (error) {
       console.error("Error fetching page data: ", error);
@@ -409,7 +409,14 @@ export default function CampaignsDetails() {
   }
   return (
     <>
-      <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}>
+      {/* <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}> */}
+      <section className="mainPageSection" style={{
+        backgroundImage: `url(${fundData?.fund_banner_image ?
+            `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
+            `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
+          })`
+      }}>
+
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
