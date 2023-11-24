@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import {
-    getAllActiveFunds,
+    getAllCCSPCampaign,
     AdminAddProducts,
     AdminUpdateProduct,
     getAdminProductdata,
@@ -30,6 +30,8 @@ export default function AddProducts() {
     const [productimage1, setProductImage1] = useState("");
     const [productoverview, setProductOverview] = useState("");
     const [fundid, setFundId]: any = useState<string | null>(null);
+    const [ccspid, setCCSPId]: any = useState<string | null>(null);
+
     const [productdata, setAllProductdata] = useState([]);
     const [productId, setProductId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
@@ -39,9 +41,9 @@ export default function AddProducts() {
     const { id } = router.query;
 
     useEffect(() => {
-        getAllActiveFunds().then((res) => {
+        getAllCCSPCampaign().then((res) => {
             if (res.status === true && res.data.length > 0) {
-                setFundId(res.data[0].fund_id);
+                setCCSPId(res.data[0].ccsp_fund_id);
             } else {
                 toast.error("No active funds available", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -55,7 +57,7 @@ export default function AddProducts() {
         const res = await getAdminProductdata();
         if (res.status) {
             const filteredData = res.data.filter(
-                (member: { fund_id: string }) => member.fund_id == id
+                (member: { ccsp_fund_id: string }) => member.ccsp_fund_id == id
             );
             setAllProductdata(filteredData);
         }
@@ -64,7 +66,7 @@ export default function AddProducts() {
     const handleProductSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", id as string);
         formData.append("product_description", productdescription);
         formData.append("product_image", productimage);
         formData.append("product_overview", productoverview);
@@ -87,7 +89,7 @@ export default function AddProducts() {
         e.preventDefault();
         const formData = new FormData();
         // formData.append("fund_id", fundid);
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", id as string);
         formData.append("product_description", productdescription);
         formData.append("product_image", productimage1);
         formData.append("product_id", productId);

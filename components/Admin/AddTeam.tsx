@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
-import { getAllActiveFunds, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
+import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
 import { useRouter } from 'next/router';
 
 
@@ -30,16 +30,18 @@ export default function AddCompetitorCompany() {
     const [fundid, setFundId]: any = useState<string | null>(null);
     const [teamdata, setAllTeamdata] = useState([]);
     const [teamId, setTeamId]: any = useState<number | null>(null);
+    const [ccspid, setCCSPId]: any = useState<string | null>(null);
+
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const router = useRouter();
     const { id } = router.query;
 
 
     useEffect(() => {
-        getAllActiveFunds()
+        getAllCCSPCampaign()
             .then((res) => {
                 if (res.status === true && res.data.length > 0) {
-                    setFundId(res.data[0].fund_id);
+                    setCCSPId(res.data[0].ccsp_fund_id);
                 } else {
                     toast.error("No active funds available", {
                         position: toast.POSITION.TOP_RIGHT,
@@ -55,7 +57,7 @@ export default function AddCompetitorCompany() {
         //     setAllTeamdata(res.data);
         // }
         if (res.status) {
-            const filteredData = res.data.filter((team: { fund_id: string }) => team.fund_id == id);
+            const filteredData = res.data.filter((team: { ccsp_fund_id: string }) => team.ccsp_fund_id == id);
             setAllTeamdata(filteredData);
         }
     };
@@ -64,7 +66,7 @@ export default function AddCompetitorCompany() {
         e.preventDefault();
         const formData = new FormData();
         // formData.append('fund_id', fundid)
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", ccspid);
         formData.append('member_name', teamMemberName)
         formData.append('member_designation', teammemberDesignation)
         formData.append('member_pic', teamMemberPic)
@@ -88,7 +90,7 @@ export default function AddCompetitorCompany() {
         e.preventDefault();
         const formData = new FormData();
         // formData.append("fund_id", fundid);
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", ccspid);
         formData.append('member_name', teamMemberName)
         formData.append('member_designation', teammemberDesignation)
         formData.append('member_pic', teamMemberPic1)
@@ -443,7 +445,7 @@ export default function AddCompetitorCompany() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {teamMemberPic.member_pic ? teamMemberPic.member_pic : 'No file chosen...'}
+                                                                        {teamMemberPic?.member_pic ? teamMemberPic?.member_pic : 'No file chosen...'}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"
