@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails } from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, getAllCCSPfunddata, getAllCCSPCampaign } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
@@ -24,6 +24,7 @@ const Dashboard = () => {
   const [currentPageopenCSOP, setCurrentPageopenCSOP] = useState(0);
   const [currentPageopenCCSP, setCurrentPageopenCCSP] = useState(0);
   const [currentPageClosed, setCurrentPageClosed] = useState(0);
+  const [ccspfunddata, setCCSPfundData]: any = useState([]);
   const itemsPerPage = 3;
   const [investorRole, setInvestorRole] = useState('');
   const filteredBusinessDetails = businessDetails.filter(
@@ -88,13 +89,19 @@ const Dashboard = () => {
   }, []);
 
 
+  useEffect(() => {
+    fetchAllCCSPfundDetails();
+  }, [])
 
-  // const getBusinessdetails = (e: any, id: any) => {
-  //   e.preventDefault();
-  //   getSingleBusinessDetails(id).then((res) => {
-  //     window.location.href = `campaign/details?id=${id}`;
-  //   });
-  // };
+  const fetchAllCCSPfundDetails = async () => {
+    const res = await getAllCCSPCampaign();
+    if (res.status) {
+      setCCSPfundData(res.data);
+      console.log(res.data);
+
+    }
+  };
+
 
 
   const getBusinessdetails = async (e: any, id: any) => {
@@ -214,7 +221,8 @@ const Dashboard = () => {
 
             <div className="row">
               {opendisplayedBusinessDetailsCOP
-                .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
+                .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP") && details.status === "open")
+                // .filter((details: any) => (details.type === "Dicounting Invoice" || details.type === "CSOP" || details.type === "CCSP") && details.status === "open")
                 .map((details: any, index: any) => (
                   <div key={index} className="col-md-6 col-sm-12 col-lg-4">
                     <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
@@ -465,96 +473,107 @@ const Dashboard = () => {
               Subscribe to fast growth businesses with low minimum
             </h6>
             <div className="bar" />
+
+
             <div className="row">
-              {filteredDetailsCCSP.length > 0 ? (
-                opendisplayedBusinessDetailsCCSP.map((details: any, index: any) => (
-                  <div key={index} className="col-md-6 col-sm-12 col-lg-4">
-                    <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}>
-                      <div className="product-image">
-                        <a href="#" className="image">
-                          {details.logo ? (
-                            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
-                          ) : (
-                            <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
-                          )
-                          }
-                        </a>
-                      </div>
-                      <div className="main-padding">
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.business_name} </a>
-                            </h3>
-                            <div className="price">Anchor</div>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.tenure} days </a>
-                            </h3>
-                            <div className="price">Tenure</div>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div className="product-content">
-                            <h3 className="title">
-                              <a href="#">{details.no_of_units}/{details.total_units} </a>
-                            </h3>
-                            <div className="price">Units Left</div>
-                          </div>
-                          <div className="product-content text-end">
-                            <h3 className="title">
-                              <a href="#">₹{details.minimum_subscription} </a>
-                            </h3>
-                            <div className="price">Min. Subscription</div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-3 d-flex">
-                          <a href="#" className="card-link">
-                            💡13.6% Discount Rate
-                          </a>
-                          <a href="#" className="card-link">
-                            🌟Repayment/Unit- ₹{details.minimum_subscription}
-                          </a>
-                        </div>
-                      </div>
-                      <div className="overlay">
-                        <div className="columns">
-                          <ul className="price m-0 p-0">
-                            <li>
-                              Units <span>{details.no_of_units}/{details.total_units}</span>
-                            </li>
-                            <li>
-                              Average Amount Per Unit <span>₹{details.avg_amt_per_person}</span>
-                            </li>
-                            <li>
-                              Tenure <span>{details.tenure} days</span>
-                            </li>
-                            {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
-                              <li>
-                                <span>Closed</span>
-                              </li>
+              {/* {ccspfunddata.length > 0 ? (
+                ccspfunddata.map((details: any, index: any) => ( */}
+              {ccspfunddata.length > 0 ? (
+                ccspfunddata
+                  .filter((details: { approval_status: string; }) => details.approval_status === 'approved') // Filter approved funds
+                  .map((details: any, index: any) => (
+                    <div key={index} className="col-md-6 col-sm-12 col-lg-4">
+                      {/* <div className="product-grid container1" onClick={(e) => getBusinessdetails(e, details.business_id)}> */}
+                      <div className="product-grid container1">
+                        <div className="product-image">
+                          <a href="#" className="image">
+
+                            {details.logo ? (
+                              <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
                             ) : (
-                              <li> Closed in{ }
-                                <span>
-                                  { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
-                                </span>
+                              <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
+                            )
+                            }
+                          </a>
+                        </div>
+                        <div className="main-padding">
+                          <div className="d-flex justify-content-between">
+                            <div className="product-content">
+                              <h3 className="title">
+                                <a href="#">{details.fund_name} </a>
+                              </h3>
+                              <div className="price">Anchor</div>
+                            </div>
+                            <div className="product-content">
+                              <h3 className="title">
+                                <a href="#">{details.tenure} days </a>
+                              </h3>
+                              <div className="price">Tenure</div>
+                            </div>
+                          </div>
+                          <div className="d-flex justify-content-between">
+                            <div className="product-content">
+                              <h3 className="title">
+                                <a href="#">{details.no_of_units}/{details.total_units} </a>
+                              </h3>
+                              <div className="price">Units Left</div>
+                            </div>
+                            <div className="product-content text-end">
+                              <h3 className="title">
+                                <a href="#">₹{details.min_commitment} </a>
+                              </h3>
+                              <div className="price">Min. Subscription</div>
+                            </div>
+                          </div>
+                          <div className="text-center mt-3 d-flex">
+                            <a href="#" className="card-link">
+                              💡13.6% Discount Rate
+                            </a>
+                            <a href="#" className="card-link">
+                              🌟Repayment/Unit- ₹{details.max_commitment}
+                            </a>
+                          </div>
+                        </div>
+                        <div className="overlay">
+                          <div className="columns">
+                            <ul className="price m-0 p-0">
+                              <li>
+                                Units <span>{details.no_of_units}/{details.total_units}</span>
                               </li>
-                            )}
-                            <li className="border-0">
-                              <a
-                                href="#"
-                                className="button-class"
-                              >
-                                View Details
-                              </a>
-                            </li>
-                          </ul>
+                              <li>
+                                Average Amount Per Unit <span>₹{details.amount_raised}</span>
+                              </li>
+                              <li>
+                                Tenure <span>{details.tenure} days</span>
+                              </li>
+                              {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                                <li>
+                                  <span>Closed</span>
+                                </li>
+                              ) : (
+                                <li> Closed in{ }
+                                  <span>
+                                    { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
+                                  </span>
+                                </li>
+                              )}
+                              <li className="border-0">
+                                <a
+                                  href={
+                                    process.env.NEXT_PUBLIC_BASE_URL +
+                                    `investor/campaign/ccspdetail?id=${details.ccsp_fund_id}`
+                                  }
+                                  className="button-class"
+                                >
+                                  View Details
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))
+                  ))
               ) : (
                 <p>No Fund Raised</p>
               )}

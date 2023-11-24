@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getSingleBusinessDetails, InvestorBooking, CreateGroupChatByInvestor, getSingleGroupData } from "@/lib/investorapi";
+import { getSingleBusinessDetails, InvestorBooking, CreateGroupChatByInvestor, getSingleGroupData, getSingleFundDetails } from "@/lib/investorapi";
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi'
+import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData, getAllCCSPCampaign } from '../../lib/frontendapi'
 
 interface UserData {
   id?: string;
@@ -36,6 +36,16 @@ interface InputData {
 }
 
 
+interface FundData {
+  dilution_percentage: number;
+  min_commitment: number;
+  max_commitment: number;
+  valuation_cap?: number;
+  amount_raised: number;
+  round_name: string;
+  company_overview: string;
+  past_financing_desc: string;
+}
 
 export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState<UserData>({});
@@ -52,7 +62,6 @@ export default function CampaignsDetails() {
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
-
   const [checkboxError, setCheckboxError] = useState('');
   const [current_user_id, setCurrentUserId] = useState("");
   const [ButtonDisabled, setButtonDisabled] = useState(true);
@@ -62,6 +71,7 @@ export default function CampaignsDetails() {
   const [teamdata, setTeamdata]: any = useState([]);
   const [companydata, setCompanydata]: any = useState([]);
   const [productdata, setProductdata]: any = useState([]);
+  const [fundData, setFundData]: any = useState<FundData | null>(null); // State to hold fund data
   const [user, setPUser] = useState({
     business_name: "",
     business_id: "",
@@ -69,6 +79,7 @@ export default function CampaignsDetails() {
   const [fundid, setFundId]: any = useState<string | null>(null);
   const [fundids, setFundIds]: any = useState<string | null>(null);
   const [isBusinessGroup, setIsBusinessGroup] = useState(false);
+  const [fundimage, setFundImage]: any = useState("");
 
 
   useEffect(() => {
@@ -94,42 +105,37 @@ export default function CampaignsDetails() {
       group_business_id: id,
     }
     getSingleGroupData(data)
-    .then((res) => {
-      if(res.status == true){
-        setIsBusinessGroup(true);
-      } else {
-        setIsBusinessGroup(false);
-      }
-    })
-    .catch((error) => {
-      console.log("error occured");
-    });
+      .then((res) => {
+        if (res.status == true) {
+          setIsBusinessGroup(true);
+        } else {
+          setIsBusinessGroup(false);
+        }
+      })
+      .catch((error) => {
+        console.log("error occured");
+      });
     getSingleUserData(current_user_data.id)
-    .then((res) => {
-      if(res.status == true){
-        setSingleUserData(res.data);
-      } else {
-        setSingleUserData({});
-      }
-    })
-    .catch((error) => {
-      console.log("error occured");
-    });
+      .then((res) => {
+        if (res.status == true) {
+          setSingleUserData(res.data);
+        } else {
+          setSingleUserData({});
+        }
+      })
+      .catch((error) => {
+        console.log("error occured");
+      });
   }, [id]);
 
-
-  // useEffect(() => {
-  //   const fundId = 'STARTUP-977667'; // Replace with the actual fund ID
-  //   fetchAllTeamAndCompany(fundId);
-  // }, []);
 
 
   useEffect(() => {
     const fetchActiveFundsAndData = async () => {
       try {
-        const activeFunds = await getAllActiveFunds();
+        const activeFunds = await getAllCCSPCampaign();
         if (activeFunds.status === true && activeFunds.data.length > 0) {
-          const fundId = activeFunds.data[0].fund_id;
+          const fundId = activeFunds.data[0].ccsp_fund_id;
           await fetchAllTeamAndCompany(fundId);
         }
       } catch (error) {
@@ -140,55 +146,40 @@ export default function CampaignsDetails() {
   }, []);
 
 
-  // useEffect(() => {
-  //   const fetchActiveFundsAndData = async () => {
-  //     try {  
-  //       // Fetching active funds based on business_id
-  //       const activeFunds = await getAllActiveFunds();
-
-  //       if (activeFunds.status === true && activeFunds.data.length > 0) {
-  //         // Finding fund_id matching the id from router query
-  //         const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));  
-  //         if (matchingFund) {
-  //           const fundId = matchingFund.fund_id;
-  //           await fetchAllTeamAndCompany(fundId); 
-  //         } else {
-  //           console.error("No matching fund found for the provided business_id.");
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching active funds: ", error);
-  //     }
-  //   };
-
-  //   fetchActiveFundsAndData();
-  // }, [id]);
 
   useEffect(() => {
     const fetchActiveFundsAndData = async () => {
       try {
-        if (typeof id === 'string') { // Check if id is a string and not undefined
-          const activeFunds = await getAllActiveFunds();
+        if (typeof id === 'string') {
+          const activeFund = await getSingleFundDetails(id); // Pass the 'id' here
 
-          if (activeFunds.status === true && activeFunds.data.length > 0) {
-            const matchingFund = activeFunds.data.find((fund: { business_id: number; }) => fund.business_id === parseInt(id));
+          if (activeFund.status === true) {
+            const matchingFund = activeFund.data; // Assuming activeFund.data holds the single fund details
+
             if (matchingFund) {
-              const fundId = matchingFund.fund_id;
+              console.log("Matching Fund:", matchingFund);
+              const fundId = matchingFund.ccsp_fund_id;
               await fetchAllTeamAndCompany(fundId);
+              setFundData(matchingFund);
             } else {
-              console.error("No matching fund found for the provided business_id.");
+              console.error("No matching fund found for the provided id.");
             }
+          } else {
+            console.error("No data returned for the provided id.");
           }
         } else {
           console.error("ID is undefined or not a string.");
         }
       } catch (error) {
-        console.error("Error fetching active funds: ", error);
+        console.error("Error fetching active fund: ", error);
       }
     };
 
-    fetchActiveFundsAndData();
+    if (id) {
+      fetchActiveFundsAndData();
+    }
   }, [id]);
+
 
   const fetchAllTeamAndCompany = async (fundIds: string) => {
     try {
@@ -197,6 +188,7 @@ export default function CampaignsDetails() {
         setTeamdata(res.teams);
         setCompanydata(res.competitors);
         setProductdata(res.products);
+
       }
     } catch (error) {
       console.error("Error fetching page data: ", error);
@@ -323,7 +315,7 @@ export default function CampaignsDetails() {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
   useEffect(() => {
-    if (inputs.minimum_subscription !== undefined) {
+    if (inputs?.minimum_subscription !== undefined) {
       setSubscriptionValue(inputs.minimum_subscription);
       setRepayValue(inputs.minimum_subscription);
     }
@@ -386,63 +378,68 @@ export default function CampaignsDetails() {
     }
   };
 
-  const progressPercentage = ((inputs.no_of_units !== undefined ? Number(inputs.no_of_units) : 0) / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * 100;
+  const progressPercentage = ((inputs?.no_of_units !== undefined ? Number(inputs?.no_of_units) : 0) / (inputs?.total_units !== undefined ? Number(inputs?.total_units) : 0)) * 100;
 
-  const handleClickChat = (startup_id:any, business_name:any, business_id:any) =>{
-    if(isBusinessGroup == true){
+  const handleClickChat = (startup_id: any, business_name: any, business_id: any) => {
+    if (isBusinessGroup == true) {
       window.location.href = '/investor/chats';
     } else {
       const data = {
-        group_name: business_name +' group',
+        group_name: business_name + ' group',
         group_admin_id: currentUserData.id,
         group_business_id: router.query.id,
-        member_id: startup_id+','+currentUserData.id+','+'1',
+        member_id: startup_id + ',' + currentUserData.id + ',' + '1',
         chat_type: 'group',
         message: 'Hello'
       };
       CreateGroupChatByInvestor(data)
-      .then(res => {
-        if (res.status == true) {
-          window.location.href = '/investor/chats';
-        } else {
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          if (res.status == true) {
+            window.location.href = '/investor/chats';
+          } else {
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
   return (
     <>
-      <section className="mainPageSection">
+      {/* <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}> */}
+      <section className="mainPageSection" style={{
+        backgroundImage: `url(${fundData?.fund_banner_image ?
+            `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
+            `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
+          })`
+      }}>
+
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              {
-                pagedata.length > 0 && (
-                  <div className="ContentSection">
-                    <h1>{pagedata[0].business_name}</h1>
-                    <p>
-                      {pagedata[0].description}
-                    </p>
-                    <div className="ContentSection d-lg-flex align-items-lg-center">
-                      <Link
-                        href="#"
-                        className="default-btn"
-                      >
-                        Invest
-                      </Link>
-                      <p className="mx-lg-2 m-0">
-                        Minimum Investment:
-                        <strong>${pagedata[0].amount}</strong>
-                      </p>
-                    </div>
-                  </div>
-                )
-              }
+
+              <div className="ContentSection">
+                <h1>{fundData?.fund_name}</h1>
+                <p>
+                  {fundData?.fund_desc}
+                </p>
+                <div className="ContentSection d-lg-flex align-items-lg-center">
+                  <Link
+                    href="#"
+                    className="default-btn"
+                  >
+                    Invest
+                  </Link>
+                  <p className="mx-lg-2 m-0">
+                    Minimum Investment:
+                    <strong>${fundData?.ifinworth_amount}</strong>
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -482,7 +479,7 @@ export default function CampaignsDetails() {
                 </ul>
               </div>
             </div>
-            <div className="col-md-5">
+            {/* <div className="col-md-5">
               <div className="d-flex justify-content-between">
                 <div>
                   <span style={{ color: '#fff' }}>Total Amount</span>
@@ -513,8 +510,8 @@ export default function CampaignsDetails() {
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
-            </div>
-            <div className="col-sm-1">
+            </div> */}
+            {/* <div className="col-sm-1">
               {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
                 ?
                   inputs.type == 'CCSP'
@@ -525,17 +522,17 @@ export default function CampaignsDetails() {
                 :
                   ''
               }
+            </div> */}
+            <div className="col-lg-5">
+              <div className="investments text-center">
+                <h2>Accepting Investments</h2>
+              </div>
             </div>
-          </div>
-          <div className="col-lg-5">
-            <div className="investments text-center">
-              <h2>Accepting Investments</h2>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="investmentss text-center">
-              <h2>$137,487</h2>
-              <span>Raised from 180 investors</span>
+            <div className="col-lg-4">
+              <div className="investmentss text-center">
+                <h2>$137,487</h2>
+                <span>Raised from 180 investors</span>
+              </div>
             </div>
           </div>
         </div>
@@ -710,19 +707,59 @@ export default function CampaignsDetails() {
       </section>
 
       <section className="tabsSection">
-        {pagedata.length > 0 ? (
-          <div className="container">
-            <h2 className="text-black">Product</h2>
-            <p>
-              <div dangerouslySetInnerHTML={{ __html: pagedata[0].product_description }}></div>
-            </p>
+        <div className="container">
+          <h2 className="text-black">Product</h2>
+          <p>
+            <div dangerouslySetInnerHTML={{ __html: fundData?.product_description }}></div>
+          </p>
+        </div>
+
+      </section>
+
+      <section className="productSection">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-11">
+              <div className="row">
+                {productdata.length > 0 ? (
+                  productdata.map((data: any, index: number) => (
+                    <div className="col-lg-4 col-md-4">
+                      <div className="shadowTitle">
+                        <div className="text-center">
+                          {data.product_image ? (
+                            <img
+                              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/products/" + data.product_image}
+                              alt=""
+                              className="hover-img"
+                              height={94}
+                              width={430}
+                            />
+                          ) : (
+                            <img
+                              src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
+                              alt=""
+                              className="hover-img"
+                            />
+                          )}
+                        </div>
+                        <div className="titleText">
+                          <p>
+                            {data.product_description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                  ))
+                ) : (
+                  <div className="text-center">
+                    <p>No Product available at the moment.</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        ) : (
-          <div className="container">
-            <h2 className="text-black"></h2>
-            <p></p>
-          </div>
-        )}
+        </div>
       </section>
 
 
@@ -770,43 +807,39 @@ export default function CampaignsDetails() {
         </div>
       </section>
 
-      {/* {companydata.length > 0 ? (
-              companydata.map((data: any, index: number) => ( */}
-
       <section id="terms">
         <div className="container">
           <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
           <div className="termsContent">
-            {pagedata.length > 0 ? (
-              pagedata.map((data: any, index: number) => (
-                <div className="row" key={index}>
-                  <h1>Round Details</h1>
+            <div className="row">
+              <h1>Round Details</h1>
+              {fundData ? (
+                <>
                   <p>
-                    <strong>Dilution Percentage:</strong> {data.dilution_percentage}
+                    <strong>Dilution Percentage:</strong> {fundData.dilution_percentage}
                   </p>
+                  <p>
+                    <strong>Minimum commitment:</strong> Min: ${fundData.min_commitment} Max: ${fundData.max_commitment}
+                  </p>
+                  {fundData.valuation_cap && (
+                    <p>
+                      <strong>Valuation Cap:</strong> ${fundData.valuation_cap}
+                    </p>
+                  )}
+                  <p>
+                    <strong>Amount Raised:</strong> ${fundData.amount_raised}
+                  </p>
+                  <p>
+                    <strong>Round name:</strong> {fundData.round_name}
+                  </p>
+                </>
+              ) : (
+                <p>Loading...</p>
+              )}
 
-                  <p>
-                    <strong>Minimum commitment:</strong>Min: ${data.min_commitment} Max: ${data.max_commitment}
-                  </p>
+            </div>
 
-                  <p>
-                    <strong>Valuation Cap:</strong> ${data.valuation_cap}
-                  </p>
 
-                  <p>
-                    <strong>Amount Raised:</strong> ${data.amount_raised}
-                  </p>
-
-                  <p>
-                    <strong>Round name:</strong> {data.round_name}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <div className="text-center">
-                <p>No Round Details and Deal Progress Data</p>
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -814,14 +847,13 @@ export default function CampaignsDetails() {
         <div className="container">
           <h1 className="text-center bold">Overview </h1>
           <div className="overviewContent">
-            {pagedata.length > 0 && (
-              <div className="row">
-                {/* <h2 className="text-black">Opportunity</h2> */}
-                <p>
-                  <div dangerouslySetInnerHTML={{ __html: pagedata[0].company_overview }}></div>
-                </p>
-              </div>
-            )}
+
+            <div className="row">
+              <p>
+                <div dangerouslySetInnerHTML={{ __html: fundData?.company_overview }}></div>
+              </p>
+            </div>
+
           </div>
 
         </div>
@@ -833,14 +865,13 @@ export default function CampaignsDetails() {
           <div className="row">
             <div className="col-lg-6">
               <div className="industryContent">
-                {pagedata.length > 0 && (
-                  <div className="row">
-                    <h3 className="text-white">Facilitating Connections</h3>
-                    <p className="text-white">
-                      <div dangerouslySetInnerHTML={{ __html: pagedata[0].past_financing_desc }}></div>
-                    </p>
-                  </div>
-                )}
+                <div className="row">
+                  <h3 className="text-white">Facilitating Connections</h3>
+                  <p className="text-white">
+                    <div dangerouslySetInnerHTML={{ __html: fundData?.past_financing_desc }}></div>
+                  </p>
+                </div>
+
               </div>
 
             </div>
@@ -856,7 +887,7 @@ export default function CampaignsDetails() {
       </section>
       <section id="competitors">
         <div className="container">
-          <h1 className="text-center mb-5 bold">Competitors</h1>
+          <h1 className="text-center mb-5 bold mt-4">Competitors</h1>
           <div className="competitorsContent">
             {companydata.length > 0 ? (
               companydata.map((data: any, index: number) => (

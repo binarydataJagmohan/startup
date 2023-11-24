@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 
 import {
     getAllActiveFunds,
+    getAllCCSPCampaign,
     AdminAddCometitorCompany,
     AdminUpdateCometitorCompany,
     getAdminCompanydata,
@@ -30,6 +31,7 @@ export default function AddCompetitorCompany() {
     const [competitorId, setCompetitorId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const [fundid, setFundId]: any = useState<string | null>(null);
+    const [ccspid, setCCSPId]: any = useState<string | null>(null);
     const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
     const [startUpLogoError, setStartupLogoError] = useState('');
 
@@ -39,10 +41,12 @@ export default function AddCompetitorCompany() {
 
 
     useEffect(() => {
-        getAllActiveFunds().then((res) => {
+        getAllCCSPCampaign().then((res) => {
 
             if (res.status === true && res.data.length > 0) {
-                setFundId(res.data[0].fund_id);
+                setCCSPId(res.data[0].ccsp_fund_id);
+                console.log(res.data[0].ccsp_fund_id);
+                
             } else {
                 toast.error("No active funds available", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -58,8 +62,10 @@ export default function AddCompetitorCompany() {
         try {
             const res = await getAdminCompanydata();
             if (res.status) {
-                const filteredData = res.data.filter((company: { fund_id: string }) => company.fund_id == id);
+                const filteredData = res.data.filter((company: { ccsp_fund_id: string }) => company.ccsp_fund_id == id);
                 setAllCompanydata(filteredData);
+                // console.log(filteredData);
+                
             }
         } catch (error) {
             console.error("Error fetching company data:", error);
@@ -71,7 +77,7 @@ export default function AddCompetitorCompany() {
         e.preventDefault();
         const formData = new FormData();
         // formData.append("fund_id", fundid);
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo);
         formData.append("company_name", CompanyName);
@@ -93,7 +99,7 @@ export default function AddCompetitorCompany() {
         e.preventDefault();
         const formData = new FormData();
         // formData.append("fund_id", fundid);
-        formData.append("fund_id", id as string);
+        formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo1);
         formData.append("company_name", CompanyName);
@@ -190,7 +196,8 @@ export default function AddCompetitorCompany() {
             setCompetitorId(index);
             try {
                 const res = await getAdminCompanydata();
-                const conversation = res.data.find((company: { id: number }) => company.id === index);
+                
+                const conversation = res.data.find((company: { id: number }) => company.id === index);                
                 if (conversation) {
                     setCompanyName(conversation.company_name);
                     setCompanyDesc(conversation.company_desc);

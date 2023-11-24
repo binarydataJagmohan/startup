@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "@/lib/session";
-import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddRoundDetail, AdminAddTeamMember } from "@/lib/adminapi";
+import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddRoundDetail } from "@/lib/adminapi";
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
@@ -449,109 +449,6 @@ const TotalActiveFunds = () => {
                                                                         </td>
 
                                                                         <td>
-                                                                            {fund.type == "CCSP" && (
-                                                                                <div className="dropdown set-drop m-1">
-                                                                                    <span
-                                                                                        onClick={() =>
-                                                                                            handleDropdownToggle(
-                                                                                                index,
-                                                                                                fund.id
-                                                                                            )
-                                                                                        }
-                                                                                        className="fa-solid fa-ellipsis"
-                                                                                        style={{ cursor: 'pointer' }}
-                                                                                    ></span>
-                                                                                    <ul
-                                                                                        id={`dropdownMenu-${index}`}
-                                                                                        className="dropdown-content add-class-drop"
-                                                                                    >
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href="#"
-                                                                                                onClick={(e) => {
-                                                                                                    setModalConfirm(true);
-                                                                                                }}
-                                                                                            >
-                                                                                                Company Overview
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href="#"
-                                                                                                onClick={(e) => {
-                                                                                                    setModalConfirm1(true);
-                                                                                                }}
-                                                                                            >
-                                                                                                Product Description
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href="#"
-                                                                                                onClick={(e) => {
-                                                                                                    setModalConfirm2(true);
-                                                                                                }}
-                                                                                            >
-                                                                                                Historical Financial
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href="#"
-                                                                                                onClick={(e) => {
-                                                                                                    setModalConfirm3(true);
-                                                                                                }}
-                                                                                            >
-                                                                                                Past Financing Desc
-                                                                                            </a>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href="#"
-                                                                                                onClick={(e) => {
-                                                                                                    setModalConfirm4(true);
-                                                                                                }}
-                                                                                            >
-                                                                                                Add Round Details
-                                                                                            </a>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href={
-                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
-                                                                                                    `admin/add-company/?id=${fund.fund_id}`
-                                                                                                }
-                                                                                            >
-                                                                                                Add Competitor
-                                                                                            </a>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href={
-                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
-                                                                                                    `admin/add-team/?id=${fund.fund_id}`
-                                                                                                }
-                                                                                            >
-                                                                                                Add team
-                                                                                            </a>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <a
-                                                                                                href={
-                                                                                                    process.env.NEXT_PUBLIC_BASE_URL +
-                                                                                                    `admin/add-products/?id=${fund.fund_id}`
-                                                                                                }
-                                                                                            >
-                                                                                                Add Products
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            )}
 
                                                                             <Link
                                                                                 href={
