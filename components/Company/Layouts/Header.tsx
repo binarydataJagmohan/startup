@@ -155,6 +155,7 @@ const Header = () => {
                               <span>Notifications</span>
                             </Link>
                           </li>
+                          {/* <li>
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/chats"} className="waves-effect">
                               <i className="fa fa-message"></i>
@@ -166,7 +167,7 @@ const Header = () => {
                               <i className="fa fa-cogs"></i>
                               <span>Settings</span>
                             </Link>
-                          </li>
+                          </li> */}
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className="waves-effect">
                               <i className="fa fa-bell"></i>
