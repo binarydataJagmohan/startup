@@ -1,13 +1,14 @@
 import { getStartupIfinworthDetail } from "@/lib/investorapi";
-import { getCurrentUserData } from "@/lib/session";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { getBusinessInformation, getSingleUserData } from "@/lib/frontendapi";
+import { getToken, getCurrentUserData } from "../../lib/session";
 import Image from "next/image";
 import Link from "next/link";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
+import axios from 'axios';
 
 interface UserData {
     id?: any;
@@ -30,6 +31,8 @@ const CCSPCampaign = () => {
         latest_cap_table: "",
         other_documents: "",
         updated_at: "",
+        approval_status: "",
+        ccsp_fund_id: "",
     });
 
     const [businessDetails, setBusinessDetails] = useState({
@@ -116,20 +119,36 @@ const CCSPCampaign = () => {
         return truncatedDescription;
     };
 
-    function successAlert() {
-        swal({
-            title: "Your deal request has been submitted successfully.",
-            text: "Kindly wait for administration approval !",
-            icon: "success",
-            dangerMode: false,
-            buttons: ["Ok", "Dashboard"],
-
-        }).then((redirect) => {
-            if(redirect) {
-                router.push("/company/dashboard");
+    function publishFund(startupId: string, isApproved: string) {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + `/publish-ccsp-fund/${startupId}`, { approval_status: isApproved }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken(),
             }
-        });
-    }
+        })
+            .then(response => {
+                swal({
+                    title: "Your deal request has been submitted successfully.",
+                    text: "Kindly wait for administration approval!",
+                    icon: "success",
+                    dangerMode: false,
+                    buttons: ["Ok", "Dashboard"],
+                }).then((clickedButton) => {
+                    if (clickedButton === "Dashboard") {
+                        router.push("/company/dashboard");
+                    } else {
+                        router.push('/company/ccsp-preview');
+                    }
+                });
+            })
+            .catch(error => {
+
+                toast.error(error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+            });
+    };
 
     return (
         <>
@@ -147,7 +166,7 @@ const CCSPCampaign = () => {
                                 <div className="fund">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{height:'150px !important'}} />
+                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
                                         </div>
                                         <div className="col-sm-9">
                                             <p className="f-20 c-blue mb-2"><b>{user.name}</b></p>
@@ -200,7 +219,13 @@ const CCSPCampaign = () => {
 
                                 <div className="row mb-1">
                                     <div className="col-6"> <p className="label-text mt-0">Company Details</p></div>
-                                    <div className="col-6 text-end"><Link href="/company/profile" className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link></div>
+                                    <div className="col-6 text-end">
+                                        {ifinworth.approval_status === 'pending' ?
+                                            ''
+                                            :
+                                            <Link href="/company/profile" className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link>
+                                        }
+                                    </div>
                                 </div>
 
 
@@ -239,7 +264,13 @@ const CCSPCampaign = () => {
 
                                 <div className="row mt-4">
                                     <div className="col-6"> <p className="label-text mt-0">Deal Details</p></div>
-                                    <div className="col-6 text-end"><Link href="/company/ccsp-campaign" className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link></div>
+                                    <div className="col-6 text-end">
+                                        {ifinworth.approval_status === 'pending' ?
+                                            ''
+                                            :
+                                            <Link href="/company/ccsp-campaign" className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link>
+                                        }
+                                    </div>
                                 </div>
 
 
@@ -261,8 +292,27 @@ const CCSPCampaign = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-5">                        
-                        <button className="continue" onClick={successAlert}>Publish</button>&nbsp;
+                    <div className="text-center mt-5">
+                        {ifinworth.approval_status === 'null' ?
+                            <Link href={"/company/ccsp-campaign"}><button className="back-step">Previous</button></Link>
+                            :
+                            ''
+                        }
+                        {ifinworth.approval_status === 'approved' ?
+                            <button className="continue">Published</button>
+                            :
+                            ifinworth.approval_status === 'null' ?
+                                <button className="continue"
+                                    onClick={() => publishFund(ifinworth.ccsp_fund_id, ifinworth.approval_status === 'null' ? 'pending' : 'null')}
+                                >
+                                    Publish
+                                </button>
+                                :
+                                ifinworth.approval_status === 'pending' ?
+                                    <button className="continue">Requested</button>
+                                    : ''
+                        }
+                        {/* <button className="continue" onClick={successAlert}>Publish</button>&nbsp; */}
                     </div>
 
                 </div>

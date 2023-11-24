@@ -530,7 +530,7 @@ const Campagin = () => {
                                       <Link
                                         href={
                                           process.env.NEXT_PUBLIC_BASE_URL +
-                                          `admin/fund-raise/?id=${fund.id}`
+                                          `admin/ccsp-detail/?id=${fund.id}`
                                         }
                                         className="m-1"
                                       >
