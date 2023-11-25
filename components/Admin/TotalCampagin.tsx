@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "@/lib/session";
-import { getAllActiveFunds, AdminAddCampaignDetail, AdminAddRoundDetail, getAllCCSPCampaign } from "@/lib/adminapi";
+import { AdminAddCampaignDetail, AdminAddRoundDetail, getAllCCSPCampaign, getAllCampaignDetaildata, AdminAddFundNameAndImage } from "@/lib/adminapi";
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
@@ -32,6 +32,7 @@ interface Fund {
   closed_in: string;
   type: string;
   company_overview: string;
+  fund_banner_image: string;
 }
 const Campagin = () => {
   const tableRef = useRef(null);
@@ -39,6 +40,8 @@ const Campagin = () => {
   const [funds, setFundsData]: any = useState<Fund[]>([]);
   const [companyOverview, setCompanyOverview] = useState("");
   const [ccspfundid, setCCSPFundId] = useState("");
+  const [ccspid, setCCSPId] = useState("");
+
   const [productDescription, setProductDesc] = useState("");
   const [dilutionpercentage, setDilutionPercentage] = useState("");
   const [minCommitment, setMinCommitment] = useState("");
@@ -48,16 +51,93 @@ const Campagin = () => {
   const [roundName, setRoundName] = useState("");
   const [historicalFinancials_desc, setHistoricalFinancial] = useState("");
   const [pastfinancingDesc, setPastFinancing] = useState("");
-  const [selectedFundId, setSelectedFundId] = useState<number | null>(null);
+  const [fundname, setFundName] = useState("");
+  const [funddesc, setFundDesc] = useState("");
+  const [fundimage, setFundImage]: any = useState("");
+  const [selectedFundId, setSelectedFundId]: any = useState<number | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
+    null
+  );
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
 
-  const handleDropdownToggle = (index: any, fundId: number) => {
+
+  const handleDropdownToggle = async (index: any, fundId: number, e:any) => {
+    e.preventDefault()
     const dropdownMenu = document.getElementById(`dropdownMenu-${index}`);
     if (dropdownMenu) {
       dropdownMenu.classList.toggle("show");
     }
     setSelectedFundId(fundId);
+    try {
+      const response = await getAllCampaignDetaildata(fundId);
+
+      if (response && response.status && response.data && response.data.length > 0) {
+        const selectedCampaign = response.data.find((fund: any) => fund.ccsp_fund_id === fundId);
+        if (selectedCampaign) {
+          console.log('fund_banner_image:', selectedCampaign.ccsp_fund_id);
+
+          setRoundName(selectedCampaign.round_name);
+          setDilutionPercentage(selectedCampaign.dilution_percentage);
+          setMinCommitment(selectedCampaign.min_commitment);
+          setMaxCommitment(selectedCampaign.max_commitment);
+          setValuationCap(selectedCampaign.valuation_cap);
+          setAmountRaised(selectedCampaign.amount_raised);
+          setCompanyOverview(selectedCampaign.company_overview);
+          setProductDesc(selectedCampaign.product_description);
+          setHistoricalFinancial(selectedCampaign.historical_financials_desc);
+          setPastFinancing(selectedCampaign.past_financing_desc);
+          setCCSPFundId(selectedCampaign.ccsp_fund_id);
+          setCCSPId(selectedCampaign.id);
+          setFundName(selectedCampaign.fund_name);
+          setFundImage(selectedCampaign.fund_banner_image);
+          setFundDesc(selectedCampaign.fund_desc);
+
+
+        } else {
+          console.error("Selected fund not found in the response data");
+        }
+      } else {
+        console.error("No data or invalid response received from the API");
+      }
+    } catch (error) {
+      console.error("Error fetching campaign details:", error);
+    }
   };
+
+
+  useEffect(() => {
+    const closeDropdown = (event: MouseEvent) => {
+      const dropdownMenus = document.querySelectorAll(".dropdown-content") as NodeListOf<HTMLUListElement>;
+      let clickedInsideDropdown = false;
+
+      dropdownMenus.forEach((menu) => {
+        if (menu.contains(event.target as Node)) {
+          // Click occurred inside the dropdown, so do not close
+          clickedInsideDropdown = true;
+        } else {
+          // Click occurred outside the dropdown, so close it
+          menu.classList.remove("show");
+        }
+      });
+
+      // If clicked outside the dropdown, close all dropdowns
+      if (!clickedInsideDropdown) {
+        dropdownMenus.forEach((menu) => {
+          menu.classList.remove("show");
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", closeDropdown);
+
+    return () => {
+      document.removeEventListener("mousedown", closeDropdown);
+    };
+  }, []);
+
+
 
 
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
@@ -72,7 +152,6 @@ const Campagin = () => {
         .then((res) => {
           if (res.status == true) {
             setFundsData(res.data);
-            console.log(res.data);
 
           } else {
             toast.error(res.message, {
@@ -213,6 +292,7 @@ const Campagin = () => {
   const [modalConfirm2, setModalConfirm2] = useState(false);
   const [modalConfirm3, setModalConfirm3] = useState(false);
   const [modalConfirm4, setModalConfirm4] = useState(false);
+  const [modalConfirm5, setModalConfirm5] = useState(false);
 
 
   const modalConfirmClose = () => {
@@ -230,16 +310,23 @@ const Campagin = () => {
   const modalConfirmClose4 = () => {
     setModalConfirm4(false);
   };
-
+  const modalConfirmClose5 = () => {
+    setModalConfirm5(false);
+  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const data = {
-      id: selectedFundId,
-      ccsp_fund_id: ccspfundid,
-      company_overview: companyOverview,
-      product_description: productDescription,
-      historical_financials_desc: historicalFinancials_desc,
-      past_financing_desc: pastfinancingDesc,
+      ccsp_fund_id: selectedFundId || "",
+      company_overview: companyOverview || "",
+      product_description: productDescription || "",
+      historical_financials_desc: historicalFinancials_desc || "",
+      past_financing_desc: pastfinancingDesc || "",
+      dilution_percentage: dilutionpercentage || "",
+      min_commitment: minCommitment || "",
+      max_commitment: maxCommitment || "",
+      valuation_cap: valuationCap || "",
+      amount_raised: amountRaised || "",
+      round_name: roundName || "",
     };
     try {
       const response = await AdminAddCampaignDetail(data);
@@ -269,19 +356,10 @@ const Campagin = () => {
     setPastFinancing(pastfinancialDesc);
   };
 
-
-  useEffect(() => {
-    getAllActiveFunds();
-
-  }, []);
-
-
-
   useEffect(() => {
     const fetchDataForSelectedFund = async () => {
       try {
         const response = await getAllCCSPCampaign(selectedFundId);
-        console.log(response);
 
         // Check if response status is true and data exists
         if (response && response.status && response.data && response.data.length > 0) {
@@ -299,6 +377,11 @@ const Campagin = () => {
             setHistoricalFinancial(selectedFund.historical_financials_desc);
             setPastFinancing(selectedFund.past_financing_desc);
             setCCSPFundId(selectedFund.ccsp_fund_id)
+            setCCSPId(selectedFund.id)
+            setFundName(selectedFund.fund_name)
+            setFundImage(selectedFund.fund_banner_image)
+            setFundDesc(selectedFund.fund_desc)
+
           } else {
             console.error("Selected fund not found in the response data");
           }
@@ -315,24 +398,17 @@ const Campagin = () => {
 
 
 
-
-
-  const handleRoundSubmit = async (e: any) => {
+  const handleAddFundNameImage = async (e: any) => {
     e.preventDefault();
-    const data = {
-      id: selectedFundId,
-      dilution_percentage: dilutionpercentage,
-      min_commitment: minCommitment,
-      max_commitment: maxCommitment,
-      valuation_cap: valuationCap,
-      amount_raised: amountRaised,
-      round_name: roundName,
-    };
+    const formData = new FormData();
+    formData.append("id", selectedFundId);
+    formData.append("fund_name", fundname);
+    formData.append("fund_desc", funddesc);
+    formData.append("fund_banner_image", fundimage);
+
     try {
-      const response = await AdminAddRoundDetail(data);
-
-      setModalConfirm4(false);
-
+      const response = await AdminAddFundNameAndImage(formData);
+      setModalConfirm5(false);
       toast.success(response.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -340,6 +416,22 @@ const Campagin = () => {
       toast.error("Error occurred", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+    }
+  }
+
+  const handleUpdateLogoChange = (e: any) => {
+    const file = e.target.files[0];
+    setFundImage(file);
+
+    // Preview the image
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
     }
   };
 
@@ -378,8 +470,8 @@ const Campagin = () => {
                   <div className="card-header text-white bg-dark" id="title">
                     <h3 className="card-title">ALL Campaign</h3>
                   </div>
-                  <div className="card-body mt-3">
-                    <div className="table-responsive">
+                  <div className="card-body mt-3 set-pading">
+                    <div className="">
                       <div className="box-card recent-reviews mb-4">
                         {funds.length > 0 ? (
                           <table
@@ -419,17 +511,30 @@ const Campagin = () => {
                                     </td>
 
                                     <td data-label="Period">
-                                      <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'reject' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
+                                      <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
+                                      {/* <span
+                                        style={{ cursor: "pointer" }}
+                                        className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'}
+                                        onClick={() => {
+                                          if (!fundname || !funddesc ) { // Check karein ki kuch fields khali hain ya nahi
+                                            toast.error("Please fill all fields first", {
+                                              position: toast.POSITION.BOTTOM_RIGHT,
+                                            });
+                                          } else {
+                                            updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved');
+                                          }
+                                        }}
+                                      >
+                                        {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}
+                                      </span> */}
                                     </td>
-
                                     <td>
-
-                                      <div className="dropdown set-drop m-1">
+                                      <div className="dropdown set-drop m-1" ref={dropdownRef}>
                                         <span
-                                          onClick={() =>
+                                          onClick={(e) =>
                                             handleDropdownToggle(
                                               index,
-                                              fund.id
+                                              fund.ccsp_fund_id,e
                                             )
                                           }
                                           className="fa-solid fa-ellipsis"
@@ -437,8 +542,18 @@ const Campagin = () => {
                                         ></span>
                                         <ul
                                           id={`dropdownMenu-${index}`}
-                                          className="dropdown-content add-class-drop"
+                                          className="dropdown-content add-class-drop set-height"
                                         >
+                                          <li>
+                                            <a
+                                              href="#"
+                                              onClick={(e) => {
+                                                setModalConfirm5(true);
+                                              }}
+                                            >
+                                              Fund Name
+                                            </a>
+                                          </li>
                                           <li>
                                             <a
                                               href="#"
@@ -495,7 +610,7 @@ const Campagin = () => {
                                             <a
                                               href={
                                                 process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-company/?id=${fund.fund_id}`
+                                                `admin/add-company/?id=${fund.ccsp_fund_id}`
                                               }
                                             >
                                               Add Competitor
@@ -506,7 +621,7 @@ const Campagin = () => {
                                             <a
                                               href={
                                                 process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-team/?id=${fund.fund_id}`
+                                                `admin/add-team/?id=${fund.ccsp_fund_id}`
                                               }
                                             >
                                               Add team
@@ -517,7 +632,7 @@ const Campagin = () => {
                                             <a
                                               href={
                                                 process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-products/?id=${fund.fund_id}`
+                                                `admin/add-products/?id=${fund.ccsp_fund_id}`
                                               }
                                             >
                                               Add Products
@@ -525,8 +640,6 @@ const Campagin = () => {
                                           </li>
                                         </ul>
                                       </div>
-
-
                                       <Link
                                         href={
                                           process.env.NEXT_PUBLIC_BASE_URL +
@@ -534,8 +647,9 @@ const Campagin = () => {
                                         }
                                         className="m-1"
                                       >
-                                        <span className="fa fa-edit"></span>
+                                        <span className="fa fa-eye"></span>
                                       </Link>
+
                                       <Link
                                         href="javascript:void(0);"
                                         onClick={() => {
@@ -575,6 +689,122 @@ const Campagin = () => {
       </div>
 
       <PopupModal
+        show={modalConfirm5}
+        handleClose={modalConfirmClose5}
+        staticClass="var-login"
+      >
+        <div className="pop-b-round text-center">
+          <div className="row">
+            <div className="col-12 text-right">
+              <button
+                type="button"
+                className="btn-close m-min-top set-close"
+                onClick={() => {
+                  setModalConfirm5(false);
+                }}
+              ></button>
+            </div>
+          </div>
+        </div>
+        <form onSubmit={handleAddFundNameImage}>
+          <div className="form-contact-set">
+
+            <label className="form-label">
+              <h4>Add Fund Name And Banner Image</h4>
+            </label>
+            <div>
+
+              <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                <span>Fund Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Fund Name"
+                className="form-control"
+                name="fund_name"
+                value={fundname}
+                onChange={(e) => setFundName(e.target.value)}
+              />
+
+              <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                <span>Fund Description</span>
+              </label>
+              <textarea
+                rows={4}
+                placeholder="Enter details here"
+                className="form-control"
+                name="fund_desc"
+                value={funddesc}
+                onChange={(e) =>
+                  setFundDesc(e.target.value)
+                } />
+
+              <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                <span>Banner Image</span>
+              </label>
+              <div className="file-upload">
+                <div className="file-select">
+                  <div
+                    className="file-select-button"
+                    id="fileName"
+                  >
+                    Choose File
+                  </div>
+                  <div className="file-select-name" id="noFile">
+                    {/* {product.product_image ? product.product_image : 'No file chosen...'} */}
+                  </div>
+                  <input
+                    className="input-file"
+                    id="logo"
+                    accept=".jpg, .jpeg, .png"
+                    type="file"
+                    name="product_image"
+                    onChange={(e) => handleUpdateLogoChange(e)}
+                  />
+                </div>
+              </div>
+
+              <div className="profile-pic">
+                {previewImage ? (
+                  <img
+                    src={typeof previewImage === "string" ? previewImage : ""}
+                    width={300}
+                    height={200}
+                    alt=""
+                    className="profile-pic"
+                    style={{ margin: "5% 0%", objectFit: "cover" }}
+                  />
+                ) : (
+                  <img
+                    src={
+                      fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
+                        ? URL.createObjectURL(fundimage.fund_banner_image)
+                        : process.env.NEXT_PUBLIC_IMAGE_URL +
+                        "images/fundbannerimage/" + fundimage
+                    }
+                    alt="Banner Image"
+                    className="profile-pic"
+                    style={{
+                      margin: "5% 0%",
+                      objectFit: "cover",
+                    }}
+                    width={300}
+                    height={200}
+                  />
+                )}
+              </div>
+              <br />
+              <button type="submit" className="btnclasssmae set-but-company mt-3">
+                Submit
+              </button>
+
+
+            </div>
+          </div>
+        </form>
+      </PopupModal>
+
+      <PopupModal
         show={modalConfirm}
         handleClose={modalConfirmClose}
         staticClass="var-login"
@@ -599,7 +829,7 @@ const Campagin = () => {
             </label>
             <TextEditor
               height={100}
-              value={companyOverview}
+              value={companyOverview ? companyOverview : ''}
               onChange={handleCompanyOverviewChange}
               theme="snow"
             />
@@ -719,13 +949,6 @@ const Campagin = () => {
             <label className="form-label">
               <span>Past Finance</span>
             </label>
-            {/* <textarea
-                            rows={4}
-                            placeholder="Enter details here"
-                            className="form-control"
-                            onChange={(e) => setPastFinancing(e.target.value)}
-                            name="past_financing_desc"
-                        /> */}
             <TextEditor
               height={100}
               value={pastfinancingDesc}
@@ -757,7 +980,7 @@ const Campagin = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={handleRoundSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="form-contact-set">
 
             <label className="form-label">

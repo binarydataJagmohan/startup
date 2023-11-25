@@ -7777,3 +7777,13 @@ a.card-link {
     padding-left: 0px;
   }
 }
+
+
+ul.set-height{
+  position: absolute;
+    left: -80px;
+}
+
+.card-body.mt-3.set-pading {
+  padding-bottom: 100px;
+}

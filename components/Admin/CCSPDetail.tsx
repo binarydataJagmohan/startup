@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getCurrentUserData } from '@/lib/session';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { addPreCommitedInvestor, deletePreCommitedinvestor, getPreCommitedInvestor, getStartupIfinworthDetail, insertIfinWorthDetails } from "@/lib/investorapi";
+import { addPreCommitedInvestor, deletePreCommitedinvestor, getPreCommitedInvestor, getStartupIfinworthDetail, insertIfinWorthDetails, getSingleIfinworthdata } from "@/lib/investorapi";
 import { useRouter } from "next/router";
 import { getAllInvestors } from "@/lib/frontendapi";
 interface UserData {
@@ -18,7 +18,7 @@ type Investor = {
     approval_status: string;
 };
 
-const CCSPCampaign = () => {
+const CCSPDetail = () => {
     const [otherDocumentsName, setOtherDocumentsName] = useState('');
     const [otherDocumentsSizeError, setOtherDocumentsSizeError] = useState('');
     const [otherDocumentsError, setOtherDocumentsError] = useState('');
@@ -40,6 +40,8 @@ const CCSPCampaign = () => {
     const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
     const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
     const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
+
+    const { id } = router.query;
 
     const current_user_data: UserData = getCurrentUserData();
     useEffect(() => {
@@ -72,6 +74,7 @@ const CCSPCampaign = () => {
         fetchPreCommitedInvestor();
         fetchData();
     }, []);
+
     const fetchPreCommitedInvestor = async () => {
         getPreCommitedInvestor(current_user_data.id)
             .then(res => {
@@ -83,6 +86,26 @@ const CCSPCampaign = () => {
                 console.log(err);
             });
     }
+
+    useEffect(() => {
+        if (id) {
+          fetchifinworthDetail(id); // Use the 'id' obtained from router.query
+        }
+      }, [id]);
+
+    const fetchifinworthDetail = async (id:any) => {
+        try {
+            const res = await getSingleIfinworthdata(id);
+            if (res.status === true) {
+                setUser(res.data);
+            }
+        } catch (error) {
+            // Handle error if needed
+            console.error(error);
+        }
+    };
+
+
     const [user, setUser] = useState({
         startup_id: "",
         round_of_ifinworth: "",
@@ -369,15 +392,7 @@ const CCSPCampaign = () => {
     return (
         <>
             <section className="step-form pt-4 pb-4 ml-auto">
-                {user.approval_status === 'pending'
-                    ?
-                   <div className="container">
-                        <h1 className="text-center">Requested</h1>
-                   </div>
-                    :
-
                     <div className="container">
-
                         <div className="step-portfolio">
                             <div className="row">
                                 <div className="col-sm-2">
@@ -780,14 +795,13 @@ const CCSPCampaign = () => {
                                     </div>
                                 </div>
                             </section>
-                            <div className="text-center">                                
+                            <div className="text-center">
                                 <button className="continue" onClick={submitIfinWorthDetails}>Next Step</button>&nbsp;
                             </div>
 
                         </div>
 
                     </div>
-                }
                 <ToastContainer autoClose={2000} />
             </section>
             <br /><br /><br />
@@ -795,4 +809,4 @@ const CCSPCampaign = () => {
     );
 
 };
-export default CCSPCampaign;
+export default CCSPDetail;
