@@ -80,7 +80,7 @@ const Header = () => {
         } else {
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
@@ -89,7 +89,7 @@ const Header = () => {
           setUsers(res.data);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     getTotalCountOfNotifications(current_user_data.id)
       .then((res) => {
@@ -98,7 +98,7 @@ const Header = () => {
         } else {
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     getCountOfUnreadNotifications(current_user_data.id)
       .then((res) => {
@@ -107,7 +107,7 @@ const Header = () => {
         } else {
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
 
   const toggleMenu = (index: number) => {
@@ -198,11 +198,10 @@ const Header = () => {
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/dashboard"
+                            className={`nav-item ${router.pathname === "/admin/dashboard"
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -216,12 +215,11 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/all-investors" ||
-                              router.pathname.startsWith("/admin/edit-investor")
+                            className={`nav-item ${router.pathname === "/admin/all-investors" ||
+                                router.pathname.startsWith("/admin/edit-investor")
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -235,13 +233,12 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname ===
+                            className={`nav-item ${router.pathname ===
                                 "/admin/all-startup-companies" ||
-                              router.pathname.startsWith("/admin/edit-startup")
+                                router.pathname.startsWith("/admin/edit-startup")
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -255,11 +252,10 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/all-active-funds"
+                            className={`nav-item ${router.pathname === "/admin/all-active-funds"
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -276,11 +272,14 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/all-active-campaign"
+                            className={`nav-item ${router.pathname === "/admin/all-active-campaign" ||
+                                router.pathname === "/admin/add-company" ||
+                                router.pathname === "/admin/add-team" ||
+                                router.pathname === "/admin/add-products" ||
+                                router.pathname === "/admin/ccsp-detail"
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -292,16 +291,15 @@ const Header = () => {
                               <i className="fa fa-business-time"></i>
                               <span className="badge rounded-pill bg-danger float-end">
                               </span>
-                              <span>Campaign CCSP</span>
+                              <span>CCSP Campaign</span>
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/all-users" ||
-                              router.pathname.startsWith("/admin/edit-user")
+                            className={`nav-item ${router.pathname === "/admin/all-users" ||
+                                router.pathname.startsWith("/admin/edit-user")
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -315,11 +313,10 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "/admin/chats"
+                            className={`nav-item ${router.pathname === "/admin/chats"
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -333,11 +330,10 @@ const Header = () => {
                             </Link>
                           </li>
                           <li
-                            className={`nav-item ${
-                              router.pathname === "admin/all-notifications"
+                            className={`nav-item ${router.pathname === "admin/all-notifications"
                                 ? "active p1"
                                 : ""
-                            }`}
+                              }`}
                           >
                             <Link
                               href={
@@ -365,20 +361,18 @@ const Header = () => {
                               <ChevronDownIcon width={20} color={"#fff"} />
                             </Link>
                             <ul
-                              className={`dropdown-menu-list menu-border ${
-                                taggleUserMgmt ? "d-none" : ""
-                              }`}
+                              className={`dropdown-menu-list menu-border ${taggleUserMgmt ? "d-none" : ""
+                                }`}
                             >
                               {/* Dropdown content */}
                               <li>
                                 <Link
-                                  className={`nav-item ${
-                                    pathname.includes(
-                                      "admin/terms-and-conditions"
-                                    )
+                                  className={`nav-item ${pathname.includes(
+                                    "admin/terms-and-conditions"
+                                  )
                                       ? "active p1"
                                       : ""
-                                  }`}
+                                    }`}
                                   href="/admin/terms-and-conditions"
                                 >
                                   <i className="fas fa-file-contract"></i>
@@ -388,11 +382,10 @@ const Header = () => {
                               </li>
                               <li>
                                 <Link
-                                  className={`nav-item ${
-                                    pathname.includes("admin/privacy-policy")
+                                  className={`nav-item ${pathname.includes("admin/privacy-policy")
                                       ? "active p1"
                                       : ""
-                                  }`}
+                                    }`}
                                   href="/admin/privacy-policy"
                                 >
                                   <i className="fas fa-user-secret"></i>

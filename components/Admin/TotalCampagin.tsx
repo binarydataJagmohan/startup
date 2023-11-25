@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "@/lib/session";
-import { AdminAddCampaignDetail, AdminAddRoundDetail, getAllCCSPCampaign, getAllCampaignDetaildata, AdminAddFundNameAndImage } from "@/lib/adminapi";
+import { AdminAddCampaignDetail, getAllCCSPCampaign, getAllCampaignDetaildata, AdminAddFundNameAndImage } from "@/lib/adminapi";
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
@@ -41,7 +41,6 @@ const Campagin = () => {
   const [companyOverview, setCompanyOverview] = useState("");
   const [ccspfundid, setCCSPFundId] = useState("");
   const [ccspid, setCCSPId] = useState("");
-
   const [productDescription, setProductDesc] = useState("");
   const [dilutionpercentage, setDilutionPercentage] = useState("");
   const [minCommitment, setMinCommitment] = useState("");
@@ -61,84 +60,84 @@ const Campagin = () => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 
-  const handleDropdownToggle = async (index: any, fundId: number, e:any) => {
+  const handleDropdownToggle = async (index: any, fundId: number, e: any) => {
     e.preventDefault()
     const dropdownMenu = document.getElementById(`dropdownMenu-${index}`);
-    if (dropdownMenu) {
-      dropdownMenu.classList.toggle("show");
-    }
-    setSelectedFundId(fundId);
-    try {
-      const response = await getAllCampaignDetaildata(fundId);
+    const isDropdownVisible = dropdownMenu?.classList.contains("show");
 
-      if (response && response.status && response.data && response.data.length > 0) {
-        const selectedCampaign = response.data.find((fund: any) => fund.ccsp_fund_id === fundId);
-        if (selectedCampaign) {
-          console.log('fund_banner_image:', selectedCampaign.ccsp_fund_id);
-
-          setRoundName(selectedCampaign.round_name);
-          setDilutionPercentage(selectedCampaign.dilution_percentage);
-          setMinCommitment(selectedCampaign.min_commitment);
-          setMaxCommitment(selectedCampaign.max_commitment);
-          setValuationCap(selectedCampaign.valuation_cap);
-          setAmountRaised(selectedCampaign.amount_raised);
-          setCompanyOverview(selectedCampaign.company_overview);
-          setProductDesc(selectedCampaign.product_description);
-          setHistoricalFinancial(selectedCampaign.historical_financials_desc);
-          setPastFinancing(selectedCampaign.past_financing_desc);
-          setCCSPFundId(selectedCampaign.ccsp_fund_id);
-          setCCSPId(selectedCampaign.id);
-          setFundName(selectedCampaign.fund_name);
-          setFundImage(selectedCampaign.fund_banner_image);
-          setFundDesc(selectedCampaign.fund_desc);
-
-
-        } else {
-          console.error("Selected fund not found in the response data");
-        }
-      } else {
-        console.error("No data or invalid response received from the API");
+    const closeDropdown = () => {
+      if (dropdownMenu) {
+        dropdownMenu.classList.remove("show");
       }
-    } catch (error) {
-      console.error("Error fetching campaign details:", error);
+      document.removeEventListener("click", closeDropdown);
+    };
+
+    if (isDropdownVisible) {
+      closeDropdown();
+    } else {
+      const dropdownMenus = document.querySelectorAll(".dropdown-content") as NodeListOf<HTMLUListElement>;
+      dropdownMenus.forEach((menu) => {
+        menu.classList.remove("show");
+      });
+
+      if (dropdownMenu) {
+        dropdownMenu.classList.add("show");
+      }
+      setSelectedFundId(fundId);
+      try {
+        const response = await getAllCampaignDetaildata(fundId);
+        if (response && response.status && response.data && response.data.length > 0) {
+          const selectedCampaign = response.data.find((fund: any) => fund.ccsp_fund_id === fundId);
+          if (selectedCampaign) {
+            setRoundName(selectedCampaign.round_name);
+            setDilutionPercentage(selectedCampaign.dilution_percentage);
+            setMinCommitment(selectedCampaign.min_commitment);
+            setMaxCommitment(selectedCampaign.max_commitment);
+            setValuationCap(selectedCampaign.valuation_cap);
+            setAmountRaised(selectedCampaign.amount_raised);
+            setCompanyOverview(selectedCampaign.company_overview);
+            setProductDesc(selectedCampaign.product_description);
+            setHistoricalFinancial(selectedCampaign.historical_financials_desc);
+            setPastFinancing(selectedCampaign.past_financing_desc);
+            setCCSPFundId(selectedCampaign.ccsp_fund_id);
+            setCCSPId(selectedCampaign.id);
+            setFundName(selectedCampaign.fund_name);
+            setFundImage(selectedCampaign.fund_banner_image);
+            setFundDesc(selectedCampaign.fund_desc);
+          } else {
+            console.error("Selected fund not found in the response data");
+          }
+        } else {
+          console.error("No data or invalid response received from the API");
+        }
+      } catch (error) {
+        console.error("Error fetching campaign details:", error);
+      }
+      document.addEventListener("click", closeDropdown);
     }
   };
 
 
   useEffect(() => {
-    const closeDropdown = (event: MouseEvent) => {
+    const closeDropdownOnClick = (event: MouseEvent) => {
       const dropdownMenus = document.querySelectorAll(".dropdown-content") as NodeListOf<HTMLUListElement>;
-      let clickedInsideDropdown = false;
 
       dropdownMenus.forEach((menu) => {
-        if (menu.contains(event.target as Node)) {
-          // Click occurred inside the dropdown, so do not close
-          clickedInsideDropdown = true;
-        } else {
-          // Click occurred outside the dropdown, so close it
-          menu.classList.remove("show");
+        if (!menu.contains(event.target as Node)) {
+          setIsDropdownOpen(false); // Close the dropdown when clicking outside
         }
       });
-
-      // If clicked outside the dropdown, close all dropdowns
-      if (!clickedInsideDropdown) {
-        dropdownMenus.forEach((menu) => {
-          menu.classList.remove("show");
-        });
-      }
     };
 
-    document.addEventListener("mousedown", closeDropdown);
+    document.addEventListener("mousedown", closeDropdownOnClick);
 
     return () => {
-      document.removeEventListener("mousedown", closeDropdown);
+      document.removeEventListener("mousedown", closeDropdownOnClick);
     };
   }, []);
-
-
-
 
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
@@ -152,6 +151,7 @@ const Campagin = () => {
         .then((res) => {
           if (res.status == true) {
             setFundsData(res.data);
+
 
           } else {
             toast.error(res.message, {
@@ -198,13 +198,17 @@ const Campagin = () => {
         },
       })
       .then(response => {
-        const updatedFunds = funds.map((fund: { id: number; }) => {
+        const updatedFunds = funds.map((fund: {
+          user_id: any; id: number;
+        }) => {
+
           if (fund.id === id) {
             const data = {
               notify_from_user: current_user_id,
-              notify_to_user: fund.id,
-              notify_msg: `Congratulations! Your profile has been approved successfully`,
-              notification_type: "Approval Notification",
+              notify_to_user: fund.user_id,
+              // notify_to_user: fund.id,
+              notify_msg: `Congratulations! Your Fund Has Been Approved`,
+              notification_type: "CCSP Fund Approval Notification",
               each_read: "unread",
               status: "active"
             };
@@ -285,8 +289,6 @@ const Campagin = () => {
     });
   }
 
-
-
   const [modalConfirm, setModalConfirm] = useState(false);
   const [modalConfirm1, setModalConfirm1] = useState(false);
   const [modalConfirm2, setModalConfirm2] = useState(false);
@@ -331,6 +333,10 @@ const Campagin = () => {
     try {
       const response = await AdminAddCampaignDetail(data);
       setModalConfirm(false);
+      setModalConfirm2(false);
+      setModalConfirm3(false);
+      setModalConfirm4(false);
+      setModalConfirm5(false);
       toast.success(response.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -419,21 +425,45 @@ const Campagin = () => {
     }
   }
 
+  const [fundImageName, setFundImageName] = useState('');
+  const [fundImageNameError, setFundImageNameError] = useState('');
+  const [startUpLogoError, setStartupLogoError] = useState('');
+
+
   const handleUpdateLogoChange = (e: any) => {
     const file = e.target.files[0];
-    setFundImage(file);
 
-    // Preview the image
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+      const allowedTypes = ['image/jpeg', 'image/png'];
+      const maxSize = 2 * 1024 * 1024;
+
+      if (allowedTypes.includes(file.type)) {
+        if (file.size <= maxSize) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            setPreviewImage(reader.result);
+          };
+          reader.readAsDataURL(file);
+          setFundImage(file);
+          setFundImageName(file.name);
+          setFundImageNameError('');
+          setStartupLogoError('');
+        } else {
+          setFundImageNameError('* Image size should be less than 2MB.');
+          setFundImage(null);
+          setPreviewImage(null);
+        }
+      } else {
+        setStartupLogoError('* Please upload a JPG or PNG file');
+        setFundImage(null);
+        setPreviewImage(null);
+      }
     } else {
+      setFundImage(null);
       setPreviewImage(null);
     }
   };
+
 
 
   return (
@@ -483,9 +513,11 @@ const Campagin = () => {
                               <tr>
                                 <th>#</th>
                                 <th>CCSP Id</th>
-                                <th>Round Name</th>
+                                <th>Startup Name</th>
+                                <th>Fund Name</th>
+                                {/* <th>Round Name</th> */}
                                 <th>Amount</th>
-                                <th>Pre Commited Amount</th>
+                                {/* <th>Pre Commited Amount</th> */}
                                 <th>Status</th>
                                 <th>Action</th>
                               </tr>
@@ -497,18 +529,20 @@ const Campagin = () => {
                                     <td data-label="Account">{index + 1}</td>
 
                                     <td data-label="Account">{fund.ccsp_fund_id}</td>
+                                    <td data-label="Account">{fund.name}</td>
+                                    <td data-label="Account">{fund.fund_name}</td>
 
-                                    <td data-label="Due Date">
+                                    {/* <td data-label="Account">
                                       {fund.round_of_ifinworth}
-                                    </td>
+                                    </td> */}
 
                                     <td data-label="Amount">
                                       {fund.ifinworth_amount}
                                     </td>
 
-                                    <td data-label="Period">
+                                    {/* <td data-label="Period">
                                       {fund.pre_committed_ifinworth_amount}
-                                    </td>
+                                    </td> */}
 
                                     <td data-label="Period">
                                       <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
@@ -534,7 +568,7 @@ const Campagin = () => {
                                           onClick={(e) =>
                                             handleDropdownToggle(
                                               index,
-                                              fund.ccsp_fund_id,e
+                                              fund.ccsp_fund_id, e
                                             )
                                           }
                                           className="fa-solid fa-ellipsis"
@@ -748,39 +782,44 @@ const Campagin = () => {
                     className="file-select-button"
                     id="fileName"
                   >
-                    Choose File
+                    Chose file
                   </div>
                   <div className="file-select-name" id="noFile">
-                    {/* {product.product_image ? product.product_image : 'No file chosen...'} */}
+                    {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")}
                   </div>
                   <input
                     className="input-file"
                     id="logo"
                     accept=".jpg, .jpeg, .png"
                     type="file"
-                    name="product_image"
+                    name="fund_banner_image"
                     onChange={(e) => handleUpdateLogoChange(e)}
                   />
                 </div>
               </div>
+              {fundImageNameError ? (
+                <p className="text-danger">{fundImageNameError}</p>
+              ) : (
+                startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
+              )}
 
-              <div className="profile-pic">
-                {previewImage ? (
-                  <img
-                    src={typeof previewImage === "string" ? previewImage : ""}
-                    width={300}
-                    height={200}
-                    alt=""
-                    className="profile-pic"
-                    style={{ margin: "5% 0%", objectFit: "cover" }}
-                  />
-                ) : (
+              {/* <div className="profile-pic"> */}
+              {previewImage ? (
+                <img
+                  src={typeof previewImage === "string" ? previewImage : ""}
+                  width={300}
+                  height={200}
+                  alt=""
+                  className="profile-pic"
+                  style={{ margin: "5% 0%", objectFit: "cover" }}
+                />
+              ) : (
+                fundimage ? (
                   <img
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
                         ? URL.createObjectURL(fundimage.fund_banner_image)
-                        : process.env.NEXT_PUBLIC_IMAGE_URL +
-                        "images/fundbannerimage/" + fundimage
+                        : process.env.NEXT_PUBLIC_IMAGE_URL + "images/fundbannerimage/" + fundimage
                     }
                     alt="Banner Image"
                     className="profile-pic"
@@ -791,8 +830,11 @@ const Campagin = () => {
                     width={300}
                     height={200}
                   />
-                )}
-              </div>
+                ) : (
+                  <></>
+                )
+              )}
+              {/* </div> */}
               <br />
               <button type="submit" className="btnclasssmae set-but-company mt-3">
                 Submit
