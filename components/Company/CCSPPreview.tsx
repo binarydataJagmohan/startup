@@ -135,9 +135,9 @@ const CCSPCampaign = () => {
                     buttons: ["Ok", "Dashboard"],
                 }).then((clickedButton) => {
                     if (clickedButton === "Dashboard") {
-                        router.push("/company/ccsp-request");
+                        router.push("/company/dashboard");
                     } else {
-                        router.push('/company/ccsp-preview');
+                        router.push('/company/ccsp-campaign');
                     }
                 });
             })
@@ -268,7 +268,10 @@ const CCSPCampaign = () => {
                                         {ifinworth.approval_status === 'pending' ?
                                             ''
                                             :
-                                            <Link href="/company/ccsp-campaign" className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link>
+                                            <Link href={
+                                                process.env.NEXT_PUBLIC_BASE_URL +
+                                                `company/ccsp-request/?id=${ifinworth.startup_id}`
+                                            } className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link>
                                         }
                                     </div>
                                 </div>
@@ -293,24 +296,26 @@ const CCSPCampaign = () => {
                         </div>
                     </div>
                     <div className="text-center mt-5">
-                        {ifinworth.approval_status === 'null' ?
-                            <Link href={"/company/ccsp-campaign"}><button className="back-step">Previous</button></Link>
+                        {ifinworth.approval_status === 'incomplete' ?
+                            <Link href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                `company/ccsp-request/?id=${ifinworth.startup_id}`
+                            }><button className="back-step">Previous</button></Link>
                             :
                             ''
                         }
                         {ifinworth.approval_status === 'approved' ?
                             <button className="continue">Published</button>
                             :
-                            ifinworth.approval_status === 'null' ?
+                            ifinworth.approval_status === 'incomplete' ?
                                 <button className="continue"
-                                    onClick={() => publishFund(ifinworth.ccsp_fund_id, ifinworth.approval_status === 'null' ? 'pending' : 'null')}
+                                    onClick={() => publishFund(ifinworth.ccsp_fund_id, ifinworth.approval_status === 'incomplete' ? 'pending' : 'incomplete')}
                                 >
                                     Publish
                                 </button>
                                 :
                                 ifinworth.approval_status === 'pending' ?
                                     <>
-                                        <button className="continue">Additional Info</button>
                                         <Link href={"/company/ccsp-campaign"}><button className="continue">Requested</button></Link>
                                     </>
                                     : ''
