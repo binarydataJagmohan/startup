@@ -98,9 +98,10 @@ const Dashboard = () => {
     if (res.status) {
       setCCSPfundData(res.data);
       console.log(res.data);
-
     }
   };
+
+  
 
 
 
@@ -488,8 +489,8 @@ const Dashboard = () => {
                         <div className="product-image">
                           <a href="#" className="image">
 
-                            {details.logo ? (
-                              <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'docs/' + details.logo} alt="business-logo" width={416} height={140} />
+                            {details.fund_banner_image ? (
+                              <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/fundbannerimage/' + details.fund_banner_image} alt="business-logo" width={416} height={140} />
                             ) : (
                               <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small/placeholder.jpg'} alt="business-logo" width={416} height={140} />
                             )
@@ -502,27 +503,28 @@ const Dashboard = () => {
                               <h3 className="title">
                                 <a href="#">{details.fund_name} </a>
                               </h3>
-                              <div className="price">Anchor</div>
+                              <div className="price">Fund Name</div>
                             </div>
                             <div className="product-content">
-                              <h3 className="title">
-                                <a href="#">{details.tenure} days </a>
+                              <h3 className="title text-end">
+                                <a href="#">{details.dilution_percentage}%</a>
                               </h3>
-                              <div className="price">Tenure</div>
+                              <div className="price">Dilution</div>
                             </div>
                           </div>
                           <div className="d-flex justify-content-between">
                             <div className="product-content">
                               <h3 className="title">
-                                <a href="#">{details.no_of_units}/{details.total_units} </a>
+                                {/* <a href="#">{details.min_commitment}/{details.max_commitment} </a> */}
+                                <a href="#">{details.valuation_cap}</a>
                               </h3>
-                              <div className="price">Units Left</div>
+                              <div className="price">Valuation Cap</div>
                             </div>
                             <div className="product-content text-end">
                               <h3 className="title">
-                                <a href="#">₹{details.min_commitment} </a>
+                                <a href="#">₹{details.valuation_cap} </a>
                               </h3>
-                              <div className="price">Min. Subscription</div>
+                              <div className="price">Amount</div>
                             </div>
                           </div>
                           {/* <div className="text-center mt-3 d-flex">
@@ -530,7 +532,7 @@ const Dashboard = () => {
                               💡13.6% Discount Rate
                             </a>
                             <a href="#" className="card-link">
-                              🌟Repayment/Unit- ₹{details.max_commitment}
+                              🌟Repayment/Unit- ₹{details.amount_raised}
                             </a>
                           </div> */}
                         </div>
@@ -538,15 +540,21 @@ const Dashboard = () => {
                           <div className="columns">
                             <ul className="price m-0 p-0">
                               <li>
-                                Units <span>{details.no_of_units}/{details.total_units}</span>
+                                Round Name <span>{details.round_name}</span>
                               </li>
                               <li>
                                 Average Amount Per Unit <span>₹{details.amount_raised}</span>
                               </li>
                               <li>
-                                Tenure <span>{details.tenure} days</span>
+                                Min Commitment <span>₹{details.min_commitment}</span>
                               </li>
-                              {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
+                              <li>
+                                Max Commitment <span>₹{details.max_commitment}</span>
+                              </li>
+                              {/* <li>
+                                Tenure <span>{details.tenure} days</span>
+                              </li> */}
+                              {/* {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
                                 <li>
                                   <span>Closed</span>
                                 </li>
@@ -556,7 +564,7 @@ const Dashboard = () => {
                                     { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
                                   </span>
                                 </li>
-                              )}
+                              )} */}
                               <li className="border-0">
                                 <a
                                   href={

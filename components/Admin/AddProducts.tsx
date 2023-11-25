@@ -26,8 +26,8 @@ interface Fund {
 
 export default function AddProducts() {
     const [productdescription, setProductDescription] = useState("");
-    const [productimage, setProductImage] = useState("");
-    const [productimage1, setProductImage1] = useState("");
+    const [productimage, setProductImage]: any = useState("");
+    const [productimage1, setProductImage1]: any = useState("");
     const [productoverview, setProductOverview] = useState("");
     const [fundid, setFundId]: any = useState<string | null>(null);
     const [ccspid, setCCSPId]: any = useState<string | null>(null);
@@ -37,8 +37,23 @@ export default function AddProducts() {
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
         null
     );
+
+    const [fileName, setFileName] = useState('');
+    const [error, setError] = useState('');
     const router = useRouter();
     const { id } = router.query;
+
+    const clearmemberInputData = () => {
+        setProductDescription("");
+        setProductImage("");
+        setProductImage1("");
+        setPreviewImage("");
+        setProductDescription("");
+        setProductOverview("");
+        setPreviewImage("");
+        setFundImageName("");
+        setFileName("");
+    };
 
     useEffect(() => {
         getAllCCSPCampaign().then((res) => {
@@ -110,39 +125,77 @@ export default function AddProducts() {
         }
     };
 
-    const clearmemberInputData = () => {
-        setProductDescription("");
-        setProductImage("");
-    };
+
+
+
 
     const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
-        setProductImage(file);
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        const maxSizeMB = 2; // 2MB limit
 
-        // Preview the image
+        if (file && file.size > maxSizeMB * 1024 * 1024) {
+            setError('File size exceeds 2MB limit');
+            return;
+        }
+
+        if (file && !allowedTypes.includes(file.type)) {
+            setError('Only JPG and PNG files are allowed');
+            return;
+        }
+
+        setProductImage(file);
+        setFileName(file.name);
+        setError(''); // Clear any previous error
+
+        // Display a preview of the selected image
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewImage(reader.result);
+        };
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result);
-            };
             reader.readAsDataURL(file);
         } else {
-            setPreviewImage(null);
+            setPreviewImage('');
         }
     };
 
+
+    const [startUpLogoError, setStartupLogoError] = useState('');
+    const [fundImageName, setFundImageName] = useState('');
+    const [fundImageNameError, setFundImageNameError] = useState('');
+
+
     const handleUpdateLogoChange = (e: any) => {
         const file = e.target.files[0];
-        setProductImage1(file);
 
-        // Preview the image
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+            const allowedTypes = ['image/jpeg', 'image/png'];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (allowedTypes.includes(file.type)) {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        setPreviewImage(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setProductImage1(file);
+                    setFundImageName(file.name);
+                    setFundImageNameError('');
+                    setStartupLogoError('');
+                } else {
+                    setFundImageNameError('* Image size should be less than 2MB.');
+                    setProductImage1(null);
+                    setPreviewImage(null);
+                }
+            } else {
+                setStartupLogoError('* Please upload a JPG or PNG file');
+                setProductImage1(null);
+                setPreviewImage(null);
+            }
         } else {
+            setProductImage1(null);
             setPreviewImage(null);
         }
     };
@@ -203,11 +256,26 @@ export default function AddProducts() {
                                                 >
                                                     Product
                                                 </li>
+                                                <li
+                                                    className="breadcrumb-item active"
+                                                    aria-current="page"
+                                                >
+                                                <Link
+                                                        href={
+                                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                                            "admin/all-active-campaign"
+                                                        }
+                                                    >
+                                                        Back
+                                                    </Link></li>
                                             </ol>
                                         </div>
                                         <div className="col-lg-6 text-end">
                                             <button
-                                                onClick={handleAddButtonClick}
+                                                onClick={() => {
+                                                    handleAddButtonClick();
+                                                    clearmemberInputData();
+                                                }}
                                                 className="btnclasssmae"
                                             >
                                                 Add Products
@@ -280,13 +348,28 @@ export default function AddProducts() {
                                                             <div
                                                                 className="file-select-name"
                                                                 id="noFile"
-                                                            ></div>
+                                                            >{fileName}</div>
                                                             <input
                                                                 type="file"
                                                                 name="product_image"
                                                                 onChange={(e) => handleLogoChange(e)}
                                                             />
                                                         </div>
+                                                    </div>
+                                                    {error && <div style={{ color: 'red' }}>{error}</div>}
+                                                    <div className="profile-pic">
+                                                        {previewImage ? (
+                                                            <img
+                                                                src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                width={300}
+                                                                height={200}
+                                                                alt=''
+                                                                className='profile-pic'
+                                                                style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                            />
+                                                        ) : (
+                                                            <></>
+                                                        )}
                                                     </div>
                                                 </div>
                                                 <div className="row mt-3">
@@ -443,7 +526,7 @@ export default function AddProducts() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {product.product_image ? product.product_image : 'No file chosen...'}
+                                                                        {fundImageName ? fundImageName : (productimage ? productimage : "No File Chosen ...")}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"
@@ -455,6 +538,11 @@ export default function AddProducts() {
                                                                     />
                                                                 </div>
                                                             </div>
+                                                            {fundImageNameError ? (
+                                                                <p className="text-danger">{fundImageNameError}</p>
+                                                            ) : (
+                                                                startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
+                                                            )}
 
                                                             <div className="profile-pic">
                                                                 {previewImage ? (

@@ -129,24 +129,6 @@ export default function CampaignsDetails() {
   }, [id]);
 
 
-
-  useEffect(() => {
-    const fetchActiveFundsAndData = async () => {
-      try {
-        const activeFunds = await getAllCCSPCampaign();
-        if (activeFunds.status === true && activeFunds.data.length > 0) {
-          const fundId = activeFunds.data[0].ccsp_fund_id;
-          await fetchAllTeamAndCompany(fundId);
-        }
-      } catch (error) {
-        console.error("Error fetching active funds: ", error);
-      }
-    };
-    fetchActiveFundsAndData();
-  }, []);
-
-
-
   useEffect(() => {
     const fetchActiveFundsAndData = async () => {
       try {
@@ -412,8 +394,8 @@ export default function CampaignsDetails() {
       {/* <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}> */}
       <section className="mainPageSection" style={{
         backgroundImage: `url(${fundData?.fund_banner_image ?
-            `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
-            `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
+          `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
+          `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
           })`
       }}>
 
@@ -706,23 +688,25 @@ export default function CampaignsDetails() {
         </div>
       </section>
 
-      <section className="tabsSection">
-        <div className="container">
-          <h2 className="text-black">Product</h2>
-          <p>
-            <div dangerouslySetInnerHTML={{ __html: fundData?.product_description }}></div>
-          </p>
-        </div>
+      {fundData?.product_description && (
+        <section className="tabsSection">
+          <div className="container">
+            <h2 className="text-black">Product</h2>
+            <p>
+              <div dangerouslySetInnerHTML={{ __html: fundData.product_description }}></div>
+            </p>
+          </div>
+        </section>
+      )}
 
-      </section>
 
-      <section className="productSection">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-11">
-              <div className="row">
-                {productdata.length > 0 ? (
-                  productdata.map((data: any, index: number) => (
+      {productdata.length > 0 && (
+        <section className="productSection">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-11">
+                <div className="row">
+                  {productdata.map((data: any, index: number) => (
                     <div className="col-lg-4 col-md-4" key={index}>
                       <div className="shadowTitle">
                         <div className="text-center">
@@ -743,27 +727,21 @@ export default function CampaignsDetails() {
                           )}
                         </div>
                         <div className="titleText">
-                          <p>
-                            {data.product_description}
-                          </p>
+                          <p>{data.product_description}</p>
                         </div>
                       </div>
                     </div>
-
-                  ))
-                ) : (
-                  <div className="text-center">
-                    <p>No Product available at the moment.</p>
-                  </div>
-                )}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
 
-      <section id="documents" className="py-lg-5">
+
+      {/* <section id="documents" className="py-lg-5">
         <div className="container">
           <h1 className="text-center pb-4 bold">Documents</h1>
           <div className="row justify-content-center">
@@ -805,15 +783,15 @@ export default function CampaignsDetails() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section id="terms">
-        <div className="container">
-          <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
-          <div className="termsContent">
-            <div className="row">
-              <h1>Round Details</h1>
-              {fundData ? (
+      {fundData?.length > 0 && (
+        <section id="terms">
+          <div className="container">
+            <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
+            <div className="termsContent">
+              <div className="row">
+                <h1>Round Details</h1>
                 <>
                   <p>
                     <strong>Dilution Percentage:</strong> {fundData.dilution_percentage}
@@ -833,72 +811,67 @@ export default function CampaignsDetails() {
                     <strong>Round name:</strong> {fundData.round_name}
                   </p>
                 </>
-              ) : (
-                <p>Loading...</p>
-              )}
-
-            </div>
-
-
-          </div>
-        </div>
-      </section>
-      <section id="overview" className="tabsSection">
-        <div className="container">
-          <h1 className="text-center bold">Overview </h1>
-          <div className="overviewContent">
-
-            <div className="row">
-              <p>
-                <div dangerouslySetInnerHTML={{ __html: fundData?.company_overview }}></div>
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <section id="industry" className="tabsSection">
-        <div className="container">
-          <h1 className="text-left py-3 bold">Past Financing</h1>
-          <div className="row">
-            <div className="col-lg-6">
-              <div className="industryContent">
-                <div className="row">
-                  <h3 className="text-white">Facilitating Connections</h3>
-                  <p className="text-white">
-                    <div dangerouslySetInnerHTML={{ __html: fundData?.past_financing_desc }}></div>
-                  </p>
-                </div>
-
               </div>
-
-            </div>
-            <div className="col-lg-6 order-lg-0 order-first">
-              <img
-                src="assets/img/removetext.png"
-                alt=""
-                className="hover-img"
-              />
             </div>
           </div>
-        </div>
-      </section>
-      <section id="competitors">
-        <div className="container">
-          <h1 className="text-center mb-5 bold mt-4">Competitors</h1>
-          <div className="competitorsContent">
-            {companydata.length > 0 ? (
-              companydata.map((data: any, index: number) => (
+        </section>
+      )}
+
+      {fundData?.company_overview && (
+        <section id="overview" className="tabsSection">
+          <div className="container">
+            <h1 className="text-center bold">Overview </h1>
+            <div className="overviewContent">
+              <div className="row">
+                <p>
+                  <div dangerouslySetInnerHTML={{ __html: fundData.company_overview }}></div>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+
+      {fundData?.past_financing_desc && (
+        <section id="industry" className="tabsSection">
+          <div className="container">
+            <h1 className="text-left py-3 bold">Past Financing</h1>
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="industryContent">
+                  <div className="row">
+                    <h3 className="text-white">Facilitating Connections</h3>
+                    <p className="text-white">
+                      <div dangerouslySetInnerHTML={{ __html: fundData.past_financing_desc }}></div>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6 order-lg-0 order-first">
+                <img
+                  src="assets/img/removetext.png"
+                  alt=""
+                  className="hover-img"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {companydata.length > 0 && (
+        <section id="competitors">
+          <div className="container">
+            <h1 className="text-center mb-5 bold mt-4">Competitors</h1>
+            <div className="competitorsContent">
+              {companydata.map((data: any, index: number) => (
                 <div className="row align-items-center g-3" key={index}>
                   <div className="col-lg-6">
                     <div className="competitorsContentTitle">
                       <h4><strong>{data.company_name}</strong></h4>
                       <p>
-                        {/* {data.company_desc} */}
                         <div dangerouslySetInnerHTML={{ __html: data.company_desc }}></div>
-
                       </p>
                     </div>
                   </div>
@@ -922,28 +895,25 @@ export default function CampaignsDetails() {
                     </div>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="text-center">
-                <p>No competitors available at the moment.</p>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
 
-      <section id="team" className="pt-100 pb-100">
-        <div className="container">
-          <div className="section-title">
-            <h2>Team</h2>
-            <div className="bar" />
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
-              <div className="row">
-                {teamdata.length > 0 ? (
-                  teamdata.map((team: any, index: number) => (
+
+      {teamdata.length > 0 && (
+        <section id="team" className="pt-100 pb-100">
+          <div className="container">
+            <div className="section-title">
+              <h2>Team</h2>
+              <div className="bar" />
+            </div>
+            <div className="row justify-content-center">
+              <div className="col-lg-10">
+                <div className="row">
+                  {teamdata.map((team: any, index: number) => (
                     <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
                       <div className="team-item">
                         <div className="image">
@@ -993,18 +963,14 @@ export default function CampaignsDetails() {
                         </div>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="col-lg-12 text-center">
-                    <p>No team members available at the moment.</p>
-                  </div>
-
-                )}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
 
     </>
   );

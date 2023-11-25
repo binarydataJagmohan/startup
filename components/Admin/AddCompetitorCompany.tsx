@@ -30,14 +30,22 @@ export default function AddCompetitorCompany() {
     const [companydata, setAllCompanydata] = useState([]);
     const [competitorId, setCompetitorId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
-    const [fundid, setFundId]: any = useState<string | null>(null);
     const [ccspid, setCCSPId]: any = useState<string | null>(null);
-    const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
     const [startUpLogoError, setStartupLogoError] = useState('');
-
+    const [fundImageName, setFundImageName] = useState('');
+    const [fundImageNameError, setFundImageNameError] = useState('');
     const router = useRouter();
     const { id } = router.query;
 
+
+    const clearmemberInputData = () => {
+        setCompanyLogo1("");
+        setCompanyLogo("");
+        setPreviewImage("");
+        setCompanyName("");
+        setCompanyDesc("");
+        setFundImageName("");
+    };
 
 
     useEffect(() => {
@@ -46,7 +54,7 @@ export default function AddCompetitorCompany() {
             if (res.status === true && res.data.length > 0) {
                 setCCSPId(res.data[0].ccsp_fund_id);
                 console.log(res.data[0].ccsp_fund_id);
-                
+
             } else {
                 toast.error("No active funds available", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -65,7 +73,7 @@ export default function AddCompetitorCompany() {
                 const filteredData = res.data.filter((company: { ccsp_fund_id: string }) => company.ccsp_fund_id == id);
                 setAllCompanydata(filteredData);
                 // console.log(filteredData);
-                
+
             }
         } catch (error) {
             console.error("Error fetching company data:", error);
@@ -83,6 +91,7 @@ export default function AddCompetitorCompany() {
         formData.append("company_name", CompanyName);
         try {
             const response = await AdminAddCometitorCompany(formData);
+            clearmemberInputData();
             toast.success(response.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -108,6 +117,7 @@ export default function AddCompetitorCompany() {
 
         try {
             const response = await AdminUpdateCometitorCompany(formData);
+            clearmemberInputData();
             toast.success(response.message, {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -124,37 +134,46 @@ export default function AddCompetitorCompany() {
         setCompanyDesc(companydesc);
     };
 
-    const handleLogoChange = (e: any) => {
+    const [fileName, setFileName] = useState('');
+    const [error, setError] = useState('');
+
+    const handleLogoChange = (e:any) => {
         const file = e.target.files[0];
-        if (file) {
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        const maxSizeMB = 2; // 2MB limit
 
-            const allowedTypes = ["image/jpeg", "image/png"];
-            const maxSize = 2 * 1024 * 1024;
-
-            if (allowedTypes.includes(file.type)) {
-                if (file.size <= maxSize) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        setPreviewImage(reader.result);
-                    };
-                    reader.readAsDataURL(file);
-                    setCompanyLogo(file.competitor_logo);
-                } else {
-                    setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
-                }
-            } else {
-                setStartupLogoError('* Please upload a JPG or PNG file');
-            }
+        if (file && file.size > maxSizeMB * 1024 * 1024) {
+            setError('File size exceeds 2MB limit');
+            return;
         }
+
+        if (file && !allowedTypes.includes(file.type)) {
+            setError('Only JPG and PNG files are allowed');
+            return;
+        }
+
         setCompanyLogo(file);
+        setFileName(file.name);
+        setError(''); // Clear any previous error
+
+        // Display a preview of the selected image
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewImage(reader.result);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewImage('');
+        }
     };
 
 
     const handleUpdateLogoChange = (e: any) => {
         const file = e.target.files[0];
-        if (file) {
 
-            const allowedTypes = ["image/jpeg", "image/png"];
+        if (file) {
+            const allowedTypes = ['image/jpeg', 'image/png'];
             const maxSize = 2 * 1024 * 1024;
 
             if (allowedTypes.includes(file.type)) {
@@ -164,17 +183,25 @@ export default function AddCompetitorCompany() {
                         setPreviewImage(reader.result);
                     };
                     reader.readAsDataURL(file);
-                    setCompanyLogo1(file.competitor_logo);
+                    setCompanyLogo1(file);
+                    setFundImageName(file.name);
+                    setFundImageNameError('');
+                    setStartupLogoError('');
                 } else {
-                    setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+                    setFundImageNameError('* Image size should be less than 2MB.');
+                    setCompanyLogo1(null);
+                    setPreviewImage(null);
                 }
             } else {
                 setStartupLogoError('* Please upload a JPG or PNG file');
+                setCompanyLogo1(null);
+                setPreviewImage(null);
             }
+        } else {
+            setCompanyLogo1(null);
+            setPreviewImage(null);
         }
-        setCompanyLogo1(file);
     };
-
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
 
     const handleAddButtonClick = () => {
@@ -196,8 +223,8 @@ export default function AddCompetitorCompany() {
             setCompetitorId(index);
             try {
                 const res = await getAdminCompanydata();
-                
-                const conversation = res.data.find((company: { id: number }) => company.id === index);                
+
+                const conversation = res.data.find((company: { id: number }) => company.id === index);
                 if (conversation) {
                     setCompanyName(conversation.company_name);
                     setCompanyDesc(conversation.company_desc);
@@ -256,10 +283,26 @@ export default function AddCompetitorCompany() {
                                                 <li className="breadcrumb-item active" aria-current="page">
                                                     Competitor Company
                                                 </li>
+                                                <li
+                                                    className="breadcrumb-item active"
+                                                    aria-current="page"
+                                                >
+                                                <Link
+                                                        href={
+                                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                                            "admin/all-active-campaign"
+                                                        }
+                                                    >
+                                                        Back
+                                                    </Link></li>
                                             </ol>
                                         </div>
                                         <div className="col-lg-6 text-end">
-                                            <button onClick={handleAddButtonClick} className="btnclasssmae">Add company data</button>
+                                            <button onClick={() => {
+                                                handleAddButtonClick();
+                                                clearmemberInputData();
+                                            }} className="btnclasssmae">Add company data</button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -315,13 +358,29 @@ export default function AddCompetitorCompany() {
                                                                 <div
                                                                     className="file-select-name"
                                                                     id="noFile"
-                                                                ></div>
+                                                                >{fileName}</div>
                                                                 <input
                                                                     type="file"
                                                                     name="competitor_logo"
                                                                     onChange={(e) => handleLogoChange(e)}
                                                                 />
                                                             </div>
+                                                        </div>
+                                                        {error && <div style={{ color: 'red' }}>{error}</div>} {/* Show error */}
+
+                                                        <div className="profile-pic">
+                                                            {previewImage ? (
+                                                                <img
+                                                                    src={typeof previewImage === 'string' ? previewImage : ''}
+                                                                    width={300}
+                                                                    height={200}
+                                                                    alt=''
+                                                                    className='profile-pic'
+                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                />
+                                                            ) : (
+                                                                <></>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -469,8 +528,8 @@ export default function AddCompetitorCompany() {
                                                                             Choose File
                                                                         </div>
                                                                         <div className="file-select-name" id="noFile">
-                                                                            {/* {CompanyLogo ? CompanyLogo : (company.competitor_logo ? company.competitor_logo : "No File Chosen ...")} */}
-                                                                            {CompanyLogo ? CompanyLogo.name : "No File Chosen ..."}
+
+                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo : "No File Chosen ...")}
 
                                                                         </div>
                                                                         <input
@@ -483,6 +542,11 @@ export default function AddCompetitorCompany() {
                                                                         />
                                                                     </div>
                                                                 </div>
+                                                                {fundImageNameError ? (
+                                                                    <p className="text-danger">{fundImageNameError}</p>
+                                                                ) : (
+                                                                    startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
+                                                                )}
 
                                                                 <div className="profile-pic">
                                                                     {previewImage ? (
