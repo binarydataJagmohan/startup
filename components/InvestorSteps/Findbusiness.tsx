@@ -136,11 +136,10 @@ export default function Findbusiness(): any {
   }, []);
 
   const SubmitForm = async (event: any) => {
-
     try {
-
       const res = await personalInformationSave(user);
-      if (res.status == true) {
+
+      if (res.status === true) {
         setTimeout(() => {
           router.push("/investor-steps/investor-type");
         }, 1000);
@@ -151,12 +150,24 @@ export default function Findbusiness(): any {
         });
       }
     } catch (err: any) {
-      toast.error(err, {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
+      // Extract the error message from the exception
+      const errorMessage =
+        err.response?.data?.message || err.message || "An error occurred";
+      if (errorMessage.includes("Duplicate entry")) {
+        toast.error('Phone number already exists.', {
+          position: toast.POSITION.TOP_RIGHT,
+          toastId: "error",
+        });
+      } else {
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_RIGHT,
+          toastId: "error",
+        });
+      }
     }
   };
+
+
 
   const handleAdrChange = (find_business_location: any) => {
     setFindBusinessLocation(find_business_location);
@@ -235,7 +246,7 @@ export default function Findbusiness(): any {
                                   pattern: {
                                     value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
                                     message: "Please enter a valid LinkedIn URL"
-                                  }                                              
+                                  }
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
@@ -254,12 +265,17 @@ export default function Findbusiness(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label mb-4"
                               >
-                                Country of Citizenship{" "}
+                                Country of Citizenship{" "}{user.country}
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                name="country"
+                               
                                 aria-label="Default select example"
+                                {...register("country", {
+                                  // validate: (value) => value != "", required: true,
+                                  onChange: handleChange
+                                })}
+                                 name="country"
                               >
                                 <option value="">
                                   --SELECT COUNTRY--
@@ -275,7 +291,7 @@ export default function Findbusiness(): any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
-                
+
 
                             </div>
 
@@ -343,12 +359,16 @@ export default function Findbusiness(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label mb-4"
                               >
-                                Gender  
-    
+                                Gender
+
                               </label>
 
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
+                                {...register("gender", {
+                                  // validate: (value) => value != "", required: true,
+                                  onChange: handleChange
+                                })}
                                 name="gender"
                                 aria-label="Default select example"
                                 value={user ? user.gender : ""}

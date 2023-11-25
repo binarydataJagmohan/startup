@@ -139,7 +139,7 @@ export default function Home() {
                                     process.env.NEXT_PUBLIC_BASE_URL +
                                     "investor/campaign"
                                   }
-                                  className="default-btn"
+                                  className="default-btn mx-3"
                                 >
                                   Campaigns
                                 </Link>
@@ -158,7 +158,7 @@ export default function Home() {
                                 <a
                                   href="#"
                                   onClick={handleLogout}
-                                  className="default-btn"
+                                  className="default-btn mx-3"
                                 >
                                   Logout
                                 </a>
@@ -181,7 +181,7 @@ export default function Home() {
                                 process.env.NEXT_PUBLIC_BASE_URL +
                                 "admin/dashboard"
                               }
-                              className="default-btn"
+                              className="default-btn mx-3"
                             >
                               Dashboard
                             </Link>
@@ -204,7 +204,7 @@ export default function Home() {
                                     process.env.NEXT_PUBLIC_BASE_URL +
                                     "company/dashboard"
                                   }
-                                  className="default-btn"
+                                  className="default-btn mx-3"
                                 >
                                   Dashboard
                                 </Link>
@@ -223,7 +223,7 @@ export default function Home() {
                                 <a
                                   href="#"
                                   onClick={handleLogout}
-                                  className="default-btn"
+                                  className="default-btn mx-3"
                                 >
                                   Logout
                                 </a>

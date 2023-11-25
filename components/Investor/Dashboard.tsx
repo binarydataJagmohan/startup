@@ -267,14 +267,14 @@ const Dashboard = () => {
                             <div className="price">Min. Subscription</div>
                           </div>
                         </div>
-                        <div className="text-center mt-3 d-flex">
+                        {/* <div className="text-center mt-3 d-flex">
                           <a href="#" className="card-link">
                             💡13.6% Discount Rate
                           </a>
                           <a href="#" className="card-link">
                             🌟Repayment/Unit- ₹{details.minimum_subscription}
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="overlay">
                         <div className="columns">
@@ -391,14 +391,14 @@ const Dashboard = () => {
                             <div className="price">Min. Subscription</div>
                           </div>
                         </div>
-                        <div className="text-center mt-3 d-flex">
+                        {/* <div className="text-center mt-3 d-flex">
                           <a href="#" className="card-link">
                             💡13.6% Discount Rate
                           </a>
                           <a href="#" className="card-link">
                             🌟Repayment/Unit- ₹{details.minimum_subscription}
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="overlay">
                         <div className="columns">
@@ -527,14 +527,14 @@ const Dashboard = () => {
                               <div className="price">Amount</div>
                             </div>
                           </div>
-                          <div className="text-center mt-3 d-flex">
+                          {/* <div className="text-center mt-3 d-flex">
                             <a href="#" className="card-link">
                               💡13.6% Discount Rate
                             </a>
                             <a href="#" className="card-link">
                               🌟Repayment/Unit- ₹{details.amount_raised}
                             </a>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="overlay">
                           <div className="columns">
@@ -665,14 +665,14 @@ const Dashboard = () => {
                           <div className="price">Min. Subscription</div>
                         </div>
                       </div>
-                      <div className="text-center mt-3 d-flex">
+                      {/* <div className="text-center mt-3 d-flex">
                         <a href="#" className="card-link">
                           💡13.6% Discount Rate
                         </a>
                         <a href="#" className="card-link">
                           🌟Repayment/Unit- ₹{details.minimum_subscription}
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="overlay">
                       <div className="columns">
@@ -792,14 +792,14 @@ const Dashboard = () => {
                             <div className="price">Min. Subscription</div>
                           </div>
                         </div>
-                        <div className="text-center mt-3 d-flex">
+                        {/* <div className="text-center mt-3 d-flex">
                           <a href="#" className="card-link">
                             💡13.6% Discount Rate
                           </a>
                           <a href="#" className="card-link">
                             🌟Repayment/Unit- ₹{details.minimum_subscription}
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="overlay">
                         <div className="columns">

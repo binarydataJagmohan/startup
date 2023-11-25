@@ -24,9 +24,9 @@ export default function DocumentsUpload(): any {
   const [adharCardFrontName, setAdharCardFrontName] = useState("");
   const [adhar_card_back, setAdharCardBack] = useState(null);
   const [adharCardBackName, setAdharCardBackName] = useState("");
-  const [certificateIncorporation, setcertificateIncorporation] =
+  const [certificate_incorporation, setcertificate_incorporation] =
     useState(null);
-  const [certificateIncorporationName, setcertificateIncorporationName] =
+  const [certificate_incorporationName, setcertificate_incorporationName] =
     useState("");
 
   const [bankStatementThreeYears, setBankStatementThreeYears] = useState(null);
@@ -46,7 +46,7 @@ export default function DocumentsUpload(): any {
   const [panCardBackSizeError, setPanCardBackSizeError] = useState("");
   const [adharCardFrontError, setAdharCardFrontError] = useState("");
   const [adharCardBackError, setAdharCardBackError] = useState("");
-  const [certificateIncorporationError, setCertificateIncorporationError] =
+  const [certificate_incorporationError, setcertificate_incorporationError] =
     useState("");
   const [bankStatementThreeYearsError, setBankStatementThreeYearsError] =
     useState("");
@@ -103,7 +103,7 @@ export default function DocumentsUpload(): any {
             setPanCardBack(res.data.pan_card_back);
             setAdharCardFront(res.data.adhar_card_front);
             setAdharCardBack(res.data.adhar_card_back);
-            setcertificateIncorporation(res.data.certificate_incorporation);
+            setcertificate_incorporation(res.data.certificate_incorporation);
             setBankStatementThreeYears(res.data.bank_statement_3_years);
             setMOA(res.data.moa);
             setAOA(res.data.aoa);
@@ -136,7 +136,7 @@ export default function DocumentsUpload(): any {
       pan_card_back,
       adhar_card_front,
       adhar_card_back,
-      certificateIncorporation,
+      certificate_incorporation,
       bankStatementThreeYears,
       MOA,
       AOA
@@ -323,15 +323,15 @@ export default function DocumentsUpload(): any {
       const maxSize = 2 * 1024 * 1024;
       if (allowedTypes.includes(file.type)) {
         if (file.size <= maxSize) {
-          setcertificateIncorporation(file);
-          setcertificateIncorporationName(file.name);
+          setcertificate_incorporation(file);
+          setcertificate_incorporationName(file.name);
         } else {
-          setCertificateIncorporationError(
+          setcertificate_incorporationError(
             "* Please upload a file that is no larger than 2 MB."
           );
         }
       } else {
-        setCertificateIncorporationError(
+        setcertificate_incorporationError(
           "* Please upload a JPG, PNG, JPEG or PDF file"
         );
         event.target.value = null;
@@ -944,18 +944,24 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {certificateIncorporationName
-                                        ? certificateIncorporationName
+                                      {certificate_incorporationName
+                                        ? certificate_incorporationName
                                         : basicDetails.certificate_incorporation
                                         ? basicDetails.certificate_incorporation
                                         : "No File Chosen ..."}
                                     </div>
-                                    <input
+                                    {/* <input
                                       type="file"
                                       name="certificate_of_incorporation"
                                       onChange={
                                         handleCertificateOfIncorporationChange
                                       }
+                                      accept=".jpg, .png, .jpeg, .pdf  "
+                                    /> */}
+                                     <input
+                                      type="file"
+                                      name="certificate_incorporation"
+                                      onChange={handleCertificateOfIncorporationChange}
                                       accept=".jpg, .png, .jpeg, .pdf  "
                                     />
                                   </div>
@@ -977,9 +983,9 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {certificateIncorporationError ? (
+                              {certificate_incorporationError ? (
                                 <p className="text-danger">
-                                  {certificateIncorporationError}
+                                  {certificate_incorporationError}
                                 </p>
                               ) : (
                                 errors.certificate_incorporation && (

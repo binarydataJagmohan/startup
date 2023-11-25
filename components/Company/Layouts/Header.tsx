@@ -150,7 +150,7 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className={`nav-item waves-effect ${router.pathname === '/company/all-notifications' ? 'active p1' : ''}`} >
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
@@ -169,13 +169,13 @@ const Header = () => {
                             </Link>
                           </li> */}
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-request' ? 'active p1' : ''}`}>
                               <i className="fa fa-bell"></i>
                               <span>CCSP Request</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-request' ? 'active p1' : ''}`}>
                               <i className="fa fa-bell"></i>
                               <span>CCSP Campaign</span>
                             </Link>
