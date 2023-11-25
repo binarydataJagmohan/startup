@@ -785,37 +785,53 @@ export default function CampaignsDetails() {
         </div>
       </section> */}
 
-      {fundData?.length > 0 && (
-        <section id="terms">
-          <div className="container">
-            <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
-            <div className="termsContent">
-              <div className="row">
-                <h1>Round Details</h1>
-                <>
-                  <p>
-                    <strong>Dilution Percentage:</strong> {fundData.dilution_percentage}
-                  </p>
-                  <p>
-                    <strong>Minimum commitment:</strong> Min: ${fundData.min_commitment} Max: ${fundData.max_commitment}
-                  </p>
-                  {fundData.valuation_cap && (
+      {
+        fundData ||
+          fundData?.dilution_percentage ||
+          fundData?.min_commitment ||
+          fundData?.max_commitment ||
+          fundData?.amount_raised ||
+          fundData?.round_name ? (
+          <section id="terms">
+            <div className="container">
+              <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
+              <div className="termsContent">
+                <div className="row">
+                  <h1>Round Details</h1>
+                  <>
+                  {fundData?.dilution_percentage && fundData?.dilution_percentage ? (
                     <p>
-                      <strong>Valuation Cap:</strong> ${fundData.valuation_cap}
+                      <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
                     </p>
-                  )}
-                  <p>
-                    <strong>Amount Raised:</strong> ${fundData.amount_raised}
-                  </p>
-                  <p>
-                    <strong>Round name:</strong> {fundData.round_name}
-                  </p>
-                </>
+                     ) : null}
+                    {fundData?.min_commitment && fundData?.max_commitment ? (
+                      <p>
+                        <strong>Minimum commitment:</strong> Min: ${fundData?.min_commitment} Max: ${fundData?.max_commitment}
+                      </p>
+                    ) : null}
+                    {fundData?.valuation_cap && (
+                      <p>
+                        <strong>Valuation Cap:</strong> ${fundData?.valuation_cap}
+                      </p>
+                    )}
+                    {fundData?.amount_raised ? (
+                      <p>
+                        <strong>Amount Raised:</strong> ${fundData?.amount_raised}
+                      </p>
+                    ) : null}
+                    {fundData?.round_name ? (
+                      <p>
+                        <strong>Round name:</strong> {fundData?.round_name}
+                      </p>
+                    ) : null}
+                  </>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        ) : null
+      }
+
 
       {fundData?.company_overview && (
         <section id="overview" className="tabsSection">
