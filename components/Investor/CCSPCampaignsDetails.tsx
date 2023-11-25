@@ -723,7 +723,7 @@ export default function CampaignsDetails() {
               <div className="row">
                 {productdata.length > 0 ? (
                   productdata.map((data: any, index: number) => (
-                    <div className="col-lg-4 col-md-4">
+                    <div className="col-lg-4 col-md-4" key={index}>
                       <div className="shadowTitle">
                         <div className="text-center">
                           {data.product_image ? (
