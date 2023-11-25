@@ -135,7 +135,7 @@ const CCSPCampaign = () => {
                     buttons: ["Ok", "Dashboard"],
                 }).then((clickedButton) => {
                     if (clickedButton === "Dashboard") {
-                        router.push("/company/dashboard");
+                        router.push("/company/ccsp-request");
                     } else {
                         router.push('/company/ccsp-preview');
                     }
@@ -309,10 +309,12 @@ const CCSPCampaign = () => {
                                 </button>
                                 :
                                 ifinworth.approval_status === 'pending' ?
-                                    <button className="continue">Requested</button>
+                                    <>
+                                        <button className="continue">Additional Info</button>
+                                        <Link href={"/company/ccsp-campaign"}><button className="continue">Requested</button></Link>
+                                    </>
                                     : ''
                         }
-                        {/* <button className="continue" onClick={successAlert}>Publish</button>&nbsp; */}
                     </div>
 
                 </div>

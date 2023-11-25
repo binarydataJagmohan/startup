@@ -169,6 +169,12 @@ const Header = () => {
                             </Link>
                           </li> */}
                           <li>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className="waves-effect">
+                              <i className="fa fa-bell"></i>
+                              <span>CCSP Request</span>
+                            </Link>
+                          </li>
+                          <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className="waves-effect">
                               <i className="fa fa-bell"></i>
                               <span>CCSP Campaign</span>
