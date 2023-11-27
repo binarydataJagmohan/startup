@@ -157,8 +157,7 @@ const CCSPCampaign = () => {
                     <div className="row">
                         <div className="col-lg-8 col-md-12">
                             <div className="form-part">
-                                <div className="upload-file">
-                                    <input type="file" className="upload-fild" />
+                                <div className="upload-file">                                 
                                     <p className="c-blue"><i className="fa-solid fa-upload"></i> Preview  Publish </p>
                                 </div>
 
@@ -166,7 +165,7 @@ const CCSPCampaign = () => {
                                 <div className="fund">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
+                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
                                         </div>
                                         <div className="col-sm-9">
                                             <p className="f-20 c-blue mb-2"><b>{user.name}</b></p>

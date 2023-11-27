@@ -30,7 +30,8 @@ export default function Findbusiness(): any {
   const [forwarduId, setForwarduId] = useState("");
   const [find_business_location, setFindBusinessLocation] = useState("");
   const [lat, setLat] = useState("");
-  const [missingFields, setMissingFields] = useState<string[]>([]);
+  const [missingGender,setMissingGender] = useState('');
+  const [mssingCountry, setMissingCountry] = useState('');
   const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
@@ -137,27 +138,28 @@ export default function Findbusiness(): any {
     fetchData();
   }, []);
 
-  const SubmitForm = async (event: any) => {
-
+  const SubmitForm = async (event: any) => {  
     try {
-      if (!user.country) {
-        setMissingFields(prevFields => [...prevFields, "country"]);
-
-      }
-      if (!user.gender) {
-        setMissingFields(prevFields => [...prevFields, "gender"]);
-
-      }
-      const res = await personalInformationSave(user);
-      if (res.status == true) {
-        setTimeout(() => {
-          router.push("/steps/businessinfo");
-        }, 1000);
+      if (user.country == '') {
+        setMissingCountry("Please select your country");
+        return
       } else {
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
+        if (!user.gender) {
+          setMissingGender("Please select your gender");
+          return
+        } else {
+          const res = await personalInformationSave(user);
+          if (res.status == true) {
+            setTimeout(() => {
+              router.push("/steps/businessinfo");
+            }, 1000);
+          } else {
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              toastId: "error",
+            });
+          }
+        }
       }
     } catch (err) {
       toast.error(err as string, {
@@ -259,11 +261,11 @@ export default function Findbusiness(): any {
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                // {...register("country", {
-                                //   // validate: (value) => value != "",
-                                //   onChange: handleChange,
-                                //   // required: true,
-                                // })}
+                                {...register("country", {
+                                  // validate: (value) => value != "",
+                                  onChange: handleChange,
+                                  // required: true,
+                                })}
                                 name="country"
 
                                 aria-label="Default select example"
@@ -282,6 +284,14 @@ export default function Findbusiness(): any {
                                 ))}
                               </select>
                               <div className="help-block with-errors" />
+                              {mssingCountry ?
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  {mssingCountry}
+                                </p>
+                                : ''}
                             </div>
 
                             <div className="col-md-6 mt-3">
@@ -348,17 +358,17 @@ export default function Findbusiness(): any {
                                 htmlFor="exampleFormControlInput1"
                                 className="form-label mb-4"
                               >
-                                Gender 
+                                Gender
                                 {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
 
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
-                                // {...register("gender", {
-                                //   // validate: (value) => value != "",
-                                //   onChange: handleChange,
-                                //   // required: true,
-                                // })}
+                                {...register("gender", {
+                                  // validate: (value) => value != "",
+                                  onChange: handleChange,
+                                  // required: true,
+                                })}
                                 name="gender"
 
                                 aria-label="Default select example"
@@ -370,6 +380,14 @@ export default function Findbusiness(): any {
                                 <option value="other">Other</option>
                               </select>
                               <div className="help-block with-errors" />
+                              {missingGender ?
+                                <p
+                                  className="text-danger"
+                                  style={{ textAlign: "left", fontSize: "12px" }}
+                                >
+                                  *Please select your gender.
+                                </p>
+                              : ''}
                             </div>
                           </div>
                           <div className="row mt-3">

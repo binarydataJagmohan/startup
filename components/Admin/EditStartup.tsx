@@ -323,7 +323,7 @@ const EditList = () => {
     const data = {
       notify_from_user: current_user_data.id,
       notify_to_user: id,
-      notify_msg: `User has been Updated his Business Information Successfully by Admin.`,
+      notify_msg: `Your Business Information has been Successfully updated by one of our administrative team.`,
       notification_type: "Business Upadte Notification",
       each_read: "unread",
       status: "active"
