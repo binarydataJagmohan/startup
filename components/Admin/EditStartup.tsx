@@ -1287,7 +1287,8 @@ const EditList = () => {
                                               ?
                                                 <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_front} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                               :
-                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_front} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_front} target='_blank'>
+                                                  <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150}/></a></div>
                                             }
                                           </>
                                       ) : (
@@ -1310,7 +1311,7 @@ const EditList = () => {
                                               ?
                                                 <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_back} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                               :
-                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_back} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                                <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.pan_card_back} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.pan_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150} /></a></div>
                                             }
                                           </>
                                       ) : (
@@ -1333,7 +1334,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_front} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_front} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_front} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_front} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150}/></a></div>
                                           }
                                         </>
                                       ) : (
@@ -1355,7 +1356,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_back} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_back} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.adhar_card_back} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.adhar_card_back} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150} /></a></div>
                                           }
                                         </>
                                       ) : (
@@ -1377,7 +1378,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.certificate_incorporation} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.certificate_incorporation} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.certificate_incorporation} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.certificate_incorporation} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150} /></a></div>
                                           }
                                         </>
                                       ) : (
@@ -1399,7 +1400,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.bank_statement_three_years} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.bank_statement_three_years} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.bank_statement_three_years} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.bank_statement_three_years} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150} /></a></div>
                                           }
                                         </>  
                                       ) : (
@@ -1421,7 +1422,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.moa} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.moa} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.moa} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.moa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150}/></a></div>
                                           }
                                         </> 
                                       ) : (
@@ -1443,7 +1444,7 @@ const EditList = () => {
                                           ?
                                             <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.aoa} target='_blank'><i className="fa-solid fa-file" style={{"fontSize":"60px"}}></i></a></div>
                                           :
-                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.aoa} target='_blank'><img src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} /></a></div>
+                                            <div className='col-sm-12'><a href={process.env.NEXT_PUBLIC_IMAGE_URL+'docs/'+basicDetails.aoa} target='_blank'><Image src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + basicDetails.aoa} alt="Document Image" style={{ width: '150px', height: '100px', margin: ' 5% 0% ', objectFit: 'cover' }} height={100} width={150}/></a></div>
                                           }
                                         </> 
                                           

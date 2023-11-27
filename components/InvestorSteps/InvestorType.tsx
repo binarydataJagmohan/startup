@@ -432,7 +432,8 @@ export default function InvestorType(): any {
                                         }
                                       />
                                       <label htmlFor="myCheckbox3">
-                                        <img src="/assets/img/investor/regular.png" />
+                                        <Image src="/assets/img/investor/regular.png" height={112} width={112} alt={'regular.png'}/>
+
                                       </label>
                                     </li>
                                   </ul>

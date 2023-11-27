@@ -579,9 +579,9 @@ export default function Home() {
             </div>
             <div className="col-lg-6">
             <div className="about-group-image">
-                <img className="image shake-y" src="assets/images/about/about-22.jpg" alt="Image" />
-                <img className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" />
-                <img className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" />
+                <Image className="image shake-y" src="assets/images/about/about-22.jpg" alt="Image" height={636} width={622}/>
+                <Image className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" height={160} width={169}/>
+                <Image className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" height={230} width={140}/>
               </div>
             </div>
           </div>
@@ -593,9 +593,9 @@ export default function Home() {
           <div className="row align-items-center">
             <div className="col-lg-6 order-lg-0 order-last">
               <div className="about-group-image">
-                <img className="image shake-y" src="assets/images/about/about-1.jpg" alt="Image" />
-                <img className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" />
-                <img className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" />
+                <Image className="image shake-y" src="assets/images/about/about-1.jpg" alt="Image" height={636} width={622}/>
+                <Image className="shape-one pulse" src="assets/images/about/about-2.png" alt="Image" height={160} width={169}/>
+                <Image className="shape-two pulse" src="assets/images/about/about-3.png" alt="Image" height={230} width={140}/>
               </div>
             </div>
             <div className="col-lg-6 order-lg-0 order-first">

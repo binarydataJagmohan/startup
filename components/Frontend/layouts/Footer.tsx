@@ -12,13 +12,15 @@ const Footer = () => {
                 <div className="footer-heading">
                   <div className="logo" id="logo-id">
                     <Link href="/">
-                      <img
+                      <Image
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +
                           "assets/img/footerlogo.png"
                         }
                         className="black-logo"
                         alt="image"
+                        height={68}
+                        width={190}
                       />
                     </Link>
                     <p className="text-white">

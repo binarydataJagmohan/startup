@@ -137,10 +137,12 @@ export default function HeaderFrontend() {
           <div className="container">
             <nav className="navbar navbar-expand-md navbar-light">
               <Link className="navbar-brand" href="/">
-                <img
+                <Image
                   src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
                   className="black-logo headerlogo"
                   alt="image"
+                  height={52}
+                  width={190}
                 />
               </Link>
               <div
