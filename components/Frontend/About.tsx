@@ -11,20 +11,26 @@ const About = () => {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="about-group-image">
-                  <img
+                  <Image
                     className="image shake-y"
                     src="assets/images/about/about-33.jpg"
                     alt="Image"
+                    height={636}
+                    width={622}
                   />
-                  <img
+                  <Image
                     className="shape-one pulse"
                     src="assets/images/about/about-2.png"
                     alt="Image"
+                    height={160}
+                    width={160}
                   />
-                  <img
+                  <Image
                     className="shape-two pulse"
                     src="assets/images/about/about-3.png"
                     alt="Image"
+                    height={230}
+                    width={140}
                   />
                 </div>
               </div>
@@ -107,26 +113,32 @@ const About = () => {
                     {/* <Link className="default-btn" href="#">
                       Discover More
                     </Link> */}
-                    <a className="tj-primary-btn" href="contact.html">Read More</a>
+                    <a className="tj-primary-btn" href="/contact">Read More</a>
                   </div>
                 </div>
               </div>
               <div className="col-lg-6">
                 <div className="about-group-image">
-                  <img
+                  <Image
                     className="image shake-y"
                     src="assets/images/about/about-44.jpg"
                     alt="Image"
+                    height={636}
+                    width={622}
                   />
-                  <img
+                  <Image
                     className="shape-one pulse"
                     src="assets/images/about/about-2.png"
                     alt="Image"
+                    height={160}
+                    width={160}
                   />
-                  <img
+                  <Image
                     className="shape-two pulse"
                     src="assets/images/about/about-3.png"
                     alt="Image"
+                    height={230}
+                    width={140}
                   />
                 </div>
               </div>
@@ -147,12 +159,14 @@ const About = () => {
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="team-item">
                 <div className="image">
-                  <img
+                  <Image
                     src={
                       process.env.NEXT_PUBLIC_BASE_URL +
                       "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
                     }
                     alt="image"
+                    height={400}
+                    width={636}
                   />
                   <ul className="social">
                     <li>
@@ -194,12 +208,14 @@ const About = () => {
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="team-item">
                 <div className="image">
-                  <img
+                  <Image
                     src={
                       process.env.NEXT_PUBLIC_BASE_URL +
                       "assets/images/megha-agarwal.png?auto=format&fit=crop&w=500&q=60"
                     }
                     alt="image"
+                    width={636}
+                    height={400}
                   />
                   <ul className="social">
                     <li>

@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
 import { useRouter } from 'next/router';
-
+import Image from 'next/image';
 
 interface Fund {
     id: number;
@@ -377,7 +377,7 @@ export default function AddCompetitorCompany() {
 
                                                     <div className="profile-pic">
                                                         {previewImage ? (
-                                                            <img
+                                                            <Image
                                                                 src={typeof previewImage === 'string' ? previewImage : ''}
                                                                 width={300}
                                                                 height={200}
@@ -435,7 +435,7 @@ export default function AddCompetitorCompany() {
                                                             <td className="text-black">{index + 1}</td>
                                                             <td className="text-black">
                                                                 {team.member_pic ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             teamMemberPic && typeof teamMemberPic !== 'string'
                                                                                 ? URL.createObjectURL(teamMemberPic)
@@ -446,14 +446,18 @@ export default function AddCompetitorCompany() {
                                                                         alt="Company Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        width={300}
+                                                                        height={200}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={process.env.NEXT_PUBLIC_BASE_URL +
                                                                             'assets/images/company.png'}
                                                                         alt="Company Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        width={300}
+                                                                        height={200}
                                                                     />
                                                                 )}
 
@@ -572,7 +576,7 @@ export default function AddCompetitorCompany() {
                                                             )}
                                                             <div className="profile-pic">
                                                                 {previewImage ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={typeof previewImage === 'string' ? previewImage : ''}
                                                                         width={300}
                                                                         height={200}
@@ -581,7 +585,7 @@ export default function AddCompetitorCompany() {
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             teamMemberPic1 && typeof teamMemberPic1 !== 'string'
                                                                                 ? URL.createObjectURL(teamMemberPic1)

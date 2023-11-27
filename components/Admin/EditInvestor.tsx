@@ -10,6 +10,7 @@ import { getCountries, sendNotification, investorTypeInfoSave, getSingleUserData
 import { getToken, getCurrentUserData } from "../../lib/session";
 import Image from "next/image";
 import Link from 'next/link';
+
 type Country = {
   name: string;
   country_code: string;
@@ -621,7 +622,7 @@ const handleIncorporationCertificateChange = (event: any) => {
                                                       disabled
                                                   />
                                                   <label htmlFor="myCheckbox3">
-                                                      <img src="/assets/img/investor/regular.png" />
+                                                      <Image src="/assets/img/investor/regular.png" height={112} width={112} alt={'regular.png'}/>
                                                   </label>
                                               </li>
                                           </ul>

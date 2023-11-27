@@ -754,7 +754,7 @@ const Campagin = () => {
 
               <div className="profile-pic">
                 {previewImage ? (
-                  <img
+                  <Image
                     src={typeof previewImage === "string" ? previewImage : ""}
                     width={300}
                     height={200}
@@ -763,7 +763,7 @@ const Campagin = () => {
                     style={{ margin: "5% 0%", objectFit: "cover" }}
                   />
                 ) : (
-                  <img
+                  <Image
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
                         ? URL.createObjectURL(fundimage.fund_banner_image)
