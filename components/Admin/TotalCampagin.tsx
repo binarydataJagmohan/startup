@@ -188,7 +188,6 @@ const Campagin = () => {
     }
   }, [funds, dataTableInitialized]);
 
-
   function updateApprovalStatus(id: number, status: number | string) {
     axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-campign-status/${id}`, { approval_status: status },
       {
@@ -198,42 +197,55 @@ const Campagin = () => {
         },
       })
       .then(response => {
-        const updatedFunds = funds.map((fund: {
-          user_id: any; id: number;
-        }) => {
+        if (status === 'approved') { // Check if approval_status is 'approved'
+          const updatedFunds = funds.map((fund: {
+            user_id: any; id: number;
+          }) => {
 
-          if (fund.id === id) {
-            const data = {
-              notify_from_user: current_user_id,
-              notify_to_user: fund.user_id,
-              // notify_to_user: fund.id,
-              notify_msg: `Congratulations! Your Fund Has Been Approved`,
-              notification_type: "CCSP Fund Approval Notification",
-              each_read: "unread",
-              status: "active"
-            };
-            // Send Notifications to admin When new user is register
-            sendNotification(data)
-              .then((notificationRes) => {
-                console.log('success')
-              })
-              .catch((error) => {
-                console.log('error occured')
-              });
-            return {
-              ...fund,
-              approval_status: status,
-            };
-          }
-          return fund;
-        });
-        // setStartupData(updatedData);
-        setFundsData(updatedFunds);
+            if (fund.id === id) {
+              const data = {
+                notify_from_user: current_user_id,
+                notify_to_user: fund.user_id,
+                notify_msg: `Congratulations! Your Fund Has Been Approved`,
+                notification_type: "CCSP Fund Approval Notification",
+                each_read: "unread",
+                status: "active"
+              };
+              // Send Notifications
+              sendNotification(data)
+                .then((notificationRes) => {
+                  console.log('Notification sent successfully');
+                })
+                .catch((error) => {
+                  console.log('Error sending notification:', error);
+                });
+              return {
+                ...fund,
+                approval_status: status,
+              };
+            }
+            return fund;
+          });
 
-        toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
+          setFundsData(updatedFunds);
+
+          toast.success(response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+            toastId: "success",
+          });
+        } else {
+          // If status is not 'approved', update funds without sending a notification
+          const updatedFunds = funds.map((fund: { id: number }) =>
+            fund.id === id ? { ...fund, approval_status: status } : fund
+          );
+
+          setFundsData(updatedFunds);
+
+          toast.success(response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+            toastId: "success",
+          });
+        }
       })
       .catch(error => {
         toast.error(error, {
@@ -242,6 +254,7 @@ const Campagin = () => {
         });
       });
   }
+
 
   // Update status of a campaign in the DB
   function deleteFund(id: number, newStatus: string) {
@@ -524,29 +537,33 @@ const Campagin = () => {
                             </thead>
                             <tbody>
                               {funds && funds.length > 0 ? (
-                                funds.map((fund: any, index: any) => (
-                                  <tr key={index}>
-                                    <td data-label="Account">{index + 1}</td>
+                                funds
+                                  .filter((fund: any) => fund.approval_status !== 'incomplete') // Filter out records with incomplete status
+                                  .map((fund: any, index: any) => (
+                                    // funds.map((fund: any, index: any) => (
+                                    <tr key={index}>
+                                      <td data-label="Account">{index + 1}</td>
 
-                                    <td data-label="Account">{fund.ccsp_fund_id}</td>
-                                    <td data-label="Account">{fund.name}</td>
-                                    <td data-label="Account">{fund.fund_name}</td>
+                                      <td data-label="Account">{fund.ccsp_fund_id}</td>
+                                      <td data-label="Account">{fund.name}</td>
+                                      <td data-label="Account">{fund.fund_name}</td>
 
-                                    {/* <td data-label="Account">
+                                      {/* <td data-label="Account">
                                       {fund.round_of_ifinworth}
                                     </td> */}
 
-                                    <td data-label="Amount">
-                                      {fund.ifinworth_amount}
-                                    </td>
+                                      <td data-label="Amount">
+                                        {fund.ifinworth_amount}
+                                      </td>
 
-                                    {/* <td data-label="Period">
+                                      {/* <td data-label="Period">
                                       {fund.pre_committed_ifinworth_amount}
                                     </td> */}
 
-                                    <td data-label="Period">
-                                      <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
-                                      {/* <span
+
+                                      <td data-label="Period">
+                                        <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
+                                        {/* <span
                                         style={{ cursor: "pointer" }}
                                         className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'}
                                         onClick={() => {
@@ -561,141 +578,144 @@ const Campagin = () => {
                                       >
                                         {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}
                                       </span> */}
-                                    </td>
-                                    <td>
-                                      <div className="dropdown set-drop m-1" ref={dropdownRef}>
-                                        <span
-                                          onClick={(e) =>
-                                            handleDropdownToggle(
-                                              index,
-                                              fund.ccsp_fund_id, e
-                                            )
+                                      </td>
+
+
+
+                                      <td>
+                                        <div className="dropdown set-drop m-1" ref={dropdownRef}>
+                                          <span
+                                            onClick={(e) =>
+                                              handleDropdownToggle(
+                                                index,
+                                                fund.ccsp_fund_id, e
+                                              )
+                                            }
+                                            className="fa-solid fa-ellipsis"
+                                            style={{ cursor: 'pointer' }}
+                                          ></span>
+                                          <ul
+                                            id={`dropdownMenu-${index}`}
+                                            className="dropdown-content add-class-drop set-height"
+                                          >
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm5(true);
+                                                }}
+                                              >
+                                                Fund Name
+                                              </a>
+                                            </li>
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm(true);
+                                                }}
+                                              >
+                                                Company Overview
+                                              </a>
+                                            </li>
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm1(true);
+                                                }}
+                                              >
+                                                Product Description
+                                              </a>
+                                            </li>
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm2(true);
+                                                }}
+                                              >
+                                                Historical Financial
+                                              </a>
+                                            </li>
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm3(true);
+                                                }}
+                                              >
+                                                Past Financing Desc
+                                              </a>
+                                            </li>
+
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  setModalConfirm4(true);
+                                                }}
+                                              >
+                                                Add Round Details
+                                              </a>
+                                            </li>
+
+                                            <li>
+                                              <a
+                                                href={
+                                                  process.env.NEXT_PUBLIC_BASE_URL +
+                                                  `admin/add-company/?id=${fund.ccsp_fund_id}`
+                                                }
+                                              >
+                                                Add Competitor
+                                              </a>
+                                            </li>
+
+                                            <li>
+                                              <a
+                                                href={
+                                                  process.env.NEXT_PUBLIC_BASE_URL +
+                                                  `admin/add-team/?id=${fund.ccsp_fund_id}`
+                                                }
+                                              >
+                                                Add team
+                                              </a>
+                                            </li>
+
+                                            <li>
+                                              <a
+                                                href={
+                                                  process.env.NEXT_PUBLIC_BASE_URL +
+                                                  `admin/add-products/?id=${fund.ccsp_fund_id}`
+                                                }
+                                              >
+                                                Add Products
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <Link
+                                          href={
+                                            process.env.NEXT_PUBLIC_BASE_URL +
+                                            `admin/ccsp-detail/?id=${fund.id}`
                                           }
-                                          className="fa-solid fa-ellipsis"
-                                          style={{ cursor: 'pointer' }}
-                                        ></span>
-                                        <ul
-                                          id={`dropdownMenu-${index}`}
-                                          className="dropdown-content add-class-drop set-height"
+                                          className="m-1"
                                         >
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm5(true);
-                                              }}
-                                            >
-                                              Fund Name
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm(true);
-                                              }}
-                                            >
-                                              Company Overview
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm1(true);
-                                              }}
-                                            >
-                                              Product Description
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm2(true);
-                                              }}
-                                            >
-                                              Historical Financial
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm3(true);
-                                              }}
-                                            >
-                                              Past Financing Desc
-                                            </a>
-                                          </li>
+                                          <span className="fa fa-eye"></span>
+                                        </Link>
 
-                                          <li>
-                                            <a
-                                              href="#"
-                                              onClick={(e) => {
-                                                setModalConfirm4(true);
-                                              }}
-                                            >
-                                              Add Round Details
-                                            </a>
-                                          </li>
-
-                                          <li>
-                                            <a
-                                              href={
-                                                process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-company/?id=${fund.ccsp_fund_id}`
-                                              }
-                                            >
-                                              Add Competitor
-                                            </a>
-                                          </li>
-
-                                          <li>
-                                            <a
-                                              href={
-                                                process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-team/?id=${fund.ccsp_fund_id}`
-                                              }
-                                            >
-                                              Add team
-                                            </a>
-                                          </li>
-
-                                          <li>
-                                            <a
-                                              href={
-                                                process.env.NEXT_PUBLIC_BASE_URL +
-                                                `admin/add-products/?id=${fund.ccsp_fund_id}`
-                                              }
-                                            >
-                                              Add Products
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <Link
-                                        href={
-                                          process.env.NEXT_PUBLIC_BASE_URL +
-                                          `admin/ccsp-detail/?id=${fund.id}`
-                                        }
-                                        className="m-1"
-                                      >
-                                        <span className="fa fa-eye"></span>
-                                      </Link>
-
-                                      <Link
-                                        href="javascript:void(0);"
-                                        onClick={() => {
-                                          deleteFund(fund.id, 'deactive'); // Assuming 'deactive' is the new status
-                                        }}
-                                        className="m-1"
-                                      >
-                                        <span className="fa fa-trash text-danger"></span>
-                                      </Link>
-                                    </td>
-                                  </tr>
-                                ))
+                                        <Link
+                                          href="javascript:void(0);"
+                                          onClick={() => {
+                                            deleteFund(fund.id, 'deactive'); // Assuming 'deactive' is the new status
+                                          }}
+                                          className="m-1"
+                                        >
+                                          <span className="fa fa-trash text-danger"></span>
+                                        </Link>
+                                      </td>
+                                    </tr>
+                                  ))
                               ) : (
                                 <tr>
                                   <td className="text-center" colSpan={8}>

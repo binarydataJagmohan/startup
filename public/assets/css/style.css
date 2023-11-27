@@ -7787,3 +7787,13 @@ ul.set-height{
 .card-body.mt-3.set-pading {
   padding-bottom: 100px;
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity here (0.5 for example) */
+  z-index: 900;
+}
