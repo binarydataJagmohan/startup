@@ -168,8 +168,10 @@ const Campagin = () => {
     // Initialize the datatable for users
     if (funds.length > 0 && !dataTableInitialized) {
       $(document).ready(() => {
-        $("#datatable").DataTable({
+        $("#datatable2").DataTable({
           lengthMenu: [20, 50, 100, 150],
+          retrieve: true,
+          paging: false,
           columnDefs: [
             //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
@@ -472,7 +474,7 @@ const Campagin = () => {
                         {funds.length > 0 ? (
                           <table
                             className="table-dash"
-                            id="datatable"
+                            id="datatable2"
                             ref={tableRef}
                           >
                             <thead>

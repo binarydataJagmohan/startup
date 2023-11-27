@@ -176,6 +176,8 @@ const Campagin = () => {
       $(document).ready(() => {
         $("#datatable1").DataTable({
           lengthMenu: [20, 50, 100, 150],
+          retrieve: true,
+          paging: false,
           columnDefs: [
             //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
