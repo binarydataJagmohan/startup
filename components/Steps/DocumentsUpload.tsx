@@ -950,20 +950,20 @@ export default function DocumentsUpload(): any {
                                         ? basicDetails.certificate_incorporation
                                         : "No File Chosen ..."}
                                     </div>
-                                    {/* <input
+                                    <input
                                       type="file"
                                       name="certificate_of_incorporation"
                                       onChange={
                                         handleCertificateOfIncorporationChange
                                       }
                                       accept=".jpg, .png, .jpeg, .pdf  "
-                                    /> */}
-                                     <input
+                                    />
+                                     {/* <input
                                       type="file"
                                       name="certificate_incorporation"
                                       onChange={handleCertificateOfIncorporationChange}
                                       accept=".jpg, .png, .jpeg, .pdf  "
-                                    />
+                                    /> */}
                                   </div>
                                 </div>
                                 <label

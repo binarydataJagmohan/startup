@@ -41,9 +41,10 @@ const CCSPRequest = () => {
     const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
     const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
     const { id } = router.query;
-     const current_user_data: UserData = getCurrentUserData();
-    useEffect(() => {
-        //    alert(id)
+    const current_user_data: UserData = getCurrentUserData();
+  
+     useEffect(() => {
+       
         if (current_user_data?.id != null) {
             setCurrentUserId(current_user_data.id);
         }
@@ -580,7 +581,7 @@ const CCSPRequest = () => {
 
 
                         <div className="col-sm-12">
-                            <p className="label-text">Any other funding round details you want to enter? <a href="#" className="form-link-a  c-blue">Optional what information can you add here</a></p>
+                            <p className="label-text">Any other funding round details you want to enter? <span className="form-link-a  c-blue">Optional what information can you add here</span></p>
                             <div className="row">
                                 <div className="col-sm-12">
                                     <textarea className="fild-des h-120" name="other_funding_detail" placeholder="You can add more information here, which will help enhance your deal quality and make it more informative."

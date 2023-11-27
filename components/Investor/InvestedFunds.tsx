@@ -42,9 +42,9 @@ const InvestedFunds = () => {
                     <h3 className="featurred">Purchased Funds</h3>
                     <h6 className="trending">Invested in Startup Funds</h6>
                     <div className="bar" />
-                    <div className="row g-4">
+                    <div className="row g-4" style={{cursor:"pointer"}}>
                         {openBusinessDetails.map((details: any, index: any) => (
-                            <div className="col-md-6 col-sm-12 col-lg-4" key={index}>
+                            <div className="col-md-6 col-sm-12 col-lg-4" key={index} >
                                 <div className="product-grid container1 transtion">
                                     <div className="product-image">
                                         <Link href="javascript:void(0)" className="image">
@@ -56,7 +56,7 @@ const InvestedFunds = () => {
                                             }
                                         </Link>
                                     </div>
-                                    <div className="main-padding">
+                                    <div className="main-padding" style={{cursor:"pointer "}}>
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
                                                 <h3 className="title">
@@ -91,13 +91,13 @@ const InvestedFunds = () => {
                                         </div>
                                     </div>
                                     <div className="text-center mt-3">
-                                        <Link
+                                        {/* <Link
                                             href="javascript:void(0)"
                                             // onClick={(e) => getBusinessdetails(e, details.bid)}
                                             className="card-link"
                                         >
                                             <span className="view-invoice"> View Invoice </span>
-                                        </Link>
+                                        </Link> */}
                                     </div>
                                 </div>
                             </div>
