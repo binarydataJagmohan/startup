@@ -174,7 +174,7 @@ const Campagin = () => {
     // Initialize the datatable for users
     if (funds.length > 0 && !dataTableInitialized) {
       $(document).ready(() => {
-        $("#datatable").DataTable({
+        $("#datatable1").DataTable({
           lengthMenu: [20, 50, 100, 150],
           columnDefs: [
             //  columns  sortable
@@ -279,12 +279,14 @@ const Campagin = () => {
             }
           )
           .then((response) => {
-            const updatedData = funds.map((fund: any) => {
-              if (fund.id === id) {
-                return { ...fund, status: newStatus };
-              }
-              return fund;
-            });
+            // const updatedData = funds.map((fund: any) => {
+            //   if (fund.id === id) {
+            //     return { ...fund, status: newStatus };
+            //   }
+            //   return fund;
+            // });
+
+            const updatedData = funds.filter((fund: any) => fund.id !== id);
             setFundsData(updatedData);
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -519,7 +521,7 @@ const Campagin = () => {
                         {funds.length > 0 ? (
                           <table
                             className="table-dash"
-                            id="datatable"
+                            id="datatable1"
                             ref={tableRef}
                           >
                             <thead>
