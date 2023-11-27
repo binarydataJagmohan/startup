@@ -107,7 +107,8 @@ const CCSPDetail = () => {
 
 
     const [user, setUser] = useState({
-        startup_id: "",
+        startup_id: "",   
+        fund_name: "",
         round_of_ifinworth: "",
         ifinworth_currency: "",
         ifinworth_amount: "",
@@ -277,6 +278,7 @@ const CCSPDetail = () => {
 
             formData.append("startup_id", user.startup_id);
             formData.append("round_of_ifinworth", user.round_of_ifinworth);
+            formData.append("fund_name", user.fund_name);
             formData.append("ifinworth_currency", user.ifinworth_currency);
             formData.append("ifinworth_amount", user.ifinworth_amount);
             formData.append("pre_committed_ifinworth_currency", user.pre_committed_ifinworth_currency);
@@ -311,7 +313,7 @@ const CCSPDetail = () => {
             }
         }
         catch (err: any) {
-            const errorFields = ["round_of_ifinworth", "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "accredited_investors", "other_documents"];
+            const errorFields = ["round_of_ifinworth", 'fund_name', "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "accredited_investors", "other_documents"];
             if (err.response.data.errors) {
                 errorFields.forEach((field) => {
                     if (err.response.data.errors[field]) {
@@ -391,34 +393,37 @@ const CCSPDetail = () => {
 
     return (
         <>
-            <section className="step-form pt-4 pb-4 ml-auto">
-                    <div className="container">
-                        <div className="step-portfolio">
-                            <div className="row">
-                                <div className="col-sm-2">
-                                    <Image src="/assets/images/step1.jpg" alt="" width={190} height={53} />
-                                </div>
-                                <div className="col-sm-7">
-                                    <h3>Looking to raise funds for your Company or Portfolio?</h3>
-                                    <h4>Tracxn's Live Deals can make it easy for you!</h4>
-                                    <p className="f-20 c-blue">Know more about Live Deals</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <button className="create-deal" type="button">CREATE A DEAL FOR FREE</button>
-                                </div>
-                            </div>
-                        </div>
+        <section className="step-form pt-4 pb-4 ml-auto">
+            <div className="container">
 
-                        <div className="form-part mt-5">
-                            <div className="col-sm-12">
+                <div className="step-portfolio">
+                    <div className="row">
+                        <div className="col-sm-2">
+                            <Image src="/assets/images/step1.jpg" alt="" width={190} height={53} />
+                        </div>
+                        <div className="col-sm-7">
+                            <h3>Looking to raise funds for your Company or Portfolio?</h3>
+                            <h4>Tracxn's Live Deals can make it easy for you!</h4>
+                            <p className="f-20 c-blue">Know more about Live Deals</p>
+                        </div>
+                        <div className="col-sm-3">
+                            <button className="create-deal" type="button">CREATE A DEAL FOR FREE</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-part mt-5">
+                    <div className="col-sm-12">
+                        <div className="row">
+                            <div className="col-sm-6">
                                 <p className="label-text">Which round is "IFinWorth" looking to raise?*</p>
                                 <div className="row">
-                                    <div className="col-sm-6">
-                                        <select className="fild-des" name="round_of_ifinworth" value={
-                                            user.round_of_ifinworth
-                                                ? user.round_of_ifinworth
-                                                : ""
-                                        } onChange={handleInputChange}>
+                                    <div className="col-sm-12">
+                                        <select className="fild-des" name="round_of_ifinworth"
+                                            value={
+                                                id !== null ? (user.round_of_ifinworth ? user.round_of_ifinworth : "") : ""
+                                            }
+                                            onChange={handleInputChange}>
                                             <option selected>Select round</option>
                                             <option value="Angel">Angel</option>
                                             <option value="Pre-Seed">Pre-Seed</option>
@@ -427,385 +432,418 @@ const CCSPDetail = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="col-sm-12">
-                                <p className="label-text mt-4">How much amount is "IFinWorth" looking to raise? </p>
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <select className="fild-des" name="ifinworth_currency" value={
-                                            user.ifinworth_currency
-                                                ? user.ifinworth_currency
-                                                : ""
-                                        } onChange={handleInputChange}>
-                                            <option selected>Select currency</option>
-                                            <option value="USD - US Dollar">USD - US Dollar</option>
-                                            <option value="AUD - Australian Dollar">AUD - Australian Dollar</option>
-                                            <option value="AED - United Arab Emirates Dirham">AED - United Arab Emirates Dirham</option>
-                                            <option value="CNY - Chinese Yuan Renminbi">CNY - Chinese Yuan Renminbi</option>
-                                            <option value="ININR - Indian RupeeR">INR - Indian Rupee</option>
-                                            <option value="JPY - Japanese Yen">JPY - Japanese Yen</option>
-                                            <option value="GBP - British Pound Sterling">GBP - British Pound Sterling</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <input type="number" name="ifinworth_amount" className="form-control fild-des" placeholder="Enter Amount" value={
-                                            user.ifinworth_amount
-                                                ? user.ifinworth_amount
-                                                : ""
-                                        } onChange={handleInputChange} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <p className="label-text mt-4">How much funding is pre-committed to"IFinWorth" </p>
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <select className="fild-des" name="pre_committed_ifinworth_currency" value={
-                                            user.pre_committed_ifinworth_currency
-                                                ? user.pre_committed_ifinworth_currency
-                                                : ""
-                                        } onChange={handleInputChange}>
-                                            <option selected>Select currency</option>
-                                            <option value="USD - US Dollar">USD - US Dollar</option>
-                                            <option value="AUD - Australian Dollar">AUD - Australian Dollar</option>
-                                            <option value="AED - United Arab Emirates Dirham">AED - United Arab Emirates Dirham</option>
-                                            <option value="CNY - Chinese Yuan Renminbi">CNY - Chinese Yuan Renminbi</option>
-                                            <option value="ININR - Indian RupeeR">INR - Indian Rupee</option>
-                                            <option value="JPY - Japanese Yen">JPY - Japanese Yen</option>
-                                            <option value="GBP - British Pound Sterling">GBP - British Pound Sterling</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <input type="number" className="form-control" name="pre_committed_ifinworth_amount" placeholder="Enter Amount" value={
-                                            user.pre_committed_ifinworth_amount
-                                                ? user.pre_committed_ifinworth_amount
-                                                : ""
-                                        } onChange={handleInputChange} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <p className="label-text">
-                                    Which investor has pre-committed the funding amount?{" "}
-                                    <span>(You can add multiple investors here)</span>
-                                </p>
+                            <div className="col-sm-6">
+                                <p className="label-text">Fund Name*</p>
                                 <div className="row">
                                     <div className="col-sm-12">
-                                        <div>
-                                            <div>
-                                                {/* Display selected investors */}
-                                                {selectedInvestors.map((investor: any, index) => (
-                                                    <span key={index} className="selected-investor">
+                                        <input type="text" name="fund_name" className="form-control fild-des" placeholder="Enter fund name"
+                                            value={
+                                                id !== null ? (user.fund_name ? user.fund_name : "") : ""
+                                            }
+                                            onChange={handleInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-12">
+                        <p className="label-text mt-4">How much amount is "IFinWorth" looking to raise? </p>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <select className="fild-des" name="ifinworth_currency"
+                                    value={
+                                        id !== null ? (user.ifinworth_currency ? user.ifinworth_currency : "") : ""
+                                    }
+                                    onChange={handleInputChange}>
+                                    <option selected>Select currency</option>
+                                    <option value="USD - US Dollar">USD - US Dollar</option>
+                                    <option value="AUD - Australian Dollar">AUD - Australian Dollar</option>
+                                    <option value="AED - United Arab Emirates Dirham">AED - United Arab Emirates Dirham</option>
+                                    <option value="CNY - Chinese Yuan Renminbi">CNY - Chinese Yuan Renminbi</option>
+                                    <option value="ININR - Indian RupeeR">INR - Indian Rupee</option>
+                                    <option value="JPY - Japanese Yen">JPY - Japanese Yen</option>
+                                    <option value="GBP - British Pound Sterling">GBP - British Pound Sterling</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-6">
+                                <input type="number" name="ifinworth_amount" className="form-control fild-des" placeholder="Enter Amount" value={
+                                    user.ifinworth_amount
+                                        ? user.ifinworth_amount
+                                        : ""
+                                } onChange={handleInputChange} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-12">
+                        <p className="label-text mt-4">How much funding is pre-committed to"IFinWorth" </p>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <select className="fild-des" name="pre_committed_ifinworth_currency" value={
+                                    user.pre_committed_ifinworth_currency
+                                        ? user.pre_committed_ifinworth_currency
+                                        : ""
+                                } onChange={handleInputChange}>
+                                    <option selected>Select currency</option>
+                                    <option value="USD - US Dollar">USD - US Dollar</option>
+                                    <option value="AUD - Australian Dollar">AUD - Australian Dollar</option>
+                                    <option value="AED - United Arab Emirates Dirham">AED - United Arab Emirates Dirham</option>
+                                    <option value="CNY - Chinese Yuan Renminbi">CNY - Chinese Yuan Renminbi</option>
+                                    <option value="ININR - Indian RupeeR">INR - Indian Rupee</option>
+                                    <option value="JPY - Japanese Yen">JPY - Japanese Yen</option>
+                                    <option value="GBP - British Pound Sterling">GBP - British Pound Sterling</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-6">
+                                <input type="number" className="form-control" name="pre_committed_ifinworth_amount" placeholder="Enter Amount"
+                                    value={
+                                        id !== null ? (user.pre_committed_ifinworth_amount ? user.pre_committed_ifinworth_amount : "") : ""
+                                    }
+                                    onChange={handleInputChange} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-12">
+                        <p className="label-text">
+                            Which investor has pre-committed the funding amount?{" "}
+                            <span>(You can add multiple investors here)</span>
+                        </p>
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <div>
+                                    <div>
+                                        {/* Display selected investors */}
+                                        {selectedInvestors.map((investor: any, index) => (
+                                            <span key={index} className="selected-investor">
+                                                {investor.name}
+                                                <button className="btn btn-secondary set-detail-btn" onClick={() => handleDeleteSkill(investor.id)}>
+                                                    <sup> X</sup>
+                                                </button>
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="form-icon">
+                                        <input
+                                            type="text"
+                                            placeholder="Search & Add Investors"
+                                            className="fild-des sp-left"
+                                            name="selectedInvestors"
+                                            autoComplete="off"
+                                            // value={search}
+                                            onChange={handleSearchInputChange}
+                                        />
+                                        <div className="left-icon-eye">
+                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                    </div>
+
+                                    {/* Display filtered investor list */}
+                                    {searchResults.length > 0 && (
+                                        <div className="investor-dropdown">
+                                            <div className="scrollable-menu">
+                                                {searchResults.map((investor: any, index) => (
+                                                    <p
+                                                        style={{ cursor: "pointer" }}
+                                                        key={index}
+                                                        onClick={(e) => handleInvestorSelect(investor.id)}
+                                                    >
                                                         {investor.name}
-                                                        <button className="btn btn-secondary" onClick={() => handleDeleteSkill(investor.id)}>
-                                                            <sup> X</sup>
-                                                        </button>
-                                                    </span>
+                                                    </p>
                                                 ))}
                                             </div>
-                                            <div className="form-icon">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Search & Add Investors"
-                                                    className="fild-des sp-left"
-                                                    name="selectedInvestors"
-                                                    autoComplete="off"
-                                                    // value={search}
-                                                    onChange={handleSearchInputChange}
-                                                />
-                                                <div className="left-icon-eye">
-                                                    <i className="fa-solid fa-magnifying-glass"></i>
-                                                </div>
-                                            </div>
-
-                                            {/* Display filtered investor list */}
-                                            {searchResults.length > 0 && (
-                                                <div className="investor-dropdown">
-                                                    <div className="scrollable-menu">
-                                                        {searchResults.map((investor: any, index) => (
-                                                            <p
-                                                                style={{ cursor: "pointer" }}
-                                                                key={index}
-                                                                onClick={(e) => handleInvestorSelect(investor.id)}
-                                                            >
-                                                                {investor.name}
-                                                            </p>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="col-sm-12">
-                                <p className="label-text">Is "IFinWorth" looking for any specific kind of investors? <span>(You can select multiple) </span></p>
-                                <ul className="checkbox-lead">
-                                    <li>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                name="accredited_investors"
-                                                checked={user.accredited_investors === 'true'}
-                                                onChange={handleInputChange}
-                                            />
-                                            Accredited Investors
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                name="angel_investors"
-                                                checked={user.angel_investors === 'true'}
-                                                onChange={handleInputChange}
-                                            />
-                                            Angel Investors
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                name="regular_investors"
-                                                checked={user.regular_investors === 'true'}
-                                                onChange={handleInputChange}
-                                            />
-                                            Regular Investors
-                                        </label>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-
-                            <div className="col-sm-12">
-                                <p className="label-text">Any other funding round details you want to enter? <a href="#" className="form-link-a  c-blue">Optional what information can you add here</a></p>
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <textarea className="fild-des h-120" name="other_funding_detail" placeholder="You can add more information here, which will help enhance your deal quality and make it more informative." value={
-                                            user.other_funding_detail
-                                                ? user.other_funding_detail
-                                                : ""
-                                        } onChange={handleInputChange} />
-                                    </div>
+                                    )}
                                 </div>
                             </div>
-                            <section className="step-formm pt-5 pb-5">
-                                <div className="container">
-                                    <div className="form-part">
-                                        <div className="upload-file">
-                                            <p className="c-blue"><i className="fa-solid fa-upload"></i> Upload Documents <span className="span-text"></span></p>
-                                        </div>
-
-                                        <div className="alt-message">
-                                            <p><i className="fa-solid fa-circle-exclamation"></i> Don't have the Documents handy? Do not worry, you can upload them later to your deal</p>
-                                        </div>
-
-                                        <p className="label-text">Upload any reference document of "IFinWorth"</p>
-                                        <p className="note"><i>Note: These documents will be visible to the user.</i></p>
-
-                                        <ul className="upload-list">
-
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <p>Pitchdeck </p>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container w-75 "
-                                                    >
-                                                        <div className="file-upload">
-                                                            <div className="file-select">
-                                                                <div
-                                                                    className="file-select-button"
-                                                                    id="fileName"
-                                                                >
-                                                                    Choose File
-                                                                </div>
-
-
-                                                                <div className="file-select-name" id="noFile">
-                                                                    {pitchDeckName ? pitchDeckName : (user.pitch_deck ? user.pitch_deck : "No File Chosen ...")}
-                                                                </div>
-
-                                                                <input type="file" className="upload-fild" name="pitch_deck"
-                                                                    accept='.pdf, .docx, .ppt'
-                                                                    onChange={handlePitchDecker} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {pitchDeckSizeError ? (
-                                                        <p className='text-danger p-2'>{pitchDeckSizeError}</p>
-                                                    ) : (
-                                                        pitchDeckError && <p className='text-danger p-2'>{pitchDeckError}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <p>One Pager </p>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container w-75 "
-                                                    >
-                                                        <div className="file-upload">
-                                                            <div className="file-select">
-                                                                <div
-                                                                    className="file-select-button"
-                                                                    id="fileName"
-                                                                >
-                                                                    Choose File
-                                                                </div>
-
-
-                                                                <div className="file-select-name" id="noFile">
-                                                                    {onePagerName ? onePagerName : (user.one_pager ? user.one_pager : "No File Chosen ...")}
-                                                                </div>
-
-                                                                <input type="file" className="upload-fild" name="one_pager"
-                                                                    accept='.pdf, .docx, .ppt'
-                                                                    onChange={handleOnePager} />
-                                                            </div>
-                                                        </div>
-                                                    </div> {onePagerSizeError ? (
-                                                        <p className='text-danger p-2'>{onePagerSizeError}</p>
-                                                    ) : (
-                                                        onePagerError && <p className='text-danger p-2'>{onePagerError}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <p>Previous Financials</p>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container w-75 "
-                                                    >
-                                                        <div className="file-upload">
-                                                            <div className="file-select">
-                                                                <div
-                                                                    className="file-select-button"
-                                                                    id="fileName"
-                                                                >
-                                                                    Choose File
-                                                                </div>
-
-
-                                                                <div className="file-select-name" id="noFile">
-                                                                    {previousFinancialName ? previousFinancialName : (user.previous_financials ? user.previous_financials : "No File Chosen ...")}
-                                                                </div>
-
-                                                                <input type="file" className="upload-fild" name="previous_financials"
-                                                                    accept='.pdf, .docx, .ppt'
-                                                                    onChange={handlePreviousFinancial} />
-                                                            </div>
-                                                        </div>
-                                                    </div>{previousFinancialError ? (
-                                                        <p className='text-danger p-2'>{previousFinancialError}</p>
-                                                    ) : (
-                                                        previousFinancialError && <p className='text-danger p-2'>{previousFinancialError}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <p>Latest Cap Table</p>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container w-75 "
-                                                    >
-                                                        <div className="file-upload">
-                                                            <div className="file-select">
-                                                                <div
-                                                                    className="file-select-button"
-                                                                    id="fileName"
-                                                                >
-                                                                    Choose File
-                                                                </div>
-
-
-                                                                <div className="file-select-name" id="noFile">
-                                                                    {latestCapTableName ? latestCapTableName : (user.latest_cap_table ? user.latest_cap_table : "No File Chosen ...")}
-                                                                </div>
-
-                                                                <input type="file" className="upload-fild" name="latest_cap_table" accept='.pdf, .docx, .ppt'
-                                                                    onChange={handleLatestCapTable} />
-                                                            </div>
-                                                        </div>
-                                                    </div> {latestCapTableError ? (
-                                                        <p className='text-danger p-2'>{latestCapTableError}</p>
-                                                    ) : (
-                                                        latestCapTableError && <p className='text-danger p-2'>{latestCapTableError}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <p>Other Documents</p>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div
-                                                        id="divHabilitSelectors"
-                                                        className="input-file-container w-75"
-                                                    >
-                                                        <div className="file-upload">
-                                                            <div className="file-select">
-                                                                <div
-                                                                    className="file-select-button"
-                                                                    id="fileName"
-                                                                >
-                                                                    Choose File
-                                                                </div>
-
-
-                                                                <div className="file-select-name" id="noFile">
-                                                                    {otherDocumentsName ? otherDocumentsName : (user.other_documents ? user.other_documents : "No File Chosen ...")}
-                                                                </div>
-
-                                                                <input type="file" className="upload-fild" name="other_documents"
-                                                                    accept='.pdf, .docx, .ppt'
-                                                                    onChange={handleOtherDocuments} />
-                                                            </div>
-                                                        </div>
-                                                    </div>{otherDocumentsError ? (
-                                                        <p className='text-danger p-2'>{otherDocumentsError}</p>
-                                                    ) : (
-                                                        otherDocumentsError && <p className='text-danger p-2'>{otherDocumentsError}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </section>
-                            <div className="text-center">
-                                <button className="continue" onClick={submitIfinWorthDetails}>Next Step</button>&nbsp;
-                            </div>
-
                         </div>
 
                     </div>
-                <ToastContainer autoClose={2000} />
-            </section>
-            <br /><br /><br />
-        </>
+
+                    <div className="col-sm-12">
+                        <p className="label-text">Is "IFinWorth" looking for any specific kind of investors? <span>(You can select multiple) </span></p>
+                        <ul className="checkbox-lead">
+                            <li>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="accredited_investors"
+                                        checked={user.accredited_investors === 'true'}
+                                        onChange={handleInputChange}
+                                    />
+                                    Accredited Investors
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="angel_investors"
+                                        checked={user.angel_investors === 'true'}
+                                        onChange={handleInputChange}
+                                    />
+                                    Angel Investors
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="regular_investors"
+                                        checked={user.regular_investors === 'true'}
+                                        onChange={handleInputChange}
+                                    />
+                                    Regular Investors
+                                </label>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                    <div className="col-sm-12">
+                        <p className="label-text">Any other funding round details you want to enter? <a href="#" className="form-link-a  c-blue">Optional what information can you add here</a></p>
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <textarea className="fild-des h-120" name="other_funding_detail" placeholder="You can add more information here, which will help enhance your deal quality and make it more informative."
+                                    value={
+                                        id !== null ? (user.other_funding_detail ? user.other_funding_detail : "") : ""
+                                    }
+                                    onChange={handleInputChange} />
+                            </div>
+                        </div>
+                    </div>
+                    <section className="step-formm pt-5 pb-5">
+                        <div className="container">
+                            <div className="form-part">
+                                <div className="upload-file">
+                                    <p className="c-blue"><i className="fa-solid fa-upload"></i> Upload Documents <span className="span-text"></span></p>
+                                </div>
+
+                                <div className="alt-message">
+                                    <p><i className="fa-solid fa-circle-exclamation"></i> Don't have the Documents handy? Do not worry, you can upload them later to your deal</p>
+                                </div>
+
+                                <p className="label-text">Upload any reference document of "IFinWorth"</p>
+                                <p className="note"><i>Note: These documents will be visible to the user.</i></p>
+
+                                <ul className="upload-list">
+
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <p>Pitchdeck </p>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div
+                                                id="divHabilitSelectors"
+                                                className="input-file-container w-75 "
+                                            >
+                                                <div className="file-upload">
+                                                    <div className="file-select w-75">
+                                                        <div
+                                                            className="file-select-button"
+                                                            id="fileName"
+                                                        >
+                                                            Choose File
+                                                        </div>
+
+
+                                                        <div className="file-select-name" id="noFile">
+                                                            {
+                                                                id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck ? user.pitch_deck : "No File Chosen ...")) : ""
+                                                            }
+
+                                                        </div>
+
+                                                        <input type="file" className="upload-fild" name="pitch_deck"
+                                                            accept='.pdf, .docx, .ppt'
+                                                            onChange={handlePitchDecker} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {pitchDeckSizeError ? (
+                                                <p className='text-danger p-2'>{pitchDeckSizeError}</p>
+                                            ) : (
+                                                pitchDeckError && <p className='text-danger p-2'>{pitchDeckError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <p>One Pager </p>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div
+                                                id="divHabilitSelectors"
+                                                className="input-file-container w-75 "
+                                            >
+                                                <div className="file-upload">
+                                                    <div className="file-select w-75">
+                                                        <div
+                                                            className="file-select-button"
+                                                            id="fileName"
+                                                        >
+                                                            Choose File
+                                                        </div>
+
+
+                                                        <div className="file-select-name" id="noFile">
+                                                            {
+                                                                id !== null ? (onePagerName ? onePagerName : (user.one_pager ? user.one_pager : "No File Chosen ...")) : ""
+                                                            }
+                                                        </div>
+
+                                                        <input type="file" className="upload-fild" name="one_pager"
+                                                            accept='.pdf, .docx, .ppt'
+                                                            onChange={handleOnePager} />
+                                                    </div>
+                                                </div>
+                                            </div> {onePagerSizeError ? (
+                                                <p className='text-danger p-2'>{onePagerSizeError}</p>
+                                            ) : (
+                                                onePagerError && <p className='text-danger p-2'>{onePagerError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <p>Previous Financials</p>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div
+                                                id="divHabilitSelectors"
+                                                className="input-file-container w-75 "
+                                            >
+                                                <div className="file-upload">
+                                                    <div className="file-select w-75">
+                                                        <div
+                                                            className="file-select-button"
+                                                            id="fileName"
+                                                        >
+                                                            Choose File
+                                                        </div>
+
+
+                                                        <div className="file-select-name" id="noFile">
+                                                            {
+                                                                id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials ? user.previous_financials : "No File Chosen ...")) : ""
+                                                            }
+                                                        </div>
+
+                                                        <input type="file" className="upload-fild" name="previous_financials"
+                                                            accept='.pdf, .docx, .ppt'
+                                                            onChange={handlePreviousFinancial} />
+                                                    </div>
+                                                </div>
+                                            </div>{previousFinancialError ? (
+                                                <p className='text-danger p-2'>{previousFinancialError}</p>
+                                            ) : (
+                                                previousFinancialError && <p className='text-danger p-2'>{previousFinancialError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <p>Latest Cap Table</p>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div
+                                                id="divHabilitSelectors"
+                                                className="input-file-container w-75 "
+                                            >
+                                                <div className="file-upload">
+                                                    <div className="file-select w-75">
+                                                        <div
+                                                            className="file-select-button"
+                                                            id="fileName"
+                                                        >
+                                                            Choose File
+                                                        </div>
+
+
+                                                        <div className="file-select-name" id="noFile">
+                                                            {
+                                                                id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table ? user.latest_cap_table : "No File Chosen ...")) : ""
+                                                            }
+                                                        </div>
+
+                                                        <input type="file" className="upload-fild" name="latest_cap_table" accept='.pdf, .docx, .ppt'
+                                                            onChange={handleLatestCapTable} />
+                                                    </div>
+                                                </div>
+                                            </div> {latestCapTableError ? (
+                                                <p className='text-danger p-2'>{latestCapTableError}</p>
+                                            ) : (
+                                                latestCapTableError && <p className='text-danger p-2'>{latestCapTableError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <p>Other Documents</p>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div
+                                                id="divHabilitSelectors"
+                                                className="input-file-container w-75"
+                                            >
+                                                <div className="file-upload">
+                                                    <div className="file-select w-75">
+                                                        <div
+                                                            className="file-select-button"
+                                                            id="fileName"
+                                                        >
+                                                            Choose File
+                                                        </div>
+
+
+                                                        <div className="file-select-name" id="noFile">
+                                                            {
+                                                                id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents ? user.other_documents : "No File Chosen ...")) : ""
+                                                            }
+                                                        </div>
+
+                                                        <input type="file" className="upload-fild" name="other_documents"
+                                                            accept='.pdf, .docx, .ppt'
+                                                            onChange={handleOtherDocuments} />
+                                                    </div>
+                                                </div>
+                                            </div>{otherDocumentsError ? (
+                                                <p className='text-danger p-2'>{otherDocumentsError}</p>
+                                            ) : (
+                                                otherDocumentsError && <p className='text-danger p-2'>{otherDocumentsError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </section>
+                    <div className="text-center">
+                        {user.approval_status === 'approved'
+                            ?
+                            ''
+                            :
+                            <>
+                                <button className="continue" onClick={submitIfinWorthDetails}>Update</button>&nbsp;
+                            </>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+            <ToastContainer autoClose={2000} />
+        </section>
+        <br /><br /><br />
+    </>
     );
 
 };

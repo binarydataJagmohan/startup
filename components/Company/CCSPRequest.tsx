@@ -494,7 +494,7 @@ const CCSPRequest = () => {
                                         <div>
                                             {/* Display selected investors */}
                                             {selectedInvestors.map((investor: any, index) => (
-                                                <span key={index} className="selected-investor">
+                                                <span key={index} className="selected-investor set-detail-btn">
                                                     {investor.name}
                                                     <button className="btn btn-secondary" onClick={() => handleDeleteSkill(investor.id)}>
                                                         <sup> X</sup>

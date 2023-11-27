@@ -22,7 +22,9 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
 
 
 
-export default function AddCompetitorCompany() {
+// export default function AddCompetitorCompany() {
+    const AddCompetitorCompany = () => {
+
     const [CompanyName, setCompanyName] = useState("");
     const [CompanyDesc, setCompanyDesc] = useState("");
     const [CompanyLogo, setCompanyLogo]: any = useState("");
@@ -630,3 +632,5 @@ export default function AddCompetitorCompany() {
         </>
     );
 }
+
+export default AddCompetitorCompany;
