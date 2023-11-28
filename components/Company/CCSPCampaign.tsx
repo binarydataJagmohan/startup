@@ -170,8 +170,10 @@ const Campagin = () => {
     // Initialize the datatable for users
     if (funds.length > 0 && !dataTableInitialized) {
       $(document).ready(() => {
-        $("#datatable").DataTable({
+        $("#datatable2").DataTable({
           lengthMenu: [20, 50, 100, 150],
+          retrieve: true,
+          paging: false,
           columnDefs: [
             //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
@@ -221,7 +223,7 @@ const Campagin = () => {
               toastId: "success",
             });
             setTimeout(() => {
-              router.push("/company/ccsp-campaign" );
+              router.push("/company/ccsp-campaign");
             });
           })
           .catch((error) => {
@@ -428,7 +430,7 @@ const Campagin = () => {
                         {funds.length > 0 ? (
                           <table
                             className="table-dash"
-                            id="datatable"
+                            id="datatable2"
                             ref={tableRef}
                           >
                             <thead>
@@ -713,19 +715,18 @@ const Campagin = () => {
                 startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
               )}
 
-              {/* <div className="profile-pic"> */}
-              {previewImage ? (
-                <img
-                  src={typeof previewImage === "string" ? previewImage : ""}
-                  width={300}
-                  height={200}
-                  alt=""
-                  className="profile-pic"
-                  style={{ margin: "5% 0%", objectFit: "cover" }}
-                />
-              ) : (
-                fundimage ? (
-                  <img
+              <div className="profile-pic">
+                {previewImage ? (
+                  <Image
+                    src={typeof previewImage === "string" ? previewImage : ""}
+                    width={300}
+                    height={200}
+                    alt=""
+                    className="profile-pic"
+                    style={{ margin: "5% 0%", objectFit: "cover" }}
+                  />
+                ) : (
+                  <Image
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
                         ? URL.createObjectURL(fundimage.fund_banner_image)
@@ -740,17 +741,15 @@ const Campagin = () => {
                     width={300}
                     height={200}
                   />
-                ) : (
-                  <></>
-                )
-              )}
-              {/* </div> */}
-              <br />
-              <button type="submit" className="btnclasssmae set-but-company mt-3">
-                Submit
-              </button>
+                )}
+                {/* </div> */}
+                <br />
+                <button type="submit" className="btnclasssmae set-but-company mt-3">
+                  Submit
+                </button>
 
 
+              </div>
             </div>
           </div>
         </form>

@@ -711,7 +711,7 @@ export default function CampaignsDetails() {
                       <div className="shadowTitle">
                         <div className="text-center">
                           {data.product_image ? (
-                            <img
+                            <Image
                               src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/products/" + data.product_image}
                               alt=""
                               className="hover-img"
@@ -719,10 +719,12 @@ export default function CampaignsDetails() {
                               width={430}
                             />
                           ) : (
-                            <img
+                            <Image
                               src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
                               alt=""
                               className="hover-img"
+                              height={94}
+                              width={430}
                             />
                           )}
                         </div>
@@ -740,51 +742,6 @@ export default function CampaignsDetails() {
       )}
 
 
-
-      {/* <section id="documents" className="py-lg-5">
-        <div className="container">
-          <h1 className="text-center pb-4 bold">Documents</h1>
-          <div className="row justify-content-center">
-            <div className="col-lg-9">
-              <div className="row py-3 g-3">
-                <div className="col-lg-3">
-                  <div className="documentsTitle">
-                    <div className="circleSvg">
-                      <img src="/assets/img/Vector.svg" alt="" />
-                    </div>
-                    <p>Company Summary</p>
-                  </div>
-                </div>
-                <div className="col-lg-3">
-                  <div className="documentsTitle">
-                    <div className="circleSvg">
-                      <img src="/assets/img/Vector.svg" alt="" />
-                    </div>
-                    <p>Crowd Note</p>
-                  </div>
-                </div>
-                <div className="col-lg-3">
-                  <div className="documentsTitle">
-                    <div className="circleSvg">
-                      <img src="/assets/img/Vector.svg" alt="" />
-                    </div>
-                    <p>Offering Statement</p>
-                  </div>
-                </div>
-                <div className="col-lg-3">
-                  <div className="documentsTitle">
-                    <div className="circleSvg">
-                      <img src="/assets/img/Vector.svg" alt="" />
-                    </div>
-                    <p>Solubag Form C</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       {
         fundData ||
           fundData?.dilution_percentage ||
@@ -799,11 +756,11 @@ export default function CampaignsDetails() {
                 <div className="row">
                   <h1>Round Details</h1>
                   <>
-                  {fundData?.dilution_percentage && fundData?.dilution_percentage ? (
-                    <p>
-                      <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
-                    </p>
-                     ) : null}
+                    {fundData?.dilution_percentage && fundData?.dilution_percentage ? (
+                      <p>
+                        <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
+                      </p>
+                    ) : null}
                     {fundData?.min_commitment && fundData?.max_commitment ? (
                       <p>
                         <strong>Minimum commitment:</strong> Min: ${fundData?.min_commitment} Max: ${fundData?.max_commitment}
@@ -864,11 +821,14 @@ export default function CampaignsDetails() {
                   </div>
                 </div>
               </div>
+
               <div className="col-lg-6 order-lg-0 order-first">
-                <img
-                  src="assets/img/removetext.png"
+                <Image
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
                   alt=""
                   className="hover-img"
+                  height={94}
+                  width={430}
                 />
               </div>
             </div>
@@ -894,7 +854,7 @@ export default function CampaignsDetails() {
                   <div className="col-lg-6 order-lg-0 order-first">
                     <div className="competitorsContentTitle">
                       {data.competitor_logo ? (
-                        <img
+                        <Image
                           src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/competitorlogo/" + data.competitor_logo}
                           alt=""
                           className="hover-img"
@@ -902,10 +862,12 @@ export default function CampaignsDetails() {
                           width={430}
                         />
                       ) : (
-                        <img
+                        <Image
                           src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
                           alt=""
                           className="hover-img"
+                          height={94}
+                          width={430}
                         />
                       )}
                     </div>
@@ -934,17 +896,21 @@ export default function CampaignsDetails() {
                       <div className="team-item">
                         <div className="image">
                           {team.member_pic ? (
-                            <img
+                            <Image
                               src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/memberPic/" + team.member_pic}
                               alt="image"
+                              width={562}
+                              height={400}
                             />
                           ) : (
-                            <img
+                            <Image
                               src={
                                 process.env.NEXT_PUBLIC_BASE_URL +
                                 "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
                               }
                               alt="image"
+                              width={562}
+                              height={400}
                             />
                           )}
                           <ul className="social">

@@ -372,7 +372,7 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
 
                                                         <div className="profile-pic">
                                                             {previewImage ? (
-                                                                <img
+                                                                <Image
                                                                     src={typeof previewImage === 'string' ? previewImage : ''}
                                                                     width={300}
                                                                     height={200}
@@ -453,7 +453,7 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
                                                             <td className="text-black">{index + 1}</td>
                                                             <td className="text-black">
                                                                 {company.competitor_logo ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             CompanyLogo && typeof CompanyLogo !== 'string'
                                                                                 ? URL.createObjectURL(CompanyLogo)
@@ -464,14 +464,18 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
                                                                         alt="Company Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        width={300}
+                                                                            height={200}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={process.env.NEXT_PUBLIC_BASE_URL +
                                                                             'assets/images/company.png'}
                                                                         alt="Company Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                        width={300}
+                                                                            height={200}
                                                                     />
                                                                 )}
 
@@ -552,7 +556,7 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
 
                                                                 <div className="profile-pic">
                                                                     {previewImage ? (
-                                                                        <img
+                                                                        <Image
                                                                             src={typeof previewImage === 'string' ? previewImage : ''}
                                                                             width={300}
                                                                             height={200}
@@ -561,7 +565,7 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
                                                                             style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         />
                                                                     ) : (
-                                                                        <img
+                                                                        <Image
                                                                             src={
                                                                                 CompanyLogo1 && typeof CompanyLogo1 !== 'string'
                                                                                     ? URL.createObjectURL(CompanyLogo1)

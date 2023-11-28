@@ -176,6 +176,8 @@ const Campagin = () => {
       $(document).ready(() => {
         $("#datatable1").DataTable({
           lengthMenu: [20, 50, 100, 150],
+          retrieve: true,
+          paging: false,
           columnDefs: [
             //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
@@ -827,7 +829,7 @@ const Campagin = () => {
 
               {/* <div className="profile-pic"> */}
               {previewImage ? (
-                <img
+                <Image
                   src={typeof previewImage === "string" ? previewImage : ""}
                   width={300}
                   height={200}
@@ -837,7 +839,7 @@ const Campagin = () => {
                 />
               ) : (
                 fundimage ? (
-                  <img
+                  <Image
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
                         ? URL.createObjectURL(fundimage.fund_banner_image)
@@ -889,7 +891,7 @@ const Campagin = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-contact-set">
             <label className="form-label">
-              <span>Company Overview</span>
+              <h4>Company Overview</h4>
             </label>
             <TextEditor
               height={100}
@@ -925,7 +927,7 @@ const Campagin = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-contact-set">
             <label className="form-label">
-              <span>Product Description</span>
+              <h4>Product Description</h4>
             </label>
             {/* <textarea
                             rows={4}
@@ -968,7 +970,7 @@ const Campagin = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-contact-set">
             <label className="form-label">
-              <span>Historical Financial</span>
+              <h4>Historical Financial</h4>
             </label>
             {/* <textarea
                             rows={4}

@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 import {
   uploadDocuments,
   fetchSingleUserDocuments,
@@ -546,7 +547,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -559,6 +560,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -665,7 +668,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -678,6 +681,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -783,7 +788,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -796,6 +801,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -900,7 +907,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -913,6 +920,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -1026,7 +1035,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -1039,6 +1048,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -1144,7 +1155,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -1157,6 +1168,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -1256,7 +1269,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -1269,6 +1282,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>
@@ -1368,7 +1383,7 @@ export default function DocumentsUpload(): any {
                                         }
                                         target="_blank"
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                             "docs/" +
@@ -1381,6 +1396,8 @@ export default function DocumentsUpload(): any {
                                             margin: " 5% 0% ",
                                             objectFit: "cover",
                                           }}
+                                          width={150}
+                                          height={100}
                                         />
                                       </a>
                                     </div>

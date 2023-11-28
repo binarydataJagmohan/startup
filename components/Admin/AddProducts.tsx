@@ -9,6 +9,7 @@ import {
     getAdminProductdata,
 } from "@/lib/adminapi";
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
 interface Fund {
     id: number;
@@ -359,7 +360,7 @@ export default function AddProducts() {
                                                     {error && <div style={{ color: 'red' }}>{error}</div>}
                                                     <div className="profile-pic">
                                                         {previewImage ? (
-                                                            <img
+                                                            <Image
                                                                 src={typeof previewImage === 'string' ? previewImage : ''}
                                                                 width={300}
                                                                 height={200}
@@ -414,7 +415,7 @@ export default function AddProducts() {
                                                             <td className="text-black">{index + 1}</td>
                                                             <td className="text-black">
                                                                 {product.product_image ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             productimage &&
                                                                                 typeof productimage !== "string"
@@ -429,9 +430,11 @@ export default function AddProducts() {
                                                                             margin: "5% 0%",
                                                                             objectFit: "cover",
                                                                         }}
+                                                                        width={300}
+                                                                        height={200}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                                             "assets/images/company.png"
@@ -442,6 +445,8 @@ export default function AddProducts() {
                                                                             margin: "5% 0%",
                                                                             objectFit: "cover",
                                                                         }}
+                                                                        width={300}
+                                                                        height={200}
                                                                     />
                                                                 )}
                                                             </td>
@@ -546,7 +551,7 @@ export default function AddProducts() {
 
                                                             <div className="profile-pic">
                                                                 {previewImage ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             typeof previewImage === "string"
                                                                                 ? previewImage
@@ -562,7 +567,7 @@ export default function AddProducts() {
                                                                         }}
                                                                     />
                                                                 ) : product.product_image ? (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             productimage1 &&
                                                                                 typeof productimage1 !== "string"
@@ -581,7 +586,7 @@ export default function AddProducts() {
                                                                         height={200}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={
                                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                                             "assets/images/company.png"
