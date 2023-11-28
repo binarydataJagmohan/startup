@@ -2,7 +2,7 @@ import { getStartupIfinworthDetail } from "@/lib/investorapi";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { getBusinessInformation, getSingleUserData } from "@/lib/frontendapi";
+import { getBusinessInformation, getLatestIfinworthDetail, getSingleUserData } from "@/lib/frontendapi";
 import { getToken, getCurrentUserData } from "../../lib/session";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,29 +55,47 @@ const CCSPCampaign = () => {
         name: "",
         country: "",
     });
+    const { id } = router.query;
     const [current_user_id, setCurrentUserId] = useState("");
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
             setCurrentUserId(current_user_data.id);
+            
+            if(id)
+            {
+                getStartupIfinworthDetail(id)
+                .then((res) => {
+                    if (res.status == true) {
+                        setIfinworth(res.data);
+                        console.log(current_user_id);
+                    } else {
+                        toast.error(res.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(err.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                });
+            } else {
+                getLatestIfinworthDetail()    
+                .then((res)=>{
+                    if (res.status == true) {
+                        setIfinworth(res.data);                  
+                    } else {
+                        toast.error(res.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    }
+                })
+            }        
+          
         }
 
-        getStartupIfinworthDetail(current_user_data.id)
-            .then((res) => {
-                if (res.status == true) {
-                    setIfinworth(res.data);
 
-                } else {
-                    toast.error(res.message, {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                }
-            })
-            .catch((err) => {
-                toast.error(err.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                });
-            });
         getSingleUserData(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
@@ -157,7 +175,7 @@ const CCSPCampaign = () => {
                     <div className="row">
                         <div className="col-lg-8 col-md-12">
                             <div className="form-part">
-                                <div className="upload-file">                                 
+                                <div className="upload-file">
                                     <p className="c-blue"><i className="fa-solid fa-upload"></i> Preview  Publish </p>
                                 </div>
 
@@ -169,9 +187,9 @@ const CCSPCampaign = () => {
                                         </div>
                                         <div className="col-sm-9">
                                             <p className="f-20 c-blue mb-2"><b>{user.name}</b></p>
-                                            <p className="f-16 mb-2">7zesomw Ifihnworth Advisors</p>
-                                            <p className="f-16 mb-2"> {user.country} {businessDetails.startup_date.split('-')[0]} Unfunded </p>
-                                            <p className="f-16 mb-2"><i className="fa-solid fa-rss"></i> Healthcare Booking Platforms</p>
+                                            <p className="f-16 mb-2">{businessDetails.tagline}</p>
+                                            <p className="f-16 mb-2"> {user.country} {businessDetails.startup_date.split('-')[0]}  </p>
+                                            <p className="f-16 mb-2"><i className="fa-solid fa-rss"></i> {businessDetails.stage}</p>
 
                                         </div>
                                     </div>
@@ -197,12 +215,9 @@ const CCSPCampaign = () => {
 
                                     <div className="deal-text">
                                         <div className="row">
-                                            <div className="col-sm-6">
-                                                <p className="post-text">Posted as Per the information provided by {user.name}</p>
-                                            </div>
-                                            <div className="col-sm-6 text-end">
+                                        <div className="col-sm-12">
                                                 <p className="post-text">Deal updated: {new Date(ifinworth.updated_at).toLocaleDateString()} - {new Date(ifinworth.updated_at).toLocaleTimeString()}</p>
-                                            </div>
+                                            </div>                                                                                    
                                         </div>
                                     </div>
 
@@ -269,7 +284,7 @@ const CCSPCampaign = () => {
                                             :
                                             <Link href={
                                                 process.env.NEXT_PUBLIC_BASE_URL +
-                                                `company/ccsp-request/?id=${ifinworth.startup_id}`
+                                                `company/ccsp-request/?id=${ifinworth.ccsp_fund_id}`
                                             } className="pen"><i className="fa-solid fa-pencil"></i> Edit</Link>
                                         }
                                     </div>
@@ -298,7 +313,7 @@ const CCSPCampaign = () => {
                         {ifinworth.approval_status === 'incomplete' ?
                             <Link href={
                                 process.env.NEXT_PUBLIC_BASE_URL +
-                                `company/ccsp-request/?id=${ifinworth.startup_id}`
+                                `company/ccsp-request/?id=${ifinworth.ccsp_fund_id}`
                             }><button className="back-step">Previous</button></Link>
                             :
                             ''

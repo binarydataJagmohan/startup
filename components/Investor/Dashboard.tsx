@@ -804,9 +804,9 @@ const Dashboard = () => {
                       <div className="overlay">
                         <div className="columns">
                           <ul className="price">
-                            <li>
+                            {/* <li>
                               Subscribers <span>32</span>
-                            </li>
+                            </li> */}
                             <li>
                               Average Amount Per Subscriber <span>₹{details.avg_amt_per_person}</span>
                             </li>

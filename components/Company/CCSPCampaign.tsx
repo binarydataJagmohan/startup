@@ -11,6 +11,7 @@ import swal from "sweetalert";
 import PopupModal from "../../components/commoncomponents/PopupModal";
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { useRouter } from "next/router";
 
 interface UserData {
   id?: any;
@@ -104,7 +105,7 @@ const Campagin = () => {
       console.error("Error fetching campaign details:", error);
     }
   };
-
+  const router = useRouter();
 
   useEffect(() => {
     const closeDropdown = (event: MouseEvent) => {
@@ -138,7 +139,8 @@ const Campagin = () => {
 
 
 
-
+  const [fundImageName, setFundImageName] = useState('');
+  const [fundImageNameError, setFundImageNameError] = useState('');
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
@@ -157,7 +159,7 @@ const Campagin = () => {
           }
         })
         .catch((err) => {
-         
+
         });
     } else {
       window.location.href = "/login";
@@ -185,55 +187,6 @@ const Campagin = () => {
   }, [funds, dataTableInitialized]);
 
 
-  function updateApprovalStatus(id: number, status: number | string) {
-    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-campign-status/${id}`, { approval_status: status },
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + getToken(),
-        },
-      })
-      .then(response => {
-        const updatedFunds = funds.map((fund: { id: number; }) => {
-          if (fund.id === id) {
-            const data = {
-              notify_from_user: current_user_id,
-              notify_to_user: fund.id,
-              notify_msg: `Congratulations! Your profile has been approved successfully`,
-              notification_type: "Approval Notification",
-              each_read: "unread",
-              status: "active"
-            };
-            // Send Notifications to admin When new user is register
-            sendNotification(data)
-              .then((notificationRes) => {
-                console.log('success')
-              })
-              .catch((error) => {
-                console.log('error occured')
-              });
-            return {
-              ...fund,
-              approval_status: status,
-            };
-          }
-          return fund;
-        });
-        // setStartupData(updatedData);
-        setFundsData(updatedFunds);
-
-        toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
-      })
-      .catch(error => {
-        toast.error(error, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      });
-  }
 
   // Update status of a campaign in the DB
   function deleteFund(id: number, newStatus: string) {
@@ -269,6 +222,9 @@ const Campagin = () => {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
+            setTimeout(() => {
+              router.push("/company/ccsp-campaign");
+            });
           })
           .catch((error) => {
             // Handle error response
@@ -281,6 +237,7 @@ const Campagin = () => {
     });
   }
 
+  const [startUpLogoError, setStartupLogoError] = useState('');
 
 
   const [modalConfirm, setModalConfirm] = useState(false);
@@ -391,7 +348,6 @@ const Campagin = () => {
     ;
     fetchDataForSelectedFund();
   }, [modalConfirm4, selectedFundId]);
-
 
 
   const handleAddFundNameImage = async (e: any) => {
@@ -633,7 +589,7 @@ const Campagin = () => {
                                       <Link
                                         href={
                                           process.env.NEXT_PUBLIC_BASE_URL +
-                                          `company/ccsp-request/?id=${fund.startup_id}`
+                                          `company/ccsp-request/?id=${fund.ccsp_fund_id}`
                                         }
                                         className="m-1"
                                       >
@@ -738,21 +694,26 @@ const Campagin = () => {
                     className="file-select-button"
                     id="fileName"
                   >
-                    Choose File
+                    Chose file
                   </div>
                   <div className="file-select-name" id="noFile">
-                    {/* {product.product_image ? product.product_image : 'No file chosen...'} */}
+                    {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")}
                   </div>
                   <input
                     className="input-file"
                     id="logo"
                     accept=".jpg, .jpeg, .png"
                     type="file"
-                    name="product_image"
+                    name="fund_banner_image"
                     onChange={(e) => handleUpdateLogoChange(e)}
                   />
                 </div>
               </div>
+              {fundImageNameError ? (
+                <p className="text-danger">{fundImageNameError}</p>
+              ) : (
+                startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
+              )}
 
               <div className="profile-pic">
                 {previewImage ? (
@@ -769,8 +730,7 @@ const Campagin = () => {
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
                         ? URL.createObjectURL(fundimage.fund_banner_image)
-                        : process.env.NEXT_PUBLIC_IMAGE_URL +
-                        "images/fundbannerimage/" + fundimage
+                        : process.env.NEXT_PUBLIC_IMAGE_URL + "images/fundbannerimage/" + fundimage
                     }
                     alt="Banner Image"
                     className="profile-pic"
@@ -782,13 +742,14 @@ const Campagin = () => {
                     height={200}
                   />
                 )}
+                {/* </div> */}
+                <br />
+                <button type="submit" className="btnclasssmae set-but-company mt-3">
+                  Submit
+                </button>
+
+
               </div>
-              <br />
-              <button type="submit" className="btnclasssmae set-but-company mt-3">
-                Submit
-              </button>
-
-
             </div>
           </div>
         </form>
