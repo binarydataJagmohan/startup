@@ -189,10 +189,10 @@ const Campagin = () => {
 
 
   // Update status of a campaign in the DB
-  function deleteFund(id: number, newStatus: string) {
+  function deleteFund(id: number) {
     swal({
       title: "Are you sure?",
-      text: `You want to update the industry status to "${newStatus}"`,
+      text: `Are you sure want to delete this campaign ?`,
       icon: "warning",
       dangerMode: true,
       buttons: ["Cancel", "Yes, I am sure!"],
@@ -200,31 +200,23 @@ const Campagin = () => {
       if (willUpdate) {
         axios
           .post(
-            `${process.env.NEXT_PUBLIC_API_URL}/delete-campign-status/${id}`,
-
-            { status: newStatus }, // Payload containing the new status
+            `${process.env.NEXT_PUBLIC_API_URL}/delete-campaign/${id}`,            
             {
               headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + getToken(),
               },
+              data:id,
             }
           )
-          .then((response) => {
-            const updatedData = funds.map((fund: any) => {
-              if (fund.id === id) {
-                return { ...fund, status: newStatus };
-              }
-              return fund;
-            });
-            setFundsData(updatedData);
+          .then((response) => {           
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
             setTimeout(() => {
               router.push("/company/ccsp-campaign");
-            });
+            },1500);
           })
           .catch((error) => {
             // Handle error response
@@ -599,7 +591,7 @@ const Campagin = () => {
                                       <Link
                                         href="javascript:void(0);"
                                         onClick={() => {
-                                          deleteFund(fund.id, 'deactive'); // Assuming 'deactive' is the new status
+                                          deleteFund(fund.ccsp_fund_id); // Assuming 'deactive' is the new status
                                         }}
                                         className="m-1"
                                       >
