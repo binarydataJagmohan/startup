@@ -329,6 +329,26 @@ const Header = () => {
                               <span>Chat</span>
                             </Link>
                           </li>
+
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/blog"
+                                ? "active p1"
+                                : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/blog"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-message"></i>
+                              <span>Blogs</span>
+                            </Link>
+                          </li>
+
+
                           <li
                             className={`nav-item ${router.pathname === "admin/all-notifications"
                                 ? "active p1"

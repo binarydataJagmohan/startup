@@ -587,9 +587,9 @@ export default function CampaignsDetails() {
                         htmlFor="inlineCheckbox1"
                       >
                         I agree to the{" "}
-                        <a href="#">Terms And Conditions,Terms Of Use</a> and
+                        <a href="/terms-condition">Terms And Conditions,Terms Of Use</a> and
                         have read and understood the{" "}
-                        <a href="#">Privacy Policy.</a>
+                        <a href="/privacy-policy">Privacy Policy.</a>
                       </label>
                       {checkboxError && <p className="text-danger">{checkboxError}</p>}
                     </div>

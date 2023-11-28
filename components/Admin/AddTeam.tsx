@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
-import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
+import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata,deleteTeam } from "@/lib/adminapi";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -230,6 +230,25 @@ export default function AddCompetitorCompany() {
         }
     };
 
+    const handleDelete = async (id: any) => {
+        try {
+            const response = await deleteTeam(id);
+            if (response.status === true) {
+                toast.success(response.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                fetchAllTeamdata();
+            } else {
+                toast.error("Deletion failed", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } catch (error) {
+            toast.error("Error occurred while deleting", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        }
+    };
 
     return (
         <>
@@ -480,6 +499,9 @@ export default function AddCompetitorCompany() {
                                                             }
                                                         ></i>
                                                     </p>
+                                                    <Link href="#" onClick={() => handleDelete(team.id)}>
+                                                        <i className="fa-solid fa-trash" />
+                                                    </Link>
                                                 </div>
                                             </div>
                                             {expandedCard === team.id && (

@@ -826,14 +826,15 @@ const CCSPDetail = () => {
                         </div>
                     </section>
                     <div className="text-center">
-                        {user.approval_status === 'approved'
+                    <button className="continue" onClick={submitIfinWorthDetails}>Update</button>&nbsp;
+                        {/* {user.approval_status === 'approved'
                             ?
                             ''
                             :
                             <>
                                 <button className="continue" onClick={submitIfinWorthDetails}>Update</button>&nbsp;
                             </>
-                        }
+                        } */}
                     </div>
 
                 </div>
