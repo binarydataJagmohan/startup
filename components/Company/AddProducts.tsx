@@ -7,7 +7,7 @@ import {
     AdminAddProducts,
     AdminUpdateProduct,
     getAdminProductdata,
-    deleteProduct
+    
 } from "@/lib/adminapi";
 import { useRouter } from "next/router";
 import Image from 'next/image';
@@ -229,25 +229,6 @@ export default function AddProducts() {
         }
     };
 
-    const handleDelete = async (id: any) => {
-        try {
-            const response = await deleteProduct(id);
-            if (response.status === true) {
-                toast.success(response.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-                fetchAllproductdata();
-            } else {
-                toast.error("Deletion failed", {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-            }
-        } catch (error) {
-            toast.error("Error occurred while deleting", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
-        }
-    };
 
     return (
         <>
@@ -266,7 +247,7 @@ export default function AddProducts() {
                                                     <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
-                                                            "admin/dashboard"
+                                                            "company/dashboard"
                                                         }
                                                     >
                                                         Dashboard
@@ -285,7 +266,7 @@ export default function AddProducts() {
                                                 <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
-                                                            "admin/all-active-campaign"
+                                                            "company/ccsp-campaign"
                                                         }
                                                     >
                                                         Back
@@ -494,9 +475,6 @@ export default function AddProducts() {
                                                             }
                                                         ></i>
                                                     </p>
-                                                    <Link href="#" onClick={() => handleDelete(product.id)}>
-                                                        <i className="fa-solid fa-trash" />
-                                                    </Link>
                                                 </div>
                                             </div>
                                             {expandedCard === product.id && (

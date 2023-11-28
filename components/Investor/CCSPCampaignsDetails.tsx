@@ -512,7 +512,7 @@ export default function CampaignsDetails() {
             </div>
             <div className="col-lg-4">
               <div className="investmentss text-center">
-                <h2>$137,487</h2>
+                <h2>${fundData?.amount_raised}</h2>
                 <span>Raised from 180 investors</span>
               </div>
             </div>
@@ -628,7 +628,7 @@ export default function CampaignsDetails() {
                   className="link"
                   onClick={() => handleClick("documents")}
                 >
-                  Documents
+                  Products
                 </a>
               </li>
               <li className={`items ${activeLink === "terms" ? "active" : ""}`}>
@@ -637,7 +637,7 @@ export default function CampaignsDetails() {
                   className="link"
                   onClick={() => handleClick("terms")}
                 >
-                  Terms
+                  Round Details
                 </a>
               </li>
               <li
@@ -659,22 +659,10 @@ export default function CampaignsDetails() {
                   className="link"
                   onClick={() => handleClick("industry")}
                 >
-                  Industry
+                  Past Financing
                 </a>
               </li>
-              <li className={`items ${activeLink === "team" ? "active" : ""}`}>
-                <a
-                  href="#team"
-                  className="link"
-                  onClick={() => handleClick("team")}
-                >
-                  Team
-                </a>
-              </li>
-              <li
-                className={`items ${activeLink === "competitors" ? "active" : ""
-                  }`}
-              >
+              <li className={`items ${activeLink === "competitors" ? "active" : ""}`}>
                 <a
                   href="#competitors"
                   className="link"
@@ -683,13 +671,25 @@ export default function CampaignsDetails() {
                   Competitors
                 </a>
               </li>
+              <li
+                className={`items ${activeLink === "team" ? "active" : ""
+                  }`}
+              >
+                <a
+                  href="#team"
+                  className="link"
+                  onClick={() => handleClick("team")}
+                >
+                  Teams
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </section>
 
       {fundData?.product_description && (
-        <section className="tabsSection">
+        <section className="tabsSection"  id="documents">
           <div className="container">
             <h2 className="text-black">Product</h2>
             <p>
@@ -824,11 +824,11 @@ export default function CampaignsDetails() {
 
               <div className="col-lg-6 order-lg-0 order-first">
                 <Image
-                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/Investment-Tips-4.jpg"}
                   alt=""
                   className="hover-img"
-                  height={94}
-                  width={430}
+                  height={394}
+                  width={633}
                 />
               </div>
             </div>
@@ -837,7 +837,7 @@ export default function CampaignsDetails() {
       )}
 
       {companydata.length > 0 && (
-        <section id="competitors">
+        <section id="competitors" className="competitor-compy">
           <div className="container">
             <h1 className="text-center mb-5 bold mt-4">Competitors</h1>
             <div className="competitorsContent">

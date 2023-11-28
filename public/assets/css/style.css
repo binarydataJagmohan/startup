@@ -7811,3 +7811,12 @@ button.btn.btn-secondary.set-detail-btn {
   height: 25px;
   margin: 10px;
 }
+
+.competitor-compy
+{
+  margin-bottom: 25px;
+}
+
+label.form-label.mt-3.above-height {
+  margin-top: 85px !important;
+}

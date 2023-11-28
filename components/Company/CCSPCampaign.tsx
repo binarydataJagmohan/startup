@@ -448,7 +448,7 @@ const Campagin = () => {
                     <li className="breadcrumb-item">
                       <Link
                         href={
-                          process.env.NEXT_PUBLIC_BASE_URL + "admin/dashboard"
+                          process.env.NEXT_PUBLIC_BASE_URL + "company/dashboard"
                         }
                       >
                         Dashboard
@@ -596,7 +596,7 @@ const Campagin = () => {
                                                 <a
                                                   href={
                                                     process.env.NEXT_PUBLIC_BASE_URL +
-                                                    `admin/add-company/?id=${fund.ccsp_fund_id}`
+                                                    `company/add-company/?id=${fund.ccsp_fund_id}`
                                                   }
                                                 >
                                                   Add Competitor
@@ -607,7 +607,7 @@ const Campagin = () => {
                                                 <a
                                                   href={
                                                     process.env.NEXT_PUBLIC_BASE_URL +
-                                                    `admin/add-team/?id=${fund.ccsp_fund_id}`
+                                                    `company/add-team/?id=${fund.ccsp_fund_id}`
                                                   }
                                                 >
                                                   Add team
@@ -618,7 +618,7 @@ const Campagin = () => {
                                                 <a
                                                   href={
                                                     process.env.NEXT_PUBLIC_BASE_URL +
-                                                    `admin/add-products/?id=${fund.ccsp_fund_id}`
+                                                    `company/add-products/?id=${fund.ccsp_fund_id}`
                                                   }
                                                 >
                                                   Add Products
