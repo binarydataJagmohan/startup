@@ -39,12 +39,13 @@ const CCSPRequest = () => {
     const [investors, setInvestors] = useState<Investor[]>([]);
     const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
     const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
-    const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
+    const [selectedInvestors, setSelectedInvestors] = useState<{ id: any; name: any; }[]>([]);
+
     const { id } = router.query;
     const current_user_data: UserData = getCurrentUserData();
-  
-     useEffect(() => {
-       
+    const [CCSPFundId, setCCSPFundId] = useState('');
+    useEffect(() => {
+
         if (current_user_data?.id != null) {
             setCurrentUserId(current_user_data.id);
         }
@@ -52,6 +53,7 @@ const CCSPRequest = () => {
             .then((res) => {
                 if (res.status == true) {
                     setUser(res.data);
+                    setCCSPFundId(res.data.ccsp_fund_id)
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -69,12 +71,12 @@ const CCSPRequest = () => {
                 setInvestors(data.data);
             }
         };
-        fetchPreCommitedInvestor();
         fetchData();
+        fetchPreCommitedInvestor();
     }, []);
     const fetchPreCommitedInvestor = async () => {
         try {
-            const res = await getPreCommitedInvestor(id ? id : current_user_id);
+            const res = await getPreCommitedInvestor(id);
 
             if (res.status === true) {
                 setSelectedInvestors(res.data);
@@ -115,10 +117,10 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, pitch_deck: file })
                     setPitchDeckName(file.name);
-                    setPitchDeckSizeError('');
+                    
                     setPitchDeckError('');
                 } else {
-                    setPitchDeckSizeError('* Please upload a file that is no larger than 2MB.');
+                    setPitchDeckSizeError('* Please upload a file that is no larger than 10MB.');
                 }
             } else {
                 setPitchDeckError('* Please upload a PPT, DOC or PDF file');
@@ -136,10 +138,10 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, one_pager: file })
                     setOnePagerName(file.name);
-                    setOnePagerSizeError('');
+                    
                     setOnePagerError('');
                 } else {
-                    setOnePagerSizeError('* Please upload a file that is no larger than 2MB.');
+                    setOnePagerSizeError('* Please upload a file that is no larger than 10MB.');
                 }
             } else {
                 setOnePagerError('* Please upload a PPT, DOC or PDF file');
@@ -157,10 +159,10 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, previous_financials: file })
                     setPreviousFinancialName(file.name);
-                    setPreviousFinancialSizeError('');
+                    
                     setPreviousFinancialError('');
                 } else {
-                    setPreviousFinancialSizeError('* Please upload a file that is no larger than 2MB.');
+                    setPreviousFinancialSizeError('* Please upload a file that is no larger than 10MB.');
                 }
             } else {
                 setPreviousFinancialError('* Please upload a PPT, DOC or PDF file');
@@ -178,10 +180,11 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, latest_cap_table: file })
                     setLatestCapTableName(file.name);
-                    setLatestCapTableSizeError('');
+                    
                     setLatestCapTableError('');
                 } else {
-                    setLatestCapTableSizeError('* Please upload a file that is no larger than 2MB.');
+                    setLatestCapTableSizeError('* Please upload a file that is no larger than 10MB.');
+                    
                 }
             } else {
                 setLatestCapTableError('* Please upload a PPT, DOC or PDF file');
@@ -199,10 +202,10 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, other_documents: file })
                     setOtherDocumentsName(file.name);
-                    setOtherDocumentsSizeError('');
+                    
                     setOtherDocumentsError('');
                 } else {
-                    setOtherDocumentsSizeError('* Please upload a file that is no larger than 2MB.');
+                    setOtherDocumentsSizeError('* Please upload a file that is no larger than 10MB.');
                 }
             } else {
                 setOtherDocumentsError('* Please upload a PPT, DOC or PDF file');
@@ -252,7 +255,9 @@ const CCSPRequest = () => {
             } else {
                 formData.append("other_documents", user.other_documents);
             }
-
+            if (CCSPFundId) {
+                formData.append("ccsp_fund_id", CCSPFundId);
+            }
 
             formData.append("startup_id", user.startup_id);
             formData.append("round_of_ifinworth", user.round_of_ifinworth);
@@ -272,12 +277,28 @@ const CCSPRequest = () => {
             if (formData) {
                 const res = await insertIfinWorthDetails(formData);
                 if (res.status === true) {
+                    const current_user_data: any = getCurrentUserData();
+                    const userId = current_user_data && current_user_data.id ? current_user_data.id : null;
+
+                    for (const selectedInvestor of selectedInvestors) {
+                        const data = {
+                            user_id: userId,
+                            investor_id: selectedInvestor,
+                            ccsp_fund_id: res.ccsp_fund_id
+                        };
+                        await addPreCommitedInvestor(data);
+                    }
+
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
                     });
                     setTimeout(() => {
-                        router.push("/company/ccsp-preview");
+                        if (CCSPFundId) {
+                            router.push("/company/ccsp-preview?id=" + CCSPFundId);
+                        } else {
+                            router.push("/company/ccsp-preview");
+                        }
                     });
                 } else {
                     toast.error(res.msg, {
@@ -322,35 +343,41 @@ const CCSPRequest = () => {
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState<Investor[]>([]);
 
-    const handleInvestorSelect = (selectedInvestor: any) => {
-        if (!selectedInvestors.includes(selectedInvestor)) {
-            setSelectedInvestors((prevSelected) => [...prevSelected, selectedInvestor]);
+
+    const handleInvestorSelect = (selectedInvestorId: any, selectedInvestorName: any) => {
+        if (!selectedInvestors.some((investor) => investor.id === selectedInvestorId)) {
+            setSelectedInvestors((prevSelected) => [
+                ...prevSelected,
+                { id: selectedInvestorId, name: selectedInvestorName },
+            ]);
             const current_user_data: any = getCurrentUserData();
             const userId = current_user_data && current_user_data.id ? current_user_data.id : null;
             const data = {
                 user_id: userId,
-                investor_id: selectedInvestor
+                investor_id: selectedInvestorId,
+                name: selectedInvestorName,
             };
-            addPreCommitedInvestor(data)
-                .then((res) => {
-                    fetchPreCommitedInvestor();
-                })
-
+            // ... rest of your logic
         }
         setSearch('');
         setSearchResults([]);
     };
 
-    const handleDeleteSkill = async (id: any) => {
+
+    const handleDeleteSkill = async (deleteId: any) => {
         try {
-            const response = await deletePreCommitedinvestor(id);
+            const response = await deletePreCommitedinvestor(deleteId);
             if (response.status === 'true') {
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
                 });
                 setTimeout(() => {
-                    router.push("/company/ccsp-request");
+                    if (id) {
+                        router.push("/company/ccsp-request?id=" + id);
+                    } else {
+                        router.push("/company/ccsp-request");
+                    }
                 }, 2000);
             }
         } catch (error) {
@@ -495,8 +522,8 @@ const CCSPRequest = () => {
                                             {/* Display selected investors */}
                                             {selectedInvestors.map((investor: any, index) => (
                                                 <span key={index} className="selected-investor set-detail-btn">
-                                                    {investor.name}
-                                                    <button className="btn btn-secondary" onClick={() => handleDeleteSkill(investor.id)}>
+                                                    {investor.name} {/* Use investor.name instead of selectedInvestors.name */}
+                                                    <button className="btn btn-secondary set-detail-btn" onClick={() => handleDeleteSkill(investor.id)}>
                                                         <sup> X</sup>
                                                     </button>
                                                 </span>
@@ -525,7 +552,7 @@ const CCSPRequest = () => {
                                                         <p
                                                             style={{ cursor: "pointer" }}
                                                             key={index}
-                                                            onClick={(e) => handleInvestorSelect(investor.id)}
+                                                            onClick={(e) => handleInvestorSelect(investor.id, investor.name)}
                                                         >
                                                             {investor.name}
                                                         </p>
@@ -678,7 +705,8 @@ const CCSPRequest = () => {
                                                                 onChange={handleOnePager} />
                                                         </div>
                                                     </div>
-                                                </div> {onePagerSizeError ? (
+                                                </div>
+                                                 {onePagerSizeError ? (
                                                     <p className='text-danger p-2'>{onePagerSizeError}</p>
                                                 ) : (
                                                     onePagerError && <p className='text-danger p-2'>{onePagerError}</p>
