@@ -170,13 +170,13 @@ const Header = () => {
                           </li> */}
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-request' ? 'active p1' : ''}`}>
-                              <i className="fa fa-bell"></i>
+                            <i className="fa fa-business-time"></i>
                               <span>CCSP Request</span>
                             </Link>
                           </li>
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-campaign' ? 'active p1' : ''}`}>
-                              <i className="fa fa-bell"></i>
+                            <i className="fa fa-business-time"></i>
                               <span>CCSP Campaign</span>
                             </Link>
                           </li>

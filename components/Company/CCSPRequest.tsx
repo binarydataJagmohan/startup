@@ -40,7 +40,7 @@ const CCSPRequest = () => {
     const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
     const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
     const [selectedInvestors, setSelectedInvestors] = useState<{ id: any; name: any; }[]>([]);
-
+    
     const { id } = router.query;
     const current_user_data: UserData = getCurrentUserData();
     const [CCSPFundId, setCCSPFundId] = useState('');
@@ -117,7 +117,7 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, pitch_deck: file })
                     setPitchDeckName(file.name);
-                    
+
                     setPitchDeckError('');
                 } else {
                     setPitchDeckSizeError('* Please upload a file that is no larger than 10MB.');
@@ -138,7 +138,7 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, one_pager: file })
                     setOnePagerName(file.name);
-                    
+
                     setOnePagerError('');
                 } else {
                     setOnePagerSizeError('* Please upload a file that is no larger than 10MB.');
@@ -159,7 +159,7 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, previous_financials: file })
                     setPreviousFinancialName(file.name);
-                    
+
                     setPreviousFinancialError('');
                 } else {
                     setPreviousFinancialSizeError('* Please upload a file that is no larger than 10MB.');
@@ -180,11 +180,11 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, latest_cap_table: file })
                     setLatestCapTableName(file.name);
-                    
+
                     setLatestCapTableError('');
                 } else {
                     setLatestCapTableSizeError('* Please upload a file that is no larger than 10MB.');
-                    
+
                 }
             } else {
                 setLatestCapTableError('* Please upload a PPT, DOC or PDF file');
@@ -202,7 +202,7 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, other_documents: file })
                     setOtherDocumentsName(file.name);
-                    
+
                     setOtherDocumentsError('');
                 } else {
                     setOtherDocumentsSizeError('* Please upload a file that is no larger than 10MB.');
@@ -266,7 +266,17 @@ const CCSPRequest = () => {
             formData.append("ifinworth_amount", user.ifinworth_amount);
             formData.append("pre_committed_ifinworth_currency", user.pre_committed_ifinworth_currency);
             formData.append("pre_committed_ifinworth_amount", user.pre_committed_ifinworth_amount);
-            formData.append("pre_committed_investor", JSON.stringify(selectedInvestors));
+            if (selectedInvestors == null || selectedInvestors.length === 0) {                
+                toast.error(' Please add a pre-committed investor', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    toastId: "error",
+                });
+                return;
+            } else {
+                formData.append("pre_committed_investor", JSON.stringify(selectedInvestors));
+            }
+            
+
 
             formData.append("accredited_investors", user.accredited_investors.toString());
             formData.append("angel_investors", user.angel_investors.toString());
@@ -312,7 +322,7 @@ const CCSPRequest = () => {
             }
         }
         catch (err: any) {
-            const errorFields = ["round_of_ifinworth", 'fund_name', "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "accredited_investors", "other_documents"];
+            const errorFields = ["round_of_ifinworth", 'fund_name', "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "other_funding_detail", "accredited_investors", "other_documents"];
             if (err.response.data.errors) {
                 errorFields.forEach((field) => {
                     if (err.response.data.errors[field]) {
@@ -365,8 +375,12 @@ const CCSPRequest = () => {
 
 
     const handleDeleteSkill = async (deleteId: any) => {
-        try {
-            const response = await deletePreCommitedinvestor(deleteId);
+        try {            
+            const data = {
+                investor_id: deleteId,
+                ccsp_fund_id: CCSPFundId,                
+            };
+            const response = await deletePreCommitedinvestor(data);
             if (response.status === 'true') {
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -381,7 +395,7 @@ const CCSPRequest = () => {
                 }, 2000);
             }
         } catch (error) {
-            console.log(error);
+            setSelectedInvestors((prevSelected) => prevSelected.filter(investor => investor.id !== deleteId));
         }
     };
 
@@ -560,7 +574,7 @@ const CCSPRequest = () => {
                                                 </div>
                                             </div>
                                         )}
-                                    </div>
+                                    </div>                                   
                                 </div>
                             </div>
 
@@ -706,7 +720,7 @@ const CCSPRequest = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 {onePagerSizeError ? (
+                                                {onePagerSizeError ? (
                                                     <p className='text-danger p-2'>{onePagerSizeError}</p>
                                                 ) : (
                                                     onePagerError && <p className='text-danger p-2'>{onePagerError}</p>
