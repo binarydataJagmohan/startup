@@ -44,7 +44,8 @@ export default function App({ Component, pageProps }: AppProps) {
   let Layout = FrontendLayout; 
 
   // admin header
-  if (current_user && current_user.role === 'admin') {
+  // if (current_user && current_user.role === 'admin') {
+    if (current_user && current_user.role === 'admin' && router.pathname.startsWith("/admin")) {
     Layout = AdminLayout;
   }
   if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||
@@ -53,7 +54,8 @@ export default function App({ Component, pageProps }: AppProps) {
     || router.pathname === '/privacy-policy' || router.pathname === '/business-planning' || router.pathname === '/website-development'
     || router.pathname === '/company-incorporation' || router.pathname === '/app-development' || router.pathname === '/marketing-branding' || router.pathname === '/cfo-services'
     || router.pathname === '/faq' || router.pathname === '/single-blog' || router.pathname === '/team')
-  ) {
+  ) 
+  {
     Layout = FrontendLayout;
   }
 

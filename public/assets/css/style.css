@@ -7143,7 +7143,7 @@ a.card-link {
   color: #232323 !important;
   line-height: 30px !important;
   font-weight: 500 !important;
-
+}
   /**********chatcss********/
   .chats-btns .table-btn {
     font-weight: 500;
@@ -7776,7 +7776,7 @@ a.card-link {
   #new_search-results ul {
     padding-left: 0px;
   }
-}
+
 
 
 ul.set-height{
@@ -7806,7 +7806,6 @@ ul.set-height{
 
 
 button.btn.btn-secondary.set-detail-btn {
-  /* margin-left: 10px; */
   padding: 5px;
   height: 25px;
   margin: 10px;
@@ -7818,6 +7817,16 @@ button.btn.btn-secondary.set-detail-btn {
 }
 
 label.form-label.mt-3.above-height {
+  margin-top: 60px !important;
+}
+
+ul.social.set-icon-social {
+  display: flex !important;
+  text-decoration: none !important;
+  list-style: none !important;
+}
+ul.social.set-icon-social i {
+  padding: 5px;
   margin-top: 85px !important;
 }
 

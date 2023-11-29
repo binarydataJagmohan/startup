@@ -53,18 +53,15 @@ export default function Blogs() {
     const [blogImageError, setBlogImageError] = useState('');
     const [blogUpImageError, setBlogupImageError] = useState('');
     const [blogs, setAllBlogs] = useState<Blogs[]>([]);
-
-    const [showAuthorImage, setShowAuthorImage] = useState(true);
-    const [newblogauthorimage, setBlogNewAuthorImage] = useState("");
     const [newblogimage, setBlogNewImage] = useState("");
     const [showImage, setShowImage] = useState(true);
-    const [previewAuthorImage, setPreviewAuthorImage]:any = useState("");
-
-
-    const modalConfirmClose = () => {
-        setModalConfirm(false);
-    };
-
+    const [showauthorImage, setauthorShowImage] = useState(true);
+    const [previewAuthorImage, setPreviewAuthorImage]: any = useState("");
+    const [fetchedPreviewImage, setFetchedPreviewImage] = useState('');
+    const [fetchedAuthorPreviewImage, setAuthorFetchedPreviewImage] = useState('');
+    const [slugError, setSlugError] = useState('');
+    const [nameError, setNameError] = useState('');
+    const [descriptionError, setDescriptionError] = useState('');
 
     useEffect(() => {
         if (blogs.length > 0 && !dataTableInitialized) {
@@ -96,9 +93,24 @@ export default function Blogs() {
         }
     };
 
-
     const handlBlogSubmit = async (event: any) => {
         event.preventDefault();
+        setSlugError('');
+        setNameError('');
+        setDescriptionError('');
+        if (!slug) {
+            setSlugError('Slug is required');
+        }
+        if (!name) {
+            setNameError('Blog Name is required');
+        }
+        if (!description) {
+            setDescriptionError('Description is required');
+        }
+
+        if (!slug || !name || !description) {
+            return;
+        }
         setSavingBlog(true);
         try {
             const currentUserData: any = getCurrentUserData();
@@ -107,7 +119,6 @@ export default function Blogs() {
                 name: name,
                 slug: slug,
                 author_name: authorname,
-                // tag: tag,
                 description: description,
                 meta_tag: meta_tag,
                 meta_desc: meta_desc,
@@ -121,9 +132,7 @@ export default function Blogs() {
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
-
             } else {
-
             }
         } catch (err) {
             setSavingBlog(false);
@@ -154,35 +163,42 @@ export default function Blogs() {
             setBlogDesc(description || "");
             setBlogId(id);
             toast.dismiss();
-
             if (existingImage) {
-                setShowImage(false);
-                setBlogNewImage(existingImage);
-                
-                setPreviewImage(existingImage); // Assuming `existingImage` is a URL
+                setBlogNewImage(existingImage); // Set the blog image from database
+                setFetchedPreviewImage(existingImage); // Show the preview of existing blog image
+                setShowImage(false); // Hide the image upload box
             } else {
-                setShowImage(true);
                 setBlogNewImage("");
-                setPreviewImage(""); // Clear the preview if no existing image
+                setPreviewImage(""); // Clear the preview if no existing blog image
+                setShowImage(true); // Show the image upload box
             }
-    
-            // Handle existing author image
+
             if (existingAuthorImage) {
-                setShowAuthorImage(false);
-                setBlogNewAuthorImage(existingAuthorImage);
-                setPreviewAuthorImage(existingAuthorImage); // Assuming `existingAuthorImage` is a URL
+                setBlogNewImage(existingAuthorImage); // Set the blog image from database
+                setAuthorFetchedPreviewImage(existingAuthorImage); // Show the preview of existing blog image
+                setauthorShowImage(false); // Hide the image upload box
             } else {
-                setShowAuthorImage(true);
-                setBlogNewAuthorImage("");
-                setPreviewAuthorImage(""); // Clear the preview if no existing author image
+                setBlogNewImage("");
+                setPreviewImage(""); // Clear the preview if no existing blog image
+                setauthorShowImage(true); // Show the image upload box
             }
-            // Open the modal after setting the blog data
             setModalConfirm(true);
         }
     };
 
-
-
+    const handleInputChange = (e: any) => {
+        const inputValue = e.target.value;
+        const trimmedValue = inputValue.trim();
+        const lowercasedValue = trimmedValue.toLowerCase(); // Convert to lowercase
+        if (trimmedValue !== inputValue) {
+            // If there were trailing spaces, show an error message or handle it as needed
+            // For example, you can set an error state and display an error message to the user
+            // setError("Spaces are not allowed at the end of the input");
+        }
+        const slug = lowercasedValue.replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+        setBlogSlug(slug);
+    };
 
     const handledeleteblog = (id: any) => {
         swal({
@@ -220,7 +236,6 @@ export default function Blogs() {
         setBlogDesc(blogdesc);
     };
 
-
     const handleAuthorImage = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -230,31 +245,32 @@ export default function Blogs() {
                 if (file.size <= maxSize) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                        setPreviewAuthorImage(reader.result); // Update the preview image state
+                        setPreviewAuthorImage(reader.result);
                     };
                     reader.readAsDataURL(file);
-                    setAuthorImage(file); // Set the author image file
+                    setAuthorImage(file); // Set the blog image file
                     setAuthorImageError('');
-                    setShowAuthorImage(false); // Hide the existing image box
+                    setauthorShowImage(false);
+                    setStartupLogoError('');
                 } else {
                     setAuthorImageError('* Image size should be less than 2MB.');
                     setAuthorImage(null);
                     setPreviewAuthorImage(null);
-                    setShowAuthorImage(true); // Show the existing image box
+                    setauthorShowImage(true); // Show the existing image box
                 }
             } else {
                 setAuthorImageError('* Please upload a JPG or PNG file');
                 setAuthorImage(null);
                 setPreviewAuthorImage(null);
-                setShowAuthorImage(true); // Show the existing image box
+                setauthorShowImage(true); // Show the existing image box
             }
         } else {
             setAuthorImage(null);
             setPreviewAuthorImage(null);
-            setShowAuthorImage(true); // Show the existing image box
+            setauthorShowImage(true); // Show the existing image box
         }
     };
-    
+
 
     const handleBlogImage = (e: any) => {
         const file = e.target.files[0];
@@ -265,12 +281,13 @@ export default function Blogs() {
                 if (file.size <= maxSize) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                        setPreviewImage(reader.result); // Update the preview image state
+                        setPreviewImage(reader.result);
                     };
                     reader.readAsDataURL(file);
                     setBlogImage(file); // Set the blog image file
                     setBlogImageError('');
-                    setShowImage(false); // Hide the existing image box
+                    setShowImage(false);
+                    setStartupLogoError('');
                 } else {
                     setBlogImageError('* Image size should be less than 2MB.');
                     setBlogImage(null);
@@ -289,7 +306,6 @@ export default function Blogs() {
             setShowImage(true); // Show the existing image box
         }
     };
-    
 
     const resetForm = () => {
         setBlogName("");
@@ -301,6 +317,11 @@ export default function Blogs() {
         setBlogId("");
         setBlogTag("");
         setPreviewImage("");
+        setFetchedPreviewImage("");
+        setAuthorFetchedPreviewImage("");
+        setPreviewAuthorImage("");
+        setAuthorImageError("");
+        setBlogupImageError("");
     };
 
     const formatDate = (dateStr: string) => {
@@ -312,7 +333,6 @@ export default function Blogs() {
         };
         return date.toLocaleDateString(undefined, options);
     };
-
 
     return (
         <div className="main-content">
@@ -380,8 +400,7 @@ export default function Blogs() {
                                                                         </li>
                                                                         <li className="trash">
                                                                             <a href="#" onClick={() => handledeleteblog(blog.id)}
-                                                                            >
-                                                                                <i className="fa-solid fa-trash" />
+                                                                            ><i className="fa-solid fa-trash" />
                                                                             </a>
                                                                         </li>
                                                                     </ul>
@@ -405,13 +424,11 @@ export default function Blogs() {
                 </div>{" "}
                 {/* container-fluid */}
 
-
-
                 <PopupModal
                     show={modalConfirm}
-                    // handleClose={modalConfirmClose}
                     staticClass="var-login"
                     handleClose={() => setModalConfirm(false)}
+                    width={'700px'}
                 >
                     <div className="pop-b-round text-center">
                         <div className="row">
@@ -430,7 +447,7 @@ export default function Blogs() {
                         <div className="form-contact-set">
 
                             <label className="form-label">
-                                <h4>{blog_id ? "Edit blog" : "Add blog"}</h4>
+                                <h3>{blog_id ? "Edit blog" : "Add blog"}</h3>
                             </label>
                             <div>
 
@@ -444,6 +461,7 @@ export default function Blogs() {
                                     value={name}
                                     onChange={(e) => setBlogName(e.target.value)}
                                 />
+                                {nameError && <p className="text-danger">{nameError}</p>}
 
                                 <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
                                     <span>Slug</span>
@@ -453,9 +471,9 @@ export default function Blogs() {
                                     placeholder="Blog Slug"
                                     className="form-control"
                                     value={slug}
-                                    onChange={(e) => setBlogSlug(e.target.value)}
+                                    onChange={handleInputChange}
                                 />
-
+                                {slugError && <p className="text-danger">{slugError}</p>}
 
                                 <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
                                     <span>Author Name</span>
@@ -480,6 +498,7 @@ export default function Blogs() {
                                     placeholder="Description"
 
                                 />
+                                {descriptionError && <p className="text-danger" style={{marginTop:'50px'}}>{descriptionError}</p>}
 
                                 <label htmlFor="minCommitment" className="form-label mt-3 above-height">
                                     <span>Meta Tag</span>
@@ -503,147 +522,159 @@ export default function Blogs() {
                                     onChange={(e) => setBlogMetaDesc(e.target.value)}
                                 />
 
-                                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
-                                    <span>Author Image</span>
-                                </label>
-                                <div className="file-upload">
-                                    <div className="file-select">
-                                        <div
-                                            className="file-select-button"
-                                            id="fileName"
-                                        >
-                                            Chose file
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                            <span>Author Image</span>
+                                        </label>
+                                        <div className="file-upload">
+                                            <div className="file-select">
+                                                <div
+                                                    className="file-select-button"
+                                                    id="fileName"
+                                                >
+                                                    Chose file
+                                                </div>
+                                                <div className="file-select-name" id="noFile">
+                                                    {/* {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")} */}
+                                                </div>
+                                                <input
+                                                    className="input-file"
+                                                    id="logo"
+                                                    accept=".jpg, .jpeg, .png"
+                                                    type="file"
+                                                    name="author_image"
+                                                    onChange={(e) => handleAuthorImage(e)}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="file-select-name" id="noFile">
-                                            {/* {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")} */}
+                                        <div className="col-lg-2 col-md-3 col-3">
+
+                                            <div className="logo-box-data">
+                                                {showauthorImage ? (
+                                                    <div className="logo-box-data mt-2">
+                                                        <Image
+                                                            src={
+                                                                process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/logo-cir.png"
+                                                            }
+                                                            alt="logo-cir"
+                                                            className=""
+                                                            width={70}
+                                                            height={70}
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="logo-box-data">
+                                                        {previewAuthorImage ? (
+                                                            <Image
+                                                                src={previewAuthorImage}
+                                                                alt="Preview"
+                                                                className=""
+                                                                height={70}
+                                                                width={70}
+                                                            />
+                                                        ) : (
+                                                            fetchedAuthorPreviewImage && (
+                                                                <Image
+                                                                    src={
+                                                                        process.env.NEXT_PUBLIC_IMAGE_URL +
+                                                                        "images/blogs/author/" +
+                                                                        fetchedAuthorPreviewImage
+                                                                    }
+                                                                    alt="Preview"
+                                                                    className=""
+                                                                    height={70}
+                                                                    width={70}
+                                                                />
+                                                            )
+                                                        )}
+
+
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                        <input
-                                            className="input-file"
-                                            id="logo"
-                                            accept=".jpg, .jpeg, .png"
-                                            type="file"
-                                            name="author_image"
-                                            onChange={(e) => handleAuthorImage(e)}
-                                        />
+                                        {authorImageError ? (
+                                            <p className="text-danger">{authorImageError}</p>
+                                        ) : (
+                                            startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
+                                        )}
+                                        <br />
                                     </div>
-                                </div>
-                                <div className="col-lg-2 col-md-3 col-3">
-                                    {showAuthorImage ? (
-                                        <div className="logo-box-data">
-                                            {/* <Image
-                                                src={
-                                                    process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/author.jpeg"
-                                                }
-                                                alt="logo-cir"
-                                                className=""
-                                                width={70}
-                                                height={70}
-                                            /> */}
+                                    <div className="col-md-6">
+                                        <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
+                                            <span>Blog Image</span>
+                                        </label>
+                                        <div className="file-upload">
+                                            <div className="file-select">
+                                                <div
+                                                    className="file-select-button"
+                                                    id="fileName"
+                                                >
+                                                    Chose file
+                                                </div>
+                                                <div className="file-select-name" id="noFile">
+                                                </div>
+                                                <input
+                                                    className="input-file"
+                                                    id="logo"
+                                                    accept=".jpg, .jpeg, .png"
+                                                    type="file"
+                                                    name="image"
+                                                    onChange={(e) => handleBlogImage(e)}
+                                                />
+                                            </div>
                                         </div>
-                                    ) : (
-                                        <div className="logo-box-data">
-                                            {previewAuthorImage ? (
-                                                <Image
-                                                    src={previewAuthorImage}
-                                                    alt="Preview"
-                                                    className=""
-                                                    height={70}
-                                                    width={70}
-                                                />
+                                        <div className="col-lg-2 col-md-3 col-3">
+                                            {showImage ? (
+                                                <div className="logo-box-data mt-2">
+                                                    <Image
+                                                        src={
+                                                            process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/logo-cir.png"
+                                                        }
+                                                        alt="logo-cir"
+                                                        className=""
+                                                        width={70}
+                                                        height={70}
+                                                    />
+                                                </div>
                                             ) : (
-                                                <Image
-                                                    src={
-                                                        process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                        "images/blogs/author/" +
-                                                        newblogauthorimage
-                                                    }
-                                                    alt="logo-cir"
-                                                    className=""
-                                                    height={70}
-                                                    width={70}
-                                                />
+                                                <div className="logo-box-data">
+                                                    {previewImage ? (
+                                                        <Image
+                                                            src={previewImage}
+                                                            alt="Preview"
+                                                            className=""
+                                                            height={70}
+                                                            width={70}
+                                                        />
+                                                    ) : (
+                                                        fetchedPreviewImage && (
+                                                            <Image
+                                                                src={
+                                                                    process.env.NEXT_PUBLIC_IMAGE_URL +
+                                                                    "images/blogs/" +
+                                                                    fetchedPreviewImage
+                                                                }
+                                                                alt="Preview"
+                                                                className=""
+                                                                height={70}
+                                                                width={70}
+                                                            />
+                                                        )
+                                                    )}
+
+
+                                                </div>
                                             )}
                                         </div>
-                                    )}
-                                </div>
-
-                                {authorImageError ? (
-                                    <p className="text-danger">{authorImageError}</p>
-                                ) : (
-                                    startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
-                                )}
-                                <br />
-                                <label htmlFor="exampleFormControlInput1" className="form-label">
-                                    <span>Blog Image</span>
-                                </label>
-                                <div className="file-upload">
-                                    <div className="file-select">
-                                        <div
-                                            className="file-select-button"
-                                            id="fileName"
-                                        >
-                                            Chose file
-                                        </div>
-                                        <div className="file-select-name" id="noFile">
-                                            {/* {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")} */}
-                                        </div>
-                                        <input
-                                            className="input-file"
-                                            id="logo"
-                                            accept=".jpg, .jpeg, .png"
-                                            type="file"
-                                            name="image"
-                                            onChange={(e) => handleBlogImage(e)}
-                                        />
+                                        {blogImageError ? (
+                                            <p className="text-danger">{blogImageError}</p>
+                                        ) : (
+                                            blogUpImageError && <p className="text-danger">{blogUpImageError}</p>
+                                        )}
                                     </div>
                                 </div>
-                                <div className="col-lg-2 col-md-3 col-3">
-                                    {showImage ? (
-                                        <div className="logo-box-data">
-                                            {/* <Image
-                                                src={
-                                                    process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/author.jpeg"
-                                                }
-                                                alt="logo-cir"
-                                                className=""
-                                                width={70}
-                                                height={70}
-                                            /> */}
-                                        </div>
-                                    ) : (
-                                        <div className="logo-box-data">
-                                            {previewImage ? (
-                                                <Image
-                                                    src={previewImage}
-                                                    alt="Preview"
-                                                    className=""
-                                                    height={70}
-                                                    width={70}
-                                                />
-                                            ) : (
-                                                <Image
-                                                    src={
-                                                        process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                        "images/blogs/" +
-                                                        newblogimage
-                                                    }
-                                                    alt="logo-cir"
-                                                    className=""
-                                                    height={70}
-                                                    width={70}
-                                                />
-                                            )}
-                                            
-                                        </div>
-                                    )}
-                                </div>
-                                {blogImageError ? (
-                                    <p className="text-danger">{blogImageError}</p>
-                                ) : (
-                                    blogUpImageError && <p className="text-danger">{blogUpImageError}</p>
-                                )}
-
-                                <br />
 
                                 <button type="submit" className="btnclasssmae set-but-company mt-3">
                                     Submit
