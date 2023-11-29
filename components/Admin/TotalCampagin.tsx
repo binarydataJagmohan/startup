@@ -203,7 +203,6 @@ const Campagin = () => {
           const updatedFunds = funds.map((fund: {
             user_id: any; id: number;
           }) => {
-
             if (fund.id === id) {
               const data = {
                 notify_from_user: current_user_id,
@@ -258,7 +257,9 @@ const Campagin = () => {
   }
 
 
-  // Update status of a campaign in the DB
+
+
+
   function deleteFund(id: number, newStatus: string) {
     swal({
       title: "Are you sure?",
@@ -271,7 +272,6 @@ const Campagin = () => {
         axios
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/delete-campign-status/${id}`,
-
             { status: newStatus }, // Payload containing the new status
             {
               headers: {
@@ -281,19 +281,36 @@ const Campagin = () => {
             }
           )
           .then((response) => {
-            // const updatedData = funds.map((fund: any) => {
-            //   if (fund.id === id) {
-            //     return { ...fund, status: newStatus };
-            //   }
-            //   return fund;
-            // });
-
-            const updatedData = funds.filter((fund: any) => fund.id !== id);
-            setFundsData(updatedData);
+            const updatedData = funds.map((fund: any) => {
+              if (fund.id === id) {
+                const data = {
+                  notify_from_user: current_user_id,
+                  notify_to_user: fund.user_id,
+                  notify_msg: `Your Fund Has Been Deleted By Admin`,
+                  notification_type: "CCSP Fund Approval Notification",
+                  each_read: "unread",
+                  status: "active"
+                };
+                // Send Notifications
+                sendNotification(data)
+                  .then((notificationRes) => {
+                    console.log('Notification sent successfully');
+                  })
+                  .catch((error) => {
+                    console.log('Error sending notification:', error);
+                  });
+                return {
+                  ...fund,
+                  status: newStatus,
+                };
+              }
+              return fund;
+            });
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
+            window.location.reload();
           })
           .catch((error) => {
             // Handle error response
@@ -302,6 +319,10 @@ const Campagin = () => {
               toastId: "error",
             });
           });
+      } else {
+        // Handle cancel action (optional)
+        // For example: Notify the user that the deletion action was canceled
+        console.log('Deletion canceled by user');
       }
     });
   }
@@ -701,7 +722,7 @@ const Campagin = () => {
                                         <Link
                                           href={
                                             process.env.NEXT_PUBLIC_BASE_URL +
-                                            `admin/ccsp-detail/?id=${fund.id}`
+                                            `admin/ccsp-detail/?id=${fund.ccsp_fund_id}`
                                           }
                                           className="m-1"
                                         >

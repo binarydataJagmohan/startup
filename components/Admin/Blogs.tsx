@@ -424,6 +424,7 @@ export default function Blogs() {
                 </div>{" "}
                 {/* container-fluid */}
 
+
                 <PopupModal
                     show={modalConfirm}
                     staticClass="var-login"
@@ -498,7 +499,7 @@ export default function Blogs() {
                                     placeholder="Description"
 
                                 />
-                                {descriptionError && <p className="text-danger" style={{marginTop:'50px'}}>{descriptionError}</p>}
+                                {descriptionError && <p className="text-danger" style={{ marginTop: '50px' }}>{descriptionError}</p>}
 
                                 <label htmlFor="minCommitment" className="form-label mt-3 above-height">
                                     <span>Meta Tag</span>
