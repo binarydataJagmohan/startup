@@ -60,15 +60,15 @@ export default function SingleBlog(props: any) {
                                     )}
                                 </div>
                                 <div className="article-content">
-                                    <div className="entry-meta">
+                                    <div className="entry-meta" style={{marginTop:"20px"}}>
                                         <ul>
                                             <li>
-                                                <span>Posted On:</span>
-                                                <Link href="#">{formatDate(blog?.created_at || "")}</Link>
+                                                <span>Posted On: </span>
+                                                <Link href="#"> {formatDate(blog?.created_at || "")}</Link>
                                             </li>
                                             <li>
-                                                <span>Posted By:</span>
-                                                <Link href="#">{blog?.author_name}</Link>
+                                                <span>Posted By: </span>
+                                                <Link href="#">  {blog?.author_name}</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -79,7 +79,7 @@ export default function SingleBlog(props: any) {
                                         <cite>Tom Cruise</cite>
                                     </blockquote>
                                     <p>
-                                        <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} />
+                                        <div dangerouslySetInnerHTML={{ __html: blog?.description ?? "" }} />
 
                                     </p>
                                 </div>
