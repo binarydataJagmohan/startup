@@ -2014,9 +2014,7 @@ ul.checkbox-lead {
     text-decoration: none;
     font-weight: 500;
 }
-/*.step-form {
-    background: #f2f2f2;
-}*/
+
 .form-part {
     background: #fff;
     box-shadow: 0 0 12px 9px #0000000d;
@@ -2420,3 +2418,26 @@ ul.menuUrl {
 .col-span-1.text-right i {
 color: #000;
 }
+
+
+.ccsp_fund_file_upload{
+  width: 60%;
+}
+
+@media screen and (min-width: 300px) and (max-width: 768px) {
+  .step-form {
+    margin-left: 0rem;
+    margin-top: 5rem;
+  }
+  .ccsp_fund_file_upload{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .step-form {
+    margin-left: 0rem;
+    margin-top: 5rem;
+  }
+}
+

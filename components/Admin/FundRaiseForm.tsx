@@ -755,8 +755,7 @@ const FundRaiseForm = () => {
                                                     >
                                                         <option value="">SELECT TYPE</option>
                                                         <option value="Dicounting Invoice">Dicounting Invoice</option>
-                                                        <option value="CSOP">CSOP</option>
-                                                        <option value="CCSP">CCSP</option>
+                                                        <option value="CSOP">CSOP</option>                                                       
                                                     </select>
                                                     {errors.type && (
                                                         <p

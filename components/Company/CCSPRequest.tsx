@@ -40,7 +40,7 @@ const CCSPRequest = () => {
     const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
     const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
     const [selectedInvestors, setSelectedInvestors] = useState<{ id: any; name: any; }[]>([]);
-    
+
     const { id } = router.query;
     const current_user_data: UserData = getCurrentUserData();
     const [CCSPFundId, setCCSPFundId] = useState('');
@@ -225,40 +225,14 @@ const CCSPRequest = () => {
 
         try {
             const formData = new FormData();
-            if (user.pitch_deck == '') {
-                setPitchDeckError('* Please upload a PPT, DOC or PDF file');
-                return;
-            } else {
-                formData.append("pitch_deck", user.pitch_deck);
-            }
-            if (user.one_pager == '') {
-                setOnePagerError('* Please upload a PPT, DOC or PDF file');
-                return;
-            } else {
-                formData.append("one_pager", user.one_pager);
-            }
-            if (user.previous_financials == '') {
-                setPreviousFinancialError('* Please upload a PPT, DOC or PDF file');
-                return;
-            } else {
-                formData.append("previous_financials", user.previous_financials);
-            }
-            if (user.latest_cap_table == '') {
-                setLatestCapTableError('* Please upload a PPT, DOC or PDF file');
-                return;
-            } else {
-                formData.append("latest_cap_table", user.latest_cap_table);
-            }
-            if (user.other_documents == '') {
-                setOtherDocumentsError('* Please upload a PPT, DOC or PDF file');
-                return;
-            } else {
-                formData.append("other_documents", user.other_documents);
-            }
             if (CCSPFundId) {
                 formData.append("ccsp_fund_id", CCSPFundId);
             }
-
+            formData.append("other_documents", user.other_documents);
+            formData.append("latest_cap_table", user.latest_cap_table);
+            formData.append("previous_financials", user.previous_financials);
+            formData.append("one_pager", user.one_pager);
+            formData.append("pitch_deck", user.pitch_deck);
             formData.append("startup_id", user.startup_id);
             formData.append("round_of_ifinworth", user.round_of_ifinworth);
             formData.append("fund_name", user.fund_name);
@@ -266,7 +240,7 @@ const CCSPRequest = () => {
             formData.append("ifinworth_amount", user.ifinworth_amount);
             formData.append("pre_committed_ifinworth_currency", user.pre_committed_ifinworth_currency);
             formData.append("pre_committed_ifinworth_amount", user.pre_committed_ifinworth_amount);
-            if (selectedInvestors == null || selectedInvestors.length === 0) {                
+            if (selectedInvestors == null || selectedInvestors.length === 0) {
                 toast.error(' Please add a pre-committed investor', {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -275,9 +249,7 @@ const CCSPRequest = () => {
             } else {
                 formData.append("pre_committed_investor", JSON.stringify(selectedInvestors));
             }
-            
-
-
+         
             formData.append("accredited_investors", user.accredited_investors.toString());
             formData.append("angel_investors", user.angel_investors.toString());
             formData.append("regular_investors", user.regular_investors.toString());
@@ -375,10 +347,10 @@ const CCSPRequest = () => {
 
 
     const handleDeleteSkill = async (deleteId: any) => {
-        try {            
+        try {
             const data = {
                 investor_id: deleteId,
-                ccsp_fund_id: CCSPFundId,                
+                ccsp_fund_id: CCSPFundId,
             };
             const response = await deletePreCommitedinvestor(data);
             if (response.status === 'true') {
@@ -574,7 +546,7 @@ const CCSPRequest = () => {
                                                 </div>
                                             </div>
                                         )}
-                                    </div>                                   
+                                    </div>
                                 </div>
                             </div>
 
@@ -653,10 +625,10 @@ const CCSPRequest = () => {
                                             <div className="col-md-4">
                                                 <p>Pitchdeck </p>
                                             </div>
-                                            <div className="col-md-8">
+                                            <div className="col-md-8 col-sm-12">
                                                 <div
                                                     id="divHabilitSelectors"
-                                                    className="input-file-container w-75 "
+                                                    className="input-file-container ccsp_fund_file_upload "
                                                 >
                                                     <div className="file-upload">
                                                         <div className="file-select">
@@ -670,7 +642,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck ? user.pitch_deck : "No File Chosen ...")) : ""
+                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck == "null" ? "No File Chosen ..." : user.pitch_deck )) : "No File Chosen ..."
                                                                 }
 
                                                             </div>
@@ -696,7 +668,7 @@ const CCSPRequest = () => {
                                             <div className="col-md-8">
                                                 <div
                                                     id="divHabilitSelectors"
-                                                    className="input-file-container w-75 "
+                                                    className="input-file-container ccsp_fund_file_upload "
                                                 >
                                                     <div className="file-upload">
                                                         <div className="file-select">
@@ -710,7 +682,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager ? user.one_pager : "No File Chosen ...")) : ""
+                                                                    id !== null ? (onePagerName ? onePagerName :(user.one_pager == "null" ? "No File Chosen ..." : user.one_pager )) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -728,13 +700,13 @@ const CCSPRequest = () => {
                                             </div>
                                         </div>
                                         <div className="row">
-                                            <div className="col-md-4">
+                                            <div className="col-md-4 col-sm-12">
                                                 <p>Previous Financials</p>
                                             </div>
-                                            <div className="col-md-8">
+                                            <div className="col-md-8 col-sm-12">
                                                 <div
                                                     id="divHabilitSelectors"
-                                                    className="input-file-container w-75 "
+                                                    className="input-file-container ccsp_fund_file_upload "
                                                 >
                                                     <div className="file-upload">
                                                         <div className="file-select">
@@ -748,7 +720,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials ? user.previous_financials : "No File Chosen ...")) : ""
+                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials == "null" ? "No File Chosen ..." : user.previous_financials )) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -772,7 +744,7 @@ const CCSPRequest = () => {
                                             <div className="col-md-8">
                                                 <div
                                                     id="divHabilitSelectors"
-                                                    className="input-file-container w-75 "
+                                                    className="input-file-container ccsp_fund_file_upload "
                                                 >
                                                     <div className="file-upload">
                                                         <div className="file-select">
@@ -786,7 +758,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table ? user.latest_cap_table : "No File Chosen ...")) : ""
+                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table == "null" ? "No File Chosen ..." : user.latest_cap_table )) : ""
                                                                 }
                                                             </div>
 
@@ -809,7 +781,7 @@ const CCSPRequest = () => {
                                             <div className="col-md-8">
                                                 <div
                                                     id="divHabilitSelectors"
-                                                    className="input-file-container w-75"
+                                                    className="input-file-container ccsp_fund_file_upload"
                                                 >
                                                     <div className="file-upload">
                                                         <div className="file-select">
@@ -823,7 +795,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents ? user.other_documents : "No File Chosen ...")) : ""
+                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents == "null" ? "No File Chosen ..." : user.other_documents )) : ""
                                                                 }
                                                             </div>
 

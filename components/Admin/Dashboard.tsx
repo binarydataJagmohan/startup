@@ -42,7 +42,7 @@ const Dashboard = () => {
     const fetchStartupCount = async () => {
       const data = await getStartupCounts();
       if (data) {
-        setStartupCount(data.data);
+        setStartupCount(data.data.length);
       }
     };
 
