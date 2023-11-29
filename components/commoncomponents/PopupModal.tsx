@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
-const PopupModal = ({ handleClose, show, children, staticClass }: any) => {
+
+const PopupModal = ({ handleClose, show, children, staticClass,width }: any) => {
   let showHideClassName = '';
-  if(staticClass == 'var-login'){
+  if (staticClass == 'var-login') {
     showHideClassName = show ? "modal modal-part var-login  d-block" : "modal modal-part d-none";
   } else {
     showHideClassName = show ? "modal modal-part d-block same-here" : "modal modal-part d-none";
@@ -24,9 +25,10 @@ const PopupModal = ({ handleClose, show, children, staticClass }: any) => {
 
   return (
     <div className={showHideClassName} id="location_popup">
-      <div className="modal-dialog max-w-632">
+      <div className="modal-dialog max-w-632" style={{
+        maxWidth:width
+      }}>
         <div className="modal-content">
-          
           <div className="modal-body">
             {children}
           </div>

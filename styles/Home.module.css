@@ -276,3 +276,33 @@
     transform: rotate(0deg);
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: right;
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.pageItem {
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: 0 0.25rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+}
+
+.pageItemActive {
+  background-color: #088395;
+  color: #ffffff;
+}
+
+.pageLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.pageLink:hover {
+  text-decoration: underline;
+}
