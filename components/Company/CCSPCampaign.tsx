@@ -365,20 +365,37 @@ const Campagin = () => {
 
   const handleUpdateLogoChange = (e: any) => {
     const file = e.target.files[0];
-    setFundImage(file);
 
-    // Preview the image
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+      const allowedTypes = ['image/jpeg', 'image/png'];
+      const maxSize = 2 * 1024 * 1024;
+
+      if (allowedTypes.includes(file.type)) {
+        if (file.size <= maxSize) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            setPreviewImage(reader.result);
+          };
+          reader.readAsDataURL(file);
+          setFundImage(file);
+          setFundImageName(file.name);
+          setFundImageNameError('');
+          setStartupLogoError('');
+        } else {
+          setFundImageNameError('* Image size should be less than 2MB.');
+          setFundImage(null);
+          setPreviewImage(null);
+        }
+      } else {
+        setStartupLogoError('* Please upload a JPG or PNG file');
+        setFundImage(null);
+        setPreviewImage(null);
+      }
     } else {
+      setFundImage(null);
       setPreviewImage(null);
     }
   };
-
   const current_user_data: UserData = getCurrentUserData();
 
 
@@ -707,17 +724,18 @@ const Campagin = () => {
                 startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
               )}
 
-              <div className="profile-pic">
-                {previewImage ? (
-                  <Image
-                    src={typeof previewImage === "string" ? previewImage : ""}
-                    width={300}
-                    height={200}
-                    alt=""
-                    className="profile-pic"
-                    style={{ margin: "5% 0%", objectFit: "cover" }}
-                  />
-                ) : (
+              {/* <div className="profile-pic"> */}
+              {previewImage ? (
+                <Image
+                  src={typeof previewImage === "string" ? previewImage : ""}
+                  width={300}
+                  height={200}
+                  alt=""
+                  className="profile-pic"
+                  style={{ margin: "5% 0%", objectFit: "cover" }}
+                />
+              ) : (
+                fundimage ? (
                   <Image
                     src={
                       fundimage && typeof fundimage !== "string" && fundimage.fund_banner_image
@@ -733,15 +751,17 @@ const Campagin = () => {
                     width={300}
                     height={200}
                   />
-                )}
-                {/* </div> */}
-                <br />
-                <button type="submit" className="btnclasssmae set-but-company mt-3">
-                  Submit
-                </button>
+                ) : (
+                  <></>
+                )
+              )}
+              {/* </div> */}
+              <br />
+              <button type="submit" className="btnclasssmae set-but-company mt-3">
+                Submit
+              </button>
 
 
-              </div>
             </div>
           </div>
         </form>
