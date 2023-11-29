@@ -281,7 +281,7 @@ export default function Home() {
                                       process.env.NEXT_PUBLIC_BASE_URL +
                                       "investor-steps/findbusiness"
                                     }
-                                    className="default-btn"
+                                    className="default-btn ml-2"
                                   >
                                     My Profile
                                   </Link>
@@ -306,7 +306,7 @@ export default function Home() {
                                   process.env.NEXT_PUBLIC_BASE_URL +
                                   "admin/dashboard"
                                 }
-                                className="default-btn"
+                                className="default-btn ml-2"
                               >
                                 Dashboard
                               </Link>
@@ -330,7 +330,7 @@ export default function Home() {
                                       process.env.NEXT_PUBLIC_BASE_URL +
                                       "company/dashboard"
                                     }
-                                    className="default-btn"
+                                    className="default-btn ml-2"
                                   >
                                     Dashboard
                                   </Link>
@@ -389,7 +389,7 @@ export default function Home() {
                                       process.env.NEXT_PUBLIC_BASE_URL +
                                       "investor-steps/findbusiness"
                                     }
-                                    className="default-btn"
+                                    className="default-btn ml-2"
                                   >
                                     My Profile
                                   </Link>
@@ -413,7 +413,7 @@ export default function Home() {
                                   process.env.NEXT_PUBLIC_BASE_URL +
                                   "admin/dashboard"
                                 }
-                                className="default-btn"
+                                className="default-btn ml-2"
                               >
                                 Dashboard
                               </Link>
@@ -428,7 +428,7 @@ export default function Home() {
                                       process.env.NEXT_PUBLIC_BASE_URL +
                                       "steps/findbusiness"
                                     }
-                                    className="default-btn"
+                                    className="default-btn ml-2"
                                   >
                                     My Profile
                                   </Link>
@@ -437,7 +437,7 @@ export default function Home() {
                                       process.env.NEXT_PUBLIC_BASE_URL +
                                       "company/dashboard"
                                     }
-                                    className="default-btn"
+                                    className="default-btn ml-2"
                                   >
                                     Dashboard
                                   </Link>

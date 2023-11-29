@@ -61,38 +61,37 @@ const CCSPCampaign = () => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
             setCurrentUserId(current_user_data.id);
-            
-            if(id)
-            {
+
+            if (id) {
                 getStartupIfinworthDetail(id)
-                .then((res) => {
-                    if (res.status == true) {
-                        setIfinworth(res.data);
-                        console.log(current_user_id);
-                    } else {
-                        toast.error(res.message, {
-                            position: toast.POSITION.TOP_RIGHT,
+                    .then((res) => {
+                        if (res.status == true) {
+                            setIfinworth(res.data);
+                            console.log(current_user_id);
+                        } else {
+                            toast.error(res.message, {
+                                position: toast.POSITION.TOP_RIGHT,
+                            });
+                        }
+                    })
+                    .catch((err) => {
+                        toast.error(err.message, {
+                            position: toast.POSITION.BOTTOM_RIGHT,
                         });
-                    }
-                })
-                .catch((err) => {
-                    toast.error(err.message, {
-                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
-                });
             } else {
-                getLatestIfinworthDetail()    
-                .then((res)=>{
-                    if (res.status == true) {
-                        setIfinworth(res.data);                  
-                    } else {
-                        toast.error(res.message, {
-                            position: toast.POSITION.TOP_RIGHT,
-                        });
-                    }
-                })
-            }        
-          
+                getLatestIfinworthDetail()
+                    .then((res) => {
+                        if (res.status == true) {
+                            setIfinworth(res.data);
+                        } else {
+                            toast.error(res.message, {
+                                position: toast.POSITION.TOP_RIGHT,
+                            });
+                        }
+                    })
+            }
+
         }
 
 
@@ -183,7 +182,12 @@ const CCSPCampaign = () => {
                                 <div className="fund">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
+                                            {businessDetails.logo
+                                                ?
+                                                <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
+                                                :
+                                                <Image className="logo-portfolio rounded-circle" src={process.env.NEXT_PUBLIC_IMAGE_URL + "docs/" + (businessDetails.logo || 'default.png')} alt="portfolio" width={150} height={150} style={{ height: '150px !important' }} />
+                                            }
                                         </div>
                                         <div className="col-sm-9">
                                             <p className="f-20 c-blue mb-2"><b>{user.name}</b></p>
@@ -215,9 +219,9 @@ const CCSPCampaign = () => {
 
                                     <div className="deal-text">
                                         <div className="row">
-                                        <div className="col-sm-12">
+                                            <div className="col-sm-12">
                                                 <p className="post-text">Deal updated: {new Date(ifinworth.updated_at).toLocaleDateString()} - {new Date(ifinworth.updated_at).toLocaleTimeString()}</p>
-                                            </div>                                                                                    
+                                            </div>
                                         </div>
                                     </div>
 

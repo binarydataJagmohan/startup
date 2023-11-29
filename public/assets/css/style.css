@@ -5430,7 +5430,7 @@ div#accordionExample h2 button {
 }
 
 .progress-bar {
-  background-color: #4d48c9 !important;
+  background-color: #64CCC5 !important;
 }
 
 a.dropbtn1:hover {
@@ -7819,4 +7819,20 @@ button.btn.btn-secondary.set-detail-btn {
 
 label.form-label.mt-3.above-height {
   margin-top: 85px !important;
+}
+
+
+.ccsp_fund_file_upload{
+  width: 60%;
+}
+
+@media screen and (min-width: 300px) and (max-width: 768px) {
+  .step-form {
+    margin-left: 0rem;
+    margin-top: 5rem;
+  }
+}
+.step-form {
+  margin-left: 19rem;
+  margin-top: 5rem;
 }
