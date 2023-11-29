@@ -928,14 +928,14 @@ const Profile = () => {
                                                     <form onSubmit={submitPersonalInfoForm}>
                                                         <div className="row">
                                                             <div className="col-sm-6">
-                                                                <div className="form-part">
-                                                                    <label
-                                                                        htmlFor="exampleFormControlInput1"
-                                                                        className="form-label"
-                                                                    >
-                                                                        Name{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
-                                                                    </label>
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Name{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div className="form-part mt-3">
                                                                     <input type="text" className="form-control form-css" placeholder="Name"  {...register("name", { value: true, required: true, })} onChange={handleChange} name="name" value={user.name} />
                                                                     {errors.name &&
                                                                         errors.name.type === "required" && (
@@ -949,14 +949,14 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-6">
-                                                                <div className="form-part">
-                                                                    <label
-                                                                        htmlFor="exampleFormControlInput1"
-                                                                        className="form-label"
-                                                                    >
-                                                                        Email ID{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
-                                                                    </label>
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Email ID{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div className="form-part mt-3">
                                                                     <input type="email" className="form-control form-css" placeholder="Email" {...register("email", {
                                                                         // onChange: handleChange,
                                                                         required: true,
@@ -971,19 +971,20 @@ const Profile = () => {
                                                             </div>
                                                         </div>
                                                         <div className="row">
-                                                            <div className="col-sm-6">
-                                                                <div className="form-part">
-                                                                    <label
-                                                                        htmlFor="exampleFormControlInput1"
-                                                                        className="form-label"
-                                                                    >
-                                                                        Linkedin URL{" "}
-                                                                        <span style={{ color: "red" }}>*</span>
-                                                                    </label>
+                                                            <div className="col-sm-6 mt-3">
+                                                                <label
+                                                                    htmlFor="exampleFormControlInput1"
+                                                                    className="form-label"
+                                                                >
+                                                                    Linkedin URL{" "}
+                                                                    <span style={{ color: "red" }}>*</span>
+                                                                </label>
+                                                                <div className="form-part mt-3">
+
                                                                     <input type="text" className="form-control form-css" placeholder="www.linkedin.com" onChange={handleChange} name="linkedin_url" value={user.linkedin_url} />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-sm-6">
+                                                            <div className="col-sm-6 mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
@@ -992,17 +993,21 @@ const Profile = () => {
                                                                     <span style={{ color: "red" }}>*</span>
                                                                 </label>
                                                                 <div className="form-part mt-3">
-                                                                    <PhoneInput
+                                                                    <div className="mt-3">
+                                                                    <PhoneInput                                                                    
                                                                         onClick={phonClick}
                                                                         country={"us"}
                                                                         value={user.phone} inputClass={'form-css'}
                                                                         onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
                                                                     />
+                                                                    
+                                                                    </div>
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="row">
-                                                            <div className="col-sm-6">
+                                                            <div className="col-sm-6 mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
@@ -1030,7 +1035,7 @@ const Profile = () => {
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div className="col-sm-6">
+                                                            <div className="col-sm-6 mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
@@ -1044,7 +1049,7 @@ const Profile = () => {
                                                             </div>
                                                         </div>
                                                         <div className="row mb-5">
-                                                            <div className="col-sm-6">
+                                                            <div className="col-sm-6 mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
@@ -1052,7 +1057,7 @@ const Profile = () => {
                                                                     Gender{" "}
                                                                     <span style={{ color: "red" }}>*</span>
                                                                 </label>
-                                                                <div className="form-part">
+                                                                <div className="form-part mt-3">
                                                                     <select
                                                                         className="form-select form-css" onChange={handleChange}
                                                                         name="gender" value={user.gender}
@@ -1104,7 +1109,7 @@ const Profile = () => {
 
                                                                 </div>
                                                             </div> */}
-                                                            <div className="col-sm-6 ">
+                                                            <div className="col-sm-6  mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"

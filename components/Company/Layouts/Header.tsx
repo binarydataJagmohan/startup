@@ -29,7 +29,7 @@ const Header = () => {
     removeStorageData();
     redirectToLogin();
   }
-  useEffect(() => {
+  useEffect(() => {  
     const current_user_data: UserData = getCurrentUserData();
     current_user_data.username
       ? setCurrentUserName(current_user_data.username)
@@ -38,7 +38,7 @@ const Header = () => {
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-
+    console.log(current_user_data);
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
@@ -351,7 +351,7 @@ const Header = () => {
                 <Image className="rounded-circle header-profile-user" src={process.env.NEXT_PUBLIC_IMAGE_URL + "images/profile/" + (users.profile_pic || 'default.png')} alt="" width={32} height={32} />
               </button>
               <div className="dropdown-menu dropdown-menu-end">
-                <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{current_user_role.slice(0, 1).toUpperCase() + current_user_role.slice(1)}</p>
+                <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{users.name}</p>
                 <div className="dropdown-divider" />
                 <Link className="dropdown-item" href={process.env.NEXT_PUBLIC_BASE_URL + "company/profile"}><i className="mdi mdi-account-circle font-size-17 align-middle me-1" /> Profile</Link>
                 

@@ -86,7 +86,7 @@ const ClosedCampaigns = () => {
         <div className="container py-5">
         <div className='col-md-12'>
                     <div className='card'>
-                        <div className='card-body text-white' style={{backgroundColor:"#514ec7"}}>
+                        <div className='card-body text-dark' style={{backgroundColor:"#64CCC5"}}>
                             These Campaign is now Closed.
                         </div>
                     </div>
@@ -110,7 +110,7 @@ const ClosedCampaigns = () => {
                       </div>
 
                       <h5><a href={inputs.website_url} target='_blank' style={{ color: "black" }}>{inputs.business_name}</a></h5>
-                      <p>UserName</p>
+                      <p>Company</p>
                     </div>
                   </div>
                 </div>
@@ -126,8 +126,8 @@ const ClosedCampaigns = () => {
                     <span>Units Left</span>
                     <br />
                     <span className="progressbar-value">
-                      <span className="color-rumaric">
-                        {inputs.no_of_units}
+                      <span className="unit">
+                       <strong>{inputs.no_of_units}</strong>
                       </span>
                       <strong>/{inputs.total_units}</strong>
                     </span>
