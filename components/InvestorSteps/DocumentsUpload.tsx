@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
 import { uploadDocuments, fetchSingleUserDocuments, getSingleUserData } from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
 import Image from 'next/image';
@@ -13,9 +12,7 @@ export default function DocumentsUpload(): any {
     const [pan_card_front, setPanCardFront] = useState(null);
     const [pan_card_back, setPanCardBack] = useState(null);
     const [adhar_card_front, setAdharCardFront] = useState(null);
-    const [adhar_card_back, setAdharCardBack] = useState(null);
-    const [signup_success, setSignupSuccess] = useState(false);
-    const [document_id, setDocumentId] = useState("");
+    const [adhar_card_back, setAdharCardBack] = useState(null);   
     const [errors, setErrors] = useState({
         pan_card_front: "",
         pan_card_back: "",

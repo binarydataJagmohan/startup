@@ -494,7 +494,7 @@ export default function Businessinfo(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo.substring(0, 20) + '.....' : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}
@@ -561,7 +561,7 @@ export default function Businessinfo(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck : "No File Chosen ...")}
+                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputPitchDeck}

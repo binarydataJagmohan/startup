@@ -324,7 +324,7 @@ const EditAdmin = () => {
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
 
-                                                    <input type="text" className="form-control" id="linkedin_url"  value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
+                                                    <input type="text" className="form-control" id="linkedin_url" value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
                                                     {invalidFields.includes("linkedin_url") && (
                                                         <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
                                                             Please enter a valid linkedin_url address.
@@ -443,7 +443,7 @@ const EditAdmin = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {startupLogoName ? startupLogoName : (users.profile_pic ? users.profile_pic : "No File Chosen ...")}
+                                                                                {startupLogoName ? startupLogoName : (users.profile_pic ? users.profile_pic.substring(0, 20) + '.....' : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
                                                                                 className="input-file"

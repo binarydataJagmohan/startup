@@ -4,5 +4,8 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true
 	},
-	"deepscan.ignoreConfirmWarning": true
+	"deepscan.ignoreConfirmWarning": true,
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
 }

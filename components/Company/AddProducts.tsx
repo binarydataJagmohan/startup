@@ -7,7 +7,7 @@ import {
     AdminAddProducts,
     AdminUpdateProduct,
     getAdminProductdata,
-    
+
 } from "@/lib/adminapi";
 import { useRouter } from "next/router";
 import Image from 'next/image';
@@ -263,7 +263,7 @@ export default function AddProducts() {
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
-                                                <Link
+                                                    <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                             "company/ccsp-campaign"
@@ -533,7 +533,7 @@ export default function AddProducts() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (productimage ? productimage : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (productimage ? productimage.substring(0, 20) + '.....' : "No File Chosen ...")}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"

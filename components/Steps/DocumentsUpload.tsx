@@ -472,8 +472,8 @@ export default function DocumentsUpload(): any {
                                       {panCardFrontName
                                         ? panCardFrontName
                                         : basicDetails.pan_card_front
-                                        ? basicDetails.pan_card_front
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.pan_card_front.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       ref={fileInputRef}
@@ -595,8 +595,8 @@ export default function DocumentsUpload(): any {
                                       {panCardBackName
                                         ? panCardBackName
                                         : basicDetails.pan_card_back
-                                        ? basicDetails.pan_card_back
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.pan_card_back.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -716,8 +716,8 @@ export default function DocumentsUpload(): any {
                                       {adharCardFrontName
                                         ? adharCardFrontName
                                         : basicDetails.adhar_card_front
-                                        ? basicDetails.adhar_card_front
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.adhar_card_front.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -836,8 +836,8 @@ export default function DocumentsUpload(): any {
                                       {adharCardBackName
                                         ? adharCardBackName
                                         : basicDetails.adhar_card_back
-                                        ? basicDetails.adhar_card_back
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.adhar_card_back.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -956,8 +956,8 @@ export default function DocumentsUpload(): any {
                                       {certificate_incorporationName
                                         ? certificate_incorporationName
                                         : basicDetails.certificate_incorporation
-                                        ? basicDetails.certificate_incorporation
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.certificate_incorporation.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -967,7 +967,7 @@ export default function DocumentsUpload(): any {
                                       }
                                       accept=".jpg, .png, .jpeg, .pdf  "
                                     />
-                                     {/* <input
+                                    {/* <input
                                       type="file"
                                       name="certificate_incorporation"
                                       onChange={handleCertificateOfIncorporationChange}
@@ -1084,8 +1084,8 @@ export default function DocumentsUpload(): any {
                                       {bankStatementThreeYearsName
                                         ? bankStatementThreeYearsName
                                         : basicDetails.bank_statement_three_years
-                                        ? basicDetails.bank_statement_three_years
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.bank_statement_three_years.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -1204,8 +1204,8 @@ export default function DocumentsUpload(): any {
                                       {MOAName
                                         ? MOAName
                                         : basicDetails.moa
-                                        ? basicDetails.moa
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.moa.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"
@@ -1318,8 +1318,8 @@ export default function DocumentsUpload(): any {
                                       {AOAName
                                         ? AOAName
                                         : basicDetails.aoa
-                                        ? basicDetails.aoa
-                                        : "No File Chosen ..."}
+                                          ? basicDetails.aoa.substring(0, 20) + '.....'
+                                          : "No File Chosen ..."}
                                     </div>
                                     <input
                                       type="file"

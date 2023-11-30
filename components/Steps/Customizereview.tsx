@@ -143,7 +143,7 @@ export default function Customereview(): any {
       formData.append("user_id", basicDetails.user_id);
       formData.append("pan_number", basicDetails.pan_number);
       formData.append("uid", basicDetails.uid);
-      formData.append("dob", basicDetails.dob);      
+      formData.append("dob", basicDetails.dob);
       const res = await basicInformationSave(formData);
       if (res.status == true) {
         // toast.success(res.message, {
@@ -285,7 +285,7 @@ export default function Customereview(): any {
                                 name="dob"
                                 onChange={handleChange}
                                 placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
-                                //max={`${new Date().getFullYear() - 18}-12-31`}
+                              //max={`${new Date().getFullYear() - 18}-12-31`}
                               />
                               <div className="help-block with-errors" />
                               {errors.dob && errors.dob.type === "required" && (
@@ -315,7 +315,7 @@ export default function Customereview(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
+                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img.substring(0, 20) + '.....' : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}

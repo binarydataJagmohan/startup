@@ -29,7 +29,7 @@ const Header = () => {
     removeStorageData();
     redirectToLogin();
   }
-  useEffect(() => {  
+  useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     current_user_data.username
       ? setCurrentUserName(current_user_data.username)
@@ -38,7 +38,6 @@ const Header = () => {
       ? setCurrentUserRole(current_user_data.role)
       : setCurrentUserRole("");
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-    console.log(current_user_data);
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
@@ -64,7 +63,6 @@ const Header = () => {
     getCountOfUnreadNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          console.log(res)
           setUnreadNotifications(res.data);
         } else {
         }
@@ -137,12 +135,6 @@ const Header = () => {
                               <span>Dashboard</span>
                             </Link>
                           </li>
-                          {/* <li className={`nav-item ${router.pathname === '/company/fund-raise' ? 'active p1' : ''}`}>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "/company/fund-raise"} className="waves-effect">
-                              <i className="fa fa-dollar"></i>
-                              <span>Fund Raise</span>
-                            </Link>
-                          </li> */}
                           <li className={`nav-item ${router.pathname === '/company/all-fund-raise-list' ? 'active p1' : ''}`}>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-fund-raise-list"} className="waves-effect">
                               <i className="fa fa-building"></i>
@@ -155,28 +147,15 @@ const Header = () => {
                               <span>Notifications</span>
                             </Link>
                           </li>
-                          {/* <li>
-                          <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/chats"} className="waves-effect">
-                              <i className="fa fa-message"></i>
-                              <span>Chats</span>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="#" className="waves-effect">
-                              <i className="fa fa-cogs"></i>
-                              <span>Settings</span>
-                            </Link>
-                          </li> */}
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-request' ? 'active p1' : ''}`}>
-                            <i className="fa fa-business-time"></i>
+                              <i className="fa fa-business-time"></i>
                               <span>CCSP Request</span>
                             </Link>
                           </li>
                           <li>
                             <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-campaign' ? 'active p1' : ''}`}>
-                            <i className="fa fa-business-time"></i>
+                              <i className="fa fa-business-time"></i>
                               <span>CCSP Campaign</span>
                             </Link>
                           </li>
@@ -274,31 +253,6 @@ const Header = () => {
             </div>
           </div>
           <div className="d-flex">
-            {/* App Search*/}
-            {/* <form className="app-search d-none d-lg-block">
-              <div className="position-relative">
-                <input type="text" className="form-control" placeholder="Search..." />
-                <span className="fa fa-search" />
-              </div>
-            </form>
-            <div className="dropdown d-inline-block d-lg-none ms-2">
-              <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="mdi mdi-magnify" />
-              </button>
-              <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
-                <form className="p-3">
-                  <div className="form-group m-0">
-                    <div className="input-group">
-                      <input type="text" className="form-control" placeholder="Search ..." aria-label="Recipient's username" />
-                      <div className="input-group-append" >
-                        <button className="btnclasssmae" type="submit"><i className="mdi mdi-magnify" /></button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div> */}
-
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="mdi mdi-bell-outline" />
@@ -354,9 +308,6 @@ const Header = () => {
                 <p className="text-center" style={{ fontWeight: 'bold', marginBottom: '-8px' }}>{users.name}</p>
                 <div className="dropdown-divider" />
                 <Link className="dropdown-item" href={process.env.NEXT_PUBLIC_BASE_URL + "company/profile"}><i className="mdi mdi-account-circle font-size-17 align-middle me-1" /> Profile</Link>
-                
-                {/* <Link className="dropdown-item" href="#"><i className="mdi mdi-wallet font-size-17 align-middle me-1" /> My Wallet</Link> */}
-                {/* <a className="dropdown-item d-flex align-items-center" href="#"><i className="mdi mdi-cog font-size-17 align-middle me-1" /> Settings<span className="badge bg-success ms-auto">11</span></a> */}
                 <div className="dropdown-divider" />
                 <button className="dropdown-item text-danger" onClick={handleLogout}><i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" /> Logout</button>
               </div>

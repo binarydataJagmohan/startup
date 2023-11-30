@@ -200,23 +200,23 @@ const Campagin = () => {
       if (willUpdate) {
         axios
           .post(
-            `${process.env.NEXT_PUBLIC_API_URL}/delete-campaign/${id}`,            
+            `${process.env.NEXT_PUBLIC_API_URL}/delete-campaign/${id}`,
             {
               headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + getToken(),
               },
-              data:id,
+              data: id,
             }
           )
-          .then((response) => {           
+          .then((response) => {
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
             });
             setTimeout(() => {
               router.push("/company/ccsp-campaign");
-            },1500);
+            }, 1500);
           })
           .catch((error) => {
             // Handle error response
@@ -706,7 +706,7 @@ const Campagin = () => {
                     Chose file
                   </div>
                   <div className="file-select-name" id="noFile">
-                    {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")}
+                    {fundImageName ? fundImageName : (fundimage ? fundimage.substring(0, 20) + '.....' : "No File Chosen ...")}
                   </div>
                   <input
                     className="input-file"
