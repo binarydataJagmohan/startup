@@ -43,7 +43,7 @@ export default function SingleBlog(props: any) {
     };
 
     const router = useRouter();
-  const { slug } = router.query;
+    const { slug } = router.query;
     return (
         <>
             <section className="blog-section pt-100 pb-100">
@@ -54,21 +54,21 @@ export default function SingleBlog(props: any) {
                                 <div className="article-image">
                                     {/* <Image src="assets/img/blog-details/blog-1.jpg" alt="image" width={736} height={504} /> */}
                                     {blog?.image ? (
-                                        <Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}images/blogs/${blog.image}`} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" />
+                                        <Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}images/blogs/${blog.image}`} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" style={{ height: "300px" }} />
                                     ) : (
                                         <Image src={process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/placeholder.jpg"} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" />
                                     )}
                                 </div>
                                 <div className="article-content">
-                                    <div className="entry-meta">
+                                    <div className="entry-meta" style={{ marginTop: "20px" }}>
                                         <ul>
                                             <li>
-                                                <span>Posted On:</span>
-                                                <Link href="#">{formatDate(blog?.created_at || "")}</Link>
+                                                <span>Posted On: </span>
+                                                <Link href="#"> {formatDate(blog?.created_at || "")}</Link>
                                             </li>
                                             <li>
-                                                <span>Posted By:</span>
-                                                <Link href="#">{blog?.author_name}</Link>
+                                                <span>Posted By: </span>
+                                                <Link href="#">  {blog?.author_name}</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -79,7 +79,7 @@ export default function SingleBlog(props: any) {
                                         <cite>Tom Cruise</cite>
                                     </blockquote>
                                     <p>
-                                        <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} />
+                                        <div dangerouslySetInnerHTML={{ __html: blog?.description ?? "" }} />
 
                                     </p>
                                 </div>

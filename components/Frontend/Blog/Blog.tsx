@@ -57,46 +57,46 @@ export default function Blog() {
                             {paginatedBlogs.map((blog: any, index: number) => (
                                 <div className="col-lg-4 col-md-6" key={index}>
                                     <div className="single-blog">
-                                        <div className="image">
-                                            <Link href={`/blog/${blog.slug}`}>
-                                                {blog.image ? (
-                                                    <Image
-                                                        src={
-                                                            process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                            "images/blogs/" +
-                                                            blog.image
-                                                        }
-                                                        alt="tab-1"
-                                                        width={356}
-                                                        height={478}
-                                                        layout="responsive"
-                                                    />
-                                                ) : (
-                                                    <Image
-                                                        src={
-                                                            process.env.NEXT_PUBLIC_BASE_URL +
-                                                            "/assets/images/placeholder.jpg"
-                                                        }
-                                                        alt="Default Blog"
-                                                        width={356}
-                                                        height={478}
-                                                        layout="responsive"
-                                                    />
-                                                )}
-                                            </Link>
-                                        </div>
-                                        <div className="content">
-                                            <span>{formatDate(blog.created_at || "")}</span>
-                                            <h3>
+                                        <div className='blog-img'>
+                                            <div className="image">
                                                 <Link href={`/blog/${blog.slug}`}>
-                                                    {blog.name}
+                                                    {blog.image ? (
+                                                        <Image
+                                                            src={
+                                                                process.env.NEXT_PUBLIC_IMAGE_URL +
+                                                                "images/blogs/" +
+                                                                blog.image
+                                                            }
+                                                            alt="tab-1"
+                                                            width={356}
+                                                            height={478}
+                                                            style={{ height: "300px" }}
+                                                        />
+                                                    ) : (
+                                                        <Image
+                                                            src={
+                                                                process.env.NEXT_PUBLIC_BASE_URL +
+                                                                "/assets/images/placeholder.jpg"
+                                                            }
+                                                            alt="Default Blog"
+                                                            width={356}
+                                                            height={478}
+                                                        />
+                                                    )}
                                                 </Link>
-                                            </h3>
-                                            <p>
-                                                <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} />
-                                            </p>
-                                            <Link href={`/blog/${blog.slug}`} className="read-more">Read More</Link>
-                                        </div>
+                                            </div>
+                                            <div className="content" style={{ height: "220px" }}>
+                                                <span>{formatDate(blog.created_at || "")}</span>
+                                                <h3>
+                                                    <Link href={`/blog/${blog.slug}`}>
+                                                        {blog.name}
+                                                    </Link>
+                                                </h3>
+                                                <p>
+                                                    <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} />
+                                                </p>
+                                                <Link href={`/blog/${blog.slug}`} className="read-more">Read More</Link>
+                                            </div></div>
                                     </div>
                                 </div>
                             ))}
