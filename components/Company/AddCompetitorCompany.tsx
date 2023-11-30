@@ -22,7 +22,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
 
 
 // export default function AddCompetitorCompany() {
-    const AddCompetitorCompany = () => {
+const AddCompetitorCompany = () => {
 
     const [CompanyName, setCompanyName] = useState("");
     const [CompanyDesc, setCompanyDesc] = useState("");
@@ -138,7 +138,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
     const [fileName, setFileName] = useState('');
     const [error, setError] = useState('');
 
-    const handleLogoChange = (e:any) => {
+    const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
         const allowedTypes = ['image/jpeg', 'image/png'];
         const maxSizeMB = 2; // 2MB limit
@@ -268,7 +268,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
-                                                <Link
+                                                    <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                             "company/ccsp-campaign"
@@ -444,7 +444,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         width={300}
-                                                                            height={200}
+                                                                        height={200}
                                                                     />
                                                                 ) : (
                                                                     <Image
@@ -454,7 +454,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         width={300}
-                                                                            height={200}
+                                                                        height={200}
                                                                     />
                                                                 )}
 
@@ -511,7 +511,7 @@ const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
                                                                         </div>
                                                                         <div className="file-select-name" id="noFile">
 
-                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo : "No File Chosen ...")}
+                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo.substring(0, 20) + '.....' : "No File Chosen ...")}
 
                                                                         </div>
                                                                         <input

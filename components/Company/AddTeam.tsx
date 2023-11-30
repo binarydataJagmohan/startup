@@ -230,7 +230,7 @@ export default function AddCompetitorCompany() {
         }
     };
 
- 
+
     return (
         <>
             <div className="main-content">
@@ -260,7 +260,7 @@ export default function AddCompetitorCompany() {
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
-                                                <Link
+                                                    <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                             "company/ccsp-campaign"
@@ -556,7 +556,7 @@ export default function AddCompetitorCompany() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic.substring(0, 20) + '.....' : "No File Chosen ...")}
 
                                                                     </div>
                                                                     <input

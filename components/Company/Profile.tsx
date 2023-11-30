@@ -994,15 +994,15 @@ const Profile = () => {
                                                                 </label>
                                                                 <div className="form-part mt-3">
                                                                     <div className="mt-3">
-                                                                    <PhoneInput                                                                    
-                                                                        onClick={phonClick}
-                                                                        country={"us"}
-                                                                        value={user.phone} inputClass={'form-css'}
-                                                                        onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
-                                                                    />
-                                                                    
+                                                                        <PhoneInput
+                                                                            onClick={phonClick}
+                                                                            country={"us"}
+                                                                            value={user.phone} inputClass={'form-css'}
+                                                                            onChange={(value) => setUser((prevState) => ({ ...prevState, phone: value }))}
+                                                                        />
+
                                                                     </div>
-                                                                   
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1070,45 +1070,6 @@ const Profile = () => {
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            {/* <div className="col-sm-2 ">
-                                                                <label
-                                                                    htmlFor="exampleFormControlInput1"
-                                                                    className="form-label"
-                                                                >
-                                                                    Profile{" "}
-                                                                    <span style={{ color: "red" }}>*</span>
-                                                                </label>
-                                                                <div className="profile-pic">
-                                                                    {previewImage ? (
-                                                                        <Image
-                                                                            src={typeof previewImage === 'string' ? previewImage : ''}
-                                                                            width={300}
-                                                                            height={200}
-                                                                            alt=''
-                                                                            className='profile-pic'
-                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                        />
-                                                                    ) : (
-                                                                        user.profile_pic ? (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/' + user.profile_pic}
-                                                                                className="profile-pic"
-                                                                                alt="preview"
-                                                                                width={100}
-                                                                                height={100}
-                                                                            />
-                                                                        ) : (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
-                                                                                alt="business-logo"
-                                                                                width={100}
-                                                                                height={100}
-                                                                            />
-                                                                        )
-                                                                    )}
-
-                                                                </div>
-                                                            </div> */}
                                                             <div className="col-sm-6  mt-3">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
@@ -1130,7 +1091,7 @@ const Profile = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {profilePicName ? profilePicName : (user.profile_pic ? user.profile_pic : "No File Chosen ...")}
+                                                                                {profilePicName ? profilePicName : (user.profile_pic ? user.profile_pic.substring(0, 20) + '.....' : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
                                                                                 // ref={fileInputRef}
@@ -1369,7 +1330,7 @@ const Profile = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo.substring(0, 20) + '.....' : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
                                                                                 // ref={fileInputRef}
@@ -1408,45 +1369,7 @@ const Profile = () => {
                                                                     />
                                                                 </div>
                                                             </div>
-
-                                                            {/* <div className="col-sm-2">
-                                                                <label
-                                                                    htmlFor="exampleFormControlInput1"
-                                                                    className="form-label"
-                                                                >
-                                                                    Startup Logo
-                                                                </label>
-                                                                <div className="logo">
-                                                                    {previewLogoImage ? (
-                                                                        <Image
-                                                                            src={typeof previewLogoImage === 'string' ? previewLogoImage : ''}
-                                                                            width={300}
-                                                                            height={200}
-                                                                            alt=''
-                                                                            className='profile-pic'
-                                                                            style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                        />
-                                                                    ) : (
-                                                                        businessDetails.logo ? (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + '/docs/' + businessDetails.logo} className="profile-pic" alt="preview"
-                                                                                width={100}
-                                                                                height={100}
-                                                                            />
-                                                                        ) : (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
-                                                                                alt="business-logo"
-                                                                                width={100}
-                                                                                height={100}
-                                                                            />
-                                                                        )
-                                                                    )}
-                                                                </div>
-                                                            </div> */}
-
                                                         </div>
-
                                                         <div className="mt-2 d-flex align-items-left">
                                                             <input
                                                                 className="w-auto"
@@ -1561,36 +1484,6 @@ const Profile = () => {
                                                                     )}
                                                                 </div>
                                                             </div>
-                                                            {/* <div className="col-sm-2">
-                                                                <div className="profile-pic">
-                                                                    {priviewProofImage && typeof priviewProofImage === 'string' && priviewProofImage.endsWith('.pdf') ? (
-                                                                        <embed
-                                                                            src={priviewProofImage}
-                                                                            width="100%"
-                                                                            height="600px"
-                                                                            type="application/pdf"
-                                                                        />
-                                                                    ) : (
-                                                                        basicDetails.proof_img ? (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
-                                                                                alt="proof-img"
-                                                                                className="proof-img"
-                                                                                width={120}
-                                                                                height={120}
-                                                                            />
-                                                                        ) : (
-                                                                            <Image
-                                                                                src={process.env.NEXT_PUBLIC_IMAGE_URL + 'images/profile/profile.webp'}
-                                                                                alt="business-logo"
-                                                                                width={100}
-                                                                                height={100}
-                                                                            />
-                                                                        )
-                                                                    )}
-
-                                                                </div>
-                                                            </div> */}
                                                             <div className="col-sm-6">
                                                                 <label
                                                                     htmlFor="exampleFormControlInput1"
@@ -1614,7 +1507,7 @@ const Profile = () => {
 
 
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {proofImgName ? proofImgName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
+                                                                                {proofImgName ? proofImgName : (basicDetails.proof_img ? basicDetails.proof_img.substring(0, 20) + '.....' : "No File Chosen ...")}
                                                                             </div>
 
                                                                             <input
@@ -1812,7 +1705,7 @@ const Profile = () => {
                                                                                                 {panCardFrontName
                                                                                                     ? panCardFrontName
                                                                                                     : documentDetails.pan_card_front
-                                                                                                        ? documentDetails.pan_card_front
+                                                                                                        ? documentDetails.pan_card_front.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -1933,7 +1826,7 @@ const Profile = () => {
                                                                                                 {panCardBackName
                                                                                                     ? panCardBackName
                                                                                                     : documentDetails.pan_card_back
-                                                                                                        ? documentDetails.pan_card_back
+                                                                                                        ? documentDetails.pan_card_back.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2052,7 +1945,7 @@ const Profile = () => {
                                                                                                 {adharCardFrontName
                                                                                                     ? adharCardFrontName
                                                                                                     : documentDetails.adhar_card_front
-                                                                                                        ? documentDetails.adhar_card_front
+                                                                                                        ? documentDetails.adhar_card_front.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2170,7 +2063,7 @@ const Profile = () => {
                                                                                                 {adharCardBackName
                                                                                                     ? adharCardBackName
                                                                                                     : documentDetails.adhar_card_back
-                                                                                                        ? documentDetails.adhar_card_back
+                                                                                                        ? documentDetails.adhar_card_back.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2288,7 +2181,7 @@ const Profile = () => {
                                                                                                 {certificate_incorporationName
                                                                                                     ? certificate_incorporationName
                                                                                                     : documentDetails.certificate_incorporation
-                                                                                                        ? documentDetails.certificate_incorporation
+                                                                                                        ? documentDetails.certificate_incorporation.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2299,12 +2192,6 @@ const Profile = () => {
                                                                                                 }
                                                                                                 accept=".jpg, .png, .jpeg, .pdf  "
                                                                                             />
-                                                                                            {/* <input
-                                      type="file"
-                                      name="certificate_incorporation"
-                                      onChange={handleCertificateOfIncorporationChange}
-                                      accept=".jpg, .png, .jpeg, .pdf  "
-                                    /> */}
                                                                                         </div>
                                                                                     </div>
                                                                                     <label
@@ -2414,7 +2301,7 @@ const Profile = () => {
                                                                                                 {bankStatementThreeYearsName
                                                                                                     ? bankStatementThreeYearsName
                                                                                                     : documentDetails.bank_statement_three_years
-                                                                                                        ? documentDetails.bank_statement_three_years
+                                                                                                        ? documentDetails.bank_statement_three_years.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2532,7 +2419,7 @@ const Profile = () => {
                                                                                                 {MOAName
                                                                                                     ? MOAName
                                                                                                     : documentDetails.moa
-                                                                                                        ? documentDetails.moa
+                                                                                                        ? documentDetails.moa.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2646,7 +2533,7 @@ const Profile = () => {
                                                                                                 {AOAName
                                                                                                     ? AOAName
                                                                                                     : documentDetails.aoa
-                                                                                                        ? documentDetails.aoa
+                                                                                                        ? documentDetails.aoa.substring(0, 20) + '.....'
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input

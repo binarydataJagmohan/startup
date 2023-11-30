@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
-import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata,deleteTeam } from "@/lib/adminapi";
+import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata, deleteTeam } from "@/lib/adminapi";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -279,7 +279,7 @@ export default function AddCompetitorCompany() {
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
-                                                <Link
+                                                    <Link
                                                         href={
                                                             process.env.NEXT_PUBLIC_BASE_URL +
                                                             "admin/all-active-campaign"
@@ -578,7 +578,7 @@ export default function AddCompetitorCompany() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic.substring(0, 20) + '.....' : "No File Chosen ...")}
 
                                                                     </div>
                                                                     <input
