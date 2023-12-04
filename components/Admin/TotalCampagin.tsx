@@ -39,8 +39,6 @@ const Campagin = () => {
   const [current_user_id, setCurrentUserId] = useState("");
   const [funds, setFundsData]: any = useState<Fund[]>([]);
   const [companyOverview, setCompanyOverview] = useState("");
-  const [ccspfundid, setCCSPFundId] = useState("");
-  const [ccspid, setCCSPId] = useState("");
   const [productDescription, setProductDesc] = useState("");
   const [dilutionpercentage, setDilutionPercentage] = useState("");
   const [minCommitment, setMinCommitment] = useState("");
@@ -59,9 +57,6 @@ const Campagin = () => {
   );
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
 
   const handleDropdownToggle = async (index: any, fundId: number, e: any) => {
     e.preventDefault()
@@ -102,8 +97,6 @@ const Campagin = () => {
             setProductDesc(selectedCampaign.product_description);
             setHistoricalFinancial(selectedCampaign.historical_financials_desc);
             setPastFinancing(selectedCampaign.past_financing_desc);
-            setCCSPFundId(selectedCampaign.ccsp_fund_id);
-            setCCSPId(selectedCampaign.id);
             setFundName(selectedCampaign.fund_name);
             setFundImage(selectedCampaign.fund_banner_image);
             setFundDesc(selectedCampaign.fund_desc);
@@ -120,25 +113,6 @@ const Campagin = () => {
     }
   };
 
-
-  useEffect(() => {
-    const closeDropdownOnClick = (event: MouseEvent) => {
-      const dropdownMenus = document.querySelectorAll(".dropdown-content") as NodeListOf<HTMLUListElement>;
-
-      dropdownMenus.forEach((menu) => {
-        if (!menu.contains(event.target as Node)) {
-          setIsDropdownOpen(false); // Close the dropdown when clicking outside
-        }
-      });
-    };
-
-    document.addEventListener("mousedown", closeDropdownOnClick);
-
-    return () => {
-      document.removeEventListener("mousedown", closeDropdownOnClick);
-    };
-  }, []);
-
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
@@ -146,19 +120,15 @@ const Campagin = () => {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id.toString())
         : setCurrentUserId("");
-      // getAllActiveFunds()
       getAllCCSPCampaign()
         .then((res) => {
           if (res.status == true) {
             setFundsData(res.data);
-
-
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
             });
           }
-
         })
         .catch((err) => {
           toast.error(err.message, {
@@ -199,7 +169,8 @@ const Campagin = () => {
         },
       })
       .then(response => {
-        if (status === 'approved') { // Check if approval_status is 'approved'
+        if (status === 'approved') {
+          // Check if approval_status is 'approved'
           const updatedFunds = funds.map((fund: {
             user_id: any; id: number;
           }) => {
@@ -215,10 +186,8 @@ const Campagin = () => {
               // Send Notifications
               sendNotification(data)
                 .then((notificationRes) => {
-                  console.log('Notification sent successfully');
                 })
                 .catch((error) => {
-                  console.log('Error sending notification:', error);
                 });
               return {
                 ...fund,
@@ -227,9 +196,7 @@ const Campagin = () => {
             }
             return fund;
           });
-
           setFundsData(updatedFunds);
-
           toast.success(response.data.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
@@ -241,7 +208,6 @@ const Campagin = () => {
           );
 
           setFundsData(updatedFunds);
-
           toast.success(response.data.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
@@ -255,10 +221,6 @@ const Campagin = () => {
         });
       });
   }
-
-
-
-
 
   function deleteFund(id: number, newStatus: string) {
     swal({
@@ -281,31 +243,7 @@ const Campagin = () => {
             }
           )
           .then((response) => {
-            const updatedData = funds.map((fund: any) => {
-              if (fund.id === id) {
-                const data = {
-                  notify_from_user: current_user_id,
-                  notify_to_user: fund.user_id,
-                  notify_msg: `Your Fund Has Been Deleted By Admin`,
-                  notification_type: "CCSP Fund Approval Notification",
-                  each_read: "unread",
-                  status: "active"
-                };
-                // Send Notifications
-                sendNotification(data)
-                  .then((notificationRes) => {
-                    console.log('Notification sent successfully');
-                  })
-                  .catch((error) => {
-                    console.log('Error sending notification:', error);
-                  });
-                return {
-                  ...fund,
-                  status: newStatus,
-                };
-              }
-              return fund;
-            });
+
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "success",
@@ -313,16 +251,11 @@ const Campagin = () => {
             window.location.reload();
           })
           .catch((error) => {
-            // Handle error response
             toast.error(error.message, {
               position: toast.POSITION.TOP_RIGHT,
               toastId: "error",
             });
           });
-      } else {
-        // Handle cancel action (optional)
-        // For example: Notify the user that the deletion action was canceled
-        console.log('Deletion canceled by user');
       }
     });
   }
@@ -333,7 +266,6 @@ const Campagin = () => {
   const [modalConfirm3, setModalConfirm3] = useState(false);
   const [modalConfirm4, setModalConfirm4] = useState(false);
   const [modalConfirm5, setModalConfirm5] = useState(false);
-
 
   const modalConfirmClose = () => {
     setModalConfirm(false);
@@ -385,8 +317,6 @@ const Campagin = () => {
     }
   };
 
-
-
   const handleCompanyOverviewChange = (updatedOverview: string) => {
     setCompanyOverview(updatedOverview);
   };
@@ -404,7 +334,6 @@ const Campagin = () => {
     const fetchDataForSelectedFund = async () => {
       try {
         const response = await getAllCCSPCampaign(selectedFundId);
-
         // Check if response status is true and data exists
         if (response && response.status && response.data && response.data.length > 0) {
           const selectedFund = response.data.find((fund: { id: number | null; }) => fund.id === selectedFundId);
@@ -420,8 +349,6 @@ const Campagin = () => {
             setProductDesc(selectedFund.product_description);
             setHistoricalFinancial(selectedFund.historical_financials_desc);
             setPastFinancing(selectedFund.past_financing_desc);
-            setCCSPFundId(selectedFund.ccsp_fund_id)
-            setCCSPId(selectedFund.id)
             setFundName(selectedFund.fund_name)
             setFundImage(selectedFund.fund_banner_image)
             setFundDesc(selectedFund.fund_desc)
@@ -439,8 +366,6 @@ const Campagin = () => {
     ;
     fetchDataForSelectedFund();
   }, [modalConfirm4, selectedFundId]);
-
-
 
   const handleAddFundNameImage = async (e: any) => {
     e.preventDefault();
@@ -467,10 +392,8 @@ const Campagin = () => {
   const [fundImageNameError, setFundImageNameError] = useState('');
   const [startUpLogoError, setStartupLogoError] = useState('');
 
-
   const handleUpdateLogoChange = (e: any) => {
     const file = e.target.files[0];
-
     if (file) {
       const allowedTypes = ['image/jpeg', 'image/png'];
       const maxSize = 2 * 1024 * 1024;
@@ -501,8 +424,6 @@ const Campagin = () => {
       setPreviewImage(null);
     }
   };
-
-
 
   return (
     <>
@@ -549,13 +470,11 @@ const Campagin = () => {
                           >
                             <thead>
                               <tr>
-                                <th>#</th>
+                                <th>Serial no.</th>
                                 <th>CCSP Id</th>
                                 <th>Startup Name</th>
                                 <th>Fund Name</th>
-                                {/* <th>Round Name</th> */}
                                 <th>Amount</th>
-                                {/* <th>Pre Commited Amount</th> */}
                                 <th>Status</th>
                                 <th>Action</th>
                               </tr>
@@ -567,47 +486,17 @@ const Campagin = () => {
                                   .map((fund: any, index: any) => (
                                     // funds.map((fund: any, index: any) => (
                                     <tr key={index}>
-                                      <td data-label="Account">{index + 1}</td>
-
-                                      <td data-label="Account">{fund.ccsp_fund_id}</td>
-                                      <td data-label="Account">{fund.name}</td>
-                                      <td data-label="Account">{fund.fund_name}</td>
-
-                                      {/* <td data-label="Account">
-                                      {fund.round_of_ifinworth}
-                                    </td> */}
-
+                                      <td data-label="Serial no.">{index + 1}</td>
+                                      <td data-label="CCSP Id">{fund.ccsp_fund_id}</td>
+                                      <td data-label="Startup Name">{fund.name}</td>
+                                      <td data-label="Fund Name">{fund.fund_name}</td>
                                       <td data-label="Amount">
                                         {fund.ifinworth_amount}
                                       </td>
-
-                                      {/* <td data-label="Period">
-                                      {fund.pre_committed_ifinworth_amount}
-                                    </td> */}
-
-
-                                      <td data-label="Period">
+                                      <td data-label="Status">
                                         <span style={{ cursor: "pointer" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved')}> {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
-                                        {/* <span
-                                        style={{ cursor: "pointer" }}
-                                        className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'}
-                                        onClick={() => {
-                                          if (!fundname || !funddesc ) { // Check karein ki kuch fields khali hain ya nahi
-                                            toast.error("Please fill all fields first", {
-                                              position: toast.POSITION.BOTTOM_RIGHT,
-                                            });
-                                          } else {
-                                            updateApprovalStatus(fund.id, fund.approval_status === 'approved' ? 'pending' : 'approved');
-                                          }
-                                        }}
-                                      >
-                                        {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}
-                                      </span> */}
                                       </td>
-
-
-
-                                      <td>
+                                      <td data-label="Action">
                                         <div className="dropdown set-drop m-1" ref={dropdownRef}>
                                           <span
                                             onClick={(e) =>
@@ -950,13 +839,6 @@ const Campagin = () => {
             <label className="form-label">
               <h4>Product Description</h4>
             </label>
-            {/* <textarea
-                            rows={4}
-                            placeholder="Enter details here"
-                            className="form-control"
-                            onChange={(e) => setProductDesc(e.target.value)}
-                            name="product_description"
-                        /> */}
             <TextEditor
               height={100}
               value={productDescription}
@@ -993,13 +875,6 @@ const Campagin = () => {
             <label className="form-label">
               <h4>Historical Financial</h4>
             </label>
-            {/* <textarea
-                            rows={4}
-                            placeholder="Enter details here"
-                            className="form-control"
-                            onChange={(e) => setHistoricalFinancial(e.target.value)}
-                            name="historical_financials_desc"
-                        /> */}
             <TextEditor
               height={100}
               value={historicalFinancials_desc}

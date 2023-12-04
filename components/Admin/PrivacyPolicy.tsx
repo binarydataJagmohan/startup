@@ -10,13 +10,6 @@ import axios from 'axios';
 import { getToken } from '@/lib/session';
 import Link from 'next/link';
 
-type Country = {
-    name: string;
-    country_code: string;
-}
-interface UserData {
-    id?: string;
-}
 const TextEditor = dynamic(() => import("./TextEditor"), {
   ssr: false,
 });
@@ -24,7 +17,6 @@ const TextEditor = dynamic(() => import("./TextEditor"), {
 
 const PrivacyPolicy = () => {
   const [editorContent, setEditorContent] = useState('');
-  const [editedContent, setEditedContent] = useState('');
 
   const handleEditorChange = (content:any) => {
     setEditorContent(content);
@@ -39,9 +31,7 @@ const PrivacyPolicy = () => {
     try {
       const response = await fetchPrivacyPoliciesdata();
       const data = response.data;
-      console.log("datfdgdfgdfa")
       setEditorContent(data);
-      setEditedContent(data);
     } catch (error) {
       // Handle error
     }
@@ -74,7 +64,6 @@ try{
 }
   const handleClear = () => {
     setEditorContent('');
-    setEditedContent('');
   };
 
   return (

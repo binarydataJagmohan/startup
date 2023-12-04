@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Switch from 'react-switch';
@@ -10,19 +10,11 @@ type UserData = {
 };
 const NotificationSettings = () => {
 
-    const [current_user_id, setCurrentUserId] = useState("");
     const [options, setOptions] = useState([]);
-    const [regNotification, setRegNotification] = useState(false);
-    const [profileCompletedNotification, setProfileCompletedNotification] = useState(false);
-    const [profileUpdateNotification, setProfileUpdateNotification] = useState(false);
-    const [fundNotification, setFundNotification] = useState(false);
-    const [fundStatusNotification, setFundStatusNotification] = useState(false);
 
     // User Register Notification Update..
     const handleRegistrationNotificationChange = async (checked: any, option: any) => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-        setRegNotification(checked);
+        const current_user_data: UserData = getCurrentUserData();        
         const data = {
             user_id: current_user_data.id,
             option_name: option.option_name,
@@ -30,7 +22,6 @@ const NotificationSettings = () => {
         };
         try {
             await notificationConfigStore(data);
-            console.log('Checkbox value stored successfully');
         } catch (error) {
             console.error('Error storing checkbox value:', error);
         }
@@ -38,9 +29,7 @@ const NotificationSettings = () => {
 
     // Profile Update Notification Update..
     const handleProfileUpdateNotificationChange = async (checked: any, option: any) => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-        setProfileUpdateNotification(checked);
+        const current_user_data: UserData = getCurrentUserData();       
         const data: any = {
             user_id: current_user_data.id,
             option_name: option.option_name,
@@ -49,8 +38,6 @@ const NotificationSettings = () => {
         try {
             setOptions(data);
             await notificationConfigStore(data);
-
-            console.log('Checkbox value stored successfully');
         } catch (error) {
             console.error('Error storing checkbox value:', error);
         }
@@ -58,9 +45,7 @@ const NotificationSettings = () => {
 
     // Profile Completed Notification Update..
     const handleProfileNotificationChange = async (checked: any, option: any) => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-        setProfileCompletedNotification(checked);
+        const current_user_data: UserData = getCurrentUserData();       
         const data: any = {
             user_id: current_user_data.id,
             option_name: option.option_name,
@@ -69,8 +54,6 @@ const NotificationSettings = () => {
         try {
             setOptions(data);
             await notificationConfigStore(data);
-
-            console.log('Checkbox value stored successfully');
         } catch (error) {
             console.error('Error storing checkbox value:', error);
         }
@@ -78,9 +61,7 @@ const NotificationSettings = () => {
 
     // Fund Raise And Update Notification Update..
     const handleFundNotificationChange = async (checked: any, option: any) => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-        setFundNotification(checked);
+        const current_user_data: UserData = getCurrentUserData();       
         const data: any = {
             user_id: current_user_data.id,
             option_name: option.option_name,
@@ -89,8 +70,6 @@ const NotificationSettings = () => {
         try {
             setOptions(data);
             await notificationConfigStore(data);
-
-            console.log('Checkbox value stored successfully');
         } catch (error) {
             console.error('Error storing checkbox value:', error);
         }
@@ -98,9 +77,7 @@ const NotificationSettings = () => {
 
     // Fund raise Status Update Notification Update..
     const handleFundStatusNotificationChange = async (checked: any, option: any) => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-        setFundStatusNotification(checked);
+        const current_user_data: UserData = getCurrentUserData();       
         const data: any = {
             user_id: current_user_data.id,
             option_name: option.option_name,
@@ -109,8 +86,6 @@ const NotificationSettings = () => {
         try {
             setOptions(data);
             await notificationConfigStore(data);
-
-            console.log('Checkbox value stored successfully');
         } catch (error) {
             console.error('Error storing checkbox value:', error);
         }
@@ -132,7 +107,6 @@ const NotificationSettings = () => {
 
     }, []);
 
-    console.log(options)
     return (
         <>
             <div className="main-content">
@@ -206,70 +180,6 @@ const NotificationSettings = () => {
                                         )}
                                     </div>
 
-
-
-                                    {/* <div className="card-body">
-                                        {options.map((option: any) => (
-                                            <div className='row notification'>
-                                                <label className='col-md-6'>{option.option_name}</label>
-                                                <div className='col-md-6'>
-                                                    {option.option_name === 'Registration Notifications' && (
-                                                        <Switch
-                                                            onChange={(checked) => handleRegistrationNotificationChange(checked, option)}
-                                                            checked={option.option_value}
-                                                        />
-                                                    )}
-                                                </div>
-                                            </div>
-                                       
-
-                                        <div className='row notification'>
-                                            <label className='col-md-6'>Profile Update Notifications</label>
-                                            <div className='col-md-6'>
-                                            {option.option_name === 'Profile Update Notifications' && (
-                                                <Switch
-                                                    onChange={handleProfileUpdateNotificationChange}
-                                                    checked={option.option_value}
-                                                />
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className='row notification'>
-                                            <label className='col-md-6'>Profile Completed Notifications</label>
-                                            <div className='col-md-6'>
-                                            {option.option_name === 'Profile Completed Notifications' && (
-                                                <Switch
-                                                    onChange={handleProfileNotificationChange}
-                                                    checked={option.option_value}
-                                                />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className='row notification'>
-                                            <label className='col-md-6'>Fund Raise/Fund Update Notifications</label>
-                                            <div className='col-md-6'>
-                                            {option.option_name === 'Fund Raise/Fund Update Notifications' && (
-                                                <Switch
-                                                    onChange={handleFundNotificationChange}
-                                                    checked={option.option_value}
-                                                />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className='row notification'>
-                                            <label className='col-md-6'>Fund Update Status Notifications</label>
-                                            <div className='col-md-6'>
-                                            {option.option_name === 'Fund Update Status Notifications' && (
-                                                <Switch
-                                                    onChange={handleFundStatusNotificationChange}
-                                                    checked={option.option_value}
-                                                />
-                                            )}
-                                            </div>
-                                        </div>
- ))}
-                                    </div> */}
                                 </div>
 
                             </div>{" "}

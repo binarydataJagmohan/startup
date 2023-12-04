@@ -636,13 +636,13 @@ const CCSPRequest = () => {
                                                                 className="file-select-button"
                                                                 id="fileName"
                                                             >
-                                                                Choose File{user.pitch_deck}
+                                                                Choose File
                                                             </div>
 
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck ? user.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck!="null" ? user.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
 
                                                             </div>
@@ -682,7 +682,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager ? user.one_pager.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager!="null" ? user.one_pager.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -720,7 +720,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials ? user.previous_financials.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials!="null" ? user.previous_financials.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -758,7 +758,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table ? user.latest_cap_table.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table!="null" ? user.latest_cap_table.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -795,7 +795,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents ? user.other_documents.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents!="null" ? user.other_documents.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 

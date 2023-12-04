@@ -5,12 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { getToken, getCurrentUserData } from "../../lib/session";
 import { sendNotification } from '../../lib/frontendapi';
-import dynamic from 'next/dynamic';
 import swal from "sweetalert";
 import Link from 'next/link';
-const DynamicDataTable = dynamic((): any => import('datatables.net'), {
-    ssr: false,
-});
+
 type Investor = {
     id: number;
     name: string;
@@ -68,13 +65,7 @@ const InvestorList = () => {
                             status: "active"
                         };
                         // Send Notifications to admin When new user is register
-                        sendNotification(data)
-                            .then((notificationRes) => {
-                                console.log('success')
-                            })
-                            .catch((error) => {
-                                console.log('error occured')
-                            });
+                        sendNotification(data)                           
                         return {
                             ...investor,
                             approval_status: status,
@@ -102,7 +93,6 @@ const InvestorList = () => {
             setInvestors(data.data);
         }
     };
-    //delete for investor
     function deleteInvestor(id: number) {
         swal({
             title: "Are you sure?",
@@ -222,7 +212,7 @@ const InvestorList = () => {
                                                 <table className="table-dash" id="datatable" ref={tableRef}>
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">#</th>
+                                                            <th scope="col">Serial no.</th>
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Email Address</th>
                                                             <th scope="col">Type</th>
@@ -235,21 +225,21 @@ const InvestorList = () => {
                                                         {investors && investors.length > 0 ? (
                                                             investors.map((investor, index) => (
                                                                 <tr key={investor.id}>
-                                                                    <td data-label="Account">{index + 1}</td>
-                                                                    <td data-label="Account">{investor.name}</td>
-                                                                    <td data-label="Due Date">{investor.email}</td>
-                                                                    <td data-label="Amount">{investor.investorType}</td>
-                                                                    <td data-label="Period">
+                                                                    <td data-label="Serial no.">{index + 1}</td>
+                                                                    <td data-label="Name">{investor.name}</td>
+                                                                    <td data-label="Email Address">{investor.email}</td>
+                                                                    <td data-label="Type">{investor.investorType}</td>
+                                                                    <td data-label="Status">
                                                                         <span style={{ cursor: "pointer" }} className={investor.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(investor.id, investor.status === 'active' ? 'deactive' : 'active')}> {investor.status.toUpperCase()}</span>
                                                                     </td>
-                                                                    <td data-label="Period">
+                                                                    <td data-label="Approval">
                                                                         <span style={{ cursor: "pointer" }} className={investor.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(investor.id, investor.approval_status === 'approved' ? 'reject' : 'approved')}> {investor.approval_status.toUpperCase()}</span>
                                                                     </td>
-                                                                    <td data-label="Period">
-                                                                        <ul className="table-icons-right">
+                                                                    <td data-label="Action">
+                                                                        <ul className="table-icons-right d-md-flex">
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-investor/?id=${investor.id}`}>
-                                                                                    <i className="fa-regular fa-pen-to-square" />
+                                                                                <span className="fa fa-eye"></span>
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">

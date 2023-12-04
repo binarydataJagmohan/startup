@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { getAllStartupBusiness, sendNotification } from '../../lib/frontendapi';
-import { getSingleBusinessInformation, getSingleBusinessUnitInfo } from '../../lib/adminapi';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import swal from "sweetalert";
 import Link from 'next/link';
 import { getToken, getCurrentUserData } from "../../lib/session";
-import Pagination from "../../components/Frontend/Common/Pagination";
-import { paginate } from "../../helpers/paginate";
 type Startup = {
     id: number;
     name: string;
@@ -25,17 +22,9 @@ interface UserData {
 
 const StartupList = () => {
     const tableRef = useRef<HTMLTableElement | null>(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    // const [prevPage, setPrevPage] = useState(0);
-    // const [nextPage, setNextPage] = useState(0);
-    const [totalJobs, setTotalJobs] = useState([]);
-    const pageSize = 1;
-    const [loading, setLoading] = useState(true);
     const [startups, setStartupData] = useState<Startup[]>([]);
-    const [selectedStage, setSelectedStage] = useState([]);
     const [current_user_id, setCurrentUserId] = useState("");
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
-    // const tableRef = useRef(null);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
         if (current_user_data?.id != null) {
@@ -52,7 +41,6 @@ const StartupList = () => {
             if (data) {
                 setStartupData(data.data);
             }
-            setLoading(false);
         };
         fetchData();
     }, []);
@@ -94,13 +82,7 @@ const StartupList = () => {
                             status: "active"
                         };
                         // Send Notifications to admin When new user is register
-                        sendNotification(data)
-                            .then((notificationRes) => {
-                                console.log('success')
-                            })
-                            .catch((error) => {
-                                console.log('error occured')
-                            });
+                        sendNotification(data)                            
                         return {
                             ...startup,
                             approval_status: status,
@@ -157,57 +139,18 @@ const StartupList = () => {
             });
     }
 
-    // For update business stage
-    function updateStartupStage(id: string, stage: string) {
-        const startupId = parseInt(id);
-        axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-startup-stage/${id}`, { stage },
-            {
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + getToken(),
-                },
-            })
-            .then(response => {
-                // set value in startups state
-                const updatedStartupData = startups.map(startup => {
-                    if (startup.id === startupId) {
-                        return {
-                            ...startup,
-                            stage: stage
-                        }
-                    }
-                    return startup;
-                });
-                setStartupData(updatedStartupData);
-                toast.success(response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "success",
-                });
-            })
-            .catch(error => {
-                // console.log(error);
-                toast.error(error, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
-                });
-            });
-    }
-    const handleChange = (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
-        updateStartupStage(id, e.target.value);
-    };
     const fetchData = async () => {
         const data = await getAllStartupBusiness({});
         if (data) {
             setStartupData(data.data);
         }
-        setLoading(false);
     };
 
     // delete the startup 
     function deleteStartup(id: number) {
         swal({
             title: "Are you sure?",
-            text: "You want to delete the industry",
+            text: "You want to delete the startup",
             icon: "warning",
             dangerMode: true,
             buttons: ["Cancel", "Yes, I am sure!"],
@@ -237,42 +180,7 @@ const StartupList = () => {
             }
         });
     };
-    const onPageChange = (page: any, currentPage: any) => {
-        const current_user_data: any = getCurrentUserData();
-        // setPrevPage(currentPage);
-        setCurrentPage(page);
-        getAllStartupBusiness()
-            .then(res => {
-                if (res.status == true) {
-                    setStartupData(res.data);
-                    const paginatedPosts = paginate(res.data, page, pageSize);
-                    setStartupData(paginatedPosts);
-                } else {
-                    setStartupData([]);
-                }
-            })
-            .catch(err => {
 
-            });
-    };
-
-    const handleClickBusinessFundRaiseButton = (startup_id:any) => {
-        getSingleBusinessUnitInfo(startup_id)
-        .then((res) => {
-            if (res.status == true) {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
-                });
-            } else {
-                let url = process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup_id}`;
-                window.location.href = url;
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
     return (
         <>
             <div className="main-content">
@@ -308,7 +216,7 @@ const StartupList = () => {
                                                     <table className="table-dash" id="datatable" ref={tableRef}>
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col">#</th>
+                                                                <th scope="col">Serial no.</th>
                                                                 <th scope="col">Name</th>
                                                                 <th scope="col">Email Address</th>
                                                                 <th scope="col">Company</th>
@@ -322,23 +230,23 @@ const StartupList = () => {
                                                             {startups.map((startup, index) => (
                                                                 <tr key={startup.id}>
                                                                     <td data-label="Account">{index + 1}</td>
-                                                                    <td data-label="Account">{startup.name}</td>
-                                                                    <td data-label="Due Date">{startup.email}</td>
-                                                                    <td data-label="Amount">{startup.business_name}</td>
-                                                                    <td data-label="Amount">{startup.stage}</td>
-                                                                    <td data-label="Period">
+                                                                    <td data-label="Name">{startup.name}</td>
+                                                                    <td data-label="Email Address">{startup.email}</td>
+                                                                    <td data-label="Company">{startup.business_name}</td>
+                                                                    <td data-label="Stage">{startup.stage}</td>
+                                                                    <td data-label="Status">
                                                                         <span style={{ cursor: "pointer" }} className={startup.status === 'active' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(startup.id, startup.status === 'active' ? 'deactive' : 'active')}> {startup.status.toUpperCase()}</span>
                                                                     </td>
-                                                                    <td data-label="Period">
+                                                                    <td data-label="Approval">
                                                                         <span style={{ cursor: "pointer" }} className={startup.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateApprovalStatus(startup.id, startup.approval_status === 'approved' ? 'reject' : 'approved')}> {typeof startup.approval_status === 'string' ? startup.approval_status.toUpperCase() : startup.approval_status}</span>
                                                                     </td>
-                                                                    <td data-label="Period">
+                                                                    <td data-label="Action">
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-startup/?id=${startup.id}`}>
-                                                                                    <i className="fa-regular fa-pen-to-square" data-toggle="tooltip"
+                                                                                    <i className="fa fa-eye" data-toggle="tooltip"
                                                                                         data-placement="top"
-                                                                                        title="Edit Fund" />
+                                                                                        title="View" />
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">
@@ -349,11 +257,6 @@ const StartupList = () => {
                                                                                 </a>
                                                                             </li>
                                                                             <li className="edit">
-                                                                                {/* <a href="javascript:void(0);" onClick={() => handleClickBusinessFundRaiseButton(startup.id)}>
-                                                                                    <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
-                                                                                        data-placement="top"
-                                                                                        title="Raise Fund" ></i>
-                                                                                </a> */}
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/fund-raise/?id=${startup.id}`}>
                                                                                     <i className="fa-solid fa-hand-holding-dollar" data-toggle="tooltip"
                                                                                         data-placement="top"

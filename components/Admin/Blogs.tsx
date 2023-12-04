@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import Link from 'next/link';
 import PopupModal from "../../components/commoncomponents/PopupModal";
@@ -9,7 +8,6 @@ import { EditAndSaveBlogData, getAllBlogs, deleteblog } from "@/lib/adminapi";
 import { getCurrentUserData } from "../../lib/session";
 import swal from "sweetalert";
 import Image from 'next/image';
-
 
 const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
@@ -44,16 +42,13 @@ export default function Blogs() {
     const [slug, setBlogSlug] = useState("");
     const [meta_tag, setBlogMetaTag] = useState("");
     const [meta_desc, setBlogMetaDesc] = useState("");
-    const [tag, setBlogTag] = useState("");
     const [description, setBlogDesc] = useState<string>("");
-    const [savingBlog, setSavingBlog] = useState<boolean>(false);
     const [modalConfirm, setModalConfirm] = useState(false);
     const [authorImageError, setAuthorImageError] = useState('');
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [blogImageError, setBlogImageError] = useState('');
     const [blogUpImageError, setBlogupImageError] = useState('');
     const [blogs, setAllBlogs] = useState<Blogs[]>([]);
-    const [newblogimage, setBlogNewImage] = useState("");
     const [showImage, setShowImage] = useState(true);
     const [showauthorImage, setauthorShowImage] = useState(true);
     const [previewAuthorImage, setPreviewAuthorImage]: any = useState("");
@@ -107,11 +102,9 @@ export default function Blogs() {
         if (!description) {
             setDescriptionError('Description is required');
         }
-
         if (!slug || !name || !description) {
             return;
         }
-        setSavingBlog(true);
         try {
             const currentUserData: any = getCurrentUserData();
             const data = {
@@ -125,7 +118,6 @@ export default function Blogs() {
                 created_by_id: currentUserData.id,
             };
             const res = await EditAndSaveBlogData(data, image, authorimage);
-            setSavingBlog(false);
             if ((res.status = true)) {
                 setModalConfirm(false);
                 fetchBlogData();
@@ -135,8 +127,6 @@ export default function Blogs() {
             } else {
             }
         } catch (err) {
-            setSavingBlog(false);
-            console.log(err);
         }
     };
 
@@ -157,28 +147,23 @@ export default function Blogs() {
             setBlogName(name || "");
             setBlogSlug(slug || "");
             setBlogAuthorName(author_name || "");
-            setBlogTag(tag || "");
             setBlogMetaTag(meta_tag || "");
             setBlogMetaDesc(meta_desc || "");
             setBlogDesc(description || "");
             setBlogId(id);
             toast.dismiss();
             if (existingImage) {
-                setBlogNewImage(existingImage); // Set the blog image from database
                 setFetchedPreviewImage(existingImage); // Show the preview of existing blog image
                 setShowImage(false); // Hide the image upload box
             } else {
-                setBlogNewImage("");
                 setPreviewImage(""); // Clear the preview if no existing blog image
                 setShowImage(true); // Show the image upload box
             }
 
             if (existingAuthorImage) {
-                setBlogNewImage(existingAuthorImage); // Set the blog image from database
                 setAuthorFetchedPreviewImage(existingAuthorImage); // Show the preview of existing blog image
                 setauthorShowImage(false); // Hide the image upload box
             } else {
-                setBlogNewImage("");
                 setPreviewImage(""); // Clear the preview if no existing blog image
                 setauthorShowImage(true); // Show the image upload box
             }
@@ -219,15 +204,11 @@ export default function Blogs() {
                                 position: toast.POSITION.TOP_RIGHT,
                             });
                             fetchBlogData();
-                        } else {
-                            console.log("Deletion failed");
                         }
                     })
                     .catch(() => {
                         // Handle error
                     });
-            } else {
-                console.log("Deletion failed");
             }
         });
     };
@@ -315,7 +296,6 @@ export default function Blogs() {
         setBlogMetaDesc("");
         setBlogDesc("");
         setBlogId("");
-        setBlogTag("");
         setPreviewImage("");
         setFetchedPreviewImage("");
         setAuthorFetchedPreviewImage("");
@@ -375,7 +355,7 @@ export default function Blogs() {
                                             <table className="table-dash" id="datatable" ref={tableRef}>
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">#</th>
+                                                        <th scope="col">Serial no.</th>
                                                         <th scope="col">Name</th>
                                                         <th scope="col">Author Name</th>
                                                         <th scope="col">Date</th>
@@ -386,12 +366,12 @@ export default function Blogs() {
                                                     {blogs && blogs.length > 0 ? (
                                                         blogs.map((blog, index) => (
                                                             <tr key={index}>
-                                                                <td data-label="Account">{index + 1}</td>
-                                                                <td data-label="Account">{blog.name}</td>
-                                                                <td data-label="Due Date">{blog.author_name}</td>
-                                                                <td data-label="Amount">{formatDate(blog.created_at || "")}
+                                                                <td data-label="Serial no.">{index + 1}</td>
+                                                                <td data-label="Name">{blog.name}</td>
+                                                                <td data-label="Author Name">{blog.author_name}</td>
+                                                                <td data-label="Date">{formatDate(blog.created_at || "")}
                                                                 </td>
-                                                                <td data-label="Period">
+                                                                <td data-label="Action">
                                                                     <ul className="table-icons-right">
                                                                         <li className="edit">
                                                                             <a href="#" onClick={() => handleEdit(blog.id)}>
@@ -536,6 +516,7 @@ export default function Blogs() {
                                                 >
                                                     Chose file
                                                 </div>
+                                                </div>                                               
                                                 <input
                                                     className="input-file"
                                                     id="logo"
@@ -586,8 +567,6 @@ export default function Blogs() {
                                                                 />
                                                             )
                                                         )}
-
-
                                                     </div>
                                                 )}
                                             </div>

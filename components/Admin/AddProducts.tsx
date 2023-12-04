@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -31,9 +31,6 @@ export default function AddProducts() {
     const [productimage, setProductImage]: any = useState("");
     const [productimage1, setProductImage1]: any = useState("");
     const [productoverview, setProductOverview] = useState("");
-    const [fundid, setFundId]: any = useState<string | null>(null);
-    const [ccspid, setCCSPId]: any = useState<string | null>(null);
-
     const [productdata, setAllProductdata] = useState([]);
     const [productId, setProductId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
@@ -59,13 +56,7 @@ export default function AddProducts() {
 
     useEffect(() => {
         getAllCCSPCampaign().then((res) => {
-            if (res.status === true && res.data.length > 0) {
-                setCCSPId(res.data[0].ccsp_fund_id);
-            } else {
-                toast.error("No active funds available", {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-            }
+            
             fetchAllproductdata();
         });
     }, []);
@@ -111,8 +102,6 @@ export default function AddProducts() {
         formData.append("product_image", productimage1);
         formData.append("product_id", productId);
         formData.append("product_overview", productoverview);
-        console.log(formData);
-
         try {
             const response = await AdminUpdateProduct(formData);
             toast.success(response.message, {

@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
-import { removeToken, removeStorageData, getCurrentUserData, getToken } from "../../lib/session";
+import { getCurrentUserData } from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
-import { sendNotification } from '../../lib/frontendapi'
 import Link from 'next/link';
 interface UserData {
   id?: number;
@@ -72,83 +70,12 @@ const AllFundsList = () => {
 
   }, []);
 
-  function updateStatus(id: number, status: string) {
-    axios.post(process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`, { status: status }, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + getToken(),
-      }
-    })
-      .then(response => {
-        // Update the status in the state
-        const updatedFunds = funds.map(fund => {
-          if (fund.id === id) {
-            return { ...fund, status: status };
-          }
-          return fund;
-        });
-        setFundsData(updatedFunds);
-
-
-        const data = {
-          notify_from_user: current_user_id,
-          notify_to_user: "1",
-          notify_msg: "Fund Raised Status is Updated.",
-          notification_type: "Fund Raised Status",
-          each_read: "unread",
-          status: "active"
-        };
-        sendNotification(data)
-          .then((notificationRes) => {
-            console.log('success')
-          })
-          .catch((error) => {
-            console.log('error occured')
-          });
-        toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
-      })
-      .catch(error => {
-        // console.log(error);
-        toast.error(error, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      });
-  }
-
-  // Delete Funding from DB..
-  function deleteFund(id: number) {
-    axios.delete(process.env.NEXT_PUBLIC_API_URL + `/fund-delete/${id}`, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + getToken(),
-      }
-    })
-      .then(response => {
-        const updatedData = funds.filter(fund => fund.id !== id);
-        setFundsData(updatedData);
-        toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "success",
-        });
-      })
-      .catch(error => {
-        toast.error(error, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      });
-  }
-
   useEffect(() => {
     // Initialize the datatable for users
     if (funds.length > 0 && !dataTableInitialized) {
       $(document).ready(() => {
         $('#datatable').DataTable({
-          lengthMenu:  [20, 50, 100 ,150],
+          lengthMenu: [20, 50, 100, 150],
           columnDefs: [
             //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
@@ -196,37 +123,26 @@ const AllFundsList = () => {
                           <table className="table-dash" id="datatable" ref={tableRef}>
                             <thead>
                               <tr>
-                                <th>#</th>
+                                <th>Serial no.</th>
                                 <th>Fund Id</th>
                                 <th>Tenure</th>
                                 <th>Min. Subscription</th>
                                 <th>Avg. Amount</th>
                                 <th>Repay Date</th>
-                                <th>Closing Date</th>
-                                {/* <th>Status</th>
-                            <th>Action</th> */}
+                                <th>Closing Date</th>                              
                               </tr>
                             </thead>
                             <tbody>
                               {funds && funds.length > 0 ? (
                                 funds.map((fund, index: any) => (
                                   <tr key={index}>
-                                    <td data-label="Account">{index + 1}</td>
-                                    <td data-label="Account">{fund.fund_id}</td>
-                                    <td data-label="Due Date">{fund.tenure}&nbsp;Days</td>
-                                    <td data-label="Amount">{fund.minimum_subscription}</td>
-                                    <td data-label="Period">{fund.avg_amt_per_person}</td>
-                                    <td data-label="Amount">{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
-                                    <td data-label="Period">{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
-                                    {/* <td>
-                                  <span style={{ cursor: "pointer" }} className={fund.status === 'open' ? 'badge bg-success' : 'badge bg-danger'} onClick={() => updateStatus(fund.id, fund.status === 'open' ? 'closed' : 'open')}>
-                                    {fund.status.toUpperCase()} 
-                                  </span>
-                                </td> */}
-                                {/* <td>
-                                  <Link href={process.env.NEXT_PUBLIC_BASE_URL + `/company/fund-raise/?id=${fund.id}`} className='m-1' ><span className='fa fa-edit'></span></Link>
-                                  <Link href="javascript:void(0);" onClick={() => { deleteFund(fund.id); }} className='m-1' ><span className='fa fa-trash text-danger'></span></Link>
-                                </td> */}
+                                    <td data-label="Serial no.">{index + 1}</td>
+                                    <td data-label="Fund Id">{fund.fund_id}</td>
+                                    <td data-label="Tenure">{fund.tenure}&nbsp;Days</td>
+                                    <td data-label="Min. Subscription">{fund.minimum_subscription}</td>
+                                    <td data-label="Avg. Amount">{fund.avg_amt_per_person}</td>
+                                    <td data-label="Repay Date">{new Date(fund.repay_date).toLocaleDateString('en-GB')}</td>
+                                    <td data-label="Closing Date">{new Date(fund.closed_in).toLocaleDateString('en-GB')}</td>
                                   </tr>
                                 ))
                               ) : (
