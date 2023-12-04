@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
-import { getToken, getCurrentUserData } from "../../lib/session";
-import { getSingleUserData } from '@/lib/frontendapi';
+import { getCurrentUserData } from "../../lib/session";
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
 import Link from 'next/link';
 import moment from 'moment';
@@ -16,45 +14,19 @@ interface UserData {
 }
 const AllNotifications = () => {
     const tableRef = useRef<HTMLTableElement | null>(null);
-    const [current_user_id, setCurrentUserId] = useState("");
-    const [current_user_name, setCurrentUserName] = useState("");
-    const [current_user_role, setCurrentUserRole] = useState("");
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
-    const [readNotifications, setReadNotifications] = useState("");
-    const [users, setUsers] = useState<any>(
-        {
-            name: '',
-            email: '',
-            country: '',
-            phone: '',
-            city: '',
-            status: '',
-            role: '',
-            linkedin_url: '',
-            gender: '',
-            profile_pic: ''
-        });
+
     const [notifications, setNotifications] = useState([]);
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.username
-            ? setCurrentUserName(current_user_data.username)
-            : setCurrentUserName("");
-        current_user_data.role
-            ? setCurrentUserRole(current_user_data.role)
-            : setCurrentUserRole("");
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
+        const current_user_data: UserData = getCurrentUserData();             
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
                 setNotifications(data.data);
                 updateNotification(current_user_data.id)
                     .then((res) => {
-                        if (res.status == true) {
-                            console.log(res)
-                            setReadNotifications(res.data);
-                        } else {
-                        }
+                        if (res.status == true) {                           
+                        } 
                     })
                     .catch((err) => {
                     });

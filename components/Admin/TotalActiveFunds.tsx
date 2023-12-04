@@ -8,16 +8,10 @@ import Link from "next/link";
 import axios from "axios";
 import { sendNotification } from "../../lib/frontendapi";
 import swal from "sweetalert";
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
 
 interface UserData {
     id?: number;
 }
-
-const TextEditor = dynamic(() => import("./TextEditor"), {
-    ssr: false,
-});
 
 interface Fund {
     id: number;
@@ -36,7 +30,6 @@ const TotalActiveFunds = () => {
     const tableRef = useRef(null);
     const [current_user_id, setCurrentUserId] = useState("");
     const [funds, setFundsData] = useState<Fund[]>([]);
-    const [selectedFundId, setSelectedFundId] = useState<number | null>(null);
 
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
@@ -115,10 +108,8 @@ const TotalActiveFunds = () => {
                 };
                 sendNotification(data)
                     .then((notificationRes) => {
-                        console.log("success");
                     })
                     .catch((error) => {
-                        console.log("error occured");
                     });
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -126,7 +117,6 @@ const TotalActiveFunds = () => {
                 });
             })
             .catch((error) => {
-                // console.log(error);
                 toast.error(error, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "error",
@@ -136,7 +126,6 @@ const TotalActiveFunds = () => {
 
     // Delete Funding from DB..
     function deleteFund(id: number) {
-        // Display a confirmation dialog using SweetAlert
         swal({
             title: "Are you sure?",
             text: "You want to delete the industry",
@@ -154,17 +143,14 @@ const TotalActiveFunds = () => {
                         },
                     })
                     .then((response) => {
-                        // If the delete request is successful, update the state to remove the deleted fund
                         const updatedData = funds.filter((fund) => fund.id !== id);
                         setFundsData(updatedData);
-                        // Display a success message using the toast library
                         toast.success(response.data.message, {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
                         });
                     })
                     .catch((error) => {
-                        // Handle errors and display an error message using the toast library
                         toast.error(error.message, {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "error",
@@ -174,7 +160,7 @@ const TotalActiveFunds = () => {
         });
     }
 
-    
+
 
     return (
         <>
@@ -221,7 +207,7 @@ const TotalActiveFunds = () => {
                                                     >
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
+                                                                <th>Serial no.</th>
                                                                 <th>Fund Id</th>
                                                                 <th>Tenure</th>
                                                                 <th>Min. Subscription</th>
@@ -236,29 +222,29 @@ const TotalActiveFunds = () => {
                                                             {funds && funds.length > 0 ? (
                                                                 funds.map((fund, index: any) => (
                                                                     <tr key={index}>
-                                                                        <td data-label="Account">{index + 1}</td>
-                                                                        <td data-label="Account">{fund.fund_id}</td>
-                                                                        <td data-label="Due Date">
+                                                                        <td data-label="Serial no.">{index + 1}</td>
+                                                                        <td data-label="Fund Id">{fund.fund_id}</td>
+                                                                        <td data-label="Tenure">
                                                                             {fund.tenure}&nbsp;Days
                                                                         </td>
-                                                                        <td data-label="Amount">
+                                                                        <td data-label="Min. Subscription">
                                                                             {fund.minimum_subscription}
                                                                         </td>
-                                                                        <td data-label="Period">
+                                                                        <td data-label="Avg. Amount">
                                                                             {fund.avg_amt_per_person}
                                                                         </td>
-                                                                        <td data-label="Amount">
+                                                                        <td data-label="Repay Date">
                                                                             {new Date(
                                                                                 fund.repay_date
                                                                             ).toLocaleDateString("en-GB")}
                                                                         </td>
-                                                                        <td data-label="Period">
+                                                                        <td data-label="Closing Date">
                                                                             {new Date(
                                                                                 fund.closed_in
                                                                             ).toLocaleDateString("en-GB")}
                                                                         </td>
 
-                                                                        <td>
+                                                                        <td data-label="Status">
                                                                             <span
                                                                                 style={{ cursor: "pointer" }}
                                                                                 className={
@@ -279,7 +265,7 @@ const TotalActiveFunds = () => {
                                                                             </span>
                                                                         </td>
 
-                                                                        <td>
+                                                                        <td data-label="Action">
 
                                                                             <Link
                                                                                 href={
@@ -328,7 +314,7 @@ const TotalActiveFunds = () => {
                 <ToastContainer autoClose={1000} />
             </div>
 
-         
+
 
         </>
     );

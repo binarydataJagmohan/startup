@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
 import "react-phone-input-2/lib/style.css";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import "react-toastify/dist/ReactToastify.css";
@@ -11,21 +10,12 @@ import axios from 'axios';
 import { getToken } from '@/lib/session';
 import Link from 'next/link';
 
-type Country = {
-    name: string;
-    country_code: string;
-}
-interface UserData {
-    id?: string;
-}
 const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
   });
 
-
 const TermsAndConditions = () => {
   const [editorContent, setEditorContent] = useState('');
-  const [editedContent, setEditedContent] = useState('');
 
   const handleEditorChange = (content:any) => {
     setEditorContent(content);
@@ -39,12 +29,9 @@ const TermsAndConditions = () => {
   const fetchTermsAndConditions = async () => {
     try {
       const response = await fetchTermsAndConditionsdata();
-      const data = response.data;
-  
-     
+      const data = response.data;   
       // Set the fetched data as initial content in the editor
       setEditorContent(data);
-      setEditedContent(data);
     } catch (error) {
       // Handle error
     }
@@ -77,7 +64,6 @@ try{
 }
   const handleClear = () => {
     setEditorContent('');
-    setEditedContent('');
   };
 
   return (

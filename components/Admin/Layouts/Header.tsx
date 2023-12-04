@@ -7,7 +7,7 @@ import {
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-
+import { useMediaQuery } from 'react-responsive';
 import {
   removeToken,
   removeStorageData,
@@ -24,16 +24,11 @@ interface UserData {
 }
 
 const Header = () => {
-  const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUserName] = useState("");
   const [taggleUserMgmt, settaggleUserMgmt] = useState(true);
-  const [tagglContentMgmt, settagglContentMgmt] = useState(true);
-  const [tagglSetting, settagglSetting] = useState(true);
   const [current_user_role, setCurrentUserRole] = useState("");
   const pathname = usePathname();
   const [totalActiveFunds, setTotalActiveFunds] = useState("");
   const [totalNotifications, setTotalNotifications] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState("");
   const [users, setUsers] = useState<any>({
     name: "",
@@ -47,7 +42,6 @@ const Header = () => {
     gender: "",
     profile_pic: "",
   });
-  const [notifications, setNotifications] = useState({});
   const router = useRouter();
   function redirectToLogin() {
     window.location.href = "/login";
@@ -61,21 +55,14 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    current_user_data.username
-      ? setCurrentUserName(current_user_data.username)
-      : setCurrentUserName("");
+    const current_user_data: UserData = getCurrentUserData();    
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
-      : setCurrentUserRole("");
-    current_user_data.id
-      ? setCurrentUserId(current_user_data.id)
-      : setCurrentUserId("");
+      : setCurrentUserRole("");   
 
     getAllActiveFundsCount()
       .then((res) => {
-        if (res.status == true) {
-          // Set the businessUnits state
+        if (res.status == true) {         
           setTotalActiveFunds(res.data);
         } else {
         }
@@ -84,8 +71,7 @@ const Header = () => {
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
-        if (res.status == true) {
-          // Set the businessUnits state
+        if (res.status == true) {          
           setUsers(res.data);
         }
       })
@@ -112,15 +98,14 @@ const Header = () => {
 
   const toggleMenu = (index: number) => {
     if (index === 1) {
-      settaggleUserMgmt((prevState) => !prevState);
-      settagglContentMgmt(true);
-      settagglSetting(true);
+      settaggleUserMgmt((prevState) => !prevState);     
     } else {
-      settagglContentMgmt((prevState) => !prevState);
       settaggleUserMgmt(true);
-      settagglSetting(true);
     }
   };
+
+  const isSmallScreen = useMediaQuery({ maxWidth: 991 });
+
   return (
     <>
       <div id="page-topbar">
@@ -138,12 +123,7 @@ const Header = () => {
               >
                 <i className="mdi mdi-menu d-none"></i>
               </a>
-              <div
-                className="offcanvas offcanvas-start show"
-                tabIndex={-1}
-                id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel"
-              >
+              <div className={`offcanvas offcanvas-start ${isSmallScreen ? 'd-block d-lg-none' : 'show'}`} tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                   <div className="navbar-brand-box p-0">
                     <Link href="/" className="logo logo-dark">
@@ -199,8 +179,8 @@ const Header = () => {
                         <ul className="metismenu list-unstyled" id="side-menu">
                           <li
                             className={`nav-item ${router.pathname === "/admin/dashboard"
-                                ? "active p1"
-                                : ""
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -216,9 +196,9 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname === "/admin/all-investors" ||
-                                router.pathname.startsWith("/admin/edit-investor")
-                                ? "active p1"
-                                : ""
+                              router.pathname.startsWith("/admin/edit-investor")
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -234,10 +214,10 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname ===
-                                "/admin/all-startup-companies" ||
-                                router.pathname.startsWith("/admin/edit-startup")
-                                ? "active p1"
-                                : ""
+                              "/admin/all-startup-companies" ||
+                              router.pathname.startsWith("/admin/edit-startup")
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -253,8 +233,8 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname === "/admin/all-active-funds"
-                                ? "active p1"
-                                : ""
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -273,12 +253,12 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname === "/admin/all-active-campaign" ||
-                                router.pathname === "/admin/add-company" ||
-                                router.pathname === "/admin/add-team" ||
-                                router.pathname === "/admin/add-products" ||
-                                router.pathname === "/admin/ccsp-detail"
-                                ? "active p1"
-                                : ""
+                              router.pathname === "/admin/add-company" ||
+                              router.pathname === "/admin/add-team" ||
+                              router.pathname === "/admin/add-products" ||
+                              router.pathname === "/admin/ccsp-detail"
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -296,9 +276,9 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname === "/admin/all-users" ||
-                                router.pathname.startsWith("/admin/edit-user")
-                                ? "active p1"
-                                : ""
+                              router.pathname.startsWith("/admin/edit-user")
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -314,8 +294,8 @@ const Header = () => {
                           </li>
                           <li
                             className={`nav-item ${router.pathname === "/admin/chats"
-                                ? "active p1"
-                                : ""
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -332,8 +312,8 @@ const Header = () => {
 
                           <li
                             className={`nav-item ${router.pathname === "/admin/blog"
-                                ? "active p1"
-                                : ""
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -351,8 +331,8 @@ const Header = () => {
 
                           <li
                             className={`nav-item ${router.pathname === "admin/all-notifications"
-                                ? "active p1"
-                                : ""
+                              ? "active p1"
+                              : ""
                               }`}
                           >
                             <Link
@@ -390,8 +370,8 @@ const Header = () => {
                                   className={`nav-item ${pathname.includes(
                                     "admin/terms-and-conditions"
                                   )
-                                      ? "active p1"
-                                      : ""
+                                    ? "active p1"
+                                    : ""
                                     }`}
                                   href="/admin/terms-and-conditions"
                                 >
@@ -403,8 +383,8 @@ const Header = () => {
                               <li>
                                 <Link
                                   className={`nav-item ${pathname.includes("admin/privacy-policy")
-                                      ? "active p1"
-                                      : ""
+                                    ? "active p1"
+                                    : ""
                                     }`}
                                   href="/admin/privacy-policy"
                                 >
@@ -492,7 +472,12 @@ const Header = () => {
                       <div id="sidebar-menu">
                         {/* Left Menu Start */}
                         <ul className="metismenu list-unstyled" id="side-menu">
-                          <li>
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/dashboard"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
                             <Link
                               href={
                                 process.env.NEXT_PUBLIC_BASE_URL +
@@ -504,7 +489,13 @@ const Header = () => {
                               <span>Dashboard</span>
                             </Link>
                           </li>
-                          <li>
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/all-investors" ||
+                              router.pathname.startsWith("/admin/edit-investor")
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
                             <Link
                               href={
                                 process.env.NEXT_PUBLIC_BASE_URL +
@@ -516,7 +507,14 @@ const Header = () => {
                               <span>Investors</span>
                             </Link>
                           </li>
-                          <li>
+                          <li
+                            className={`nav-item ${router.pathname ===
+                              "/admin/all-startup-companies" ||
+                              router.pathname.startsWith("/admin/edit-startup")
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
                             <Link
                               href={
                                 process.env.NEXT_PUBLIC_BASE_URL +
@@ -525,23 +523,172 @@ const Header = () => {
                               className="waves-effect"
                             >
                               <i className="fa fa-building"></i>
-                              <span>All Startups</span>
+                              <span>Startups</span>
                             </Link>
                           </li>
-                          <li>
-                            <Link href="#" className="waves-effect">
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/all-active-funds"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-active-funds"
+                              }
+                              className="waves-effect"
+                            >
                               <i className="fa fa-business-time"></i>
-                              <span className="badge rounded-pill bg-primary float-end">
-                                10
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {totalActiveFunds}
                               </span>
-                              <span>Active Funds</span>
+                              <span>Fund Raised</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/all-active-campaign" ||
+                              router.pathname === "/admin/add-company" ||
+                              router.pathname === "/admin/add-team" ||
+                              router.pathname === "/admin/add-products" ||
+                              router.pathname === "/admin/ccsp-detail"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-active-campaign"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-business-time"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                              </span>
+                              <span>CCSP Campaign</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/all-users" ||
+                              router.pathname.startsWith("/admin/edit-user")
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-users"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-users"></i>
+                              <span>Users</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/chats"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/chats"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-message"></i>
+                              <span>Chat</span>
+                            </Link>
+                          </li>
+
+                          <li
+                            className={`nav-item ${router.pathname === "/admin/blog"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/blog"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-message"></i>
+                              <span>Blogs</span>
+                            </Link>
+                          </li>
+
+
+                          <li
+                            className={`nav-item ${router.pathname === "admin/all-notifications"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/all-notifications"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {unreadNotifications}
+                              </span>
+                              <span>Notifications</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="#" className="waves-effect">
-                              <i className="fa fa-users"></i>
-                              <span>All Users</span>
+                            <Link
+                              href="javascript:void(0)"
+                              className="d-flex justify-content-between"
+                              onClick={() => toggleMenu(1)}
+                            >
+                              <i className="fas fa-file-alt icon-width"></i>
+
+                              <span className="page-width">Pages</span>
+                              <ChevronDownIcon width={20} color={"#fff"} />
                             </Link>
+                            <ul
+                              className={`dropdown-menu-list menu-border ${taggleUserMgmt ? "d-none" : ""
+                                }`}
+                            >
+                              {/* Dropdown content */}
+                              <li>
+                                <Link
+                                  className={`nav-item ${pathname.includes(
+                                    "admin/terms-and-conditions"
+                                  )
+                                    ? "active p1"
+                                    : ""
+                                    }`}
+                                  href="/admin/terms-and-conditions"
+                                >
+                                  <i className="fas fa-file-contract"></i>
+
+                                  <span>Terms and Conditions</span>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className={`nav-item ${pathname.includes("admin/privacy-policy")
+                                    ? "active p1"
+                                    : ""
+                                    }`}
+                                  href="/admin/privacy-policy"
+                                >
+                                  <i className="fas fa-user-secret"></i>
+
+                                  <span>Privacy Policy</span>
+                                </Link>
+                              </li>
+                            </ul>
                           </li>
                         </ul>
                       </div>

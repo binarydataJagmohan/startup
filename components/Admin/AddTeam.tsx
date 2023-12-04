@@ -6,20 +6,6 @@ import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdmin
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-interface Fund {
-    id: number;
-    fund_id: number;
-    tenure: string;
-    minimum_subscription: string;
-    amount: number;
-    status: string;
-    avg_amt_per_person: string;
-    repay_date: string;
-    closed_in: string;
-    type: string;
-    company_overview: string;
-}
-
 export default function AddCompetitorCompany() {
 
     const [teamMemberName, setTeamMemberName] = useState("");
@@ -27,11 +13,9 @@ export default function AddCompetitorCompany() {
     const [teamMemberPic, setTeamMemberPic]: any = useState("");
     const [teamMemberPic1, setTeamMemberPic1]: any = useState("");
     const [teamMemberDesc, setTeamMemberDesc] = useState("");
-    const [fundid, setFundId]: any = useState<string | null>(null);
     const [teamdata, setAllTeamdata] = useState([]);
     const [teamId, setTeamId]: any = useState<number | null>(null);
     const [ccspid, setCCSPId]: any = useState<string | null>(null);
-
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const router = useRouter();
     const { id } = router.query;
@@ -63,10 +47,7 @@ export default function AddCompetitorCompany() {
     }, []);
 
     const fetchAllTeamdata = async () => {
-        const res = await getAdminTeamdata();
-        // if (res.status) {
-        //     setAllTeamdata(res.data);
-        // }
+        const res = await getAdminTeamdata();       
         if (res.status) {
             const filteredData = res.data.filter((team: { ccsp_fund_id: string }) => team.ccsp_fund_id == id);
             setAllTeamdata(filteredData);
@@ -76,7 +57,6 @@ export default function AddCompetitorCompany() {
     const handleTeamSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append('fund_id', fundid)
         formData.append("ccsp_fund_id", ccspid);
         formData.append('member_name', teamMemberName)
         formData.append('member_designation', teammemberDesignation)
@@ -100,15 +80,12 @@ export default function AddCompetitorCompany() {
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", ccspid);
         formData.append('member_name', teamMemberName)
         formData.append('member_designation', teammemberDesignation)
         formData.append('member_pic', teamMemberPic1)
         formData.append('description', teamMemberDesc)
         formData.append('team_id', teamId);
-        console.log(formData);
-
         try {
             const response = await AdminUpdateTeamMember(formData);
             toast.success(response.message, {
@@ -150,9 +127,7 @@ export default function AddCompetitorCompany() {
 
         setTeamMemberPic(file);
         setFileName(file.name);
-        setError(''); // Clear any previous error
-
-        // Display a preview of the selected image
+        setError(''); 
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -164,15 +139,12 @@ export default function AddCompetitorCompany() {
         }
     };
 
-
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [fundImageName, setFundImageName] = useState('');
     const [fundImageNameError, setFundImageNameError] = useState('');
 
-
     const handleUpdateLogoChange = (e: any) => {
         const file = e.target.files[0];
-
         if (file) {
             const allowedTypes = ['image/jpeg', 'image/png'];
             const maxSize = 2 * 1024 * 1024;
@@ -435,7 +407,6 @@ export default function AddCompetitorCompany() {
                                     <div className="col-12" key={index}>
                                         <div className="card border-0">
                                             <div className="card-header text-white" id={`title-${index}`}>
-                                                {/* <h3 className="card-title">Add New Team Member</h3> */}
                                                 <table
                                                     className="table-dash border-0 "
                                                     id="datatable"

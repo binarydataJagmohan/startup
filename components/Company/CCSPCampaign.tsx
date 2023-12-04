@@ -444,7 +444,7 @@ const Campagin = () => {
                           >
                             <thead>
                               <tr>
-                                <th>#</th>
+                                <th>Serial no.</th>
                                 <th>CCSP Id</th>
                                 <th>Round Name</th>
                                 <th>Amount</th>
@@ -457,11 +457,11 @@ const Campagin = () => {
                               {funds && funds.length > 0 ? (
                                 funds.map((fund: any, index: any) => (
                                   <tr key={index}>
-                                    <td data-label="Account">{index + 1}</td>
+                                    <td data-label="Serial no.">{index + 1}</td>
 
-                                    <td data-label="Account">{fund.ccsp_fund_id}</td>
+                                    <td data-label="CCSP Id">{fund.ccsp_fund_id}</td>
 
-                                    <td data-label="Due Date">
+                                    <td data-label="Round Name">
                                       {fund.round_of_ifinworth}
                                     </td>
 
@@ -469,14 +469,14 @@ const Campagin = () => {
                                       {fund.ifinworth_amount}
                                     </td>
 
-                                    <td data-label="Period">
+                                    <td data-label="Pre Commited Amount">
                                       {fund.pre_committed_ifinworth_amount}
                                     </td>
 
-                                    <td data-label="Period">
+                                    <td data-label="Status">
                                       <span style={{ cursor: "default" }} className={fund.approval_status === 'approved' ? 'badge bg-success' : 'badge bg-danger'} > {typeof fund.approval_status === 'string' ? fund.approval_status.toUpperCase() : fund.approval_status}</span>
                                     </td>
-                                    <td>
+                                    <td data-label="Action">
                                       {fund.approval_status === 'pending'
                                         ?
                                         <>

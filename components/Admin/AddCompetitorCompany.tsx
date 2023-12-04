@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic';
 
 
 import {
-    getAllActiveFunds,
     getAllCCSPCampaign,
     AdminAddCometitorCompany,
     AdminUpdateCometitorCompany,
@@ -55,8 +54,6 @@ const AddCompetitorCompany = () => {
 
             if (res.status === true && res.data.length > 0) {
                 setCCSPId(res.data[0].ccsp_fund_id);
-                console.log(res.data[0].ccsp_fund_id);
-
             } else {
                 toast.error("No active funds available", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -74,8 +71,6 @@ const AddCompetitorCompany = () => {
             if (res.status) {
                 const filteredData = res.data.filter((company: { ccsp_fund_id: string }) => company.ccsp_fund_id == id);
                 setAllCompanydata(filteredData);
-                // console.log(filteredData);
-
             }
         } catch (error) {
             console.error("Error fetching company data:", error);
@@ -86,7 +81,6 @@ const AddCompetitorCompany = () => {
     const handleCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo);
@@ -109,14 +103,11 @@ const AddCompetitorCompany = () => {
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo1);
         formData.append("company_name", CompanyName);
         formData.append('competitor_id', competitorId);
-        console.log(formData);
-
         try {
             const response = await AdminUpdateCometitorCompany(formData);
             clearmemberInputData();
@@ -156,9 +147,7 @@ const AddCompetitorCompany = () => {
 
         setCompanyLogo(file);
         setFileName(file.name);
-        setError(''); // Clear any previous error
-
-        // Display a preview of the selected image
+        setError(''); 
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -393,15 +382,7 @@ const AddCompetitorCompany = () => {
                                                             className="form-label"
                                                         >
                                                             Company Description
-                                                        </label>
-                                                        {/* <textarea
-                                                            rows={4}
-                                                            placeholder="Enter details here"
-                                                            className="form-control"
-                                                            name="company_desc"
-                                                            value={CompanyDesc}
-                                                            onChange={(e) => setCompanyDesc(e.target.value)}
-                                                        /> */}
+                                                        </label>                                                      
                                                         <TextEditor
                                                             height={100}
                                                             value={CompanyDesc}
@@ -590,15 +571,7 @@ const AddCompetitorCompany = () => {
                                                             <div className="col-md-12">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
                                                                     Company Description
-                                                                </label>
-                                                                {/* <textarea
-                                                                    rows={4}
-                                                                    placeholder="Enter details here"
-                                                                    className="form-control"
-                                                                    name="company_desc"
-                                                                    value={CompanyDesc}
-                                                                    onChange={(e) => setCompanyDesc(e.target.value)}
-                                                                /> */}
+                                                                </label>                                                               
                                                                 <TextEditor
                                                                     height={100}
                                                                     value={CompanyDesc}
