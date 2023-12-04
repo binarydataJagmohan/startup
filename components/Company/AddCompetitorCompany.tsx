@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic';
 
 
 import {
-    getAllActiveFunds,
     getAllCCSPCampaign,
     AdminAddCometitorCompany,
     AdminUpdateCometitorCompany,
@@ -155,9 +154,7 @@ const AddCompetitorCompany = () => {
 
         setCompanyLogo(file);
         setFileName(file.name);
-        setError(''); // Clear any previous error
-
-        // Display a preview of the selected image
+        setError(''); 
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -372,15 +369,7 @@ const AddCompetitorCompany = () => {
                                                             className="form-label"
                                                         >
                                                             Company Description
-                                                        </label>
-                                                        {/* <textarea
-                                                            rows={4}
-                                                            placeholder="Enter details here"
-                                                            className="form-control"
-                                                            name="company_desc"
-                                                            value={CompanyDesc}
-                                                            onChange={(e) => setCompanyDesc(e.target.value)}
-                                                        /> */}
+                                                        </label>                                                       
                                                         <TextEditor
                                                             height={100}
                                                             value={CompanyDesc}
@@ -566,15 +555,7 @@ const AddCompetitorCompany = () => {
                                                             <div className="col-md-12">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
                                                                     Company Description
-                                                                </label>
-                                                                {/* <textarea
-                                                                    rows={4}
-                                                                    placeholder="Enter details here"
-                                                                    className="form-control"
-                                                                    name="company_desc"
-                                                                    value={CompanyDesc}
-                                                                    onChange={(e) => setCompanyDesc(e.target.value)}
-                                                                /> */}
+                                                                </label>                                                               
                                                                 <TextEditor
                                                                     height={100}
                                                                     value={CompanyDesc}

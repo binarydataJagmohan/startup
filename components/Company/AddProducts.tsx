@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import {
-    getAllCCSPCampaign,
     AdminAddProducts,
     AdminUpdateProduct,
     getAdminProductdata,
@@ -12,28 +11,12 @@ import {
 import { useRouter } from "next/router";
 import Image from 'next/image';
 
-interface Fund {
-    id: number;
-    fund_id: number;
-    tenure: string;
-    minimum_subscription: string;
-    amount: number;
-    status: string;
-    avg_amt_per_person: string;
-    repay_date: string;
-    closed_in: string;
-    type: string;
-    company_overview: string;
-}
 
 export default function AddProducts() {
     const [productdescription, setProductDescription] = useState("");
     const [productimage, setProductImage]: any = useState("");
     const [productimage1, setProductImage1]: any = useState("");
     const [productoverview, setProductOverview] = useState("");
-    const [fundid, setFundId]: any = useState<string | null>(null);
-    const [ccspid, setCCSPId]: any = useState<string | null>(null);
-
     const [productdata, setAllProductdata] = useState([]);
     const [productId, setProductId]: any = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
@@ -57,17 +40,8 @@ export default function AddProducts() {
         setFileName("");
     };
 
-    useEffect(() => {
-        getAllCCSPCampaign().then((res) => {
-            if (res.status === true && res.data.length > 0) {
-                setCCSPId(res.data[0].ccsp_fund_id);
-            } else {
-                toast.error("No active funds available", {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-            }
-            fetchAllproductdata();
-        });
+    useEffect(() => {         
+          fetchAllproductdata();
     }, []);
 
     const fetchAllproductdata = async () => {
@@ -148,9 +122,7 @@ export default function AddProducts() {
 
         setProductImage(file);
         setFileName(file.name);
-        setError(''); // Clear any previous error
-
-        // Display a preview of the selected image
+        setError(''); 
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
