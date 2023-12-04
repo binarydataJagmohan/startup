@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { getSinglestartup } from '../../lib/companyapi';
-import { getBusinessInformation, getBankInformation, getCountries, getProofInformation, fetchSingleUserDocuments } from '../../lib/frontendapi';
+import { getBusinessInformation, getBankInformation, getProofInformation, fetchSingleUserDocuments } from '../../lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import "react-phone-input-2/lib/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
-type Country = {
-  name: string;
-  country_code: string;
-}
-interface UserData {
-  id?: string;
-}
+
 const EditList = () => {
   const [startup, setStartupData] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
   const [bussiness, setBussinessData] = useState({
@@ -64,25 +58,13 @@ const EditList = () => {
   });
   const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}docs/${proof.proof_img}`;
   const router = useRouter();
-  const [countries, setcountries] = useState<Country[]>([]);
   const { id } = router.query;
-
-  const [pan_card_front, setPanCardFront] = useState(null);
-  const [pan_card_back, setPanCardBack] = useState(null);
-  const [adhar_card_front, setAdharCardFront] = useState(null);
-  const [adhar_card_back, setAdharCardBack] = useState(null);
-  const [certificateIncorporation, setcertificateIncorporation] = useState(null);
-  const [bankStatementThreeYears, setBankStatementThreeYears] = useState(null);
-  const [MOA, setMOA] = useState(null);
-  const [AOA, setAOA] = useState(null);
 
   useEffect(() => {
     const fetchData = async (id: any) => {
       const data = await getBusinessInformation(id);
-
       if (data) {
         setBussinessData(data.data);
-
       }
     };
 
@@ -94,14 +76,6 @@ const EditList = () => {
         .then((res) => {
           if (res.status == true) {
             setBasicDetails(res.data);
-            setPanCardFront(res.data.pan_card_front);
-            setPanCardBack(res.data.pan_card_back);
-            setAdharCardFront(res.data.adhar_card_front);
-            setAdharCardBack(res.data.adhar_card_back);
-            setcertificateIncorporation(res.data.certificate_incorporation);
-            setBankStatementThreeYears(res.data.bank_statement_3_years);
-            setMOA(res.data.moa);
-            setAOA(res.data.aoa);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -117,63 +91,33 @@ const EditList = () => {
   }, [router.query.id]);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-
-    const fetchData = async () => {
-      const data = await getCountries({});
-      if (data) {
-        setcountries(data.data);
-      }
-    };
-
-    fetchData();
-
-  }, []);
-
-  useEffect(() => {
-
     const fetchData = async (id: any) => {
-
       const data = await getBankInformation(id);
       if (data) {
         setBankData(data.data);
-
       }
     };
     fetchData(id);
-
-
   }, [router.query.id]);
+
   useEffect(() => {
-
     const fetchData = async (id: any) => {
-
       const data = await getProofInformation(id);
       if (data) {
         setProofData(data.data);
-
       }
     };
     fetchData(id);
-
-
   }, [router.query.id]);
 
   useEffect(() => {
-
     const fetchData = async (id: any) => {
-
       const data = await getSinglestartup(id);
       if (data) {
         setStartupData(data.data);
-
       }
     };
     fetchData(id);
-
-
   }, [router.query.id]);
 
   return (
@@ -462,9 +406,9 @@ const EditList = () => {
                                 ) : (
                                   null
                                 )
-                                }                               
+                                }
                               </div>
-                            </div>                           
+                            </div>
                           </div>
 
                         </div>
@@ -766,7 +710,6 @@ const EditList = () => {
                                 className="form-label"
                               >
                                 Certificate Of Incorporation{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               {basicDetails.certificate_incorporation ? (
                                 <>
@@ -788,7 +731,6 @@ const EditList = () => {
                                 className="form-label"
                               >
                                 3 Years Bank Statement{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               {basicDetails.bank_statement_three_years ? (
                                 <>
@@ -810,7 +752,6 @@ const EditList = () => {
                                 className="form-label"
                               >
                                 MOA{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               {basicDetails.moa ? (
                                 <>
@@ -832,7 +773,6 @@ const EditList = () => {
                                 className="form-label"
                               >
                                 AOA{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               {basicDetails.aoa ? (
                                 <>

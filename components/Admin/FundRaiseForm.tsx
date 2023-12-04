@@ -3,8 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
-import { fundInformationSave, getSingleBusinessInformation } from '../../lib/adminapi';
+import { getCurrentUserData, } from "../../lib/session";
+import { fundInformationSave } from '../../lib/adminapi';
 
 import { getSingleFundRaiseData } from "../../lib/adminapi"
 import { sendNotification, getBusinessInformation } from "../../lib/frontendapi"
@@ -71,32 +71,10 @@ const FundRaiseForm = () => {
             fetchData(router.query.id);
         }
     }, [router.query.id]);
-
-
-    const handleUploadClick = (event: any) => {
-        event.preventDefault();
-        if (fileInputRef.current !== null) {
-            (fileInputRef.current as HTMLInputElement).click();
-        }
-    };
-
+   
     const fileInputRef1 = useRef<HTMLInputElement>(null);
 
-    const handleUploadClick1 = (event: any) => {
-        event.preventDefault();
-        if (fileInputRef1.current !== null) {
-            (fileInputRef1.current as HTMLInputElement).click();
-        }
-    };
-
     const fileInputRef2 = useRef<HTMLInputElement>(null);
-
-    const handleUploadClick2 = (event: any) => {
-        event.preventDefault();
-        if (fileInputRef2.current !== null) {
-            (fileInputRef2.current as HTMLInputElement).click();
-        }
-    };
 
     const [agreement, setAgreement] = useState(null);
     const [agreementError, setAgreementError] = useState('');
@@ -111,7 +89,6 @@ const FundRaiseForm = () => {
     const [pdcName, setPdcName] = useState('');
     const [pdcSizeError, setPdcSizeError] = useState('');
 
-    // handleInvoiceFileChange for agreement pdf
     const handleAgreementFileChange = (event: any) => {
         const file = event.target.files[0];
         if (file) {
@@ -134,7 +111,6 @@ const FundRaiseForm = () => {
         }
     };
 
-    // handleInvoiceFileChange for invoice pdf
     const handleInvoiceFileChange = (event: any) => {
         const file = event.target.files[0];
         if (file) {
@@ -156,9 +132,7 @@ const FundRaiseForm = () => {
             }
         }
     };
-    // handlePDCFileChange for invoice pdf
     const handlePDCFileChange = (event: any) => {
-        // setPdc(event.target.files[0]);
         const file = event.target.files[0];
         if (file) {
             const allowedTypes = ["application/pdf"];
@@ -184,14 +158,12 @@ const FundRaiseForm = () => {
             setFundRaiseData({ ...fundRaiseData, [name]: value });
             const amount = name === "amount" ? Number(value) : fundRaiseData.amount;
             const totalUnits = name === "total_units" ? Number(value) : fundRaiseData.total_units;
-            // if (typeof amount === "number" && typeof totalUnits === "number") {
             if (amount && totalUnits) {
                 const minimum_value = amount / totalUnits;
                 setFundRaiseData({
                     ...fundRaiseData,
                     minimum_subscription: Math.floor(minimum_value).toString(),
                 });
-                // }
             }
         }
         if (name === "tenure") {
@@ -202,7 +174,6 @@ const FundRaiseForm = () => {
             )
                 .toISOString()
                 .substr(0, 10);
-            // const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
             const closedDate = new Date(today.getTime() + 20 * 24 * 60 * 60 * 1000)
                 .toISOString()
                 .substr(0, 10);
@@ -213,7 +184,6 @@ const FundRaiseForm = () => {
                 closed_in: closedDate,
             });
         }
-        // else {
         setFundRaiseData((prevState: FundRaiseData) => {
             return {
                 ...prevState,
@@ -222,7 +192,6 @@ const FundRaiseForm = () => {
                 business_id: businessInfo,
             };
         });
-        // }
     };
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
@@ -275,7 +244,6 @@ const FundRaiseForm = () => {
     }, []);
 
     const SubmitForm = async () => {
-        // event.preventDefault();
         try {
             if (invalidFields.length > 0) {
 
@@ -319,25 +287,8 @@ const FundRaiseForm = () => {
                             formData.append("desc", fundRaiseData.desc);
                             const res = await fundInformationSave(formData);
                             if (res.status === true) {
-                                sendNotification(data)
-                                    .then((notificationRes) => {
-                                    })
-                                    .catch((error) => {
-                                        console.log("error occured");
-                                    });
-
-
-                                FundRaisedSendNotification(data)
-                                    .then((notificationRes) => {
-                                    })
-                                    .catch((error) => {
-                                        console.log("error occured");
-                                    });
-
-                                // toast.success(res.msg, {
-                                //     position: toast.POSITION.TOP_RIGHT,
-                                //     toastId: "success",
-                                // });
+                                sendNotification(data)                                   
+                                FundRaisedSendNotification(data)                                    
                                 toast.success(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "success",

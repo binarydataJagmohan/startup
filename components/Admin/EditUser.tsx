@@ -1,45 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
-import { getSingleUserData, getCountries, sendNotification } from '@/lib/frontendapi';
+import { ToastContainer } from "react-toastify";
+import { getSingleUserData } from '@/lib/frontendapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import "react-toastify/dist/ReactToastify.css";
-import Image from 'next/image';
-import axios from 'axios';
-import { useForm } from "react-hook-form";
-import { getToken, getCurrentUserData } from "../../lib/session";
 
-type Country = {
-    name: string;
-    country_code: string;
-}
-interface UserData {
-    id?: string;
-}
 const EditUser = () => {
 
-    const [countries, setcountries] = useState<Country[]>([]);
-    // const [selectedGender setSelectedGender] = useState([]);
-    const [current_user_id, setCurrentUserId] = useState("");   
     const router = useRouter();
-
-    const { id } = router.query;
-
 
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });   
-    const [missingFields, setMissingFields] = useState<string[]>([]);
-
-
-
 
     useEffect(() => {
         const fetchData = async (id: any) => {
-            //    console.log("id for userdatafetch"+id);
             const data = await getSingleUserData(id);
             if (data) {
                 setUsers(data.data);
@@ -49,31 +27,6 @@ const EditUser = () => {
             fetchData(router.query.id);
         }
     }, [router.query.id]);
-
-    useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
-        if (current_user_data?.id != null) {
-            current_user_data.id
-                ? setCurrentUserId(current_user_data.id)
-                : setCurrentUserId("");
-
-        } else {
-            window.location.href = "/login";
-        }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-
-        const fetchData = async () => {
-            const data = await getCountries({});
-            if (data) {
-                setcountries(data.data);
-            }
-        };
-        fetchData();
-
-    }, []);
    
     return (
         <>
@@ -115,12 +68,7 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Name{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <input type="text" className="form-control " id="name" name="name" readOnly value={users.name} placeholder="Enter Your Name" />
-                                                    {missingFields.includes("Name") && (
-                                                        <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                                                            Please fill in the Name field.
-                                                        </p>
-                                                    )}
+                                                    <input type="text" className="form-control " id="name" name="name" readOnly value={users.name} placeholder="Enter Your Name" />                                                   
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Email Address{" "}
@@ -207,7 +155,7 @@ const EditUser = () => {
                                 </div>
                             </div>
                         </div>{" "}
-                    </div>{" "}{/* container-fluid */}
+                    </div>{" "}
                 </div>
                 <ToastContainer autoClose={2000} />
             </div>

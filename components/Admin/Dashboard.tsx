@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getCurrentUserData } from "../../lib/session";
 import { getTotalUsers, getInvestorCounts, getStartupCounts, getAllActiveFundsCount } from '@/lib/adminapi';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-interface UserData {
-  id?: string;
-}
 const Dashboard = () => {
-  const [current_user_id, setCurrentUserId] = useState("");
   const [userCount, setUserCount] = useState(0);
   const [investorCount, setInvestorCount] = useState(0);
   const [startupCount, setStartupCount] = useState(0);
@@ -56,17 +51,8 @@ const Dashboard = () => {
     fetchStartupCount();
     fetchAllActiveFundsCount();
   }, []);
-  useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data?.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
 
-    } else {
-      window.location.href = "/login";
-    }
-
+  useEffect(() => {  
     const handleWindowLoad = () => {
       const element = document.getElementById('your-element-id1');
       if (element) {
@@ -76,7 +62,6 @@ const Dashboard = () => {
     };
 
     window.addEventListener('load', handleWindowLoad);
-
     return () => {
       window.removeEventListener('load', handleWindowLoad);
     };

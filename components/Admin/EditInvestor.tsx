@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
 import { getSingleInvestor } from '../../lib/investorapi';
 import "react-toastify/dist/ReactToastify.css";
 import PhoneInput from "react-phone-input-2";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
 import "react-phone-input-2/lib/style.css";
-import { getCountries, sendNotification, getSingleUserData, getInvestorType, getAngelInvestorTerms, getDocumentsUpload } from "../../lib/frontendapi";
-import { getToken, getCurrentUserData } from "../../lib/session";
+import { getInvestorType, getAngelInvestorTerms, getDocumentsUpload } from "../../lib/frontendapi";
 import Image from "next/image";
 
-type Country = {
-  name: string;
-  country_code: string;
-}
-interface UserData {
-  id?: string;
-}
 const EditInvestor = () => {
   const [investor, setInvestor] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
-  const [countries, setcountries] = useState<Country[]>([]);
-  const [missingFields, setMissingFields] = useState<string[]>([]);
-  const [invalidFields, setInvalidFields] = useState<string[]>([]); 
   const [termscondition, setTermsCondition]: any = useState(false);
   const [accreditedcondition, setAccreditedcondition]: any = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
@@ -29,7 +17,6 @@ const EditInvestor = () => {
   const [experience, setExperience]: any = useState(false);
   const [net_worth, setNetWorth]: any = useState(false);
   const [prev_investment_exp, setPrevInvestmentExp]: any = useState(false);
-  const [no_requirements, setNoRequirements]: any = useState(false);
   const [cofounder, setCofounder]: any = useState(false);
   const [annual_income, setAnnualIncome]: any = useState(false);
   const [financial_net_worth, setFinancialNetWorth]: any = useState(false);
@@ -38,61 +25,26 @@ const EditInvestor = () => {
   const [foreign_net_worth, setForeignNetWorth]: any = useState(false);
   const [foreign_annual_net_worth, setForeignAnnualNetWorth]: any = useState(false);
   const [corporate_net_worth, setCorporateNetWorth]: any = useState(false);
-  const [current_user_id, setCurrentUserId] = useState("");
-  const [errors, setErrors]: any = useState({});
-  const [users, setUsers] = useState<any>({});
-
 
   const [documentUpload, setDocumentUpload] = useState([]);
- 
+
   const [investorDetails, seInvestorDetails] = useState({
     investorType: ""
   });
 
   const router = useRouter();
-  const { id } = router.query;
-
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-
-    const fetchData = async () => {
-      const data = await getCountries({});
-      if (data) {
-        setcountries(data.data);
-      }
-    };
-
-    fetchData();
-
-  }, []);
-  
-  useEffect(() => {
-    const current_user_data: any = getCurrentUserData();
-    setCurrentUserId(current_user_data.id);
     const fetchData = async (id: any) => {
       const data = await getSingleInvestor(id);
       if (data) {
         setInvestor(data.data);
-
       }
     };
     if (router.query.id) {
       fetchData(router.query.id);
     }
-    getSingleUserData(router.query.id)
-      .then((res) => {
-        if (res.status == true) {
-          setUsers(res.data);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      });
+
     getInvestorType(router.query.id)
       .then((res) => {
         if (res.status === true) {
@@ -125,7 +77,6 @@ const EditInvestor = () => {
           setForeignNetWorth(res.data.foreign_net_worth);
           setForeignAnnualNetWorth(res.data.foreign_annual_net_worth);
           setCorporateNetWorth(res.data.corporate_net_worth);
-          setNoRequirements(res.data.no_requirements);
           setNetWorth(res.data.net_worth);
           setExperience(res.data.experience);
           setCofounder(res.data.cofounder);
@@ -210,16 +161,6 @@ const EditInvestor = () => {
 
                           />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("linkedin_url") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please fill in the linkedin_url field.
-                            </p>
-                          )}
-                          {invalidFields.includes("linkedin_url") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please enter a valid linkedin_url address.
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -228,38 +169,24 @@ const EditInvestor = () => {
                     <div className="row">
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Country{" "}
-                          {/* <span style={{ color: "red" }}>*</span> */}
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="Country of Citizenship " name="country" value={investor.country} readOnly />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("country") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please fill in the country field.
-                            </p>
-                          )}
-
                         </div>
                       </div>
                       <div className="col-sm-6">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
                         <div className="form-part">
-                          <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
-                            <span style={{ color: "red" }}>*</span>
-                          </label>
                           <div className="mt-3">
-                            <PhoneInput                           
+                            <PhoneInput
                               country={"us"}
-                              value={investor.phone}                             
+                              value={investor.phone}
                               disabled
                             />
                           </div>
-                          {missingFields.includes("Phone") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please fill in the Phone field.
-                            </p>
-                          )}
-
-
                         </div>
                       </div>
                     </div>
@@ -272,35 +199,17 @@ const EditInvestor = () => {
                         <div className="form-part">
                           <input type="text" placeholder="City" name="city" value={investor.city} readOnly />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("City") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please fill in the city field.
-                            </p>
-                          )}
                         </div>
                       </div>
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}
-                          {/* <span style={{ color: "red" }}>*</span> */}
                         </label>
                         <div className="form-part">
-                          <select name="gender" value={investor.gender ? investor.gender : ""} disabled>
-                            <option value={investor.gender ? investor.gender : ""}>{investor.gender ? investor.gender.charAt(0).toUpperCase() + investor.gender.slice(1) : "--SELECT GENDER--"}</option>
-                            {investor.gender !== 'male' && <option value="male">Male</option>}
-                            {investor.gender !== 'female' && <option value="female">Female</option>}
-                            {investor.gender !== 'other' && <option value="other">Other</option>}
-                          </select>
+                          <input type="text" placeholder="Gender" name="gender" value={investor.gender} readOnly />
                           <div className="help-block with-errors" />
-                          {missingFields.includes("gender") && (
-                            <p className="text-danger" style={{ textAlign: "left", fontSize: "12px" }}>
-                              Please fill in the gender field.
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
-
-
                   </form>
                 </div>
               </div>
@@ -391,14 +300,7 @@ const EditInvestor = () => {
                                   </li>
                                 </ul>
                               </div>
-                              <div className="help-block with-errors" />
-                              <div className="error text-center">
-                                {errors.investorType && (
-                                  <span className="small error text-danger mb-2 d-inline-block error_login">
-                                    {errors.investorType}
-                                  </span>
-                                )}
-                              </div>
+                              <div className="help-block with-errors" />                             
                             </div>
                           </div>
                         </div>
@@ -430,11 +332,6 @@ const EditInvestor = () => {
                                         <label htmlFor="checkbox4">
                                           Net tangible assets of at least INR 2 Crore excluding value of his principal residence.<span className="requiredclass">*</span>
                                         </label>
-                                        {errors.principal_residence && (
-                                          <span className="small error text-danger mb-2 d-inline-block error_login">
-                                            {errors.principal_residence}
-                                          </span>
-                                        )}
                                       </div>
                                     </div>
                                   </div>
@@ -482,15 +379,6 @@ const EditInvestor = () => {
                                       <p><span className="small mb-2 d-inline-block" style={{ "fontStyle": "italic" }}>Note:</span> Please select atleast one option!</p>
                                     </div>
                                   </div>
-                                  <div className="same-card checkbox-options">
-                                    <div className="row">
-                                      {errors.experience && (
-                                        <span className="small error text-danger mb-2 d-inline-block error_login">
-                                          {errors.experience}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
                                 </div>
                                 <div id="checkbox-group-2" className={selectedOption === '2' ? 'visible mt-3' : 'hidden mt-3'}>
                                   <div className="same-card checkbox-options">
@@ -501,13 +389,7 @@ const EditInvestor = () => {
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox8">Net worth of at least INR 10 Crore.<span className="requiredclass">*</span></label><br></br>
-                                        {errors.net_worth && (
-                                          <span className="small error text-danger mb-2 d-inline-block error_login">
-                                            {errors.net_worth}
-                                          </span>
-                                        )}
                                       </div>
-
                                     </div>
                                   </div>
                                 </div>
@@ -548,7 +430,6 @@ const EditInvestor = () => {
                                           name="annual_income"
                                           checked={annual_income == 0 ? false : true}
                                           readOnly />
-
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox10">
@@ -579,12 +460,11 @@ const EditInvestor = () => {
                                       <div className="col-auto pt-1">
                                         <input type="checkbox" id="checkbox12" value={financial_annual_net_worth == 0 ? 1 : 0}
                                           name="financial_annual_net_worth" checked={financial_annual_net_worth == 0 ? false : true}
-                                         readOnly />
+                                          readOnly />
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox12">Have an annual income of at least ₹1 crore and a net worth of at least ₹ 5 crore with more
                                           than ₹ 2.5 crore of financial assets.</label>
-
                                       </div>
                                     </div>
                                   </div>
@@ -600,15 +480,10 @@ const EditInvestor = () => {
                                       <div className="col-auto pt-1">
                                         <input type="checkbox" id="checkbox13" value={foreign_annual_income == 0 ? 1 : 0}
                                           name="foreign_annual_income" checked={foreign_annual_income == 0 ? false : true}
-                                         readOnly />
+                                          readOnly />
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox13">Have an annual income of at least $300,000.</label><br></br>
-                                        {errors.foreign_annual_income && (
-                                          <span className="small error text-danger mb-2 d-inline-block error_login">
-                                            {errors.foreign_annual_income}
-                                          </span>
-                                        )}
                                       </div>
                                     </div>
                                   </div>
@@ -616,7 +491,7 @@ const EditInvestor = () => {
                                     <div className="row">
                                       <div className="col-auto pt-1">
                                         <input type="checkbox" id="checkbox14" value={foreign_net_worth == 0 ? 1 : 0} name="foreign_net_worth" checked={foreign_net_worth == 0 ? false : true}
-                                           readOnly />
+                                          readOnly />
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox14">Have a net worth of at least $1 million with more than $500,000 of financial assets.</label>
@@ -651,29 +526,14 @@ const EditInvestor = () => {
                                       </div>
                                       <div className="col">
                                         <label htmlFor="checkbox16">Net worth greater than or equal to INR 50 crore or, $7.5 million.</label><br></br>
-                                        {errors.corporate_net_worth && (
-                                          <span className="small error text-danger mb-2 d-inline-block error_login">
-                                            {errors.corporate_net_worth}
-                                          </span>
-                                        )}
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                                <div className="same-card checkbox-options">
-                                  <div className="row">
-                                    {errors.annual_income && (
-                                      <span className="small error text-danger mb-2 d-inline-block error_login">
-                                        {errors.annual_income}
-                                      </span>
-                                    )}
-                                  </div>
-                                </div>
+                                </div>                               
                               </div>
                             </div>
                           </div>
                         }
-
                       </div>
                     </div>
                   </div>

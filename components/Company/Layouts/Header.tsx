@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { getSingleUserData, CheckUserApprovalStatus } from '@/lib/frontendapi';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useMediaQuery } from 'react-responsive';
+
 import { getTotalCountOfNotifications, getCountOfUnreadNotifications } from '../../../lib/adminapi';
 interface UserData {
   id?: string;
@@ -72,27 +74,29 @@ const Header = () => {
 
   }, []);
 
+  const isSmallScreen = useMediaQuery({ maxWidth: 991 });
+
   return (
     <>
       <div id="page-topbar">
         <div className="navbar-header">
           <div className="d-flex align-items-center">
             {/* LOGO */}
-            <div className="navbar-brand-box">
+            <div className="navbar-brand-box d-block d-lg-none d-md-none">
               <Link href='/' className="logo logo-dark">
                 <span className="logo-sm class-as">
-                  <Image src="/assets/img/logo2.png" alt="" width={190} height={53} />
+                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <Image src="/assets/img/logo2.png" alt="" width={190} height={53} />
+                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
                 </span>
               </Link>
               <Link href='/' className="logo logo-light">
                 <span className="logo-sm">
-                  <Image src="/assets/img/logo2.png" alt="" width={190} height={53} />
+                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <Image src="/assets/img/logo2.png" alt="" width={190} height={53} />
+                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
                 </span>
               </Link>
             </div>
@@ -100,7 +104,7 @@ const Header = () => {
               <Link className="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                 <i className="mdi mdi-menu d-none"></i>
               </Link>
-              <div className="offcanvas offcanvas-start show" tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+              <div className={`offcanvas offcanvas-start ${isSmallScreen ? 'd-block d-lg-none' : 'show'}`} tabIndex={-1} id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header p-0">
                   <div className="navbar-brand-box p-0">
                     <Link href='/' className="logo logo-dark">
@@ -207,40 +211,27 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-investors"} className="waves-effect">
-                              <i className="fa fa-dollar"></i>
-                              <span>Investors</span>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/all-startup-companies"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-fund-raise-list"} className="waves-effect">
                               <i className="fa fa-building"></i>
-                              <span>All Startups</span>
+                              <span>All Fund Raise</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="#" className="waves-effect">
-                              <i className="fa fa-business-time"></i>
-                              <span className="badge rounded-pill bg-primary float-end">10</span>
-                              <span>Total Active Funds</span>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="#" className="waves-effect">
-                              <i className="fa fa-users"></i>
-                              <span>All Users</span>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className="waves-effect">
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/all-notifications"} className={`nav-item waves-effect ${router.pathname === '/company/all-notifications' ? 'active p1' : ''}`} >
                               <i className="fa fa-bell"></i>
                               <span>Notifications</span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="#" className="waves-effect">
-                              <i className="fa fa-cogs"></i>
-                              <span>Settings</span>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-request"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-request' ? 'active p1' : ''}`}>
+                              <i className="fa fa-business-time"></i>
+                              <span>CCSP Request</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href={process.env.NEXT_PUBLIC_BASE_URL + "company/ccsp-campaign"} className={`nav-item waves-effect ${router.pathname === '/company/ccsp-campaign' ? 'active p1' : ''}`}>
+                              <i className="fa fa-business-time"></i>
+                              <span>CCSP Campaign</span>
                             </Link>
                           </li>
                         </ul>

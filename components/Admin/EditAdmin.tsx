@@ -6,45 +6,25 @@ import { getAdminData } from '@/lib/adminapi';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
-import axios from 'axios';
 import { useForm } from "react-hook-form";
-import { getToken, getCurrentUserData } from "@/lib/session";
-import { set } from 'nprogress';
 
 type Country = {
     name: string;
     country_code: string;
 }
-interface UserData {
-    id?: string;
-}
+
 const EditAdmin = () => {
 
     const [countries, setcountries] = useState<Country[]>([]);
-    const [selectedRole, setSelectedRole] = useState([]);
-    // const [selectedGender setSelectedGender] = useState([]);
-    const [current_user_id, setCurrentUserId] = useState("");
     const { register, handleSubmit, formState: { errors: any }, } = useForm();
-
-
-
-
-
-    const router = useRouter();
-
     const [id, setId] = useState('');
-
-
     const [users, setUsers] = useState(
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: '', gender: '', profile_pic: '' });
     const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
-    const [errorMessage, setErrorMessage] = useState('');
     const [invalidFields, setInvalidFields] = useState<string[]>([]);
     const [missingFields, setMissingFields] = useState<string[]>([]);
-    const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}${users.profile_pic}`;
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
     const [startupLogoName, setStartupLogoName] = useState('');
@@ -53,16 +33,11 @@ const EditAdmin = () => {
         const fetchData = async () => {
             const data = await getAdminData();
             if (data) {
-
                 setUsers(data.data);
                 setId(data.data.id);
-
-
             }
         };
-
         fetchData();
-
     }, []);
 
     const updateAdmin = async (e: any) => {
@@ -79,98 +54,43 @@ const EditAdmin = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        }
-        //  else if (
-        //     /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/i
-        //         .test(users.linkedin_url)
-        // ) {
-        //     setInvalidFields(prevFields => [...prevFields, "linkedin_url"]);
-        // }
-
+        }       
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
         if (!users.gender) setMissingFields(prevFields => [...prevFields, "Gender"]);
 
 
         if (!users.status) setMissingFields(prevFields => [...prevFields, "Status"]);
-        // if (!users.profile_pic) setMissingFields(prevFields => [...prevFields, "Profile Picture"]);
         if (!users.role) setMissingFields(prevFields => [...prevFields, "Role"]);
         if (!users.city) setMissingFields(prevFields => [...prevFields, "City"]);
         if (!users.profile_pic) setMissingFields(prevFields => [...prevFields, "Profile"]);
 
         if (missingFields.length > 0 || invalidFields.length > 0) {
-            const errorMessage = `Please fill in the following fields: ${missingFields.join(", ")}`;
-            setErrorMessage(errorMessage);
-            return;
+           
         }
 
-        try {
-
-
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/update-admin`,
-                {
-                    ['name']: users.name,
-                    ['email']: users.email,
-                    ['country']: users.country,
-                    ['phone']: users.phone,
-                    ['city']: users.city,
-                    ['gender']: users.gender,
-                    ['linkedin_url']: users.linkedin_url,
-                    ['profile_pic']: users.profile_pic
-                },
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + getToken(),
-                    }
-                }
-            );
-
+        try {           
             toast.success('Admin updated successfully');
             window.location.reload();
         } catch (error) {
 
-            // toast.error('Please Try Again!');
         }
     };
 
-    useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
-        if (current_user_data?.id != null) {
-            current_user_data.id
-                ? setCurrentUserId(current_user_data.id)
-                : setCurrentUserId("");
-
-        } else {
-            window.location.href = "/login";
-        }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-
+    useEffect(() => {            
         const fetchData = async () => {
             const data = await getCountries({});
             if (data) {
                 setcountries(data.data);
             }
         };
-
         fetchData();
-
     }, []);
+
+
     const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
         setMissingFields([]);
         setInvalidFields([]);
-
-
-        let selectedCountry = countries.find((country) => country.name === value);
-        let countryCode = selectedCountry ? selectedCountry.country_code : '';
 
         if (event.target.name === "profile_pic") {
             // Handle logo file input change
@@ -381,18 +301,12 @@ const EditAdmin = () => {
                                                                 <option value={users.gender}>{users.gender.charAt(0).toUpperCase() + users.gender.slice(1).toLowerCase()}</option>
                                                             )
                                                         }
-
                                                         {users.gender !== 'male' && <option value="male">Male</option>}
                                                         {users.gender !== 'female' && <option value="female">Female</option>}
                                                         {users.gender !== 'other' && <option value="other">Other</option>}
 
                                                     </select>
                                                 </div>
-
-
-
-
-
                                                 <div className="col-md-6">
                                                     <div id="divHabilitSelectors" className="input-file-container">
                                                         <div className="row">
@@ -478,12 +392,8 @@ const EditAdmin = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
-
                                                 </div>
-
                                             </div>
-
                                             <div className="row mt-5">
                                                 <div
                                                     className="col-md-12"
