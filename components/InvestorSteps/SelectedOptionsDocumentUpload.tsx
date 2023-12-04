@@ -224,7 +224,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleCertificateOfIncorporationChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
