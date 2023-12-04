@@ -376,7 +376,6 @@ export default function CampaignsDetails() {
         chat_type: 'group',
         message: 'Hello'
       };
-      alert('group_business_id value: ' + data.group_business_id);
 
       CreateGroupChatByInvestor(data)
         .then(res => {
