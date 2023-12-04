@@ -40,6 +40,10 @@ export default function Blog() {
         return date.toLocaleDateString(undefined, options);
     };
 
+    function stripHtmlTags(html: any) {
+        return html.replace(/<[^>]*>/g, '');
+    }
+
     return (
         <>
             <section className="blog-section pt-100 pb-100">
@@ -89,11 +93,12 @@ export default function Blog() {
                                                 <span>{formatDate(blog.created_at || "")}</span>
                                                 <h3>
                                                     <Link href={`/blog/${blog.slug}`}>
-                                                        {blog.name}
+                                                        {blog.name.slice(0, 30)}
                                                     </Link>
                                                 </h3>
                                                 <p>
-                                                    <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} />
+                                                    {/* <div dangerouslySetInnerHTML={{ __html: blog?.description?.slice(0, 100) ?? "" }} /> */}
+                                                    <div dangerouslySetInnerHTML={{ __html: stripHtmlTags(blog?.description?.slice(0, 100) ?? "") }} />
                                                 </p>
                                                 <Link href={`/blog/${blog.slug}`} className="read-more">Read More</Link>
                                             </div></div>

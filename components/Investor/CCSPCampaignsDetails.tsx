@@ -1,16 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getSingleBusinessDetails, InvestorBooking, CreateGroupChatByInvestor, getSingleGroupData, getSingleFundDetails } from "@/lib/investorapi";
-import { getCurrentUserData } from "../../lib/session";
-import { toast } from "react-toastify";
+import { getToken, getCurrentUserData } from "../../lib/session";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi'
+import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData, getAllCCSPCampaign } from '../../lib/frontendapi'
 
 interface UserData {
   id?: string;
   investorType?: string;
+  // role?:string;
 }
 interface InputData {
   business_id?: string;
@@ -48,21 +49,37 @@ interface FundData {
 
 export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState<UserData>({});
+  const [singleUserData, setSingleUserData] = useState<UserData>({});
   const [value, setValue] = useState(1);
   const [inputs, setInputs] = useState<InputData>({});
   const [subscriptionValue, setSubscriptionValue] = useState(0);
   const [repayValue, setRepayValue] = useState(0);
+  const [subscription_value, setSubscription_value] = useState(0);
+  const [repay_date, setRepay_date] = useState("");
   const [repayment_value, setRepayment_value] = useState(0);
+  const [terms, setTerms] = useState(0);
+  const [no_of_units, setNo_of_units] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
+  const [checkboxError, setCheckboxError] = useState('');
   const [current_user_id, setCurrentUserId] = useState("");
+  const [ButtonDisabled, setButtonDisabled] = useState(true);
   const [activeLink, setActiveLink] = useState("active");
   const [isSticky, setIsSticky] = useState(false);
+  const [pagedata, setPagedata]: any = useState([]);
   const [teamdata, setTeamdata]: any = useState([]);
   const [companydata, setCompanydata]: any = useState([]);
   const [productdata, setProductdata]: any = useState([]);
-  const [fundData, setFundData]: any = useState<FundData | null>(null);
+  const [fundData, setFundData]: any = useState<FundData | null>(null); // State to hold fund data
+  const [user, setPUser] = useState({
+    business_name: "",
+    business_id: "",
+  });
+  const [fundid, setFundId]: any = useState<string | null>(null);
+  const [fundids, setFundIds]: any = useState<string | null>(null);
   const [isBusinessGroup, setIsBusinessGroup] = useState(false);
+  const [fundimage, setFundImage]: any = useState("");
 
 
   useEffect(() => {
@@ -77,12 +94,15 @@ export default function CampaignsDetails() {
     }
 
     const fetchData = async () => {
-      const res = await getSingleBusinessDetails(id);
+      // const res = await getSingleBusinessDetails(id);
+      const res = await getSingleFundDetails(id);
       setInputs(res.data);
+      console.log(res.data);
       const userData: UserData = getCurrentUserData();
       setCurrentUserData(userData);
     };
     fetchData();
+
     const data = {
       group_business_id: id,
     }
@@ -95,9 +115,19 @@ export default function CampaignsDetails() {
         }
       })
       .catch((error) => {
+        console.log("error occured");
       });
     getSingleUserData(current_user_data.id)
-
+      .then((res) => {
+        if (res.status == true) {
+          setSingleUserData(res.data);
+        } else {
+          setSingleUserData({});
+        }
+      })
+      .catch((error) => {
+        console.log("error occured");
+      });
   }, [id]);
 
 
@@ -108,8 +138,10 @@ export default function CampaignsDetails() {
           const activeFund = await getSingleFundDetails(id); // Pass the 'id' here
 
           if (activeFund.status === true) {
-            const matchingFund = activeFund.data;
+            const matchingFund = activeFund.data; // Assuming activeFund.data holds the single fund details
+
             if (matchingFund) {
+              // console.log("Matching Fund:", matchingFund);
               const fundId = matchingFund.ccsp_fund_id;
               await fetchAllTeamAndCompany(fundId);
               setFundData(matchingFund);
@@ -169,6 +201,9 @@ export default function CampaignsDetails() {
   const fetchAllPagedata = async (buisnesssid: any) => {
     try {
       const pageDataResponse = await getInvestorPagedata(buisnesssid);
+      if (pageDataResponse.status) {
+        setPagedata(pageDataResponse.data);
+      }
     } catch (error) {
       console.error("Error fetching page data: ", error);
     }
@@ -196,12 +231,20 @@ export default function CampaignsDetails() {
     if (type === "checkbox" && name === "terms") {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
       const cofounderValue = checked ? "1" : "0";
+      setTerms((prevState: any) => {
+        return {
+          ...prevState,
+          cofounder: cofounderValue,
+          user_id: current_user_id,
+        };
+      });
     }
   };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (!repayment_value) {
+      setCheckboxError('* Please accept the terms and conditions');
     } else {
       const data = {
         user_id: currentUserData.id,
@@ -223,14 +266,22 @@ export default function CampaignsDetails() {
       try {
         InvestorBooking(data).then((res) => {
           if (res.status == true) {
+            setButtonDisabled(true);
             router.push(`/investor/checkout`);
 
             // send notification
             sendNotification(notification)
               .then((notificationRes) => {
+                console.log("success");
               })
               .catch((error) => {
+                console.log("error occured");
               });
+
+            // toast.success(res.message, {
+            //   position: toast.POSITION.TOP_RIGHT,
+            //   toastId: "success",
+            // });
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -244,7 +295,9 @@ export default function CampaignsDetails() {
       }
     }
   };
-
+  const toggleAccordion = (index: any) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
   useEffect(() => {
     if (inputs?.minimum_subscription !== undefined) {
       setSubscriptionValue(inputs.minimum_subscription);
@@ -304,6 +357,7 @@ export default function CampaignsDetails() {
       const data3 = data2 / 366;
       const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
       const newRepayValue = newSubscriptionValue + data4;
+      // console.log(newRepayValue)
       setRepayValue(newRepayValue);
     }
   };
@@ -322,6 +376,7 @@ export default function CampaignsDetails() {
         chat_type: 'group',
         message: 'Hello'
       };
+
       CreateGroupChatByInvestor(data)
         .then(res => {
           if (res.status == true) {
@@ -333,6 +388,7 @@ export default function CampaignsDetails() {
           }
         })
         .catch(err => {
+          console.log(err);
         });
     }
   }
@@ -408,51 +464,14 @@ export default function CampaignsDetails() {
                 </ul>
               </div>
             </div>
-            {/* <div className="col-md-5">
-              <div className="d-flex justify-content-between">
-                <div>
-                  <span style={{ color: '#fff' }}>Total Amount</span>
-                  <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
-                </div>
-                <div>
-                  {" "}
-                  <span style={{ color: '#fff' }}>Units Left</span>
-                  <br />
-                  <span className="progressbar-value">
-                    <span className="color-rumaric" style={{ color: '#fff' }}>
-                      {inputs.no_of_units}
-                    </span>
-                    <strong style={{ color: '#fff' }}>/{inputs.total_units}</strong>
-                  </span>
-                </div>
-              </div>
-              <div className="progress mt-2">
-                <div
-                  className="progress-bar progress-bar-success"
-                  role="progressbar"
-                  aria-valuemin={0}
-                  aria-valuemax={
-                    inputs.total_units !== undefined
-                      ? parseInt(inputs.total_units)
-                      : undefined
-                  }
-                  style={{ width: `${progressPercentage}%` }}
-                />
-              </div>
-            </div> */}
-            {/* <div className="col-sm-1">
+
+            <div className="col-lg-5">
               {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
                 ?
-                  inputs.type == 'CCSP'
-                  ?
-                    <p style={{"textAlign":"right", "position": "relative", "bottom": "60px", "right": "10px"}}><a href="#" style={{"color":"#ffffff"}} onClick={(e) => handleClickChat(inputs.user_id, inputs.business_name, inputs.business_id)}><i className="fa fa-message"></i></a></p>
-                  :
-                    ''
+                <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}><a href="#" style={{ "color": "#ffffff" }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}><i className="fa fa-message color-set"></i></a></p>
                 :
-                  ''
+                ''
               }
-            </div> */}
-            <div className="col-lg-5">
               <div className="investments text-center">
                 <h2>Accepting Investments</h2>
               </div>
@@ -689,7 +708,7 @@ export default function CampaignsDetails() {
       )}
 
 
-      {
+      {/* {
         fundData ||
           fundData?.dilution_percentage ||
           fundData?.min_commitment ||
@@ -734,7 +753,54 @@ export default function CampaignsDetails() {
             </div>
           </section>
         ) : null
+      } */}
+
+      {
+        (fundData?.dilution_percentage ||
+          (fundData?.min_commitment && fundData?.max_commitment) ||
+          fundData?.valuation_cap ||
+          fundData?.amount_raised ||
+          fundData?.round_name) ? (
+          <section id="terms">
+            <div className="container">
+              <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
+              <div className="termsContent">
+                <div className="row">
+                  <h1>Round Details</h1>
+                  <>
+                    {fundData?.dilution_percentage ? (
+                      <p>
+                        <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
+                      </p>
+                    ) : null}
+                    {(fundData?.min_commitment && fundData?.max_commitment) ? (
+                      <p>
+                        <strong>Minimum commitment:</strong> Min: ${fundData?.min_commitment} Max: ${fundData?.max_commitment}
+                      </p>
+                    ) : null}
+                    {fundData?.valuation_cap && (
+                      <p>
+                        <strong>Valuation Cap:</strong> ${fundData?.valuation_cap}
+                      </p>
+                    )}
+                    {fundData?.amount_raised ? (
+                      <p>
+                        <strong>Amount Raised:</strong> ${fundData?.amount_raised}
+                      </p>
+                    ) : null}
+                    {fundData?.round_name ? (
+                      <p>
+                        <strong>Round name:</strong> {fundData?.round_name}
+                      </p>
+                    ) : null}
+                  </>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null
       }
+
 
 
       {fundData?.company_overview && (
@@ -751,7 +817,6 @@ export default function CampaignsDetails() {
           </div>
         </section>
       )}
-
 
       {fundData?.past_financing_desc && (
         <section id="industry" className="tabsSection">
@@ -825,8 +890,6 @@ export default function CampaignsDetails() {
           </div>
         </section>
       )}
-
-
 
       {teamdata.length > 0 && (
         <section id="team" className="pt-100 pb-100">
