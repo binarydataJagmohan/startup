@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
 import {
-  uploadDocuments,
-  fetchSingleUserDocuments,
   getSingleUserData,
   SelectedOptionsuploadDocuments,
   getAngelInvestorTerms,
   getDocumentsUpload,
 } from "../../lib/frontendapi";
 import { getCurrentUserData } from "../../lib/session";
-import { event } from "jquery";
 import Image from "next/image";
 
 interface UserData {
@@ -31,28 +27,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const [incorporation_certificate, setIncorporationCertificate] =
     useState(null);
   const [documentUpload, setDocumentUpload] = useState([]);
-  const [signup_success, setSignupSuccess] = useState(false);
-  const [document_id, setDocumentId] = useState("");
-  const [errors, setErrors] = useState({
-    proof_of_network: "",
-    proof_of_income: "",
-    certificate_of_incorporation: "",
-    ca_signed_net_angeable_2_crore: "",
-    net_worth_atleast_10_crore: "",
-    bank_statement_3_years: "",
-    incorporation_certificate: "",
-  });
-  const [basicDetails, setBasicDetails] = useState({
-    proof_of_network: "",
-    proof_of_income: "",
-    certificate_of_incorporation: "",
-    ca_signed_net_angeable_2_crore: "",
-    net_worth_atleast_10_crore: "",
-    bank_statement_3_years: "",
-    incorporation_certificate: "",
-    documnet_id: "",
-  });
-  const [current_user_id, setCurrentUserId] = useState("");
+
   const [users, setUsers] = useState<any>({});
   const [terms, setTerms] = useState({
     category: "",
@@ -77,9 +52,7 @@ export default function SelectedOptionsDocumentUpload(): any {
         });
       });
     if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
+
       getAngelInvestorTerms(current_user_data.id)
         .then((res) => {
           if (res.status === true) {
@@ -138,7 +111,6 @@ export default function SelectedOptionsDocumentUpload(): any {
         if (terms.category == "1") {
         }
       }
-      setErrors(errors);
       if (Object.keys(errors).length === 0) {
         const currentUserData: any = getCurrentUserData();
         const data = {
@@ -202,7 +174,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleProofOfNetWorthChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -227,7 +199,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleProofOfIncomeChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -252,7 +224,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleCertificateOfIncorporationChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -276,7 +248,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleCASignedNetAngeable2CroreChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -301,7 +273,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleNetWorthAtleast10CroreChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -326,7 +298,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleBankStatement3YearsChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -351,7 +323,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handleIncorporationCertificateChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/pdf', 'image/png'];
+      const allowedTypes = ['image/jpeg', 'application/pdf', 'image/png'];
       const maxSize = 10 * 1024 * 1024;
 
       if (allowedTypes.includes(file.type)) {
@@ -414,13 +386,13 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      Proof Of Net Worth{" "}                                      
+                                      Proof Of Net Worth{" "}
                                     </label>
                                     <input
                                       type="file"
                                       name="proof_of_network"
                                       onChange={handleProofOfNetWorthChange}
-                                      accept="image/jpeg, image/png , .pdf"
+                                      accept="image/jpeg, image/png, .pdf"
                                     />
                                     {proofOfNetWorthSizeError ? (
                                       <p className="text-danger">{proofOfNetWorthSizeError}</p>
@@ -439,7 +411,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -517,7 +489,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      Proof Of Income{" "}                                      
+                                      Proof Of Income{" "}
                                     </label>
                                     <input
                                       type="file"
@@ -542,7 +514,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -620,7 +592,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      Certificate Of Incorporation{" "}                                      
+                                      Certificate Of Incorporation{" "}
                                     </label>
                                     <input
                                       type="file"
@@ -647,7 +619,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -728,14 +700,19 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      Proof Of Net Worth{" "}                                      
+                                      Proof Of Net Worth{" "}
                                     </label>
                                     <input
                                       type="file"
                                       name="proof_of_network"
                                       onChange={handleProofOfNetWorthChange}
-                                      accept="image/jpeg, image/png"
+                                      accept="image/jpeg, image/png, .pdf"
                                     />
+                                    {proofOfNetWorthSizeError ? (
+                                      <p className="text-danger">{proofOfNetWorthSizeError}</p>
+                                    ) : (
+                                      proofOfNetWorthError && <p className="text-danger">{proofOfNetWorthError}</p>
+                                    )}
                                     {documentUpload.length > 0
                                       ? documentUpload.map(
                                         (document: any, index: any) => {
@@ -811,14 +788,19 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      Proof Of Income{" "}                                      
+                                      Proof Of Income{" "}
                                     </label>
                                     <input
                                       type="file"
                                       name="proof_of_income"
                                       onChange={handleProofOfIncomeChange}
-                                      accept="image/jpeg, image/png"
+                                      accept="image/jpeg, image/png, .pdf"
                                     ></input>
+                                    {proofOfIncomeSizeError ? (
+                                      <p className="text-danger">{proofOfIncomeSizeError}</p>
+                                    ) : (
+                                      proofOfIncomeError && <p className="text-danger">{proofOfIncomeError}</p>
+                                    )}
                                     {documentUpload.length > 0
                                       ? documentUpload.map(
                                         (document: any, index: any) => {
@@ -929,7 +911,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -1032,7 +1014,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -1137,7 +1119,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
@@ -1224,8 +1206,13 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       type="file"
                                       name="3_years_bank_statement"
                                       onChange={handleBankStatement3YearsChange}
-                                      accept="image/jpeg, image/png"
+                                      accept="image/jpeg, image/png, .pdf"
                                     ></input>
+                                    {bankStatement3YearsSizeError ? (
+                                      <p className="text-danger">{bankStatement3YearsSizeError}</p>
+                                    ) : (
+                                      bankStatement3YearsError && <p className="text-danger">{bankStatement3YearsError}</p>
+                                    )}
                                     {documentUpload.length > 0
                                       ? documentUpload.map(
                                         (document: any, index: any) => {
@@ -1309,8 +1296,13 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       onChange={
                                         handleIncorporationCertificateChange
                                       }
-                                      accept="image/jpeg, image/png"
+                                      accept="image/jpeg, image/png, .pdf"
                                     ></input>
+                                    {incorporationCertificateSizeError ? (
+                                      <p className="text-danger">{incorporationCertificateSizeError}</p>
+                                    ) : (
+                                      incorporationCertificateError && <p className="text-danger">{incorporationCertificateError}</p>
+                                    )}
                                     {documentUpload.length > 0
                                       ? documentUpload.map(
                                         (document: any, index: any) => {
@@ -1389,7 +1381,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                       htmlFor="exampleFormControlInput1"
                                       className="form-label"
                                     >
-                                      CA Signed of Net Tangible of 2 Crore{" "}                                      
+                                      CA Signed of Net Tangible of 2 Crore{" "}
                                     </label>
                                     <input
                                       type="file"
@@ -1416,7 +1408,7 @@ export default function SelectedOptionsDocumentUpload(): any {
                                     >
                                       <p style={{ fontSize: "13px" }}>
                                         You can upload any image jpg
-                                        ,png ,jpeg and pdf file only (max size 10 MB)                                        
+                                        ,png ,jpeg and pdf file only (max size 10 MB)
                                       </p>
                                     </label>
                                     {documentUpload.length > 0
