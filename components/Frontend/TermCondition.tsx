@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchTermsAndConditionsdata } from '@/lib/frontendapi';
 import 'react-quill/dist/quill.snow.css';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-    ssr: false,
-    loading: () => <p>Loading...</p>,
-});
+
 export default function TermCondition() {
     const [termdata, setTermData] = useState('');
     useEffect(() => {
@@ -18,7 +12,6 @@ export default function TermCondition() {
         try {
             const response = await fetchTermsAndConditionsdata();
             const data = response.data;
-          console.log(data)
             setTermData(data);
         } catch (error) {
             // Handle error
@@ -26,7 +19,6 @@ export default function TermCondition() {
     };
     return (
         <>
-
             <section className="term-conditions py-5">
                 <div className="container">
                 <div dangerouslySetInnerHTML={{ __html: termdata }}></div>

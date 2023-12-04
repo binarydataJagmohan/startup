@@ -719,7 +719,7 @@ const Campagin = () => {
                     Chose file
                   </div>
                   <div className="file-select-name" id="noFile">
-                    {fundImageName ? fundImageName : (fundimage ? fundimage.substring(0, 20) + '.....' : "No File Chosen ...")}
+                    {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")}
                   </div>
                   <input
                     className="input-file"

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Agency from "../Frontend/ItAgency";
-import ClientSection from "../Frontend/Common/ClientSection";
 import Image from "next/image";
-import NextNProgress from "nextjs-progressbar";
 import Link from "next/link";
 import {
   getCurrentUserData,
@@ -60,7 +57,6 @@ const settings = {
 };
 function redirectToLogin() {
   window.location.href = "/login";
-  //router.push("/auth/login");
 }
 function handleLogout(e: any) {
   e.preventDefault();
@@ -70,22 +66,15 @@ function handleLogout(e: any) {
 }
 export default function Home() {
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_role, setCurrentUserRole] = useState("");
   const [users, setUsers] = useState<any>({});
 
   useEffect(() => {
-    const current_user: UserData = getCurrentUserData();
-    current_user.username
-      ? setCurrentUserName(current_user.username)
-      : setCurrentUserName("");
+    const current_user: UserData = getCurrentUserData();   
     current_user.role
       ? setCurrentUserRole(current_user.role)
       : setCurrentUserRole("");
-    current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");
-    // current_user_approved ? setCurrentUserApproaved(current_user.approval_status ? current_user.approval_status : "") : setCurrentUserApproaved("");
-
-    // console.log(current_user);
+    current_user.id ? setCurrentUserId(current_user.id) : setCurrentUserId("");   
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user.id);

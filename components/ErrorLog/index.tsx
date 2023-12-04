@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { getFailerErrorLog, } from '../../lib/frontendapi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Link from 'next/link';
 import Pagination from '../Frontend/Common/Pagination';
 import Swal from "sweetalert";
 import swal from "sweetalert2";
 
 import axios from 'axios';
 import { getToken } from "../../lib/session";
-interface LoginResult {
-    login: string;
-    password: string;
-}
 
 interface allErrorlogs {
     error_message: string;
@@ -28,9 +23,6 @@ export default function ErrorLogs() {
     const [filteredErrorlogs, setFilteredErrorlogs] = useState<allErrorlogs[]>(
         [],
     );
-    const [modalConfirm, setModalConfirm] = useState(false);
-    const [name, setErrorlogName] = useState('');
-    const [id, setErrorlogId] = useState('');
 
     const pageSize = 20;
     const paginate = (items: any[], pageNumber: number, pageSize: number) => {
@@ -179,11 +171,6 @@ export default function ErrorLogs() {
         setSearchQuery(searchValue);
         filterBlogs(allErrorlogs, searchValue);
     };
-    const resetForm = () => {
-        setErrorlogName('');
-        setErrorlogId('');
-    };
-
     return (
         <>
             {authenticated ? (
@@ -235,9 +222,7 @@ export default function ErrorLogs() {
                                 <button
                                     type="button"
                                     className="btn btn_error_logs"
-                                    onClick={() => {
-                                        setModalConfirm(true);
-                                        resetForm();
+                                    onClick={() => {                                       
                                         toast.dismiss();
                                     }}>
                                     Search Message

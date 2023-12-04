@@ -13,41 +13,15 @@ interface UserData {
   id?: string;
 }
 const Dashboard = () => {
-  const [current_user_id, setCurrentUserId] = useState("");
   const [totalFundCount, setFundCount] = useState("");
   const [totalUnits, setTotalUnits] = useState('');
-  const [totalUnitsCount, setUnits] = useState<any>({});
-  const [bussiness, setBussinessData] = useState({
-    id: "",
-    business_name: "",
-    reg_businessname: "",
-    website_url: "",
-    sector: "",
-    stage: "",
-    startup_date: "",
-    tagline: "",
-    logo: "",
-    type: "",
-    description: "",
-    cofounder: "0",
-    kyc_purposes: "0",
-    user_id: "",
-  });
+ 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
-    } else {
-      window.location.href = "/login";
-    }
-
+    const current_user_data: UserData = getCurrentUserData(); 
     getBusinessInformation(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
           // Set the businessUnits state
-          setBussinessData(res.data);
           getTotalCountOfFunds(res.data.id)
             .then((fundRes) => {
               if (fundRes.status === true) {
@@ -61,9 +35,7 @@ const Dashboard = () => {
           getTotalCountOfUnits(res.data.id)
             .then((unitsRes) => {
               if (unitsRes.status === true) {
-                setUnits(unitsRes.data);
                 setTotalUnits(unitsRes.data);
-
               }
             })
             .catch((err) => { });
@@ -85,10 +57,7 @@ const Dashboard = () => {
           } else if (res.data.approval_status === "approved") {
             if (window.location.pathname !== "/company/dashboard") {
               window.location.href = "/company/dashboard";
-            }
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 10000);
+            }            
           } else {
             window.location.href = "/company/thank-you";
           }
@@ -97,14 +66,6 @@ const Dashboard = () => {
         console.error(err);
       }
     };
-    const totalUnits = async () => {
-      const data = await getBusinessInformation(current_user_data.id);
-      if (data) {
-        // setTotalUnits(data.data);        
-        console.log(current_user_data.id)
-      }
-    };
-    totalUnits();
     checkUserStatus();
   }, []);
 

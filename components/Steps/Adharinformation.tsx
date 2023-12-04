@@ -3,47 +3,27 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
-import { getBankInformation, bankInformationSave, sendNotification } from "../../lib/frontendapi";
-import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
+import { getBankInformation, bankInformationSave } from "../../lib/frontendapi";
+import {  getCurrentUserData, } from "../../lib/session";
 import { getSingleUserData } from '@/lib/frontendapi';
 import Link from 'next/link';
-import Image from 'next/image';
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
 
 interface UserData {
   id?: string;
   name?: string;
 }
-export default function AdharInformation(): any {
-  const [blId, setBlId] = useState("");
-  const [forwarduId, setForwarduId] = useState("");
-  const [find_business_location, setFindBusinessLocation] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+export default function AdharInformation(): any {  
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUsername] = useState("");
   const [users, setUsers] = useState<any>({});
   const [bankDetails, setBankDetails] = useState({
     user_id: current_user_id,
-    // business_id :current_business_id ,
     bank_name: "",
     account_holder: "",
     account_no: "",
     ifsc_code: ""
   });
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     if (name === 'account_no') {
@@ -61,10 +41,7 @@ export default function AdharInformation(): any {
     });
   };
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    current_user_data.name
-      ? setCurrentUsername(current_user_data.name)
-      : setCurrentUsername("");
+    const current_user_data: UserData = getCurrentUserData();    
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -74,8 +51,6 @@ export default function AdharInformation(): any {
         .then((res) => {
           if (res.status == true) {
             setUsers(res.data);
-            console.log(res);
-
           }
         })
         .catch((err) => {
@@ -88,7 +63,6 @@ export default function AdharInformation(): any {
         .then((res) => {
           if (res.status == true) {
             setBankDetails(res.data);
-            // console.log(res.data);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -139,17 +113,6 @@ export default function AdharInformation(): any {
       });
     }
   };
-
-
-  const handleAdrChange = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-
-  const handleSelect = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-
-
 
   if (signup_success) return router.push("/");
 

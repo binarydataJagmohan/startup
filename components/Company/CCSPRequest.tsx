@@ -20,16 +20,13 @@ type Investor = {
 
 const CCSPRequest = () => {
     const [otherDocumentsName, setOtherDocumentsName] = useState('');
-    const [otherDocumentsSizeError, setOtherDocumentsSizeError] = useState('');
     const [otherDocumentsError, setOtherDocumentsError] = useState('');
     const [latestCapTableName, setLatestCapTableName] = useState('');
-    const [latestCapTableSizeError, setLatestCapTableSizeError] = useState('');
     const [latestCapTableError, setLatestCapTableError] = useState('');
     const [onePagerName, setOnePagerName] = useState('');
     const [onePagerSizeError, setOnePagerSizeError] = useState('');
     const [onePagerError, setOnePagerError] = useState('');
     const [previousFinancialName, setPreviousFinancialName] = useState('');
-    const [previousFinancialSizeError, setPreviousFinancialSizeError] = useState('');
     const [previousFinancialError, setPreviousFinancialError] = useState('');
     const [pitchDeckName, setPitchDeckName] = useState('');
     const [pitchDeckSizeError, setPitchDeckSizeError] = useState('');
@@ -37,8 +34,6 @@ const CCSPRequest = () => {
     const [current_user_id, setCurrentUserId] = useState("");
     const router = useRouter();
     const [investors, setInvestors] = useState<Investor[]>([]);
-    const [showInvestorDropdown, setShowInvestorDropdown] = useState(false);
-    const [filteredInvestors, setFilteredInvestors] = useState<Investor[]>([]);
     const [selectedInvestors, setSelectedInvestors] = useState<{ id: any; name: any; }[]>([]);
 
     const { id } = router.query;
@@ -77,12 +72,10 @@ const CCSPRequest = () => {
     const fetchPreCommitedInvestor = async () => {
         try {
             const res = await getPreCommitedInvestor(id);
-
             if (res.status === true) {
                 setSelectedInvestors(res.data);
             }
         } catch (err) {
-            console.log(err);
         }
     }
 
@@ -149,6 +142,7 @@ const CCSPRequest = () => {
             }
         }
     };
+    const [previousFinancialSizeError, setPreviousFinancialSizeError] = useState('');
     const handlePreviousFinancial = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -170,6 +164,7 @@ const CCSPRequest = () => {
             }
         }
     };
+    const [latestCapTableSizeError, setLatestCapTableSizeError] = useState('');
     const handleLatestCapTable = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -192,6 +187,7 @@ const CCSPRequest = () => {
             }
         }
     };
+    const [otherDocumentsSizeError, setOtherDocumentsSizeError] = useState('');
     const handleOtherDocuments = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -202,7 +198,6 @@ const CCSPRequest = () => {
                 if (file.size <= maxSize) {
                     setUser({ ...user, other_documents: file })
                     setOtherDocumentsName(file.name);
-
                     setOtherDocumentsError('');
                 } else {
                     setOtherDocumentsSizeError('* Please upload a file that is no larger than 10MB.');
@@ -642,7 +637,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck!="null" ? user.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck!= "null"  ? user.pitch_deck : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
 
                                                             </div>
@@ -663,7 +658,7 @@ const CCSPRequest = () => {
 
                                         <div className="row">
                                             <div className="col-md-4">
-                                                <p>One Pager </p>
+                                                <p>One Pager</p>
                                             </div>
                                             <div className="col-md-8">
                                                 <div
@@ -682,7 +677,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager!="null" ? user.one_pager.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager != "null" ? user.one_pager : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -720,7 +715,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials!="null" ? user.previous_financials.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials!= "null"  ? user.previous_financials : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -729,8 +724,8 @@ const CCSPRequest = () => {
                                                                 onChange={handlePreviousFinancial} />
                                                         </div>
                                                     </div>
-                                                </div>{previousFinancialError ? (
-                                                    <p className='text-danger p-2'>{previousFinancialError}</p>
+                                                </div>{previousFinancialSizeError ? (
+                                                    <p className='text-danger p-2'>{previousFinancialSizeError}</p>
                                                 ) : (
                                                     previousFinancialError && <p className='text-danger p-2'>{previousFinancialError}</p>
                                                 )}
@@ -758,7 +753,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table!="null" ? user.latest_cap_table.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table!= "null"  ? user.latest_cap_table : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -766,8 +761,8 @@ const CCSPRequest = () => {
                                                                 onChange={handleLatestCapTable} />
                                                         </div>
                                                     </div>
-                                                </div> {latestCapTableError ? (
-                                                    <p className='text-danger p-2'>{latestCapTableError}</p>
+                                                </div> {latestCapTableSizeError ? (
+                                                    <p className='text-danger p-2'>{latestCapTableSizeError}</p>
                                                 ) : (
                                                     latestCapTableError && <p className='text-danger p-2'>{latestCapTableError}</p>
                                                 )}
@@ -795,7 +790,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents!="null" ? user.other_documents.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents!= "null"  ? user.other_documents : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 

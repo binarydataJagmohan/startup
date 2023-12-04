@@ -52,7 +52,6 @@ export default function SingleBlog(props: any) {
                         <div className="col-lg-12 col-md-12">
                             <div className="blog-details-desc">
                                 <div className="article-image">
-                                    {/* <Image src="assets/img/blog-details/blog-1.jpg" alt="image" width={736} height={504} /> */}
                                     {blog?.image ? (
                                         <Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}images/blogs/${blog.image}`} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" style={{ height: "300px" }} />
                                     ) : (

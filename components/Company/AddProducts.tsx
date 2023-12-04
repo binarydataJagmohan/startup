@@ -40,8 +40,8 @@ export default function AddProducts() {
         setFileName("");
     };
 
-    useEffect(() => {         
-          fetchAllproductdata();
+    useEffect(() => {
+        fetchAllproductdata();
     }, []);
 
     const fetchAllproductdata = async () => {
@@ -79,13 +79,11 @@ export default function AddProducts() {
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", id as string);
         formData.append("product_description", productdescription);
         formData.append("product_image", productimage1);
         formData.append("product_id", productId);
         formData.append("product_overview", productoverview);
-        console.log(formData);
 
         try {
             const response = await AdminUpdateProduct(formData);
@@ -100,10 +98,6 @@ export default function AddProducts() {
             });
         }
     };
-
-
-
-
 
     const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
@@ -122,7 +116,7 @@ export default function AddProducts() {
 
         setProductImage(file);
         setFileName(file.name);
-        setError(''); 
+        setError('');
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -505,7 +499,7 @@ export default function AddProducts() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (productimage ? productimage.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (productimage ? productimage : "No File Chosen ...")}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"

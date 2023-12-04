@@ -20,26 +20,18 @@ interface Fund {
 }
 const AllFundsList = () => {
   const [funds, setFundsData] = useState<Fund[]>([]);
-  const [current_user_id, setCurrentUserId] = useState("");
-  const [businessInfo, setBusinessInfo] = useState('');
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   const tableRef = useRef(null);
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
-      current_user_data.id ? setCurrentUserId(current_user_data.id.toString()) : setCurrentUserId("");
-
       getSingleBusinessInformation(current_user_data.id)
         .then((res) => {
-          // console.log(res);
           if (res.status == true) {
-            setBusinessInfo(res.data.id);
             getAllFunds(res.data.id)
               .then((res) => {
-                // console.log(res);
                 if (res.status == true) {
-                  // Set the businessUnits state
                   setFundsData(res.data);
                 } else {
                   toast.error(res.message, {
@@ -71,15 +63,12 @@ const AllFundsList = () => {
   }, []);
 
   useEffect(() => {
-    // Initialize the datatable for users
     if (funds.length > 0 && !dataTableInitialized) {
       $(document).ready(() => {
         $('#datatable').DataTable({
           lengthMenu: [20, 50, 100, 150],
           columnDefs: [
-            //  columns  sortable
             { targets: [0, 1, 2], orderable: true },
-            // Disable sorting 
             { targets: '_all', orderable: false },
           ],
         });

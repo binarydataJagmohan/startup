@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
@@ -26,7 +26,6 @@ export default function DocumentsUpload(): any {
         adhar_card_back: "",
         documnet_id: '',
     });
-    const [current_user_id, setCurrentUserId] = useState("");
     const [users, setUsers] = useState<any>({});
 
     useEffect(() => {
@@ -43,20 +42,15 @@ export default function DocumentsUpload(): any {
                 });
             });
         if (current_user_data.id != null) {
-            current_user_data.id
-                ? setCurrentUserId(current_user_data.id)
-                : setCurrentUserId("");
-
+           
             fetchSingleUserDocuments(current_user_data.id)
                 .then((res) => {
                     if (res.status == true) {
                         setBasicDetails(res.data);
-                        //console.log(res.data);
                         setPanCardFront(res.data.pan_card_front);
                         setPanCardBack(res.data.pan_card_back);
                         setAdharCardFront(res.data.adhar_card_front);
                         setAdharCardBack(res.data.adhar_card_back);
-                        console.log(res.data);
                     } else {
                         toast.error(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
@@ -86,7 +80,6 @@ export default function DocumentsUpload(): any {
             uploadDocuments(data, pan_card_front, pan_card_back, adhar_card_front, adhar_card_back)
                 .then((res) => {
                     if (res.status == true) {
-                        console.log(data);
                         toast.success(res.message, {
                             position: toast.POSITION.TOP_RIGHT,
                             toastId: "success",
@@ -115,7 +108,6 @@ export default function DocumentsUpload(): any {
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
                 });
         }
     };

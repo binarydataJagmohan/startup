@@ -2,38 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
-import { basicInformationSave, getBasicInformation, getSingleUserData } from "../../lib/frontendapi";
+import { basicInformationSave, getBasicInformation } from "../../lib/frontendapi";
 import {
-  removeToken,
-  removeStorageData,
   getCurrentUserData,
 } from "../../lib/session";
-
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
 
 interface UserData {
   id?: string;
 }
 export default function Customereview(): any {
-  const [blId, setBlId] = useState("");
-  const [forwarduId, setForwarduId] = useState("");
-  const [find_business_location, setFindBusinessLocation] = useState("");
-  const [lat, setLat] = useState("");
-  const [missingFields, setMissingFields] = useState<string[]>([]);
-  const [imageUploadStatus, setImageUploadStatus] = useState<null | 'success'>(null);
-  const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
   const [current_user_id, setCurrentUserId] = useState("");
   const [proof_img, setProofImg] = useState(null);
-  const [users, setUsers] = useState<any>({});
   const [startUpLogoError, setStartupLogoError] = useState('');
   const [startUpLogoName, setStartupLogoName] = useState('');
   const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
@@ -51,16 +33,8 @@ export default function Customereview(): any {
   } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = (event: any) => {
-    event.preventDefault();
-    setMissingFields([])
-    if (fileInputRef.current !== null) {
-      (fileInputRef.current as HTMLInputElement).click();
-    }
-  };
 
   const handleFileChange = (event: any) => {
-    setMissingFields([]);
     const selectedFile = event.target.files[0];
     setProofImg(selectedFile);
 
@@ -70,7 +44,6 @@ export default function Customereview(): any {
 
       if (allowedTypes.includes(selectedFile.type)) {
         if (selectedFile.size <= maxSize) {
-          setImageUploadStatus('success');
           setProofImg(selectedFile);
           setStartupLogoName(selectedFile.name);
           setStartupLogoSizeError('');
@@ -137,8 +110,6 @@ export default function Customereview(): any {
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
-      } else if (!basicDetails.proof_img) {
-        setMissingFields(prevFields => [...prevFields, "pitch_deck"]);
       }
       formData.append("user_id", basicDetails.user_id);
       formData.append("pan_number", basicDetails.pan_number);
@@ -146,10 +117,6 @@ export default function Customereview(): any {
       formData.append("dob", basicDetails.dob);
       const res = await basicInformationSave(formData);
       if (res.status == true) {
-        // toast.success(res.message, {
-        //   position: toast.POSITION.TOP_RIGHT,
-        //   toastId: "success",
-        // });
         setTimeout(() => {
           router.push("/steps/adharinformation");
         }, 1000);
@@ -165,14 +132,6 @@ export default function Customereview(): any {
         toastId: "error",
       });
     }
-  };
-
-  const handleAdrChange = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-
-  const handleSelect = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
   };
 
   if (signup_success) return router.push("/steps/businessinfo");
@@ -315,7 +274,7 @@ export default function Customereview(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}

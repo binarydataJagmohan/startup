@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardElement, Elements, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form";
 import { getCurrentUserData } from "../../lib/session";
 import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
@@ -14,32 +13,13 @@ interface UserData {
   id?: string;
 }
 const CheckoutForm = () => {
-  const [current_user_id, setCurrentUserId] = useState("");
-  // const { register, handleSubmit, formState: { errors }, } = useForm();
   const [bookingdata, setBookingData] = useState<any>({});
   const [businessdata, setBusinessData] = useState<any>({});
-  const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentdata, setPaymentData] = useState<any>({
-    user_id: current_user_id,
-    repayment: bookingdata.repayment_value,
-    card_number: "",
-    expiry_date: "",
-    cvc: "",
-    zip_code: ""
-  });
   const router = useRouter();
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data?.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
-
-    } else {
-      window.location.href = "/login";
-    }
     getInvestorBookingDetails(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
@@ -89,10 +69,8 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log('[error]', error);
       setIsSubmitting(false);
     } else {
-      console.log('[PaymentMethod]', paymentMethod);
       try {
         savepayment([paymentMethod, bookingdata, businessdata])
           .then((res) => {
@@ -106,11 +84,6 @@ const CheckoutForm = () => {
               }).then(() => {
                 router.push('/investor/campaign');
               });
-              // toast.success(res.message, {
-              //   position: toast.POSITION.TOP_RIGHT,
-              //   toastId: "success",
-              // });
-
             } else {
               Swal.fire({
                 icon: 'error',
@@ -120,11 +93,6 @@ const CheckoutForm = () => {
               }).then(() => {
                 router.push(`/`);
               });
-
-              //  toast.error(res.message, {
-              //   position: toast.POSITION.TOP_RIGHT,
-              //   toastId: "error",
-              // });
             }
           })
       } catch (error) {
@@ -148,16 +116,12 @@ const CheckoutForm = () => {
           <form onSubmit={handleSubmit}>
             <CardElement
               onReady={() => {
-                console.log("CardElement [ready]");
               }}
               onChange={event => {
-                console.log("CardElement [change]", event);
               }}
               onBlur={() => {
-                console.log("CardElement [blur]");
               }}
               onFocus={() => {
-                console.log("CardElement [focus]");
               }}
             />
             <button id="PayButton" className="btn btn-block btn-success submit-button mt-3" type="submit" disabled={!stripe}>

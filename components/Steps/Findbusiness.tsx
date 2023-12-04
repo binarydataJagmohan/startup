@@ -2,21 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import Image from 'next/image';
 import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
-import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
-import { log } from "console";
+import { getCurrentUserData } from "../../lib/session";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import Link from 'next/link';
-
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
 
 interface UserData {
   id?: string;
@@ -25,14 +15,9 @@ type Country = {
   name: string;
   country_code: string;
 }
-export default function Findbusiness(): any {
-  const [blId, setBlId] = useState("");
-  const [forwarduId, setForwarduId] = useState("");
-  const [find_business_location, setFindBusinessLocation] = useState("");
-  const [lat, setLat] = useState("");
+export default function Findbusiness(): any { 
   const [missingGender,setMissingGender] = useState('');
   const [mssingCountry, setMissingCountry] = useState('');
-  const [lng, setLng] = useState("");
   const [signup_success, setSignupSuccess] = useState(false);
 
   const [current_user_id, setCurrentUserId] = useState("");
@@ -112,7 +97,6 @@ export default function Findbusiness(): any {
         .then((res) => {
           if (res.status == true) {
             setUser(res.data);
-            // console.log(setUser);
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -204,15 +188,10 @@ export default function Findbusiness(): any {
                                 className="form-label"
                               >
                                 Email ID{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
                                 type="email"
-                                className="form-control same-input pl-5"
-                                // {...register("email", {
-                                //   value: true,
-                                //   required: true,
-                                // })}
+                                className="form-control same-input pl-5"                                
                                 id="email"
                                 name="email"
                                 onChange={handleChange}
@@ -232,11 +211,7 @@ export default function Findbusiness(): any {
                                 type="text"
                                 className="form-control same-input pl-5"
                                 {...register("linkedin_url", {
-                                  required: !user.linkedin_url, onChange: handleChange,
-                                  // pattern: {
-                                  //   value: /^(https:\/\/)?(www\.)?linkedin\.com\/(in\/[a-zA-Z0-9_-]+|company\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\/?)\/?$/,
-                                  //   message: "Please enter a valid LinkedIn URL"
-                                  // }  
+                                  required: !user.linkedin_url, onChange: handleChange,                                 
                                 })}
                                 id="linkedin_url"
                                 name="linkedin_url"
@@ -257,14 +232,11 @@ export default function Findbusiness(): any {
                                 className="form-label mb-4"
                               >
                                 Country of Citizenship{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <select
                                 className="form-select form-select-lg mb-3 css-1492t68"
                                 {...register("country", {
-                                  // validate: (value) => value != "",
                                   onChange: handleChange,
-                                  // required: true,
                                 })}
                                 name="country"
 

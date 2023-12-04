@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, getAllCCSPfunddata, getAllCCSPCampaign } from '@/lib/investorapi';
+import { getAllBusiness, getSingleBusinessDetails, getSingleClosedBusinessDetails, getAllCCSPCampaign } from '@/lib/investorapi';
 import { getCurrentUserData } from "../../lib/session";
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
@@ -18,7 +18,6 @@ const Dashboard = () => {
 
   const [businessDetails, setBusinessDetails] = useState<BusinessDetails[]>([]);
   const router = useRouter();
-  const [current_user_id, setCurrentUserId] = useState("");
   const [currentPageFeatured, setCurrentPageFeatured] = useState(0);
   const [currentPagediscount, setcurrentPagediscount] = useState(0);
   const [currentPageopenCSOP, setCurrentPageopenCSOP] = useState(0);
@@ -36,15 +35,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data?.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
-
-    } else {
-      window.location.href = "/login";
-    }
-
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user_data.id);
@@ -62,7 +52,6 @@ const Dashboard = () => {
                 window.location.href = "/investor/campaign";
               }
             } else {
-              // Handle other cases
               if (window.location.pathname !== '/investor/thank-you') {
                 window.location.href = "/investor/thank-you";
               }
@@ -97,13 +86,8 @@ const Dashboard = () => {
     const res = await getAllCCSPCampaign();
     if (res.status) {
       setCCSPfundData(res.data);
-      console.log(res.data);
     }
   };
-
-  
-
-
 
   const getBusinessdetails = async (e: any, id: any) => {
     e.preventDefault();
@@ -129,7 +113,6 @@ const Dashboard = () => {
       // Send the notification to the admin
       sendNotification(notificationData)
         .then((notificationRes) => {
-          console.log('Notification sent successfully');
         })
         .catch((error) => {
           console.error('Error sending notification:', error);
@@ -190,10 +173,7 @@ const Dashboard = () => {
   const pageCountDiscounting = Math.ceil(filteredDetailsDiscounting.length / itemsPerPage);
 
   const filteredDetailsCCSP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open");
-  const opendisplayedBusinessDetailsCCSP = filteredDetailsCCSP.slice(
-    currentPageopenCCSP * itemsPerPage,
-    (currentPageopenCCSP + 1) * itemsPerPage
-  );
+ 
   const pageCountCCSP = Math.ceil(filteredDetailsCCSP.length / itemsPerPage);
 
   const filteredDetailsCSOP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CSOP" && details.status === "open");
@@ -550,21 +530,7 @@ const Dashboard = () => {
                               </li>
                               <li>
                                 Max Commitment <span>₹{details.max_commitment}</span>
-                              </li>
-                              {/* <li>
-                                Tenure <span>{details.tenure} days</span>
-                              </li> */}
-                              {/* {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0) <= 0 ? (
-                                <li>
-                                  <span>Closed</span>
-                                </li>
-                              ) : (
-                                <li> Closed in{ }
-                                  <span>
-                                    { } {Math.max(Math.ceil((new Date(details.closed_in).getTime() - new Date().getTime()) / 86400000), 0)} days
-                                  </span>
-                                </li>
-                              )} */}
+                              </li>                            
                               <li className="border-0">
                                 <a
                                   href={

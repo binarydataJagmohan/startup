@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { userRegister, sendNotification } from "../../lib/frontendapi";
-import { useRouter } from "next/router";
 import Link from 'next/link';
 import Image from 'next/image';
 interface FormData {
@@ -19,9 +18,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [notifications, setNotifications] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     register,
@@ -39,11 +36,7 @@ const Signup = () => {
     minLength: {
       value: 8,
       message: 'Password must be at least 8 characters long',
-    },
-    // maxLength: {
-    //   value: 16,
-    //   message: 'Password cannot be more 16 characters.',
-    // },
+    },    
     pattern: {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
@@ -69,10 +62,7 @@ const Signup = () => {
     };
     userRegister(user)
       .then((res) => {
-        if (res.status == true) {
-          //   console.log(res.data[0]);
-          //   console.log(res.data['user']);
-          //  return false;
+        if (res.status == true) {        
           if (res.data[0]) {
             setLocalStorageItems(res.data['user']);
             switch (window.localStorage.getItem("user_role")) {
@@ -125,10 +115,8 @@ const Signup = () => {
             // Send Notifications to admin When new user is register
             sendNotification(data)
               .then((notificationRes) => {
-                console.log('success')
               })
               .catch((error) => {
-                console.log('error occured')
               });
 
             toast.success(res.message, {

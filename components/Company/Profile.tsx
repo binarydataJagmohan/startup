@@ -8,9 +8,7 @@ import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Link from 'next/link';
-import Image from 'next/image';
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
-import businessinfo from '@/pages/steps/customizereview';
 type Country = {
     name: string;
     country_code: string;
@@ -28,15 +26,12 @@ const Profile = () => {
     const [profilePicError, setProfilePicError] = useState('');
     const [profilePicName, setProfilePicName] = useState('');
     const [profilePicSizeError, setProfilePicSizeError] = useState('');
-    const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(null);
     const [logoError, setLogoError] = useState('');
     const [logoName, setLogoName] = useState('');
     const [logoSizeError, setLogoSizeError] = useState('');
-    const [previewLogoImage, setPreviewLogoImage] = useState<string | ArrayBuffer | null>(null);
     const [proofImgError, setProofImgError] = useState('');
     const [proofImgName, setProofImgName] = useState('');
     const [proofImgSizeError, setProofImgSizeError] = useState('');
-    const [priviewProofImage, setPriviewProofImage] = useState<string | ArrayBuffer | null>(null);
     const [pan_card_front, setPanCardFront] = useState(null);
     const [panCardFrontName, setPanCardFrontName] = useState("");
     const [pan_card_back, setPanCardBack] = useState(null);
@@ -115,7 +110,6 @@ const Profile = () => {
     // Bank Information ...
     const [bankDetails, setBankDetails] = useState({
         user_id: current_user_id,
-        // business_id :current_business_id ,
         bank_name: "",
         account_holder: "",
         account_no: "",
@@ -133,7 +127,6 @@ const Profile = () => {
         aoa: "",
         documnet_id: '',
     });
-
 
     // handle Change for business information...
     const handleChangeBusinessInfo = (event: any) => {
@@ -179,9 +172,6 @@ const Profile = () => {
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
                     const reader = new FileReader();
-                    reader.onload = () => {
-                        setPreviewImage(reader.result);
-                    };
                     reader.readAsDataURL(file);
                     setProfilePic(event.target.files[0]);
                     setProfilePicName(file.name);
@@ -200,13 +190,9 @@ const Profile = () => {
         if (file) {
             const allowedTypes = ["image/jpeg", "image/png"];
             const maxSize = 2 * 1024 * 1024;
-
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
                     const reader = new FileReader();
-                    reader.onload = () => {
-                        setPreviewLogoImage(reader.result);
-                    };
                     reader.readAsDataURL(file);
                     setLogo(event.target.files[0]);
                     setLogoName(file.name);
@@ -229,9 +215,6 @@ const Profile = () => {
             if (allowedTypes.includes(file.type)) {
                 if (file.size <= maxSize) {
                     const reader = new FileReader();
-                    reader.onload = () => {
-                        setPriviewProofImage(reader.result);
-                    };
                     reader.readAsDataURL(file);
                     setProofImg(event.target.files[0]);
                     setProofImgName(file.name);
@@ -252,7 +235,6 @@ const Profile = () => {
             value = value.replace(/\D/g, '');
             value = value.substring(0, 12);
         }
-
         setBasicDetails((prevState) => {
             return {
                 ...prevState,
@@ -345,7 +327,6 @@ const Profile = () => {
             .then((res) => {
                 if (res.status == true) {
                     setBankDetails(res.data);
-                    // console.log(res.data);
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -649,7 +630,6 @@ const Profile = () => {
         )
             .then((res) => {
                 if (res.status == true) {
-                    // console.log(data);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
@@ -665,9 +645,7 @@ const Profile = () => {
                 }
             })
             .catch((err) => {
-                console.log(err);
             });
-        //}
     };
 
     const handlePanCardFrontChange = (event: any) => {
@@ -883,13 +861,6 @@ const Profile = () => {
     };
 
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const handleUploadClick = (event: any) => {
-        event.preventDefault();
-        // setMissingFields([])
-        if (fileInputRef.current !== null) {
-            (fileInputRef.current as HTMLInputElement).click();
-        }
-    };
 
     return (
         <>
@@ -1091,10 +1062,9 @@ const Profile = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {profilePicName ? profilePicName : (user.profile_pic ? user.profile_pic.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                                {profilePicName ? profilePicName : (user.profile_pic ? user.profile_pic : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
-                                                                                // ref={fileInputRef}
                                                                                 id="proof_img"
                                                                                 type="file"
                                                                                 accept='.jpg, .jpeg, .png'
@@ -1330,7 +1300,7 @@ const Profile = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                                {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
                                                                                 // ref={fileInputRef}
@@ -1507,7 +1477,7 @@ const Profile = () => {
 
 
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {proofImgName ? proofImgName : (basicDetails.proof_img ? basicDetails.proof_img.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                                {proofImgName ? proofImgName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
                                                                             </div>
 
                                                                             <input
@@ -1705,7 +1675,7 @@ const Profile = () => {
                                                                                                 {panCardFrontName
                                                                                                     ? panCardFrontName
                                                                                                     : documentDetails.pan_card_front
-                                                                                                        ? documentDetails.pan_card_front.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.pan_card_front
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -1826,7 +1796,7 @@ const Profile = () => {
                                                                                                 {panCardBackName
                                                                                                     ? panCardBackName
                                                                                                     : documentDetails.pan_card_back
-                                                                                                        ? documentDetails.pan_card_back.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.pan_card_back
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -1945,7 +1915,7 @@ const Profile = () => {
                                                                                                 {adharCardFrontName
                                                                                                     ? adharCardFrontName
                                                                                                     : documentDetails.adhar_card_front
-                                                                                                        ? documentDetails.adhar_card_front.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.adhar_card_front
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2063,7 +2033,7 @@ const Profile = () => {
                                                                                                 {adharCardBackName
                                                                                                     ? adharCardBackName
                                                                                                     : documentDetails.adhar_card_back
-                                                                                                        ? documentDetails.adhar_card_back.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.adhar_card_back
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2181,7 +2151,7 @@ const Profile = () => {
                                                                                                 {certificate_incorporationName
                                                                                                     ? certificate_incorporationName
                                                                                                     : documentDetails.certificate_incorporation
-                                                                                                        ? documentDetails.certificate_incorporation.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.certificate_incorporation
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2301,7 +2271,7 @@ const Profile = () => {
                                                                                                 {bankStatementThreeYearsName
                                                                                                     ? bankStatementThreeYearsName
                                                                                                     : documentDetails.bank_statement_three_years
-                                                                                                        ? documentDetails.bank_statement_three_years.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.bank_statement_three_years
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2419,7 +2389,7 @@ const Profile = () => {
                                                                                                 {MOAName
                                                                                                     ? MOAName
                                                                                                     : documentDetails.moa
-                                                                                                        ? documentDetails.moa.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.moa
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input
@@ -2533,7 +2503,7 @@ const Profile = () => {
                                                                                                 {AOAName
                                                                                                     ? AOAName
                                                                                                     : documentDetails.aoa
-                                                                                                        ? documentDetails.aoa.substring(0, 20) + '.....'
+                                                                                                        ? documentDetails.aoa
                                                                                                         : "No File Chosen ..."}
                                                                                             </div>
                                                                                             <input

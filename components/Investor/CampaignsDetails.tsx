@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getSingleBusinessDetails, InvestorBooking } from "@/lib/investorapi";
-import { getToken, getCurrentUserData } from "../../lib/session";
+import { getCurrentUserData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from 'next/link';
 import Image from 'next/image';
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
-  // role?:string;
 }
 interface InputData {
   business_id?: string;
@@ -38,17 +36,12 @@ export default function CampaignsDetails() {
   const [inputs, setInputs] = useState<InputData>({});
   const [subscriptionValue, setSubscriptionValue] = useState(0);
   const [repayValue, setRepayValue] = useState(0);
-  const [subscription_value, setSubscription_value] = useState(0);
-  const [repay_date, setRepay_date] = useState("");
   const [repayment_value, setRepayment_value] = useState(0);
-  const [terms, setTerms] = useState(0);
-  const [no_of_units, setNo_of_units] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const [checkboxError, setCheckboxError] = useState('');
   const { id } = router.query;
   const [current_user_id, setCurrentUserId] = useState("");
-  const [ButtonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
@@ -65,7 +58,6 @@ export default function CampaignsDetails() {
       const res = await getSingleBusinessDetails(id);
       setInputs(res.data);
       const userData: UserData = getCurrentUserData();
-      //  console.log(userData);
       setCurrentUserData(userData);
     };
     fetchData();
@@ -76,13 +68,6 @@ export default function CampaignsDetails() {
     if (type === "checkbox" && name === "terms") {
       // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
       const cofounderValue = checked ? "1" : "0";
-      setTerms((prevState: any) => {
-        return {
-          ...prevState,
-          cofounder: cofounderValue,
-          user_id: current_user_id,
-        };
-      });
     }
   };
 
@@ -111,22 +96,13 @@ export default function CampaignsDetails() {
       try {
         InvestorBooking(data).then((res) => {
           if (res.status == true) {
-            setButtonDisabled(true);
             router.push(`/investor/checkout`);
-
             // send notification
             sendNotification(notification)
               .then((notificationRes) => {
-                console.log("success");
               })
               .catch((error) => {
-                console.log("error occured");
               });
-
-            // toast.success(res.message, {
-            //   position: toast.POSITION.TOP_RIGHT,
-            //   toastId: "success",
-            // });
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -143,13 +119,13 @@ export default function CampaignsDetails() {
   const toggleAccordion = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-  useEffect(() => {    
+  useEffect(() => {
     if (inputs.minimum_subscription !== undefined) {
       setSubscriptionValue(inputs.minimum_subscription);
       setRepayValue(inputs.minimum_subscription);
-    } 
+    }
   }, [inputs.minimum_subscription]);
-  
+
   const handlePlusClick = () => {
     if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
       setValue(value + 1);
@@ -202,14 +178,13 @@ export default function CampaignsDetails() {
       const data3 = data2 / 366;
       const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
       const newRepayValue = newSubscriptionValue + data4;
-      // console.log(newRepayValue)
       setRepayValue(newRepayValue);
     }
   };
 
   const progressPercentage = ((inputs.no_of_units !== undefined ? Number(inputs.no_of_units) : 0) / (inputs.total_units !== undefined ? Number(inputs.total_units) : 0)) * 100;
 
- 
+
   return (
     <>
       <section className="invertor-campaign_detail">
@@ -252,9 +227,9 @@ export default function CampaignsDetails() {
               <div className="col-md-5">
                 {inputs.type == 'CCSP'
                   ?
-                    <p style={{"textAlign":"right"}}><a href="#" style={{"color":"#ffffff"}}>Chat</a></p>
+                  <p style={{ "textAlign": "right" }}><a href="#" style={{ "color": "#ffffff" }}>Chat</a></p>
                   :
-                    ''
+                  ''
                 }
                 <div className="d-flex justify-content-between">
                   <div>
@@ -328,7 +303,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.agreement}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL + 'pdf/'}${inputs.agreement}`}
                             download
                             target="_blank"
                           >
@@ -341,7 +316,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.pdc}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL + 'pdf/'}${inputs.pdc}`}
                             download
                             target="_blank"
                           >
@@ -354,7 +329,7 @@ export default function CampaignsDetails() {
                       <div className="">
                         <div className="text-center button-pdf">
                           <a
-                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL+'pdf/'}${inputs.invoice}`}
+                            href={`${process.env.NEXT_PUBLIC_IMAGE_URL + 'pdf/'}${inputs.invoice}`}
                             download
                             target="_blank"
                           >
@@ -386,7 +361,6 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              href="#"
                               onClick={() => toggleAccordion(0)}
                             >
                               <i className="bx bx-chevron-down" />
@@ -397,11 +371,7 @@ export default function CampaignsDetails() {
                                 }`}
                             >
                               <p>
-                                Discounting enables businesses to gain instant
-                                access to cash tied up in unpaid invoices or
-                                purchase orders. The subscriber provides the
-                                cash against the unpaid invoice or purchase
-                                order for a higher repayment in return.
+                                Discounting enables businesses to gain instant access to cash tied up in unpaid invoices or purchase orders. The subscriber provides the cash against the unpaid invoice or purchase order for a higher repayment in return.
                               </p>
                             </div>
                           </li>
@@ -409,20 +379,17 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              href="#"
                               onClick={() => toggleAccordion(1)}
                             >
                               <i className="bx bx-chevron-down" />
-                              What access do I have on a free trial?
+                              How are the returns calculated in Discounting?
                             </a>
                             <div
                               className={`accordion-content ${activeIndex === 1 ? "show" : ""
                                 }`}
                             >
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
+                                Returns are based on the discounting rate and duration offered by the Discounting party. The calculator on the campaign page will show you the expected repayment amount upfront before you proceed to make the payment.
                               </p>
                             </div>
                           </li>
@@ -430,20 +397,20 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              href="#"
                               onClick={() => toggleAccordion(2)}
                             >
                               <i className="bx bx-chevron-down" />
-                              Does the price go up as my team gets larger?
+                              When does the subscription start generating returns?
                             </a>
                             <div
                               className={`accordion-content ${activeIndex === 2 ? "show" : ""
                                 }`}
                             >
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
+                                A subscription to the discounting campaign starts generating returns on a T+2* basis from date of transaction, regardless of the campaign closure date. Tyke shall transfer the amount in tranches to the company, however the amount would be recovered post agreed tenure in a single tranche. Thus, the expected repayment date shall be available in the portfolio section post successful closure of the campaign.
+                                <br />
+                                <br />
+                                <strong className="text-secondary">*working days are considered for the purpose of this calculation.</strong>
                               </p>
                             </div>
                           </li>
@@ -451,20 +418,17 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              href="#"
                               onClick={() => toggleAccordion(3)}
                             >
                               <i className="bx bx-chevron-down" />
-                              How can I cancel my subscription?
+                              Are returns guaranteed in Discounting?
                             </a>
                             <div
                               className={`accordion-content ${activeIndex === 3 ? "show" : ""
                                 }`}
                             >
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
+                                Despite due diligence, there is a small possibility that the funds may not be realized from the counterparty. The probability of this happening, however, is minimized due to the shorter cycles and the verification done prior to onboarding any company or listing an invoice.
                               </p>
                             </div>
                           </li>
@@ -472,20 +436,36 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              href="#"
+
                               onClick={() => toggleAccordion(4)}
                             >
                               <i className="bx bx-chevron-down" />
-                              Can I pay via an Invoice?
+                              What is recourse?
                             </a>
                             <div
                               className={`accordion-content ${activeIndex === 4 ? "show" : ""
                                 }`}
                             >
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt.
+                                The party that is legally bound to repay the subscription amount.
+                              </p>
+                            </div>
+                          </li>
+                          <li className="accordion-item">
+                            <a
+                              className={`accordion-title ${activeIndex === 0 ? "active" : ""
+                                }`}
+                              onClick={() => toggleAccordion(3)}
+                            >
+                              <i className="bx bx-chevron-down" />
+                              Can one request a refund post subscribing to a Discounting campaign?
+                            </a>
+                            <div
+                              className={`accordion-content ${activeIndex === 3 ? "show" : ""
+                                }`}
+                            >
+                              <p>
+                                No, unlike other campaigns on Tyke, subscribing to Discounting campaign cannot be refunded.
                               </p>
                             </div>
                           </li>
@@ -521,9 +501,6 @@ export default function CampaignsDetails() {
                       <span>Unit Value</span>
                       <p
                         className="css-37nqt7"
-                        onChange={(e: any) =>
-                          setSubscription_value(e.target.value)
-                        }
                       >
                         ₹{inputs.minimum_subscription}
                       </p>
@@ -532,7 +509,7 @@ export default function CampaignsDetails() {
                     <div className="css-wsc10v">
                       <span>Subscription Value</span>
                       <p
-                        className="css-37nqt7 subscription_value"                        
+                        className="css-37nqt7 subscription_value"
                       >
                         ₹{subscriptionValue}
                       </p>
@@ -550,7 +527,6 @@ export default function CampaignsDetails() {
                         <span>Repayment Date</span>
                         <p
                           className="css-37nqt7"
-                          onChange={(e: any) => setRepay_date(e.target.value)}
                         >
                           {inputs.repay_date}
                         </p>

@@ -53,8 +53,6 @@ const AddCompetitorCompany = () => {
 
             if (res.status === true && res.data.length > 0) {
                 setCCSPId(res.data[0].ccsp_fund_id);
-                console.log(res.data[0].ccsp_fund_id);
-
             } else {
                 toast.error("No active funds available", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -72,11 +70,8 @@ const AddCompetitorCompany = () => {
             if (res.status) {
                 const filteredData = res.data.filter((company: { ccsp_fund_id: string }) => company.ccsp_fund_id == id);
                 setAllCompanydata(filteredData);
-                // console.log(filteredData);
-
             }
         } catch (error) {
-            console.error("Error fetching company data:", error);
         }
     };
 
@@ -84,7 +79,6 @@ const AddCompetitorCompany = () => {
     const handleCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo);
@@ -107,14 +101,11 @@ const AddCompetitorCompany = () => {
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo1);
         formData.append("company_name", CompanyName);
         formData.append('competitor_id', competitorId);
-        console.log(formData);
-
         try {
             const response = await AdminUpdateCometitorCompany(formData);
             clearmemberInputData();
@@ -154,7 +145,7 @@ const AddCompetitorCompany = () => {
 
         setCompanyLogo(file);
         setFileName(file.name);
-        setError(''); 
+        setError('');
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -369,7 +360,7 @@ const AddCompetitorCompany = () => {
                                                             className="form-label"
                                                         >
                                                             Company Description
-                                                        </label>                                                       
+                                                        </label>
                                                         <TextEditor
                                                             height={100}
                                                             value={CompanyDesc}
@@ -500,7 +491,7 @@ const AddCompetitorCompany = () => {
                                                                         </div>
                                                                         <div className="file-select-name" id="noFile">
 
-                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo : "No File Chosen ...")}
 
                                                                         </div>
                                                                         <input
@@ -518,7 +509,6 @@ const AddCompetitorCompany = () => {
                                                                 ) : (
                                                                     startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
                                                                 )}
-
                                                                 <div className="profile-pic">
                                                                     {previewImage ? (
                                                                         <Image
@@ -555,7 +545,7 @@ const AddCompetitorCompany = () => {
                                                             <div className="col-md-12">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
                                                                     Company Description
-                                                                </label>                                                               
+                                                                </label>
                                                                 <TextEditor
                                                                     height={100}
                                                                     value={CompanyDesc}

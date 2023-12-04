@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
-import { getToken, getCurrentUserData } from "../../lib/session";
-import { ToastContainer, toast } from "react-toastify";
+import { getCurrentUserData } from "../../lib/session";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from 'moment';
 interface UserData {
@@ -10,46 +10,18 @@ interface UserData {
     id?: string;
 }
 const AllNotifications = () => {
-    const tableRef = useRef<HTMLTableElement | null>(null);
-    const [current_user_id, setCurrentUserId] = useState("");
-    const [current_user_name, setCurrentUserName] = useState("");
-    const [current_user_role, setCurrentUserRole] = useState("");
+    const tableRef = useRef<HTMLTableElement | null>(null);   
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
-    const [readNotifications, setReadNotifications] = useState("");
-    const [users, setUsers] = useState<any>(
-        {
-            name: '',
-            email: '',
-            country: '',
-            phone: '',
-            city: '',
-            status: '',
-            role: '',
-            linkedin_url: '',
-            gender: '',
-            profile_pic: ''
-        });
     const [notifications, setNotifications] = useState([]);
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
-        current_user_data.username
-            ? setCurrentUserName(current_user_data.username)
-            : setCurrentUserName("");
-        current_user_data.role
-            ? setCurrentUserRole(current_user_data.role)
-            : setCurrentUserRole("");
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
+        const current_user_data: UserData = getCurrentUserData();       
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
                 setNotifications(data.data);
                 updateNotification(current_user_data.id)
                     .then((res) => {
-                        if (res.status == true) {
-                            console.log(res)
-                            setReadNotifications(res.data);
-                        } else {
-                        }
+                        
                     })
                     .catch((err) => {
                     });
@@ -81,7 +53,6 @@ const AllNotifications = () => {
         deleteNotification(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
-                    console.log(res);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
@@ -113,7 +84,7 @@ const AllNotifications = () => {
                             <div className="card-body">
                                 <div className="table-responsive overflow-x-hidden">
                                     <div className="body-part">
-                                        {notifications.map((notification: any,index:any) => (
+                                        {notifications.map((notification: any, index: any) => (
                                             <div className="box-card recent-reviews mb-4" key={index}>
                                                 <div className="card-inquiries mt-2">
                                                     <div className="row">

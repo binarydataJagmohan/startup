@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import { useForm } from "react-hook-form";
 import Image from "next/image";
 import {
   uploadDocuments,
@@ -53,7 +52,6 @@ export default function DocumentsUpload(): any {
     useState("");
   const [MOAError, setMOAError] = useState("");
   const [AOAError, setAOAError] = useState("");
-  const [document_id, setDocumentId] = useState("");
   const [errors, setErrors] = useState({
     pan_card_front: "",
     pan_card_back: "",
@@ -99,7 +97,6 @@ export default function DocumentsUpload(): any {
         .then((res) => {
           if (res.status == true) {
             setBasicDetails(res.data);
-            //console.log(res.data);
             setPanCardFront(res.data.pan_card_front);
             setPanCardBack(res.data.pan_card_back);
             setAdharCardFront(res.data.adhar_card_front);
@@ -126,7 +123,6 @@ export default function DocumentsUpload(): any {
 
   const handlMenuSubmit = (event: any) => {
     event.preventDefault();
-    const errors: any = {};
     const currentUserData: any = getCurrentUserData();
     const data = {
       user_id: currentUserData.id,
@@ -144,14 +140,12 @@ export default function DocumentsUpload(): any {
     )
       .then((res) => {
         if (res.status == true) {
-          // console.log(data);
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
           if (users.approval_status === "pending") {
             setTimeout(() => {
-              //router.push("/company/thank-you");
               router.push("/verify-email");
             }, 1000);
           }
@@ -171,10 +165,8 @@ export default function DocumentsUpload(): any {
           if (res.status == true) {
             sendNotification(data)
               .then((notificationRes) => {
-                console.log("success");
               })
               .catch((error) => {
-                console.log("error occured");
               });
           } else {
             toast.error(res.message, {
@@ -190,9 +182,7 @@ export default function DocumentsUpload(): any {
         }
       })
       .catch((err) => {
-        console.log(err);
       });
-    //}
   };
 
   const handlePanCardFrontChange = (event: any) => {
@@ -278,13 +268,6 @@ export default function DocumentsUpload(): any {
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const handleUploadClick = (event: any) => {
-    event.preventDefault();
-    // setMissingFields([])
-    if (fileInputRef.current !== null) {
-      (fileInputRef.current as HTMLInputElement).click();
-    }
-  };
 
   const handleAdharCardBackChange = (event: any) => {
     const file = event.target.files[0];
@@ -472,7 +455,7 @@ export default function DocumentsUpload(): any {
                                       {panCardFrontName
                                         ? panCardFrontName
                                         : basicDetails.pan_card_front
-                                          ? basicDetails.pan_card_front.substring(0, 20) + '.....'
+                                          ? basicDetails.pan_card_front
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -497,7 +480,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -595,7 +577,7 @@ export default function DocumentsUpload(): any {
                                       {panCardBackName
                                         ? panCardBackName
                                         : basicDetails.pan_card_back
-                                          ? basicDetails.pan_card_back.substring(0, 20) + '.....'
+                                          ? basicDetails.pan_card_back
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -619,7 +601,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -716,7 +697,7 @@ export default function DocumentsUpload(): any {
                                       {adharCardFrontName
                                         ? adharCardFrontName
                                         : basicDetails.adhar_card_front
-                                          ? basicDetails.adhar_card_front.substring(0, 20) + '.....'
+                                          ? basicDetails.adhar_card_front
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -740,7 +721,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -836,7 +816,7 @@ export default function DocumentsUpload(): any {
                                       {adharCardBackName
                                         ? adharCardBackName
                                         : basicDetails.adhar_card_back
-                                          ? basicDetails.adhar_card_back.substring(0, 20) + '.....'
+                                          ? basicDetails.adhar_card_back
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -956,7 +936,7 @@ export default function DocumentsUpload(): any {
                                       {certificate_incorporationName
                                         ? certificate_incorporationName
                                         : basicDetails.certificate_incorporation
-                                          ? basicDetails.certificate_incorporation.substring(0, 20) + '.....'
+                                          ? basicDetails.certificate_incorporation
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -967,12 +947,6 @@ export default function DocumentsUpload(): any {
                                       }
                                       accept=".jpg, .png, .jpeg, .pdf  "
                                     />
-                                    {/* <input
-                                      type="file"
-                                      name="certificate_incorporation"
-                                      onChange={handleCertificateOfIncorporationChange}
-                                      accept=".jpg, .png, .jpeg, .pdf  "
-                                    /> */}
                                   </div>
                                 </div>
                                 <label
@@ -988,7 +962,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -1063,7 +1036,6 @@ export default function DocumentsUpload(): any {
                                 className="form-label"
                               >
                                 3 Years Bank Statement{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <div
                                 id="divHabilitSelectors"
@@ -1084,7 +1056,7 @@ export default function DocumentsUpload(): any {
                                       {bankStatementThreeYearsName
                                         ? bankStatementThreeYearsName
                                         : basicDetails.bank_statement_three_years
-                                          ? basicDetails.bank_statement_three_years.substring(0, 20) + '.....'
+                                          ? basicDetails.bank_statement_three_years
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -1108,7 +1080,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -1183,7 +1154,6 @@ export default function DocumentsUpload(): any {
                                 className="form-label"
                               >
                                 MOA{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <div
                                 id="divHabilitSelectors"
@@ -1204,7 +1174,7 @@ export default function DocumentsUpload(): any {
                                       {MOAName
                                         ? MOAName
                                         : basicDetails.moa
-                                          ? basicDetails.moa.substring(0, 20) + '.....'
+                                          ? basicDetails.moa
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -1228,7 +1198,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
@@ -1297,7 +1266,6 @@ export default function DocumentsUpload(): any {
                                 className="form-label"
                               >
                                 AOA{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <div
                                 id="divHabilitSelectors"
@@ -1318,7 +1286,7 @@ export default function DocumentsUpload(): any {
                                       {AOAName
                                         ? AOAName
                                         : basicDetails.aoa
-                                          ? basicDetails.aoa.substring(0, 20) + '.....'
+                                          ? basicDetails.aoa
                                           : "No File Chosen ..."}
                                     </div>
                                     <input
@@ -1342,7 +1310,6 @@ export default function DocumentsUpload(): any {
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any identity card's image jpg
                                     ,png ,jpeg and pdf file only (max size 2 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                               </div>
