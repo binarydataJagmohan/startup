@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
-import { getToken, getCurrentUserData } from "../../lib/session";
-import { getSingleUserData } from '@/lib/frontendapi';
+import {  getCurrentUserData } from "../../lib/session";
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
 import moment from 'moment';
 import Link from 'next/link';
@@ -14,48 +12,17 @@ interface UserData {
 }
 const AllNotifications = () => {
     const tableRef = useRef<HTMLTableElement | null>(null);
-    const [current_user_id, setCurrentUserId] = useState("");
-    const [current_user_name, setCurrentUserName] = useState("");
-    const [current_user_role, setCurrentUserRole] = useState("");
-    const [dataTableInitialized, setDataTableInitialized] = useState(false);
-    const [readNotifications, setReadNotifications] = useState("");
-    const [users, setUsers] = useState<any>(
-        {
-            name: '',
-            email: '',
-            country: '',
-            phone: '',
-            city: '',
-            status: '',
-            role: '',
-            linkedin_url: '',
-            gender: '',
-            profile_pic: ''
-        });
+    const [dataTableInitialized, setDataTableInitialized] = useState(false);   
     const [notifications, setNotifications] = useState([]);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
-        current_user_data.username
-            ? setCurrentUserName(current_user_data.username)
-            : setCurrentUserName("");
-        current_user_data.role
-            ? setCurrentUserRole(current_user_data.role)
-            : setCurrentUserRole("");
-        current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-
-
-
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
                 setNotifications(data.data);
                 updateNotification(current_user_data.id)
                     .then((res) => {
-                        if (res.status == true) {
-                            console.log(res)
-                            setReadNotifications(res.data);
-                        } else {
-                        }
+                       
                     })
                     .catch((err) => {
                     });
@@ -71,9 +38,7 @@ const AllNotifications = () => {
                 searching: false,
                 lengthMenu: [10, 25, 50, 75, 100],
                 columnDefs: [
-                    // columns sortable
                     { targets: [0, 1, 2], orderable: true },
-                    // Disable sorting
                     { targets: '_all', orderable: false },
                 ],
                 paging: notifications.length > 10 ? true : false,
@@ -89,7 +54,6 @@ const AllNotifications = () => {
         deleteNotification(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
-                    console.log(res);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",

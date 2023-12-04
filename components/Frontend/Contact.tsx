@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveContact } from "../../lib/frontendapi";
@@ -17,7 +17,6 @@ const Contact = () => {
   } = useForm();
 
   const SubmitForm = () => {
-    //e.preventDefault();
     const logindata = {
       name: name,
       email: email,

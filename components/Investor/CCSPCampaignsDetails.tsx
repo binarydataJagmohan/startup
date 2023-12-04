@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getSingleBusinessDetails, InvestorBooking, CreateGroupChatByInvestor, getSingleGroupData, getSingleFundDetails } from "@/lib/investorapi";
-import { getToken, getCurrentUserData } from "../../lib/session";
-import { ToastContainer, toast } from "react-toastify";
+import { CreateGroupChatByInvestor, getSingleGroupData, getSingleFundDetails } from "@/lib/investorapi";
+import { getCurrentUserData } from "../../lib/session";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { sendNotification, getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData, getAllCCSPCampaign } from '../../lib/frontendapi'
+import { getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi'
 
 interface UserData {
   id?: string;
@@ -50,54 +50,26 @@ interface FundData {
 export default function CampaignsDetails() {
   const [currentUserData, setCurrentUserData] = useState<UserData>({});
   const [singleUserData, setSingleUserData] = useState<UserData>({});
-  const [value, setValue] = useState(1);
   const [inputs, setInputs] = useState<InputData>({});
-  const [subscriptionValue, setSubscriptionValue] = useState(0);
-  const [repayValue, setRepayValue] = useState(0);
-  const [subscription_value, setSubscription_value] = useState(0);
-  const [repay_date, setRepay_date] = useState("");
-  const [repayment_value, setRepayment_value] = useState(0);
-  const [terms, setTerms] = useState(0);
-  const [no_of_units, setNo_of_units] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const { id } = router.query;
-  const [checkboxError, setCheckboxError] = useState('');
-  const [current_user_id, setCurrentUserId] = useState("");
-  const [ButtonDisabled, setButtonDisabled] = useState(true);
   const [activeLink, setActiveLink] = useState("active");
   const [isSticky, setIsSticky] = useState(false);
-  const [pagedata, setPagedata]: any = useState([]);
   const [teamdata, setTeamdata]: any = useState([]);
   const [companydata, setCompanydata]: any = useState([]);
   const [productdata, setProductdata]: any = useState([]);
   const [fundData, setFundData]: any = useState<FundData | null>(null); // State to hold fund data
-  const [user, setPUser] = useState({
-    business_name: "",
-    business_id: "",
-  });
-  const [fundid, setFundId]: any = useState<string | null>(null);
-  const [fundids, setFundIds]: any = useState<string | null>(null);
+
   const [isBusinessGroup, setIsBusinessGroup] = useState(false);
-  const [fundimage, setFundImage]: any = useState("");
 
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
 
-    if (current_user_data?.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
-    } else {
-      window.location.href = "/login";
-    }
-
     const fetchData = async () => {
       // const res = await getSingleBusinessDetails(id);
       const res = await getSingleFundDetails(id);
       setInputs(res.data);
-      console.log(res.data);
       const userData: UserData = getCurrentUserData();
       setCurrentUserData(userData);
     };
@@ -115,7 +87,7 @@ export default function CampaignsDetails() {
         }
       })
       .catch((error) => {
-        console.log("error occured");
+        console.error("error occured");
       });
     getSingleUserData(current_user_data.id)
       .then((res) => {
@@ -126,7 +98,7 @@ export default function CampaignsDetails() {
         }
       })
       .catch((error) => {
-        console.log("error occured");
+        console.error("error occured");
       });
   }, [id]);
 
@@ -141,7 +113,6 @@ export default function CampaignsDetails() {
             const matchingFund = activeFund.data; // Assuming activeFund.data holds the single fund details
 
             if (matchingFund) {
-              // console.log("Matching Fund:", matchingFund);
               const fundId = matchingFund.ccsp_fund_id;
               await fetchAllTeamAndCompany(fundId);
               setFundData(matchingFund);
@@ -201,9 +172,6 @@ export default function CampaignsDetails() {
   const fetchAllPagedata = async (buisnesssid: any) => {
     try {
       const pageDataResponse = await getInvestorPagedata(buisnesssid);
-      if (pageDataResponse.status) {
-        setPagedata(pageDataResponse.data);
-      }
     } catch (error) {
       console.error("Error fetching page data: ", error);
     }
@@ -226,143 +194,8 @@ export default function CampaignsDetails() {
     setActiveLink(link);
   };
 
-  const handleChangeTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.target;
-    if (type === "checkbox" && name === "terms") {
-      // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
-      const cofounderValue = checked ? "1" : "0";
-      setTerms((prevState: any) => {
-        return {
-          ...prevState,
-          cofounder: cofounderValue,
-          user_id: current_user_id,
-        };
-      });
-    }
-  };
-
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    if (!repayment_value) {
-      setCheckboxError('* Please accept the terms and conditions');
-    } else {
-      const data = {
-        user_id: currentUserData.id,
-        business_id: inputs.business_id,
-        subscription_value: subscriptionValue,
-        repay_date: inputs.repay_date,
-        repayment_value: repayValue,
-        no_of_units: value,
-      };
-
-      const notification = {
-        notify_from_user: currentUserData.id,
-        notify_to_user: "1",
-        notify_msg: "Payment Successfully Done.",
-        notification_type: "Investment Notification",
-        each_read: "unread",
-        status: "active",
-      };
-      try {
-        InvestorBooking(data).then((res) => {
-          if (res.status == true) {
-            setButtonDisabled(true);
-            router.push(`/investor/checkout`);
-
-            // send notification
-            sendNotification(notification)
-              .then((notificationRes) => {
-                console.log("success");
-              })
-              .catch((error) => {
-                console.log("error occured");
-              });
-
-            // toast.success(res.message, {
-            //   position: toast.POSITION.TOP_RIGHT,
-            //   toastId: "success",
-            // });
-          } else {
-            toast.error(res.message, {
-              position: toast.POSITION.TOP_RIGHT,
-              toastId: "error",
-            });
-          }
-        });
-      } catch (error) {
-        console.error(error);
-        // handle the error, such as showing an error message
-      }
-    }
-  };
-  const toggleAccordion = (index: any) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
   useEffect(() => {
-    if (inputs?.minimum_subscription !== undefined) {
-      setSubscriptionValue(inputs.minimum_subscription);
-      setRepayValue(inputs.minimum_subscription);
-    }
   }, [inputs?.minimum_subscription]);
-
-  const handlePlusClick = () => {
-    if (inputs.no_of_units !== undefined && Number(inputs.no_of_units) - 1 >= value) {
-      setValue(value + 1);
-      const newSubscriptionValue =
-        (value + 1) * (inputs.minimum_subscription || 0);
-      setSubscriptionValue(newSubscriptionValue);
-      const data1 =
-        inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
-      const data3 = data1 / 366;
-      const data4 = inputs.tenure ? data3 * inputs.tenure : 0;
-      const newRepayValue = newSubscriptionValue + data4;
-      const roundedNumber = Math.floor(newRepayValue);
-      const onlyTwoDecimals = roundedNumber.toFixed(2)
-      setRepayValue(parseFloat(onlyTwoDecimals));
-    }
-    else {
-      toast.error(`Unit limit exceeded `, {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
-    }
-  };
-
-  const handleMinusClick = () => {
-    if (value > 1) {
-      setValue(value - 1);
-      const newSubscriptionValue =
-        (value - 1) * (inputs.minimum_subscription || 0);
-      setSubscriptionValue(newSubscriptionValue);
-      const data1 =
-        inputs && inputs.xirr ? (newSubscriptionValue * inputs.xirr) / 100 : 0;
-      const data3 = data1 / 366;
-      const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
-      const newRepayValue = newSubscriptionValue + data4;
-      const roundedNumber = Math.floor(newRepayValue);
-      setRepayValue(roundedNumber);
-    }
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value);
-    if (!isNaN(newValue) && newValue >= 1) {
-      setValue(newValue);
-      const newSubscriptionValue =
-        newValue * (inputs.minimum_subscription || 0);
-      setSubscriptionValue(newSubscriptionValue);
-      const data1 =
-        inputs && inputs.xirr ? newSubscriptionValue * inputs.xirr : 0;
-      const data2 = data1 / 100;
-      const data3 = data2 / 366;
-      const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
-      const newRepayValue = newSubscriptionValue + data4;
-      // console.log(newRepayValue)
-      setRepayValue(newRepayValue);
-    }
-  };
-
-  const progressPercentage = ((inputs?.no_of_units !== undefined ? Number(inputs?.no_of_units) : 0) / (inputs?.total_units !== undefined ? Number(inputs?.total_units) : 0)) * 100;
 
   const handleClickChat = (startup_id: any, business_name: any, business_id: any) => {
     if (isBusinessGroup == true) {
@@ -388,7 +221,7 @@ export default function CampaignsDetails() {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   }
@@ -707,54 +540,6 @@ export default function CampaignsDetails() {
         </section>
       )}
 
-
-      {/* {
-        fundData ||
-          fundData?.dilution_percentage ||
-          fundData?.min_commitment ||
-          fundData?.max_commitment ||
-          fundData?.amount_raised ||
-          fundData?.round_name ? (
-          <section id="terms">
-            <div className="container">
-              <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
-              <div className="termsContent">
-                <div className="row">
-                  <h1>Round Details</h1>
-                  <>
-                    {fundData?.dilution_percentage && fundData?.dilution_percentage ? (
-                      <p>
-                        <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
-                      </p>
-                    ) : null}
-                    {fundData?.min_commitment && fundData?.max_commitment ? (
-                      <p>
-                        <strong>Minimum commitment:</strong> Min: ${fundData?.min_commitment} Max: ${fundData?.max_commitment}
-                      </p>
-                    ) : null}
-                    {fundData?.valuation_cap && (
-                      <p>
-                        <strong>Valuation Cap:</strong> ${fundData?.valuation_cap}
-                      </p>
-                    )}
-                    {fundData?.amount_raised ? (
-                      <p>
-                        <strong>Amount Raised:</strong> ${fundData?.amount_raised}
-                      </p>
-                    ) : null}
-                    {fundData?.round_name ? (
-                      <p>
-                        <strong>Round name:</strong> {fundData?.round_name}
-                      </p>
-                    ) : null}
-                  </>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : null
-      } */}
-
       {
         (fundData?.dilution_percentage ||
           (fundData?.min_commitment && fundData?.max_commitment) ||
@@ -962,8 +747,6 @@ export default function CampaignsDetails() {
           </div>
         </section>
       )}
-
-
     </>
   );
 }

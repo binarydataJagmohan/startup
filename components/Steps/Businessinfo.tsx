@@ -2,54 +2,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-import Image from 'next/image';
 import { useForm } from "react-hook-form";
 import { businessInfoSave, getBusinessInformation } from "../../lib/frontendapi";
 import Link from 'next/link';
 import {
-  removeToken,
-  removeStorageData,
   getCurrentUserData,
 } from "../../lib/session";
 
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
 interface UserData {
   id?: string;
 }
 export default function Businessinfo(): any {
   const router = useRouter();
-  const [blId, setBlId] = useState("");
-  const [forwarduId, setForwarduId] = useState("");
   const [missingFields, setMissingFields] = useState<string[]>([]);
-
   const [current_user_id, setCurrentUserId] = useState("");
-  const [business_name, setBusinessName] = useState("");
-
   const [signup_success, setSignupSuccess] = useState(false);
 
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadLogo = (event: any) => {
-    event.preventDefault();
-    // setMissingFields([])
-    if (fileInputRef.current !== null) {
-      (fileInputRef.current as HTMLInputElement).click();
-    }
-  };
   const fileInputPitchDeck = useRef<HTMLInputElement>(null);
-  const handleUploadPitchDeck = (event: any) => {
-    event.preventDefault();
-    // setMissingFields([])
-    if (fileInputPitchDeck.current !== null) {
-      (fileInputPitchDeck.current as HTMLInputElement).click();
-    }
-  };
+
   const [pichDeckError, setPichDeckError] = useState('');
   const [pichDeckSizeError, setPichDeckSizeError] = useState('');
   const [startUpLogoError, setStartupLogoError] = useState('');
@@ -194,9 +167,7 @@ export default function Businessinfo(): any {
       if (!businessDetails.type) {
         setMissingFields(prevFields => [...prevFields, "type"])
       }
-      // if (!pitch_deck && !businessDetails.pitch_deck) {
-      //   setMissingFields(prevFields => [...prevFields, "pitch_deck"])
-      // }
+
       const formData = new FormData();
       if (logo !== null) {
         formData.append('logo', logo);
@@ -494,7 +465,7 @@ export default function Businessinfo(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}
@@ -561,7 +532,7 @@ export default function Businessinfo(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputPitchDeck}

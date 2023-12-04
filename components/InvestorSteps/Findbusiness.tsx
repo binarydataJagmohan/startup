@@ -4,18 +4,9 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { useForm } from "react-hook-form";
 import { getSingleUserData, getCountries, personalInformationSave } from "../../lib/frontendapi";
-import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
-import { log } from "console";
+import { getCurrentUserData } from "../../lib/session";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import Link from 'next/link';
-import Image from 'next/image';
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
 
 interface UserData {
   id?: number;
@@ -25,13 +16,7 @@ type Country = {
   country_code: string;
 };
 
-export default function Findbusiness(): any {
-  const [blId, setBlId] = useState("");
-  const [forwarduId, setForwarduId] = useState("");
-  const [find_business_location, setFindBusinessLocation] = useState("");
-  const [lat, setLat] = useState("");
-  const [missingFields, setMissingFields] = useState<string[]>([]);
-  const [lng, setLng] = useState("");
+export default function Findbusiness(): any { 
   const [signup_success, setSignupSuccess] = useState(false);
 
   const [current_user_id, setCurrentUserId] = useState("");
@@ -54,7 +39,6 @@ export default function Findbusiness(): any {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value }: { name: string, value: string } = event.target;
-    setMissingFields([]);
     if (name === 'phone') {
       // Remove all non-digit characters
       value = value.replace(/\D/g, '');
@@ -167,17 +151,6 @@ export default function Findbusiness(): any {
     }
   };
 
-
-
-  const handleAdrChange = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-
-  const handleSelect = (find_business_location: any) => {
-    setFindBusinessLocation(find_business_location);
-  };
-  console.log(user);
-
   if (signup_success) return router.push("/steps/businessinfo");
 
   return (
@@ -214,15 +187,10 @@ export default function Findbusiness(): any {
                                 className="form-label"
                               >
                                 Email ID{" "}
-                                {/* <span style={{ color: "red" }}>*</span> */}
                               </label>
                               <input
                                 type="email"
-                                className="form-control same-input"
-                                // {...register("email", {
-                                //   value: true,
-                                //   required: true,
-                                // })}
+                                className="form-control same-input"                           
                                 id="email"
                                 name="email"
                                 onChange={handleChange}
@@ -272,7 +240,6 @@ export default function Findbusiness(): any {
                                
                                 aria-label="Default select example"
                                 {...register("country", {
-                                  // validate: (value) => value != "", required: true,
                                   onChange: handleChange
                                 })}
                                  name="country"

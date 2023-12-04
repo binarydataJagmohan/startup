@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
 import {
   investorTypeInfoSave,
   getSingleUserData,
@@ -10,22 +9,11 @@ import {
   getAngelInvestorTerms,
 } from "../../lib/frontendapi";
 import {
-  removeToken,
-  removeStorageData,
   getCurrentUserData,
 } from "../../lib/session";
 import Link from "next/link";
 import Image from "next/image";
-const alertStyle = {
-  color: "red",
-};
-const textStyle = {
-  textTransform: "capitalize",
-};
-interface CurrentUserData {
-  id?: string;
-  name?: string;
-}
+
 export default function InvestorType(): any {
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
@@ -66,22 +54,7 @@ export default function InvestorType(): any {
   const [investorDetails, seInvestorDetails] = useState({
     investorType: "",
   });
-  const [terms, setTerms]: any = useState({
-    category: "",
-    principal_residence: "0",
-    cofounder: "0",
-    prev_investment_exp: "0",
-    experience: "0",
-    net_worth: "0",
-    no_requirements: "0",
-    annual_income: "0",
-    financial_net_worth: "0",
-    financial_annual_net_worth: "0",
-    foreign_annual_income: "0",
-    foreign_net_worth: "0",
-    foreign_annual_net_worth: "0",
-    corporate_net_worth: "0",
-  });
+
   const [users, setUsers] = useState<any>({});
   const [errors, setErrors]: any = useState({});
 
@@ -169,7 +142,6 @@ export default function InvestorType(): any {
       getAngelInvestorTerms(current_user_data.id)
         .then((res) => {
           if (res.status === true) {
-            console.log(res.data);
             setForeignAnnualIncome(res.data.foreign_annual_income);
             setSelectedOption(res.data.category);
             setFinancialNetWorth(res.data.financial_net_worth);
@@ -222,19 +194,12 @@ export default function InvestorType(): any {
           errors.experience = "*One more option is required.";
         }
       }
-      // if (!experience) {
-      //     errors.experience = "*One more option is required.";
-      // }
+
     } else if (selectedOption === "2") {
       if (!net_worth) {
         errors.net_worth = "*Net worth option is required.";
       }
-      //}
-      // else if (selectedOption === '3') {
-      //     if (!no_requirements) {
-      //         errors.no_requirements = "*No requirements option is required.";
-      //     }
-      // }
+
     } else if (selectedOption === "4") {
       if (
         annual_income == false &&
@@ -243,9 +208,7 @@ export default function InvestorType(): any {
       ) {
         errors.annual_income = "*Please select atleast one option.";
       }
-      // if (!annual_income) {
-      //     errors.annual_income = "*Annual income option is required.";
-      // }
+
     } else if (selectedOption === "5") {
       if (
         !foreign_annual_income &&
@@ -254,9 +217,7 @@ export default function InvestorType(): any {
       ) {
         errors.annual_income = "*Please select atleast one option.";
       }
-      // if (!foreign_annual_income) {
-      //     errors.foreign_annual_income = "*Annual income option is required.";
-      // }
+
     } else if (selectedOption === "6") {
       if (!corporate_net_worth) {
         errors.corporate_net_worth = " *Net worth option is required.";
@@ -274,7 +235,6 @@ export default function InvestorType(): any {
         experience: experience,
         net_worth: net_worth,
         prev_investment_exp: prev_investment_exp,
-        //no_requirements: no_requirements,
         no_requirements: "1",
         cofounder: cofounder,
         category: selectedOption,
@@ -311,19 +271,6 @@ export default function InvestorType(): any {
                 router.push("/investor-steps/selectedoptionsdocumentupload");
               }
             }, 1000);
-            // setTimeout(() => {
-            //     router.push("/investor-steps/documentsupload");
-            // }, 1000);
-            // if (users.approval_status === 'pending') {
-            //     setTimeout(() => {
-            //         router.push("/investor/thank-you");
-            //     }, 1000);
-            // }
-            // if (users.approval_status === 'approved') {
-            //     setTimeout(() => {
-            //         router.push("/investor/campaign");
-            //     }, 1000);
-            // }
           } else {
             toast.error(res.message, {
               position: toast.POSITION.TOP_RIGHT,
@@ -332,7 +279,6 @@ export default function InvestorType(): any {
           }
         })
         .catch((err) => {
-          console.log("error");
         });
     }
   };
@@ -432,7 +378,7 @@ export default function InvestorType(): any {
                                         }
                                       />
                                       <label htmlFor="myCheckbox3">
-                                        <Image src="/assets/img/investor/regular.png" height={112} width={112} alt={'regular.png'}/>
+                                        <Image src="/assets/img/investor/regular.png" height={112} width={112} alt={'regular.png'} />
 
                                       </label>
                                     </li>

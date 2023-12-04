@@ -1,25 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
-import { removeToken, removeStorageData } from "../../lib/session";
 import { CheckUserEmailVerification, CheckUserResetPasswordVerification, UpdateResetPassword } from '../../lib/frontendapi';
 
-interface FormData {
-  password: string;
-  confirmPassword: string;
-}
 const ForgetPassword = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
-  const {
-    register,
-    handleSubmit,
-  } = useForm<FormData>();
-
   useEffect(() => {
     if (router.query.id && router.query.hash) {
       CheckEmailVerification();
@@ -44,9 +33,6 @@ const ForgetPassword = () => {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
-          // setTimeout(() => {
-          //   router.push("/login"); // Redirect to login page
-          // }, 2000);
         } else {
           toast.error(res.error, {
             position: toast.POSITION.TOP_RIGHT,
@@ -70,15 +56,11 @@ const ForgetPassword = () => {
 
     CheckUserEmailVerification(data)
       .then((res) => {
-        //   console.log(res);
         if (res.status == true) {
           toast.success(res.message, {
             position: toast.POSITION.TOP_RIGHT,
             toastId: "success",
           });
-          // setTimeout(() => {
-          //   router.push("/login"); // Redirect to login page
-          // }, 2000);
         } else {
           toast.error(res.error, {
             position: toast.POSITION.TOP_RIGHT,
@@ -146,7 +128,7 @@ const ForgetPassword = () => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
 

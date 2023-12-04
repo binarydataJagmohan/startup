@@ -95,6 +95,7 @@ export default function SelectedOptionsDocumentUpload(): any {
   const handlMenuSubmit = (event: any) => {
     event.preventDefault();
     if (CASignedNetAngeable2CroreError !== '' || CASignedNetAngeable2CroreSizeError !== '' || proofOfNetWorthError !== '' || proofOfNetWorthSizeError !== '' || proofOfIncomeError !== '' || proofOfIncomeSizeError !== '' || certificateOfIncorporationError !== '' || certificateOfIncorporationSizeError !== '' || netWorthAtleast10CroreError !== '' || netWorthAtleast10CroreSizeError !== '' || bankStatement3YearsError !== '' || bankStatement3YearsSizeError !== '' || incorporationCertificateError !== '' || incorporationCertificateSizeError !== '') {
+      console.error('validation error');
       return;
     } else {
       const errors: any = {};
@@ -128,7 +129,6 @@ export default function SelectedOptionsDocumentUpload(): any {
         )
           .then((res) => {
             if (res.status == true) {
-              console.log(data);
               toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
                 toastId: "success",
@@ -161,7 +161,6 @@ export default function SelectedOptionsDocumentUpload(): any {
             }
           })
           .catch((err) => {
-            console.log(err);
           });
       }
     }

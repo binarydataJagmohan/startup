@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../lib/frontendapi";
 import Link from 'next/link';
-import { removeToken, removeStorageData } from "../../lib/session";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
@@ -37,7 +36,7 @@ export default function Login() {
   useEffect(() => {
     const interval = setInterval(() => {
       checkCookieExpiration();
-    }, 1000); // Check expiration every second
+    }, 1000); 
 
     return () => {
       clearInterval(interval);
@@ -56,12 +55,10 @@ export default function Login() {
     const rememberMeCookie = Cookies.get("rememberMe");
     const token = window.localStorage.getItem("token");
 
-
     if (!rememberMeCookie || !token) {
 
       return;
     }
-
 
     const expirationDate = new Date(rememberMeCookie);
     const isExpired = expirationDate.getTime() <= Date.now();
@@ -80,7 +77,7 @@ export default function Login() {
     };
     const setRememberMeCookie = () => {
       const expiryDate = new Date();
-      expiryDate.setMonth(expiryDate.getMonth() + 1); // Set the expiration time to 1 month from now
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
       Cookies.set("rememberMe", "true", { expires: expiryDate, secure: process.env.NODE_ENV === "production" });
     };
 
@@ -160,24 +157,7 @@ export default function Login() {
 
 
   return (
-    <>
-      {/* <div className="page-title-area item-bg-1">
-        <div className="d-table">
-          <div className="d-table-cell">
-            <div className="container">
-              <div className="page-title-content">
-                <h2>Log In</h2>
-                <ul>
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>Log In</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+    <>     
       <section className="contact-section">
         <div className="container">
           <div className="row align-items-center login_form_and_information">
@@ -230,31 +210,7 @@ export default function Login() {
                       >
                        support@risingcapitalist.com
                       </a>
-                    </p>
-                    {/* <p>
-                      <a
-                        href="mailto:info@risingcapitalist.com"
-                        className="text-decoration-none text-size-18"
-                      >
-                        info@risingcapitalist.com
-                      </a>
-                    </p>
-                    <p>
-                      <a
-                        href="mailto:anjul@risingcapitalist.com"
-                        className="text-decoration-none text-size-18"
-                      >
-                        anjul@risingcapitalist.com
-                      </a>
-                    </p>
-                    <p className="p-0">
-                      <a
-                        href="mailto:megha@risingcapitalist.com"
-                        className="text-decoration-none text-size-18"
-                      >
-                        megha@risingcapitalist.com
-                      </a>
-                    </p> */}
+                    </p>                   
                   </div>
                 </div>
               </div>
@@ -341,22 +297,6 @@ export default function Login() {
                           </div>
                         </div>
                       </div>
-                      {/* <div className=" mt-2 d-flex align-items-left">
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="checkboxNoLabel"
-                            value="1"
-                            name="remember"
-                            checked={rememberMe}
-                            onChange={(e) => setRememberMe(e.target.checked)}
-                          />
-                          <p className="">Keep me Log In
-                          </p>
-                        </div>
-                      </div> */}
-
                       <div className="manage-button text-center">
                         <button
                           type="submit"

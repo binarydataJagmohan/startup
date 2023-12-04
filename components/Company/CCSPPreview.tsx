@@ -1,7 +1,7 @@
 import { getStartupIfinworthDetail } from "@/lib/investorapi";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { getBusinessInformation, getLatestIfinworthDetail, getSingleUserData } from "@/lib/frontendapi";
 import { getToken, getCurrentUserData } from "../../lib/session";
 import Image from "next/image";
@@ -67,7 +67,6 @@ const CCSPCampaign = () => {
                     .then((res) => {
                         if (res.status == true) {
                             setIfinworth(res.data);
-                            console.log(current_user_id);
                         } else {
                             toast.error(res.message, {
                                 position: toast.POSITION.TOP_RIGHT,
@@ -266,20 +265,14 @@ const CCSPCampaign = () => {
                                     <div className="col-6">Location</div>
                                     <div className="col-6">{user.country}</div>
                                 </div>
-
-
                                 <div className="row mb-1">
                                     <div className="col-6">Sector</div>
                                     <div className="col-6">{businessDetails.sector}</div>
                                 </div>
-
                                 <div className="row">
                                     <div className="col-6">Company Stage</div>
                                     <div className="col-6">{businessDetails.stage}</div>
                                 </div>
-
-
-
                                 <div className="row mt-4">
                                     <div className="col-6"> <p className="label-text mt-0">Deal Details</p></div>
                                     <div className="col-6 text-end">
@@ -293,18 +286,10 @@ const CCSPCampaign = () => {
                                         }
                                     </div>
                                 </div>
-
-
                                 <div className="row mb-1">
                                     <div className="col-6">Tyepe of Round</div>
                                     <div className="col-6">{ifinworth.round_of_ifinworth}</div>
                                 </div>
-
-                                {/* <div className="row mb-1">
-                                    <div className="col-6">Current stage of Funding</div>
-                                    <div className="col-6">Not yet started but open for Conversation  Open for conversation</div>
-                                </div> */}
-
                                 <div className="row mb-1">
                                     <div className="col-6">Looking to raise (Amount)</div>
                                     <div className="col-6">{ifinworth.ifinworth_amount}</div>

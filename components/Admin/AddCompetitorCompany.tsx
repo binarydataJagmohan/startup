@@ -147,7 +147,7 @@ const AddCompetitorCompany = () => {
 
         setCompanyLogo(file);
         setFileName(file.name);
-        setError(''); 
+        setError('');
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -382,7 +382,7 @@ const AddCompetitorCompany = () => {
                                                             className="form-label"
                                                         >
                                                             Company Description
-                                                        </label>                                                      
+                                                        </label>
                                                         <TextEditor
                                                             height={100}
                                                             value={CompanyDesc}
@@ -516,7 +516,7 @@ const AddCompetitorCompany = () => {
                                                                         </div>
                                                                         <div className="file-select-name" id="noFile">
 
-                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                            {fundImageName ? fundImageName : (CompanyLogo ? CompanyLogo : "No File Chosen ...")}
 
                                                                         </div>
                                                                         <input
@@ -571,7 +571,7 @@ const AddCompetitorCompany = () => {
                                                             <div className="col-md-12">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
                                                                     Company Description
-                                                                </label>                                                               
+                                                                </label>
                                                                 <TextEditor
                                                                     height={100}
                                                                     value={CompanyDesc}

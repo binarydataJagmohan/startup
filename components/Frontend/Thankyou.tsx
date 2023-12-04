@@ -15,15 +15,12 @@ const Thankyou = () => {
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     setInvestorStatus(current_user_data.approval_status || "");
-
-    // console.log("this is up"+current_user_data.approval_status)
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user_data.id);
         if (res.status === true) {
           setInvestorStatus(res.data.approval_status);
           setRole(res.data.role);
-          console.log(res.data);
           if (res.data.role === "investor") {
             if (res.data.investorType === "Regular Investor") {
               if (window.location.pathname !== "/investor/campaign") {
@@ -60,11 +57,7 @@ const Thankyou = () => {
             } else if (res.data.approval_status === "pending") {
               setTimeout(() => {
                 window.location.reload();
-                // window.location.href = "/company/thank-you";
-              }, 10000);
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 10000);
+              }, 10000);            
             } else {
               setTimeout(() => {
                 window.location.href = "/company/thank-you";

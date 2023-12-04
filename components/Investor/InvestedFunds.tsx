@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { getAllInvestedFundDetails, getSingleBusinessDetails } from "@/lib/investorapi";
+import { getAllInvestedFundDetails } from "@/lib/investorapi";
 import { getCurrentUserData } from "../../lib/session";
 import Link from 'next/link';
 const InvestedFunds = () => {
-    const router = useRouter();
-    const [businessDetails, setBusinessDetails] = useState<any>([]);
     const [openBusinessDetails, setOpenBusinessDetails] = useState<any>([]);
     const fetchData = async () => {
         try {
             const current_user_data: any = getCurrentUserData()
             const data = await getAllInvestedFundDetails({ id: current_user_data.id });
-            console.log(data);
             if (data) {
-                setBusinessDetails(data.data);
                 const openDetails = data.data.filter(
                     (details: any) => details.status === "open"
                 );
@@ -28,13 +23,7 @@ const InvestedFunds = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
-    const getBusinessdetails = (e: any, id: any) => {
-        e.preventDefault();
-        getSingleBusinessDetails(id).then((res) => {
-            router.push(`payment-detail?id=${id}`);
-        });
-    };
+  
     return (
         <>
             <section className="invertor-campaign">
@@ -89,16 +78,7 @@ const InvestedFunds = () => {
                                                 <div className="price">Paid Amount</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="text-center mt-3">
-                                        {/* <Link
-                                            href="javascript:void(0)"
-                                            // onClick={(e) => getBusinessdetails(e, details.bid)}
-                                            className="card-link"
-                                        >
-                                            <span className="view-invoice"> View Invoice </span>
-                                        </Link> */}
-                                    </div>
+                                    </div>                                  
                                 </div>
                             </div>
                         ))}

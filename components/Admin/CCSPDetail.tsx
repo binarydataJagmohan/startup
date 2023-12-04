@@ -163,7 +163,7 @@ const CCSPRequest = () => {
             }
         }
     };
-    const [latestCapTableSizeError,setLatestCapTableSizeError] = useState('');
+    const [latestCapTableSizeError, setLatestCapTableSizeError] = useState('');
     const handleLatestCapTable = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -186,7 +186,7 @@ const CCSPRequest = () => {
             }
         }
     };
-    const [otherDocumentsSizeError,setOtherDocumentsSizeError] = useState('');
+    const [otherDocumentsSizeError, setOtherDocumentsSizeError] = useState('');
     const handleOtherDocuments = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -277,7 +277,7 @@ const CCSPRequest = () => {
                         toastId: "error",
                     });
                 }
-            } 
+            }
         }
         catch (err: any) {
             const errorFields = ["round_of_ifinworth", 'fund_name', "ifinworth_currency", "ifinworth_amount", "pre_committed_ifinworth_currency", "pre_committed_ifinworth_amount", "pre_committed_investor", "other_funding_detail", "accredited_investors", "other_documents"];
@@ -620,7 +620,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck != "null" ? user.pitch_deck.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck!= "null"  ? user.pitch_deck : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
 
                                                             </div>
@@ -658,7 +658,7 @@ const CCSPRequest = () => {
                                                             </div>
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager != "null" ? user.one_pager.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (onePagerName ? onePagerName : (user.one_pager!= "null"  ? user.one_pager : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
                                                             <input type="file" className="upload-fild" name="one_pager"
@@ -693,7 +693,7 @@ const CCSPRequest = () => {
                                                             </div>
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials != "null" ? user.previous_financials.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials!= "null"  ? user.previous_financials : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
                                                             <input type="file" className="upload-fild" name="previous_financials"
@@ -728,7 +728,7 @@ const CCSPRequest = () => {
                                                             </div>
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table != "null" ? user.latest_cap_table.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table!= "null"  ? user.latest_cap_table : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -763,7 +763,7 @@ const CCSPRequest = () => {
                                                             </div>
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents != "null" ? user.other_documents.substring(0, 20) + '.....' : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents!= "null"  ? user.other_documents : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 

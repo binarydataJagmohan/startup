@@ -54,7 +54,7 @@ const EditAdmin = () => {
         }
         if (!users.linkedin_url) {
             setMissingFields(prevFields => [...prevFields, "linkedin_url"]);
-        }       
+        }
         if (!users.country) setMissingFields(prevFields => [...prevFields, "Country"]);
         if (!users.phone) setMissingFields(prevFields => [...prevFields, "Phone"]);
         if (!users.gender) setMissingFields(prevFields => [...prevFields, "Gender"]);
@@ -66,10 +66,10 @@ const EditAdmin = () => {
         if (!users.profile_pic) setMissingFields(prevFields => [...prevFields, "Profile"]);
 
         if (missingFields.length > 0 || invalidFields.length > 0) {
-           
+
         }
 
-        try {           
+        try {
             toast.success('Admin updated successfully');
             window.location.reload();
         } catch (error) {
@@ -77,7 +77,7 @@ const EditAdmin = () => {
         }
     };
 
-    useEffect(() => {            
+    useEffect(() => {
         const fetchData = async () => {
             const data = await getCountries({});
             if (data) {
@@ -357,7 +357,7 @@ const EditAdmin = () => {
                                                                                 Choose File
                                                                             </div>
                                                                             <div className="file-select-name" id="noFile">
-                                                                                {startupLogoName ? startupLogoName : (users.profile_pic ? users.profile_pic.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                                {startupLogoName ? startupLogoName : (users.profile_pic ? users.profile_pic : "No File Chosen ...")}
                                                                             </div>
                                                                             <input
                                                                                 className="input-file"

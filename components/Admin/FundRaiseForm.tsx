@@ -71,7 +71,7 @@ const FundRaiseForm = () => {
             fetchData(router.query.id);
         }
     }, [router.query.id]);
-   
+
     const fileInputRef1 = useRef<HTMLInputElement>(null);
 
     const fileInputRef2 = useRef<HTMLInputElement>(null);
@@ -287,8 +287,8 @@ const FundRaiseForm = () => {
                             formData.append("desc", fundRaiseData.desc);
                             const res = await fundInformationSave(formData);
                             if (res.status === true) {
-                                sendNotification(data)                                   
-                                FundRaisedSendNotification(data)                                    
+                                sendNotification(data)
+                                FundRaisedSendNotification(data)
                                 toast.success(res.message, {
                                     position: toast.POSITION.TOP_RIGHT,
                                     toastId: "success",
@@ -773,7 +773,7 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                    {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef}
@@ -824,7 +824,7 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                    {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef1}
@@ -878,7 +878,7 @@ const FundRaiseForm = () => {
                                                                     Choose File
                                                                 </div>
                                                                 <div className="file-select-name" id="noFile">
-                                                                    {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                    {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc : "No File Chosen ...")}
                                                                 </div>
                                                                 <input
                                                                     ref={fileInputRef2}

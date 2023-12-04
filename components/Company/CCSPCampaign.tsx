@@ -6,7 +6,6 @@ import { AdminAddCampaignDetail, getCCSPCampaignForStartup, getAllCCSPCampaign, 
 import { getToken } from "@/lib/session";
 import Link from "next/link";
 import axios from "axios";
-import { sendNotification } from "../../lib/frontendapi";
 import swal from "sweetalert";
 import PopupModal from "../../components/commoncomponents/PopupModal";
 import dynamic from 'next/dynamic';
@@ -36,12 +35,8 @@ interface Fund {
 }
 const Campagin = () => {
   const tableRef = useRef(null);
-  const [current_user_id, setCurrentUserId] = useState("");
   const [funds, setFundsData]: any = useState<Fund[]>([]);
   const [companyOverview, setCompanyOverview] = useState("");
-  const [ccspfundid, setCCSPFundId] = useState("");
-  const [ccspid, setCCSPId] = useState("");
-
   const [productDescription, setProductDesc] = useState("");
   const [dilutionpercentage, setDilutionPercentage] = useState("");
   const [minCommitment, setMinCommitment] = useState("");
@@ -76,8 +71,6 @@ const Campagin = () => {
       if (response && response.status && response.data && response.data.length > 0) {
         const selectedCampaign = response.data.find((fund: any) => fund.ccsp_fund_id === fundId);
         if (selectedCampaign) {
-          console.log('fund_banner_image:', selectedCampaign.ccsp_fund_id);
-
           setRoundName(selectedCampaign.round_name);
           setDilutionPercentage(selectedCampaign.dilution_percentage);
           setMinCommitment(selectedCampaign.min_commitment);
@@ -88,13 +81,9 @@ const Campagin = () => {
           setProductDesc(selectedCampaign.product_description);
           setHistoricalFinancial(selectedCampaign.historical_financials_desc);
           setPastFinancing(selectedCampaign.past_financing_desc);
-          setCCSPFundId(selectedCampaign.ccsp_fund_id);
-          setCCSPId(selectedCampaign.id);
           setFundName(selectedCampaign.fund_name);
           setFundImage(selectedCampaign.fund_banner_image);
           setFundDesc(selectedCampaign.fund_desc);
-
-
         } else {
           console.error("Selected fund not found in the response data");
         }
@@ -114,10 +103,8 @@ const Campagin = () => {
 
       dropdownMenus.forEach((menu) => {
         if (menu.contains(event.target as Node)) {
-          // Click occurred inside the dropdown, so do not close
           clickedInsideDropdown = true;
         } else {
-          // Click occurred outside the dropdown, so close it
           menu.classList.remove("show");
         }
       });
@@ -145,9 +132,6 @@ const Campagin = () => {
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id.toString())
-        : setCurrentUserId("");
       getCCSPCampaignForStartup(current_user_data.id)
         .then((res) => {
           if (res.status == true) {
@@ -321,8 +305,6 @@ const Campagin = () => {
             setProductDesc(selectedFund.product_description);
             setHistoricalFinancial(selectedFund.historical_financials_desc);
             setPastFinancing(selectedFund.past_financing_desc);
-            setCCSPFundId(selectedFund.ccsp_fund_id)
-            setCCSPId(selectedFund.id)
             setFundName(selectedFund.fund_name)
             setFundImage(selectedFund.fund_banner_image)
             setFundDesc(selectedFund.fund_desc)
@@ -396,8 +378,6 @@ const Campagin = () => {
       setPreviewImage(null);
     }
   };
-  const current_user_data: UserData = getCurrentUserData();
-
 
   return (
     <>
@@ -706,7 +686,7 @@ const Campagin = () => {
                     Chose file
                   </div>
                   <div className="file-select-name" id="noFile">
-                    {fundImageName ? fundImageName : (fundimage ? fundimage.substring(0, 20) + '.....' : "No File Chosen ...")}
+                    {fundImageName ? fundImageName : (fundimage ? fundimage : "No File Chosen ...")}
                   </div>
                   <input
                     className="input-file"
@@ -826,13 +806,6 @@ const Campagin = () => {
             <label className="form-label">
               <span>Product Description</span>
             </label>
-            {/* <textarea
-                            rows={4}
-                            placeholder="Enter details here"
-                            className="form-control"
-                            onChange={(e) => setProductDesc(e.target.value)}
-                            name="product_description"
-                        /> */}
             <TextEditor
               height={100}
               value={productDescription}
@@ -869,13 +842,6 @@ const Campagin = () => {
             <label className="form-label">
               <span>Historical Financial</span>
             </label>
-            {/* <textarea
-                            rows={4}
-                            placeholder="Enter details here"
-                            className="form-control"
-                            onChange={(e) => setHistoricalFinancial(e.target.value)}
-                            name="historical_financials_desc"
-                        /> */}
             <TextEditor
               height={100}
               value={historicalFinancials_desc}

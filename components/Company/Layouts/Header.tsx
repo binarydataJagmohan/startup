@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { useRouter } from 'next/router';
-import { getSingleUserData, CheckUserApprovalStatus } from '@/lib/frontendapi';
+import { getSingleUserData } from '@/lib/frontendapi';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMediaQuery } from 'react-responsive';
@@ -13,9 +13,6 @@ interface UserData {
   role?: string;
 }
 const Header = () => {
-  const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUserName] = useState("");
-  const [current_user_role, setCurrentUserRole] = useState("");
   const [totalNotifications, setTotalNotifications] = useState("");
   const [unreadNotifications, setUnreadNotifications] = useState("");
   const [users, setUsers] = useState<any>(
@@ -33,24 +30,14 @@ const Header = () => {
   }
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-    current_user_data.username
-      ? setCurrentUserName(current_user_data.username)
-      : setCurrentUserName("");
-    current_user_data.role
-      ? setCurrentUserRole(current_user_data.role)
-      : setCurrentUserRole("");
-    current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
-
     getSingleUserData(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          // Set the businessUnits state
           setUsers(res.data);
         }
       })
       .catch((err) => {
       });
-
 
     getTotalCountOfNotifications(current_user_data.id)
       .then((res) => {
