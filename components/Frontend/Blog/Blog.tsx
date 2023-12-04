@@ -93,7 +93,7 @@ export default function Blog() {
                                                 <span>{formatDate(blog.created_at || "")}</span>
                                                 <h3>
                                                     <Link href={`/blog/${blog.slug}`}>
-                                                        {blog.name.slice(0, 50)}
+                                                        {blog.name.slice(0, 30)}
                                                     </Link>
                                                 </h3>
                                                 <p>
