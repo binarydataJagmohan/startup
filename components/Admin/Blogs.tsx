@@ -204,7 +204,7 @@ export default function Blogs() {
                                 position: toast.POSITION.TOP_RIGHT,
                             });
                             fetchBlogData();
-                        } 
+                        }
                     })
                     .catch(() => {
                         // Handle error
@@ -504,7 +504,7 @@ export default function Blogs() {
                                 />
 
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    {/* <div className="col-md-6">
                                         <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
                                             <span>Author Image</span>
                                         </label>
@@ -515,6 +515,7 @@ export default function Blogs() {
                                                     id="fileName"
                                                 >
                                                     Chose file
+                                                </div>
                                                 </div>                                               
                                                 <input
                                                     className="input-file"
@@ -576,7 +577,7 @@ export default function Blogs() {
                                             startUpLogoError && <p className="text-danger">{startUpLogoError}</p>
                                         )}
                                         <br />
-                                    </div>
+                                    </div> */}
                                     <div className="col-md-6">
                                         <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
                                             <span>Blog Image</span>

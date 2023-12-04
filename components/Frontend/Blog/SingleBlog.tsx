@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'next-share';
+import Head from 'next/head';
 
 
 interface Blog {
@@ -46,6 +47,10 @@ export default function SingleBlog(props: any) {
     const { slug } = router.query;
     return (
         <>
+            <Head>
+                <title>{blog?.meta_tag ? blog.meta_tag : `Rising Capitalist`}</title>
+                <meta name="description" content={blog?.meta_desc ? blog?.meta_desc : `Rising Capitalist`} />
+            </Head>
             <section className="blog-section pt-100 pb-100">
                 <div className="container">
                     <div className="row">
@@ -54,9 +59,9 @@ export default function SingleBlog(props: any) {
                                 <div className="article-image">
                                     {/* <Image src="assets/img/blog-details/blog-1.jpg" alt="image" width={736} height={504} /> */}
                                     {blog?.image ? (
-                                        <Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}images/blogs/${blog.image}`} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" style={{ height: "300px" }} />
+                                        <Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}images/blogs/${blog.image}`} alt={`${blog?.name} - Rising Capitalist`} width={736} height={460} layout="responsive" className='setimg-height' />
                                     ) : (
-                                        <Image src={process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/placeholder.jpg"} alt={`${blog?.name} - Rising Capitalist`} width={736} height={504} layout="responsive" />
+                                        <Image src={process.env.NEXT_PUBLIC_BASE_URL + "/assets/images/placeholder.jpg"} alt={`${blog?.name} - Rising Capitalist`} width={736} height={460} layout="responsive" />
                                     )}
                                 </div>
                                 <div className="article-content">

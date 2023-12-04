@@ -268,7 +268,7 @@ const Header = () => {
                               }
                               className="waves-effect"
                             >
-                              <i className="fa fa-business-time"></i>
+                              <i className="fas fa-poll-h"></i>
                               <span className="badge rounded-pill bg-danger float-end">
                               </span>
                               <span>CCSP Campaign</span>
@@ -323,7 +323,7 @@ const Header = () => {
                               }
                               className="waves-effect"
                             >
-                              <i className="fa fa-message"></i>
+                              <i className="fa-solid fa-pen"></i>
                               <span>Blogs</span>
                             </Link>
                           </li>
