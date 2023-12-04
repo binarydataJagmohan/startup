@@ -71,6 +71,8 @@ const TotalActiveFunds = () => {
             $(document).ready(() => {
                 $("#datatable").DataTable({
                     lengthMenu: [20, 50, 100, 150],
+                    retrieve: true,
+                    paging: false,
                     columnDefs: [
                         //  columns  sortable
                         { targets: [0, 1, 2], orderable: true },
@@ -174,7 +176,7 @@ const TotalActiveFunds = () => {
         });
     }
 
-    
+
 
     return (
         <>
@@ -328,7 +330,7 @@ const TotalActiveFunds = () => {
                 <ToastContainer autoClose={1000} />
             </div>
 
-         
+
 
         </>
     );

@@ -94,13 +94,15 @@ export default function CampaignsDetails() {
     }
 
     const fetchData = async () => {
-      const res = await getSingleBusinessDetails(id);
+      // const res = await getSingleBusinessDetails(id);
+      const res = await getSingleFundDetails(id);
       setInputs(res.data);
+      console.log(res.data);
       const userData: UserData = getCurrentUserData();
-      //  console.log(userData);
       setCurrentUserData(userData);
     };
     fetchData();
+
     const data = {
       group_business_id: id,
     }
@@ -139,7 +141,7 @@ export default function CampaignsDetails() {
             const matchingFund = activeFund.data; // Assuming activeFund.data holds the single fund details
 
             if (matchingFund) {
-              console.log("Matching Fund:", matchingFund);
+              // console.log("Matching Fund:", matchingFund);
               const fundId = matchingFund.ccsp_fund_id;
               await fetchAllTeamAndCompany(fundId);
               setFundData(matchingFund);
@@ -374,6 +376,8 @@ export default function CampaignsDetails() {
         chat_type: 'group',
         message: 'Hello'
       };
+      alert('group_business_id value: ' + data.group_business_id);
+
       CreateGroupChatByInvestor(data)
         .then(res => {
           if (res.status == true) {
@@ -461,51 +465,14 @@ export default function CampaignsDetails() {
                 </ul>
               </div>
             </div>
-            {/* <div className="col-md-5">
-              <div className="d-flex justify-content-between">
-                <div>
-                  <span style={{ color: '#fff' }}>Total Amount</span>
-                  <h3 className="progressbar-title" style={{ color: '#fff' }}>₹{inputs.amount}</h3>
-                </div>
-                <div>
-                  {" "}
-                  <span style={{ color: '#fff' }}>Units Left</span>
-                  <br />
-                  <span className="progressbar-value">
-                    <span className="color-rumaric" style={{ color: '#fff' }}>
-                      {inputs.no_of_units}
-                    </span>
-                    <strong style={{ color: '#fff' }}>/{inputs.total_units}</strong>
-                  </span>
-                </div>
-              </div>
-              <div className="progress mt-2">
-                <div
-                  className="progress-bar progress-bar-success"
-                  role="progressbar"
-                  aria-valuemin={0}
-                  aria-valuemax={
-                    inputs.total_units !== undefined
-                      ? parseInt(inputs.total_units)
-                      : undefined
-                  }
-                  style={{ width: `${progressPercentage}%` }}
-                />
-              </div>
-            </div> */}
-            {/* <div className="col-sm-1">
+
+            <div className="col-lg-5">
               {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
                 ?
-                  inputs.type == 'CCSP'
-                  ?
-                    <p style={{"textAlign":"right", "position": "relative", "bottom": "60px", "right": "10px"}}><a href="#" style={{"color":"#ffffff"}} onClick={(e) => handleClickChat(inputs.user_id, inputs.business_name, inputs.business_id)}><i className="fa fa-message"></i></a></p>
-                  :
-                    ''
+                <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}><a href="#" style={{ "color": "#ffffff" }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}><i className="fa fa-message color-set"></i></a></p>
                 :
-                  ''
+                ''
               }
-            </div> */}
-            <div className="col-lg-5">
               <div className="investments text-center">
                 <h2>Accepting Investments</h2>
               </div>
@@ -689,7 +656,7 @@ export default function CampaignsDetails() {
       </section>
 
       {fundData?.product_description && (
-        <section className="tabsSection"  id="documents">
+        <section className="tabsSection" id="documents">
           <div className="container">
             <h2 className="text-black">Product</h2>
             <p>
@@ -742,7 +709,7 @@ export default function CampaignsDetails() {
       )}
 
 
-      {
+      {/* {
         fundData ||
           fundData?.dilution_percentage ||
           fundData?.min_commitment ||
@@ -787,7 +754,54 @@ export default function CampaignsDetails() {
             </div>
           </section>
         ) : null
+      } */}
+
+      {
+        (fundData?.dilution_percentage ||
+          (fundData?.min_commitment && fundData?.max_commitment) ||
+          fundData?.valuation_cap ||
+          fundData?.amount_raised ||
+          fundData?.round_name) ? (
+          <section id="terms">
+            <div className="container">
+              <h1 className="text-center pb-4 text-white bold">Round Details and Deal Progress</h1>
+              <div className="termsContent">
+                <div className="row">
+                  <h1>Round Details</h1>
+                  <>
+                    {fundData?.dilution_percentage ? (
+                      <p>
+                        <strong>Dilution Percentage:</strong> {fundData?.dilution_percentage}
+                      </p>
+                    ) : null}
+                    {(fundData?.min_commitment && fundData?.max_commitment) ? (
+                      <p>
+                        <strong>Minimum commitment:</strong> Min: ${fundData?.min_commitment} Max: ${fundData?.max_commitment}
+                      </p>
+                    ) : null}
+                    {fundData?.valuation_cap && (
+                      <p>
+                        <strong>Valuation Cap:</strong> ${fundData?.valuation_cap}
+                      </p>
+                    )}
+                    {fundData?.amount_raised ? (
+                      <p>
+                        <strong>Amount Raised:</strong> ${fundData?.amount_raised}
+                      </p>
+                    ) : null}
+                    {fundData?.round_name ? (
+                      <p>
+                        <strong>Round name:</strong> {fundData?.round_name}
+                      </p>
+                    ) : null}
+                  </>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null
       }
+
 
 
       {fundData?.company_overview && (
@@ -804,7 +818,6 @@ export default function CampaignsDetails() {
           </div>
         </section>
       )}
-
 
       {fundData?.past_financing_desc && (
         <section id="industry" className="tabsSection">
@@ -878,8 +891,6 @@ export default function CampaignsDetails() {
           </div>
         </section>
       )}
-
-
 
       {teamdata.length > 0 && (
         <section id="team" className="pt-100 pb-100">
