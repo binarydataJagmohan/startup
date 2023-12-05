@@ -1,10 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import router from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import {getCurrentUserData} from '../../lib/session';
-import { verifyEmailOtp, resendOtp, getSingleUserData, sendNotification, panVerification, aadharVerification } from '../../lib/frontendapi';
+import { verifyEmailOtp, resendOtp, getSingleUserData, sendNotification } from '../../lib/frontendapi';
 
 interface UserData {
   id?: string;
@@ -24,37 +23,7 @@ const VerifyEmail = () => {
       toast.error(err.message, {
           position: toast.POSITION.BOTTOM_RIGHT,
       });
-    });
-    // let pan_no = 'FNLPM3535N';
-    // panVerification(pan_no)
-    // .then((response) => {
-    //   if (response) {
-    //       console.log(response.data);
-    //   }
-    // })
-    // .catch((err) => {
-    //   toast.error(err.message, {
-    //       position: toast.POSITION.BOTTOM_RIGHT,
-    //   });
-    // });
-    // const data = {
-    //   txn_id: '17c6fa41-778f-49c1-a80a-cfaf7fae2fb8',
-    //   consent: 'Y',
-    //   uidnumber: '542991361380',
-    //   clientid: '222',
-    //   method: 'uidvalidatev2'
-    // }
-    // aadharVerification(data)
-    // .then((response) => {
-    //   if (response) {
-    //       console.log(response.data);
-    //   }
-    // })
-    // .catch((err) => {
-    //   toast.error(err.message, {
-    //       position: toast.POSITION.BOTTOM_RIGHT,
-    //   });
-    // });
+    });   
   }, []);
   const handleOtpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,10 +78,9 @@ const VerifyEmail = () => {
             if (res.status == true) {
                 sendNotification(data)
                     .then((notificationRes) => {
-                        console.log('success')
                     })
                     .catch((error) => {
-                        console.log('error occured')
+                        console.error('error occured')
                     });
             } else {
                 toast.error(res.message, {
@@ -129,7 +97,7 @@ const VerifyEmail = () => {
         }
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
     });
   };
   const handleResendOtp = () => {
@@ -157,7 +125,7 @@ const VerifyEmail = () => {
         }
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
     });
   }
   return (

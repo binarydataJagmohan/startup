@@ -56,7 +56,7 @@ export default function AddProducts() {
 
     useEffect(() => {
         getAllCCSPCampaign().then((res) => {
-            
+
             fetchAllproductdata();
         });
     }, []);
@@ -544,7 +544,7 @@ export default function AddProducts() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (productimage ? productimage.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (productimage ? productimage : "No File Chosen ...")}
                                                                     </div>
                                                                     <input
                                                                         className="input-file"

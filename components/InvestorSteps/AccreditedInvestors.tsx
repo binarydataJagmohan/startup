@@ -4,27 +4,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
-import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification ,getSingleUserData} from "../../lib/frontendapi";
+import { angelAccreditedTermsSave, getAccreditedInvestorTerms, sendNotification, getSingleUserData } from "../../lib/frontendapi";
 import $ from "jquery";
-import Image from 'next/image';
 import Link from 'next/link';
-const alertStyle = {
-    color: 'red',
-};
-
-const textStyle = {
-    textTransform: 'capitalize',
-};
 
 interface UserData {
     id?: string;
-    name?:string;
+    name?: string;
 }
 
 export default function AccreditedInvestors() {
     const router = useRouter();
     const [current_user_id, setCurrentUserId] = useState("");
-    const [current_user_name, setCurrentUsername]=useState("");
     const [terms, setTerms] = useState({
         user_id: current_user_id,
         annual_income: "0",
@@ -86,7 +77,6 @@ export default function AccreditedInvestors() {
         } else if (type === 'checkbox' && name === 'foreign_net_worth') {
             // Set the value of  foreign_net_worth to '1' if the checkbox is checked, '0' otherwise
             const foreign_net_worthValue = checked ? '1' : '0';
-            // console.log( foreign_net_worthValue);
             setTerms((prevState) => {
                 return {
                     ...prevState,
@@ -129,21 +119,17 @@ export default function AccreditedInvestors() {
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
-        current_user_data.name
-      ? setCurrentUsername(current_user_data.name)
-      : setCurrentUsername("");
-
-      getSingleUserData(current_user_data.id)
-      .then((res) => {
-        if (res.status == true) {
-          setUsers(res.data);
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      });
+        getSingleUserData(current_user_data.id)
+            .then((res) => {
+                if (res.status == true) {
+                    setUsers(res.data);
+                }
+            })
+            .catch((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            });
 
         if (current_user_data.id) {
             setCurrentUserId(current_user_data.id);
@@ -194,22 +180,12 @@ export default function AccreditedInvestors() {
         const checkAnnualIncome = category === '1';
 
         if (checkAnnualIncome && updatedTerms.annual_income !== '1') {
-            setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])
-            // toast.error('First One Option Is Required', {
-            //     position: toast.POSITION.TOP_RIGHT,
-            //     toastId: "error",
-            // });
+            setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])            
             return;
         }
 
         if (checkAnnualIncome && !(updatedTerms.financial_net_worth === '1' || updatedTerms.financial_annual_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "financial_net_worth"])
-            // toast.error('Atleast One More Option is Required.', {
-
-            //     position: toast.POSITION.TOP_RIGHT,
-            //     toastId: "error",
-
-            // });
+            setMissingFields(prevFields => [...prevFields, "financial_net_worth"])            
             return;
         }
 
@@ -221,23 +197,14 @@ export default function AccreditedInvestors() {
         }
 
         if (checkFinancialNetWorth && !(updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])
-            // toast.error('Atleast One More Option is Required.', {
-            //     position: toast.POSITION.TOP_RIGHT,
-            //     toastId: "error",
-
-            // });
+            setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])            
             return;
         }
 
 
         const selectedCategoryRequiresCheckbox = category === '3';
         if (selectedCategoryRequiresCheckbox && !(updatedTerms.corporate_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])
-            // toast.error('Option Is Required', {
-            //     position: toast.POSITION.TOP_RIGHT,
-            //     toastId: "error",
-            // });
+            setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])           
             return;
         }
 
@@ -257,28 +224,23 @@ export default function AccreditedInvestors() {
                 // Send Notifications to admin When new user is register
                 sendNotification(data)
                     .then((notificationRes) => {
-                        console.log('success')
                     })
                     .catch((error) => {
-                        console.log('error occured')
                     });
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
-                });
-                // setTimeout(() => {
-                //     router.push("/investor/thank-you");
-                // }, 1000);
-                if(users.approval_status === 'pending'){
+                });                
+                if (users.approval_status === 'pending') {
                     setTimeout(() => {
-                      router.push("/investor/thank-you");
+                        router.push("/investor/thank-you");
                     }, 1000);
-                    }
-                    if(users.approval_status === 'approved'){
-                      setTimeout(() => {
+                }
+                if (users.approval_status === 'approved') {
+                    setTimeout(() => {
                         router.push("/investor/campaign");
-                      }, 1000);
-                    }
+                    }, 1000);
+                }
             } else {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,

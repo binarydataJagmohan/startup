@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { getCurrentUserData } from "../../lib/session";
-import { loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
@@ -30,7 +30,7 @@ const Payment = () => {
     const handleChange = (event: any) => {
         let { name, value } = event.target;
 
-        setPaymentData((prevState:any) => {
+        setPaymentData((prevState: any) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -83,66 +83,66 @@ const Payment = () => {
                 });
             });
 
-    },[]);
-  
+    }, []);
 
-const stripePromise = loadStripe('pk_test_FQu4ActGupRmMrkmBpwU26js');
 
-// Handle form submission
-const SubmitForm = async (event: any) => {
-    // Prevent the form from submitting (if applicable)
-    event.preventDefault();
-  
-    const stripe = await stripePromise;
-    const elements = useElements();
-  
-    if (stripe === null || stripe === undefined) {
-      // Handle the case where stripe is null or undefined
-      console.error('Stripe is null or undefined.');
-      return;
-    }
-  
-    // Use optional chaining (?.) to safely access cardElement
-    const cardElement = elements?.getElement('card');
-  
-    if (cardElement) {
-      // Create a payment method
-      const paymentMethod:any = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-      });
-  
-      // Send the payment method to your Laravel API endpoint
-      const response = await fetch('/api/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ paymentMethod: paymentMethod.id }),
-      });
-  
-      // Handle the response from the API
-      const { clientSecret } = await response.json();
-  
-      // Confirm the payment intent
-      const { error } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethod.id,
-      });
-  
-      if (error) {
-        // Handle payment error
-      } else {
-        // Payment successful
-      }
-    } else {
-      // Handle the case where cardElement is not found
-      console.error('Card element not found.');
-    }
-  };
-  
-  return (
-    <>
-    <section className='form-section  join-back'>
+    const stripePromise = loadStripe('pk_test_FQu4ActGupRmMrkmBpwU26js');
+
+    // Handle form submission
+    const SubmitForm = async (event: any) => {
+        // Prevent the form from submitting (if applicable)
+        event.preventDefault();
+
+        const stripe = await stripePromise;
+        const elements = useElements();
+
+        if (stripe === null || stripe === undefined) {
+            // Handle the case where stripe is null or undefined
+            console.error('Stripe is null or undefined.');
+            return;
+        }
+
+        // Use optional chaining (?.) to safely access cardElement
+        const cardElement = elements?.getElement('card');
+
+        if (cardElement) {
+            // Create a payment method
+            const paymentMethod: any = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            });
+
+            // Send the payment method to your Laravel API endpoint
+            const response = await fetch('/api/payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ paymentMethod: paymentMethod.id }),
+            });
+
+            // Handle the response from the API
+            const { clientSecret } = await response.json();
+
+            // Confirm the payment intent
+            const { error } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: paymentMethod.id,
+            });
+
+            if (error) {
+                // Handle payment error
+            } else {
+                // Payment successful
+            }
+        } else {
+            // Handle the case where cardElement is not found
+            console.error('Card element not found.');
+        }
+    };
+
+    return (
+        <>
+            <section className='form-section  join-back'>
                 <div className="container">
                     <div id="Checkout" className="inline">
                         <h1>Pay Invoice</h1>
@@ -204,8 +204,8 @@ const SubmitForm = async (event: any) => {
                                 <label htmlFor="SecurityCode">CVC</label>
                                 <div className="input-container">
                                     <input id="SecurityCode" className="form-control" type="text" {...register("cvc", {
-                                    required: true
-                                })}  onChange={handleChange} />
+                                        required: true
+                                    })} onChange={handleChange} />
                                     <i id="cvc" className="fa fa-question-circle" />
                                 </div>
                                 <div className="cvc-preview-container two-card hide">
@@ -217,8 +217,8 @@ const SubmitForm = async (event: any) => {
                                 <label htmlFor="ZIPCode">ZIP/Postal code</label>
                                 <div className="input-container">
                                     <input id="ZIPCode" className="form-control" type="text" {...register("zip_code", {
-                                    required: true
-                                })}  onChange={handleChange} maxLength={10} />
+                                        required: true
+                                    })} onChange={handleChange} maxLength={10} />
                                     <i className="fa fa-question-circle" />
                                 </div>
                             </div>
@@ -230,8 +230,8 @@ const SubmitForm = async (event: any) => {
                     </div>
                 </div>
             </section>
-    </>
-  )
+        </>
+    )
 }
 
 export default Payment

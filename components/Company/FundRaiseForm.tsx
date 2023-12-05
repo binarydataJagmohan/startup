@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { removeToken, removeStorageData, getCurrentUserData, } from "../../lib/session";
+import { getCurrentUserData, } from "../../lib/session";
 import { fundInformationSave, getSingleBusinessInformation } from '../../lib/companyapi';
 import { getSingleFundRaiseData } from "../../lib/adminapi"
 import { sendNotification } from "../../lib/frontendapi"
@@ -82,7 +82,6 @@ const FundRaiseForm = () => {
   };
 
   const [agreement, setAgreement] = useState(null);
-  const [agreementError, setAgreementError] = useState('');
   const [invoice, setInvoice] = useState(null);
   const [invoiceError, setInvoiceError] = useState('');
   const [pdc, setPdc] = useState(null);
@@ -175,7 +174,6 @@ const FundRaiseForm = () => {
       )
         .toISOString()
         .substr(0, 10);
-      // const closedDate = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
       const closedDate = new Date(today.getTime() + 20 * 24 * 60 * 60 * 1000)
         .toISOString()
         .substr(0, 10);
@@ -186,7 +184,6 @@ const FundRaiseForm = () => {
         closed_in: closedDate,
       });
     }
-    // else {
     setFundRaiseData((prevState: FundRaiseData) => {
       return {
         ...prevState,
@@ -195,7 +192,6 @@ const FundRaiseForm = () => {
         business_id: businessInfo,
       };
     });
-    // }
   };
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
@@ -244,6 +240,7 @@ const FundRaiseForm = () => {
       });
   }, []);
 
+  const [agreementError, setAgreementError] = useState('');
   const SubmitForm = async (event: any) => {
     event.preventDefault();
     try {
@@ -262,7 +259,6 @@ const FundRaiseForm = () => {
         const formData = new FormData();
         if (agreement === null) {
           setAgreementError('* Please select your legal agreement.');
-
         } else {
           formData.append("agreement", agreement);
         }
@@ -720,7 +716,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                  {agreementName ? agreementName : (fundRaiseData.agreement ? fundRaiseData.agreement : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef}
@@ -759,6 +755,7 @@ const FundRaiseForm = () => {
                               *Please choose a PDF file..
                             </p>
                           )}
+                          {agreementError && <p className="text-danger">{agreementError}</p>}
                         </div>
                         <div className="col-md-6  mt-5">
                           <div
@@ -774,7 +771,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                  {invoiceName ? invoiceName : (fundRaiseData.invoice ? fundRaiseData.invoice : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef1}
@@ -831,7 +828,7 @@ const FundRaiseForm = () => {
                                   Choose File
                                 </div>
                                 <div className="file-select-name" id="noFile">
-                                  {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                  {pdcName ? pdcName : (fundRaiseData.pdc ? fundRaiseData.pdc : "No File Chosen ...")}
                                 </div>
                                 <input
                                   ref={fileInputRef2}

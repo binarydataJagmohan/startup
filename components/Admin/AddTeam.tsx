@@ -47,7 +47,7 @@ export default function AddCompetitorCompany() {
     }, []);
 
     const fetchAllTeamdata = async () => {
-        const res = await getAdminTeamdata();       
+        const res = await getAdminTeamdata();
         if (res.status) {
             const filteredData = res.data.filter((team: { ccsp_fund_id: string }) => team.ccsp_fund_id == id);
             setAllTeamdata(filteredData);
@@ -127,7 +127,7 @@ export default function AddCompetitorCompany() {
 
         setTeamMemberPic(file);
         setFileName(file.name);
-        setError(''); 
+        setError('');
         const reader = new FileReader();
         reader.onloadend = () => {
             setPreviewImage(reader.result);
@@ -549,7 +549,7 @@ export default function AddCompetitorCompany() {
                                                                         Choose File
                                                                     </div>
                                                                     <div className="file-select-name" id="noFile">
-                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic.substring(0, 20) + '.....' : "No File Chosen ...")}
+                                                                        {fundImageName ? fundImageName : (teamMemberPic ? teamMemberPic : "No File Chosen ...")}
 
                                                                     </div>
                                                                     <input

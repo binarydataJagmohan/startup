@@ -28,14 +28,10 @@ const ResetPassword = () => {
         resetPassword(data)
             .then((res) => {
                 if (res.status == true) {
-                    console.log(res);
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
-                    });
-                    // setTimeout(() => {
-                    //     router.push("/"); // Redirect to login page
-                    // }, 2000);
+                    });                    
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,

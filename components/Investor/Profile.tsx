@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { getCurrentUserData } from "@/lib/session";
@@ -6,13 +6,11 @@ import {
   getSingleUserData,
   getCountries,
   getInvestorType,
-  investorTypeInfoSave,
 } from "@/lib/frontendapi";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { InvestorPersonalInfoUpdate } from "../../lib/investorapi";
 type Country = {
   name: string;
@@ -22,7 +20,6 @@ interface UserData {
   id?: string;
 }
 const Profile = () => {
-  const router = useRouter();
   const [countries, setcountries] = useState<Country[]>([]);
   const {
     register,
@@ -47,33 +44,6 @@ const Profile = () => {
     status: "",
     profile_pic: "",
   });
-
-  const [investorDetails, seInvestorDetails] = useState({
-    user_id: current_user_id,
-    investorType: "",
-  });
-
-  const handleChangeType = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.target;
-    if (type === "radio" && name === "investorType") {
-      // Set the value of cofounder to '1' if the checkbox is checked, '0' otherwise
-      const typeValue = checked ? "Accredited Investors" : "Angel Investor";
-      seInvestorDetails((prevState) => {
-        return {
-          ...prevState,
-          investorDetails: typeValue,
-          user_id: current_user_id,
-        };
-      });
-    }
-    seInvestorDetails((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-        user_id: current_user_id,
-      };
-    });
-  };
 
   const handleFileChange = (event: any) => {
     setProfilePic(event.target.files[0]);
@@ -108,7 +78,6 @@ const Profile = () => {
     getInvestorType(current_user_data.id)
       .then((res) => {
         if (res.status === true) {
-          seInvestorDetails(res.data);
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_RIGHT,
@@ -208,10 +177,7 @@ const Profile = () => {
       formData.append("gender", user.gender);
       const res = await InvestorPersonalInfoUpdate(formData);
 
-      if (res.status === true) {
-        // setTimeout(() => {
-        //   router.push("/steps/customizereview");
-        // }, 1000);
+      if (res.status === true) {       
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",
@@ -230,43 +196,6 @@ const Profile = () => {
     }
   };
 
-  // Update Investor Type
-  const submitInvestorTypeForm = async () => {
-    try {
-      // console.log(investorDetails)
-      const res = await investorTypeInfoSave(investorDetails);
-      if (res.status == true) {
-        // console.log(res.data.data.investorType);
-        if (res.data.data.investorType == "Angel Investor") {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "success",
-          });
-          // setTimeout(() => {
-          //     router.push("/investor-steps/customizereview");
-          // }, 1000);
-        } else {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            toastId: "success",
-          });
-          // setTimeout(() => {
-          //     router.push("/investor-steps/accredited-investors");
-          // }, 1000);
-        }
-      } else {
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          toastId: "error",
-        });
-      }
-    } catch (err) {
-      toast.error("Details has not been saved successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "error",
-      });
-    }
-  };
   return (
     <>
       <section className="form-faq pt-5 pb-5">
@@ -277,7 +206,6 @@ const Profile = () => {
                 <button
                   className="accordion-button text-white"
                   type="button"
-                  // data-bs-toggle="collapse" data-bs-target="#collapseOne"
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
@@ -365,7 +293,6 @@ const Profile = () => {
                         </div>
                         <div className="col-sm-6">
                           <div className="form-part mt-3">
-                            {/* <input type="Number" placeholder="Phone number" name="" /> */}
                             <PhoneInput
                               onClick={phonClick}
                               country={"us"}

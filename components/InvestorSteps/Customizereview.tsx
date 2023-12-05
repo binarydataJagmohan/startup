@@ -6,26 +6,16 @@ import { useRouter } from "next/router";
 import { getCurrentUserData } from "../../lib/session";
 import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSingleUserData } from "../../lib/frontendapi";
 import $ from "jquery";
-import Image from 'next/image';
 import Link from 'next/link';
-const alertStyle = {
-  color: 'red',
-};
 
-const textStyle = {
-  textTransform: 'capitalize',
-};
 interface CurrentUserData {
   id?: string;
   name?: string;
 }
-interface ErrorMessage {
-  message: string;
-}
+
 export default function Customizereview(): any {
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_name, setCurrentUsername] = useState("");
   const [terms, setTerms] = useState({
     user_id: current_user_id,
     category: "",
@@ -120,14 +110,11 @@ export default function Customizereview(): any {
       $('.options').on('change', function () {
         $('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
         var selectedOption = $(this).val();
-       
+
         $('#checkbox-group-' + selectedOption).show();
       });
     });
     const current_user_data: CurrentUserData = getCurrentUserData();
-    current_user_data.name
-      ? setCurrentUsername(current_user_data.name)
-      : setCurrentUsername("");
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
@@ -229,10 +216,8 @@ export default function Customizereview(): any {
         // Send Notifications to admin When new user is register
         sendNotification(data)
           .then((notificationRes) => {
-            console.log('success')
           })
           .catch((error) => {
-            console.log('error occured')
           });
 
 
@@ -286,16 +271,16 @@ export default function Customizereview(): any {
                     <div className="container" id="option_select">
                       <div className="row">
                         <div className="col-md-12">
-                        <div className="custom-select-bar position-relative">
-                          {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
-                          <select className="options" {...register("category", { validate: (value) => value != "", required: true, onChange: handleChange })}
-                            name="category" value={terms ? terms.category : ""}>
-                            <option value="">--SELECT CATEGORY--</option>
-                            <option value="1">Individual</option>
-                            <option value="2">Body Corporate/VC/PE/Family Office 1 /Corporate Institution</option>
-                            <option value="3">Accelerators and Incubators</option>
-                          </select>
-                          <i className="fa-solid fa-chevron-down"></i>
+                          <div className="custom-select-bar position-relative">
+                            {/* <form  className="needs-validation mb-4"  onSubmit={SubmitForm} > */}
+                            <select className="options" {...register("category", { validate: (value) => value != "", required: true, onChange: handleChange })}
+                              name="category" value={terms ? terms.category : ""}>
+                              <option value="">--SELECT CATEGORY--</option>
+                              <option value="1">Individual</option>
+                              <option value="2">Body Corporate/VC/PE/Family Office 1 /Corporate Institution</option>
+                              <option value="3">Accelerators and Incubators</option>
+                            </select>
+                            <i className="fa-solid fa-chevron-down"></i>
                           </div>
                           <div id="checkbox-group-1" className="hidden">
                             <div className="same-card">
@@ -306,14 +291,6 @@ export default function Customizereview(): any {
                                     name="principal_residence" onChange={handleChange} checked={terms.principal_residence === '1' ? true : false} />
                                 </div>
 
-                                {/* {errors.principal_residence && errors.principal_residence.type === "required" && (
-                                  <p
-                                    className="text-danger"
-                                    style={{ textAlign: "left", fontSize: "12px" }}
-                                  >
-                                    *Please select the Principal Residence.
-                                  </p>
-                                )} */}
                                 <div className="col">
                                   <label htmlFor="checkbox1">
                                     Net tangible assets of at least INR 2 Crore excluding value of his principal residence
