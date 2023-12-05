@@ -13,10 +13,7 @@ const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
   const [users, setUsers] = useState<any>({});
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    if (current_user_data.role !== null) {
-        router.back();
-    }    
+    const current_user_data: UserData = getCurrentUserData();      
     getSingleUserData(current_user_data.id)
     .then((res) => {
       if (res.status == true) {

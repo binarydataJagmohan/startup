@@ -39,7 +39,16 @@ const Footer = () => {
 
                   <li>
                     <Link href="https://twitter.com/">
-                      <i className="flaticon-twitter"></i>
+                      <Image
+                        src={
+                          process.env.NEXT_PUBLIC_BASE_URL +
+                          "assets/img/twitter.png"
+                        }
+                        className="black-logo"
+                        alt="image"
+                        height={40}
+                        width={40}
+                      />
                     </Link>
                   </li>
 
@@ -93,12 +102,7 @@ const Footer = () => {
                 <div className="footer-heading">
                   <h3 className="text-white mb-4 pb-3">Featured Service</h3>
                 </div>
-                <ul className="footer-quick-links">
-                  <li>
-                    <Link href="/team" className="text-white">
-                      Team
-                    </Link>
-                  </li>
+                <ul className="footer-quick-links">                
                   <li>
                     <Link href="/faq" className="text-white">
                       FAQ
@@ -160,7 +164,7 @@ const Footer = () => {
                 <div className="footer-info-contact">
                   <i className="flaticon-pin text-white" ></i>
                   <div className="d-md-flex">
-                  <h3 className="text-white"><strong>Address :</strong></h3>
+                    <h3 className="text-white"><strong>Address :</strong></h3>
                     <span>
                       <Link
                         href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9"

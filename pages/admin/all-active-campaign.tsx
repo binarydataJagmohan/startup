@@ -9,4 +9,4 @@ const allActiveCampign = () => {
   )
 }
 
-export default allActiveCampign
+export default allActiveCampign 

@@ -86,7 +86,19 @@ const Campagin = () => {
           setFundImage(selectedCampaign.fund_banner_image);
           setFundDesc(selectedCampaign.fund_desc);
         } else {
-          console.error("Selected fund not found in the response data");
+          setRoundName('');
+          setDilutionPercentage('');
+          setMinCommitment('');
+          setMaxCommitment('');
+          setValuationCap('');
+          setAmountRaised('');
+          setCompanyOverview('');
+          setProductDesc('');
+          setHistoricalFinancial('');
+          setPastFinancing('');
+          setFundName('');
+          setFundImage('');
+          setFundDesc('');
         }
       } else {
         console.error("No data or invalid response received from the API");

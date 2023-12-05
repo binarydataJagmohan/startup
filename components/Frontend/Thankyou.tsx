@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   getCurrentUserData,
 } from "../../lib/session";
-import { CheckUserApprovalStatus } from "../../lib/frontendapi";
+import { CheckUserApprovalStatus, reSubmitOTP } from "../../lib/frontendapi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 interface UserData {
   id?: number;
   approval_status?: string;
@@ -12,6 +13,7 @@ interface UserData {
 const Thankyou = () => {
   const [investorStatus, setInvestorStatus] = useState("");
   const [role, setRole] = useState("");
+  const router = useRouter();
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     setInvestorStatus(current_user_data.approval_status || "");
@@ -19,6 +21,11 @@ const Thankyou = () => {
       try {
         const res = await CheckUserApprovalStatus(current_user_data.id);
         if (res.status === true) {
+          console.log(res)
+          if (res.data.is_email_verification_complete == 0) {
+            reSubmitOTP(current_user_data.id)
+            router.push("/verify-email");
+          }
           setInvestorStatus(res.data.approval_status);
           setRole(res.data.role);
           if (res.data.role === "investor") {
@@ -57,7 +64,7 @@ const Thankyou = () => {
             } else if (res.data.approval_status === "pending") {
               setTimeout(() => {
                 window.location.reload();
-              }, 10000);            
+              }, 10000);
             } else {
               setTimeout(() => {
                 window.location.href = "/company/thank-you";

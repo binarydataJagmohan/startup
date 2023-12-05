@@ -46,13 +46,17 @@ export default function DocumentsUpload(): any {
   const [panCardBackError, setPanCardBackError] = useState("");
   const [panCardBackSizeError, setPanCardBackSizeError] = useState("");
   const [adharCardFrontError, setAdharCardFrontError] = useState("");
+  const [adharCardFrontSizeError, setAdharCardFrontSizeError] = useState("");
   const [adharCardBackError, setAdharCardBackError] = useState("");
-  const [certificate_incorporationError, setcertificate_incorporationError] =
-    useState("");
-  const [bankStatementThreeYearsError, setBankStatementThreeYearsError] =
-    useState("");
+  const [adharCardBackSizeError, setadharCardBackSizeError] = useState("");
+  const [certificate_incorporationError, setcertificate_incorporationError] = useState("");
+  const [certificate_incorporationSizeError, setcertificate_incorporationSizeError] = useState("");
+  const [bankStatementThreeYearsError, setBankStatementThreeYearsError] = useState("");
+  const [bankStatementThreeYearsSizeError, setbankStatementThreeYearsSizeError] = useState("");
   const [MOAError, setMOAError] = useState("");
+  const [MOASizeError, setMOASizeError] = useState("");
   const [AOAError, setAOAError] = useState("");
+  const [AOASizeError, setAOASizeError] = useState("");
   const [errors, setErrors] = useState({
     pan_card_front: "",
     pan_card_back: "",
@@ -79,8 +83,8 @@ export default function DocumentsUpload(): any {
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.role !== 'startup') {
-        router.back();
-    }   
+      router.back();
+    }
     getSingleUserData(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
@@ -127,6 +131,10 @@ export default function DocumentsUpload(): any {
 
   const handlMenuSubmit = (event: any) => {
     event.preventDefault();
+    if (panCardFrontError !== '' || panCardFrontSizeError !== '' || panCardBackError !== '' || panCardBackSizeError !== '' || adharCardFrontError !== '' || adharCardFrontSizeError !== '' || adharCardBackError !== '' || adharCardBackSizeError !== '' || certificate_incorporationError !== '' || certificate_incorporationSizeError !== '' || bankStatementThreeYearsError !== '' || bankStatementThreeYearsSizeError !== '' || MOAError !== '' || MOASizeError !== '' || AOAError !== '' || AOASizeError !== '') {
+      console.error('validation error');
+      return;
+    }
     const currentUserData: any = getCurrentUserData();
     const data = {
       user_id: currentUserData.id,
@@ -260,7 +268,7 @@ export default function DocumentsUpload(): any {
           setAdharCardFront(file);
           setAdharCardFrontName(file.name);
         } else {
-          setAdharCardFrontError(
+          setAdharCardFrontSizeError(
             "* Please upload a file that is no larger than 2 MB."
           );
         }
@@ -288,7 +296,7 @@ export default function DocumentsUpload(): any {
           setAdharCardBack(file);
           setAdharCardBackName(file.name);
         } else {
-          setAdharCardBackError(
+          setadharCardBackSizeError(
             "* Please upload a file that is no larger than 2 MB."
           );
         }
@@ -314,7 +322,7 @@ export default function DocumentsUpload(): any {
           setcertificate_incorporation(file);
           setcertificate_incorporationName(file.name);
         } else {
-          setcertificate_incorporationError(
+          setcertificate_incorporationSizeError(
             "* Please upload a file that is no larger than 2 MB."
           );
         }
@@ -342,7 +350,7 @@ export default function DocumentsUpload(): any {
           setBankStatementThreeYears(file);
           setBankStatementThreeYearsName(file.name);
         } else {
-          setBankStatementThreeYearsError(
+          setbankStatementThreeYearsSizeError(
             "* Please upload a file that is no larger than 2 MB."
           );
         }
@@ -370,7 +378,7 @@ export default function DocumentsUpload(): any {
           setMOA(file);
           setMOAName(file.name);
         } else {
-          setMOAError("* Please upload a file that is no larger than 2 MB.");
+          setMOASizeError("* Please upload a file that is no larger than 2 MB.");
         }
       } else {
         setMOAError("* Please upload a JPG, PNG, JPEG or PDF file");
@@ -394,7 +402,7 @@ export default function DocumentsUpload(): any {
           setAOA(file);
           setAOAName(file.name);
         } else {
-          setAOAError("* Please upload a file that is no larger than 2 MB.");
+          setAOASizeError("* Please upload a file that is no larger than 2 MB.");
         }
       } else {
         setAOAError("* Please upload a JPG, PNG, JPEG or PDF file");
@@ -728,18 +736,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-
-                              {adharCardFrontError ? (
+                              {adharCardFrontSizeError ? (
+                                <p className="text-danger">
+                                  {adharCardFrontSizeError}
+                                </p>
+                              ) : adharCardFrontError ? (
                                 <p className="text-danger">
                                   {adharCardFrontError}
                                 </p>
-                              ) : (
-                                errors.adhar_card_front && (
-                                  <p className="text-danger">
-                                    {errors.adhar_card_front}
-                                  </p>
-                                )
-                              )}
+                              ) : errors.adhar_card_front ? (
+                                <p className="text-danger">
+                                  {errors.adhar_card_front}
+                                </p>
+                              ) : null}
                               {basicDetails.adhar_card_front ? (
                                 <>
                                   {basicDetails.pan_card_back.substring(
@@ -848,17 +857,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {adharCardBackError ? (
+                              {adharCardBackSizeError ? (
+                                <p className="text-danger">
+                                  {adharCardBackSizeError}
+                                </p>
+                              ) : adharCardBackError ? (
                                 <p className="text-danger">
                                   {adharCardBackError}
                                 </p>
-                              ) : (
-                                errors.adhar_card_back && (
-                                  <p className="text-danger">
-                                    {errors.adhar_card_back}
-                                  </p>
-                                )
-                              )}
+                              ) : errors.adhar_card_back ? (
+                                <p className="text-danger">
+                                  {errors.adhar_card_back}
+                                </p>
+                              ) : null}
                               {basicDetails.adhar_card_back ? (
                                 <>
                                   {basicDetails.adhar_card_back.substring(
@@ -969,17 +980,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {certificate_incorporationError ? (
+                              {certificate_incorporationSizeError ? (
+                                <p className="text-danger">
+                                  {certificate_incorporationSizeError}
+                                </p>
+                              ) : certificate_incorporationError ? (
                                 <p className="text-danger">
                                   {certificate_incorporationError}
                                 </p>
-                              ) : (
-                                errors.certificate_incorporation && (
-                                  <p className="text-danger">
-                                    {errors.certificate_incorporation}
-                                  </p>
-                                )
-                              )}
+                              ) : errors.certificate_incorporation ? (
+                                <p className="text-danger">
+                                  {errors.certificate_incorporation}
+                                </p>
+                              ) : null}
                               {basicDetails.certificate_incorporation ? (
                                 <>
                                   {basicDetails.certificate_incorporation.substring(
@@ -1087,17 +1100,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {bankStatementThreeYearsError ? (
+                              {bankStatementThreeYearsSizeError ? (
+                                <p className="text-danger">
+                                  {bankStatementThreeYearsSizeError}
+                                </p>
+                              ) : bankStatementThreeYearsError ? (
                                 <p className="text-danger">
                                   {bankStatementThreeYearsError}
                                 </p>
-                              ) : (
-                                errors.bank_statement_three_years && (
-                                  <p className="text-danger">
-                                    {errors.bank_statement_three_years}
-                                  </p>
-                                )
-                              )}
+                              ) : errors.bank_statement_three_years ? (
+                                <p className="text-danger">
+                                  {errors.bank_statement_three_years}
+                                </p>
+                              ) : null}
                               {basicDetails.bank_statement_three_years ? (
                                 <>
                                   {basicDetails.bank_statement_three_years.substring(
@@ -1205,13 +1220,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {MOAError ? (
-                                <p className="text-danger">{MOAError}</p>
-                              ) : (
-                                errors.moa && (
-                                  <p className="text-danger">{errors.moa}</p>
-                                )
-                              )}
+                              {MOASizeError ? (
+                                <p className="text-danger">
+                                  {MOASizeError}
+                                </p>
+                              ) : MOAError ? (
+                                <p className="text-danger">
+                                  {MOAError}
+                                </p>
+                              ) : errors.moa ? (
+                                <p className="text-danger">
+                                  {errors.moa}
+                                </p>
+                              ) : null}
                               {basicDetails.moa ? (
                                 <>
                                   {basicDetails.moa.substring(
@@ -1317,13 +1338,19 @@ export default function DocumentsUpload(): any {
                                   </p>
                                 </label>
                               </div>
-                              {AOAError ? (
-                                <p className="text-danger">{AOAError}</p>
-                              ) : (
-                                errors.aoa && (
-                                  <p className="text-danger">{errors.aoa}</p>
-                                )
-                              )}
+                              {AOASizeError ? (
+                                <p className="text-danger">
+                                  {AOASizeError}
+                                </p>
+                              ) : AOAError ? (
+                                <p className="text-danger">
+                                  {AOAError}
+                                </p>
+                              ) : errors.aoa ? (
+                                <p className="text-danger">
+                                  {errors.aoa}
+                                </p>
+                              ) : null}
                               {basicDetails.aoa ? (
                                 <>
                                   {basicDetails.aoa.substring(

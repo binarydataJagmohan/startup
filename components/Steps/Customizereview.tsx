@@ -110,7 +110,10 @@ export default function Customereview(): any {
   }, []);
   const SubmitForm = async () => {
     try {
-
+      if (startUpLogoError !== '' || startUpLogoSizeError !== '' ) {
+        console.error('validation error');
+        return;
+      } 
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
@@ -299,7 +302,6 @@ export default function Customereview(): any {
                                 >
                                   <p style={{ fontSize: "13px" }}>
                                     You can upload any ppt,pdf,docs format only (max size 20 MB)
-                                    {/* <span style={{ color: "red" }}>*</span> */}
                                   </p>
                                 </label>
                                 {startUpLogoSizeError ? (

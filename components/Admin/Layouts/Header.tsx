@@ -55,14 +55,14 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();    
+    const current_user_data: UserData = getCurrentUserData();
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
-      : setCurrentUserRole("");   
+      : setCurrentUserRole("");
 
     getAllActiveFundsCount()
       .then((res) => {
-        if (res.status == true) {         
+        if (res.status == true) {
           setTotalActiveFunds(res.data);
         } else {
         }
@@ -71,7 +71,7 @@ const Header = () => {
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
-        if (res.status == true) {          
+        if (res.status == true) {
           setUsers(res.data);
         }
       })
@@ -98,7 +98,7 @@ const Header = () => {
 
   const toggleMenu = (index: number) => {
     if (index === 1) {
-      settaggleUserMgmt((prevState) => !prevState);     
+      settaggleUserMgmt((prevState) => !prevState);
     } else {
       settaggleUserMgmt(true);
     }
@@ -347,6 +347,26 @@ const Header = () => {
                                 {unreadNotifications}
                               </span>
                               <span>Notifications</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "admin/contact-queries"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/contact-queries"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {unreadNotifications}
+                              </span>
+                              <span>Contact Queries</span>
                             </Link>
                           </li>
                           <li>
@@ -642,6 +662,26 @@ const Header = () => {
                                 {unreadNotifications}
                               </span>
                               <span>Notifications</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "admin/contact-queries"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/contact-queries"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {unreadNotifications}
+                              </span>
+                              <span>Contact Queries</span>
                             </Link>
                           </li>
                           <li>

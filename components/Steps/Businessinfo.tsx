@@ -161,7 +161,10 @@ export default function Businessinfo(): any {
 
   const SubmitForm = async () => {
     try {
-
+      if (pichDeckError !== '' || pichDeckSizeError !== '' || startUpLogoError !== '' || startUpLogoSizeError !== '' ) {
+        console.error('validation error');
+        return;
+      } 
       if (!businessDetails.sector) {
         setMissingFields(prevFields => [...prevFields, "sector"]);
       }
