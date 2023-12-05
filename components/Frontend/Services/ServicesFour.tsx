@@ -5,12 +5,12 @@ export default function serviceFour() {
     return (
         <>
             <section className='Services-box ser-banner-4'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>App Development Services for Investment Projects</h3>
-                <p>Mobile apps have become an essential tool for businesses to engage with their customers and provide a seamless user experience. At our company, we offer App Development services that can help take your investment project to the next level.</p>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>App Development Services for Investment Projects</h3>
+                        <p>Mobile apps have become an essential tool for businesses to engage with their customers and provide a seamless user experience. At our company, we offer App Development services that can help take your investment project to the next level.</p>
+                    </div>
                 </div>
-             </div>
             </section>
 
             <section className="services-details-area ptb-50">
@@ -22,7 +22,7 @@ export default function serviceFour() {
                                     <h3>App Development services, you can expect:</h3>
                                     <p>App Development a company offers several benefits to investment projects, including:</p>
                                     <ul>
-                                    <li><p>Custom app development</p></li>
+                                        <li><p>Custom app development</p></li>
                                         <li><p>User-friendly interface</p></li>
                                         <li><p>Cross-platform compatibility</p></li>
                                         <li><p>Agile development process</p></li>
@@ -34,9 +34,9 @@ export default function serviceFour() {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
+                                <div className="services-details-image">
                                     <Image
-                                       src="assets/img/services-details/App-Development.jpg" alt="image"
+                                        src="assets/images/services-details/App-Development.jpg" alt="image"
                                         width={440}
                                         height={370}
                                     />
@@ -47,9 +47,9 @@ export default function serviceFour() {
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                  
+                                <div className="services-details-image">
                                     <Image
-                                        src="assets/img/services-details/2.jpg" alt="image"
+                                        src="assets/images/services-details/2.jpg" alt="image"
                                         width={546}
                                         height={546}
                                     />
@@ -87,9 +87,9 @@ export default function serviceFour() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

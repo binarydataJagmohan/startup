@@ -336,7 +336,7 @@ export default function InvestorType(): any {
                                       />
                                       <label htmlFor="myCheckbox1">
                                         <Image
-                                          src="/assets/img/investor/accredited.png"
+                                          src="/assets/images/accredited.png"
                                           alt=""
                                           width={187}
                                           height={150}
@@ -359,7 +359,7 @@ export default function InvestorType(): any {
                                       />
                                       <label htmlFor="myCheckbox2">
                                         <Image
-                                          src="/assets/img/investor/angel.png"
+                                          src="/assets/images/angel.png"
                                           alt=""
                                           width={187}
                                           height={150}
@@ -381,7 +381,7 @@ export default function InvestorType(): any {
                                         }
                                       />
                                       <label htmlFor="myCheckbox3">
-                                        <Image src="/assets/img/investor/regular.png" height={112} width={112} alt={'regular.png'} />
+                                        <Image src="/assets/images/regular.png" height={112} width={112} alt={'regular.png'} />
 
                                       </label>
                                     </li>

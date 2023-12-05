@@ -46,7 +46,7 @@ export default function Login() {
   useEffect(() => {
     const interval = setInterval(() => {
       checkCookieExpiration();
-    }, 1000); 
+    }, 1000);
 
     return () => {
       clearInterval(interval);
@@ -167,7 +167,7 @@ export default function Login() {
 
 
   return (
-    <>     
+    <>
       <section className="contact-section">
         <div className="container">
           <div className="row align-items-center login_form_and_information">
@@ -218,9 +218,9 @@ export default function Login() {
                         href="mailto:support@risingcapitalist.com"
                         className="text-decoration-none text-size-18"
                       >
-                       support@risingcapitalist.com
+                        support@risingcapitalist.com
                       </a>
-                    </p>                   
+                    </p>
                   </div>
                 </div>
               </div>
@@ -228,7 +228,7 @@ export default function Login() {
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="need-section">
                 <div className="need_content">
-                <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png" } className="pb-4" alt="logo-img" width={190} height={68} />
+                  <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/logo.png"} className="pb-4" alt="logo-img" width={190} height={68} />
                   <form onSubmit={handleSubmit(submitForm)}>
                     <div className="row align-items-center">
                       <div className="col-12">
@@ -273,7 +273,7 @@ export default function Login() {
                               *Password field is required.
                             </p>
                           )}
-                             <span className="passwordView" onClick={handleTogglePassword}>
+                          <span className="passwordView" onClick={handleTogglePassword}>
                             {showPassword ? <i className="fa fa-eye" /> : <i className="fa fa-eye-slash" />}
                           </span>
                         </div>

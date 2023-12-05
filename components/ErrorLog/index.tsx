@@ -164,8 +164,6 @@ export default function ErrorLogs() {
         });
     }
 
-
-
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.target.value.toLowerCase();
         setSearchQuery(searchValue);
@@ -222,13 +220,14 @@ export default function ErrorLogs() {
                                 <button
                                     type="button"
                                     className="btn btn_error_logs"
-                                    onClick={() => {                                       
+                                    onClick={() => {
                                         toast.dismiss();
                                     }}>
                                     Search Message
                                 </button>
                             </div>
                         </div>
+
                         <div className="table-part mt-4 max-w overflow-auto">
                             <table
                                 className="rwd-table"
@@ -285,6 +284,7 @@ export default function ErrorLogs() {
                                 </tbody>
                             </table>
                         </div>
+
                         <div
                             className="pagination-wrapper mt-4"
                             style={{ display: 'flex', justifyContent: 'flex-end' }}>

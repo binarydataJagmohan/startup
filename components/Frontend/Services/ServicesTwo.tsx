@@ -5,13 +5,13 @@ export default function serviceTwo() {
     return (
         <>
 
-        <section className='Services-box ser-banner-5'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>Business Planning Services for Investment Projects</h3>
-                <p>We offer comprehensive business planning services that are tailored to meet the unique needs of each of our clients. Our team of experienced professionals will work with you to create a detailed business plan that outlines your goals, strategies, and financial projections. Whether you're starting a new business or looking to expand an existing one, we can help you achieve your goals.</p>
+            <section className='Services-box ser-banner-5'>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>Business Planning Services for Investment Projects</h3>
+                        <p>We offer comprehensive business planning services that are tailored to meet the unique needs of each of our clients. Our team of experienced professionals will work with you to create a detailed business plan that outlines your goals, strategies, and financial projections. Whether you're starting a new business or looking to expand an existing one, we can help you achieve your goals.</p>
+                    </div>
                 </div>
-             </div>
             </section>
             <section className="services-details-area ptb-100">
                 <div className="container">
@@ -22,7 +22,7 @@ export default function serviceTwo() {
                                     <h3>Our business planning services include:</h3>
                                     <p>Incorporating a company offers several benefits to investment projects, including:</p>
                                     <ul>
-                                    <li><p>Market research and analysis</p></li>
+                                        <li><p>Market research and analysis</p></li>
                                         <li><p>Competitive analysis</p></li>
                                         <li><p>Financial analysis and projections</p></li>
                                         <li><p>Marketing and sales strategies</p></li>
@@ -32,11 +32,11 @@ export default function serviceTwo() {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
-                                    <Image 
-                                    src="assets/img/services-details/Business-Planning.jpg" alt="image"
-                                    width={546}
-                                    height={284}
+                                <div className="services-details-image">
+                                    <Image
+                                        src="assets/images/services-details/Business-Planning.jpg" alt="image"
+                                        width={546}
+                                        height={284}
                                     />
                                 </div>
                             </div>
@@ -45,11 +45,11 @@ export default function serviceTwo() {
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
-                                    <Image 
-                                    src="assets/img/services-details/2.jpg" alt="image"
-                                    width={546}
-                                    height={546}
+                                <div className="services-details-image">
+                                    <Image
+                                        src="assets/images/services-details/2.jpg" alt="image"
+                                        width={546}
+                                        height={546}
                                     />
                                 </div>
                             </div>
@@ -85,9 +85,9 @@ export default function serviceTwo() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

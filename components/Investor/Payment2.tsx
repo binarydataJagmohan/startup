@@ -7,6 +7,7 @@ import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
 
 interface UserData {
     id?: string;
@@ -119,7 +120,7 @@ const Payment = () => {
                                 <div className="css-1d6tso">
                                     <div className="logo-company">
                                         <div className="img">
-                                            <img src={businessdata.logo} alt="" />
+                                            <Image src={businessdata.logo} alt="" height={100} width={100} />
                                         </div>
                                     </div>
 

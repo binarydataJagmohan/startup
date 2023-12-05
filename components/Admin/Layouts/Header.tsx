@@ -129,7 +129,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -137,7 +137,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -147,7 +147,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -155,7 +155,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -444,7 +444,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -452,7 +452,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -462,7 +462,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -470,7 +470,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}

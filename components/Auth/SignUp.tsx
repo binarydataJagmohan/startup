@@ -227,7 +227,7 @@ const Signup = () => {
               <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div className="need-section">
                   <div className="need_content">
-                    <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"} className="pb-4" alt="logo-img" width={190} height={68} />
+                    <Image src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/logo.png"} className="pb-4" alt="logo-img" width={190} height={68} />
                     <form id="contactpage" onSubmit={handleSubmit(SubmitForm)}>
                       <div className="row align-items-center">
                         <div className="col-12">
@@ -345,7 +345,7 @@ const Signup = () => {
                                 />
                                 <label htmlFor="myCheckbox1">
                                   <Image
-                                    src="assets/img/invest.png"
+                                    src="assets/images/invest.png"
                                     alt="startup-image"
                                     width={187}
                                     height={56}
@@ -366,7 +366,7 @@ const Signup = () => {
                                 />
                                 <label htmlFor="myCheckbox2">
                                   <Image
-                                    src="assets/img/startup.png"
+                                    src="assets/images/startup.png"
                                     alt="startup-image"
                                     width={187}
                                     height={56}

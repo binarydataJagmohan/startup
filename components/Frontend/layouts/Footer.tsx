@@ -15,7 +15,7 @@ const Footer = () => {
                       <Image
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +
-                          "assets/img/footerlogo.png"
+                          "assets/images/footerlogo.png"
                         }
                         className="black-logo"
                         alt="image"

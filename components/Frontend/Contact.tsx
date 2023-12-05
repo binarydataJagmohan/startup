@@ -230,7 +230,7 @@ const Contact = () => {
               <div className="col-lg-6">
                 <div className="contact-image">
                   <Image
-                    src="assets/img/contact.png"
+                    src="assets/images/contact.png"
                     alt="image"
                     width={540}
                     height={580}

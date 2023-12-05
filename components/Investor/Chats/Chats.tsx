@@ -11,6 +11,9 @@ import moment from 'moment';
 import PopupModalTwo from '../../commoncomponents/PopupModal';
 import PopupModalLarge from '../../commoncomponents/PopupModalLarge';
 import { useRouter } from "next/router";
+import { AnyPtrRecord } from "dns";
+import Image from "next/image";
+
 export default function Chats(props: any) {
   let id = props.UserId;
 
@@ -1069,9 +1072,9 @@ export default function Chats(props: any) {
                                             <div className="col-lg-3 col-md-3 col-3 pr-0">
                                               <div className="position-relative">
                                                 {message.profile_pic == null ? (
-                                                  <img src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'} alt="chats-user" />
+                                                  <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'} alt="chats-user" height={38} width={38} />
                                                 ) : (
-                                                  <img src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic} alt="chats-user" />
+                                                  <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic} alt="chats-user" height={38} width={38} />
                                                 )}
                                                 {message.is_online == 'yes' && (<i className="position-absolute  fa-solid fa-circle chats-circle user_chat_online_circle text-success"></i>)}
                                               </div>
@@ -1080,9 +1083,9 @@ export default function Chats(props: any) {
                                           {message.latest_chat_type == 'group' && (
                                             <div className="col-lg-3 col-md-3 col-3 pr-0">
                                               {message.group_image == null ? (
-                                                <img src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/group_chat_2.png'} alt="chats-user" />
+                                                <Image src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/group_chat_2.png'} alt="chats-user" height={51} width={51} />
                                               ) : (
-                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/group/' + message.group_image} alt="chats-user" />
+                                                <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/group/' + message.group_image} alt="chats-user" height={51} width={51} />
                                               )}
 
                                             </div>
@@ -1144,21 +1147,21 @@ export default function Chats(props: any) {
                                                 </h5>
                                               )}
 
-                                              {message.latest_type == 'image' && <div className="image_sider_bar d-flex align-items-center"> <img
+                                              {message.latest_type == 'image' && <div className="image_sider_bar d-flex align-items-center"> <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small_image.png'}
                                                 className="sidebar_chat_border rounded"
                                                 width={30} height={30}
                                                 alt="chats-user"
                                               /><span className="small_font mx-2 text-secondary">image</span></div>}
 
-                                              {message.latest_type == 'pdf' && <div className="image_sider_bar d-flex align-items-center"> <img
+                                              {message.latest_type == 'pdf' && <div className="image_sider_bar d-flex align-items-center"> <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small_pdf.png'}
                                                 className="sidebar_chat_border rounded"
                                                 width={30} height={30}
                                                 alt="chats-user"
                                               /><span className="small_font mx-2 text-secondary">Pdf</span></div>}
 
-                                              {message.latest_type == 'video' && <div className="image_sider_bar d-flex align-items-center"> <img
+                                              {message.latest_type == 'video' && <div className="image_sider_bar d-flex align-items-center"> <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/small_video.png'}
                                                 className="sidebar_chat_border rounded"
                                                 width={30} height={30}
@@ -1224,17 +1227,18 @@ export default function Chats(props: any) {
                                       {message.sender_role == 'investor' && (
                                         <li className="reply-two">
                                           <span className="bg-f1">
-                                            {message.message_attachment_type === 'image' && <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <img
+                                            {message.message_attachment_type === 'image' && <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <Image
                                               src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment}
                                               className="chat_shared_image"
                                               width={150} height={150}
                                               alt="chats-user"
                                             /></a>}
                                             {message.message_attachment_type === 'pdf' && (
-                                              <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/pdf/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <img
+                                              <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/pdf/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/pdf.png'}
                                                 className="chat_shared_image"
                                                 alt="chats-user"
+                                                width={150} height={150}
                                               /></a>
                                             )}
 
@@ -1251,12 +1255,12 @@ export default function Chats(props: any) {
 
                                             <div className="mt-2 small_font">  {formatDate(message.chatdate)}  </div>
                                           </span>{" "}
-                                          {message.sender_pic == null ? <img
+                                          {message.sender_pic == null ? <Image
                                             src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
-                                            alt="chats-user"
-                                          /> : <img
+                                            alt="chats-user" height={38} width={38}
+                                          /> : <Image
                                             src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic}
-                                            alt="chats-user"
+                                            alt="chats-user" height={38} width={38}
                                           />}
                                           <div className="mt-2 small_font name_chat_two">You</div>
                                         </li>
@@ -1264,25 +1268,26 @@ export default function Chats(props: any) {
 
                                       {(message.sender_role == 'startup' || message.sender_role == 'admin') && (
                                         <li className="reply">
-                                          {message.sender_pic == null ? <img
+                                          {message.sender_pic == null ? <Image
                                             src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
-                                            alt="chats-user"
-                                          /> : <img
+                                            alt="chats-user" height={38} width={38}
+                                          /> : <Image
                                             src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic}
-                                            alt="chats-user"
+                                            alt="chats-user" height={38} width={38}
                                           />}
                                           <span className="bg-f1">
-                                            {message.message_attachment_type === 'image' && <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <img
+                                            {message.message_attachment_type === 'image' && <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <Image
                                               src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment}
                                               className="chat_shared_image"
                                               width={128} height={128}
                                               alt="chats-user"
                                             /></a>}
                                             {message.message_attachment_type === 'pdf' && (
-                                              <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/pdf/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <img
+                                              <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/pdf/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <Image
                                                 src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/pdf.png'}
                                                 className="chat_shared_image"
                                                 alt="chats-user"
+                                                height={128} width={128}
                                               /></a>
                                             )}
                                             {message.message_attachment_type === 'video' && (
@@ -1368,12 +1373,12 @@ export default function Chats(props: any) {
                                         {message.sender_role === 'startup' && (
                                           <p className="g-text">
                                             {message.sender_pic == null ? (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
                                                 alt="chats-user"
                                               />
                                             ) : (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic}
                                                 alt="chats-user"
                                               />
@@ -1389,12 +1394,12 @@ export default function Chats(props: any) {
                                         {message.receiver_role === 'investor' && (
                                           <p className="g-text">
                                             {message.receiver_pic == null ? (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
                                                 alt="chats-user"
                                               />
                                             ) : (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.receiver_pic}
                                                 alt="chats-user"
                                               />
@@ -1420,12 +1425,12 @@ export default function Chats(props: any) {
                                         {(message.sender_role === 'admin') && (
                                           <p className="g-text">
                                             {message.sender_pic == null ? (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
                                                 alt="chats-user"
                                               />
                                             ) : (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.sender_pic}
                                                 alt="chats-user"
                                               />
@@ -1441,12 +1446,12 @@ export default function Chats(props: any) {
                                         {(message.receiver_role === 'investor' || message.receiver_role === 'startup') && (
                                           <p className="g-text">
                                             {message.receiver_pic == null ? (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
                                                 alt="chats-user"
                                               />
                                             ) : (
-                                              <img
+                                              <Image height={38} width={38}
                                                 src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.receiver_pic}
                                                 alt="chats-user"
                                               />
@@ -1469,12 +1474,12 @@ export default function Chats(props: any) {
                                       <React.Fragment key={index}>
                                         <p className="g-text">
                                           {message.profile_pic == null ? (
-                                            <img
+                                            <Image height={38} width={38}
                                               src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/users.jpg'}
                                               alt="chats-user"
                                             />
                                           ) : (
-                                            <img
+                                            <Image height={38} width={38}
                                               src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/profile/' + message.profile_pic}
                                               alt="chats-user"
                                             />
@@ -1535,7 +1540,7 @@ export default function Chats(props: any) {
                                                       target="_blank"
                                                       rel="noopener noreferrer"
                                                     >
-                                                      <img
+                                                      <Image
                                                         src={
                                                           process.env.NEXT_PUBLIC_IMAGE_URL +
                                                           '/images/chat/images/' +
@@ -1558,10 +1563,12 @@ export default function Chats(props: any) {
                                                       target="_blank"
                                                       rel="noopener noreferrer"
                                                     >
-                                                      <img
+                                                      <Image
                                                         src={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/pdf.png'}
                                                         className="chat_shared_image"
                                                         alt="chats-user"
+                                                        width={128}
+                                                        height={128}
                                                       />
                                                     </a>
                                                   )}
@@ -1619,9 +1626,7 @@ export default function Chats(props: any) {
               </div>
             </PopupModalTwo>
             <PopupModalLarge show={modalConfirm} handleClose={modalConfirmClose} staticClass="var-login">
-              {/* <div className="text-center popup-img">
-                  <img src={process.env.NEXT_PUBLIC_BASE_URL+'images/logo.png'} alt="logo" />
-              </div> */}
+
               <div className="all-form" >
                 <form onSubmit={handlGroupSubmit} className="common_form_error" id="menu_form">
                   <div className='login_div'>
@@ -1674,13 +1679,13 @@ export default function Chats(props: any) {
                     <input type="file" name="image" accept="jpg,png" onChange={handleImageChange} />
                     {previewImage && (
                       <div className="image_preview mb-4 d-block">
-                        <img src={previewImage} alt="Preview" style={{ width: "20%", height: "100px" }} />
+                        <Image src={previewImage} alt="Preview" width={100} height={100} style={{ width: "20%", height: "100px" }} />
                       </div>
                     )}
                   </div>
                   <div className="image_preview mb-4 d-none">
                     {previewimage && (
-                      <img src={previewimage} alt="Preview" width={100} height={100} />
+                      <Image src={previewimage} alt="Preview" width={100} height={100} />
                     )}
                   </div>
                   <button type="submit" className="btn-send mt-3 float-end" >Create</button>
