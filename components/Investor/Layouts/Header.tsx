@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { removeToken, removeStorageData, getCurrentUserData, } from "../../../lib/session";
 import { useRouter } from 'next/router';
 import { getSingleFrontEndData, getFundRaiseCount } from '@/lib/frontendapi';
@@ -11,14 +11,10 @@ interface UserData {
   role?: string;
 }
 const Header = () => {
-  const [current_user_name, setCurrentUserName] = useState("");
   const [current_user_id, setCurrentUserId] = useState("");
-  const [current_user_role, setCurrentUserRole] = useState("");
   const [userName, setUserName] = useState("");
   const [investorStatus, setInvestorStatus] = useState('pending');
-  const [fundRaiseCount, setFundRaiseCount] = useState(0);
   const router = useRouter();
-  const currentUrl = router.pathname;
   const [totalNotifications, setTotalNotifications] = useState("");
   const [unreadNotifications, setUnreadNotifications] = useState("");
 
@@ -33,13 +29,7 @@ const Header = () => {
     redirectToLogin();
   }
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    current_user_data.username
-      ? setCurrentUserName(current_user_data.username)
-      : setCurrentUserName("");
-    current_user_data.role
-      ? setCurrentUserRole(current_user_data.role)
-      : setCurrentUserRole("");
+    const current_user_data: UserData = getCurrentUserData();   
     current_user_data.id ? setCurrentUserId(current_user_data.id) : setCurrentUserId("");
 
     getTotalCountOfNotifications(current_user_data.id)
@@ -55,7 +45,6 @@ const Header = () => {
     getCountOfUnreadNotifications(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
-          // console.log(res)
           setUnreadNotifications(res.data);
         } else {
         }
@@ -88,9 +77,7 @@ const Header = () => {
     if (current_user_id && investorStatus === 'approved') {
       getFundRaiseCount()
         .then((res) => {
-          if (res.status === true) {
-            setFundRaiseCount(res.data);
-            // console.log("this is count"+res.data);
+          if (res.status === true) {            
           }
         })
         .catch((err) => {
@@ -99,7 +86,6 @@ const Header = () => {
     }
   }, [current_user_id]);
 
-  // console.log(current_user_name);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showBellDropdown, setBellShowDropdown] = useState(false);
 
@@ -111,11 +97,6 @@ const Header = () => {
     setBellShowDropdown(!showBellDropdown);
   }
 
-  function handleOutsideClick(event: any) {
-    if (!event.target.matches('.dropbtn')) {
-      setShowDropdown(false);
-    }
-  }
   return (
     <>
       <div className="navbar-area">

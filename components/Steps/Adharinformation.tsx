@@ -11,6 +11,7 @@ import Link from 'next/link';
 interface UserData {
   id?: string;
   name?: string;
+  role?: any;
 }
 export default function AdharInformation(): any {  
   const [signup_success, setSignupSuccess] = useState(false);
@@ -41,7 +42,10 @@ export default function AdharInformation(): any {
     });
   };
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();    
+    const current_user_data: UserData = getCurrentUserData();       
+    if (current_user_data.role !== 'startup') {
+        router.back();
+    }   
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)

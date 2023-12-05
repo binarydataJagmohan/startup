@@ -7,22 +7,29 @@ import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { getToken } from '@/lib/session';
+import { getCurrentUserData, getToken } from '@/lib/session';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
+interface UserData {
+  role?: any;
+}
 const TextEditor = dynamic(() => import("./TextEditor"), {
   ssr: false,
 });
 
-
 const PrivacyPolicy = () => {
   const [editorContent, setEditorContent] = useState('');
+  const router = useRouter();
 
-  const handleEditorChange = (content:any) => {
+  const handleEditorChange = (content: any) => {
     setEditorContent(content);
   };
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'admin') {
+      router.back();
+    }
     // Fetch existing data from the database
     fetchPrivacyPolicies();
   }, []);
@@ -37,31 +44,33 @@ const PrivacyPolicy = () => {
     }
   };
 
-const submitPrivacyPolicies = async(e:any)=>{
-e.preventDefault();
-try{
-    const response = await axios.post(
+  const submitPrivacyPolicies = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/privacy-policies`,
         {
-            ['privacy_policies']: editorContent,
-          
-        },{ headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + getToken(), 
-        }}
-    );   
-    toast.success(response.data.message);
- 
+          ['privacy_policies']: editorContent,
 
-}catch(error:any){
-    if (error.response && error.response.data && error.response.data.message) {
+        }, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + getToken(),
+        }
+      }
+      );
+      toast.success(response.data.message);
+
+
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error(error.message);
       }
-}
+    }
 
-}
+  }
   const handleClear = () => {
     setEditorContent('');
   };
@@ -84,7 +93,7 @@ try{
                     </li>
                     <li className="breadcrumb-item">
                       <Link href={process.env.NEXT_PUBLIC_BASE_URL + "admin/privacy-policy"}>
-                      Privacy Policy
+                        Privacy Policy
                       </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
@@ -95,19 +104,19 @@ try{
               </div>
             </div>
             <div className="row">
-            <form onSubmit={submitPrivacyPolicies} className="needs-validation mb-4">
-              <div className="col-12">
-             
-              <TextEditor
-                  value={editorContent}
-                  onChange={handleEditorChange}
-                  height={300}
-                  theme="snow"
+              <form onSubmit={submitPrivacyPolicies} className="needs-validation mb-4">
+                <div className="col-12">
+
+                  <TextEditor
+                    value={editorContent}
+                    onChange={handleEditorChange}
+                    height={300}
+                    theme="snow"
                   // style={{ height: '200px' }} 
-                />
-                
-              </div>
-              <div className=""style={{ marginTop: '50px' }} >
+                  />
+
+                </div>
+                <div className="" style={{ marginTop: '50px' }} >
                   <button className="btn btn-colors">
                     Save
                   </button>
@@ -115,10 +124,10 @@ try{
                     Clear
                   </a>
                 </div>
-                </form>
-                
+              </form>
+
             </div>
-           
+
           </div>
         </div>
         <ToastContainer autoClose={1000} />

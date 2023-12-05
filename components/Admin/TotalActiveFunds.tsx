@@ -8,9 +8,11 @@ import Link from "next/link";
 import axios from "axios";
 import { sendNotification } from "../../lib/frontendapi";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 interface UserData {
     id?: number;
+    role?:any;
 }
 
 interface Fund {
@@ -30,10 +32,14 @@ const TotalActiveFunds = () => {
     const tableRef = useRef(null);
     const [current_user_id, setCurrentUserId] = useState("");
     const [funds, setFundsData] = useState<Fund[]>([]);
+    const router = useRouter();
 
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
+        const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }          
         if (current_user_data.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id.toString())

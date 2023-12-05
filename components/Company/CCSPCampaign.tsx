@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 
 interface UserData {
   id?: any;
+  role?: any;
 }
 const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
   ssr: false,
@@ -131,6 +132,9 @@ const Campagin = () => {
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'startup') {
+      router.back();
+    }
     if (current_user_data.id != null) {
       getCCSPCampaignForStartup(current_user_data.id)
         .then((res) => {
@@ -145,8 +149,6 @@ const Campagin = () => {
         .catch((err) => {
 
         });
-    } else {
-      window.location.href = "/login";
     }
   }, []);
 

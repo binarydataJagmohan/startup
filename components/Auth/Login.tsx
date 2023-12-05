@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import Image from 'next/image';
+import { useRouter } from "next/router";
+import { getCurrentUserData } from "@/lib/session";
 
 interface User {
   id: string;
@@ -16,9 +18,13 @@ interface User {
   approval_status: string;
 }
 
+interface UserData {
+  role?: any;
+}
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +37,10 @@ export default function Login() {
   };
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();    
+    if (current_user_data.role !== null) {
+        router.back();
+    }      
     checkCookieExpiration();
   }, []);
   useEffect(() => {

@@ -4,10 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import Link from 'next/link';
-import { getToken } from '@/lib/session';
-type Country = {
-    name: string;
-    country_code: string;
+import { getCurrentUserData, getToken } from '@/lib/session';
+import { useRouter } from 'next/router';
+interface UserData {
+    role?: any;
 }
 interface User {
     id: number;
@@ -23,6 +23,8 @@ const UserList = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     const tableRef = useRef(null);
+    const router = useRouter();
+
     useEffect(() => {
         const userData = async () => {
             const data = await getAllUsers({});
@@ -34,6 +36,10 @@ const UserList = () => {
     }, []);
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }
         // Initialize the datatable for users
         if (users.length > 0 && !dataTableInitialized) {
             $(document).ready(() => {
@@ -168,7 +174,7 @@ const UserList = () => {
                                                                         <ul className="table-icons-right">
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-user/?id=${user.id}`} >
-                                                                                <span className="fa fa-eye"></span>
+                                                                                    <span className="fa fa-eye"></span>
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">

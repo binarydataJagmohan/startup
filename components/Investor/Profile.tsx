@@ -12,12 +12,14 @@ import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { InvestorPersonalInfoUpdate } from "../../lib/investorapi";
+import { useRouter } from "next/router";
 type Country = {
   name: string;
   country_code: string;
 };
 interface UserData {
   id?: string;
+  role?: any;
 }
 const Profile = () => {
   const [countries, setcountries] = useState<Country[]>([]);
@@ -48,9 +50,12 @@ const Profile = () => {
   const handleFileChange = (event: any) => {
     setProfilePic(event.target.files[0]);
   };
-
+  const router = useRouter();
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+      router.back();
+    }
     if (current_user_data?.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -177,7 +182,7 @@ const Profile = () => {
       formData.append("gender", user.gender);
       const res = await InvestorPersonalInfoUpdate(formData);
 
-      if (res.status === true) {       
+      if (res.status === true) {
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
           toastId: "success",

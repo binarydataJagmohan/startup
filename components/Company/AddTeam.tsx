@@ -5,8 +5,11 @@ import Link from 'next/link';
 import { getAllCCSPCampaign, AdminAddTeamMember, AdminUpdateTeamMember, getAdminTeamdata } from "@/lib/adminapi";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { getCurrentUserData } from "@/lib/session";
 
-
+interface UserData {   
+    role?: any;
+  }
 export default function AddCompetitorCompany() {
 
     const [teamMemberName, setTeamMemberName] = useState("");
@@ -35,6 +38,10 @@ export default function AddCompetitorCompany() {
 
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'startup') {
+            router.back();
+          }
         getAllCCSPCampaign()
             .then((res) => {
                 if (res.status === true && res.data.length > 0) {

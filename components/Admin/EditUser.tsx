@@ -8,7 +8,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import "react-toastify/dist/ReactToastify.css";
-
+import { getCurrentUserData } from '@/lib/session';
+interface UserData {   
+    role?: string; 
+  }
 const EditUser = () => {
 
     const router = useRouter();
@@ -17,6 +20,10 @@ const EditUser = () => {
         { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });   
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }  
         const fetchData = async (id: any) => {
             const data = await getSingleUserData(id);
             if (data) {

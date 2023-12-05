@@ -3,13 +3,20 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { CheckUserEmailVerification, CheckUserResetPasswordVerification, UpdateResetPassword } from '../../lib/frontendapi';
-
+import { getCurrentUserData } from "@/lib/session";
+interface UserData {
+  role?:any;
+}
 const ForgetPassword = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== null) {
+        router.back();
+    }
     if (router.query.id && router.query.hash) {
       CheckEmailVerification();
     }

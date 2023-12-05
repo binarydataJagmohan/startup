@@ -12,6 +12,7 @@ import axios from 'axios';
 
 interface UserData {
     id?: any;
+    role?: any;
 }
 const CCSPCampaign = () => {
 
@@ -56,11 +57,12 @@ const CCSPCampaign = () => {
         country: "",
     });
     const { id } = router.query;
-    const [current_user_id, setCurrentUserId] = useState("");
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'startup') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
-            setCurrentUserId(current_user_data.id);
 
             if (id) {
                 getStartupIfinworthDetail(id)

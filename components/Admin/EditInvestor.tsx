@@ -7,7 +7,10 @@ import { useRouter } from 'next/router';
 import "react-phone-input-2/lib/style.css";
 import { getInvestorType, getAngelInvestorTerms, getDocumentsUpload } from "../../lib/frontendapi";
 import Image from "next/image";
-
+import { getCurrentUserData } from '@/lib/session';
+interface UserData {   
+  role?: string; 
+}
 const EditInvestor = () => {
   const [investor, setInvestor] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
   const [termscondition, setTermsCondition]: any = useState(false);
@@ -35,6 +38,10 @@ const EditInvestor = () => {
   const router = useRouter();
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }  
     const fetchData = async (id: any) => {
       const data = await getSingleInvestor(id);
       if (data) {

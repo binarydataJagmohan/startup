@@ -5,14 +5,17 @@ import Link from "next/link";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-
-
 import {
     getAllCCSPCampaign,
     AdminAddCometitorCompany,
     AdminUpdateCometitorCompany,
     getAdminCompanydata,
 } from "@/lib/adminapi";
+import { getCurrentUserData } from "@/lib/session";
+
+interface UserData {
+    role?: any;
+}
 
 const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
     ssr: false,
@@ -49,6 +52,10 @@ const AddCompetitorCompany = () => {
 
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'startup') {
+            router.back();
+        }
         getAllCCSPCampaign().then((res) => {
 
             if (res.status === true && res.data.length > 0) {

@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { userRegister, sendNotification } from "../../lib/frontendapi";
 import Link from 'next/link';
 import Image from 'next/image';
+import { getCurrentUserData } from "@/lib/session";
+import { useRouter } from "next/router";
 interface FormData {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
   role: string;
+}
+interface UserData {
+  role?: any;
 }
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
@@ -20,6 +25,7 @@ const Signup = () => {
   const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -36,7 +42,7 @@ const Signup = () => {
     minLength: {
       value: 8,
       message: 'Password must be at least 8 characters long',
-    },    
+    },
     pattern: {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
@@ -62,7 +68,7 @@ const Signup = () => {
     };
     userRegister(user)
       .then((res) => {
-        if (res.status == true) {        
+        if (res.status == true) {
           if (res.data[0]) {
             setLocalStorageItems(res.data['user']);
             switch (window.localStorage.getItem("user_role")) {
@@ -150,6 +156,13 @@ const Signup = () => {
         });
       })
   };
+
+  useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== null) {
+      router.back();
+    }
+  });
 
   return (
     <>

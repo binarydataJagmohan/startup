@@ -7,21 +7,29 @@ import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { getToken } from '@/lib/session';
+import { getCurrentUserData, getToken } from '@/lib/session';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
+interface UserData {
+  role?: any;
+}
 const TextEditor = dynamic(() => import("./TextEditor"), {
-    ssr: false,
-  });
+  ssr: false,
+});
 
 const TermsAndConditions = () => {
   const [editorContent, setEditorContent] = useState('');
 
-  const handleEditorChange = (content:any) => {
+  const handleEditorChange = (content: any) => {
     setEditorContent(content);
   };
+  const router = useRouter();
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'admin') {
+      router.back();
+    }
     // Fetch existing data from the database
     fetchTermsAndConditions();
   }, []);
@@ -29,7 +37,7 @@ const TermsAndConditions = () => {
   const fetchTermsAndConditions = async () => {
     try {
       const response = await fetchTermsAndConditionsdata();
-      const data = response.data;   
+      const data = response.data;
       // Set the fetched data as initial content in the editor
       setEditorContent(data);
     } catch (error) {
@@ -37,31 +45,33 @@ const TermsAndConditions = () => {
     }
   };
 
-const submitTermsAndCondtions = async(e:any)=>{
-e.preventDefault();
-try{
-    const response = await axios.post(
+  const submitTermsAndCondtions = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/terms-and-conditions`,
         {
-            ['terms_and_conditions']: editorContent,
-          
-        },{ headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + getToken(), 
-        }}
-    );   
-    toast.success(response.data.message);
- 
+          ['terms_and_conditions']: editorContent,
 
-}catch(error:any){
-    if (error.response && error.response.data && error.response.data.message) {
+        }, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
+          }
+      }
+      );
+      toast.success(response.data.message);
+
+
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error(error.message);
       }
-}
+    }
 
-}
+  }
   const handleClear = () => {
     setEditorContent('');
   };
@@ -95,18 +105,18 @@ try{
               </div>
             </div>
             <div className="row">
-            <form onSubmit={submitTermsAndCondtions} className="needs-validation mb-4">
-              <div className="col-12">
-             
-              <TextEditor
-                  value={editorContent}
-                  height={300}
-                  onChange={handleEditorChange}
-                  theme="snow"
-                />
-                
-              </div>
-              <div className=""style={{ marginTop: '50px' }} >
+              <form onSubmit={submitTermsAndCondtions} className="needs-validation mb-4">
+                <div className="col-12">
+
+                  <TextEditor
+                    value={editorContent}
+                    height={300}
+                    onChange={handleEditorChange}
+                    theme="snow"
+                  />
+
+                </div>
+                <div className="" style={{ marginTop: '50px' }} >
                   <button className="btn btn-colors">
                     Save
                   </button>
@@ -114,10 +124,10 @@ try{
                     Clear
                   </button>
                 </div>
-                </form>
-                
+              </form>
+
             </div>
-           
+
           </div>
         </div>
         <ToastContainer autoClose={1000} />

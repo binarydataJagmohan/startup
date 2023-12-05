@@ -11,7 +11,7 @@ import { getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSi
 interface UserData {
   id?: string;
   investorType?: string;
-  // role?:string;
+  role?:string;
 }
 interface InputData {
   business_id?: string;
@@ -34,7 +34,6 @@ interface InputData {
   type?: string;
   user_id?: string;
 }
-
 
 interface FundData {
   dilution_percentage: number;
@@ -65,7 +64,9 @@ export default function CampaignsDetails() {
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-
+    if (current_user_data.role !== 'investor') {
+        router.back();
+    }    
     const fetchData = async () => {
       // const res = await getSingleBusinessDetails(id);
       const res = await getSingleFundDetails(id);

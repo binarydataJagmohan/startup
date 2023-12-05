@@ -7,12 +7,16 @@ import { verifyEmailOtp, resendOtp, getSingleUserData, sendNotification } from '
 
 interface UserData {
   id?: string;
+  role?: any;
 }
 const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
   const [users, setUsers] = useState<any>({});
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== null) {
+        router.back();
+    }    
     getSingleUserData(current_user_data.id)
     .then((res) => {
       if (res.status == true) {

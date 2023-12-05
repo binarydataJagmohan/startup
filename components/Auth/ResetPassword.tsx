@@ -2,9 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { useRouter } from "next/router";
-import { removeToken, removeStorageData } from "../../lib/session";
+
+import { removeToken, removeStorageData, getCurrentUserData } from "../../lib/session";
 import { resetPassword } from "@/lib/frontendapi";
+import { useRouter } from "next/router";
+interface UserData {
+    role?: any;
+}
 const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const {
@@ -12,13 +16,17 @@ const ResetPassword = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const router = useRouter();
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== null) {
+            router.back();
+        }
         removeToken();
         removeStorageData();
     }, []);
 
-    const router = useRouter();
     const SubmitForm = () => {
 
         const data = {
@@ -31,7 +39,7 @@ const ResetPassword = () => {
                     toast.success(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         toastId: "success",
-                    });                    
+                    });
                 } else {
                     toast.error(res.message, {
                         position: toast.POSITION.TOP_RIGHT,
@@ -54,9 +62,9 @@ const ResetPassword = () => {
                     <div className="row justify-content-center w-50 m-auto" id="resetpassword">
                         <div className="need_content col-md-6">
                             <form id="contactForm" onClick={handleSubmit(SubmitForm)}>
-                            <div className="contact-text text-center">
-                                <h3>Reset Password</h3>
-                            </div>
+                                <div className="contact-text text-center">
+                                    <h3>Reset Password</h3>
+                                </div>
                                 <div className="row justify-content-center">
                                     <div className="form-group text-start ">
                                         <label className="">
@@ -89,7 +97,7 @@ const ResetPassword = () => {
                                         <div className="row">
                                             <div className="col-md-12 text-center">
                                                 <button type="submit" className="btnclasssmae reset-btn">
-                                                Reset Password
+                                                    Reset Password
                                                 </button>
                                             </div>
                                         </div>

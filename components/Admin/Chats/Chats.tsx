@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getCurrentUserData } from "../../../lib/session";
-//import { isPageVisibleToRole } from "../../../helpers/isPageVisibleToRole";
 import { getAdminMessageData, getClickAdminChefUserChatData, ContactByAdminToUserAndChef, ContactByAdminToUserAndChefWithShareFile, getAllUserData, SendMessageToUserByAdmin, CreateGroupChatByAdmin } from "../../../lib/adminapi";
 import { ToastContainer, toast } from "react-toastify";
 import moment from 'moment';
-import { formatDistanceToNow } from 'date-fns';
-//import { zonedTimeToUtc } from 'date-fns-tz';
 import PopupModalTwo from '../../../components/commoncomponents/PopupModal';
 import PopupModalLarge from '../../../components//commoncomponents/PopupModalLarge';
-import { AnyPtrRecord } from "dns";
+import { useRouter } from "next/router";
 export default function Chats(props: any) {
   let id = props.UserId;
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [adminchatsidebar, setAdminChatSiderBar] = useState<AdminSideBarChatMessages[]>([]);
 
   const [adminuserchefmesage, setAdminChatMessage] = useState<AdninChatMessages[]>([]);
-  const [receiver_id, setCurrentChatReceiverid] = useState("");
-  const [receiver_name, setCurrentChatReceiverName] = useState("");
   const [message, setMessage] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -159,10 +153,6 @@ export default function Chats(props: any) {
   }
 
   const [errors, setErrors] = useState<Errors>({});
-
-
-  const [group_name, setCurrentGroupName] = useState("");
-
   const [chatgroupmember, setChatGroupMember] = useState<ChatGroupMember[]>([]);
 
   const [chat_type, setCurrentChatType] = useState("");
@@ -180,7 +170,7 @@ export default function Chats(props: any) {
 
   const newsingleChatIdRef = useRef(null);
   const newgroupIdRef = useRef(null);
-
+  const router = useRouter();
   useEffect(() => {
     // const data = isPageVisibleToRole("admin");
     // if (data == 2) {
@@ -190,6 +180,9 @@ export default function Chats(props: any) {
     // }
     //if (data == 1) {
     const userData = getCurrentUserData() as CurrentUserData;
+    if (userData.role !== 'admin') {
+      router.back();
+    }
     fetchUserMessageDetails(userData.id);
     fetchAllUserData();
     setCurrentUserData({

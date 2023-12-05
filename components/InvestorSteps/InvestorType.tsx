@@ -93,6 +93,9 @@ export default function InvestorType(): any {
 
   useEffect(() => {
     const current_user_data: any = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+        router.back();
+    }   
     setCurrentUserId(current_user_data.id);
     getSingleUserData(current_user_data.id)
       .then((res) => {

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 
 interface UserData {
   id?: string;
+  role?: any;
 }
 const CheckoutForm = () => {
   const [bookingdata, setBookingData] = useState<any>({});
@@ -20,6 +21,9 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+        router.back();
+    }       
     getInvestorBookingDetails(current_user_data.id)
       .then((res) => {
         if (res.status == true) {

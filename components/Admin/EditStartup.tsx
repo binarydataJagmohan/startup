@@ -7,7 +7,10 @@ import Image from 'next/image';
 import "react-phone-input-2/lib/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from 'next/router';
-
+import { getCurrentUserData } from '@/lib/session';
+interface UserData {   
+  role?: string; 
+}
 const EditList = () => {
   const [startup, setStartupData] = useState({ email: '', linkedin_url: '', country: '', phone: '', city: '', gender: '' });
   const [bussiness, setBussinessData] = useState({
@@ -61,6 +64,10 @@ const EditList = () => {
   const { id } = router.query;
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();    
+    if (current_user_data.role !== 'admin') {
+        router.back();
+    }  
     const fetchData = async (id: any) => {
       const data = await getBusinessInformation(id);
       if (data) {

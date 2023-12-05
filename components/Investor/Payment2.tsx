@@ -5,11 +5,12 @@ import { getCurrentUserData } from "../../lib/session";
 import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 interface UserData {
     id?: string;
+    role?: any;
 }
 const Payment = () => {
     const [current_user_id, setCurrentUserId] = useState("");
@@ -24,11 +25,11 @@ const Payment = () => {
         cvc: "",
         zip_code: ""
     });
-
+    const router = useRouter();
     const handleChange = (event: any) => {
         let { name, value } = event.target;
 
-        setPaymentData((prevState:any) => {
+        setPaymentData((prevState: any) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -40,6 +41,9 @@ const Payment = () => {
     };
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)
@@ -80,14 +84,8 @@ const Payment = () => {
                 });
             });
 
-    },[]);
+    }, []);
 
-    // useEffect(() => {
-
-    // });
-
-
-    console.log(businessdata)
     const SubmitForm = async () => {
         try {
             const res = await savepayment(paymentdata);
@@ -168,8 +166,8 @@ const Payment = () => {
                                 <label htmlFor="SecurityCode">CVC</label>
                                 <div className="input-container">
                                     <input id="SecurityCode" className="form-control" type="text" {...register("cvc", {
-                                    required: true
-                                })}  onChange={handleChange} />
+                                        required: true
+                                    })} onChange={handleChange} />
                                     <i id="cvc" className="fa fa-question-circle" />
                                 </div>
                                 <div className="cvc-preview-container two-card hide">
@@ -181,8 +179,8 @@ const Payment = () => {
                                 <label htmlFor="ZIPCode">ZIP/Postal code</label>
                                 <div className="input-container">
                                     <input id="ZIPCode" className="form-control" type="text" {...register("zip_code", {
-                                    required: true
-                                })}  onChange={handleChange} maxLength={10} />
+                                        required: true
+                                    })} onChange={handleChange} maxLength={10} />
                                     <i className="fa fa-question-circle" />
                                 </div>
                             </div>

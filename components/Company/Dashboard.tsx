@@ -4,6 +4,7 @@ import {
   CheckUserApprovalStatus,
   getBusinessInformation,
 } from "../../lib/frontendapi";
+import { useRouter } from "next/router";
 import {
   getTotalCountOfFunds,
   getTotalCountOfUnits,
@@ -11,13 +12,18 @@ import {
 
 interface UserData {
   id?: string;
+  role?: any;
 }
 const Dashboard = () => {
   const [totalFundCount, setFundCount] = useState("");
   const [totalUnits, setTotalUnits] = useState('');
- 
+  const router = useRouter();
+
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData(); 
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'startup') {
+      router.back();
+    }
     getBusinessInformation(current_user_data.id)
       .then((res) => {
         if (res.status == true) {
@@ -57,7 +63,7 @@ const Dashboard = () => {
           } else if (res.data.approval_status === "approved") {
             if (window.location.pathname !== "/company/dashboard") {
               window.location.href = "/company/dashboard";
-            }            
+            }
           } else {
             window.location.href = "/company/thank-you";
           }
@@ -131,7 +137,7 @@ const Dashboard = () => {
                       <h5 className="font-size-16 text-uppercase text-white">
                         Total Units
                       </h5>
-                      <h4 className="fw-medium font-size-24">                       
+                      <h4 className="fw-medium font-size-24">
                         {Array.isArray(totalUnits) && totalUnits.length > 0 ? (
                           totalUnits.reduce((sum, item) => sum + parseInt(item.total_units, 10), 0)
                         ) : (
@@ -168,12 +174,12 @@ const Dashboard = () => {
                         Units Sold
                       </h5>
                       <h4 className="fw-medium font-size-24">
-                      {Array.isArray(totalUnits) && totalUnits.length > 0 ? (
-                          (totalUnits.reduce((sum, item) => sum + parseInt(item.total_units, 10), 0))-(totalUnits.reduce((sub, item) => sub + parseInt(item.no_of_units, 10), 0))
+                        {Array.isArray(totalUnits) && totalUnits.length > 0 ? (
+                          (totalUnits.reduce((sum, item) => sum + parseInt(item.total_units, 10), 0)) - (totalUnits.reduce((sub, item) => sub + parseInt(item.no_of_units, 10), 0))
                         ) : (
                           '0'
                         )}
-                       <i className="fa fa-chart-line text-success ms-2 text-white" />
+                        <i className="fa fa-chart-line text-success ms-2 text-white" />
                       </h4>
                     </div>
                     <div className="pt-2">

@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { getCurrentUserData } from "../../lib/session";
 import { loadStripe } from '@stripe/stripe-js';
-import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
+import { getInvestorBookingDetails } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useElements } from '@stripe/react-stripe-js';
 
 
 interface UserData {
     id?: string;
+    role?: any;
 }
 const Payment = () => {
     const [current_user_id, setCurrentUserId] = useState("");
@@ -40,9 +41,13 @@ const Payment = () => {
         });
 
     };
+    const router = useRouter();
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)

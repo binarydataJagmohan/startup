@@ -4,8 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUserData } from "../../lib/session";
 import { getAllFunds, getSingleBusinessInformation } from '../../lib/companyapi';
 import Link from 'next/link';
+import { useRouter } from "next/router";
 interface UserData {
   id?: number;
+  role?: any;
 }
 interface Fund {
   id: number;
@@ -22,9 +24,13 @@ const AllFundsList = () => {
   const [funds, setFundsData] = useState<Fund[]>([]);
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   const tableRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'startup') {
+      router.back();
+  }
     if (current_user_data.id != null) {
       getSingleBusinessInformation(current_user_data.id)
         .then((res) => {

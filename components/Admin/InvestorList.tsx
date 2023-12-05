@@ -7,6 +7,7 @@ import { getToken, getCurrentUserData } from "../../lib/session";
 import { sendNotification } from '../../lib/frontendapi';
 import swal from "sweetalert";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type Investor = {
     id: number;
@@ -19,14 +20,19 @@ type Investor = {
 
 interface UserData {
     id?: string;
+    role?: any;
 }
 const InvestorList = () => {
     const tableRef = useRef(null);
+    const router = useRouter();
     const [investors, setInvestors] = useState<Investor[]>([]);
     const [current_user_id, setCurrentUserId] = useState("");
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();
+        const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }          
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)

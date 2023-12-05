@@ -13,6 +13,7 @@ import { getCurrentUserData } from "../../lib/session";
 
 interface UserData {
   id?: string;
+  role?: any;
 }
 
 export default function DocumentsUpload(): any {
@@ -77,6 +78,9 @@ export default function DocumentsUpload(): any {
   const [users, setUsers] = useState<any>({});
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'startup') {
+        router.back();
+    }   
     getSingleUserData(current_user_data.id)
       .then((res) => {
         if (res.status == true) {

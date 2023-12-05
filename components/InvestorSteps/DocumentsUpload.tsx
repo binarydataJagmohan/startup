@@ -7,12 +7,13 @@ import { getCurrentUserData } from "../../lib/session";
 import Image from 'next/image';
 interface UserData {
     id?: string;
+    role?: any;
 }
 export default function DocumentsUpload(): any {
     const [pan_card_front, setPanCardFront] = useState(null);
     const [pan_card_back, setPanCardBack] = useState(null);
     const [adhar_card_front, setAdharCardFront] = useState(null);
-    const [adhar_card_back, setAdharCardBack] = useState(null);   
+    const [adhar_card_back, setAdharCardBack] = useState(null);
     const [errors, setErrors] = useState({
         pan_card_front: "",
         pan_card_back: "",
@@ -30,6 +31,9 @@ export default function DocumentsUpload(): any {
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         getSingleUserData(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
@@ -42,7 +46,7 @@ export default function DocumentsUpload(): any {
                 });
             });
         if (current_user_data.id != null) {
-           
+
             fetchSingleUserDocuments(current_user_data.id)
                 .then((res) => {
                     if (res.status == true) {
@@ -170,7 +174,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Pan Card front view{" "}
-                                                                        
+
                                                                     </label>
                                                                     <input type="file" name="pan_card_front" onChange={handlePanCardFrontChange} accept="image/jpeg, image/png" />
                                                                     <p>
@@ -197,7 +201,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Pan Card back view{" "}
-                                                                       
+
                                                                     </label>
                                                                     <input type="file" name="pan_card_back" onChange={handlePanCardBackChange} accept="image/jpeg, image/png"></input>
                                                                     <p>
@@ -225,7 +229,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Adhar Card front view{" "}
-                                                                      
+
                                                                     </label>
                                                                     <input type="file" name="adhar_card_front" onChange={handleAdharCardFrontChange} accept="image/jpeg, image/png"></input>
                                                                     <p>
@@ -254,7 +258,7 @@ export default function DocumentsUpload(): any {
                                                                         className="form-label"
                                                                     >
                                                                         Adhar Card back view{" "}
-                                                                      
+
                                                                     </label>
                                                                     <input type="file" name="adhar_card_back" onChange={handleAdharCardBackChange} accept="image/jpeg, image/png"></input>
                                                                     <p>

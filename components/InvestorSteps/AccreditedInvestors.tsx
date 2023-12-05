@@ -11,6 +11,7 @@ import Link from 'next/link';
 interface UserData {
     id?: string;
     name?: string;
+    role?: any;
 }
 
 export default function AccreditedInvestors() {
@@ -119,6 +120,9 @@ export default function AccreditedInvestors() {
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         getSingleUserData(current_user_data.id)
             .then((res) => {
                 if (res.status == true) {
@@ -180,12 +184,12 @@ export default function AccreditedInvestors() {
         const checkAnnualIncome = category === '1';
 
         if (checkAnnualIncome && updatedTerms.annual_income !== '1') {
-            setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])            
+            setMissingFields(prevFeilds => [...prevFeilds, "annual_income"])
             return;
         }
 
         if (checkAnnualIncome && !(updatedTerms.financial_net_worth === '1' || updatedTerms.financial_annual_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "financial_net_worth"])            
+            setMissingFields(prevFields => [...prevFields, "financial_net_worth"])
             return;
         }
 
@@ -197,14 +201,14 @@ export default function AccreditedInvestors() {
         }
 
         if (checkFinancialNetWorth && !(updatedTerms.foreign_net_worth === '1' || updatedTerms.foreign_annual_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])            
+            setMissingFields(prevFields => [...prevFields, "foreign_net_worth"])
             return;
         }
 
 
         const selectedCategoryRequiresCheckbox = category === '3';
         if (selectedCategoryRequiresCheckbox && !(updatedTerms.corporate_net_worth === '1')) {
-            setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])           
+            setMissingFields(prevFields => [...prevFields, "corporate_net_worth"])
             return;
         }
 
@@ -230,7 +234,7 @@ export default function AccreditedInvestors() {
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
-                });                
+                });
                 if (users.approval_status === 'pending') {
                     setTimeout(() => {
                         router.push("/investor/thank-you");
