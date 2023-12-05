@@ -72,18 +72,18 @@ const Header = () => {
             <div className="navbar-brand-box d-block d-lg-none d-md-none">
               <Link href='/' className="logo logo-dark">
                 <span className="logo-sm class-as">
-                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                  <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                  <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                 </span>
               </Link>
               <Link href='/' className="logo logo-light">
                 <span className="logo-sm">
-                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                  <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                 </span>
                 <span className="logo-lg">
-                  <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                  <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                 </span>
               </Link>
             </div>
@@ -96,18 +96,18 @@ const Header = () => {
                   <div className="navbar-brand-box p-0">
                     <Link href='/' className="logo logo-dark">
                       <span className="logo-sm">
-                        <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                       </span>
                       <span className="logo-lg">
-                        <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                       </span>
                     </Link>
                     <Link href='/' className="logo logo-light">
                       <span className="logo-sm">
-                        <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                       </span>
                       <span className="logo-lg">
-                        <Image src="/assets/img/logo.png" alt="" width={190} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={190} height={53} />
                       </span>
                     </Link>
                   </div>
@@ -184,18 +184,18 @@ const Header = () => {
                   <div className="navbar-brand-box p-0">
                     <Link href='/' className="logo logo-dark">
                       <span className="logo-sm">
-                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={150} height={53} />
                       </span>
                       <span className="logo-lg">
-                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={150} height={53} />
                       </span>
                     </Link>
                     <Link href='/' className="logo logo-light">
                       <span className="logo-sm">
-                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={150} height={53} />
                       </span>
                       <span className="logo-lg">
-                        <Image src="/assets/img/logo.png" alt="" width={150} height={53} />
+                        <Image src="/assets/images/logo.png" alt="" width={150} height={53} />
                       </span>
                     </Link>
                   </div>

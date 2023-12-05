@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CreateGroupChatByInvestor, getSingleGroupData, getSingleFundDetails } from "@/lib/investorapi";
@@ -6,7 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi'
+import { getInvestorPagedata, getAllActiveFunds, getAllTeamAndCompanyData, getSingleUserData } from '../../lib/frontendapi';
+import { Tooltip } from 'react-tooltip'
 
 interface UserData {
   id?: string;
@@ -225,6 +227,7 @@ export default function CampaignsDetails() {
         });
     }
   }
+
   return (
     <>
       {/* <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}> */}
@@ -299,12 +302,22 @@ export default function CampaignsDetails() {
             </div>
 
             <div className="col-lg-5">
-              {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
+              {/* {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
                 ?
                 <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}><a href="#" style={{ "color": "#ffffff" }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}><i className="fa fa-message color-set"></i></a></p>
                 :
                 ''
+              } */}
+              {singleUserData.investorType === 'Accredited Investors' || singleUserData.investorType === 'Angel Investor' ?
+                <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}>
+                  <a href="#" style={{ "color": "#ffffff", fontSize: '5px' }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}>
+                    <i className="fa fa-message color-set" title="Do you have any query?"></i>
+                  </a>
+                </p>
+                :
+                ''
               }
+
               <div className="investments text-center">
                 <h2>Accepting Investments</h2>
               </div>
@@ -585,8 +598,6 @@ export default function CampaignsDetails() {
           </section>
         ) : null
       }
-
-
 
       {fundData?.company_overview && (
         <section id="overview" className="tabsSection">

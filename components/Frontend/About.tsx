@@ -260,7 +260,7 @@ const About = () => {
         <div className="default-shape">
           <div className="shape-1">
             <Image
-              src="assets/img/shape/4.png"
+              src="assets/images/shape/4.png"
               alt="image"
               width={15}
               height={15}
@@ -268,7 +268,7 @@ const About = () => {
           </div>
           <div className="shape-2 rotateme">
             <Image
-              src="assets/img/shape/5.svg"
+              src="assets/images/shape/5.svg"
               alt="image"
               width={22}
               height={22}
@@ -276,7 +276,7 @@ const About = () => {
           </div>
           <div className="shape-3">
             <Image
-              src="assets/img/shape/6.svg"
+              src="assets/images/shape/6.svg"
               alt="image"
               width={21}
               height={20}
@@ -284,7 +284,7 @@ const About = () => {
           </div>
           <div className="shape-4">
             <Image
-              src="assets/img/shape/7.png"
+              src="assets/images/shape/7.png"
               alt="image"
               width={18}
               height={18}
@@ -292,7 +292,7 @@ const About = () => {
           </div>
           <div className="shape-5">
             <Image
-              src="assets/img/shape/8.png"
+              src="assets/images/shape/8.png"
               alt="image"
               width={12}
               height={12}

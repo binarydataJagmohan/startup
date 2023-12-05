@@ -55,14 +55,14 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();    
+    const current_user_data: UserData = getCurrentUserData();
     current_user_data.role
       ? setCurrentUserRole(current_user_data.role)
-      : setCurrentUserRole("");   
+      : setCurrentUserRole("");
 
     getAllActiveFundsCount()
       .then((res) => {
-        if (res.status == true) {         
+        if (res.status == true) {
           setTotalActiveFunds(res.data);
         } else {
         }
@@ -71,7 +71,7 @@ const Header = () => {
 
     getSingleUserData(current_user_data.id)
       .then((res) => {
-        if (res.status == true) {          
+        if (res.status == true) {
           setUsers(res.data);
         }
       })
@@ -98,7 +98,7 @@ const Header = () => {
 
   const toggleMenu = (index: number) => {
     if (index === 1) {
-      settaggleUserMgmt((prevState) => !prevState);     
+      settaggleUserMgmt((prevState) => !prevState);
     } else {
       settaggleUserMgmt(true);
     }
@@ -129,7 +129,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -137,7 +137,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -147,7 +147,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -155,7 +155,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -424,7 +424,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-dark">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -432,7 +432,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -442,7 +442,7 @@ const Header = () => {
                     <Link href="/" className="logo logo-light">
                       <span className="logo-sm">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}
@@ -450,7 +450,7 @@ const Header = () => {
                       </span>
                       <span className="logo-lg">
                         <Image
-                          src="/assets/img/logo.png"
+                          src="/assets/images/logo.png"
                           alt="logo-image"
                           width={150}
                           height={70}

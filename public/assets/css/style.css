@@ -1478,17 +1478,17 @@ Banner Area CSS
 }
 
 .home-sliders .home-item.item-bg1 {
-  background-image: url(/assets/img/medium-shot-colleagues-working-together.jpg);
+  background-image: url(/assets/images/medium-shot-colleagues-working-together.jpg);
   height: 590px;
 }
 
 .home-sliders .home-item.item-bg2 {
-  background-image: url(/assets/img/colleagues.jpg);
+  background-image: url(/assets/images/colleagues.jpg);
   height: 590px;
 }
 
 .home-sliders .home-item.item-bg3 {
-  background-image: url(/assets/img/graphic.jpg);
+  background-image: url(/assets/images/graphic.jpg);
   height: 590px;
 }
 
@@ -1640,7 +1640,7 @@ Services Area CSS
 }
 
 .services-section.bg-background {
-  background-image: url(../../assets/img/services-bg.jpg);
+  background-image: url(../../assets/images/services-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2410,7 +2410,7 @@ Video Section CSS
 =================================================*/
 
 .video-section {
-  background-image: url(../../assets/img/bg-3.jpg);
+  background-image: url(../../assets/images/bg-3.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2735,7 +2735,7 @@ Clients Area CSS
 =================================================*/
 
 .clients-section.bg-background {
-  background-image: url(../../assets/img/clients-bg.jpg);
+  background-image: url(../../assets/images/clients-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4287,18 +4287,6 @@ Sidebar Widget Area CSS
   background-position: center center !important;
 }
 
-.widget-area .widget_fria_posts_thumb .item .thumb .fullimage.bg1 {
-  background-image: url(../../assets/img/blog-details/1.jpg);
-}
-
-.widget-area .widget_fria_posts_thumb .item .thumb .fullimage.bg2 {
-  background-image: url(../../assets/img/blog-details/2.jpg);
-}
-
-.widget-area .widget_fria_posts_thumb .item .thumb .fullimage.bg3 {
-  background-image: url(../../assets/img/blog-details/3.jpg);
-}
-
 .widget-area .widget_fria_posts_thumb .item .info {
   overflow: hidden;
   margin-top: 5px;
@@ -5031,7 +5019,7 @@ Fooetr Area CSS
 /*# sourceMappingURL=style.css.map */
 
 section#footer-sec {
-  background-image: url(../../assets/img/footer-bg.jpg) !important;
+  background-image: url(../../assets/images/footer-bg.jpg) !important;
   padding: 50px 0 !important;
   background-repeat: no-repeat;
   background-size: cover;
@@ -5265,11 +5253,11 @@ img .sidebar-img {
 }
 
 .investor-label {
-  background-image: url(../../assets/img/invest1.png);
+  background-image: url(../../assets/images/invest1.png);
 }
 
 .startup-label {
-  background-image: url(../../assets/img/startup2.png);
+  background-image: url(../../assets/images/startup2.png);
 }
 
 .input-group-text {
@@ -5575,11 +5563,11 @@ img .sidebar-img {
 }
 
 .investor-label {
-  background-image: url(../../assets/img/invest1.png);
+  background-image: url(../../assets/images/invest1.png);
 }
 
 .startup-label {
-  background-image: url(../../assets/img/startup2.png);
+  background-image: url(../../assets/images/startup2.png);
 }
 
 .input-group-text {
@@ -5895,27 +5883,27 @@ button.btnclasssmae {
 }
 
 .ser-banner-1 {
-  background-image: url(../../assets/img/services-details/Company-Incorporation.jpg);
+  background-image: url(../../assets/images/services-details/Company-Incorporation.jpg);
 }
 
 .ser-banner-2 {
-  background-image: url(../../assets/img/services-details/business-planning.png);
+  background-image: url(../../assets/images/services-details/business-planning.png);
 }
 
 .ser-banner-3 {
-  background-image: url(../../assets/img/services-details/Website-Development.png);
+  background-image: url(../../assets/images/services-details/Website-Development.png);
 }
 
 .ser-banner-4 {
-  background-image: url(../../assets/img/services-details/APP-DEVELOPMENT.png);
+  background-image: url(../../assets/images/services-details/APP-DEVELOPMENT.png);
 }
 
 .ser-banner-5 {
-  background-image: url(../../assets/img/services-details/servicefour.jpg);
+  background-image: url(../../assets/images/services-details/servicefour.jpg);
 }
 
 .ser-banner-6 {
-  background-image: url(../../assets/img/services-details/CFO-Services.png);
+  background-image: url(../../assets/images/services-details/CFO-Services.png);
 }
 
 .Services-box {
@@ -8184,4 +8172,35 @@ i.fa.fa-message.color-set {
 
 img.setimg-height {
   height: 460px !important;
+}
+
+i.fa.fa-message.color-set {
+  animation: color-set 2s ease-out infinite;
+}
+
+@keyframes color-set {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.5, 1.5);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.fa.fa-message.color-set[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: black;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  bottom: calc(100% + 5px);
+  /* Adjusting the positioning to the right */
+  right: 5px; /* You can adjust this value to suit your layout */
+  transform: translateX(0); /* Removing the transformation */
+  white-space: nowrap;
+  font-size: 8px !important;
+  letter-spacing: 2px !important;
 }
