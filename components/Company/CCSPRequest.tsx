@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { getAllInvestors } from "@/lib/frontendapi";
 interface UserData {
     id?: any;
+    role?: any;
 }
 type Investor = {
     id: number;
@@ -40,7 +41,9 @@ const CCSPRequest = () => {
     const current_user_data: UserData = getCurrentUserData();
     const [CCSPFundId, setCCSPFundId] = useState('');
     useEffect(() => {
-
+        if (current_user_data.role !== 'startup'){
+            router.back();
+        }
         if (current_user_data?.id != null) {
             setCurrentUserId(current_user_data.id);
         }
@@ -637,7 +640,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck!= "null"  ? user.pitch_deck : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (pitchDeckName ? pitchDeckName : (user.pitch_deck != "null" ? user.pitch_deck : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
 
                                                             </div>
@@ -715,7 +718,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials!= "null"  ? user.previous_financials : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (previousFinancialName ? previousFinancialName : (user.previous_financials != "null" ? user.previous_financials : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -753,7 +756,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table!= "null"  ? user.latest_cap_table : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (latestCapTableName ? latestCapTableName : (user.latest_cap_table != "null" ? user.latest_cap_table : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 
@@ -790,7 +793,7 @@ const CCSPRequest = () => {
 
                                                             <div className="file-select-name" id="noFile">
                                                                 {
-                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents!= "null"  ? user.other_documents : "No File Chosen ...")) : "No File Chosen ..."
+                                                                    id !== null ? (otherDocumentsName ? otherDocumentsName : (user.other_documents != "null" ? user.other_documents : "No File Chosen ...")) : "No File Chosen ..."
                                                                 }
                                                             </div>
 

@@ -4,24 +4,29 @@ import { getCurrentUserData } from "../../lib/session";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from 'moment';
+import { useRouter } from 'next/router';
 interface UserData {
     username?: string;
     role?: string;
     id?: string;
 }
 const AllNotifications = () => {
-    const tableRef = useRef<HTMLTableElement | null>(null);   
+    const tableRef = useRef<HTMLTableElement | null>(null);
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     const [notifications, setNotifications] = useState([]);
+    const router = useRouter();
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();       
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {
                 setNotifications(data.data);
                 updateNotification(current_user_data.id)
                     .then((res) => {
-                        
+
                     })
                     .catch((err) => {
                     });

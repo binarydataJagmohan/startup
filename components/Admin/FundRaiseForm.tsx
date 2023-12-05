@@ -13,6 +13,7 @@ import Link from 'next/link';
 
 interface UserData {
     id?: string;
+    role?: any;
 }
 interface FundRaiseData {
     id: "";
@@ -59,6 +60,10 @@ const FundRaiseForm = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }
         const fetchData = async (id: any) => {
             const data = await getBusinessInformation(id);
 

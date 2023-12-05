@@ -6,6 +6,7 @@ import axios from 'axios';
 import swal from "sweetalert";
 import Link from 'next/link';
 import { getToken, getCurrentUserData } from "../../lib/session";
+import { useRouter } from 'next/router';
 type Startup = {
     id: number;
     name: string;
@@ -18,15 +19,19 @@ type Startup = {
 }
 interface UserData {
     id?: string;
+    role?: any;
 }
-
 const StartupList = () => {
     const tableRef = useRef<HTMLTableElement | null>(null);
     const [startups, setStartupData] = useState<Startup[]>([]);
     const [current_user_id, setCurrentUserId] = useState("");
+    const router = useRouter();
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)
@@ -82,7 +87,7 @@ const StartupList = () => {
                             status: "active"
                         };
                         // Send Notifications to admin When new user is register
-                        sendNotification(data)                            
+                        sendNotification(data)
                         return {
                             ...startup,
                             approval_status: status,

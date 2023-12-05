@@ -11,21 +11,11 @@ import {
 } from "@/lib/adminapi";
 import { useRouter } from "next/router";
 import Image from 'next/image';
+import { getCurrentUserData } from "@/lib/session";
 
-interface Fund {
-    id: number;
-    fund_id: number;
-    tenure: string;
-    minimum_subscription: string;
-    amount: number;
-    status: string;
-    avg_amt_per_person: string;
-    repay_date: string;
-    closed_in: string;
-    type: string;
-    company_overview: string;
+interface UserData {   
+    role?: string; 
 }
-
 export default function AddProducts() {
     const [productdescription, setProductDescription] = useState("");
     const [productimage, setProductImage]: any = useState("");
@@ -55,6 +45,10 @@ export default function AddProducts() {
     };
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }  
         getAllCCSPCampaign().then((res) => {
 
             fetchAllproductdata();
@@ -96,7 +90,6 @@ export default function AddProducts() {
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
-        // formData.append("fund_id", fundid);
         formData.append("ccsp_fund_id", id as string);
         formData.append("product_description", productdescription);
         formData.append("product_image", productimage1);
@@ -115,10 +108,6 @@ export default function AddProducts() {
             });
         }
     };
-
-
-
-
 
     const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
@@ -155,7 +144,6 @@ export default function AddProducts() {
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [fundImageName, setFundImageName] = useState('');
     const [fundImageNameError, setFundImageNameError] = useState('');
-
 
     const handleUpdateLogoChange = (e: any) => {
         const file = e.target.files[0];

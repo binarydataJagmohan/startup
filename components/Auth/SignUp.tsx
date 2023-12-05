@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { userRegister, sendNotification } from "../../lib/frontendapi";
 import Link from 'next/link';
 import Image from 'next/image';
+import { getCurrentUserData } from "@/lib/session";
+import { useRouter } from "next/router";
 interface FormData {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
   role: string;
+}
+interface UserData {
+  role?: any;
 }
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
@@ -20,6 +25,7 @@ const Signup = () => {
   const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -150,6 +156,13 @@ const Signup = () => {
         });
       })
   };
+
+  useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== null) {
+      router.back();
+    }
+  });
 
   return (
     <>

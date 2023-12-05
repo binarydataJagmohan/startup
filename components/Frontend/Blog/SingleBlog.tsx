@@ -99,7 +99,7 @@ export default function SingleBlog(props: any) {
                                             <li>
                                                 <TwitterShareButton url={`${process.env.NEXT_PUBLIC_BASE_URL}blog/${slug}`}>
                                                     <li><Link href="#">
-                                                        <i className="flaticon-twitter"></i>
+                                                    <i className="fi fi-brands-twitter-alt-circle"></i>
                                                     </Link></li>
                                                 </TwitterShareButton>
                                             </li>

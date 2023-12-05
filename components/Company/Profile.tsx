@@ -16,6 +16,7 @@ type Country = {
 }
 interface UserData {
     id?: string;
+    role?: any;
 }
 
 const Profile = () => {
@@ -263,6 +264,9 @@ const Profile = () => {
 
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'startup') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)

@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 
 interface UserData {
   id?: any;
+  role?: any;
 }
 const TextEditor = dynamic(() => import("../Admin/TextEditor"), {
   ssr: false,
@@ -85,7 +86,19 @@ const Campagin = () => {
           setFundImage(selectedCampaign.fund_banner_image);
           setFundDesc(selectedCampaign.fund_desc);
         } else {
-          console.error("Selected fund not found in the response data");
+          setRoundName('');
+          setDilutionPercentage('');
+          setMinCommitment('');
+          setMaxCommitment('');
+          setValuationCap('');
+          setAmountRaised('');
+          setCompanyOverview('');
+          setProductDesc('');
+          setHistoricalFinancial('');
+          setPastFinancing('');
+          setFundName('');
+          setFundImage('');
+          setFundDesc('');
         }
       } else {
         console.error("No data or invalid response received from the API");
@@ -131,6 +144,9 @@ const Campagin = () => {
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'startup') {
+      router.back();
+    }
     if (current_user_data.id != null) {
       getCCSPCampaignForStartup(current_user_data.id)
         .then((res) => {
@@ -145,8 +161,6 @@ const Campagin = () => {
         .catch((err) => {
 
         });
-    } else {
-      window.location.href = "/login";
     }
   }, []);
 

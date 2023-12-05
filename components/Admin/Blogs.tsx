@@ -8,7 +8,7 @@ import { EditAndSaveBlogData, getAllBlogs, deleteblog } from "@/lib/adminapi";
 import { getCurrentUserData } from "../../lib/session";
 import swal from "sweetalert";
 import Image from 'next/image';
-
+import { useRouter } from "next/router";
 const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
 });
@@ -29,6 +29,9 @@ interface Blogs {
     blog_category_id?: string;
 }
 
+interface UserData {
+    role?: any;
+}
 
 export default function Blogs() {
     const tableRef = useRef(null);
@@ -57,8 +60,13 @@ export default function Blogs() {
     const [slugError, setSlugError] = useState('');
     const [nameError, setNameError] = useState('');
     const [descriptionError, setDescriptionError] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }
         if (blogs.length > 0 && !dataTableInitialized) {
             $(document).ready(() => {
                 $('#datatable').DataTable({

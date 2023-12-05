@@ -9,10 +9,16 @@ import Link from 'next/link';
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import { useForm } from "react-hook-form";
+import { getCurrentUserData } from '@/lib/session';
+import { useRouter } from 'next/router';
 
 type Country = {
     name: string;
     country_code: string;
+}
+
+interface UserData {
+    role?: string;
 }
 
 const EditAdmin = () => {
@@ -28,8 +34,13 @@ const EditAdmin = () => {
     const [startUpLogoError, setStartupLogoError] = useState('');
     const [startUpLogoSizeError, setStartupLogoSizeError] = useState('');
     const [startupLogoName, setStartupLogoName] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }
         const fetchData = async () => {
             const data = await getAdminData();
             if (data) {

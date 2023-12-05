@@ -10,6 +10,7 @@ interface UserData {
   id?: string;
   approval_status?: string;
   username?: string;
+  role?: any;
 }
 interface BusinessDetails {
   status: string;
@@ -35,6 +36,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+      router.back();
+    }
     const checkUserStatus = async () => {
       try {
         const res = await CheckUserApprovalStatus(current_user_data.id);
@@ -173,7 +177,7 @@ const Dashboard = () => {
   const pageCountDiscounting = Math.ceil(filteredDetailsDiscounting.length / itemsPerPage);
 
   const filteredDetailsCCSP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CCSP" && details.status === "open");
- 
+
   const pageCountCCSP = Math.ceil(filteredDetailsCCSP.length / itemsPerPage);
 
   const filteredDetailsCSOP = OpenfilteredBusinessDetails.filter((details: any) => details.type === "CSOP" && details.status === "open");
@@ -530,7 +534,7 @@ const Dashboard = () => {
                               </li>
                               <li>
                                 Max Commitment <span>₹{details.max_commitment}</span>
-                              </li>                            
+                              </li>
                               <li className="border-0">
                                 <a
                                   href={

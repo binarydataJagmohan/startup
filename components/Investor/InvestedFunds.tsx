@@ -3,6 +3,10 @@ import Image from 'next/image';
 import { getAllInvestedFundDetails } from "@/lib/investorapi";
 import { getCurrentUserData } from "../../lib/session";
 import Link from 'next/link';
+import { useRouter } from "next/router";
+interface UserData {
+    role?: any;
+}
 const InvestedFunds = () => {
     const [openBusinessDetails, setOpenBusinessDetails] = useState<any>([]);
     const fetchData = async () => {
@@ -19,11 +23,15 @@ const InvestedFunds = () => {
             console.error("Error fetching data:", error);
         }
     };
-
+    const router = useRouter();
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         fetchData();
     }, []);
-  
+
     return (
         <>
             <section className="invertor-campaign">
@@ -31,7 +39,7 @@ const InvestedFunds = () => {
                     <h3 className="featurred">Purchased Funds</h3>
                     <h6 className="trending">Invested in Startup Funds</h6>
                     <div className="bar" />
-                    <div className="row g-4" style={{cursor:"pointer"}}>
+                    <div className="row g-4" style={{ cursor: "pointer" }}>
                         {openBusinessDetails.map((details: any, index: any) => (
                             <div className="col-md-6 col-sm-12 col-lg-4" key={index} >
                                 <div className="product-grid container1 transtion">
@@ -45,7 +53,7 @@ const InvestedFunds = () => {
                                             }
                                         </Link>
                                     </div>
-                                    <div className="main-padding" style={{cursor:"pointer "}}>
+                                    <div className="main-padding" style={{ cursor: "pointer " }}>
                                         <div className="d-flex justify-content-between">
                                             <div className="product-content">
                                                 <h3 className="title">
@@ -78,7 +86,7 @@ const InvestedFunds = () => {
                                                 <div className="price">Paid Amount</div>
                                             </div>
                                         </div>
-                                    </div>                                  
+                                    </div>
                                 </div>
                             </div>
                         ))}

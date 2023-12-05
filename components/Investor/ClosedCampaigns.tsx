@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSingleClosedBusinessDetails } from '@/lib/investorapi';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCurrentUserData } from '@/lib/session';
 import Image from 'next/image';
 
 interface InputData {
@@ -25,6 +26,9 @@ interface InputData {
   terms?: string;
   amount?: string;
 }
+interface UserData {
+  role?: any;
+}
 const ClosedCampaigns = () => {
 
   const [inputs, setInputs] = useState<InputData>({});
@@ -33,6 +37,10 @@ const ClosedCampaigns = () => {
   const { id } = router.query;
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+      router.back();
+    }
     const fetchData = async () => {
       const res = await getSingleClosedBusinessDetails(id);
       setInputs(res.data);

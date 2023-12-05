@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { sendNotification } from "../../lib/frontendapi";
 interface UserData {
   id?: string;
-  // role?:string;
+  role?:string;
 }
 interface InputData {
   business_id?: string;
@@ -48,8 +48,10 @@ const Details = () => {
   const [ButtonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-
+    const current_user_data: UserData = getCurrentUserData();    
+    if (current_user_data.role !== 'investor') {
+        router.back();
+    }   
     if (current_user_data?.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id)
@@ -62,7 +64,6 @@ const Details = () => {
       const res = await getSingleBusinessDetails(id);
       setInputs(res.data);
       const userData: UserData = getCurrentUserData();
-      //  console.log(userData);
       setCurrentUserData(userData);
     };
     fetchData();
@@ -111,10 +112,9 @@ const Details = () => {
           // send notification
           sendNotification(notification)
             .then((notificationRes) => {
-              console.log("success");
             })
             .catch((error) => {
-              console.log("error occured");
+              console.error("error occured");
             });
 
           // toast.success(res.message, {
@@ -180,7 +180,6 @@ const Details = () => {
       const data3 = data2 / 366;
       const data4 = inputs && inputs.tenure ? data3 * inputs.tenure : 0;
       const newRepayValue = newSubscriptionValue + data4;
-      // console.log(newRepayValue)
       setRepayValue(newRepayValue);
     }
   };

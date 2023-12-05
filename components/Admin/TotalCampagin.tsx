@@ -11,9 +11,11 @@ import swal from "sweetalert";
 import PopupModal from "../../components/commoncomponents/PopupModal";
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { useRouter } from "next/router";
 
 interface UserData {
   id?: number;
+  role?: any;
 }
 
 const TextEditor = dynamic(() => import("./TextEditor"), {
@@ -131,9 +133,13 @@ const Campagin = () => {
     }
   };
 
+  const router = useRouter();
   const [dataTableInitialized, setDataTableInitialized] = useState(false);
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'admin') {
+      router.back();
+    }
     if (current_user_data.id != null) {
       current_user_data.id
         ? setCurrentUserId(current_user_data.id.toString())

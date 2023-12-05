@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getTotalUsers, getInvestorCounts, getStartupCounts, getAllActiveFundsCount } from '@/lib/adminapi';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-
+import { getCurrentUserData } from '@/lib/session';
+interface UserData {
+  role?: any;
+}
 const Dashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [investorCount, setInvestorCount] = useState(0);
@@ -12,6 +15,10 @@ const Dashboard = () => {
   const router = useRouter();
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'admin') {
+      router.back();
+    }
     const fetchUser = async () => {
       const data = await getTotalUsers();
       if (data) {
@@ -52,7 +59,7 @@ const Dashboard = () => {
     fetchAllActiveFundsCount();
   }, []);
 
-  useEffect(() => {  
+  useEffect(() => {
     const handleWindowLoad = () => {
       const element = document.getElementById('your-element-id1');
       if (element) {

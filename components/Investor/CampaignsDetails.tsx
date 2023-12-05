@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { sendNotification } from '../../lib/frontendapi'
 interface UserData {
   id?: string;
+  role?: any;
 }
 interface InputData {
   business_id?: string;
@@ -41,19 +42,12 @@ export default function CampaignsDetails() {
   const router = useRouter();
   const [checkboxError, setCheckboxError] = useState('');
   const { id } = router.query;
-  const [current_user_id, setCurrentUserId] = useState("");
 
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
-
-    if (current_user_data?.id != null) {
-      current_user_data.id
-        ? setCurrentUserId(current_user_data.id)
-        : setCurrentUserId("");
-    } else {
-      window.location.href = "/login";
+    if (current_user_data.role !== 'investor') {
+      router.back();
     }
-
     const fetchData = async () => {
       const res = await getSingleBusinessDetails(id);
       setInputs(res.data);

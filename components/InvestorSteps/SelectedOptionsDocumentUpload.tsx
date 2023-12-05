@@ -13,6 +13,7 @@ import Image from "next/image";
 
 interface UserData {
   id?: string;
+  role?: any;
 }
 export default function SelectedOptionsDocumentUpload(): any {
   const [proof_of_network, setProofOfNetWorth] = useState(null);
@@ -40,6 +41,9 @@ export default function SelectedOptionsDocumentUpload(): any {
   });
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
+    if (current_user_data.role !== 'investor') {
+      router.back();
+    }
     getSingleUserData(current_user_data.id)
       .then((res) => {
         if (res.status == true) {

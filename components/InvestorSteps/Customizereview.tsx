@@ -8,11 +8,10 @@ import { getAngelInvestorTerms, angelInvestorTermsSave, sendNotification, getSin
 import $ from "jquery";
 import Link from 'next/link';
 
-interface CurrentUserData {
-  id?: string;
-  name?: string;
+interface UserData {
+  role?: any;
+  id?: any;
 }
-
 export default function Customizereview(): any {
   const router = useRouter();
   const [current_user_id, setCurrentUserId] = useState("");
@@ -105,6 +104,10 @@ export default function Customizereview(): any {
   };
 
   useEffect(() => {
+    const current_user_data: UserData = getCurrentUserData();    
+    if (current_user_data.role !== 'investor') {
+        router.back();
+    }   
     $(document).ready(function () {
       $('#checkbox-group-1, #checkbox-group-2, #checkbox-group-3').hide();
       $('.options').on('change', function () {
@@ -114,7 +117,6 @@ export default function Customizereview(): any {
         $('#checkbox-group-' + selectedOption).show();
       });
     });
-    const current_user_data: CurrentUserData = getCurrentUserData();
 
     getSingleUserData(current_user_data.id)
       .then((res) => {

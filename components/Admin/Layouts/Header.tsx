@@ -349,6 +349,26 @@ const Header = () => {
                               <span>Notifications</span>
                             </Link>
                           </li>
+                          <li
+                            className={`nav-item ${router.pathname === "admin/contact-queries"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/contact-queries"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {unreadNotifications}
+                              </span>
+                              <span>Contact Queries</span>
+                            </Link>
+                          </li>
                           <li>
                             <Link
                               href="javascript:void(0)"
@@ -642,6 +662,26 @@ const Header = () => {
                                 {unreadNotifications}
                               </span>
                               <span>Notifications</span>
+                            </Link>
+                          </li>
+                          <li
+                            className={`nav-item ${router.pathname === "admin/contact-queries"
+                              ? "active p1"
+                              : ""
+                              }`}
+                          >
+                            <Link
+                              href={
+                                process.env.NEXT_PUBLIC_BASE_URL +
+                                "admin/contact-queries"
+                              }
+                              className="waves-effect"
+                            >
+                              <i className="fa fa-bell"></i>
+                              <span className="badge rounded-pill bg-danger float-end">
+                                {unreadNotifications}
+                              </span>
+                              <span>Contact Queries</span>
                             </Link>
                           </li>
                           <li>

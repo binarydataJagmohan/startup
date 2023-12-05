@@ -5,21 +5,17 @@ import { getAllUserData, SendMessageToUserByAdmin, CreateGroupChatByAdmin } from
 import { getStartupMessageData, getClickStartupUserChatData, ContactUserByStartup, ContactUserByStartupWithShareFile, getAdminDataStartup } from "../../../lib/companyapi";
 import { ToastContainer, toast } from "react-toastify";
 import moment from 'moment';
-import { formatDistanceToNow } from 'date-fns';
-//import { zonedTimeToUtc } from 'date-fns-tz';
 import PopupModalTwo from '../../commoncomponents/PopupModal';
 import PopupModalLarge from '../../commoncomponents/PopupModalLarge';
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { AnyPtrRecord } from "dns";
 export default function Chats(props: any) {
   let id = props.UserId;
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [adminchatsidebar, setAdminChatSiderBar] = useState<AdminSideBarChatMessages[]>([]);
 
   const [adminuserchefmesage, setAdminChatMessage] = useState<AdninChatMessages[]>([]);
-  const [receiver_id, setCurrentChatReceiverid] = useState("");
-  const [receiver_name, setCurrentChatReceiverName] = useState("");
   const [message, setMessage] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -58,7 +54,6 @@ export default function Chats(props: any) {
 
   const [modalConfirm, setModalConfirm] = useState(false);
 
-  const [image, setImage] = useState('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [Uploadimage, setUploadImage] = useState('');
   const [previewimage, setPreviewimage] = useState('');
@@ -182,10 +177,6 @@ export default function Chats(props: any) {
   }
 
   const [errors, setErrors] = useState<Errors>({});
-
-
-  const [group_name, setCurrentGroupName] = useState("");
-
   const [chatgroupmember, setChatGroupMember] = useState<ChatGroupMember[]>([]);
 
   const [chat_type, setCurrentChatType] = useState("");
@@ -203,7 +194,25 @@ export default function Chats(props: any) {
 
   const newsingleChatIdRef = useRef(null);
   const newgroupIdRef = useRef(null);
-
+  const router = useRouter();
+  useEffect(() => {
+    const userData = getCurrentUserData() as CurrentUserData;
+    if (userData.role !== 'startup') {
+      router.back();
+    }
+    fetchUserMessageDetails(userData.id);
+    fetchAllUserData();
+    fetchAdminData();
+    setCurrentUserData({
+      ...userData,
+      id: userData.id,
+      name: userData.name,
+      pic: userData.pic,
+      surname: userData.surname,
+      role: userData.role,
+      approved_by_admin: userData.approved_by_admin,
+    });
+  });
   useEffect(() => {
     // const data = isPageVisibleToRole("chef");
     // if (data == 2) {

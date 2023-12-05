@@ -5,6 +5,8 @@ import {  getCurrentUserData } from "../../lib/session";
 import { getTotalNotifications, updateNotification, deleteNotification } from "../../lib/adminapi";
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from "next/router";
+
 interface UserData {
     username?: string;
     role?: string;
@@ -14,8 +16,13 @@ const AllNotifications = () => {
     const tableRef = useRef<HTMLTableElement | null>(null);
     const [dataTableInitialized, setDataTableInitialized] = useState(false);   
     const [notifications, setNotifications] = useState([]);
+    const router = useRouter();
+
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'startup') {
+            router.back();
+        }
         const fetchData = async () => {
             const data = await getTotalNotifications(current_user_data.id);
             if (data) {

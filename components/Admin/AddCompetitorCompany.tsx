@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
-
 import {
     getAllCCSPCampaign,
     AdminAddCometitorCompany,
@@ -14,12 +13,16 @@ import {
     getAdminCompanydata,
     deleteCompany
 } from "@/lib/adminapi";
+import { getCurrentUserData } from "@/lib/session";
+
+
+interface UserData {   
+    role?: string; 
+}
 
 const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
 });
-
-
 
 // export default function AddCompetitorCompany() {
 const AddCompetitorCompany = () => {
@@ -38,7 +41,6 @@ const AddCompetitorCompany = () => {
     const router = useRouter();
     const { id } = router.query;
 
-
     const clearmemberInputData = () => {
         setCompanyLogo1("");
         setCompanyLogo("");
@@ -48,8 +50,11 @@ const AddCompetitorCompany = () => {
         setFundImageName("");
     };
 
-
     useEffect(() => {
+        const current_user_data: UserData = getCurrentUserData();    
+        if (current_user_data.role !== 'admin') {
+            router.back();
+        }  
         getAllCCSPCampaign().then((res) => {
 
             if (res.status === true && res.data.length > 0) {

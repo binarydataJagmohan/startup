@@ -5,12 +5,13 @@ import { getCurrentUserData } from "../../lib/session";
 import { getInvestorBookingDetails, savepayment } from '../../lib/investorapi';
 import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 
 interface UserData {
     id?: string;
+    role?: any;
 }
 const Payment = () => {
     const [current_user_id, setCurrentUserId] = useState("");
@@ -25,7 +26,7 @@ const Payment = () => {
         cvc: "",
         zip_code: ""
     });
-
+    const router = useRouter();
     const handleChange = (event: any) => {
         let { name, value } = event.target;
 
@@ -41,6 +42,9 @@ const Payment = () => {
     };
     useEffect(() => {
         const current_user_data: UserData = getCurrentUserData();
+        if (current_user_data.role !== 'investor') {
+            router.back();
+        }
         if (current_user_data?.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id)
@@ -83,12 +87,6 @@ const Payment = () => {
 
     }, []);
 
-    // useEffect(() => {
-
-    // });
-
-
-    console.log(businessdata)
     const SubmitForm = async () => {
         try {
             const res = await savepayment(paymentdata);

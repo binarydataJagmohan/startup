@@ -7,22 +7,19 @@ import { getInvestorMessageData, getClickInvestorUserChatData, ContactUserByInve
 
 import { ToastContainer, toast } from "react-toastify";
 import moment from 'moment';
-import { formatDistanceToNow } from 'date-fns';
 //import { zonedTimeToUtc } from 'date-fns-tz';
 import PopupModalTwo from '../../commoncomponents/PopupModal';
 import PopupModalLarge from '../../commoncomponents/PopupModalLarge';
+import { useRouter } from "next/router";
 import { AnyPtrRecord } from "dns";
 import Image from "next/image";
 
 export default function Chats(props: any) {
   let id = props.UserId;
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [adminchatsidebar, setAdminChatSiderBar] = useState<AdminSideBarChatMessages[]>([]);
 
   const [adminuserchefmesage, setAdminChatMessage] = useState<AdninChatMessages[]>([]);
-  const [receiver_id, setCurrentChatReceiverid] = useState("");
-  const [receiver_name, setCurrentChatReceiverName] = useState("");
   const [message, setMessage] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -61,7 +58,6 @@ export default function Chats(props: any) {
 
   const [modalConfirm, setModalConfirm] = useState(false);
 
-  const [image, setImage] = useState('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [Uploadimage, setUploadImage] = useState('');
   const [previewimage, setPreviewimage] = useState('');
@@ -206,7 +202,7 @@ export default function Chats(props: any) {
 
   const newsingleChatIdRef = useRef(null);
   const newgroupIdRef = useRef(null);
-
+  const router = useRouter();
   useEffect(() => {
     // const data = isPageVisibleToRole("chef");
     // if (data == 2) {
@@ -216,6 +212,9 @@ export default function Chats(props: any) {
     // }
     //if (data == 1) {
     const userData = getCurrentUserData() as CurrentUserData;
+    if (userData.role !== 'investor') {
+      router.back();
+    }
     fetchUserMessageDetails(userData.id);
     fetchAllUserData();
     fetchAdminData();
@@ -313,7 +312,7 @@ export default function Chats(props: any) {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     };
     const interval = setInterval(fetchData, 2000);
