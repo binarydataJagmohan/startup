@@ -362,7 +362,7 @@ const Header = () => {
                               }
                               className="waves-effect"
                             >
-                              <i className="fa fa-bell"></i>
+                              <i className="fa-solid fa-clipboard-question"></i>
                               <span className="badge rounded-pill bg-danger float-end">
                                 {unreadNotifications}
                               </span>
@@ -677,7 +677,7 @@ const Header = () => {
                               }
                               className="waves-effect"
                             >
-                              <i className="fa fa-bell"></i>
+                              <i className="fa-solid fa-clipboard-question"></i>
                               <span className="badge rounded-pill bg-danger float-end">
                                 {unreadNotifications}
                               </span>
