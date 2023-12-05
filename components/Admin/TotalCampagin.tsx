@@ -58,6 +58,24 @@ const Campagin = () => {
     null
   );
 
+
+  const resetform = () => {
+    setCompanyOverview("");
+    setProductDesc("");
+    setDilutionPercentage("");
+    setMinCommitment("");
+    setMaxCommitment("");
+    setValuationCap("");
+    setRoundName("");
+    setHistoricalFinancial("");
+    setPastFinancing("");
+    setFundName("");
+    setFundDesc("");
+    setFundImage("");
+    setPreviewImage("");
+    setAmountRaised("");
+  };
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownToggle = async (index: any, fundId: number, e: any) => {
@@ -103,7 +121,7 @@ const Campagin = () => {
             setFundImage(selectedCampaign.fund_banner_image);
             setFundDesc(selectedCampaign.fund_desc);
           } else {
-            console.error("Selected fund not found in the response data");
+            resetform();
           }
         } else {
           console.error("No data or invalid response received from the API");
@@ -431,6 +449,8 @@ const Campagin = () => {
     }
   };
 
+
+
   return (
     <>
       <div className="main-content">
@@ -508,7 +528,7 @@ const Campagin = () => {
                                             onClick={(e) =>
                                               handleDropdownToggle(
                                                 index,
-                                                fund.ccsp_fund_id, e
+                                                fund.ccsp_fund_id, e,
                                               )
                                             }
                                             className="fa-solid fa-ellipsis"
@@ -533,6 +553,7 @@ const Campagin = () => {
                                                 href="#"
                                                 onClick={(e) => {
                                                   setModalConfirm(true);
+                                                  // resetform();
                                                 }}
                                               >
                                                 Company Overview
