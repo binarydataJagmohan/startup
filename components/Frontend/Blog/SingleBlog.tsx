@@ -20,8 +20,6 @@ interface Blog {
 
 
 export default function SingleBlog(props: any) {
-
-
     const [blog, setBlog] = useState<Blog | null>(null);
     const [blogs, setAllBlogs] = useState<Blog[]>([]);
 
@@ -31,7 +29,6 @@ export default function SingleBlog(props: any) {
             setAllBlogs(props.blog.data);
         }
     }, [props]);
-
 
     const formatDate = (dateStr: string) => {
         const date = new Date(dateStr);
@@ -45,6 +42,7 @@ export default function SingleBlog(props: any) {
 
     const router = useRouter();
     const { slug } = router.query;
+
     return (
         <>
             <Head>
@@ -116,7 +114,6 @@ export default function SingleBlog(props: any) {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>

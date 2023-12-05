@@ -14,7 +14,7 @@ const EditUser = () => {
     const router = useRouter();
 
     const [users, setUsers] = useState(
-        { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });   
+        { name: '', email: '', country: '', phone: '', city: '', status: '', role: '', linkedin_url: 'fsd', gender: '' });
 
     useEffect(() => {
         const fetchData = async (id: any) => {
@@ -27,7 +27,7 @@ const EditUser = () => {
             fetchData(router.query.id);
         }
     }, [router.query.id]);
-   
+
     return (
         <>
             <div className='main-content'>
@@ -68,7 +68,7 @@ const EditUser = () => {
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Name{" "}
                                                         <span style={{ color: "red" }}>*</span>
                                                     </label>
-                                                    <input type="text" className="form-control " id="name" name="name" readOnly value={users.name} placeholder="Enter Your Name" />                                                   
+                                                    <input type="text" className="form-control " id="name" name="name" readOnly value={users.name} placeholder="Enter Your Name" />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Email Address{" "}
