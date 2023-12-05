@@ -14,7 +14,7 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/1.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/1.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -28,7 +28,7 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/2.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/2.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -42,13 +42,13 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/3.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/3.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">
                                     <Link href="single-services.html">
                                         <h3>Budget Accounting</h3>
-                                    </Link>                         
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/4.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/4.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -70,7 +70,7 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/5.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/5.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">
@@ -84,7 +84,7 @@ export default function ServiceTwo() {
                             <div className="single-agency">
                                 <div className="image">
                                     <Link href="single-services.html">
-                                        <img src="assets/img/agency-services/6.jpg" alt="image" />
+                                        <img src="assets/images/agency-services/6.jpg" alt="image" />
                                     </Link>
                                 </div>
                                 <div className="content">

@@ -15,7 +15,7 @@ const Footer = () => {
                       <Image
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +
-                          "assets/img/footerlogo.png"
+                          "assets/images/footerlogo.png"
                         }
                         className="black-logo"
                         alt="image"
@@ -160,7 +160,7 @@ const Footer = () => {
                 <div className="footer-info-contact">
                   <i className="flaticon-pin text-white" ></i>
                   <div className="d-md-flex">
-                  <h3 className="text-white"><strong>Address :</strong></h3>
+                    <h3 className="text-white"><strong>Address :</strong></h3>
                     <span>
                       <Link
                         href="https://maps.app.goo.gl/qfUTa7u5qc74X52p9"

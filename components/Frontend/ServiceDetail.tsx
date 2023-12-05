@@ -7,7 +7,7 @@ export default function ServiceDetail() {
                 <div className="container">
                     <div className="services-details-video">
                         <div className="details-image">
-                            <img src="assets/img/services-details/bg.jpg" alt="image" />
+                            <img src="assets/images/services-details/bg.jpg" alt="image" />
                         </div>
                         <div className="details-video">
                             <Link href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
@@ -37,7 +37,7 @@ export default function ServiceDetail() {
                             </div>
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/1.jpg" alt="image" />
+                                    <img src="assets/images/services-details/1.jpg" alt="image" />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@ export default function ServiceDetail() {
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/img/services-details/2.jpg" alt="image" />
+                                    <img src="assets/images/services-details/2.jpg" alt="image" />
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">

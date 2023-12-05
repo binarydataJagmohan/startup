@@ -110,7 +110,7 @@ export default function HeaderFrontend() {
                 <Link href="/">
                   <Image
                     src={
-                      process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"
+                      process.env.NEXT_PUBLIC_BASE_URL + "assets/images/logo.png"
                     }
                     className="black-logo"
                     alt="image"
@@ -138,7 +138,7 @@ export default function HeaderFrontend() {
             <nav className="navbar navbar-expand-md navbar-light">
               <Link className="navbar-brand" href="/">
                 <Image
-                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/logo.png"}
                   className="black-logo headerlogo"
                   alt="image"
                   height={52}
@@ -235,7 +235,7 @@ export default function HeaderFrontend() {
           <h5 className="offcanvas-title text-center" id="offcanvasRightLabel">
             <Link className="navbar-brand" href="/">
               <Image
-                src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/logo.png"}
+                src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/logo.png"}
                 className="black-logo pt-5"
                 alt="logo-image"
                 width={150}
@@ -275,7 +275,7 @@ export default function HeaderFrontend() {
             <div className="others-options mt-2">
               {users.name ? (
                 <div className="dropdown">
-                  <Link  href="#" onClick={myFunction} className="dropbtn text-white">
+                  <Link href="#" onClick={myFunction} className="dropbtn text-white">
                     {users.name}&nbsp;<i className="fa-solid fa-caret-down" />
                   </Link>
                   <div

@@ -10,7 +10,7 @@ export default function Errors() {
             <div className="container mt-5">
               <div className="error-content">
                 <Image
-                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/img/404.png"} alt="error"
+                  src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/404.png"} alt="error"
                   width={400}
                   height={266}
                   style={{ marginTop: '15%' }}

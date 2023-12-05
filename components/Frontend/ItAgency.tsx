@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 const It = () => {
   return (
     <>
@@ -10,9 +10,7 @@ const It = () => {
           <div className="section-title">
             <h2>Our Services</h2>
             <p>
-              Our team of experienced investment professionals will work with
-              you to develop a customized investment strategy that aligns with
-              your risk tolerance, time horizon, and financial objectives.
+              Our team of experienced investment professionals will work with you to develop a customized investment strategy that aligns with your risk tolerance, time horizon, and financial objectives.
             </p>
             <div className="bar" />
           </div>
@@ -25,10 +23,7 @@ const It = () => {
                   </div>
                   <h3>Company Incorporation</h3>
                   <p>
-                    Company incorporation services for investment projects
-                    typically refer to the process of legally registering a new
-                    company or business entity for the purpose of carrying out a
-                    specific investment project.
+                    Company incorporation services for investment projects typically refer to the process of legally registering a new company or business entity for the purpose of carrying out a specific investment project.
                   </p>
                   Read More
                 </div>
@@ -42,10 +37,7 @@ const It = () => {
                   </div>
                   <h3>Business Planning</h3>
                   <p>
-                    Business Planning services are tailored to meet the unique
-                    needs of each investment project. We provide a range of
-                    services, including feasibility studies, market research,
-                    financial modeling, and risk assessment.
+                    Business Planning services are tailored to meet the unique needs of each investment project. We provide a range of services, including feasibility studies, market research, financial modeling, and risk assessment.
                   </p>
                   Read More
                 </div>
@@ -59,11 +51,7 @@ const It = () => {
                   </div>
                   <h3>Website Development</h3>
                   <p>
-                    In today's digital age, having a strong online presence is
-                    crucial for the success of any investment project. A
-                    well-designed and user-friendly website can help attract
-                    potential investors, build brand awareness, and showcase
-                    your investment opportunities in a professional manner.
+                    In today's digital age, having a strong online presence is crucial for the success of any investment project. A well-designed and user-friendly website can help attract potential investors, build brand awareness, and showcase your investment opportunities in a professional manner.
                   </p>
                   Read More
                 </div>
@@ -77,11 +65,7 @@ const It = () => {
                   </div>
                   <h3>App Development</h3>
                   <p>
-                    App development services are designed to help your
-                    investment project succeed in the digital age. We specialize
-                    in creating custom apps that meet the unique needs of our
-                    clients, whether you're launching a new investment platform
-                    or looking to streamline your existing operations.
+                    App development services are designed to help your investment project succeed in the digital age. We specialize in creating custom apps that meet the unique needs of our clients, whether you're launching a new investment platform or looking to streamline your existing operations.
                   </p>
                   Read More
                 </div>
@@ -95,11 +79,7 @@ const It = () => {
                   </div>
                   <h3>Marketing and Branding</h3>
                   <p>
-                    Marketing and branding services play a crucial role in the
-                    success of any business, especially for investment projects.
-                    Our team of experts specializes in developing effective
-                    marketing strategies that will help your business reach its
-                    target audience and stand out from competitors.
+                    Marketing and branding services play a crucial role in the success of any business, especially for investment projects. Our team of experts specializes in developing effective marketing strategies that will help your business reach its target audience and stand out from competitors.
                   </p>
                   Read More
                 </div>
@@ -113,11 +93,7 @@ const It = () => {
                   </div>
                   <h3>CFO Services</h3>
                   <p>
-                    CFO (Chief Financial Officer) Services are an integral part
-                    of any successful business. It involves managing the
-                    financial aspects of a company and providing financial
-                    advice to help the company grow and make sound investment
-                    decisions.
+                    CFO (Chief Financial Officer) Services are an integral part of any successful business. It involves managing the financial aspects of a company and providing financial advice to help the company grow and make sound investment decisions.
                   </p>
                   Read More
                 </div>
@@ -127,55 +103,24 @@ const It = () => {
         </div>
         <div className="default-shape">
           <div className="shape-1">
-            <Image
-              src="assets/img/shape/4.png"
-              alt="image"
-              width={15}
-              height={15}
-            />
+            <Image src="assets/images/shape/4.png" alt="image" width={15} height={15} />
           </div>
           <div className="shape-2 rotateme">
-            <Image
-              src="assets/img/shape/5.svg"
-              alt="image"
-              width={22}
-              height={22}
-            />
+            <Image src="assets/images/shape/5.svg" alt="image" width={22} height={22} />
           </div>
           <div className="shape-3">
-            <Image
-              src="assets/img/shape/6.svg"
-              alt="image"
-              width={21}
-              height={20}
-            />
+            <Image src="assets/images/shape/6.svg" alt="image" width={21} height={20} />
           </div>
           <div className="shape-4">
-            <Image
-              src="assets/img/shape/7.png"
-              alt="image"
-              width={18}
-              height={18}
-            />
+            <Image src="assets/images/shape/7.png" alt="image" width={18} height={18} />
           </div>
           <div className="shape-5">
-            <Image
-              src="assets/img/shape/8.png"
-              alt="image"
-              width={12}
-              height={12}
-            />
+            <Image src="assets/images/shape/8.png" alt="image" width={12} height={12} />
           </div>
         </div>
         <div className="services-shape">
-          <Image
-            src="assets/img/cloud.png"
-            className="white-image"
-            alt="image"
-            width={1351}
-            height={233}
-            layout="responsive"
-          />
+          <Image src="assets/images/cloud.png" className="white-image" alt="image" width={1351} height={233} layout="responsive" />
+
         </div>
       </section>
       {/* End Services Area */}

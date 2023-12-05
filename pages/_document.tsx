@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
- 
+
   return (
     <Html lang="en">
       <Head>
@@ -39,9 +39,9 @@ export default function Document() {
         {/* <!-- Responsive CSS --> */}
         <link rel="stylesheet" href={process.env.NEXT_PUBLIC_BASE_URL + 'assets/css/responsive.css'} />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="icon" type="image/png" href={process.env.NEXT_PUBLIC_BASE_URL + 'assets/img/favicon.png'} />
+        <link rel="icon" type="image/png" href={process.env.NEXT_PUBLIC_BASE_URL + 'assets/images/favicon.png'} />
 
-       
+
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/bootstrap.min.css"} id="bootstrap-style" rel="stylesheet" type="text/css" />
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/icons.min.css"} rel="stylesheet" type="text/css" />
         <link href={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/css/app.min.css"} id="app-style" rel="stylesheet" type="text/css" />
@@ -52,7 +52,7 @@ export default function Document() {
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></link>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200;0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;0,8..60,800;0,8..60,900;1,8..60,200&display=swap" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></link>
-      </Head>    
+      </Head>
       <body>
         <Main />
         <NextScript />
@@ -65,7 +65,7 @@ export default function Document() {
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/libs/peity/jquery.peity.min.js"}></script>
 
-       
+
 
         <script src={process.env.NEXT_PUBLIC_BASE_URL + "assets/admin/js/app.js"}></script>
         <script type="text/javascript" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>

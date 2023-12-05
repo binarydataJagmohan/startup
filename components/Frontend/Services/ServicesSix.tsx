@@ -4,13 +4,13 @@ import Image from 'next/image'
 export default function serviceSix() {
     return (
         <>
-         <section className='Services-box ser-banner-5'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>CFO Services for Investment Projects</h3>
-                <p>At times, investment projects require specialized financial expertise to ensure smooth operations and successful outcomes. Our Chief Financial Officer (CFO) Services provide expert financial guidance to ensure that your investment project is profitable and sustainable.</p>
+            <section className='Services-box ser-banner-5'>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>CFO Services for Investment Projects</h3>
+                        <p>At times, investment projects require specialized financial expertise to ensure smooth operations and successful outcomes. Our Chief Financial Officer (CFO) Services provide expert financial guidance to ensure that your investment project is profitable and sustainable.</p>
+                    </div>
                 </div>
-             </div>
             </section>
 
             <section className="services-details-area ptb-50">
@@ -22,7 +22,7 @@ export default function serviceSix() {
                                     <h3>Some specific services that CFOs can provide for investment projects include:</h3>
                                     <p>CFO Services a company offers several benefits to investment projects, including:</p>
                                     <ul>
-                                    <li><p>Financial Analysis</p></li>
+                                        <li><p>Financial Analysis</p></li>
                                         <li><p>Budgeting and Forecasting</p></li>
                                         <li><p>Financial Reporting</p></li>
                                         <li><p>Financial modeling and analysis</p></li>
@@ -33,9 +33,9 @@ export default function serviceSix() {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
+                                <div className="services-details-image">
                                     <Image
-                                        src="assets/img/services-details/CFO-Services.jpg"  alt="image"
+                                        src="assets/images/services-details/CFO-Services.jpg" alt="image"
                                         width={440}
                                         height={370}
                                     />
@@ -47,8 +47,8 @@ export default function serviceSix() {
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                <Image
-                                        src="assets/img/services-details/2.jpg" alt="image"
+                                    <Image
+                                        src="assets/images/services-details/2.jpg" alt="image"
                                         width={546}
                                         height={546}
                                     />
@@ -86,9 +86,9 @@ export default function serviceSix() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

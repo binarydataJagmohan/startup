@@ -36,7 +36,7 @@ export default function serviceThree() {
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
                                     <Image
-                                        src="assets/img/services-details/Website-Development-single.jpg" alt="image"
+                                        src="assets/images/services-details/Website-Development-single.jpg" alt="image"
                                         width={440}
                                         height={370}
                                     />
@@ -49,7 +49,7 @@ export default function serviceThree() {
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
                                     <Image
-                                        src="assets/img/services-details/2.jpg" alt="image"
+                                        src="assets/images/services-details/2.jpg" alt="image"
                                         width={546}
                                         height={546}
                                     />

@@ -4,13 +4,13 @@ import Image from 'next/image';
 export default function serviceOne() {
     return (
         <>
-        <section className='Services-box ser-banner-4'>
-            <div className='bg-overlay'>
-                <div className="container">
-                <h3>Our Company Incorporation Services</h3>
-                <p>When starting a new investment project, it's crucial to establish a legal entity to protect your personal assets and limit your liabilities. That's where Company Incorporation services come in. These services provide assistance with registering and setting up a new legal entity, including selecting the appropriate business structure, registering with the relevant authorities, and drafting the necessary legal documents.</p>
+            <section className='Services-box ser-banner-4'>
+                <div className='bg-overlay'>
+                    <div className="container">
+                        <h3>Our Company Incorporation Services</h3>
+                        <p>When starting a new investment project, it's crucial to establish a legal entity to protect your personal assets and limit your liabilities. That's where Company Incorporation services come in. These services provide assistance with registering and setting up a new legal entity, including selecting the appropriate business structure, registering with the relevant authorities, and drafting the necessary legal documents.</p>
+                    </div>
                 </div>
-             </div>
             </section>
 
             <section className="services-details-area ptb-50">
@@ -30,11 +30,11 @@ export default function serviceOne() {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
-                                    <Image 
-                                    src="assets/img/services-details/company-single.jpg" alt="image"
-                                    width={440}
-                                    height={370}
+                                <div className="services-details-image">
+                                    <Image
+                                        src="assets/images/services-details/company-single.jpg" alt="image"
+                                        width={440}
+                                        height={370}
                                     />
                                 </div>
                             </div>
@@ -43,11 +43,11 @@ export default function serviceOne() {
                     <div className="services-details-overview">
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
-                                <div className="services-details-image">                                    
-                                    <Image 
-                                    src="assets/img/services-details/2.jpg" alt="image"
-                                    width={546}
-                                    height={546}
+                                <div className="services-details-image">
+                                    <Image
+                                        src="assets/images/services-details/2.jpg" alt="image"
+                                        width={546}
+                                        height={546}
                                     />
                                 </div>
                             </div>
@@ -83,9 +83,9 @@ export default function serviceOne() {
                                 </div>
                             </div>
                             <div className="col-lg-12 col-md-12">
-                            <div className="send-btn text-center mt-5">
-                            <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
-                            </div>
+                                <div className="send-btn text-center mt-5">
+                                    <Link href="/contact"><button className="default-btn">Contact-us</button></Link>
+                                </div>
                             </div>
                         </div>
                     </div>

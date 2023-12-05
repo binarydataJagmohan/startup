@@ -69,9 +69,8 @@ export default function FrequentlyQuestions() {
                   {faqData.map((faq, index) => (
                     <li className="accordion-item" key={index}>
                       <Link
-                        className={`accordion-title ${
-                          activeAccordion === index ? "active" : ""
-                        }`}
+                        className={`accordion-title ${activeAccordion === index ? "active" : ""
+                          }`}
                         href="javascript:void(0)"
                         onClick={() => toggleAccordion(index)}
                       >
@@ -79,9 +78,8 @@ export default function FrequentlyQuestions() {
                         {faq.question}
                       </Link>
                       <div
-                        className={`accordion-content ${
-                          activeAccordion === index ? "show" : ""
-                        }`}
+                        className={`accordion-content ${activeAccordion === index ? "show" : ""
+                          }`}
                       >
                         <p>{faq.answer}</p>
                       </div>
@@ -93,7 +91,7 @@ export default function FrequentlyQuestions() {
             <div className="col-lg-6 order-lg-0 order-first">
               <div className="faq-image transtion">
                 <Image
-                  src="assets/img/faq.png"
+                  src="assets/images/faq.png"
                   alt="image"
                   width={546}
                   height={423}
