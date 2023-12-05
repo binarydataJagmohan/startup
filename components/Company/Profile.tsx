@@ -8,6 +8,7 @@ import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import Image from 'next/image';
 import { InvestorPersonalInfoUpdate } from '../../lib/investorapi';
 type Country = {
     name: string;
@@ -1750,12 +1751,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.pan_card_front
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -1869,12 +1872,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.pan_card_back
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -1987,12 +1992,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.adhar_card_front
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -2104,12 +2111,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.adhar_card_back
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -2224,12 +2233,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.certificate_incorporation
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -2342,12 +2353,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.bank_statement_three_years
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -2456,12 +2469,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.moa
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",
@@ -2570,12 +2585,14 @@ const Profile = () => {
                                                                                                     }
                                                                                                     target="_blank"
                                                                                                 >
-                                                                                                    <img
+                                                                                                    <Image
                                                                                                         src={
                                                                                                             process.env.NEXT_PUBLIC_IMAGE_URL +
                                                                                                             "docs/" +
                                                                                                             documentDetails.aoa
                                                                                                         }
+                                                                                                        height={100}
+                                                                                                        width={100}
                                                                                                         alt="Document Image"
                                                                                                         style={{
                                                                                                             width: "150px",

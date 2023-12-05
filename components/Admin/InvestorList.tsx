@@ -65,7 +65,7 @@ const InvestorList = () => {
                             status: "active"
                         };
                         // Send Notifications to admin When new user is register
-                        sendNotification(data)                           
+                        sendNotification(data)
                         return {
                             ...investor,
                             approval_status: status,
@@ -167,6 +167,8 @@ const InvestorList = () => {
             $(document).ready(() => {
                 $('#datatable').DataTable({
                     lengthMenu: [10, 25, 50, 75, 100],
+                    retrieve: true,
+                    paging: false,
                     columnDefs: [
                         { targets: [0, 1, 2], orderable: true },
                         { targets: '_all', orderable: false },
@@ -239,7 +241,7 @@ const InvestorList = () => {
                                                                         <ul className="table-icons-right d-md-flex">
                                                                             <li className="edit">
                                                                                 <Link href={process.env.NEXT_PUBLIC_BASE_URL + `admin/edit-investor/?id=${investor.id}`}>
-                                                                                <span className="fa fa-eye"></span>
+                                                                                    <span className="fa fa-eye"></span>
                                                                                 </Link>
                                                                             </li>
                                                                             <li className="trash">

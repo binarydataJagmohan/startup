@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useElements } from '@stripe/react-stripe-js';
+import Image from 'next/image';
 
 
 interface UserData {
@@ -157,7 +158,7 @@ const Payment = () => {
                                 <div className="css-1d6tso">
                                     <div className="logo-company">
                                         <div className="img">
-                                            <img src={businessdata.logo} alt="" />
+                                            <Image src={businessdata.logo} alt="" height={100} width={100} />
                                         </div>
                                     </div>
 

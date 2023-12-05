@@ -7,6 +7,7 @@ import { getBusinessInformationBusinessId } from '../../lib/frontendapi';
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
 
 interface UserData {
     id?: string;
@@ -28,7 +29,7 @@ const Payment = () => {
     const handleChange = (event: any) => {
         let { name, value } = event.target;
 
-        setPaymentData((prevState:any) => {
+        setPaymentData((prevState: any) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -80,7 +81,7 @@ const Payment = () => {
                 });
             });
 
-    },[]);
+    }, []);
 
     // useEffect(() => {
 
@@ -121,7 +122,7 @@ const Payment = () => {
                                 <div className="css-1d6tso">
                                     <div className="logo-company">
                                         <div className="img">
-                                            <img src={businessdata.logo} alt="" />
+                                            <Image src={businessdata.logo} alt="" height={100} width={100} />
                                         </div>
                                     </div>
 
@@ -168,8 +169,8 @@ const Payment = () => {
                                 <label htmlFor="SecurityCode">CVC</label>
                                 <div className="input-container">
                                     <input id="SecurityCode" className="form-control" type="text" {...register("cvc", {
-                                    required: true
-                                })}  onChange={handleChange} />
+                                        required: true
+                                    })} onChange={handleChange} />
                                     <i id="cvc" className="fa fa-question-circle" />
                                 </div>
                                 <div className="cvc-preview-container two-card hide">
@@ -181,8 +182,8 @@ const Payment = () => {
                                 <label htmlFor="ZIPCode">ZIP/Postal code</label>
                                 <div className="input-container">
                                     <input id="ZIPCode" className="form-control" type="text" {...register("zip_code", {
-                                    required: true
-                                })}  onChange={handleChange} maxLength={10} />
+                                        required: true
+                                    })} onChange={handleChange} maxLength={10} />
                                     <i className="fa fa-question-circle" />
                                 </div>
                             </div>

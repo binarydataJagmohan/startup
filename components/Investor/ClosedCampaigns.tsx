@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSingleClosedBusinessDetails } from '@/lib/investorapi';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
 
 interface InputData {
   business_id?: string;
@@ -68,7 +69,7 @@ const ClosedCampaigns = () => {
                     <div className="logo-company">
                       <div className="img">
                         {inputs.logo && (
-                          <img src={inputs.logo} alt="" />
+                          <Image src={inputs.logo} alt="" height={100} width={100} />
                         )}
                       </div>
                     </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 export default function ServiceDetail() {
     return (
         <>
@@ -7,7 +8,7 @@ export default function ServiceDetail() {
                 <div className="container">
                     <div className="services-details-video">
                         <div className="details-image">
-                            <img src="assets/images/services-details/bg.jpg" alt="image" />
+                            <Image src="assets/images/services-details/bg.jpg" alt="image" height={100} width={100} />
                         </div>
                         <div className="details-video">
                             <Link href="https://www.youtube.com/watch?v=gFQNPmLKj1k" className="video-btn popup-youtube">
@@ -37,7 +38,7 @@ export default function ServiceDetail() {
                             </div>
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/images/services-details/1.jpg" alt="image" />
+                                    <Image src="assets/images/services-details/1.jpg" alt="image" height={100} width={100} />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +47,7 @@ export default function ServiceDetail() {
                         <div className="row align-items-center">
                             <div className="col-lg-6 col-md-12">
                                 <div className="services-details-image">
-                                    <img src="assets/images/services-details/2.jpg" alt="image" />
+                                    <Image src="assets/images/services-details/2.jpg" alt="image" height={100} width={100} />
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
