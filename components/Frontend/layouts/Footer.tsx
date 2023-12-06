@@ -42,7 +42,7 @@ const Footer = () => {
                       <Image
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +
-                          "assets/img/twitter.png"
+                          "assets/images/twitter.png"
                         }
                         className="black-logo"
                         alt="image"
