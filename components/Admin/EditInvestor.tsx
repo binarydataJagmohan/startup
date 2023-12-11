@@ -159,7 +159,7 @@ const EditInvestor = () => {
                       </div>
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Linkedin Url{" "}
-                          <span style={{ color: "red" }}>*</span>
+                          
                         </label>
                         <div className="form-part">
                           <input
@@ -184,7 +184,7 @@ const EditInvestor = () => {
                       </div>
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
-                          <span style={{ color: "red" }}>*</span>
+                          
                         </label>
                         <div className="form-part">
                           <div className="mt-3">
@@ -201,7 +201,7 @@ const EditInvestor = () => {
                     <div className="row">
                       <div className="col-sm-6">
                         <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
-                          <span style={{ color: "red" }}>*</span>
+                          
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="City" name="city" value={investor.city} readOnly />

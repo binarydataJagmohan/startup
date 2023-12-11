@@ -73,13 +73,13 @@ const EditUser = () => {
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Name{" "}
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
                                                     <input type="text" className="form-control " id="name" name="name" readOnly value={users.name} placeholder="Enter Your Name" />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Email Address{" "}
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
                                                     <input
                                                         type="email"
@@ -95,7 +95,7 @@ const EditUser = () => {
                                             <div className="row g-3 mt-1">
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
                                                     <PhoneInput
                                                         disabled
@@ -106,7 +106,7 @@ const EditUser = () => {
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">LinkedIn Url
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
 
                                                     <input type="text" className="form-control" id="linkedin_url" readOnly value={users.linkedin_url} name="linkedin_url" placeholder="Enter Your LinkedIn profile" />
@@ -116,7 +116,7 @@ const EditUser = () => {
                                             <div className="row g-3">
                                                 <div className="col-md-6 mt-4">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
 
                                                     <input type="text" readOnly className="form-control" id="city" name="city" value={users.city} placeholder="Enter Your City" />
@@ -125,7 +125,7 @@ const EditUser = () => {
 
                                                 <div className="col-md-6 mt-4">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label ">Country
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
                                                     <input type="text" readOnly className="form-control" id="Country" name="Country" value={users.country} placeholder="Enter Your Country" />
                                                 </div>
@@ -134,7 +134,7 @@ const EditUser = () => {
                                             <div className="row g-3">
                                                 <div className="col-md-6 mt-5">
                                                     <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}
-                                                        <span style={{ color: "red" }}>*</span>
+                                                        
                                                     </label>
                                                     <input type="text" readOnly className="form-control" id="gender" name="gender" value={users.gender} placeholder="Enter Your City" />
                                                 </div>
@@ -143,13 +143,13 @@ const EditUser = () => {
                                                     <div className='row'>
                                                         <div className='col-sm-6'>
                                                             <label htmlFor="exampleFormControlInput1" className="form-label">Role{" "}
-                                                                <span style={{ color: "red" }}>*</span>
+                                                                
                                                             </label>
                                                             <input type="text" readOnly className="form-control" id="role" name="role" value={users.role} placeholder="Enter Your Role" />
                                                         </div>
                                                         <div className='col-sm-6'>
                                                             <label htmlFor="exampleFormControlInput1" className="form-label">Status{" "}
-                                                                <span style={{ color: "red" }}>*</span>
+                                                                
                                                                 <input type="text" readOnly className="form-control mt-2" id="status" name="status" value={users.status} placeholder="Enter Your status" />
                                                             </label>
                                                         </div>

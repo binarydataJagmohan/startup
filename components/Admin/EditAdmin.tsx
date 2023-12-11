@@ -55,7 +55,10 @@ const EditAdmin = () => {
         e.preventDefault();
         setMissingFields([]);
         setInvalidFields([]);
-
+        if (startUpLogoError !== '' || startUpLogoSizeError !== '' ) {
+            console.error('validation error');
+            return;
+          }
         if (!users.name) setMissingFields(prevFields => [...prevFields, "Name"]);
 
         if (!users.email) {
@@ -120,12 +123,18 @@ const EditAdmin = () => {
                         };
                         reader.readAsDataURL(file);
                         setStartupLogoName(file.name);
+                        setStartupLogoError('');
+                        setStartupLogoSizeError('');
                     } else {
                         setStartupLogoSizeError('* Please upload a file that is no larger than 2MB.');
+                        setStartupLogoError('');
+                        return;
                     }
                 } else {
                     setStartupLogoError('* Please upload a JPG or PNG file');
+                    setStartupLogoSizeError('');
                     event.target.value = null;
+                    return;
                 }
             }
 
@@ -394,12 +403,7 @@ const EditAdmin = () => {
                                                                     ) : (
                                                                         startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
                                                                     )}
-                                                                </div>
-                                                                {startUpLogoSizeError ? (
-                                                                    <p className='text-danger'>{startUpLogoSizeError}</p>
-                                                                ) : (
-                                                                    startUpLogoError && <p className='text-danger'>{startUpLogoError}</p>
-                                                                )}
+                                                                </div>                                                                
                                                             </div>
                                                         </div>
                                                     </div>
