@@ -449,17 +449,17 @@ export default function CampaignsDetails() {
                             <a
                               className={`accordion-title ${activeIndex === 0 ? "active" : ""
                                 }`}
-                              onClick={() => toggleAccordion(3)}
+                              onClick={() => toggleAccordion(5)}
                             >
                               <i className="bx bx-chevron-down" />
                               Can one request a refund post subscribing to a Discounting campaign?
                             </a>
                             <div
-                              className={`accordion-content ${activeIndex === 3 ? "show" : ""
+                               className={`accordion-content ${activeIndex === 5 ? "show" : ""
                                 }`}
                             >
                               <p>
-                                No, unlike other campaigns on Tyke, subscribing to Discounting campaign cannot be refunded.
+                                No, unlike other campaigns on risingcapitalist.com, subscribing to Discounting campaign cannot be refunded.
                               </p>
                             </div>
                           </li>

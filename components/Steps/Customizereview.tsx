@@ -250,8 +250,7 @@ export default function Customereview(): any {
                                 value={basicDetails.dob}
                                 name="dob"
                                 onChange={handleChange}
-                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
-                              //max={`${new Date().getFullYear() - 18}-12-31`}
+                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}                              
                               />
                               <div className="help-block with-errors" />
                               {errors.dob && errors.dob.type === "required" && (
@@ -269,8 +268,7 @@ export default function Customereview(): any {
                                 className="input-file-container "
                               >
                                 <label>
-                                  Identity card
-                                  {/* <span style={{ color: "red" }}>*</span> */}
+                                  Identity card                                  
                                 </label>
                                 <div className="file-upload">
                                   <div className="file-select">
@@ -280,8 +278,13 @@ export default function Customereview(): any {
                                     >
                                       Choose File
                                     </div>
-                                    <div className="file-select-name" id="noFile">
-                                      {startUpLogoName ? startUpLogoName : (basicDetails.proof_img ? basicDetails.proof_img : "No File Chosen ...")}
+                                    <div className="file-select-name" id="noFile">                                      
+                                      {startUpLogoName ? startUpLogoName :
+                                        (basicDetails.proof_img ?
+                                          (basicDetails.proof_img.length > 20
+                                            ? basicDetails.proof_img.substring(0, 20) + "...."
+                                            : basicDetails.proof_img
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}

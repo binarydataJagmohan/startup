@@ -131,10 +131,10 @@ export default function Businessinfo(): any {
   };
 
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();       
+    const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.role !== 'startup') {
-        router.back();
-    }   
+      router.back();
+    }
     if (current_user_data.id) {
       setCurrentUserId(current_user_data.id);
       getBusinessInformation(current_user_data.id)
@@ -161,10 +161,10 @@ export default function Businessinfo(): any {
 
   const SubmitForm = async () => {
     try {
-      if (pichDeckError !== '' || pichDeckSizeError !== '' || startUpLogoError !== '' || startUpLogoSizeError !== '' ) {
+      if (pichDeckError !== '' || pichDeckSizeError !== '' || startUpLogoError !== '' || startUpLogoSizeError !== '') {
         console.error('validation error');
         return;
-      } 
+      }
       if (!businessDetails.sector) {
         setMissingFields(prevFields => [...prevFields, "sector"]);
       }
@@ -471,8 +471,13 @@ export default function Businessinfo(): any {
                                     >
                                       Choose File
                                     </div>
-                                    <div className="file-select-name" id="noFile">
-                                      {logoName ? logoName : (businessDetails.logo ? businessDetails.logo : "No File Chosen ...")}
+                                    <div className="file-select-name" id="noFile">                                      
+                                      {logoName ? logoName :
+                                        (businessDetails.logo ?
+                                          (businessDetails.logo.length > 20
+                                            ? businessDetails.logo.substring(0, 20) + "...."
+                                            : businessDetails.logo
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}
@@ -539,7 +544,12 @@ export default function Businessinfo(): any {
                                       Choose File
                                     </div>
                                     <div className="file-select-name" id="noFile">
-                                      {pitchDeckName ? pitchDeckName : (businessDetails.pitch_deck ? businessDetails.pitch_deck : "No File Chosen ...")}
+                                      {pitchDeckName ? pitchDeckName :
+                                        (businessDetails.pitch_deck ?
+                                          (businessDetails.pitch_deck.length > 20
+                                            ? businessDetails.pitch_deck.substring(0, 20) + "...."
+                                            : businessDetails.pitch_deck
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputPitchDeck}

@@ -2444,3 +2444,6 @@ ul.menuUrl {
     margin-top: 5rem;
   }
 }
+.accordion-title {
+  cursor: default;
+}
