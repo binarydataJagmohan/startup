@@ -1131,19 +1131,12 @@ export default function Chats(props: any) {
                                                       </>
                                                     )
                                                   }
-
-
                                                 </h5>
                                               )}
 
                                               {message.latest_chat_type == 'group' && (
                                                 <h5 className={`chat_color position-relative ${activeChat === index ? 'text-white' : ''}`}>
                                                   {message.group_name && message.group_name.length > 25 ? `${message.group_name.slice(0, 25)}...` : message.group_name} (Group)
-                                                  {/* {Number(message.unreadcount) > 0 && (
-                                                    <span className={`chat_color badge text-danger position-absolute mx-2 chat_badge ${activeChat === index ? 'bg-white' : 'text-white bg-secondary'}`}>
-                                                      {message.unreadcount}
-                                                    </span>
-                                                  )} */}
                                                 </h5>
                                               )}
 
@@ -1206,12 +1199,6 @@ export default function Chats(props: any) {
                               </div>
                               <div className="col-lg-4 col-md-4 col-4 text-right">
                                 <div className="icon-head-chats">
-                                  {/* <a href="#">
-                                    <i className="fa-solid fa-pen"></i>
-                                  </a> */}
-                                  {/* <a href="#">
-                                    <i className="fa-solid fa-circle-info"></i>
-                                  </a> */}
                                 </div>
                               </div>
                             </div>
@@ -1228,7 +1215,7 @@ export default function Chats(props: any) {
                                         <li className="reply-two">
                                           <span className="bg-f1">
                                             {message.message_attachment_type === 'image' && <a href={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment} target="_blank" rel="noopener noreferrer">  <Image
-                                              src={process.env.NEXT_PUBLIC_IMAGE_URL + '/images/chat/images/' + message.message_attachment}
+                                              src={process.env.NEXT_PUBLIC_IMAGE_URL + 'public/images/chat/images/' + message.message_attachment}
                                               className="chat_shared_image"
                                               width={150} height={150}
                                               alt="chats-user"
@@ -1543,7 +1530,7 @@ export default function Chats(props: any) {
                                                       <Image
                                                         src={
                                                           process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                          '/images/chat/images/' +
+                                                          'public/images/chat/images/' +
                                                           message.message_attachment
                                                         }
                                                         className="chat_shared_image"

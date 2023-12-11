@@ -464,11 +464,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {panCardFrontName
-                                        ? panCardFrontName
-                                        : basicDetails.pan_card_front
-                                          ? basicDetails.pan_card_front
-                                          : "No File Chosen ..."}
+                                      {panCardFrontName ? panCardFrontName :
+                                        (basicDetails.pan_card_front ?
+                                          (basicDetails.pan_card_front.length > 20
+                                            ? basicDetails.pan_card_front.substring(0, 20) + "...."
+                                            : basicDetails.pan_card_front
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       ref={fileInputRef}
@@ -586,11 +587,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {panCardBackName
-                                        ? panCardBackName
-                                        : basicDetails.pan_card_back
-                                          ? basicDetails.pan_card_back
-                                          : "No File Chosen ..."}
+                                      {panCardBackName ? panCardBackName :
+                                        (basicDetails.pan_card_back ?
+                                          (basicDetails.pan_card_back.length > 20
+                                            ? basicDetails.pan_card_back.substring(0, 20) + "...."
+                                            : basicDetails.pan_card_back
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -706,11 +708,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {adharCardFrontName
-                                        ? adharCardFrontName
-                                        : basicDetails.adhar_card_front
-                                          ? basicDetails.adhar_card_front
-                                          : "No File Chosen ..."}
+                                      {adharCardFrontName ? adharCardFrontName :
+                                        (basicDetails.adhar_card_front ?
+                                          (basicDetails.adhar_card_front.length > 20
+                                            ? basicDetails.adhar_card_front.substring(0, 20) + "...."
+                                            : basicDetails.adhar_card_front
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -826,11 +829,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {adharCardBackName
-                                        ? adharCardBackName
-                                        : basicDetails.adhar_card_back
-                                          ? basicDetails.adhar_card_back
-                                          : "No File Chosen ..."}
+                                      {adharCardBackName ? adharCardBackName :
+                                        (basicDetails.adhar_card_back ?
+                                          (basicDetails.adhar_card_back.length > 20
+                                            ? basicDetails.adhar_card_back.substring(0, 20) + "...."
+                                            : basicDetails.adhar_card_back
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -948,11 +952,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {certificate_incorporationName
-                                        ? certificate_incorporationName
-                                        : basicDetails.certificate_incorporation
-                                          ? basicDetails.certificate_incorporation
-                                          : "No File Chosen ..."}
+                                      {certificate_incorporationName ? certificate_incorporationName :
+                                        (basicDetails.certificate_incorporation ?
+                                          (basicDetails.certificate_incorporation.length > 20
+                                            ? basicDetails.certificate_incorporation.substring(0, 20) + "...."
+                                            : basicDetails.certificate_incorporation
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -1070,11 +1075,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {bankStatementThreeYearsName
-                                        ? bankStatementThreeYearsName
-                                        : basicDetails.bank_statement_three_years
-                                          ? basicDetails.bank_statement_three_years
-                                          : "No File Chosen ..."}
+                                      {bankStatementThreeYearsName ? bankStatementThreeYearsName :
+                                        (basicDetails.bank_statement_three_years ?
+                                          (basicDetails.bank_statement_three_years.length > 20
+                                            ? basicDetails.bank_statement_three_years.substring(0, 20) + "...."
+                                            : basicDetails.bank_statement_three_years
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -1190,11 +1196,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {MOAName
-                                        ? MOAName
-                                        : basicDetails.moa
-                                          ? basicDetails.moa
-                                          : "No File Chosen ..."}
+                                      {MOAName ? MOAName :
+                                        (basicDetails.moa ?
+                                          (basicDetails.moa.length > 20
+                                            ? basicDetails.moa.substring(0, 20) + "...."
+                                            : basicDetails.moa
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"
@@ -1308,11 +1315,12 @@ export default function DocumentsUpload(): any {
                                       className="file-select-name"
                                       id="noFile"
                                     >
-                                      {AOAName
-                                        ? AOAName
-                                        : basicDetails.aoa
-                                          ? basicDetails.aoa
-                                          : "No File Chosen ..."}
+                                      {AOAName ? AOAName :
+                                        (basicDetails.aoa ?
+                                          (basicDetails.aoa.length > 20
+                                            ? basicDetails.aoa.substring(0, 20) + "...."
+                                            : basicDetails.aoa
+                                          ) : "No File Chosen ...")}
                                     </div>
                                     <input
                                       type="file"

@@ -13,7 +13,7 @@ import { Tooltip } from 'react-tooltip'
 interface UserData {
   id?: string;
   investorType?: string;
-  role?:string;
+  role?: string;
 }
 interface InputData {
   business_id?: string;
@@ -67,8 +67,8 @@ export default function CampaignsDetails() {
   useEffect(() => {
     const current_user_data: UserData = getCurrentUserData();
     if (current_user_data.role !== 'investor') {
-        router.back();
-    }    
+      router.back();
+    }
     const fetchData = async () => {
       // const res = await getSingleBusinessDetails(id);
       const res = await getSingleFundDetails(id);
@@ -231,7 +231,6 @@ export default function CampaignsDetails() {
 
   return (
     <>
-      {/* <section className="mainPageSection" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData?.fund_banner_image})` }}> */}
       <section className="mainPageSection" style={{
         backgroundImage: `url(${fundData?.fund_banner_image ?
           `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
@@ -244,8 +243,8 @@ export default function CampaignsDetails() {
             <div className="col-lg-6">
 
               <div className="ContentSection">
-                <h1>{fundData?.fund_name}</h1>
-                <p>
+                <h1 className=" text-light">{fundData?.fund_name}</h1>
+                <p className=" text-light">
                   {fundData?.fund_desc}
                 </p>
                 <div className="ContentSection d-lg-flex align-items-lg-center">
@@ -255,9 +254,9 @@ export default function CampaignsDetails() {
                   >
                     Invest
                   </Link>
-                  <p className="mx-lg-2 m-0">
+                  <p className="mx-lg-2 m-0 text-light">
                     Minimum Investment:
-                    <strong>${fundData?.ifinworth_amount}</strong>
+                    <strong className=" text-light">${fundData?.ifinworth_amount}</strong>
                   </p>
                 </div>
               </div>
@@ -303,12 +302,6 @@ export default function CampaignsDetails() {
             </div>
 
             <div className="col-lg-5">
-              {/* {singleUserData.investorType == 'Accredited Investors' || singleUserData.investorType == 'Angel Investor'
-                ?
-                <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}><a href="#" style={{ "color": "#ffffff" }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}><i className="fa fa-message color-set"></i></a></p>
-                :
-                ''
-              } */}
               {singleUserData.investorType === 'Accredited Investors' || singleUserData.investorType === 'Angel Investor' ?
                 <p style={{ "textAlign": "right", "position": "relative", "bottom": "60px", "right": "10px" }}>
                   <a href="#" style={{ "color": "#ffffff", fontSize: '5px' }} onClick={(e) => handleClickChat(fundData.startup_id, fundData.fund_name, fundData.ccsp_fund_id)}>
@@ -523,23 +516,17 @@ export default function CampaignsDetails() {
                     <div className="col-lg-4 col-md-4" key={index}>
                       <div className="shadowTitle">
                         <div className="text-center">
-                          {data.product_image ? (
-                            <Image
-                              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/products/" + data.product_image}
-                              alt=""
-                              className="hover-img"
-                              height={94}
-                              width={430}
-                            />
-                          ) : (
-                            <Image
-                              src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
-                              alt=""
-                              className="hover-img"
-                              height={94}
-                              width={430}
-                            />
-                          )}
+                          <Image
+                            src={
+                              data.product_image
+                                ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/products/${data.product_image}`
+                                : `${process.env.NEXT_PUBLIC_BASE_URL}assets/images/company.webp`
+                            }
+                            alt=""
+                            className="hover-img"
+                            height={94}
+                            width={430}
+                          />
                         </div>
                         <div className="titleText">
                           <p>{data.product_description}</p>
@@ -662,23 +649,17 @@ export default function CampaignsDetails() {
                   </div>
                   <div className="col-lg-6 order-lg-0 order-first">
                     <div className="competitorsContentTitle">
-                      {data.competitor_logo ? (
-                        <Image
-                          src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/competitorlogo/" + data.competitor_logo}
-                          alt=""
-                          className="hover-img"
-                          height={94}
-                          width={430}
-                        />
-                      ) : (
-                        <Image
-                          src={process.env.NEXT_PUBLIC_BASE_URL + "assets/images/company.webp"}
-                          alt=""
-                          className="hover-img"
-                          height={94}
-                          width={430}
-                        />
-                      )}
+                      <Image
+                        src={
+                          data.competitor_logo
+                            ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/competitorlogo/${data.competitor_logo}`
+                            : `${process.env.NEXT_PUBLIC_BASE_URL}assets/images/company.webp`
+                        }
+                        alt=""
+                        className="hover-img"
+                        height={94}
+                        width={430}
+                      />
                     </div>
                   </div>
                 </div>
@@ -702,24 +683,16 @@ export default function CampaignsDetails() {
                     <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
                       <div className="team-item">
                         <div className="image">
-                          {team.member_pic ? (
-                            <Image
-                              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/images/memberPic/" + team.member_pic}
-                              alt="image"
-                              width={562}
-                              height={400}
-                            />
-                          ) : (
-                            <Image
-                              src={
-                                process.env.NEXT_PUBLIC_BASE_URL +
-                                "assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60"
-                              }
-                              alt="image"
-                              width={562}
-                              height={400}
-                            />
-                          )}
+                          <Image
+                            src={
+                              team.member_pic
+                                ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/memberPic/${team.member_pic}`
+                                : `${process.env.NEXT_PUBLIC_BASE_URL}assets/images/anjul-gupta.png?auto=format&fit=crop&w=500&q=60`
+                            }
+                            alt="image"
+                            width={562}
+                            height={400}
+                          />
                           <ul className="social">
                             <li>
                               <Link href="#" target="_blank">

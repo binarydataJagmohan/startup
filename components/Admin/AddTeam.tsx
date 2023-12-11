@@ -482,34 +482,20 @@ export default function AddCompetitorCompany() {
                                                         <tr className="border-0">
                                                             <td className="text-black">{index + 1}</td>
                                                             <td className="text-black">
-                                                                {team.member_pic ? (
-                                                                    <Image
-                                                                        src={
-                                                                            teamMemberPic && typeof teamMemberPic !== 'string'
-                                                                                ? URL.createObjectURL(teamMemberPic)
-                                                                                : process.env.NEXT_PUBLIC_IMAGE_URL +
-                                                                                'images/memberPic/' +
-                                                                                team.member_pic
-                                                                        }
-                                                                        alt="Member Logo"
-                                                                        className='profile-pic set-img'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                        width={300}
-                                                                        height={200}
-                                                                    />
-                                                                ) : (
-                                                                    <Image
-                                                                        src={process.env.NEXT_PUBLIC_BASE_URL +
-                                                                            'assets/images/company.png'}
-                                                                        alt="Member Logo"
-                                                                        className='profile-pic set-img'
-                                                                        style={{ margin: '5% 0%', objectFit: 'cover' }}
-                                                                        width={300}
-                                                                        height={200}
-                                                                    />
-                                                                )}
-
-
+                                                                <Image
+                                                                    src={
+                                                                        team.member_pic && typeof team.member_pic !== 'string'
+                                                                            ? URL.createObjectURL(team.member_pic)
+                                                                            : process.env.NEXT_PUBLIC_IMAGE_URL +
+                                                                            'images/memberPic/' +
+                                                                            (team.member_pic || 'defaultImage.jpg')
+                                                                    }
+                                                                    alt="Member Logo"
+                                                                    className='profile-pic set-img'
+                                                                    style={{ margin: '5% 0%', objectFit: 'cover' }}
+                                                                    width={300}
+                                                                    height={200}
+                                                                />
                                                             </td>
                                                             <td className="text-black">{team.member_name}</td>
                                                             <td className="text-black">{team.member_designation}</td>
