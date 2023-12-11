@@ -13,8 +13,8 @@ import { useRouter } from "next/router";
 import Image from 'next/image';
 import { getCurrentUserData } from "@/lib/session";
 
-interface UserData {   
-    role?: string; 
+interface UserData {
+    role?: string;
 }
 export default function AddProducts() {
     const [productdescription, setProductDescription] = useState("");
@@ -45,10 +45,10 @@ export default function AddProducts() {
     };
 
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();    
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.role !== 'admin') {
             router.back();
-        }  
+        }
         getAllCCSPCampaign().then((res) => {
 
             fetchAllproductdata();
@@ -65,9 +65,36 @@ export default function AddProducts() {
         }
     };
 
+    const [productoverviewError, setproductoverviewError] = useState('');
+    const [productimageError, setproductimageError] = useState('');
+    const [productdescriptionError, setproductdescriptionError] = useState('');
+
     const handleProductSubmit = async (e: any) => {
         e.preventDefault();
+        if (error !== '') {
+            console.error('validation error');
+            return;
+        }
         const formData = new FormData();
+        if (productdescription == '') {
+            setproductdescriptionError('Please fill company description.');
+            setproductoverviewError('');
+            setproductimageError('');
+            return;
+        }
+        if (productoverview == '') {
+            setproductoverviewError('Please fill company name.');
+            setproductimageError('');
+            setproductdescriptionError('');
+            return;
+        }
+        if (productimage == '') {
+            setproductimageError('Please fill company name.');
+            setproductoverviewError('');
+            setproductdescriptionError('');
+            return;
+        }
+
         formData.append("ccsp_fund_id", id as string);
         formData.append("product_description", productdescription);
         formData.append("product_image", productimage);
@@ -300,7 +327,7 @@ export default function AddProducts() {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label mt-3"
                                                         >
-                                                            Product Description
+                                                            Product Description <span className="text-danger">*</span>
                                                         </label>
                                                         <textarea
                                                             rows={4}
@@ -312,6 +339,10 @@ export default function AddProducts() {
                                                                 setProductDescription(e.target.value)
                                                             }
                                                         />
+                                                        {productdescriptionError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {productdescriptionError}</p>
+                                                            </> : ''}
                                                     </div>
 
                                                     <div className="col-md-6">
@@ -319,7 +350,7 @@ export default function AddProducts() {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label mt-3"
                                                         >
-                                                            Product Overview
+                                                            Product Overview <span className="text-danger">*</span>
                                                         </label>
                                                         <textarea
                                                             rows={4}
@@ -329,6 +360,10 @@ export default function AddProducts() {
                                                             value={productoverview}
                                                             onChange={(e) => setProductOverview(e.target.value)}
                                                         />
+                                                        {productoverviewError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {productoverviewError}</p>
+                                                            </> : ''}
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -336,7 +371,7 @@ export default function AddProducts() {
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label mt-3"
                                                     >
-                                                        Product Image
+                                                        Product Image <span className="text-danger">*</span>
                                                     </label>
 
                                                     <div className="file-upload">
@@ -355,7 +390,20 @@ export default function AddProducts() {
                                                             />
                                                         </div>
                                                     </div>
+                                                    <label
+                                                        htmlFor="fileupload"
+                                                        className="input-file-trigger mt-1"
+                                                        id="labelFU"
+                                                        style={{ fontSize: "12px", marginLeft: "12px" }}
+                                                        tabIndex={0}
+                                                    >
+                                                        <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
+                                                    </label>
                                                     {error && <div style={{ color: 'red' }}>{error}</div>}
+                                                    {productimageError ?
+                                                        <>
+                                                            <p className="text-danger p-2">* {productimageError}</p>
+                                                        </> : ''}
                                                     <div className="profile-pic">
                                                         {previewImage ? (
                                                             <Image

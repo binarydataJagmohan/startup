@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { getCurrentUserData } from "@/lib/session";
 
-interface UserData {   
-    role?: string; 
+interface UserData {
+    role?: string;
 }
 export default function AddCompetitorCompany() {
 
@@ -37,10 +37,10 @@ export default function AddCompetitorCompany() {
 
 
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();    
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.role !== 'admin') {
             router.back();
-        }  
+        }
         getAllCCSPCampaign()
             .then((res) => {
                 if (res.status === true && res.data.length > 0) {
@@ -62,9 +62,47 @@ export default function AddCompetitorCompany() {
         }
     };
 
+    const [teamMemberNameError, setteamMemberNameError] = useState('');
+    const [teammemberDesignationError, setteammemberDesignationError] = useState('');
+    const [teamMemberDescError, setteamMemberDescError] = useState('');
+    const [teamMemberPicError, setteamMemberPicError] = useState('');
+
     const handleTeamSubmit = async (e: any) => {
         e.preventDefault();
+        if (error !== '') {
+            console.error('validation error');
+            return;
+        }
         const formData = new FormData();
+        formData.append("ccsp_fund_id", ccspid);
+        if (teamMemberName == '') {
+            setteamMemberNameError('Please fill member name.');
+            setteammemberDesignationError('');
+            setteamMemberDescError('');
+            setteamMemberPicError('');
+            return;
+        }
+        if (teammemberDesignation == '') {
+            setteammemberDesignationError('Please fill member name.');
+            setteamMemberNameError('');
+            setteamMemberDescError('');
+            setteamMemberPicError('');
+            return;
+        }
+        if (teamMemberDesc == '') {
+            setteamMemberDescError('Please fill member description.');
+            setteamMemberNameError('');
+            setteammemberDesignationError('');
+            setteamMemberPicError('');
+            return;
+        }
+        if (teamMemberPic == '') {
+            setteamMemberPicError('Please fill member description.');
+            setteamMemberNameError('');
+            setteammemberDesignationError('');
+            setteamMemberDescError('');
+            return;
+        }
         formData.append("ccsp_fund_id", ccspid);
         formData.append('member_name', teamMemberName)
         formData.append('member_designation', teammemberDesignation)
@@ -296,7 +334,7 @@ export default function AddCompetitorCompany() {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label"
                                                         >
-                                                            Company Name
+                                                            Member Name <span className="text-danger">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
@@ -306,7 +344,10 @@ export default function AddCompetitorCompany() {
                                                             value={teamMemberName}
                                                             onChange={(e) => setTeamMemberName(e.target.value)}
                                                         />
-
+                                                        {teamMemberNameError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {teamMemberNameError}</p>
+                                                            </> : ''}
                                                     </div>
 
                                                     <div className="col-md-6">
@@ -314,7 +355,7 @@ export default function AddCompetitorCompany() {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label"
                                                         >
-                                                            Member Designation
+                                                            Member Designation <span className="text-danger">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
@@ -324,7 +365,10 @@ export default function AddCompetitorCompany() {
                                                             value={teammemberDesignation}
                                                             onChange={(e) => setteammemberDesignation(e.target.value)}
                                                         />
-
+                                                        {teammemberDesignationError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {teammemberDesignationError}</p>
+                                                            </> : ''}
                                                     </div>
                                                 </div>
                                                 <div className="row g-3 mt-1">
@@ -333,7 +377,7 @@ export default function AddCompetitorCompany() {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label mt-3"
                                                         >
-                                                            Company Description
+                                                            Member Description <span className="text-danger">*</span>
                                                         </label>
                                                         <textarea
                                                             rows={4}
@@ -344,14 +388,17 @@ export default function AddCompetitorCompany() {
                                                             onChange={(e) => setTeamMemberDesc(e.target.value)}
                                                         />
                                                     </div>
-
+                                                    {teamMemberDescError ?
+                                                        <>
+                                                            <p className="text-danger p-2">* {teamMemberDescError}</p>
+                                                        </> : ''}
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label
                                                         htmlFor="exampleFormControlInput1"
                                                         className="form-label mt-3"
                                                     >
-                                                        Company Logo image
+                                                        Member Logo image <span className="text-danger">*</span>
                                                     </label>
 
                                                     <div className="file-upload">
@@ -373,7 +420,10 @@ export default function AddCompetitorCompany() {
                                                         </div>
                                                     </div>
                                                     {error && <div style={{ color: 'red' }}>{error}</div>}
-
+                                                    {teamMemberPicError ?
+                                                        <>
+                                                            <p className="text-danger p-2">* {teamMemberPicError}</p>
+                                                        </> : ''}
                                                     <div className="profile-pic">
                                                         {previewImage ? (
                                                             <Image
@@ -441,7 +491,7 @@ export default function AddCompetitorCompany() {
                                                                                 'images/memberPic/' +
                                                                                 team.member_pic
                                                                         }
-                                                                        alt="Company Logo"
+                                                                        alt="Member Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         width={300}
@@ -451,7 +501,7 @@ export default function AddCompetitorCompany() {
                                                                     <Image
                                                                         src={process.env.NEXT_PUBLIC_BASE_URL +
                                                                             'assets/images/company.png'}
-                                                                        alt="Company Logo"
+                                                                        alt="Member Logo"
                                                                         className='profile-pic set-img'
                                                                         style={{ margin: '5% 0%', objectFit: 'cover' }}
                                                                         width={300}
@@ -493,7 +543,7 @@ export default function AddCompetitorCompany() {
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
                                                                 >
-                                                                    Member Name
+                                                                    Member Name <span className="text-danger">*</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -511,7 +561,7 @@ export default function AddCompetitorCompany() {
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label"
                                                                 >
-                                                                    Member Designation
+                                                                    Member Designation <span className="text-danger">*</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -530,7 +580,7 @@ export default function AddCompetitorCompany() {
                                                                     htmlFor="exampleFormControlInput1"
                                                                     className="form-label mt-3"
                                                                 >
-                                                                    Description
+                                                                    Description <span className="text-danger">*</span>
                                                                 </label>
                                                                 <textarea
                                                                     rows={4}
@@ -548,7 +598,7 @@ export default function AddCompetitorCompany() {
                                                                 htmlFor="exampleFormControlInput1"
                                                                 className="form-label mt-3"
                                                             >
-                                                                Profile Pic
+                                                                Profile Pic <span className="text-danger">*</span>
                                                             </label>
 
                                                             <div className="file-upload mt-5">

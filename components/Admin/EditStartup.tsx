@@ -156,16 +156,14 @@ const EditList = () => {
                   <form>
                     <div className="row">
                       <div className="col-sm-6">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Email{" "}
-                          <span style={{ color: "red" }}>*</span>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Email{" "}                          
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="Email" value={startup.email} name="email" readOnly />
                         </div>
                       </div>
                       <div className="col-sm-6">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Linkedin Url{" "}
-                          <span style={{ color: "red" }}>*</span>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Linkedin Url{" "}                          
                         </label>
                         <div className="form-part">
                           <input
@@ -182,8 +180,7 @@ const EditList = () => {
                     {/* Rest of the form code */}
                     <div className="row">
                       <div className="col-sm-6">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Country{" "}
-                          <span style={{ color: "red" }}>*</span>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Country{" "}                          
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="Country of Citizenship " name="country" value={startup.country} readOnly />
@@ -192,8 +189,7 @@ const EditList = () => {
                       </div>
                       <div className="col-sm-6">
                         <div className="form-part">
-                          <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}
-                            <span style={{ color: "red" }}>*</span>
+                          <label htmlFor="exampleFormControlInput1" className="form-label">Phone Number{" "}                            
                           </label>
                           <div className="mt-3">
                             <PhoneInput
@@ -208,16 +204,14 @@ const EditList = () => {
 
                     <div className="row">
                       <div className="col-sm-6">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}
-                          <span style={{ color: "red" }}>*</span>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">City{" "}                          
                         </label>
                         <div className="form-part">
                           <input type="text" placeholder="City" value={startup.city} name="city" readOnly />
                         </div>
                       </div>
                       <div className="col-sm-6">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}
-                          <span style={{ color: "red" }}>*</span>
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Gender{" "}                          
                         </label>
                         <div className="form-part">
                           <input type="text" value={startup.gender} readOnly />
@@ -262,8 +256,7 @@ const EditList = () => {
                                 htmlFor="business_name"
                                 className="form-label"
                               >
-                                Name of Startup{" "}
-                                <span style={{ color: "red" }}>*</span>
+                                Name of Startup{" "}                                
                               </label>
                               <input
                                 type="text"
@@ -276,8 +269,7 @@ const EditList = () => {
                                 htmlFor="reg_businessname"
                                 className="form-label"
                               >
-                                Registered name of Startup
-                                <span style={{ color: "red" }}>*</span>
+                                Registered name of Startup                                
                               </label>
                               <input
                                 type="text"
@@ -290,8 +282,7 @@ const EditList = () => {
                                 htmlFor="website_url"
                                 className="form-label"
                               >
-                                Website URL
-                                <span style={{ color: "red" }}>*</span>
+                                Website URL                                
                               </label>
                               <input
                                 type="text"
@@ -303,8 +294,7 @@ const EditList = () => {
                                 htmlFor="sector"
                                 className="form-label mb-2"
                               >
-                                Sector of Startup
-                                <span style={{ color: "red" }}>*</span>
+                                Sector of Startup                                
 
                               </label>
                               <input type="text" value={bussiness.sector} readOnly className='form-control same-input mb-3 h-50' />
@@ -314,8 +304,7 @@ const EditList = () => {
                                 htmlFor="stage"
                                 className="form-label mb-2"
                               >
-                                Stage of Startup
-                                <span style={{ color: "red" }}>*</span>
+                                Stage of Startup                                
                               </label>
                               <input type="text" value={bussiness.stage} readOnly className='form-control same-input mb-3 h-50' />
                             </div>
@@ -324,8 +313,7 @@ const EditList = () => {
                                 htmlFor="startup_date"
                                 className="form-label"
                               >
-                                Month & year of inception
-                                <span style={{ color: "red" }}>*</span>
+                                Month & year of inception                                
                               </label>
                               <input
                                 type="date"
@@ -379,8 +367,7 @@ const EditList = () => {
                                 htmlFor="description"
                                 className="form-label"
                               >
-                                100 characters to tell us about your business
-                                <span style={{ color: "red" }}>*</span>
+                                100 characters to tell us about your business                                
                               </label>
                               <textarea
                                 rows={4}
@@ -444,8 +431,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Pan Card Number{" "}
-                        <span className="text-danger">*</span>
+                        Pan Card Number{" "}                        
                       </label>
                       <div className="form-part">
                         <input type="text" id="pan_number" placeholder="Pan Number" value={proof.pan_number} name=""
@@ -458,8 +444,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Aadhaar Card Number{" "}
-                        <span className="text-danger">*</span>
+                        Aadhaar Card Number{" "}                        
                       </label>
                       <div className="form-part">
 
@@ -476,7 +461,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        DOB  <span className="text-danger">*</span>
+                      DOB  
                       </label>
                       <div className="form-part">
                         <input
@@ -497,8 +482,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Bank Name{" "}
-                        <span className="text-danger" >*</span>
+                        Bank Name{" "}                        
                       </label>
                       <div className="form-part">
                         <input
@@ -519,8 +503,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Account Holder's Name{" "}
-                        <span className="text-danger">*</span>
+                        Account Holder's Name{" "}                        
                       </label>
                       <div className="form-part">
                         <input
@@ -539,8 +522,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Account Number{" "}
-                        <span className="text-danger">*</span>
+                        Account Number{" "}                        
                       </label>
                       <div className="form-part">
                         <input
@@ -561,8 +543,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        IFSC Code{" "}
-                        <span className="text-danger">*</span>
+                        IFSC Code{" "}                        
                       </label>
                       <div className="form-part">
                         <input
@@ -579,8 +560,7 @@ const EditList = () => {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                       >
-                        Identity card{" "}
-                        <span className="text-danger">*</span>
+                        Identity card{" "}                        
                       </label>
                       <div
                         id="divHabilitSelectors"

@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 interface UserData {
     id?: number;
-    role?:any;
+    role?: any;
 }
 
 interface Fund {
@@ -33,13 +33,13 @@ const TotalActiveFunds = () => {
     const [current_user_id, setCurrentUserId] = useState("");
     const [funds, setFundsData] = useState<Fund[]>([]);
     const router = useRouter();
-
+    const [isMounted, setIsMounted] = useState(true);
     const [dataTableInitialized, setDataTableInitialized] = useState(false);
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();    
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.role !== 'admin') {
             router.back();
-        }          
+        }
         if (current_user_data.id != null) {
             current_user_data.id
                 ? setCurrentUserId(current_user_data.id.toString())
@@ -62,6 +62,9 @@ const TotalActiveFunds = () => {
         } else {
             window.location.href = "/login";
         }
+        return () => {
+            setIsMounted(false);
+        };
     }, []);
 
     useEffect(() => {
@@ -86,6 +89,9 @@ const TotalActiveFunds = () => {
 
     // updating Funding from DB..
     function updateStatus(id: number, status: string) {
+        if (!isMounted) {
+            return;
+          }
         axios
             .post(
                 process.env.NEXT_PUBLIC_API_URL + `/update-fund-status/${id}`,
@@ -115,10 +121,6 @@ const TotalActiveFunds = () => {
                     status: "active",
                 };
                 sendNotification(data)
-                    .then((notificationRes) => {
-                    })
-                    .catch((error) => {
-                    });
                 toast.success(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     toastId: "success",
@@ -134,6 +136,9 @@ const TotalActiveFunds = () => {
 
     // Delete Funding from DB..
     function deleteFund(id: number) {
+        if (!isMounted) {
+            return;
+          }
         swal({
             title: "Are you sure?",
             text: "You want to delete the industry",

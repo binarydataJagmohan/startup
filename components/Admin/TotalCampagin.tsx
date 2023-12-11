@@ -393,6 +393,10 @@ const Campagin = () => {
 
   const handleAddFundNameImage = async (e: any) => {
     e.preventDefault();
+    if (startUpLogoError !== '' || fundImageNameError !== '') {
+      console.error('validation error');
+      return;
+    }
     const formData = new FormData();
     formData.append("id", selectedFundId);
     formData.append("fund_name", fundname);
@@ -1058,11 +1062,11 @@ const Campagin = () => {
               />
 
               <br />
-
-              <button type="submit" className="btnclasssmae set-but-company mt-3">
-                Submit
-              </button>
-
+              <div className="text-center">
+                <button type="submit" className="btnclasssmae set-but-company mt-3">
+                  Submit
+                </button>
+              </div>
 
             </div>
           </div>

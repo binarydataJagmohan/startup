@@ -16,8 +16,8 @@ import {
 import { getCurrentUserData } from "@/lib/session";
 
 
-interface UserData {   
-    role?: string; 
+interface UserData {
+    role?: string;
 }
 
 const TextEditor = dynamic(() => import("./TextEditor"), {
@@ -51,10 +51,10 @@ const AddCompetitorCompany = () => {
     };
 
     useEffect(() => {
-        const current_user_data: UserData = getCurrentUserData();    
+        const current_user_data: UserData = getCurrentUserData();
         if (current_user_data.role !== 'admin') {
             router.back();
-        }  
+        }
         getAllCCSPCampaign().then((res) => {
 
             if (res.status === true && res.data.length > 0) {
@@ -82,11 +82,36 @@ const AddCompetitorCompany = () => {
         }
     };
 
+    const [companyDescError, setCompanyDescError] = useState('');
+    const [companyNameError, setCompanyNameError] = useState('');
+    const [companyLogoError, setCompanyLogoError] = useState('');
 
     const handleCompetitorSubmit = async (e: any) => {
         e.preventDefault();
+        if (error !== '') {
+            console.error('validation error');
+            return;
+        }
         const formData = new FormData();
         formData.append("ccsp_fund_id", ccspid);
+        if (CompanyName == '') {
+            setCompanyNameError('Please fill company name.');
+            setCompanyLogoError('');
+            setCompanyDescError('');
+            return;
+        }
+        if (CompanyLogo == '') {
+            setCompanyLogoError('Please fill company name.');
+            setCompanyNameError('');
+            setCompanyDescError('');
+            return;
+        }
+        if (CompanyDesc == '') {
+            setCompanyDescError('Please fill company description.');
+            setCompanyNameError('');
+            setCompanyLogoError('');
+            return;
+        }
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo);
         formData.append("company_name", CompanyName);
@@ -107,7 +132,29 @@ const AddCompetitorCompany = () => {
 
     const handleUpdateCompetitorSubmit = async (e: any) => {
         e.preventDefault();
-        const formData = new FormData();
+        if (error !== '') {
+            console.error('validation error');
+            return;
+        }
+        const formData = new FormData();        
+        if (CompanyName == '') {
+            setCompanyNameError('Please fill company name.');
+            setCompanyLogoError('');
+            setCompanyDescError('');
+            return;
+        }
+        if (CompanyLogo == '') {
+            setCompanyLogoError('Please fill company name.');
+            setCompanyNameError('');
+            setCompanyDescError('');
+            return;
+        }
+        if (CompanyDesc == '') {
+            setCompanyDescError('Please fill company description.');
+            setCompanyNameError('');
+            setCompanyLogoError('');
+            return;
+        }
         formData.append("ccsp_fund_id", ccspid);
         formData.append("company_desc", CompanyDesc);
         formData.append("competitor_logo", CompanyLogo1);
@@ -137,19 +184,16 @@ const AddCompetitorCompany = () => {
 
     const handleLogoChange = (e: any) => {
         const file = e.target.files[0];
-        const allowedTypes = ['image/jpeg', 'image/png'];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         const maxSizeMB = 2; // 2MB limit
-
         if (file && file.size > maxSizeMB * 1024 * 1024) {
             setError('File size exceeds 2MB limit');
             return;
         }
-
         if (file && !allowedTypes.includes(file.type)) {
             setError('Only JPG and PNG files are allowed');
             return;
         }
-
         setCompanyLogo(file);
         setFileName(file.name);
         setError('');
@@ -327,7 +371,7 @@ const AddCompetitorCompany = () => {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label"
                                                         >
-                                                            Company Name
+                                                            Company Name <span className="text-danger">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
@@ -337,13 +381,17 @@ const AddCompetitorCompany = () => {
                                                             value={CompanyName}
                                                             onChange={(e) => setCompanyName(e.target.value)}
                                                         />
+                                                        {companyNameError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {companyNameError}</p>
+                                                            </> : ''}
                                                     </div>
                                                     <div className="col-md-6">
                                                         <label
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label"
                                                         >
-                                                            Company Logo image
+                                                            Company Logo image <span className="text-danger">*</span>
                                                         </label>
 
                                                         <div className="file-upload">
@@ -357,13 +405,26 @@ const AddCompetitorCompany = () => {
                                                                 >{fileName}</div>
                                                                 <input
                                                                     type="file"
+                                                                    accept='.jpg, .jpeg, .png'
                                                                     name="competitor_logo"
                                                                     onChange={(e) => handleLogoChange(e)}
                                                                 />
                                                             </div>
                                                         </div>
+                                                        <label
+                                                            htmlFor="fileupload"
+                                                            className="input-file-trigger mt-1"
+                                                            id="labelFU"
+                                                            style={{ fontSize: "12px", marginLeft: "12px" }}
+                                                            tabIndex={0}
+                                                        >
+                                                            <p>You can upload any logo's image jpg,png,jpeg file only (max size 2 MB)<span style={{ color: "red" }}>*</span></p>
+                                                        </label>
                                                         {error && <div style={{ color: 'red' }}>{error}</div>} {/* Show error */}
-
+                                                        {companyLogoError ?
+                                                            <>
+                                                                <p className="text-danger p-20">* {companyLogoError}</p>
+                                                            </> : ''}
                                                         <div className="profile-pic">
                                                             {previewImage ? (
                                                                 <Image
@@ -386,7 +447,7 @@ const AddCompetitorCompany = () => {
                                                             htmlFor="exampleFormControlInput1"
                                                             className="form-label"
                                                         >
-                                                            Company Description
+                                                            Company Description <span className="text-danger">*</span>
                                                         </label>
                                                         <TextEditor
                                                             height={100}
@@ -397,6 +458,12 @@ const AddCompetitorCompany = () => {
                                                     </div>
                                                 </div>
                                                 <div className="row mt-3">
+                                                    <div className="text-start mt-4">
+                                                        {companyDescError ?
+                                                            <>
+                                                                <p className="text-danger p-2">* {companyDescError}</p>
+                                                            </> : ''}
+                                                    </div>
                                                     <div
                                                         className="col-md-6"
                                                         style={{ textAlign: "right" }}
@@ -498,7 +565,7 @@ const AddCompetitorCompany = () => {
                                                         <div className="row g-3 mt-1">
                                                             <div className="col-md-6">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
-                                                                    Company Name
+                                                                    Company Name <span className="text-danger">*</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -511,7 +578,7 @@ const AddCompetitorCompany = () => {
                                                             </div>
                                                             <div className="col-md-6">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
-                                                                    Company Logo image
+                                                                    Company Logo image <span className="text-danger">*</span>
                                                                 </label>
 
                                                                 <div className="file-upload mt-5">
@@ -575,7 +642,7 @@ const AddCompetitorCompany = () => {
                                                         <div className="row g-3 mt-1">
                                                             <div className="col-md-12">
                                                                 <label htmlFor="exampleFormControlInput1" className="form-label">
-                                                                    Company Description
+                                                                    Company Description <span className="text-danger">*</span>
                                                                 </label>
                                                                 <TextEditor
                                                                     height={100}
