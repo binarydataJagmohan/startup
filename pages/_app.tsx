@@ -32,20 +32,16 @@ export default function App({ Component, pageProps }: AppProps) {
     checkUserStatus();
 
   }, []);
-
-  //  console.log(users);
+  
   try {
     current_user = getCurrentUserData() || {};
   } catch (error) {
     console.error('Error getting current user data:', error);
   }
-  
-// default layout is FrontendLayout
+
   let Layout = FrontendLayout; 
 
-  // admin header
-  // if (current_user && current_user.role === 'admin') {
-    if (current_user && current_user.role === 'admin' && router.pathname.startsWith("/admin")) {
+  if (current_user && current_user.role === 'admin' && router.pathname.startsWith("/admin")) {
     Layout = AdminLayout;
   }
   if (current_user && current_user.role === 'admin' && (router.pathname === '/' ||

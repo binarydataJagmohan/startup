@@ -3,22 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 export default function Pricing() {
     return (
-        <>
-            {/* <div className="page-title-area item-bg-1">
-                <div className="d-table">
-                    <div className="d-table-cell">
-                        <div className="container">
-                            <div className="page-title-content">
-                                <h2>Pricing</h2>
-                                <ul>
-                                    <li><Link href="index.html">Home</Link></li>
-                                    <li>Pricing</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+        <>            
             <section className="pricing-section pt-100 pb-70">
                 <div className="container">
                     <div className="section-title">
