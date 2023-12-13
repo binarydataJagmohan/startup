@@ -58,13 +58,6 @@ const About = () => {
                     growth, and making the journey of fundraising more
                     accessible and successful for startups.
                   </p>
-                  <div className="tab about-list-tab">
-                    <ul className="tabs">
-                      <li>
-                        <Link href="#">Our Commitment:</Link>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
@@ -74,6 +67,10 @@ const About = () => {
         {/*========== Progress Section Start ==============*/}
         <section className="team-section pt-100 mt-5 pb-100">
           <div className="container">
+            <div className="about-tab mx-0">
+              <h2>Our Commitment:</h2>
+              <div className="bar" />
+            </div>
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="tab_content">
@@ -113,7 +110,7 @@ const About = () => {
                     {/* <Link className="default-btn" href="#">
                       Discover More
                     </Link> */}
-                    <a className="tj-primary-btn" href="/contact">Read More</a>
+                    <a className="tj-primary-btn" href="/contact">Contact</a>
                   </div>
                 </div>
               </div>
