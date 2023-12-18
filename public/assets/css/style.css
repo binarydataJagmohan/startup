@@ -7533,7 +7533,7 @@ li.right-li {
 }
 
 .user-box ul.user-mess {
-  height: 310px;
+  height: 68vh;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;

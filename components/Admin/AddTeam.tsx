@@ -83,7 +83,7 @@ export default function AddCompetitorCompany() {
             return;
         }
         if (teammemberDesignation == '') {
-            setteammemberDesignationError('Please fill member name.');
+            setteammemberDesignationError('Please fill member designation.');
             setteamMemberNameError('');
             setteamMemberDescError('');
             setteamMemberPicError('');
@@ -97,7 +97,7 @@ export default function AddCompetitorCompany() {
             return;
         }
         if (teamMemberPic == '') {
-            setteamMemberPicError('Please fill member description.');
+            setteamMemberPicError('Please fill member logo image.');
             setteamMemberNameError('');
             setteammemberDesignationError('');
             setteamMemberDescError('');

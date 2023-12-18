@@ -232,11 +232,12 @@ export default function CampaignsDetails() {
   return (
     <>
       <section className="mainPageSection" style={{
-        backgroundImage: `url(${fundData?.fund_banner_image ?
-          `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}` :
-          `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
+        backgroundImage: `url(${fundData?.fund_banner_image
+            ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/fundbannerimage/${fundData.fund_banner_image}`
+            : `${process.env.NEXT_PUBLIC_BASE_URL}/assets/images/investors_banner.jpg`
           })`
-      }}>
+      }}
+      >
 
         <div className="container">
           <div className="row align-items-center">
