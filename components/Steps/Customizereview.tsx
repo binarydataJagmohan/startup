@@ -110,10 +110,10 @@ export default function Customereview(): any {
   }, []);
   const SubmitForm = async () => {
     try {
-      if (startUpLogoError !== '' || startUpLogoSizeError !== '' ) {
+      if (startUpLogoError !== '' || startUpLogoSizeError !== '') {
         console.error('validation error');
         return;
-      } 
+      }
       const formData = new FormData();
       if (proof_img !== null) {
         formData.append('proof_img', proof_img);
@@ -122,7 +122,7 @@ export default function Customereview(): any {
       formData.append("pan_number", basicDetails.pan_number);
       formData.append("uid", basicDetails.uid);
       formData.append("dob", basicDetails.dob);
-      const res = await basicInformationSave(formData);
+      const res = await basicInformationSave(formData);    
       if (res.status == true) {
         setTimeout(() => {
           router.push("/steps/adharinformation");
@@ -250,7 +250,7 @@ export default function Customereview(): any {
                                 value={basicDetails.dob}
                                 name="dob"
                                 onChange={handleChange}
-                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}                              
+                                placeholder="basicDetails.dob ? '' : 'DD/MM/YY'" min={`${new Date().getMonth() - 18}-01-01`}
                               />
                               <div className="help-block with-errors" />
                               {errors.dob && errors.dob.type === "required" && (
@@ -268,7 +268,7 @@ export default function Customereview(): any {
                                 className="input-file-container "
                               >
                                 <label>
-                                  Identity card                                  
+                                  Identity card
                                 </label>
                                 <div className="file-upload">
                                   <div className="file-select">
@@ -278,7 +278,7 @@ export default function Customereview(): any {
                                     >
                                       Choose File
                                     </div>
-                                    <div className="file-select-name" id="noFile">                                      
+                                    <div className="file-select-name" id="noFile">
                                       {startUpLogoName ? startUpLogoName :
                                         (basicDetails.proof_img ?
                                           (basicDetails.proof_img.length > 20
