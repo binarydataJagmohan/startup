@@ -106,10 +106,7 @@ const About = () => {
                       of innovators, thinkers, and doers who are shaping the
                       future. We take pride in being an essential part of their
                       journey.
-                    </p>
-                    {/* <Link className="default-btn" href="#">
-                      Discover More
-                    </Link> */}
+                    </p>                    
                     <a className="tj-primary-btn" href="/contact">Contact</a>
                   </div>
                 </div>

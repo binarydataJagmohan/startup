@@ -4,7 +4,6 @@ import {
 } from "../../lib/session";
 import { CheckUserApprovalStatus, reSubmitOTP } from "../../lib/frontendapi";
 import Link from "next/link";
-import { useRouter } from "next/router";
 interface UserData {
   id?: number;
   approval_status?: string;
@@ -13,73 +12,70 @@ interface UserData {
 const Thankyou = () => {
   const [investorStatus, setInvestorStatus] = useState("");
   const [role, setRole] = useState("");
-  const router = useRouter();
-  useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
-    setInvestorStatus(current_user_data.approval_status || "");
-    const checkUserStatus = async () => {
-      try {
-        const res = await CheckUserApprovalStatus(current_user_data.id);
-        if (res.status === true) {
-          console.log(res)
-          if (res.data.is_email_verification_complete == 0) {
-            reSubmitOTP(current_user_data.id)
-            router.push("/verify-email");
-          }
-          setInvestorStatus(res.data.approval_status);
-          setRole(res.data.role);
-          if (res.data.role === "investor") {
-            if (res.data.investorType === "Regular Investor") {
-              if (window.location.pathname !== "/investor/campaign") {
-                window.location.href = "/investor/campaign";
-              }
-            } else if (
-              res.data.approval_status === "approved" &&
-              res.data.approval_status !== "pending" &&
-              res.data.approval_status !== "reject"
-            ) {
-              if (window.location.pathname !== "/investor/campaign") {
-                window.location.href = "/investor/campaign";
-              }
-            } else if (res.data.approval_status === "pending") {
-              if (window.location.pathname !== "/investor/thank-you") {
-                setTimeout(() => {
-                  window.location.reload();
-                }, 10000);
-              }
-            } else {
-              window.location.href = "/investor/thank-you";
+  
+  const current_user_data: UserData = getCurrentUserData();
+  const checkUserStatus = async () => {
+    try {
+      const res = await CheckUserApprovalStatus(current_user_data.id);
+      if (res.status === true) {
+        console.log(res)
+        if (res.data.is_email_verification_complete == 0) {
+          reSubmitOTP(current_user_data.id)
+          window.location.href = "/verify-email";
+        }
+        setInvestorStatus(res.data.approval_status);
+        setRole(res.data.role);
+        if (res.data.role === "investor") {
+          if (res.data.investorType === "Regular Investor") {
+            if (window.location.pathname !== "/investor/campaign") {
+              window.location.href = "/investor/campaign";
             }
-          }
-
-          if (res.data.role === "startup") {
-            if (
-              res.data.approval_status === "approved" &&
-              res.data.approval_status !== "pending" &&
-              res.data.approval_status !== "reject"
-            ) {
-              if (window.location.pathname !== "/company/dashboard") {
-                window.location.href = "/company/dashboard";
-              }
-            } else if (res.data.approval_status === "pending") {
+          } else if (
+            res.data.approval_status === "approved" &&
+            res.data.approval_status !== "pending" &&
+            res.data.approval_status !== "reject"
+          ) {
+            if (window.location.pathname !== "/investor/campaign") {
+              window.location.href = "/investor/campaign";
+            }
+          } else if (res.data.approval_status === "pending") {
+            if (window.location.pathname !== "/investor/thank-you") {
               setTimeout(() => {
                 window.location.reload();
               }, 10000);
-            } else {
-              setTimeout(() => {
-                window.location.href = "/company/thank-you";
-              }, 10000);
             }
+          } else {
+            window.location.href = "/investor/thank-you";
           }
         }
-      } catch (err) {
-        console.error(err);
-      }
-    };
 
-    checkUserStatus();
-  }, []);
+        if (res.data.role === "startup") {
+          if (
+            res.data.approval_status === "approved" &&
+            res.data.approval_status !== "pending" &&
+            res.data.approval_status !== "reject"
+          ) {
+            if (window.location.pathname !== "/company/dashboard") {
+              window.location.href = "/company/dashboard";
+            }
+          } else if (res.data.approval_status === "pending") {
+            setTimeout(() => {
+              window.location.reload();
+            }, 10000);
+          } else {
+            setTimeout(() => {
+              window.location.href = "/company/thank-you";
+            }, 10000);
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
+    setInvestorStatus(current_user_data.approval_status || "");
+    checkUserStatus();
     window.localStorage.removeItem("go_back_selected_options_document_upload");
     window.localStorage.removeItem("session_category");
     window.localStorage.removeItem("session_principal_residence");
