@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import router from "next/router";
 import { toast, ToastContainer } from "react-toastify";
-import {getCurrentUserData} from '../../lib/session';
+import { getCurrentUserData } from '../../lib/session';
 import { verifyEmailOtp, resendOtp, getSingleUserData, sendNotification } from '../../lib/frontendapi';
 
 interface UserData {
@@ -12,60 +12,60 @@ interface UserData {
 const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
   const [users, setUsers] = useState<any>({});
+  const current_user_data: UserData = getCurrentUserData();
   useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();      
     getSingleUserData(current_user_data.id)
-    .then((res) => {
-      if (res.status == true) {
+      .then((res) => {
+        if (res.status == true) {
           setUsers(res.data);
-      }
-    })
-    .catch((err) => {
-      toast.error(err.message, {
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message, {
           position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
-    });   
   }, []);
   const handleOtpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const current_user_data:any = getCurrentUserData();
+    const current_user_data: any = getCurrentUserData();
     const data = {
-        user_id: current_user_data.id,
-        otp: otp
+      user_id: current_user_data.id,
+      otp: otp
     }
     verifyEmailOtp(data)
-    .then(res => {
+      .then(res => {
         if (res.status == true) {
           toast.success(res.message, {
-              position: toast.POSITION.TOP_RIGHT
+            position: toast.POSITION.TOP_RIGHT
           });
-          if(window.localStorage.getItem("user_role") == 'investor'){
+          if (window.localStorage.getItem("user_role") == 'investor') {
             if (users.investorType !== 'Regular Investor') {
               if (users.approval_status === 'pending') {
-                  setTimeout(() => {
-                      router.push("/investor/thank-you");
-                  }, 1000);
+                setTimeout(() => {
+                  router.push("/investor/thank-you");
+                }, 1000);
               }
               if (users.approval_status === 'approved') {
-                  setTimeout(() => {
-                      router.push("/investor/campaign");
-                  }, 1000);
+                setTimeout(() => {
+                  router.push("/investor/campaign");
+                }, 1000);
               }
             } else {
-                setTimeout(() => {
-                    router.push("/investor/campaign");
-                }, 1000);
+              setTimeout(() => {
+                router.push("/investor/campaign");
+              }, 1000);
             }
           } else {
             if (users.approval_status === 'pending') {
               setTimeout(() => {
-                  router.push("/company/thank-you");
+                router.push("/company/thank-you");
               }, 1000);
             }
             if (users.approval_status === 'approved') {
-                setTimeout(() => {
-                    router.push("/company/dashboard");
-                }, 1000);
+              setTimeout(() => {
+                router.push("/company/dashboard");
+              }, 1000);
             }
             const current_user_data: UserData = getCurrentUserData();
             const data = {
@@ -77,17 +77,17 @@ const VerifyEmail = () => {
               status: "active"
             };
             if (res.status == true) {
-                sendNotification(data)
-                    .then((notificationRes) => {
-                    })
-                    .catch((error) => {
-                        console.error('error occured')
-                    });
-            } else {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    toastId: "error",
+              sendNotification(data)
+                .then((notificationRes) => {
+                })
+                .catch((error) => {
+                  console.error('error occured')
                 });
+            } else {
+              toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                toastId: "error",
+              });
             }
           }
         } else {
@@ -96,38 +96,38 @@ const VerifyEmail = () => {
             toastId: "error",
           });
         }
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.error(err);
-    });
+      });
   };
   const handleResendOtp = () => {
-    const current_user_data:any = getCurrentUserData();
+    const current_user_data: any = getCurrentUserData();
     const data = {
-        user_id: current_user_data.id,
+      user_id: current_user_data.id,
     }
     resendOtp(data)
-    .then(res => {
+      .then(res => {
         if (res.status == true) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT
-            });
+          toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT
+          });
         } else {
-            toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT
+          toast.error(res.message, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          if (res.errors) {
+            Object.keys(res.errors).forEach(function (key) {
+              res.errors[key].forEach(function (errorMessage: string) {
+                toast.error(errorMessage);
+              });
             });
-            if (res.errors) {
-                Object.keys(res.errors).forEach(function (key) {
-                res.errors[key].forEach(function (errorMessage: string) {
-                    toast.error(errorMessage);
-                });
-                });
-            }
+          }
         }
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.error(err);
-    });
+      });
   }
   return (
     <>
@@ -151,10 +151,10 @@ const VerifyEmail = () => {
                         id="otp"
                         className="form-control form_style form-div1"
                         pattern="^[0-9]*$"
-                        name='otp' value={otp} onChange={(e:any) => setOtp(e.target.value)} 
+                        name='otp' value={otp} onChange={(e: any) => setOtp(e.target.value)}
                         maxLength={4}
                       />
-                      <p style={{ fontSize: "14px", padding: '0' }}>Your otp must be 4 digit. <span style={{ float: "right", fontStyle:"italic", cursor:"pointer"}} onClick={handleResendOtp}>Resend Otp</span></p>
+                      <p style={{ fontSize: "14px", padding: '0' }}>Your otp must be 4 digit. <span style={{ float: "right", fontStyle: "italic", cursor: "pointer" }} onClick={handleResendOtp}>Resend Otp</span></p>
                     </div>
                   </div>
                   <div className="form-group text-start col-md-12 mt-3">

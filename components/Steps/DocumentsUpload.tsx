@@ -80,8 +80,8 @@ export default function DocumentsUpload(): any {
   });
   const [current_user_id, setCurrentUserId] = useState("");
   const [users, setUsers] = useState<any>({});
-  useEffect(() => {
-    const current_user_data: UserData = getCurrentUserData();
+  const current_user_data: UserData = getCurrentUserData();
+  useEffect(() => {    
     if (current_user_data.role !== 'startup') {
       router.back();
     }
@@ -135,9 +135,9 @@ export default function DocumentsUpload(): any {
       console.error('validation error');
       return;
     }
-    const currentUserData: any = getCurrentUserData();
+    
     const data = {
-      user_id: currentUserData.id,
+      user_id: current_user_data.id,
     };
     uploadDocuments(
       data,

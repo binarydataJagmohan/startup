@@ -4,11 +4,9 @@ import Image from "next/image";
 export default function FrequentlyQuestions() {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const toggleAccordion = (index: any) => {
-    if (activeAccordion === index) {
-      // If the clicked FAQ item is already active, close it
+    if (activeAccordion === index) {      
       setActiveAccordion(null);
-    } else {
-      // Otherwise, open the clicked FAQ item
+    } else {      
       setActiveAccordion(index);
     }
   };

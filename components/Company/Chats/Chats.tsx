@@ -195,33 +195,29 @@ export default function Chats(props: any) {
   const newsingleChatIdRef = useRef(null);
   const newgroupIdRef = useRef(null);
   const router = useRouter();
-  useEffect(() => {
+  // useEffect(() => {
+  //   const userData = getCurrentUserData() as CurrentUserData;
+  //   if (userData.role !== 'startup') {
+  //     router.back();
+  //   }
+  //   fetchUserMessageDetails(userData.id);
+  //   fetchAllUserData();
+  //   fetchAdminData();
+  //   setCurrentUserData({
+  //     ...userData,
+  //     id: userData.id,
+  //     name: userData.name,
+  //     pic: userData.pic,
+  //     surname: userData.surname,
+  //     role: userData.role,
+  //     approved_by_admin: userData.approved_by_admin,
+  //   });
+  // });
+  useEffect(() => {   
     const userData = getCurrentUserData() as CurrentUserData;
     if (userData.role !== 'startup') {
       router.back();
     }
-    fetchUserMessageDetails(userData.id);
-    fetchAllUserData();
-    fetchAdminData();
-    setCurrentUserData({
-      ...userData,
-      id: userData.id,
-      name: userData.name,
-      pic: userData.pic,
-      surname: userData.surname,
-      role: userData.role,
-      approved_by_admin: userData.approved_by_admin,
-    });
-  });
-  useEffect(() => {
-    // const data = isPageVisibleToRole("chef");
-    // if (data == 2) {
-    //   window.location.href = "/login"; // redirect to login if not logged in
-    // } else if (data == 0) {
-    //   window.location.href = "/404"; // redirect to 404 if not authorized
-    // }
-    //if (data == 1) {
-    const userData = getCurrentUserData() as CurrentUserData;
     fetchUserMessageDetails(userData.id);
     fetchAllUserData();
     fetchAdminData();

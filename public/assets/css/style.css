@@ -2172,7 +2172,7 @@ Choose Area CSS
   transition: 0.5s;
   z-index: 1;
   height: 250px;
-  box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11);
+  /* box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11); */
 }
 
 /* section.choose-section.ptb-100.bg-color-choose {
@@ -6399,6 +6399,7 @@ figure i {
   color: #3c9700;
   font-weight: 600;
 }
+
 /* 
 .list-menu ul {
   overflow-y: scroll;
@@ -6631,7 +6632,7 @@ li.edit a {
   /* .dask-none {
     display: none;
   } */
-/* 
+  /* 
   .list-menu ul {
     height: 300px;
   } */
@@ -6669,6 +6670,7 @@ li.edit a {
     height: unset;
   } */
 }
+
 /* 
 @media (max-width: 767px) {
   .close-bar {
@@ -6721,18 +6723,18 @@ span.logo-sm img {
   border-color: #088395 !important;
 }
 
-/* .react-tel-input .form-control {
+.react-tel-input .form-control {
   height: auto !important;
-} */
+}
 
-/* .react-tel-input input {
+.react-tel-input input {
   padding-left: 45px !important;
-} */
+}
 
-/* .input-group .react-tel-input .flag-dropdown {
+.input-group .react-tel-input .flag-dropdown {
   margin: 0px;
   border-radius: 0px;
-} */
+}
 
 .btn_error_logs {
   color: #088395 !important;
