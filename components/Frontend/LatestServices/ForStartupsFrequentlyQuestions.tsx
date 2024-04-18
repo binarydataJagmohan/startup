@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 export default function ForStartupsFrequentlyQuestions() {
-    const [activeAccordion, setActiveAccordion] = useState(null);
+    const [activeAccordion, setActiveAccordion] = useState(0);
     const toggleAccordion = (index: any) => {
         if (activeAccordion === index) {
-            setActiveAccordion(null);
+            setActiveAccordion(0);
         } else {
             setActiveAccordion(index);
         }
